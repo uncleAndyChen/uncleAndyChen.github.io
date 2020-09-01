@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<!--<script async src="//hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c"></script>-->
+<!-- 统计-->
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var host = window.location.host;
+        var hm = document.createElement("script");
+
+        if (host.indexOf('gitee.io') > 0) { // https://uncleandychen.gitee.io/
+            hm.src = "https://hm.baidu.com/hm.js?0cf4709148b070b8082191d2e456a1a3";
+        } else if (host.indexOf('lovesofttech.com') > 0) { // https://www.lovesofttech.com/
+            hm.src = "https://hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c";
+        } else {
+            hm.src = '';
+        }
+
+        if (hm.src !== '') {
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        }
+    })();
+</script>
+<!-- End Baidu Tongji -->
+
+
+
+<!-- Baidu Push -->
+<!-- 主动推送百度爬虫-->
+<script>
+    (function(){
+        if (window.location.host.indexOf('lovesofttech.com') < 0) {
+            return;
+        }
+
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+<!-- End Baidu Push -->
+
+
+    <meta charset="utf-8">
+    
+    
+    <link rel="canonical" href="https://www.lovesofttech.com/linux/centOS7JenkinsInstall.html">
+    
+    
+    <title>CentOS 7.5 安装配置 jenkins | 安迪陈技术日志，架构、感悟、系统分析、团队管理 | 自强不息，厚德载物</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="CentOS,Maven,jenkins">
+    <meta name="description" content="如题">
+<meta name="keywords" content="CentOS,Maven,jenkins">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CentOS 7.5 安装配置 jenkins">
+<meta property="og:url" content="https://www.lovesofttech.com/linux/centOS7JenkinsInstall.html">
+<meta property="og:site_name" content="安迪陈技术日志，架构、感悟、系统分析、团队管理">
+<meta property="og:description" content="如题">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:image" content="https://www.lovesofttech.com/img/jenkins/jenkins01.png">
+<meta property="og:image" content="https://www.lovesofttech.com/img/jenkins/jenkins02.png">
+<meta property="og:updated_time" content="2020-09-01T02:53:13.024Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CentOS 7.5 安装配置 jenkins">
+<meta name="twitter:description" content="如题">
+<meta name="twitter:image" content="https://www.lovesofttech.com/img/jenkins/jenkins01.png">
+    
+        <link rel="alternative" href="/atom.xml" title="安迪陈技术日志，架构、感悟、系统分析、团队管理" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=201912302211">
+    <link rel="stylesheet" href="/css/header.css?v=201912302211">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu">
+  <div class="inner flex-row-vertical">
+    <!--<i class="icon icon-lg icon-close"></i>-->
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off" title="隐藏左侧导航">﹤<i class="icon icon-lg icon-navicon"></i></a>
+    <div class="brand-wrap" style="background-image:url(/img/bannerBackgroundLeft.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/myLogo.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">安迪陈</h5>
+          <a href="mailto:andy@lovesofttech.com" title="andy@lovesofttech.com" class="mail" rel="external nofollow noopener noreferrer" target="_blank">andy@lovesofttech.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articleClassify.html">
+                <i class="icon icon-th-list"></i>
+                文章分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articles.html">
+                <i class="icon icon-th-list articles"></i>
+                文章列表
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/java.html">
+                <i class="icon icon-th-list java"></i>
+                Java
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/database.html">
+                <i class="icon icon-th-list database"></i>
+                MySQL/MyBatis
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/linux.html">
+                <i class="icon icon-th-list linux"></i>
+                CentOS/linux
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/react.html">
+                <i class="icon icon-th-list React"></i>
+                React
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/lnmp.html">
+                <i class="icon icon-th-list LNMP"></i>
+                LNMP
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/git.html">
+                <i class="icon icon-th-list git"></i>
+                git
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/windows.html">
+                <i class="icon icon-th-list windows"></i>
+                windows
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/dailyLives.html">
+                <i class="icon icon-th-list dailyLives"></i>
+                工作 &amp; 生活
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-github"></i>
+                我的 github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://gitee.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link"></i>
+                我的 gitee
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://blog.csdn.net/runAndRun" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link CSDN"></i>
+                我的 CSDN
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/aboutMe.html">
+                <i class="icon icon-address-card"></i>
+                关于我
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+
+        <div class="navbar navbar-custom navbar-fixed-top">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" style="margin-left:10px;" id="menu-toggle" title="显示左侧导航"><i class="icon icon-lg icon-navicon"></i>﹥</a>
+            <ul class="nav navbar-nav navbar-right" id="navMenuTop">
+                <li>
+                    <a href="/">主页</a>
+                </li>
+                
+                    
+                        <li>
+                            <a href="/articleClassify.html" title="本博客的文章分类列表">文章分类</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/articles.html" title="本博客的所有文章列表">文章列表</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/java.html" title="Java 开发，文章目录">Java</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/database.html" title="日常开发中有关 MySQL、MyBatis 的一些经验总结">MySQL/MyBatis</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/linux.html" title="CentOS/linux，文章目录">CentOS/linux</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/react.html" title="React 技术栈（全家桶）学习心得分享，文章目录">React</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/about.html">关于</a>
+                        </li>
+                    
+                
+            </ul>
+        </div>
+
+        <div class="flex-col header-title ellipsis">CentOS 7.5 安装配置 jenkins</div>
+        
+        <div class="search-wrap" id="search-wrap" style="z-index: 2;">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back" style="width:33px;">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search" style="width:33px;">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare" style="z-index: 3;margin-right: 10px; width:30px;">
+                <i class="icon icon-lg icon-share-alt"></i>
+            </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h2 class="title">CentOS 7.5 安装配置 jenkins</h2>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-06-02T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2018-06-03
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/CentOS/">CentOS</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/CentOS/Maven/">Maven</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/CentOS/Maven/jenkins/">jenkins</a></li></ul></li></ul></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap" id="index-container">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc" style="z-index: 3;">
+            <h4><i class="fa fa-list-alt"></i>&nbsp;&nbsp;本文目录</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#下载并安装-jenkins"><span class="post-toc-number">1.</span> <span class="post-toc-text">下载并安装 jenkins</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#安装"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">安装</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#安装目录及配置文件"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">安装目录及配置文件</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#目录"><span class="post-toc-number">1.2.1.</span> <span class="post-toc-text">目录</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#配置-日志文件"><span class="post-toc-number">1.2.2.</span> <span class="post-toc-text">配置/日志文件</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#修改配置"><span class="post-toc-number">2.</span> <span class="post-toc-text">修改配置</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#修改默认端口"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">修改默认端口</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#指定-jdk-安装目录"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">指定 jdk 安装目录</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#启动失败，提示：Starting-Jenkins-bash-usr-bin-java-No-such-file-or-directory"><span class="post-toc-number">2.2.1.</span> <span class="post-toc-text">启动失败，提示：Starting Jenkins bash: /usr/bin/java: No such file or directory</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#解决"><span class="post-toc-number">2.2.2.</span> <span class="post-toc-text">解决</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#添加-nginx-代理配置"><span class="post-toc-number">3.</span> <span class="post-toc-text">添加 nginx 代理配置</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#设置开机启动"><span class="post-toc-number">4.</span> <span class="post-toc-text">设置开机启动</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#配置-jenkins"><span class="post-toc-number">5.</span> <span class="post-toc-text">配置 jenkins</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#登录之后白屏"><span class="post-toc-number">6.</span> <span class="post-toc-text">登录之后白屏</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#解决-1"><span class="post-toc-number">6.1.</span> <span class="post-toc-text">解决</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#git-配置"><span class="post-toc-number">7.</span> <span class="post-toc-text">git 配置</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#页面上报错：Permission-denied-please-try-again"><span class="post-toc-number">7.1.</span> <span class="post-toc-text">页面上报错：Permission denied, please try again.</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#解决-2"><span class="post-toc-number">7.2.</span> <span class="post-toc-text">解决</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#检查启动用户"><span class="post-toc-number">7.2.1.</span> <span class="post-toc-text">检查启动用户</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#待完善"><span class="post-toc-number">8.</span> <span class="post-toc-text">待完善</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#新加依赖，package-报错"><span class="post-toc-number">9.</span> <span class="post-toc-text">新加依赖，package 报错</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#分析"><span class="post-toc-number">9.1.</span> <span class="post-toc-text">分析</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#原因"><span class="post-toc-number">9.2.</span> <span class="post-toc-text">原因</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#解决-3"><span class="post-toc-number">9.3.</span> <span class="post-toc-text">解决</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+    
+
+<article id="post-linux/centOS7JenkinsInstall" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">CentOS 7.5 安装配置 jenkins</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018年06月03日 0:00" datetime="2018-06-02T16:00:00.000Z" itemprop="datePublished">2018-06-03</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/CentOS/">CentOS</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/CentOS/Maven/">Maven</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/CentOS/Maven/jenkins/">jenkins</a></li></ul></li></ul></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" style="display:none">
+    阅读量：<span id="busuanzi_value_page_pv"></span>次
+</span>
+
+
+    <span>|</span>
+    <span class="post-count">字数：2k</span>
+    <span>|</span>
+    <span class="post-count">阅读时长：大约10分钟</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>如题<br><a id="more"></a></p>
+<h1 id="下载并安装-jenkins"><a href="#下载并安装-jenkins" class="headerlink" title="下载并安装 jenkins"></a>下载并安装 jenkins</h1><p><a href="https://jenkins.io/download/" rel="external nofollow noopener noreferrer" target="_blank">download page</a><br>笔者下载的安装版本，用 rpm 可以安装为系统服务: <code>wget https://pkg.jenkins.io/redhat-stable/jenkins-2.121.1-1.1.noarch.rpm</code><br>你也可以直接下载 war 版本放 tomcat 下运行： <code>wget http://mirrors.jenkins.io/war-stable/latest/jenkins.war</code></p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">[root@centOS7BasicForTest ~]# rpm -ivh jenkins-2.121.1-1.1.noarch.rpm </span><br><span class="line">warning: jenkins-2.121.1-1.1.noarch.rpm: Header V4 DSA/SHA1 Signature, key ID d50582e6: NOKEY</span><br><span class="line">Preparing...                          ################################# [100%]</span><br><span class="line">Updating / installing...</span><br><span class="line">   1:jenkins-2.121.1-1.1              ################################# [100%]</span><br><span class="line">[root@centOS7BasicForTest ~]# rpm -ql jenkins</span><br><span class="line">/etc/init.d/jenkins                # 启动文件</span><br><span class="line">/etc/logrotate.d/jenkins</span><br><span class="line">/etc/sysconfig/jenkins</span><br><span class="line">/usr/lib/jenkins</span><br><span class="line">/usr/lib/jenkins/jenkins.war</span><br><span class="line">/usr/sbin/rcjenkins</span><br><span class="line">/var/cache/jenkins</span><br><span class="line">/var/lib/jenkins</span><br><span class="line">/var/log/jenkins</span><br></pre></td></tr></table></figure>
+<h2 id="安装目录及配置文件"><a href="#安装目录及配置文件" class="headerlink" title="安装目录及配置文件"></a>安装目录及配置文件</h2><h3 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h3><ol>
+<li>Jenkins安装目录: /usr/lib/jenkins</li>
+<li>Jenkins工作目录: /var/lib/jenkins (对应于环境变量 JENKINS_HOME)</li>
+<li>构建项目源码目录：/var/lib/jenkins/workspace （第一次构建之后才会生成该目录）</li>
+</ol>
+<h3 id="配置-日志文件"><a href="#配置-日志文件" class="headerlink" title="配置/日志文件"></a>配置/日志文件</h3><ol>
+<li>启动文件：/etc/init.d/jenkins</li>
+<li>默认配置文件：/etc/sysconfig/jenkins</li>
+<li>默认日志文件：/var/log/jenkins/jenkins.log</li>
+</ol>
+<h1 id="修改配置"><a href="#修改配置" class="headerlink" title="修改配置"></a>修改配置</h1><h2 id="修改默认端口"><a href="#修改默认端口" class="headerlink" title="修改默认端口"></a>修改默认端口</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/sysconfig/jenkins</span><br><span class="line">JENKINS_PORT=&quot;8090&quot;</span><br><span class="line">JENKINS_USER=&quot;utomcat&quot; ## 原值 &quot;jenkins&quot; 此处修改要注意，当配置 git 的时候，就必须使用当前配置用户的公/私钥</span><br></pre></td></tr></table></figure>
+<h2 id="指定-jdk-安装目录"><a href="#指定-jdk-安装目录" class="headerlink" title="指定 jdk 安装目录"></a>指定 jdk 安装目录</h2><h3 id="启动失败，提示：Starting-Jenkins-bash-usr-bin-java-No-such-file-or-directory"><a href="#启动失败，提示：Starting-Jenkins-bash-usr-bin-java-No-such-file-or-directory" class="headerlink" title="启动失败，提示：Starting Jenkins bash: /usr/bin/java: No such file or directory"></a>启动失败，提示：Starting Jenkins bash: /usr/bin/java: No such file or directory</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">[root@centOS7BasicForTest vhosts]# systemctl start jenkins</span><br><span class="line">Job for jenkins.service failed because the control process exited with error code. See &quot;systemctl status jenkins.service&quot; and &quot;journalctl -xe&quot; for details.</span><br><span class="line">[root@centOS7BasicForTest vhosts]# systemctl status jenkins.service</span><br><span class="line">● jenkins.service - LSB: Jenkins Automation Server</span><br><span class="line">   Loaded: loaded (/etc/rc.d/init.d/jenkins; bad; vendor preset: disabled)</span><br><span class="line">   Active: failed (Result: exit-code) since Fri 2018-06-22 16:54:18 HKT; 18s ago</span><br><span class="line">     Docs: man:systemd-sysv-generator(8)</span><br><span class="line">  Process: 2494 ExecStart=/etc/rc.d/init.d/jenkins start (code=exited, status=1/FAILURE)</span><br><span class="line"></span><br><span class="line">Jun 22 16:54:18 centOS7BasicForTest systemd[1]: Starting LSB: Jenkins Automation Server...</span><br><span class="line">Jun 22 16:54:18 centOS7BasicForTest runuser[2499]: pam_unix(runuser:session): session opened for user jenkins by (uid=0)</span><br><span class="line">Jun 22 16:54:18 centOS7BasicForTest jenkins[2494]: Starting Jenkins bash: /usr/bin/java: No such file or directory</span><br><span class="line">Jun 22 16:54:18 centOS7BasicForTest runuser[2499]: pam_unix(runuser:session): session closed for user jenkins</span><br><span class="line">Jun 22 16:54:18 centOS7BasicForTest jenkins[2494]: [FAILED]</span><br><span class="line">Jun 22 16:54:18 centOS7BasicForTest systemd[1]: jenkins.service: control process exited, code=exited status=1</span><br><span class="line">Jun 22 16:54:18 centOS7BasicForTest systemd[1]: Failed to start LSB: Jenkins Automation Server.</span><br><span class="line">Jun 22 16:54:18 centOS7BasicForTest systemd[1]: Unit jenkins.service entered failed state.</span><br><span class="line">Jun 22 16:54:18 centOS7BasicForTest systemd[1]: jenkins.service failed.</span><br></pre></td></tr></table></figure>
+<h3 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h3><p>修改启动文件中对 java 目录的配置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/init.d/jenkins</span><br></pre></td></tr></table></figure></p>
+<p>在 candidates=” 的下面添加上 java 在本机的位置，并且注释掉其它位置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">candidates=&quot;</span><br><span class="line">/usr/jdk1.8.0_171/bin/java</span><br><span class="line">#/etc/alternatives/java</span><br><span class="line">#/usr/lib/jvm/java-1.8.0/bin/java</span><br><span class="line">#/usr/lib/jvm/jre-1.8.0/bin/java</span><br><span class="line">#/usr/lib/jvm/java-1.7.0/bin/java</span><br><span class="line">#/usr/lib/jvm/jre-1.7.0/bin/java</span><br><span class="line">#/usr/bin/java</span><br><span class="line">&quot;</span><br></pre></td></tr></table></figure></p>
+<p>再次启动<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@centOS7BasicForTest vhosts]# systemctl start jenkins</span><br><span class="line">Warning: jenkins.service changed on disk. Run &apos;systemctl daemon-reload&apos; to reload units.</span><br><span class="line">[root@centOS7BasicForTest vhosts]# systemctl daemon-reload</span><br><span class="line">[root@centOS7BasicForTest vhosts]# systemctl start jenkins</span><br></pre></td></tr></table></figure></p>
+<h1 id="添加-nginx-代理配置"><a href="#添加-nginx-代理配置" class="headerlink" title="添加 nginx 代理配置"></a>添加 nginx 代理配置</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /usr/local/nginx/vhosts/jenkins.conf</span><br></pre></td></tr></table></figure>
+<p>添加以下内容：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">upstream jenkins &#123;</span><br><span class="line">    ip_hash;</span><br><span class="line">    server localhost:8090 weight=5 max_fails=1 fail_timeout=180;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">server &#123;</span><br><span class="line">        access_log   logs/jenkins.access.log;</span><br><span class="line">        error_log    logs/jenkins.error.log;</span><br><span class="line">        listen       80;</span><br><span class="line">        server_name  jenkins.domain.com;</span><br><span class="line"></span><br><span class="line">        location / &#123;</span><br><span class="line">            proxy_pass http://jenkins;</span><br><span class="line">            proxy_set_header  Host                  $host;</span><br><span class="line">            proxy_set_header  X-Real-IP             $remote_addr;</span><br><span class="line">            proxy_set_header  X-Forwarded-For       $proxy_add_x_forwarded_for;</span><br><span class="line">        &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure></p>
+<p>使配置生效<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/local/nginx/sbin/nginx -s reload</span><br></pre></td></tr></table></figure></p>
+<p>如果是在局域网配置的 jenkins 服务，需要在 windows 本机添加域名 jenkins.domain.com 的指向，即可直接用域名访问。<br>在 C:\Windows\System32\drivers\etc\hosts 文件添加一行，服务器 IP 地址 jenkins.domain.com，如<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">192.168.1.3 jenkins.domain.com</span><br></pre></td></tr></table></figure></p>
+<h1 id="设置开机启动"><a href="#设置开机启动" class="headerlink" title="设置开机启动"></a>设置开机启动</h1><p>失败的方式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@centOS7BasicForTest vhosts]# systemctl enable jenkins</span><br><span class="line">jenkins.service is not a native service, redirecting to /sbin/chkconfig.</span><br><span class="line">Executing /sbin/chkconfig jenkins on</span><br></pre></td></tr></table></figure></p>
+<p>正确的“姿势”<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@centOS7BasicForTest vhosts]# chkconfig --add jenkins</span><br><span class="line">[root@centOS7BasicForTest vhosts]# chkconfig --level 2345 jenkins on</span><br></pre></td></tr></table></figure></p>
+<h1 id="配置-jenkins"><a href="#配置-jenkins" class="headerlink" title="配置 jenkins"></a>配置 jenkins</h1><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/jenkins/jenkins01.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>输入页面指定文件的密码之后，选择插件，可以仅安装推荐的插件。<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/jenkins/jenkins02.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure><br>之后创建管理员账号。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">HTTP ERROR 403</span><br><span class="line">Problem accessing /setupWizard/configureInstance. Reason:</span><br><span class="line"></span><br><span class="line">    No valid crumb was included in the request</span><br></pre></td></tr></table></figure></p>
+<p>估计是 session 过期了，因为到最后一步，保存域名，有事耽误，过了好久才操作的。<br>重新登录，会再一次进入到刚才保存域名的界面，点击保存就好了。</p>
+<h1 id="登录之后白屏"><a href="#登录之后白屏" class="headerlink" title="登录之后白屏"></a>登录之后白屏</h1><p>安装向导执行完成之后，以管理员身份登录，白屏。<br>原因是 /var/lib/jenkins/hudson.model.UpdateCenter.xml 配置的地址无法访问导致。</p>
+<h2 id="解决-1"><a href="#解决-1" class="headerlink" title="解决"></a>解决</h2><p>修改 /var/lib/jenkins/hudson.model.UpdateCenter.xml<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&apos;1.1&apos; encoding=&apos;UTF-8&apos;?&gt;</span><br><span class="line">&lt;sites&gt;</span><br><span class="line">  &lt;site&gt;</span><br><span class="line">    &lt;id&gt;default&lt;/id&gt;</span><br><span class="line">    &lt;url&gt;https://updates.jenkins.io/update-center.json&lt;/url&gt;</span><br><span class="line">  &lt;/site&gt;</span><br><span class="line">&lt;/sites&gt;</span><br></pre></td></tr></table></figure></p>
+<p>改为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;sites&gt;</span><br><span class="line">  &lt;site&gt;</span><br><span class="line">    &lt;id&gt;default&lt;/id&gt;</span><br><span class="line">    &lt;url&gt;http://mirror.xmission.com/jenkins/updates/update-center.json&lt;/url&gt;</span><br><span class="line">  &lt;/site&gt;</span><br><span class="line">&lt;/sites&gt;</span><br></pre></td></tr></table></figure></p>
+<p>修改之后，重启 jenkins，再次访问就正常了，如果用中文浏览器访问，默认就是中文界面。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@centOS7BasicForTest jenkins]# systemctl stop jenkins</span><br><span class="line">[root@centOS7BasicForTest jenkins]# systemctl start jenkins</span><br></pre></td></tr></table></figure></p>
+<h1 id="git-配置"><a href="#git-配置" class="headerlink" title="git 配置"></a>git 配置</h1><p>以 ssh 的方式访问本地服务器上的 git 服务，Credentials 选择【none】</p>
+<h2 id="页面上报错：Permission-denied-please-try-again"><a href="#页面上报错：Permission-denied-please-try-again" class="headerlink" title="页面上报错：Permission denied, please try again."></a>页面上报错：Permission denied, please try again.</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Failed to connect to repository : Command &quot;git ls-remote -h ugit@git.apg.com:source HEAD&quot; returned status code 128:</span><br><span class="line">stdout: </span><br><span class="line">stderr: Permission denied, please try again. </span><br><span class="line">Permission denied, please try again. </span><br><span class="line">Permission denied (publickey,gssapi-keyex,gssapi-with-mic,password). </span><br><span class="line">fatal: Could not read from remote repository.</span><br><span class="line"></span><br><span class="line">Please make sure you have the correct access rights</span><br><span class="line">and the repository exists.</span><br></pre></td></tr></table></figure>
+<h2 id="解决-2"><a href="#解决-2" class="headerlink" title="解决"></a>解决</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/sysconfig/jenkins</span><br></pre></td></tr></table></figure>
+<p>将<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">JENKINS_USER=&quot;jenkins&quot;</span><br></pre></td></tr></table></figure></p>
+<p>改为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">JENKINS_USER=&quot;utomcat&quot;</span><br></pre></td></tr></table></figure></p>
+<p>同时，修改以下目录属主<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">chown -R utomcat:gtomcat /var/lib/jenkins</span><br><span class="line">chown -R utomcat:gtomcat /var/cache/jenkins</span><br><span class="line">chown -R utomcat:gtomcat /var/log/jenkins</span><br></pre></td></tr></table></figure></p>
+<p>改完后，重启 jenkins 依然没有生效，最后重启 centOS 之后生效的。<br>需要注意的是 Credentials 要选择【none】。<br>最好先在服务器上用执行 git clone <a href="mailto:ugit@git.apg.com" rel="external nofollow noopener noreferrer" target="_blank">ugit@git.apg.com</a>:source 成功之后，再去配置 jenkins。</p>
+<p>在可以成功执行 git clone <a href="mailto:ugit@git.apg.com" rel="external nofollow noopener noreferrer" target="_blank">ugit@git.apg.com</a>:source 之前，需要配置 ssh key<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa # 输入需要保存的 key 文件名（含路径），然后上传至 gitolite-admin 项目的 keydir 目录。</span><br></pre></td></tr></table></figure></p>
+<p>关于 gitolite，请看：<a href="/linux/centOS7GitAsServer">CentOS 7.5 借助 Gitolite 管理 Git 项目</a></p>
+<h3 id="检查启动用户"><a href="#检查启动用户" class="headerlink" title="检查启动用户"></a>检查启动用户</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@centOS7BasicForTest lib]# ps -ef | grep jenkins</span><br><span class="line">root      1180     1  0 07:00 ?        00:00:55 /usr/jdk1.8.0_171/bin/java -Dcom.sun.akuma.Daemon=daemonized -Djava.awt.headless=true -DJENKINS_HOME=/var/lib/jenkins -jar /usr/lib/jenkins/jenkins.war --logfile=/var/log/jenkins/jenkins.log --webroot=/var/cache/jenkins/war --daemon --httpPort=8090 --debug=5 --handlerCountMax=100 --handlerCountMaxIdle=20</span><br><span class="line">root      2291  1963  0 10:32 pts/0    00:00:00 grep --color=auto jenkins</span><br></pre></td></tr></table></figure>
+<h1 id="待完善"><a href="#待完善" class="headerlink" title="待完善"></a>待完善</h1><p>将 jenkins 用户，添加权限：可以执行 git clone，用于生产环境。 </p>
+<ol>
+<li>设置 jenkins 密码。</li>
+<li>以用户 jenkins 登录服务器，运行 ssh-keygen -t rsa</li>
+<li>恢复 jenkins 默认配置，即启动用户，还有恢复三个目录的属主。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">chown -R jenkins:jenkins /var/lib/jenkins</span><br><span class="line">chown -R jenkins:jenkins /var/cache/jenkins</span><br><span class="line">chown -R jenkins:jenkins /var/log/jenkins</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h1 id="新加依赖，package-报错"><a href="#新加依赖，package-报错" class="headerlink" title="新加依赖，package 报错"></a>新加依赖，package 报错</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Waiting for Jenkins to finish collecting data</span><br><span class="line">[ERROR] Failed to execute goal on project apg.boot: Could not resolve dependencies for project apg:apg.boot:war:1.0.0: Failed to collect dependencies at org.springframework.boot:spring-boot-starter-websocket:jar:1.5.10.RELEASE: Failed to read artifact descriptor for org.springframework.boot:spring-boot-starter-websocket:jar:1.5.10.RELEASE: Could not transfer artifact org.springframework.boot:spring-boot-starter-websocket:pom:1.5.10.RELEASE from/to alimaven (http://maven.aliyun.com/nexus/content/groups/public/): /usr/apache-maven-3.5.3/repo/org/springframework/boot/spring-boot-starter-websocket/1.5.10.RELEASE/spring-boot-starter-websocket-1.5.10.RELEASE.pom.part.lock (No such file or directory) -&gt; [Help 1]</span><br><span class="line">[ERROR] </span><br><span class="line">[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.</span><br><span class="line">[ERROR] Re-run Maven using the -X switch to enable full debug logging.</span><br><span class="line">[ERROR] </span><br><span class="line">[ERROR] For more information about the errors and possible solutions, please read the following articles:</span><br><span class="line">[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/DependencyResolutionException</span><br><span class="line">[ERROR] </span><br><span class="line">[ERROR] After correcting the problems, you can resume the build with the command</span><br><span class="line">[ERROR]   mvn &lt;goals&gt; -rf :apg.boot</span><br></pre></td></tr></table></figure>
+<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>最开始是以 root 身份运行 jenkins，新项目第一次打包，下载依赖正常。<br>后来我把 jenkins 服务配置成以 utomcat 的身份运行，每次构建也都正常，上面的错误，是在添加了新依赖之后发生的。</p>
+<h2 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h2><p>首先想到的是依赖仓库的目录权限，一查，才恍然大悟，maven 的依赖仓库目录的属主是 root，所以，新依赖在下载的时候不可写，才会有问题。</p>
+<h2 id="解决-3"><a href="#解决-3" class="headerlink" title="解决"></a>解决</h2><p>把 Maven 的依赖仓库目录属主更改为 utomcat。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 进入仓库目录的上一级目录</span><br><span class="line">chown utomcat:gtomcat -R repo/</span><br></pre></td></tr></table></figure></p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-09-01T02:53:13.024Z" itemprop="dateUpdated">2020年9月1日 10:53</time>
+</span><br>
+
+
+        转载请注明出处：<a href="/linux/centOS7JenkinsInstall.html" target="_blank" rel="external">https://www.lovesofttech.com/linux/centOS7JenkinsInstall.html</a>
+    </div>
+    <footer>
+        <a href="https://www.lovesofttech.com">
+            <img src="/img/myLogo.jpg" alt="安迪陈">
+            安迪陈
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CentOS/">CentOS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Maven/">Maven</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jenkins/">jenkins</a></li></ul>
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/linux/centOS7JenkinsInstall.html&title=《CentOS 7.5 安装配置 jenkins》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/linux/centOS7JenkinsInstall.html&title=《CentOS 7.5 安装配置 jenkins》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=如题" data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/linux/centOS7JenkinsInstall.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《CentOS 7.5 安装配置 jenkins》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/linux/centOS7JenkinsInstall.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/linux/centOS7JenkinsInstall.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/linux/CentOS7Node.html" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">CentOS 7 安装配置 Node</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/linux/centOS7Maven.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">CentOS 7.5 安装配置 Maven</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+    
+    
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="bottom">
+        <p>
+            <span>安迪陈技术日志，架构、感悟、系统分析、团队管理 &copy; 2017 - 2020</span>
+            <span>
+                Power by <a href="https://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>&nbsp;
+                Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank" rel="external nofollow noopener noreferrer">indigo</a>
+            </span>
+            <span>
+                <a href="http://www.beian.miit.gov.cn" target="_blank" rel="external nofollow noopener noreferrer">蜀ICP备17041860号</a>
+            </span>
+            
+            <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            </p><p>
+                <span>
+                    统计始于：2019-03-06
+                </span>
+                <span id="busuanzi_container_site_uv" style="display:none">
+                    访客数：<span id="busuanzi_value_site_uv"></span>
+                </span>
+                <span id="busuanzi_container_site_pv" style="display:none">
+                    访问量：<span id="busuanzi_value_site_pv"></span>
+                </span>
+            
+            
+                <span class="post-count">累计字数：309.2k</span>
+            
+                <span><a href="/general/blogLog.html"><i class="fas fa-pen-alt"></i>&nbsp;博客日志</a></span>
+            </p>
+        <p></p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light" title="回到顶部"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/linux/centOS7JenkinsInstall.html&title=《CentOS 7.5 安装配置 jenkins》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/linux/centOS7JenkinsInstall.html&title=《CentOS 7.5 安装配置 jenkins》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=如题" data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/linux/centOS7JenkinsInstall.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《CentOS 7.5 安装配置 jenkins》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/linux/centOS7JenkinsInstall.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/linux/centOS7JenkinsInstall.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACK0lEQVR42u3a0W7DIAwF0P3/T2evk7awazudVjg8VRUhnFaysM3HRzyuL+P79+uZ3+esZ97Nf2BgYGC8LeNajrs5d+tM1r/7vH4WAwPjHMZ6W/mcfIvrjebvxcDAwFi/vheyn/35MDAwMHLGK5JYDAwMjF6SmWx9vX71WPlwLo6BgfGGjLzq/vefX9LfwMDAeCvGVRx5+lptal6DgYGBsTcjD3CF5VoJajXgYmBgnMPIg2C1DNe7nJG8sXBuxcDA2ILxVIF+/Zpe+axa8sPAwDiTET1cDKPJs9X5GBgY5zDyU9bkElierJYPphgYGAcwnt1odbu9H+uxRiYGBsY/ZuRHwKRk1mtVVpsBP3yDgYFxJGOSdlZLctVwXGhhYmBgbMF4atFeyH5d2Q4DA2MnRn5J69nmQd7+HN0ZwcDA2ILRe7hHSsp2vRCMgYFxAqNa4s9Lb9VwOZqJgYGxKWNyAWKegvYOl4X/AQMDYwtGL8mcH/Imq1XXx8DA2INRuEFWnJ8H9N4ls+gCKwYGxnaMZLvV410vDS7Px8DAOIaRh9pJoju5wPrLVTAMDIztGFdxrNsAvW1V09rC2RYDA2MLRq+6nlwgqz7ba4WOmgQYGBhvxeglqMkrn2p2lq9cYGBgbMqYB755G2DSWMXAwMCYBN/8TDpKjDEwMDCCPLhXkqsW5m4PjhgYGAcwkiQ230qv2je5cIaBgbE3I08d81cmP0R+7Os9hYGBsQXjEwAWvCpnQg48AAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.5.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.5.2" async></script>
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '安迪陈技术日志';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '欢迎回来';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<!--<script async src="//hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c"></script>-->
+<!-- 统计-->
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var host = window.location.host;
+        var hm = document.createElement("script");
+
+        if (host.indexOf('gitee.io') > 0) { // https://uncleandychen.gitee.io/
+            hm.src = "https://hm.baidu.com/hm.js?0cf4709148b070b8082191d2e456a1a3";
+        } else if (host.indexOf('lovesofttech.com') > 0) { // https://www.lovesofttech.com/
+            hm.src = "https://hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c";
+        } else {
+            hm.src = '';
+        }
+
+        if (hm.src !== '') {
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        }
+    })();
+</script>
+<!-- End Baidu Tongji -->
+
+
+
+<!-- Baidu Push -->
+<!-- 主动推送百度爬虫-->
+<script>
+    (function(){
+        if (window.location.host.indexOf('lovesofttech.com') < 0) {
+            return;
+        }
+
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+<!-- End Baidu Push -->
+
+
+    <meta charset="utf-8">
+    
+    
+    <link rel="canonical" href="https://www.lovesofttech.com/react/reactReduxDirectoryStructure.html">
+    
+    
+    <title>React+Redux工程目录结构，最佳实践 | 安迪陈技术日志，架构、感悟、系统分析、团队管理 | 自强不息，厚德载物</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="react,redux">
+    <meta name="description" content="如题">
+<meta name="keywords" content="react,redux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React+Redux工程目录结构，最佳实践">
+<meta property="og:url" content="https://www.lovesofttech.com/react/reactReduxDirectoryStructure.html">
+<meta property="og:site_name" content="安迪陈技术日志，架构、感悟、系统分析、团队管理">
+<meta property="og:description" content="如题">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2020-09-01T02:53:13.091Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="React+Redux工程目录结构，最佳实践">
+<meta name="twitter:description" content="如题">
+    
+        <link rel="alternative" href="/atom.xml" title="安迪陈技术日志，架构、感悟、系统分析、团队管理" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=201912302211">
+    <link rel="stylesheet" href="/css/header.css?v=201912302211">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu">
+  <div class="inner flex-row-vertical">
+    <!--<i class="icon icon-lg icon-close"></i>-->
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off" title="隐藏左侧导航">﹤<i class="icon icon-lg icon-navicon"></i></a>
+    <div class="brand-wrap" style="background-image:url(/img/bannerBackgroundLeft.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/myLogo.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">安迪陈</h5>
+          <a href="mailto:andy@lovesofttech.com" title="andy@lovesofttech.com" class="mail" rel="external nofollow noopener noreferrer" target="_blank">andy@lovesofttech.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articleClassify.html">
+                <i class="icon icon-th-list"></i>
+                文章分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articles.html">
+                <i class="icon icon-th-list articles"></i>
+                文章列表
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/java.html">
+                <i class="icon icon-th-list java"></i>
+                Java
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/database.html">
+                <i class="icon icon-th-list database"></i>
+                MySQL/MyBatis
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/linux.html">
+                <i class="icon icon-th-list linux"></i>
+                CentOS/linux
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/react.html">
+                <i class="icon icon-th-list React"></i>
+                React
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/lnmp.html">
+                <i class="icon icon-th-list LNMP"></i>
+                LNMP
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/git.html">
+                <i class="icon icon-th-list git"></i>
+                git
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/windows.html">
+                <i class="icon icon-th-list windows"></i>
+                windows
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/dailyLives.html">
+                <i class="icon icon-th-list dailyLives"></i>
+                工作 &amp; 生活
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-github"></i>
+                我的 github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://gitee.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link"></i>
+                我的 gitee
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://blog.csdn.net/runAndRun" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link CSDN"></i>
+                我的 CSDN
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/aboutMe.html">
+                <i class="icon icon-address-card"></i>
+                关于我
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+
+        <div class="navbar navbar-custom navbar-fixed-top">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" style="margin-left:10px;" id="menu-toggle" title="显示左侧导航"><i class="icon icon-lg icon-navicon"></i>﹥</a>
+            <ul class="nav navbar-nav navbar-right" id="navMenuTop">
+                <li>
+                    <a href="/">主页</a>
+                </li>
+                
+                    
+                        <li>
+                            <a href="/articleClassify.html" title="本博客的文章分类列表">文章分类</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/articles.html" title="本博客的所有文章列表">文章列表</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/java.html" title="Java 开发，文章目录">Java</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/database.html" title="日常开发中有关 MySQL、MyBatis 的一些经验总结">MySQL/MyBatis</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/linux.html" title="CentOS/linux，文章目录">CentOS/linux</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/react.html" title="React 技术栈（全家桶）学习心得分享，文章目录">React</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/about.html">关于</a>
+                        </li>
+                    
+                
+            </ul>
+        </div>
+
+        <div class="flex-col header-title ellipsis">React+Redux工程目录结构，最佳实践</div>
+        
+        <div class="search-wrap" id="search-wrap" style="z-index: 2;">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back" style="width:33px;">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search" style="width:33px;">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare" style="z-index: 3;margin-right: 10px; width:30px;">
+                <i class="icon icon-lg icon-share-alt"></i>
+            </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h2 class="title">React+Redux工程目录结构，最佳实践</h2>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-12-02T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2018-12-03
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/react/">react</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/react/redux/">redux</a></li></ul></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap" id="index-container">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc" style="z-index: 3;">
+            <h4><i class="fa fa-list-alt"></i>&nbsp;&nbsp;本文目录</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#React-Redux-工程目录结构组织"><span class="post-toc-number">1.</span> <span class="post-toc-text">React+Redux 工程目录结构组织</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#按角色类型组织"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">按角色类型组织</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#按角色类型组织的缺点"><span class="post-toc-number">1.1.1.</span> <span class="post-toc-text">按角色类型组织的缺点</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#按照功能组织"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">按照功能组织</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#按照功能组织也有缺点"><span class="post-toc-number">1.2.1.</span> <span class="post-toc-text">按照功能组织也有缺点</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#混合前面两种方式–Ducks"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">混合前面两种方式–Ducks</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#应用"><span class="post-toc-number">1.3.1.</span> <span class="post-toc-text">应用</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#参考"><span class="post-toc-number">2.</span> <span class="post-toc-text">参考</span></a></li></ol>
+        </nav>
+    </aside>
+    
+
+<article id="post-react/reactReduxDirectoryStructure" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">React+Redux工程目录结构，最佳实践</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018年12月03日 0:00" datetime="2018-12-02T16:00:00.000Z" itemprop="datePublished">2018-12-03</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/react/">react</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/react/redux/">redux</a></li></ul></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" style="display:none">
+    阅读量：<span id="busuanzi_value_page_pv"></span>次
+</span>
+
+
+    <span>|</span>
+    <span class="post-count">字数：1.7k</span>
+    <span>|</span>
+    <span class="post-count">阅读时长：大约6分钟</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>如题<br><a id="more"></a></p>
+<h1 id="React-Redux-工程目录结构组织"><a href="#React-Redux-工程目录结构组织" class="headerlink" title="React+Redux 工程目录结构组织"></a>React+Redux 工程目录结构组织</h1><h2 id="按角色类型组织"><a href="#按角色类型组织" class="headerlink" title="按角色类型组织"></a>按角色类型组织</h2><p>如果你用 MVC 框架开发过应用（无论是前端开发还是后端开发），应该知道 MVC 框架之下，通常有这样一种代码组织方式：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">controllers/</span><br><span class="line">  todoController.js</span><br><span class="line">  filterController.js</span><br><span class="line">models/</span><br><span class="line">  todoModel.js</span><br><span class="line">  filterModel.js</span><br><span class="line">views/</span><br><span class="line">  todo.js</span><br><span class="line">  todoItem.js</span><br><span class="line">  filter.js</span><br></pre></td></tr></table></figure></p>
+<p>Controller、Model、View 分别代表三种模块角色。这种思想，对应到 Redux 应用，就有这种组织方式：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">reducers/</span><br><span class="line">  todoReducer.js</span><br><span class="line">  filterReducer.js</span><br><span class="line">actions/</span><br><span class="line">  todoAction.js</span><br><span class="line">  filterActions.js</span><br><span class="line">components/</span><br><span class="line">  todoList.js</span><br><span class="line">  todoItem.js</span><br><span class="line">  filter.js</span><br><span class="line">containers/</span><br><span class="line">  todoListContainer.js</span><br><span class="line">  todoItemContainer.js</span><br></pre></td></tr></table></figure></p>
+<p>角色如下：</p>
+<ul>
+<li>components 目录包含所有的展示组件。</li>
+<li>containers 目录包含所有的容器组件。</li>
+<li>actions 目录包含所有 action 构造函数。</li>
+<li>reducers 目录包含所有 Redux 的 reducer。</li>
+</ul>
+<p>充当component、container、action、reducer等不同角色的文件，分别放在对应的多个文件夹下。</p>
+<p>Redux 官网的 todomvc 示例采用了这种项目结构划分，如果项目功能比较简单，也还是可以采用这种方式的。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">│  index.js</span><br><span class="line">│</span><br><span class="line">├─actions</span><br><span class="line">│      index.js</span><br><span class="line">│</span><br><span class="line">├─components</span><br><span class="line">│      App.js</span><br><span class="line">│      Footer.js</span><br><span class="line">│      Header.js</span><br><span class="line">│      Link.js</span><br><span class="line">│      MainSection.js</span><br><span class="line">│      TodoItem.js</span><br><span class="line">│      TodoList.js</span><br><span class="line">│      TodoTextInput.js</span><br><span class="line">│</span><br><span class="line">├─constants</span><br><span class="line">│      ActionTypes.js</span><br><span class="line">│      TodoFilters.js</span><br><span class="line">│</span><br><span class="line">├─containers</span><br><span class="line">│      FilterLink.js</span><br><span class="line">│      Header.js</span><br><span class="line">│      MainSection.js</span><br><span class="line">│      VisibleTodoList.js</span><br><span class="line">│</span><br><span class="line">├─reducers</span><br><span class="line">│      index.js</span><br><span class="line">│      todos.js</span><br><span class="line">│      visibilityFilter.js</span><br><span class="line">│</span><br><span class="line">└─selectors</span><br><span class="line">        index.js</span><br></pre></td></tr></table></figure></p>
+<h3 id="按角色类型组织的缺点"><a href="#按角色类型组织的缺点" class="headerlink" title="按角色类型组织的缺点"></a>按角色类型组织的缺点</h3><p>使用这种结构组织项目，每当增加一个新功能时，需要在containers和components文件夹下增加这个功能需要的组件，还需要在actions和reducers文件夹下，分别添加Redux管理这个功能使用到的action和reducer，如果action type是放在另外一个文件夹的话，还需要在这个文件夹下增加新的action type文件。所以，开发一个功能时，你需要频繁的切换路径，修改不同的文件。当项目逐渐变大时，这种项目结构是非常不方便的。</p>
+<h2 id="按照功能组织"><a href="#按照功能组织" class="headerlink" title="按照功能组织"></a>按照功能组织</h2><p>在Redux框架下，我们可以严格按照模块化思想来开发我们的应用，以最大化的解耦应用，提高代码重用和可维护性。按照功能组织应用的代码，就是这种思想的应用。</p>
+<p>一个功能模块对应一个文件夹，这个功能所用到的component、container、action、reducer等文件，都存放在这个文件夹下。</p>
+<p>拿Todo应用来说，两个基本的功能就是TodoList和Filter，所以按功能组织就是这样子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">todoList/</span><br><span class="line">  components/</span><br><span class="line">    componentA.js</span><br><span class="line">    componentB.js</span><br><span class="line">  containers.js</span><br><span class="line">  actions.js</span><br><span class="line">  actionTypes.js</span><br><span class="line">  index.js</span><br><span class="line">  reducer.js</span><br><span class="line">filter/</span><br><span class="line">  components/</span><br><span class="line">    componentA.js</span><br><span class="line">    componentB.js</span><br><span class="line">  container.js</span><br><span class="line">  actions.js</span><br><span class="line">  actionTypes.js</span><br><span class="line">  index.js</span><br><span class="line">  reducer.js</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>参考了《深入浅出React和Redux》一书中给出的示例，同时结合自己的理解，有部分调整。</p>
+</blockquote>
+<p>每个功能模块对应一个目录，分别是todoList和filter，每个目录下包含同样的角色文件：</p>
+<ul>
+<li>components 目录下包含功能模块中所有的展示组件。</li>
+<li>container.js 定义容器组件。</li>
+<li>actionTypes.js 定义action类型。</li>
+<li>actions.js 定义action构造函数。</li>
+<li>reducer.js 定义这个功能模块如何响应actions.js定义的动作。</li>
+<li>index.js 把所有的角色导入，然后统一导出。</li>
+</ul>
+<p>这种组织方式下，当你要修改某个模块时，只要关注对应的目录即可，所有需要修改的代码文件都能在这个目录下找到。</p>
+<p>需要注意的是，按功能组织下的每个模块，都有一个index.js，明确了模块对外的接口。</p>
+<h3 id="按照功能组织也有缺点"><a href="#按照功能组织也有缺点" class="headerlink" title="按照功能组织也有缺点"></a>按照功能组织也有缺点</h3><p>这种结构也有一个问题，Redux会将整个应用的状态作为一个store来管理，不同的功能模块之间可以共享store中的部分状态（项目越复杂，这种场景就会越多），于是当你在feature1的container中dispatch一个action，很可能会影响feature2的状态，因为feature1和feature2共享了部分状态，会响应相同的action。这种情况下，不同模块间的功能被耦合到了一起。</p>
+<h2 id="混合前面两种方式–Ducks"><a href="#混合前面两种方式–Ducks" class="headerlink" title="混合前面两种方式–Ducks"></a>混合前面两种方式–Ducks</h2><p><a href="https://github.com/erikras/ducks-modular-redux" rel="external nofollow noopener noreferrer" target="_blank">Ducks: Redux Reducer Bundles</a>，是一种新的Redux项目结构组织方式的提议。它提倡将相关联的reducer、action types和action写到一个文件里。本质上是<strong>以应用的状态作为模块的划分依据</strong>，而不是以界面功能作为划分模块的依据。这样的一个文件（模块）如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> types = &#123;</span><br><span class="line">  <span class="keyword">const</span> LOAD   : <span class="string">'widget/LOAD'</span>,</span><br><span class="line">  <span class="keyword">const</span> CREATE : <span class="string">'widget/CREATE'</span>,</span><br><span class="line">  <span class="keyword">const</span> UPDATE : <span class="string">'widget/UPDATE'</span>,</span><br><span class="line">  <span class="keyword">const</span> REMOVE : <span class="string">'widget/REMOVE'</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> initialState = &#123;</span><br><span class="line">  widget: <span class="literal">null</span>,</span><br><span class="line">  isLoading: <span class="literal">false</span>,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Reducer</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">reducer</span>(<span class="params">state = initialState, action = &#123;&#125;</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">switch</span> (action.type) &#123;</span><br><span class="line">    types.LOAD: </span><br><span class="line">      <span class="comment">//...</span></span><br><span class="line">    types.CREATE:</span><br><span class="line">      <span class="comment">//...</span></span><br><span class="line">    types.UPDATE:</span><br><span class="line">      <span class="comment">//...</span></span><br><span class="line">    types.REMOVE:</span><br><span class="line">      <span class="comment">//...</span></span><br><span class="line">    <span class="keyword">default</span>: <span class="keyword">return</span> state;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Action Creators</span></span><br><span class="line"><span class="comment">// 这样定义而不是每个action都export，目的是简化代码，import时不需要把所有action都列出来。</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> actions = &#123;</span><br><span class="line">  loadWidget: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> &#123; <span class="attr">type</span>: types.LOAD &#125;;</span><br><span class="line">  &#125;,</span><br><span class="line">  createWidget: createWidget(widget) &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123; <span class="attr">type</span>: types.CREATE, widget &#125;;</span><br><span class="line">  &#125;,</span><br><span class="line">  updateWidget: <span class="function"><span class="keyword">function</span>(<span class="params">widget</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> &#123; <span class="attr">type</span>: types.UPDATE, widget &#125;;</span><br><span class="line">  &#125;,</span><br><span class="line">  removeWidget: <span class="function"><span class="keyword">function</span>(<span class="params">widget</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> &#123; <span class="attr">type</span>: types.REMOVE, widget &#125;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>由于使用Ducks提议的目录结构，action creators和reducer定义在同一个文件中，为了避免了引入额外的对象，<code>import *</code> 的导入方式已经不推荐。为了使得导入更加方便以及代码更加简洁，比较好的办法就是，把action creators和action types定义到一个命名空间中（请看以上代码）。</p>
+<p>这样，我们在container中使用actions时，可以通过<code>import { actions } from &#39;path/to/module.js&#39;</code> 引入，这样定义而不是每个action都export，可以简化import代码，import时不需要把所有action都列出来。</p>
+<p>同样的，我们要在container中使用action types时，可以通过<code>import { types } from &#39;path/to/module.js&#39;</code>引入。</p>
+<p>整体的目录结构如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">components/  (应用级别的通用组件)</span><br><span class="line">containers/  </span><br><span class="line">  feature1/</span><br><span class="line">    components/  (功能拆分出的专用组件)</span><br><span class="line">    feature1.js  (容器组件)</span><br><span class="line">    index.js     (feature1对外暴露的接口)</span><br><span class="line">redux/</span><br><span class="line">  index.js (combineReducers)</span><br><span class="line">  module1.js (reducer, action types, actions creators)</span><br><span class="line">  module2.js (reducer, action types, actions creators)</span><br><span class="line">index.js</span><br></pre></td></tr></table></figure></p>
+<h3 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h3><p>应用Ducks工程目录组织方式的思想，《React进阶之路》一书的示例代码第9章，项目<a href="https://github.com/xuchaobei/react-book/tree/master/chapter-09/bbs-redux-reselect" rel="external nofollow noopener noreferrer" target="_blank">bbs-redux-reselect</a>工程目录结构如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></td><td class="code"><pre><span class="line">│  index.js</span><br><span class="line">│</span><br><span class="line">├─components # 全局通用组件</span><br><span class="line">│  ├─Header</span><br><span class="line">│  │      index.js</span><br><span class="line">│  │      style.css</span><br><span class="line">│  │</span><br><span class="line">│  ├─Loading</span><br><span class="line">│  │      index.js</span><br><span class="line">│  │      style.css</span><br><span class="line">│  │</span><br><span class="line">│  └─ModalDialog</span><br><span class="line">│          index.js</span><br><span class="line">│          style.css</span><br><span class="line">│</span><br><span class="line">├─containers</span><br><span class="line">│  ├─App</span><br><span class="line">│  │      index.js</span><br><span class="line">│  │</span><br><span class="line">│  ├─Home</span><br><span class="line">│  │      index.js</span><br><span class="line">│  │</span><br><span class="line">│  ├─Login</span><br><span class="line">│  │      index.js</span><br><span class="line">│  │      style.css</span><br><span class="line">│  │</span><br><span class="line">│  ├─Post</span><br><span class="line">│  │  │  index.js # Post 容器组件</span><br><span class="line">│  │  │  style.css</span><br><span class="line">│  │  │</span><br><span class="line">│  │  └─components # Post 专用组件</span><br><span class="line">│  │      ├─CommentList</span><br><span class="line">│  │      │      index.js</span><br><span class="line">│  │      │      style.css</span><br><span class="line">│  │      │</span><br><span class="line">│  │      ├─CommentsView</span><br><span class="line">│  │      │      index.js</span><br><span class="line">│  │      │      style.css</span><br><span class="line">│  │      │</span><br><span class="line">│  │      ├─PostEditor</span><br><span class="line">│  │      │      index.js</span><br><span class="line">│  │      │      style.css</span><br><span class="line">│  │      │</span><br><span class="line">│  │      └─PostView</span><br><span class="line">│  │              index.js</span><br><span class="line">│  │              style.css</span><br><span class="line">│  │</span><br><span class="line">│  └─PostList</span><br><span class="line">│      │  index.js # PostList 容器组件</span><br><span class="line">│      │  style.css</span><br><span class="line">│      │</span><br><span class="line">│      └─components # PostList 专用组件</span><br><span class="line">│          ├─PostItem</span><br><span class="line">│          │      index.js</span><br><span class="line">│          │      style.css</span><br><span class="line">│          │</span><br><span class="line">│          └─PostsView</span><br><span class="line">│                  index.js</span><br><span class="line">│</span><br><span class="line">├─images</span><br><span class="line">│      like-default.png</span><br><span class="line">│      like.png</span><br><span class="line">│</span><br><span class="line">├─redux</span><br><span class="line">│  │  configureStore.js</span><br><span class="line">│  │</span><br><span class="line">│  └─modules</span><br><span class="line">│          app.js</span><br><span class="line">│          auth.js</span><br><span class="line">│          comments.js</span><br><span class="line">│          index.js</span><br><span class="line">│          posts.js</span><br><span class="line">│          ui.js</span><br><span class="line">│          users.js</span><br><span class="line">│</span><br><span class="line">└─utils</span><br><span class="line">        AsyncComponent.js</span><br><span class="line">        connectRoute.js</span><br><span class="line">        date.js</span><br><span class="line">        request.js</span><br><span class="line">        SHA1.js</span><br><span class="line">        url.js</span><br></pre></td></tr></table></figure></p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ol>
+<li><a href="https://segmentfault.com/a/1190000010775697" rel="external nofollow noopener noreferrer" target="_blank">Redux进阶系列1: React+Redux项目结构最佳实践</a></li>
+<li>《深入浅出React和Redux》一书的第四章，P76，【4.2 代码文件的组织方式】。</li>
+</ol>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-09-01T02:53:13.091Z" itemprop="dateUpdated">2020年9月1日 10:53</time>
+</span><br>
+
+
+        转载请注明出处：<a href="/react/reactReduxDirectoryStructure.html" target="_blank" rel="external">https://www.lovesofttech.com/react/reactReduxDirectoryStructure.html</a>
+    </div>
+    <footer>
+        <a href="https://www.lovesofttech.com">
+            <img src="/img/myLogo.jpg" alt="安迪陈">
+            安迪陈
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/react/">react</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/redux/">redux</a></li></ul>
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/react/reactReduxDirectoryStructure.html&title=《React+Redux工程目录结构，最佳实践》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/react/reactReduxDirectoryStructure.html&title=《React+Redux工程目录结构，最佳实践》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=如题" data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/react/reactReduxDirectoryStructure.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《React+Redux工程目录结构，最佳实践》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/react/reactReduxDirectoryStructure.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/react/reactReduxDirectoryStructure.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/react/reactAdvancedStageBBSUnscramble.html" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">《React进阶之路》第九章示例 bbs-redux-reselect 解读</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/windows/windowsTree.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">使用 tree 命令导出 windows 的【文件夹/文件】目录树</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+    
+    
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="bottom">
+        <p>
+            <span>安迪陈技术日志，架构、感悟、系统分析、团队管理 &copy; 2017 - 2020</span>
+            <span>
+                Power by <a href="https://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>&nbsp;
+                Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank" rel="external nofollow noopener noreferrer">indigo</a>
+            </span>
+            <span>
+                <a href="http://www.beian.miit.gov.cn" target="_blank" rel="external nofollow noopener noreferrer">蜀ICP备17041860号</a>
+            </span>
+            
+            <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            </p><p>
+                <span>
+                    统计始于：2019-03-06
+                </span>
+                <span id="busuanzi_container_site_uv" style="display:none">
+                    访客数：<span id="busuanzi_value_site_uv"></span>
+                </span>
+                <span id="busuanzi_container_site_pv" style="display:none">
+                    访问量：<span id="busuanzi_value_site_pv"></span>
+                </span>
+            
+            
+                <span class="post-count">累计字数：309.2k</span>
+            
+                <span><a href="/general/blogLog.html"><i class="fas fa-pen-alt"></i>&nbsp;博客日志</a></span>
+            </p>
+        <p></p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light" title="回到顶部"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/react/reactReduxDirectoryStructure.html&title=《React+Redux工程目录结构，最佳实践》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/react/reactReduxDirectoryStructure.html&title=《React+Redux工程目录结构，最佳实践》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=如题" data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/react/reactReduxDirectoryStructure.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《React+Redux工程目录结构，最佳实践》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/react/reactReduxDirectoryStructure.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/react/reactReduxDirectoryStructure.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACt0lEQVR42u3awWrkMBAE0Pz/T2dhT4GsnKqWNJmF59PgcUZ6ClhNtT4+4uvz7/X8+eud9nr+29VYxy48PDy80dTzn/7+7fNyrMbK5/M8h9XzeHh4eLd5yWaQTLrdAPLlyJ/Hw8PDex9ePnxbmudVMR4eHt7/xVsx8nhipzjGw8PDezdeG7C2UcKpQvxi1oKHh4cX8041wF75+Rf6e3h4eHijNn9eQOeF+Oz5aLZ4eHh4F3jJFHcOBOzf32+h4eHh4Z3ltS/i5DXdLlw+6boNhoeHh3eBNxsmD1WTECFvnuURMx4eHt7reTm7PSA1a6rtF/F4eHh4t3nJYLPNo05KRi26ev/Bw8PDi3nt6zu/0x5EGEYMz1sCHh4e3st5+8Fugp99G21IeHh4eNd4eVmcBwrDA1LxIhYBBB4eHt5R3n6cmv9a1KYqGREVDw8P7yhv1tBqG1HJyz3fior4Aw8PD+8ary2dkxd9GyK04K0GGB4eHt5RXhs05BNtC+J2lH98i4eHh3eBl79224nm99tjBG35joeHh/dKXhu5zoLgNuqttw08PDy8o7z2pdyWv7M2WFtYL5/Hw8PDu8ZrG2CzTaIuhctfO3Z0AA8PDy/o9Q/PagVRwk6rbBZnDP8/eHh4eDGvLYvbaCApsttlKg4W4OHh4V3jtVvFTrn8GV+zZVrGuHh4eHiHeLOiNn++bYzl4HzrwsPDwzvLK84XxJvH2dh3dhBhmVLj4eHhHeXlZW4bsLbbQ7vNLJcSDw8P7wJvNkxeXs+m2NbDQxIeHh7eBm8WASSN/DyAaJdyGEng4eHhHeXtvNDbO7NlbYtvPDw8vHfg7RyoamOOfPv5objHw8PDewNeMvWdYwSzgGP5t3h4eHjXeMlEtxr58aK0IcUPI+Lh4eFd4J1t4bexRb4QLRUPDw/vAu8P/Xa7YJB4T8kAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.5.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.5.2" async></script>
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '安迪陈技术日志';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '欢迎回来';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

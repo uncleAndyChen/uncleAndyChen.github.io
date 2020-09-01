@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<!--<script async src="//hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c"></script>-->
+<!-- 统计-->
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var host = window.location.host;
+        var hm = document.createElement("script");
+
+        if (host.indexOf('gitee.io') > 0) { // https://uncleandychen.gitee.io/
+            hm.src = "https://hm.baidu.com/hm.js?0cf4709148b070b8082191d2e456a1a3";
+        } else if (host.indexOf('lovesofttech.com') > 0) { // https://www.lovesofttech.com/
+            hm.src = "https://hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c";
+        } else {
+            hm.src = '';
+        }
+
+        if (hm.src !== '') {
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        }
+    })();
+</script>
+<!-- End Baidu Tongji -->
+
+
+
+<!-- Baidu Push -->
+<!-- 主动推送百度爬虫-->
+<script>
+    (function(){
+        if (window.location.host.indexOf('lovesofttech.com') < 0) {
+            return;
+        }
+
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+<!-- End Baidu Push -->
+
+
+    <meta charset="utf-8">
+    
+    
+    <link rel="canonical" href="https://www.lovesofttech.com/general/JIRAExperience.html">
+    
+    
+    <title>JIRA 精选插件 | 安迪陈技术日志，架构、感悟、系统分析、团队管理 | 自强不息，厚德载物</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="jira,experience">
+    <meta name="description" content="JIRA 是一款非常棒的产品，本文所列插件也都非常棒，如果喜欢，请支持正版。 非常抱歉，本文在我安装 JIRA 插件的时候，记录得有一点凌乱，因为没有及时整理，所以部分内容可能不全或者已经过时，大家将就看一下。 本文参考了网上的文章，感谢原作者。本人仅成功安装 JIRA，没有测试 Confluence，不过应该是类似的。">
+<meta name="keywords" content="jira,experience">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JIRA 精选插件">
+<meta property="og:url" content="https://www.lovesofttech.com/general/JIRAExperience.html">
+<meta property="og:site_name" content="安迪陈技术日志，架构、感悟、系统分析、团队管理">
+<meta property="og:description" content="JIRA 是一款非常棒的产品，本文所列插件也都非常棒，如果喜欢，请支持正版。 非常抱歉，本文在我安装 JIRA 插件的时候，记录得有一点凌乱，因为没有及时整理，所以部分内容可能不全或者已经过时，大家将就看一下。 本文参考了网上的文章，感谢原作者。本人仅成功安装 JIRA，没有测试 Confluence，不过应该是类似的。">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2020-09-01T02:53:12.940Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JIRA 精选插件">
+<meta name="twitter:description" content="JIRA 是一款非常棒的产品，本文所列插件也都非常棒，如果喜欢，请支持正版。 非常抱歉，本文在我安装 JIRA 插件的时候，记录得有一点凌乱，因为没有及时整理，所以部分内容可能不全或者已经过时，大家将就看一下。 本文参考了网上的文章，感谢原作者。本人仅成功安装 JIRA，没有测试 Confluence，不过应该是类似的。">
+    
+        <link rel="alternative" href="/atom.xml" title="安迪陈技术日志，架构、感悟、系统分析、团队管理" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=201912302211">
+    <link rel="stylesheet" href="/css/header.css?v=201912302211">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu">
+  <div class="inner flex-row-vertical">
+    <!--<i class="icon icon-lg icon-close"></i>-->
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off" title="隐藏左侧导航">﹤<i class="icon icon-lg icon-navicon"></i></a>
+    <div class="brand-wrap" style="background-image:url(/img/bannerBackgroundLeft.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/myLogo.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">安迪陈</h5>
+          <a href="mailto:andy@lovesofttech.com" title="andy@lovesofttech.com" class="mail" rel="external nofollow noopener noreferrer" target="_blank">andy@lovesofttech.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articleClassify.html">
+                <i class="icon icon-th-list"></i>
+                文章分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articles.html">
+                <i class="icon icon-th-list articles"></i>
+                文章列表
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/java.html">
+                <i class="icon icon-th-list java"></i>
+                Java
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/database.html">
+                <i class="icon icon-th-list database"></i>
+                MySQL/MyBatis
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/linux.html">
+                <i class="icon icon-th-list linux"></i>
+                CentOS/linux
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/react.html">
+                <i class="icon icon-th-list React"></i>
+                React
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/lnmp.html">
+                <i class="icon icon-th-list LNMP"></i>
+                LNMP
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/git.html">
+                <i class="icon icon-th-list git"></i>
+                git
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/windows.html">
+                <i class="icon icon-th-list windows"></i>
+                windows
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/dailyLives.html">
+                <i class="icon icon-th-list dailyLives"></i>
+                工作 &amp; 生活
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-github"></i>
+                我的 github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://gitee.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link"></i>
+                我的 gitee
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://blog.csdn.net/runAndRun" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link CSDN"></i>
+                我的 CSDN
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/aboutMe.html">
+                <i class="icon icon-address-card"></i>
+                关于我
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+
+        <div class="navbar navbar-custom navbar-fixed-top">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" style="margin-left:10px;" id="menu-toggle" title="显示左侧导航"><i class="icon icon-lg icon-navicon"></i>﹥</a>
+            <ul class="nav navbar-nav navbar-right" id="navMenuTop">
+                <li>
+                    <a href="/">主页</a>
+                </li>
+                
+                    
+                        <li>
+                            <a href="/articleClassify.html" title="本博客的文章分类列表">文章分类</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/articles.html" title="本博客的所有文章列表">文章列表</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/java.html" title="Java 开发，文章目录">Java</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/database.html" title="日常开发中有关 MySQL、MyBatis 的一些经验总结">MySQL/MyBatis</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/linux.html" title="CentOS/linux，文章目录">CentOS/linux</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/react.html" title="React 技术栈（全家桶）学习心得分享，文章目录">React</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/about.html">关于</a>
+                        </li>
+                    
+                
+            </ul>
+        </div>
+
+        <div class="flex-col header-title ellipsis">JIRA 精选插件</div>
+        
+        <div class="search-wrap" id="search-wrap" style="z-index: 2;">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back" style="width:33px;">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search" style="width:33px;">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare" style="z-index: 3;margin-right: 10px; width:30px;">
+                <i class="icon icon-lg icon-share-alt"></i>
+            </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h2 class="title">JIRA 精选插件</h2>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-07-25T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2018-07-26
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/jira/">jira</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/jira/experience/">experience</a></li></ul></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap" id="index-container">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc" style="z-index: 3;">
+            <h4><i class="fa fa-list-alt"></i>&nbsp;&nbsp;本文目录</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#了解-JIRA"><span class="post-toc-number">1.</span> <span class="post-toc-text">了解 JIRA</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#科学使用参考文章"><span class="post-toc-number">2.</span> <span class="post-toc-text">科学使用参考文章</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#插件安装教程"><span class="post-toc-number">3.</span> <span class="post-toc-text">插件安装教程</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#以下为插件注册码备用，也许并不适合你，或者已经过时，这是我当时注册时用到的。"><span class="post-toc-number">4.</span> <span class="post-toc-text">以下为插件注册码备用，也许并不适合你，或者已经过时，这是我当时注册时用到的。</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Jira精选App系列之-测试管理：synapseRT"><span class="post-toc-number">4.1.</span> <span class="post-toc-text">Jira精选App系列之-测试管理：synapseRT</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#ZAPI"><span class="post-toc-number">4.2.</span> <span class="post-toc-text">ZAPI</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Zephyr-for-Jira"><span class="post-toc-number">4.3.</span> <span class="post-toc-text">Zephyr for Jira</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Capture-for-JIRA"><span class="post-toc-number">4.4.</span> <span class="post-toc-text">Capture for JIRA</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Capture-功能特点"><span class="post-toc-number">4.4.1.</span> <span class="post-toc-text">Capture 功能特点</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Capture-相关链接"><span class="post-toc-number">4.4.2.</span> <span class="post-toc-text">Capture 相关链接</span></a></li></ol></li></ol></li></ol>
+        </nav>
+    </aside>
+    
+
+<article id="post-general/JIRAExperience" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">JIRA 精选插件</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018年07月26日 0:00" datetime="2018-07-25T16:00:00.000Z" itemprop="datePublished">2018-07-26</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/jira/">jira</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/jira/experience/">experience</a></li></ul></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" style="display:none">
+    阅读量：<span id="busuanzi_value_page_pv"></span>次
+</span>
+
+
+    <span>|</span>
+    <span class="post-count">字数：1.7k</span>
+    <span>|</span>
+    <span class="post-count">阅读时长：大约6分钟</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <ul>
+<li><strong>JIRA 是一款非常棒的产品，本文所列插件也都非常棒，如果喜欢，请支持正版。</strong></li>
+<li>非常抱歉，本文在我安装 JIRA 插件的时候，记录得有一点凌乱，因为没有及时整理，所以部分内容可能不全或者已经过时，大家将就看一下。</li>
+<li>本文参考了网上的文章，感谢原作者。本人仅成功安装 JIRA，没有测试 Confluence，不过应该是类似的。</li>
+</ul>
+<a id="more"></a>
+<h1 id="了解-JIRA"><a href="#了解-JIRA" class="headerlink" title="了解 JIRA"></a>了解 JIRA</h1><ul>
+<li><a href="https://cn.atlassian.com/software/jira/comparison" rel="external nofollow noopener noreferrer" target="_blank">Jira Software 备选产品-了解位于敏捷团队软件开发工具榜首的 Jira Software 如何与竞品较量</a></li>
+<li><a href="http://www.evgetedu.com/video/5955" rel="external nofollow noopener noreferrer" target="_blank">jira 视频教程</a></li>
+<li><a href="https://blog.csdn.net/knighttools/article/details/52128568" rel="external nofollow noopener noreferrer" target="_blank">Jira使用手册</a></li>
+<li><a href="https://blog.csdn.net/boonya/article/details/77885170" rel="external nofollow noopener noreferrer" target="_blank">Jenkins 集成和使用JIRA Bug跟踪管理工具</a></li>
+</ul>
+<h1 id="科学使用参考文章"><a href="#科学使用参考文章" class="headerlink" title="科学使用参考文章"></a>科学使用参考文章</h1><ul>
+<li><a href="https://blog.csdn.net/aleefang/article/details/70056064" rel="external nofollow noopener noreferrer" target="_blank">jira插件破解步骤</a></li>
+<li><a href="https://blog.csdn.net/get_set/article/details/80856922" rel="external nofollow noopener noreferrer" target="_blank">JIRA（6.x/7.x）与Confluence（6.x）反编译破解方法</a></li>
+<li><a href="http://www.confluence.cn/pages/viewpage.action?pageId=6719822" rel="external nofollow noopener noreferrer" target="_blank">idea-multimarkdown 破解</a></li>
+</ul>
+<ol>
+<li>jira 科学使用方法，请覆盖<code>/opt/atlassian/jira/atlassian-jira/WEB-INF/atlassian-bundled-plugins/</code>下的同名文件后重启服务，完成破解。亲测版本 <code>jira Core/jira SoftWare 7.3.4，jira servicedesk 3.4.1</code>，其他版本请自行测试。</li>
+<li>Confluence 科学使用方法，请覆盖<code>/opt/atlassian/confluence/confluence/WEB-INF/atlassian-bundled-plugins</code>的同名文件后重启服务，完成破解。亲测版本 <code>Confluence 6.1.1</code>,其他版本请自行测试。</li>
+</ol>
+<h1 id="插件安装教程"><a href="#插件安装教程" class="headerlink" title="插件安装教程"></a>插件安装教程</h1><ul>
+<li>先安装要付费的插件，再使用科学使用方法。</li>
+<li>jira 科学使用方法，请覆盖<code>/opt/atlassian/jira/atlassian-jira/WEB-INF/atlassian-bundled-plugins</code>下的同名文件后重启服务。</li>
+<li>Confluence 科学使用方法，请覆盖<code>/opt/atlassian/confluence/confluence/WEB-INF/atlassian-bundled-plugins</code>的同名文件后重启服务，完成破解。</li>
+<li>jira 和 Confluence的通用插件管理器是通用的,覆盖的时候请注意版本号，仅保留最后一个版本就行，之前的老版本请删除。 </li>
+<li>另外需要注意，请不要再利用系统自带的更新去更新插件管理器，否则会导致所有的插件破解都会失效。 </li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"># jira</span><br><span class="line">sudo service jira stop </span><br><span class="line">sudo rm -rf /opt/atlassian/jira/atlassian-jira/WEB-INF/atlassian-bundled-plugins/atlassian-universal-plugin-manager-plugin-2.21.jar</span><br><span class="line">sudo cp ~/atlassian-universal-plugin-manager-plugin-2.22.2.jar /opt/atlassian/jira/atlassian-jira/WEB-INF/atlassian-bundled-plugins</span><br><span class="line">sudo service jira start </span><br><span class="line"></span><br><span class="line"># confluence</span><br><span class="line">sudo rm -rf /opt/atlassian/confluence/confluence/WEB-INF/atlassian-bundled-plugins/atlassian-universal-plugin-manager-plugin-2.22.1.jar</span><br><span class="line">sudo cp ~/atlassian-universal-plugin-manager-plugin-2.22.2.jar /opt/atlassian/confluence/confluence/WEB-INF/atlassian-bundled-plugins</span><br><span class="line">sudo service confluence restart</span><br></pre></td></tr></table></figure>
+<h1 id="以下为插件注册码备用，也许并不适合你，或者已经过时，这是我当时注册时用到的。"><a href="#以下为插件注册码备用，也许并不适合你，或者已经过时，这是我当时注册时用到的。" class="headerlink" title="以下为插件注册码备用，也许并不适合你，或者已经过时，这是我当时注册时用到的。"></a>以下为插件注册码备用，也许并不适合你，或者已经过时，这是我当时注册时用到的。</h1><h2 id="Jira精选App系列之-测试管理：synapseRT"><a href="#Jira精选App系列之-测试管理：synapseRT" class="headerlink" title="Jira精选App系列之-测试管理：synapseRT"></a>Jira精选App系列之-测试管理：synapseRT</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">AAABNw0ODAoPeNqFkU9rg0AQxe/7KRYKvSnRGCoBocF4aMif1tieepnKaLfoup3dDfXbd42WlhLIY</span><br><span class="line">WBhZt77zdubIxi+sQ0PIj6Ll4toGc15ui54OAtitrftG9KhetZIOvECtkZdklBGdDLRvQSlMS+4x</span><br><span class="line">zeCgD+teIHa8Fue46cVhC1K87rk2QkaC8MOSwnPjzUYTAYLb3bnBRFLO2mgNHtoMTHUE1ZC4n3dg</span><br><span class="line">mj8smuZK7/uwpo6q/wPZ+arxtZC+hOEfzRABimpoNH4I5ft3P5FvV8k17Z4Xd+piROOw40oUWp8c</span><br><span class="line">ZkMAiFzNtKgBFli9qUE9X/Oi71gzg5UgxR6NGz7IS12zPaJK28buMF5GC+uQ7g4kRQJPYFsR5DLn</span><br><span class="line">lOz6BWeY00Pu12Wpw+rLXu0VL6Dxv+/8A3nYLQtMCwCFE80+5skzo6gZ4Oj62ol7gN1m9OlAhQ4L</span><br><span class="line">hnWjBiU6NW4o1TEXDob/ouRbA==X02fj</span><br></pre></td></tr></table></figure>
+<h2 id="ZAPI"><a href="#ZAPI" class="headerlink" title="ZAPI"></a>ZAPI</h2><p>AUTOMATION &amp; CI</p>
+<p>Enhance the testing experience by integrating with automation tools like Selenium, continuous integration tools like Bamboo or Jenkins using RESTful APIs in ZAPI, the Add-on to Zephyr for Jira.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">AAABGA0ODAoPeNptUMFqg0AUvO9XCD0rbqokCEKD8ZCgJtS0h9LLq33GBV2Xt2uo+fquSUpL8bCwO</span><br><span class="line">zM7M+89lGCc3dA6PHAWfhT4URg6yeZoH3zFiqH7QNrXLxpJxy5nG9QVCWVEL+O39WH7HjnpGdoBJ</span><br><span class="line">oQlhNfLBgzGk4HrL10esqSXBipTQIexoZGwFhKfTh2I1qv67odPcwvMCn4zLD0ga0WFUuOrbTVhC</span><br><span class="line">2Z/SoMSZIXplxI0/qmwcnnArItnGvz0LqiakbwLKOGVBsggxTW0GtmeTiCFvsV0404QsDItYnvcj</span><br><span class="line">Fuvx+WSs+wWPZ9yJ4+jwuuwyT7P0+dku87mC6AtTYqExttcsyK7GXG+Cw4DVQ1o/L/hbwPGmngwL</span><br><span class="line">QIVAITQYwRytZDXElZT7gN1ah9zeddcAhRkTJSQgrUhcfuytSmZDpB0OCi+9w==X02ea</span><br></pre></td></tr></table></figure></p>
+<h2 id="Zephyr-for-Jira"><a href="#Zephyr-for-Jira" class="headerlink" title="Zephyr for Jira"></a>Zephyr for Jira</h2><p><a href="http://www.getzephyr.com" rel="external nofollow noopener noreferrer" target="_blank">Zephyr for Jira - Test Management</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">AAABKg0ODAoPeNqNkMtqwzAQRff6CkHXNlHikgcYGmwvEmyn5NFF6Waqjh0VWzYjOdT9+spJSkvJo</span><br><span class="line">guBGM3VuZy7HVi+7iouAi7EIpguJnMexXs+HokZk03t2yO++Z/YHnvy39EHadUJQ0sdsryrX5E2x</span><br><span class="line">cEgmdATLEYjSbVWNTp8Pkd40RBfr7ZL7vE9Gssz0FBijdq+LHhygqqDYZ1FhOdLDBbDAe6Npp64Z</span><br><span class="line">1GjrWPmUA/QnrBQGh/KGlTlu3rf70nmBjcXfhiX0pWSqA0+ucrDbMxcUlvUoCUmH62i/leFmSeCW</span><br><span class="line">xZ2FsgihQVUBtmGStDKXCB1v1YEbJfkoTteKtxPkyCYs/QC/jfDKUJqSZmr7Wt+37d4thFtsizZR</span><br><span class="line">qtlyh47kkcw+FfeF5hiofkwLAIUT9sVfkxlOtLAC8DXvGfg3iZOnT8CFCNkbOfs8PJJwKW6AotAn</span><br><span class="line">zEy9FAOX02eu</span><br></pre></td></tr></table></figure></p>
+<h2 id="Capture-for-JIRA"><a href="#Capture-for-JIRA" class="headerlink" title="Capture for JIRA"></a>Capture for JIRA</h2><p><a href="https://mall.csdn.net/product/746" rel="external nofollow noopener noreferrer" target="_blank">Capture for JIRA 版本 2.9.17.291700032</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">AAABHw0ODAoPeNptkEFrg0AQhe/7KxZ6aQ8G3do2BIQG9RBJtCS2p14mMqYLusrsbqj/vmtMmlJyG</span><br><span class="line">BiY976ZN3elRZ7ZhouQi2ARBovHkMdJyYUfzFlu2z1SUb9rJB15AUtQVyR7IzsVxdAbS8jrjni22</span><br><span class="line">i75/Q7piPTwueDpERoLo4zFhKcmAYPRSPX8F088sbhTBiqTQ4uRoYGwlgpfDy3IZlZ1Ldt3qpaEM</span><br><span class="line">1QGqSepR5nFiy/dOOFN43X3ZLiAdgbIoaIaGo2skRUqjR8u2KgUzPHcJgWqwvS7lzT8OXjuiZAVd</span><br><span class="line">AAl9URuh0wSsF2aR668dSD85zCc+2w9cW8jzsNy6PGUOy42m3Qbr5br3ytdNHk8R32zVH2Bxv+v+</span><br><span class="line">wECBZMdMCwCFBf/szlxaLBgshBg4KjH4+kmgo1EAhRnrJt6WwpSrYtuTTNYv9anSZlu2Q==X02ei</span><br></pre></td></tr></table></figure></p>
+<h3 id="Capture-功能特点"><a href="#Capture-功能特点" class="headerlink" title="Capture 功能特点"></a>Capture 功能特点</h3><p>1.持续反馈<br>◆ 快速复制<br>工程师越快重现bug，就可以更快的解决问题。Capture for JIRA可记录标准变量，例如URL、浏览器信息、屏幕分辨率，Capture for JIRA也可记录其他任何的产品团队需要的与应用有关的具体信息。</p>
+<p>◆ 即时截屏<br>为了使报表过程更加高效，在每次缺陷提交时，Capture for JIRA自动捕捉当前网页屏幕截图。为已存在缺陷添加额外的屏幕截图，以便提交更详细的信息。</p>
+<p>◆ 有意义的注释<br>如果一张图可以胜过千字的解释效果，那么一张有注释的截图的效果就会胜过百万字的效果。通过JIRA Capture，你可以快速高亮问题区域，模糊敏感的细节，加注释，增加将要做的事情。所有的这些通过浏览器就可以便捷地实现。<br>◆ 可适应的工作流<br>每个团队对于产品测试都有独一无二的价值观。通过允许团队创建和分享预定义字段的自定义模板，Capture for JIRA使得每个组织都能够针对特定测试需求来改善产品。</p>
+<p> 2.探索性测试<br>◆ 协同测试<br>将探索性测试提升到一个新的层次。在团队中测试可以使您定位更多问题，交付更好的产品。Capture for JIRA通过发动团队力量来记录所有会话细节以实现快速的问题重现。<br>◆ 自动记录<br>Capture for JIRA透明化测试流程。它可以记录所有的情况、截图和测试会话中提出的问题。按照问题、项目或者个人快速浏览和筛选所有的测试回话活动。<br>◆ 量的增长<br>敏捷开发所追求的就是不断成长。Capture for JIRA通过提供每个版本的数量、类型和bug源的报告来帮助敏捷开发团队提升产品质量。</p>
+<p>适用人群<br>◆ 团队<br>团队中每个成员都要对产品质量负责，Capture for JIRA为项目的所有利益相关者而设计，无论是产品负责人、开发人员、设计师、质量工程师以及用户都可以通过快速提出详细问题而使产品质量得到提升。<br>◆ 开发人员<br>Capture for JIRA为开发人员提供完整的bug报告，其中包括所有必需的信息使得开发人员能够快速重现任何bug。开发人员还可以自定义Capture for JIRA使其自动收集他们需要的关于应用程序特定的信息。<br>◆ 设计师<br>设计师在产品的用户体验上倾尽全力，他们可以提出被别的团队成员忽视的一些问题。Capture for JIRA 允许设计师与工程师团队更加有效的沟通，这是一种多赢的方式。</p>
+<p>◆ 质量工程师<br>质量工程师可以从用户角度对产品的各个方面提出反馈，因此他们的地位举足轻重。Capture for JIRA使质量工程师在任何项目中进行敏捷开发，并快速提出基于用户体验的内容丰富的反馈。</p>
+<p>◆ 所有人<br>最成功的公司会注重他们自己的产品以保证在发现问题和提高产品质量时，团队成员能够全身心投入。Capture for JIRA让团队中的任何人都可以十分便捷的随时随地提出意见和反馈。</p>
+<h3 id="Capture-相关链接"><a href="#Capture-相关链接" class="headerlink" title="Capture 相关链接"></a>Capture 相关链接</h3><ul>
+<li>安装好后的帮助页面（请修改你的服务器IP和端口号）：<a href="http://192.168.1.91:8080/secure/BonfireGettingStarted.jspa" rel="external nofollow noopener noreferrer" target="_blank">http://192.168.1.91:8080/secure/BonfireGettingStarted.jspa</a></li>
+<li><a href="https://zephyrdocs.atlassian.net/wiki/spaces/CAPTURE/pages/166068285/Working+with+Sessions" rel="external nofollow noopener noreferrer" target="_blank">https://zephyrdocs.atlassian.net/wiki/spaces/CAPTURE/pages/166068285/Working+with+Sessions</a></li>
+<li><a href="https://zephyrdocs.atlassian.net/wiki/spaces/CAPTURE/pages/166068275/Capture+for+JIRA+User+Guide" rel="external nofollow noopener noreferrer" target="_blank">https://zephyrdocs.atlassian.net/wiki/spaces/CAPTURE/pages/166068275/Capture+for+JIRA+User+Guide</a></li>
+<li><a href="http://www.unlimax.com/jira-capture.html" rel="external nofollow noopener noreferrer" target="_blank">http://www.unlimax.com/jira-capture.html</a></li>
+</ul>
+<p><strong>JIRA 是一款非常棒的产品，本文所列插件也都非常棒，如果喜欢，请支持正版。</strong></p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-09-01T02:53:12.940Z" itemprop="dateUpdated">2020年9月1日 10:53</time>
+</span><br>
+
+
+        转载请注明出处：<a href="/general/JIRAExperience.html" target="_blank" rel="external">https://www.lovesofttech.com/general/JIRAExperience.html</a>
+    </div>
+    <footer>
+        <a href="https://www.lovesofttech.com">
+            <img src="/img/myLogo.jpg" alt="安迪陈">
+            安迪陈
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/experience/">experience</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jira/">jira</a></li></ul>
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/general/JIRAExperience.html&title=《JIRA 精选插件》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/general/JIRAExperience.html&title=《JIRA 精选插件》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=
+JIRA 是一款非常棒的产品，本文所列插件也都非常棒，如果喜欢，请支持正版。
+非常抱歉，本文在我安装 JIRA 插件的时候，记录得有一点凌乱，因为没有及..." data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/general/JIRAExperience.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《JIRA 精选插件》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/general/JIRAExperience.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/general/JIRAExperience.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/linux/centOSMemory.html" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">linux 内存占用情况查询</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/java/javaMemory.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Tomcat 占用内存以及 jvm 参数设置</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+    
+    
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="bottom">
+        <p>
+            <span>安迪陈技术日志，架构、感悟、系统分析、团队管理 &copy; 2017 - 2020</span>
+            <span>
+                Power by <a href="https://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>&nbsp;
+                Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank" rel="external nofollow noopener noreferrer">indigo</a>
+            </span>
+            <span>
+                <a href="http://www.beian.miit.gov.cn" target="_blank" rel="external nofollow noopener noreferrer">蜀ICP备17041860号</a>
+            </span>
+            
+            <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            </p><p>
+                <span>
+                    统计始于：2019-03-06
+                </span>
+                <span id="busuanzi_container_site_uv" style="display:none">
+                    访客数：<span id="busuanzi_value_site_uv"></span>
+                </span>
+                <span id="busuanzi_container_site_pv" style="display:none">
+                    访问量：<span id="busuanzi_value_site_pv"></span>
+                </span>
+            
+            
+                <span class="post-count">累计字数：309.2k</span>
+            
+                <span><a href="/general/blogLog.html"><i class="fas fa-pen-alt"></i>&nbsp;博客日志</a></span>
+            </p>
+        <p></p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light" title="回到顶部"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/general/JIRAExperience.html&title=《JIRA 精选插件》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/general/JIRAExperience.html&title=《JIRA 精选插件》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=
+JIRA 是一款非常棒的产品，本文所列插件也都非常棒，如果喜欢，请支持正版。
+非常抱歉，本文在我安装 JIRA 插件的时候，记录得有一点凌乱，因为没有及..." data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/general/JIRAExperience.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《JIRA 精选插件》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/general/JIRAExperience.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/general/JIRAExperience.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACL0lEQVR42u3aS46EMAxFUfa/aXraUnWF+2xoCedmVEJU4DCw/Mlx4HX+Wp9Xvl3nO9f+Gy8ZMmS8lnEuF3nA+sFkn897+LvJkCFjHwZ5/Pr3OjSTZ63/e/HOMmTIkAHSNc7j4VuGDBky+gG3VujWgrUMGTJkkCKWF66d/R+vxWXIkPFCRq19/z+/H5lvyJAh41WMM1x8wElSQzI8QG8lQ4aM0Yy0lcbLUd6A67T2ZMiQsQOjVi7WgmOa4wUFswwZMjZjdBr3PEHstN7+eEMZMmSMZpBjEATzXILIS18ZMmTsyeAtNh5G06QzCMEyZMjYgMGD7/o6OcLVOWbRqshlyJDxQsa9Q8p0hNCfaXydxMqQIWMcgyeItdYYgfHhwQ0jTBkyZIxj1Bpq6SfgCeXFaREZMmRswCDb1U448HQzLYNlyJAxm5F2q9KhZq2Fx8P9xXxDhgwZ4xidZDEtfZ8IwTJkyJjK6AS4NDV8opEnQ4aMHRi8WCXNsk4pS8I3wsiQIWMoo9PWT4tP8rF4mhhMOWTIkDGCwZto/aI0fRbaWYYMGZsx0nFmOtpMD16gAYYMGTKGMs5wHXil96dUGTJk7MPobM2pncMc/cNnMmTImMFIG/G8EdYJ1q12mwwZMoYyauXoXQ07Tr3Ic2XIkCFjGaBrWWca1ounRWTIkLElYx06O4czyMDy63hAhgwZoxkkjJLXrTXx+YeQIUPGnozaSDIdFXQOp96VhsqQIeOFjB81IgPxfrPmPwAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.5.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.5.2" async></script>
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '安迪陈技术日志';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '欢迎回来';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

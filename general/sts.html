@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<!--<script async src="//hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c"></script>-->
+<!-- 统计-->
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var host = window.location.host;
+        var hm = document.createElement("script");
+
+        if (host.indexOf('gitee.io') > 0) { // https://uncleandychen.gitee.io/
+            hm.src = "https://hm.baidu.com/hm.js?0cf4709148b070b8082191d2e456a1a3";
+        } else if (host.indexOf('lovesofttech.com') > 0) { // https://www.lovesofttech.com/
+            hm.src = "https://hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c";
+        } else {
+            hm.src = '';
+        }
+
+        if (hm.src !== '') {
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        }
+    })();
+</script>
+<!-- End Baidu Tongji -->
+
+
+
+<!-- Baidu Push -->
+<!-- 主动推送百度爬虫-->
+<script>
+    (function(){
+        if (window.location.host.indexOf('lovesofttech.com') < 0) {
+            return;
+        }
+
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+<!-- End Baidu Push -->
+
+
+    <meta charset="utf-8">
+    
+    
+    <link rel="canonical" href="https://www.lovesofttech.com/general/sts.html">
+    
+    
+    <title>sts（Spring Tool Suite）/Eclipse 使用 | 安迪陈技术日志，架构、感悟、系统分析、团队管理 | 自强不息，厚德载物</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="experience,STS,Eclipse">
+    <meta name="description" content="本文讲解的是 sts，但同样适用于 Eclipse，因为 sts 就是基于 Eclipse 的，相对 Eclipse，就是多了 spring 官方的插件而已。">
+<meta name="keywords" content="experience,STS,Eclipse">
+<meta property="og:type" content="article">
+<meta property="og:title" content="sts（Spring Tool Suite）&#x2F;Eclipse 使用">
+<meta property="og:url" content="https://www.lovesofttech.com/general/sts.html">
+<meta property="og:site_name" content="安迪陈技术日志，架构、感悟、系统分析、团队管理">
+<meta property="og:description" content="本文讲解的是 sts，但同样适用于 Eclipse，因为 sts 就是基于 Eclipse 的，相对 Eclipse，就是多了 spring 官方的插件而已。">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:image" content="https://www.lovesofttech.com/img/sts/stsWebProjectFacets.jpg">
+<meta property="og:image" content="https://www.lovesofttech.com/img/sts/stsConfigColorsAndFonts.jpg">
+<meta property="og:image" content="https://www.lovesofttech.com/img/sts/stsMavenSettings.jpg">
+<meta property="og:image" content="https://www.lovesofttech.com/img/sts/stsRefreshOnAccess.jpg">
+<meta property="og:image" content="https://www.lovesofttech.com/img/sts/stsKeys.jpg">
+<meta property="og:image" content="https://www.lovesofttech.com/img/sts/stsKeysForFormat.jpg">
+<meta property="og:image" content="https://www.lovesofttech.com/img/sts/stsPackagePresentation.png">
+<meta property="og:updated_time" content="2020-09-01T02:53:12.954Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="sts（Spring Tool Suite）&#x2F;Eclipse 使用">
+<meta name="twitter:description" content="本文讲解的是 sts，但同样适用于 Eclipse，因为 sts 就是基于 Eclipse 的，相对 Eclipse，就是多了 spring 官方的插件而已。">
+<meta name="twitter:image" content="https://www.lovesofttech.com/img/sts/stsWebProjectFacets.jpg">
+    
+        <link rel="alternative" href="/atom.xml" title="安迪陈技术日志，架构、感悟、系统分析、团队管理" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=201912302211">
+    <link rel="stylesheet" href="/css/header.css?v=201912302211">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu">
+  <div class="inner flex-row-vertical">
+    <!--<i class="icon icon-lg icon-close"></i>-->
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off" title="隐藏左侧导航">﹤<i class="icon icon-lg icon-navicon"></i></a>
+    <div class="brand-wrap" style="background-image:url(/img/bannerBackgroundLeft.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/myLogo.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">安迪陈</h5>
+          <a href="mailto:andy@lovesofttech.com" title="andy@lovesofttech.com" class="mail" rel="external nofollow noopener noreferrer" target="_blank">andy@lovesofttech.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articleClassify.html">
+                <i class="icon icon-th-list"></i>
+                文章分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articles.html">
+                <i class="icon icon-th-list articles"></i>
+                文章列表
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/java.html">
+                <i class="icon icon-th-list java"></i>
+                Java
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/database.html">
+                <i class="icon icon-th-list database"></i>
+                MySQL/MyBatis
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/linux.html">
+                <i class="icon icon-th-list linux"></i>
+                CentOS/linux
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/react.html">
+                <i class="icon icon-th-list React"></i>
+                React
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/lnmp.html">
+                <i class="icon icon-th-list LNMP"></i>
+                LNMP
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/git.html">
+                <i class="icon icon-th-list git"></i>
+                git
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/windows.html">
+                <i class="icon icon-th-list windows"></i>
+                windows
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/dailyLives.html">
+                <i class="icon icon-th-list dailyLives"></i>
+                工作 &amp; 生活
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-github"></i>
+                我的 github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://gitee.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link"></i>
+                我的 gitee
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://blog.csdn.net/runAndRun" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link CSDN"></i>
+                我的 CSDN
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/aboutMe.html">
+                <i class="icon icon-address-card"></i>
+                关于我
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+
+        <div class="navbar navbar-custom navbar-fixed-top">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" style="margin-left:10px;" id="menu-toggle" title="显示左侧导航"><i class="icon icon-lg icon-navicon"></i>﹥</a>
+            <ul class="nav navbar-nav navbar-right" id="navMenuTop">
+                <li>
+                    <a href="/">主页</a>
+                </li>
+                
+                    
+                        <li>
+                            <a href="/articleClassify.html" title="本博客的文章分类列表">文章分类</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/articles.html" title="本博客的所有文章列表">文章列表</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/java.html" title="Java 开发，文章目录">Java</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/database.html" title="日常开发中有关 MySQL、MyBatis 的一些经验总结">MySQL/MyBatis</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/linux.html" title="CentOS/linux，文章目录">CentOS/linux</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/react.html" title="React 技术栈（全家桶）学习心得分享，文章目录">React</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/about.html">关于</a>
+                        </li>
+                    
+                
+            </ul>
+        </div>
+
+        <div class="flex-col header-title ellipsis">sts（Spring Tool Suite）/Eclipse 使用</div>
+        
+        <div class="search-wrap" id="search-wrap" style="z-index: 2;">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back" style="width:33px;">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search" style="width:33px;">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare" style="z-index: 3;margin-right: 10px; width:30px;">
+                <i class="icon icon-lg icon-share-alt"></i>
+            </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h2 class="title">sts（Spring Tool Suite）/Eclipse 使用</h2>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-10-10T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2017-10-11
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/STS/">STS</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/STS/Eclipse/">Eclipse</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/STS/Eclipse/experience/">experience</a></li></ul></li></ul></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap" id="index-container">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc" style="z-index: 3;">
+            <h4><i class="fa fa-list-alt"></i>&nbsp;&nbsp;本文目录</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#关于-sts-Spring-Tool-Suite-的介绍，这里-copy-一段官网的"><span class="post-toc-number">1.</span> <span class="post-toc-text">关于 sts(Spring Tool Suite)的介绍，这里 copy 一段官网的</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#随着-spring5-0-的发布，官网-spring-io-改版了"><span class="post-toc-number">2.</span> <span class="post-toc-text">随着 spring5.0 的发布，官网 spring.io 改版了</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#关于-JDK-安装的经验"><span class="post-toc-number">3.</span> <span class="post-toc-text">关于 JDK 安装的经验</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#用-sts-导入项目，不能正确识别-web-工程的解决办法"><span class="post-toc-number">4.</span> <span class="post-toc-text">用 sts 导入项目，不能正确识别 web 工程的解决办法</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#引用-tomcat-组件的问题"><span class="post-toc-number">5.</span> <span class="post-toc-text">引用 tomcat 组件的问题</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#sts-新-workspace-设置，以及导入一个旧项目相关的操作。"><span class="post-toc-number">6.</span> <span class="post-toc-text">sts 新 workspace 设置，以及导入一个旧项目相关的操作。</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#字体设置。"><span class="post-toc-number">6.1.</span> <span class="post-toc-text">字体设置。</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#修改代码编辑区背景配色"><span class="post-toc-number">6.2.</span> <span class="post-toc-text">修改代码编辑区背景配色</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#创建-导入-maven-项目时-eclipse默认-jdk-版本配置"><span class="post-toc-number">6.3.</span> <span class="post-toc-text">创建/导入 maven 项目时 eclipse默认 jdk 版本配置</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Maven-配置文件目录"><span class="post-toc-number">6.4.</span> <span class="post-toc-text">Maven 配置文件目录</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#文件在-sts-之外被修改，sts-实时更新。"><span class="post-toc-number">6.5.</span> <span class="post-toc-text">文件在 sts 之外被修改，sts 实时更新。</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#修改快捷键"><span class="post-toc-number">6.6.</span> <span class="post-toc-text">修改快捷键</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#代码显示方式-按-package-分或者按文件夹分"><span class="post-toc-number">6.7.</span> <span class="post-toc-text">代码显示方式 按 package 分或者按文件夹分</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+    
+
+<article id="post-general/sts" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">sts（Spring Tool Suite）/Eclipse 使用</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017年10月11日 0:00" datetime="2017-10-10T16:00:00.000Z" itemprop="datePublished">2017-10-11</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/STS/">STS</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/STS/Eclipse/">Eclipse</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/STS/Eclipse/experience/">experience</a></li></ul></li></ul></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" style="display:none">
+    阅读量：<span id="busuanzi_value_page_pv"></span>次
+</span>
+
+
+    <span>|</span>
+    <span class="post-count">字数：1.7k</span>
+    <span>|</span>
+    <span class="post-count">阅读时长：大约7分钟</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>本文讲解的是 sts，但同样适用于 Eclipse，因为 sts 就是基于 Eclipse 的，相对 Eclipse，就是多了 spring 官方的插件而已。<br><a id="more"></a></p>
+<h1 id="关于-sts-Spring-Tool-Suite-的介绍，这里-copy-一段官网的"><a href="#关于-sts-Spring-Tool-Suite-的介绍，这里-copy-一段官网的" class="headerlink" title="关于 sts(Spring Tool Suite)的介绍，这里 copy 一段官网的"></a>关于 sts(Spring Tool Suite)的介绍，这里 copy 一段官网的</h1><ul>
+<li>The Spring Tool Suite is an Eclipse-based development environment that is customized for developing Spring applications. It provides a ready-to-use environment to implement, debug, run, and deploy your Spring applications, including integrations for Pivotal tc Server, Pivotal Cloud Foundry, Git, Maven, AspectJ, and comes on top of the latest Eclipse releases.</li>
+<li>Included with the Spring Tool Suite is the developer edition of Pivotal tc Server, the drop-in replacement for Apache Tomcat that’s optimized for Spring. With its Spring Insight console, tc Server Developer Edition provides a graphical real-time view of application performance metrics that lets developers identify and diagnose problems from their desktops.</li>
+<li>The Spring Tool suite supports application targeting to local, virtual and cloud-based servers. It is freely available for development and internal business operations use with no time limits, fully open-source and licensed under the terms of the Eclipse Public License.</li>
+</ul>
+<p>更详细的，<a href="https://spring.io/tools/sts/" rel="external nofollow noopener noreferrer" target="_blank">请到官网查看</a></p>
+<h1 id="随着-spring5-0-的发布，官网-spring-io-改版了"><a href="#随着-spring5-0-的发布，官网-spring-io-改版了" class="headerlink" title="随着 spring5.0 的发布，官网 spring.io 改版了"></a>随着 spring5.0 的发布，官网 spring.io 改版了</h1><p>以前在首页的大概中间部分，能看到 sts 的介绍并可以导航到下载页面，现在改版之后，没有了，不过，通过搜索 sts 关键字，立即搜索到下载页面链接了。<br><a href="https://spring.io/tools/sts/all/" rel="external nofollow noopener noreferrer" target="_blank">下载页面</a></p>
+<h1 id="关于-JDK-安装的经验"><a href="#关于-JDK-安装的经验" class="headerlink" title="关于 JDK 安装的经验"></a>关于 JDK 安装的经验</h1><p>在安装 JDK 的时候，选择的安装目录最好不要包含空格和中文，这样可以避免很多不必要的麻烦。笔者一般安装到 C 盘根目录下的 java 目录，如果项目需要，可以安装不同的版本。</p>
+<h1 id="用-sts-导入项目，不能正确识别-web-工程的解决办法"><a href="#用-sts-导入项目，不能正确识别-web-工程的解决办法" class="headerlink" title="用 sts 导入项目，不能正确识别 web 工程的解决办法"></a>用 sts 导入项目，不能正确识别 web 工程的解决办法</h1><ol>
+<li>问题描述：用 sts 导入普通的、非 maven 管理的、基于 spring4.3.2 的 sts(eclipse) web 工程，设置 tomcat server 启动的时候，没有可选的启动项目。</li>
+<li>问题原因：据我分析，可能是之前的 sts(eclipse) 版本跟我用的不一样，或者即使是一样的，由于 sts(eclipse) 自身的原因，导入时没有正确的加载已经存在的项目配置信息。</li>
+<li>问题解决：<ul>
+<li>删除目录：【.settings】、【bin】、【Servers】</li>
+<li>删除文件：【.classpath】、【.project】</li>
+<li>重新导入。</li>
+</ul>
+</li>
+</ol>
+<h1 id="引用-tomcat-组件的问题"><a href="#引用-tomcat-组件的问题" class="headerlink" title="引用 tomcat 组件的问题"></a>引用 tomcat 组件的问题</h1><p>项目中用到了 tomcat 的组件：tomcat-util.jar，该文件在 tomcat 根目录下的 lib 目录下。</p>
+<ul>
+<li>可以将 tomcat-util.jar copy 至 Web/lib 目录下，在用 sts 导入工程的时候，该目录默认会当作 lib 来引用。</li>
+<li>如果你的这个项目最终是要发布到 tomcat 下运行，那么，可以不用 copy 这个文件至 Web/lib 下，按下面的操作设置即可。<br>  项目右键 -&gt; 属性 -&gt; Project Facets<br>  <img src="/img/sts/stsWebProjectFacets.jpg" alt="Project Facets" title="sts 项目的 Project Facets"><br>  在 sts 中，在 Project Facets 的 Runtimes 中添加  tomcat 并勾选之后，在项目中可直接引用，如：  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import org.apache.tomcat.util.codec.XXX</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h1 id="sts-新-workspace-设置，以及导入一个旧项目相关的操作。"><a href="#sts-新-workspace-设置，以及导入一个旧项目相关的操作。" class="headerlink" title="sts 新 workspace 设置，以及导入一个旧项目相关的操作。"></a>sts 新 workspace 设置，以及导入一个旧项目相关的操作。</h1><p>需要用 sts 打开旧项目调试，自从用 IDEA 之后，没再用 sts 差不多已经超过一年了，今天再次需要用，发现好多地方都已经不熟悉了，其实 sts 也还是蛮优秀蛮好用的。现在把一些常用设置以及需导入旧项目的一些操作整理了一下，方便自己同时也方便有同样需求的人。</p>
+<h2 id="字体设置。"><a href="#字体设置。" class="headerlink" title="字体设置。"></a>字体设置。</h2><p>推荐并提供下载： <a href="/download/yaheiconsolashybrid.7z">YaHei Consolas Hybrid（雅黑编程字体）</a>，非常适合编程的一款字体，支持中文。如下图，安装好字体之后，在下拉列表中可以找到，不过，将”YaHei Consolas Hybrid“粘贴到 Font 下面的输入框里可以快速定位，不用在下拉列表中翻来翻去的找了。<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/sts/stsConfigColorsAndFonts.jpg" alt="设置雅黑编程字体" title="设置雅黑编程字体">
+                </div>
+                <div class="image-caption">设置雅黑编程字体</div>
+            </figure></p>
+<h2 id="修改代码编辑区背景配色"><a href="#修改代码编辑区背景配色" class="headerlink" title="修改代码编辑区背景配色"></a>修改代码编辑区背景配色</h2><p>有两种方法 </p>
+<ol>
+<li>去<a href="http://eclipsecolorthemes.org/" rel="external nofollow noopener noreferrer" target="_blank">官方网站</a>（<a href="http://eclipsecolorthemes.org/）上下载自己想要的配色方案。但是这个方法一次只能添加一个配色方案。" rel="external nofollow noopener noreferrer" target="_blank">http://eclipsecolorthemes.org/）上下载自己想要的配色方案。但是这个方法一次只能添加一个配色方案。</a> </li>
+<li>打开 sts，help-&gt;Install new software, 输入 <a href="http://eclipse-color-theme.github.com/update，next" rel="external nofollow noopener noreferrer" target="_blank">http://eclipse-color-theme.github.com/update，next</a> -&gt; next 等待安装完成即可。然后 window -&gt; Preferences -&gt; General -&gt; Appearance-&gt; Color Theme，选择自己喜欢的。<br>其实软件有自带多个可选主题，在 window -&gt; Preferences -&gt; General -&gt; Appearance，点击就能看到。本人认为默认的主题就挺，黑色主题不如 IDEA 自带的黑色主题顺眼，包括通过上面两步得到的主题。可能是用 IDEA 自带的黑色主题太久，已经深入我心的原因吧。 </li>
+</ol>
+<h2 id="创建-导入-maven-项目时-eclipse默认-jdk-版本配置"><a href="#创建-导入-maven-项目时-eclipse默认-jdk-版本配置" class="headerlink" title="创建/导入 maven 项目时 eclipse默认 jdk 版本配置"></a>创建/导入 maven 项目时 eclipse默认 jdk 版本配置</h2><p>maven 的 conf\setting.xml 文件中找到 jdk 注释的地方，打开修改即可，如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;  </span><br><span class="line">  </span><br><span class="line">&lt;settings xmlns=&quot;http://maven.apache.org/SETTINGS/1.0.0&quot;  </span><br><span class="line">    xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;  </span><br><span class="line">    xsi:schemaLocation=&quot;http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd&quot;&gt;  </span><br><span class="line">  </span><br><span class="line">    &lt;localRepository&gt;  </span><br><span class="line">        D:\maven\repository  </span><br><span class="line">    &lt;/localRepository&gt;  </span><br><span class="line">    &lt;profiles&gt;  </span><br><span class="line">        &lt;profile&gt;  </span><br><span class="line">            &lt;id&gt;jdk-1.8&lt;/id&gt;  </span><br><span class="line">  </span><br><span class="line">            &lt;activation&gt;  </span><br><span class="line">                &lt;jdk&gt;1.8&lt;/jdk&gt;  </span><br><span class="line">            &lt;/activation&gt;  </span><br><span class="line">  </span><br><span class="line">            &lt;properties&gt;  </span><br><span class="line">                &lt;maven.compiler.source&gt;1.8&lt;/maven.compiler.source&gt;  </span><br><span class="line">                &lt;maven.compiler.target&gt;1.8&lt;/maven.compiler.target&gt;  </span><br><span class="line">                &lt;maven.compiler.compilerVersion&gt;1.8&lt;/maven.compiler.compilerVersion&gt;  </span><br><span class="line">            &lt;/properties&gt;  </span><br><span class="line">        &lt;/profile&gt;  </span><br><span class="line">    &lt;/profiles&gt;  </span><br><span class="line">&lt;/settings&gt;</span><br></pre></td></tr></table></figure></p>
+<h2 id="Maven-配置文件目录"><a href="#Maven-配置文件目录" class="headerlink" title="Maven 配置文件目录"></a>Maven 配置文件目录</h2><ul>
+<li>一般改得最多的，就是依赖下载的保存目录和依赖仓库国内镜像。</li>
+<li>而在 sts 的新 workspace，一般会默认到用户目录，所以，配置好下载的依赖保存目录之后，直接 copy 一份儿到这个默认目录，省得每次都手动修改。IDEA 也一样，新项目的 Maven 配置目录，默认也指向用户目录了。<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/sts/stsMavenSettings.jpg" alt="Maven 配置文件默认目录" title="Maven">
+                </div>
+                <div class="image-caption">Maven</div>
+            </figure>
+</li>
+</ul>
+<h2 id="文件在-sts-之外被修改，sts-实时更新。"><a href="#文件在-sts-之外被修改，sts-实时更新。" class="headerlink" title="文件在 sts 之外被修改，sts 实时更新。"></a>文件在 sts 之外被修改，sts 实时更新。</h2><ul>
+<li>sts 默认是不会实时更新的，这其实很不方便，因为有时候需要用其它编辑器修改一下如 html 文件，或者团队开发时，从源代码管理服务器获取到最新的文件。一般的做法是刷新（F5）一下，但是实际情况是多个文件有修改，刷新一下并不能全部重新加载。</li>
+<li>可以通过设置，让 sts 自动刷新。<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/sts/stsRefreshOnAccess.jpg" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+</li>
+</ul>
+<h2 id="修改快捷键"><a href="#修改快捷键" class="headerlink" title="修改快捷键"></a>修改快捷键</h2><p>使用过程中，我最想改的就是文件切换快捷键，sts 默认是 Ctrl+F6，而 IDEA 默认的是 Ctrl+tab，IDEA 的快捷键更加文件，仅用左手就可以很容易的做到，而且跟 windows 的软件切换比较接近。sts 的 Ctrl+F6，只有那些拥有超级大的手的人可以单手操作~~~以下，为修改方法。<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/sts/stsKeys.jpg" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure><br>其次是代码格式化的快捷键，sts 默认是 Ctrl+Shift+F，而 IDEA 的是 Ctrl+Alt+L。<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/sts/stsKeysForFormat.jpg" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure><br>其它的，自己探索吧…</p>
+<h2 id="代码显示方式-按-package-分或者按文件夹分"><a href="#代码显示方式-按-package-分或者按文件夹分" class="headerlink" title="代码显示方式 按 package 分或者按文件夹分"></a>代码显示方式 按 package 分或者按文件夹分</h2><p>个人觉得，按 package 分太多了，还是按文件夹显示更符合 windows 的操作习惯。IDEA 默认就是这种方式，而 sts 默认是按 package 显示的。</p>
+<ul>
+<li>默认是 Flat，即按 package 显示</li>
+<li>选 Hierarchical 按文件夹显示<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/sts/stsPackagePresentation.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+</li>
+</ul>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-09-01T02:53:12.954Z" itemprop="dateUpdated">2020年9月1日 10:53</time>
+</span><br>
+
+
+        转载请注明出处：<a href="/general/sts.html" target="_blank" rel="external">https://www.lovesofttech.com/general/sts.html</a>
+    </div>
+    <footer>
+        <a href="https://www.lovesofttech.com">
+            <img src="/img/myLogo.jpg" alt="安迪陈">
+            安迪陈
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Eclipse/">Eclipse</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/STS/">STS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/experience/">experience</a></li></ul>
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/general/sts.html&title=《sts（Spring Tool Suite）/Eclipse 使用》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/general/sts.html&title=《sts（Spring Tool Suite）/Eclipse 使用》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=本文讲解的是 sts，但同样适用于 Eclipse，因为 sts 就是基于 Eclipse 的，相对 Eclipse，就是多了 spring 官方的插件而已。" data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/general/sts.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《sts（Spring Tool Suite）/Eclipse 使用》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/general/sts.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/general/sts.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/lnmp/nginxConfig.html" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">nginx 配置相关</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/general/markdown.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">MarkDown 使用经验</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+    
+    
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="bottom">
+        <p>
+            <span>安迪陈技术日志，架构、感悟、系统分析、团队管理 &copy; 2017 - 2020</span>
+            <span>
+                Power by <a href="https://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>&nbsp;
+                Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank" rel="external nofollow noopener noreferrer">indigo</a>
+            </span>
+            <span>
+                <a href="http://www.beian.miit.gov.cn" target="_blank" rel="external nofollow noopener noreferrer">蜀ICP备17041860号</a>
+            </span>
+            
+            <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            </p><p>
+                <span>
+                    统计始于：2019-03-06
+                </span>
+                <span id="busuanzi_container_site_uv" style="display:none">
+                    访客数：<span id="busuanzi_value_site_uv"></span>
+                </span>
+                <span id="busuanzi_container_site_pv" style="display:none">
+                    访问量：<span id="busuanzi_value_site_pv"></span>
+                </span>
+            
+            
+                <span class="post-count">累计字数：309.2k</span>
+            
+                <span><a href="/general/blogLog.html"><i class="fas fa-pen-alt"></i>&nbsp;博客日志</a></span>
+            </p>
+        <p></p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light" title="回到顶部"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/general/sts.html&title=《sts（Spring Tool Suite）/Eclipse 使用》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/general/sts.html&title=《sts（Spring Tool Suite）/Eclipse 使用》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=本文讲解的是 sts，但同样适用于 Eclipse，因为 sts 就是基于 Eclipse 的，相对 Eclipse，就是多了 spring 官方的插件而已。" data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/general/sts.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《sts（Spring Tool Suite）/Eclipse 使用》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/general/sts.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/general/sts.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACLklEQVR42u3aQW7DMAwFUd//0i7QVYEU8nxSBmJ6tAoa1dbTghFFHgce5+/4+/lzfM5f/339zOOOIUOGjMcyzuVYMzibzyFb9s8zZciQ8QJGuhTyLQ+jZPsu1ixDhgwZOBDXAmsnWMuQIUMGPxquA+sZDhkyZMioJbH8Nf2U9cZcXIYMGQ9k7F3E3s+31zdkyJDx9YyzMQi4E9CDlciQIWM0g5ckO9dw5Ni3jqIoEMuQIWMoo1ZWTJ9Tu8gL3itDhozRjFp7xHoOORpy/LaEVoYMGeMYvFSZNoSlBU6yEhkyZLyBQZLSWnzrlC2LlVgZMmSMZuwqA/DtSLfgIgTLkCHjBYz0IixtxeDUtLQpQ4aM2YzaotNkNZ3DC5xHZ+9lyJDxEEYacNPEsnPojAurMmTIeAEjTTXXBUt+NCTJMJovQ4aMoYxa4Euv9WtPJg0cMmTIeBuj1jZB2in6R8kLtgwZMl7A4MGRXIdx2K5ypgwZMmYzOoG10x7ReVfcMyJDhoxBjFqzV7qUWhkA/STIkCHjBQxeGCDgtC2Mly2Ld4cyZMh4OIMnn7WQ3Wk+C5otZMiQMZRxhoMvqxNk05KDDBkyZjP6DRbpBVl64OtsmQwZMiYxdgXZNCktnmH5v8mQIWMcI72UTw9qtfQ4OFbKkCFDBiaRYM2bM4KwLkOGDBlbaxF80cU8W4YMGUMZabNXOrN2hReUAWTIkDGa0QnKPEG9I3xv+22RIUPG9zJ+AFSzIuDltC22AAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.5.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.5.2" async></script>
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '安迪陈技术日志';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '欢迎回来';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

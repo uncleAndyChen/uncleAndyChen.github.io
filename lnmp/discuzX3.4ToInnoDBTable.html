@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<!--<script async src="//hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c"></script>-->
+<!-- 统计-->
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var host = window.location.host;
+        var hm = document.createElement("script");
+
+        if (host.indexOf('gitee.io') > 0) { // https://uncleandychen.gitee.io/
+            hm.src = "https://hm.baidu.com/hm.js?0cf4709148b070b8082191d2e456a1a3";
+        } else if (host.indexOf('lovesofttech.com') > 0) { // https://www.lovesofttech.com/
+            hm.src = "https://hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c";
+        } else {
+            hm.src = '';
+        }
+
+        if (hm.src !== '') {
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        }
+    })();
+</script>
+<!-- End Baidu Tongji -->
+
+
+
+<!-- Baidu Push -->
+<!-- 主动推送百度爬虫-->
+<script>
+    (function(){
+        if (window.location.host.indexOf('lovesofttech.com') < 0) {
+            return;
+        }
+
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+<!-- End Baidu Push -->
+
+
+    <meta charset="utf-8">
+    
+    
+    <link rel="canonical" href="https://www.lovesofttech.com/lnmp/discuzX3.4ToInnoDBTable.html">
+    
+    
+    <title>discuzX3.4 数据库由阿里云自建 MySQL 转移至 RDS，填坑日志 | 安迪陈技术日志，架构、感悟、系统分析、团队管理 | 自强不息，厚德载物</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="CentOS,php,discuzX">
+    <meta name="description" content="如题">
+<meta name="keywords" content="CentOS,php,discuzX">
+<meta property="og:type" content="article">
+<meta property="og:title" content="discuzX3.4 数据库由阿里云自建 MySQL 转移至 RDS，填坑日志">
+<meta property="og:url" content="https://www.lovesofttech.com/lnmp/discuzX3.4ToInnoDBTable.html">
+<meta property="og:site_name" content="安迪陈技术日志，架构、感悟、系统分析、团队管理">
+<meta property="og:description" content="如题">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2020-09-01T02:53:13.055Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="discuzX3.4 数据库由阿里云自建 MySQL 转移至 RDS，填坑日志">
+<meta name="twitter:description" content="如题">
+    
+        <link rel="alternative" href="/atom.xml" title="安迪陈技术日志，架构、感悟、系统分析、团队管理" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=201912302211">
+    <link rel="stylesheet" href="/css/header.css?v=201912302211">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu">
+  <div class="inner flex-row-vertical">
+    <!--<i class="icon icon-lg icon-close"></i>-->
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off" title="隐藏左侧导航">﹤<i class="icon icon-lg icon-navicon"></i></a>
+    <div class="brand-wrap" style="background-image:url(/img/bannerBackgroundLeft.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/myLogo.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">安迪陈</h5>
+          <a href="mailto:andy@lovesofttech.com" title="andy@lovesofttech.com" class="mail" rel="external nofollow noopener noreferrer" target="_blank">andy@lovesofttech.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articleClassify.html">
+                <i class="icon icon-th-list"></i>
+                文章分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articles.html">
+                <i class="icon icon-th-list articles"></i>
+                文章列表
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/java.html">
+                <i class="icon icon-th-list java"></i>
+                Java
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/database.html">
+                <i class="icon icon-th-list database"></i>
+                MySQL/MyBatis
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/linux.html">
+                <i class="icon icon-th-list linux"></i>
+                CentOS/linux
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/react.html">
+                <i class="icon icon-th-list React"></i>
+                React
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/lnmp.html">
+                <i class="icon icon-th-list LNMP"></i>
+                LNMP
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/git.html">
+                <i class="icon icon-th-list git"></i>
+                git
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/windows.html">
+                <i class="icon icon-th-list windows"></i>
+                windows
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/dailyLives.html">
+                <i class="icon icon-th-list dailyLives"></i>
+                工作 &amp; 生活
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-github"></i>
+                我的 github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://gitee.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link"></i>
+                我的 gitee
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://blog.csdn.net/runAndRun" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link CSDN"></i>
+                我的 CSDN
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/aboutMe.html">
+                <i class="icon icon-address-card"></i>
+                关于我
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+
+        <div class="navbar navbar-custom navbar-fixed-top">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" style="margin-left:10px;" id="menu-toggle" title="显示左侧导航"><i class="icon icon-lg icon-navicon"></i>﹥</a>
+            <ul class="nav navbar-nav navbar-right" id="navMenuTop">
+                <li>
+                    <a href="/">主页</a>
+                </li>
+                
+                    
+                        <li>
+                            <a href="/articleClassify.html" title="本博客的文章分类列表">文章分类</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/articles.html" title="本博客的所有文章列表">文章列表</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/java.html" title="Java 开发，文章目录">Java</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/database.html" title="日常开发中有关 MySQL、MyBatis 的一些经验总结">MySQL/MyBatis</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/linux.html" title="CentOS/linux，文章目录">CentOS/linux</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/react.html" title="React 技术栈（全家桶）学习心得分享，文章目录">React</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/about.html">关于</a>
+                        </li>
+                    
+                
+            </ul>
+        </div>
+
+        <div class="flex-col header-title ellipsis">discuzX3.4 数据库由阿里云自建 MySQL 转移至 RDS，填坑日志</div>
+        
+        <div class="search-wrap" id="search-wrap" style="z-index: 2;">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back" style="width:33px;">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search" style="width:33px;">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare" style="z-index: 3;margin-right: 10px; width:30px;">
+                <i class="icon icon-lg icon-share-alt"></i>
+            </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h2 class="title">discuzX3.4 数据库由阿里云自建 MySQL 转移至 RDS，填坑日志</h2>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-07-18T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2018-07-19
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/CentOS/">CentOS</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/CentOS/php/">php</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/CentOS/php/discuzX/">discuzX</a></li></ul></li></ul></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap" id="index-container">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc" style="z-index: 3;">
+            <h4><i class="fa fa-list-alt"></i>&nbsp;&nbsp;本文目录</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#场景"><span class="post-toc-number">1.</span> <span class="post-toc-text">场景</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#更多关于-RDS-的信息"><span class="post-toc-number">2.</span> <span class="post-toc-text">更多关于 RDS 的信息</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#批量生成修改所有表的存储引擎为-InnoDB-的脚本语句"><span class="post-toc-number">3.</span> <span class="post-toc-text">批量生成修改所有表的存储引擎为 InnoDB 的脚本语句</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#生成结果"><span class="post-toc-number">4.</span> <span class="post-toc-text">生成结果</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#执行过程中，下面注释掉的两张表报错"><span class="post-toc-number">5.</span> <span class="post-toc-text">执行过程中，下面注释掉的两张表报错</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#建表脚本，如果-ENGINE-MyISAM-则正常，改为-InnoDB-则报错"><span class="post-toc-number">6.</span> <span class="post-toc-text">建表脚本，如果 ENGINE=MyISAM 则正常，改为 InnoDB 则报错</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#用-MySQL-Workbench-操作，得到解决，大赞-MySQL-Workbench"><span class="post-toc-number">7.</span> <span class="post-toc-text">用 MySQL Workbench 操作，得到解决，大赞 MySQL Workbench</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#解决方案，重要！"><span class="post-toc-number">8.</span> <span class="post-toc-text">解决方案，重要！</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#查看数据库存储引擎"><span class="post-toc-number">9.</span> <span class="post-toc-text">查看数据库存储引擎</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#查看表的存储引擎"><span class="post-toc-number">10.</span> <span class="post-toc-text">查看表的存储引擎</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#MySQL-存储引擎参考"><span class="post-toc-number">11.</span> <span class="post-toc-text">MySQL 存储引擎参考</span></a></li></ol>
+        </nav>
+    </aside>
+    
+
+<article id="post-lnmp/discuzX3.4ToInnoDBTable" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">discuzX3.4 数据库由阿里云自建 MySQL 转移至 RDS，填坑日志</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018年07月19日 0:00" datetime="2018-07-18T16:00:00.000Z" itemprop="datePublished">2018-07-19</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/CentOS/">CentOS</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/CentOS/php/">php</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/CentOS/php/discuzX/">discuzX</a></li></ul></li></ul></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" style="display:none">
+    阅读量：<span id="busuanzi_value_page_pv"></span>次
+</span>
+
+
+    <span>|</span>
+    <span class="post-count">字数：2.8k</span>
+    <span>|</span>
+    <span class="post-count">阅读时长：大约15分钟</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>如题<br><a id="more"></a></p>
+<h1 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h1><p>将 discuzX3.4 的数据从阿里云自建数据库导出来，然后导入到 RDS。因为阿里云的 RDS 不支持 MyISAM 和 MEMORY 存储引擎，所以报如下错误<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">ERROR 3161 (HY000): Storage engine MyISAM is disabled (Table creation is disallowed).</span><br><span class="line">ERROR 3161 (HY000): Storage engine MEMORY is disabled (Table creation is disallowed).</span><br><span class="line">ERROR 1146 (42S02): Table &apos;hellojz.forum_threaddisablepos&apos; doesn&apos;t exist</span><br><span class="line"></span><br><span class="line">ERROR 3161 (HY000): Storage engine MEMORY is disabled (Table creation is disallowed).</span><br><span class="line">ERROR 1146 (42S02): Table &apos;hellojz.ucenter_vars&apos; doesn&apos;t exist</span><br><span class="line">...</span><br></pre></td></tr></table></figure></p>
+<p>查看了 RDS 的官方文档，声称 MyISAM 会自动转为 InnoDB，确实已经将绝大部分表自动转了，但是依然有部分为 MyISAM 的表未自动转换，同时 discuz 还有表使用的 MEMORY 的存储引擎，所以，导入数据以失败告终。<br><a href="https://help.aliyun.com/knowledge_detail/41731.html" rel="external nofollow noopener noreferrer" target="_blank">RDS for MySQL默认关闭MyISAM引擎</a></p>
+<blockquote>
+<p>原文：MyISAM引擎表不支持事务，读写操作会相互冲突，仅支持表级别锁。当其上的查询或者写入操作时间比较长的时候，会阻塞其他操作，容易导致连接堆积，而且在crash 后存在数据丢失的风险，因此RDS for MySQL推荐使用 Innodb 引擎。<br>  目前RDS for MySQL如果导入表、新建表是MyISAM引擎或调整表引擎为MyISAM，会自动修改为Innodb引擎。</p>
+</blockquote>
+<p><a href="https://help.aliyun.com/knowledge_detail/52558.html?spm=a2c4g.11186623.4.1.eF1vRc" rel="external nofollow noopener noreferrer" target="_blank">为什么 RDS for MySQL 不支持 MyISAM 引擎？</a></p>
+<blockquote>
+<p>原文：RDS for MySQL 不支持 MyISAM 引擎的主要原因有如下几个：</p>
+<ul>
+<li>MyISAM 对数据完整性的保护存在缺陷，且这些缺陷会导致数据库数据的损坏甚至丢失。另外，这些缺陷很多是设计问题，无法在不破坏兼容性的前提下修复。</li>
+<li>MyISAM 在出现数据损害情况下，很多都需要手工修复，无法适用于产品服务的方式。</li>
+<li>对于 RDS 的存储而言，MyISAM 对于 I/O 的操作不是最优化的方案，导致 MyISAM 的性能相对于 InnoDB 的优势不大。</li>
+<li>MyISAM 向 InnoDB 的迁移代价低，大多数应用仅需要改动建表的代码即可完成迁移。</li>
+<li>MyISAM 的发展在向 InnoDB 转移，在最新的 5.7 版本中 MySQL 可以完全不是 MyISAM，系统的数控也被转移到了 InnoDB。</li>
+</ul>
+</blockquote>
+<h1 id="更多关于-RDS-的信息"><a href="#更多关于-RDS-的信息" class="headerlink" title="更多关于 RDS 的信息"></a>更多关于 RDS 的信息</h1><p>请点击：<a href="https://help.aliyun.com/product/26090.html?spm=a2c4g.11186623.3.1.1ai9Jq" rel="external nofollow noopener noreferrer" target="_blank">云数据库 RDS 版</a></p>
+<h1 id="批量生成修改所有表的存储引擎为-InnoDB-的脚本语句"><a href="#批量生成修改所有表的存储引擎为-InnoDB-的脚本语句" class="headerlink" title="批量生成修改所有表的存储引擎为 InnoDB 的脚本语句"></a>批量生成修改所有表的存储引擎为 InnoDB 的脚本语句</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">USE dz;</span><br><span class="line">SELECT CONCAT( &apos;ALTER TABLE &apos; ,TABLE_NAME ,&apos; ENGINE=InnoDB;&apos;) as alertScript</span><br><span class="line">FROM information_schema.TABLES AS t  </span><br><span class="line">WHERE TABLE_SCHEMA = &apos;dz&apos; AND TABLE_TYPE = &apos;BASE TABLE&apos;;</span><br></pre></td></tr></table></figure>
+<h1 id="生成结果"><a href="#生成结果" class="headerlink" title="生成结果"></a>生成结果</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br></pre></td><td class="code"><pre><span class="line">ALTER TABLE common_admincp_cmenu ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE common_admincp_group ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE common_admincp_member ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE common_admincp_perm ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE common_admincp_session ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE common_admingroup ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE common_adminnote ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE common_advertisement ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE common_advertisement_custom ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE common_banned ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE common_block ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE common_block_favorite ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE common_block_item ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE common_block_item_data ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE common_block_permission ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE common_block_pic ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE common_block_style ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE common_block_xml ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE common_cache ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE common_card ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE common_card_log ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE common_card_type ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE common_connect_guest ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE common_credit_log ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE common_credit_log_field ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE common_credit_rule ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE common_credit_rule_log ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE common_credit_rule_log_field ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE common_cron ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE common_devicetoken ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE common_district ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE common_diy_data ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE common_domain ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE common_failedip ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE common_failedlogin ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE common_friendlink ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE common_grouppm ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE common_invite ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE common_magic ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE common_magiclog ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE common_mailcron ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE common_mailqueue ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE common_member ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE common_member_action_log ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE common_member_connect ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE common_member_count ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE common_member_crime ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE common_member_field_forum ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE common_member_field_home ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE common_member_forum_buylog ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE common_member_grouppm ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE common_member_log ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE common_member_magic ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE common_member_medal ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE common_member_newprompt ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE common_member_profile ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE common_member_profile_setting ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE common_member_security ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE common_member_secwhite ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE common_member_stat_field ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE common_member_status ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE common_member_validate ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE common_member_verify ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE common_member_verify_info ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE common_member_wechat ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE common_member_wechatmp ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE common_myapp ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE common_myinvite ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE common_mytask ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE common_nav ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE common_onlinetime ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE common_optimizer ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE common_patch ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE common_plugin ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE common_pluginvar ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE common_process ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE common_regip ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE common_relatedlink ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE common_remote_port ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE common_report ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE common_searchindex ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE common_seccheck ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE common_secquestion ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE common_session ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE common_setting ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE common_smiley ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE common_sphinxcounter ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE common_stat ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE common_statuser ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE common_style ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE common_stylevar ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE common_syscache ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE common_tag ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE common_tagitem ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE common_task ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE common_taskvar ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE common_template ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE common_template_block ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE common_template_permission ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE common_uin_black ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE common_usergroup ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE common_usergroup_field ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE common_visit ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE common_word ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE common_word_type ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE connect_disktask ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE connect_feedlog ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE connect_memberbindlog ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE connect_postfeedlog ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE connect_tthreadlog ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE forum_access ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE forum_activity ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE forum_activityapply ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE forum_announcement ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE forum_attachment ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE forum_attachment_0 ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE forum_attachment_1 ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE forum_attachment_2 ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE forum_attachment_3 ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE forum_attachment_4 ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE forum_attachment_5 ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE forum_attachment_6 ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE forum_attachment_7 ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE forum_attachment_8 ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE forum_attachment_9 ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE forum_attachment_exif ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE forum_attachment_unused ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE forum_attachtype ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE forum_bbcode ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE forum_collection ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE forum_collectioncomment ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE forum_collectionfollow ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE forum_collectioninvite ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE forum_collectionrelated ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE forum_collectionteamworker ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE forum_collectionthread ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE forum_creditslog ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE forum_debate ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE forum_debatepost ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE forum_faq ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE forum_filter_post ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE forum_forum ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE forum_forum_threadtable ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE forum_forumfield ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE forum_forumrecommend ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE forum_groupcreditslog ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE forum_groupfield ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE forum_groupinvite ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE forum_grouplevel ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE forum_groupuser ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE forum_hotreply_member ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE forum_hotreply_number ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE forum_imagetype ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE forum_medal ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE forum_medallog ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE forum_memberrecommend ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE forum_moderator ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE forum_modwork ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE forum_newthread ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE forum_onlinelist ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE forum_order ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE forum_poll ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE forum_polloption ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE forum_polloption_image ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE forum_pollvoter ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE forum_post ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE forum_post_location ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE forum_post_moderate ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE forum_post_tableid ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE forum_postcache ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE forum_postcomment ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE forum_postlog ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE forum_poststick ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE forum_promotion ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE forum_ratelog ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE forum_relatedthread ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE forum_replycredit ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE forum_rsscache ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE forum_sofa ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE forum_spacecache ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE forum_statlog ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE forum_thread ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE forum_thread_moderate ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE forum_threadaddviews ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE forum_threadcalendar ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE forum_threadclass ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE forum_threadclosed ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE forum_threaddisablepos ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE forum_threadhidelog ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE forum_threadhot ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE forum_threadimage ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE forum_threadlog ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE forum_threadmod ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE forum_threadpartake ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE forum_threadpreview ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE forum_threadprofile ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE forum_threadprofile_group ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE forum_threadrush ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE forum_threadtype ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE forum_trade ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE forum_tradecomment ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE forum_tradelog ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE forum_typeoption ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE forum_typeoptionvar ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE forum_typevar ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE forum_warning ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE home_album ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE home_album_category ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE home_appcreditlog ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE home_blacklist ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE home_blog ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE home_blog_category ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE home_blog_moderate ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE home_blogfield ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE home_class ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE home_click ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE home_clickuser ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE home_comment ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE home_comment_moderate ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE home_docomment ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE home_doing ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE home_doing_moderate ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE home_favorite ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE home_feed ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE home_feed_app ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE home_follow ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE home_follow_feed ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE home_follow_feed_archiver ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE home_friend ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE home_friend_request ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE home_friendlog ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE home_notification ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE home_pic ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE home_pic_moderate ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE home_picfield ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE home_poke ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE home_pokearchive ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE home_share ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE home_share_moderate ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE home_show ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE home_specialuser ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE home_userapp ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE home_userappfield ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE home_visitor ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE mobile_setting ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE mobile_wechat_authcode ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE mobile_wechat_masssend ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE mobile_wechat_resource ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE mobile_wsq_threadlist ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE portal_article_content ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE portal_article_count ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE portal_article_moderate ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE portal_article_related ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE portal_article_title ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE portal_article_trash ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE portal_attachment ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE portal_category ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE portal_category_permission ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE portal_comment ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE portal_comment_moderate ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE portal_rsscache ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE portal_topic ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE portal_topic_pic ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE security_evilpost ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE security_eviluser ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE security_failedlog ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE ucenter_admins ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE ucenter_applications ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE ucenter_badwords ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE ucenter_domains ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE ucenter_failedlogins ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE ucenter_feeds ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE ucenter_friends ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE ucenter_mailqueue ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE ucenter_memberfields ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE ucenter_members ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE ucenter_mergemembers ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE ucenter_newpm ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE ucenter_notelist ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE ucenter_pm_indexes ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE ucenter_pm_lists ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE ucenter_pm_members ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE ucenter_pm_messages_0 ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE ucenter_pm_messages_1 ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE ucenter_pm_messages_2 ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE ucenter_pm_messages_3 ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE ucenter_pm_messages_4 ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE ucenter_pm_messages_5 ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE ucenter_pm_messages_6 ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE ucenter_pm_messages_7 ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE ucenter_pm_messages_8 ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE ucenter_pm_messages_9 ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE ucenter_protectedmembers ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE ucenter_settings ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE ucenter_sqlcache ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE ucenter_tags ENGINE=InnoDB;</span><br><span class="line">ALTER TABLE ucenter_vars ENGINE=InnoDB;</span><br></pre></td></tr></table></figure>
+<h1 id="执行过程中，下面注释掉的两张表报错"><a href="#执行过程中，下面注释掉的两张表报错" class="headerlink" title="执行过程中，下面注释掉的两张表报错"></a>执行过程中，下面注释掉的两张表报错</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">-- ALTER TABLE forum_post ENGINE=InnoDB;</span><br><span class="line">-- ALTER TABLE common_member_grouppm ENGINE=InnoDB;</span><br><span class="line"></span><br><span class="line">Error Code: 1075. Incorrect table definition; there can be only one auto column and it must be defined as a key	0.000 sec</span><br></pre></td></tr></table></figure>
+<h1 id="建表脚本，如果-ENGINE-MyISAM-则正常，改为-InnoDB-则报错"><a href="#建表脚本，如果-ENGINE-MyISAM-则正常，改为-InnoDB-则报错" class="headerlink" title="建表脚本，如果 ENGINE=MyISAM 则正常，改为 InnoDB 则报错"></a>建表脚本，如果 ENGINE=MyISAM 则正常，改为 InnoDB 则报错</h1><p>为了验证错误信息，特意将建表 sql 拿到临时数据库去执行，得到同样的错误提示，这个提示是不准确的。在 MySQL Workbench 下操作得到正确的提示，请继续往下看<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE `common_member_grouppm_temp` (</span><br><span class="line">    `uid` mediumint(8) unsigned NOT NULL DEFAULT &apos;0&apos;,</span><br><span class="line">    `gpmid` smallint(6) unsigned NOT NULL AUTO_INCREMENT,</span><br><span class="line">    `status` tinyint(1) NOT NULL DEFAULT &apos;0&apos;,</span><br><span class="line">    `dateline` int(10) unsigned NOT NULL DEFAULT &apos;0&apos;,</span><br><span class="line">    PRIMARY KEY (`uid`,`gpmid`)</span><br><span class="line">) ENGINE=InnoDB DEFAULT CHARSET=utf8;</span><br><span class="line"></span><br><span class="line">Error Code: 1075. Incorrect table definition; there can be only one auto column and it must be defined as a key</span><br></pre></td></tr></table></figure></p>
+<h1 id="用-MySQL-Workbench-操作，得到解决，大赞-MySQL-Workbench"><a href="#用-MySQL-Workbench-操作，得到解决，大赞-MySQL-Workbench" class="headerlink" title="用 MySQL Workbench 操作，得到解决，大赞 MySQL Workbench"></a>用 MySQL Workbench 操作，得到解决，大赞 MySQL Workbench</h1><p>于是用 MySQL Workbench 查看表结构，点击自增字段之后，得到一个重要的提示<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Only the first key column of a InnoDB table can be AUTO_INCREMENT. Please reorder the columns before making this column AUTO_INCREMENT.</span><br></pre></td></tr></table></figure></p>
+<h1 id="解决方案，重要！"><a href="#解决方案，重要！" class="headerlink" title="解决方案，重要！"></a>解决方案，重要！</h1><p>于是得到解决方案，将自增列调整至第一行，同时修改表存储引擎为 InnoDB，即可成功。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">-- ALTER TABLE common_member_grouppm ENGINE=InnoDB; 改为以下脚本（Workbench 生成的）</span><br><span class="line">ALTER TABLE `dz`.`common_member_grouppm` </span><br><span class="line">ENGINE = InnoDB ,</span><br><span class="line">CHANGE COLUMN `gpmid` `gpmid` SMALLINT(6) UNSIGNED NOT NULL AUTO_INCREMENT FIRST,</span><br><span class="line">DROP PRIMARY KEY,</span><br><span class="line">ADD PRIMARY KEY (`gpmid`, `uid`);</span><br><span class="line"></span><br><span class="line">-- ALTER TABLE forum_post ENGINE=InnoDB; 改为以下脚本</span><br><span class="line">ALTER TABLE `dz`.`forum_post` </span><br><span class="line">ENGINE = InnoDB ,</span><br><span class="line">CHANGE COLUMN `position` `position` INT(8) UNSIGNED NOT NULL AUTO_INCREMENT FIRST,</span><br><span class="line">DROP PRIMARY KEY,</span><br><span class="line">ADD PRIMARY KEY (`position`, `tid`);</span><br></pre></td></tr></table></figure></p>
+<p>结论：结合使用 MySQL 的经验，进一步体验到，MySQL 的错误提示其实挺不准的，这时个人经验就显得尤其重要了，同时也体现了 DBA 的重要性。</p>
+<h1 id="查看数据库存储引擎"><a href="#查看数据库存储引擎" class="headerlink" title="查看数据库存储引擎"></a>查看数据库存储引擎</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; SHOW ENGINES;</span><br><span class="line">+--------------------+---------+----------------------------------------------------------------+--------------+------+------------+</span><br><span class="line">| Engine             | Support | Comment                                                        | Transactions | XA   | Savepoints |</span><br><span class="line">+--------------------+---------+----------------------------------------------------------------+--------------+------+------------+</span><br><span class="line">| CSV                | YES     | CSV storage engine                                             | NO           | NO   | NO         |</span><br><span class="line">| MRG_MYISAM         | YES     | Collection of identical MyISAM tables                          | NO           | NO   | NO         |</span><br><span class="line">| MEMORY             | YES     | Hash based, stored in memory, useful for temporary tables      | NO           | NO   | NO         |</span><br><span class="line">| BLACKHOLE          | YES     | /dev/null storage engine (anything you write to it disappears) | NO           | NO   | NO         |</span><br><span class="line">| MyISAM             | YES     | MyISAM storage engine                                          | NO           | NO   | NO         |</span><br><span class="line">| InnoDB             | DEFAULT | Supports transactions, row-level locking, and foreign keys     | YES          | YES  | YES        |</span><br><span class="line">| ARCHIVE            | YES     | Archive storage engine                                         | NO           | NO   | NO         |</span><br><span class="line">| PERFORMANCE_SCHEMA | YES     | Performance Schema                                             | NO           | NO   | NO         |</span><br><span class="line">| FEDERATED          | NO      | Federated MySQL storage engine                                 | NULL         | NULL | NULL       |</span><br><span class="line">+--------------------+---------+----------------------------------------------------------------+--------------+------+------------+</span><br><span class="line">9 rows in set (0.00 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; show variables like &apos;%storage_engine%&apos;;</span><br><span class="line">+----------------------------------+-----------------------+</span><br><span class="line">| Variable_name                    | Value                 |</span><br><span class="line">+----------------------------------+-----------------------+</span><br><span class="line">| default_storage_engine           | InnoDB                |</span><br><span class="line">| default_tmp_storage_engine       | InnoDB                |</span><br><span class="line">| disabled_storage_engines         | myisam,memory,archive |</span><br><span class="line">| internal_tmp_disk_storage_engine | InnoDB                |</span><br><span class="line">+----------------------------------+-----------------------+</span><br><span class="line">4 rows in set (0.01 sec)</span><br></pre></td></tr></table></figure>
+<h1 id="查看表的存储引擎"><a href="#查看表的存储引擎" class="headerlink" title="查看表的存储引擎"></a>查看表的存储引擎</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show create table ucenter_tags;</span><br><span class="line">+--------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+</span><br><span class="line">| Table        | Create Table                                                                                                                                                                                                                                              |</span><br><span class="line">+--------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+</span><br><span class="line">| ucenter_tags | CREATE TABLE `ucenter_tags` (</span><br><span class="line">  `tagname` char(20) NOT NULL,</span><br><span class="line">  `appid` smallint(6) unsigned NOT NULL DEFAULT &apos;0&apos;,</span><br><span class="line">  `data` mediumtext,</span><br><span class="line">  `expiration` int(10) unsigned NOT NULL,</span><br><span class="line">  KEY `tagname` (`tagname`,`appid`)</span><br><span class="line">) ENGINE=InnoDB DEFAULT CHARSET=utf8 |</span><br><span class="line">+--------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+</span><br><span class="line">1 row in set (0.00 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt;</span><br></pre></td></tr></table></figure>
+<h1 id="MySQL-存储引擎参考"><a href="#MySQL-存储引擎参考" class="headerlink" title="MySQL 存储引擎参考"></a>MySQL 存储引擎参考</h1><p><a href="https://www.cnblogs.com/wanghuaijun/p/5829872.html" rel="external nofollow noopener noreferrer" target="_blank">MySQL修改数据表存储引擎的3种方法介绍</a></p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-09-01T02:53:13.055Z" itemprop="dateUpdated">2020年9月1日 10:53</time>
+</span><br>
+
+
+        转载请注明出处：<a href="/lnmp/discuzX3.4ToInnoDBTable.html" target="_blank" rel="external">https://www.lovesofttech.com/lnmp/discuzX3.4ToInnoDBTable.html</a>
+    </div>
+    <footer>
+        <a href="https://www.lovesofttech.com">
+            <img src="/img/myLogo.jpg" alt="安迪陈">
+            安迪陈
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CentOS/">CentOS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/discuzX/">discuzX</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/php/">php</a></li></ul>
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/lnmp/discuzX3.4ToInnoDBTable.html&title=《discuzX3.4 数据库由阿里云自建 MySQL 转移至 RDS，填坑日志》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/lnmp/discuzX3.4ToInnoDBTable.html&title=《discuzX3.4 数据库由阿里云自建 MySQL 转移至 RDS，填坑日志》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=如题" data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/lnmp/discuzX3.4ToInnoDBTable.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《discuzX3.4 数据库由阿里云自建 MySQL 转移至 RDS，填坑日志》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/lnmp/discuzX3.4ToInnoDBTable.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/lnmp/discuzX3.4ToInnoDBTable.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/lnmp/discuzX3.4MoveServer.html" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">discuzX3.4 网站迁移，备忘录</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/frontend/RNNewsGiveUpUdacity.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Udacity也弃用React Native了！</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+    
+    
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="bottom">
+        <p>
+            <span>安迪陈技术日志，架构、感悟、系统分析、团队管理 &copy; 2017 - 2020</span>
+            <span>
+                Power by <a href="https://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>&nbsp;
+                Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank" rel="external nofollow noopener noreferrer">indigo</a>
+            </span>
+            <span>
+                <a href="http://www.beian.miit.gov.cn" target="_blank" rel="external nofollow noopener noreferrer">蜀ICP备17041860号</a>
+            </span>
+            
+            <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            </p><p>
+                <span>
+                    统计始于：2019-03-06
+                </span>
+                <span id="busuanzi_container_site_uv" style="display:none">
+                    访客数：<span id="busuanzi_value_site_uv"></span>
+                </span>
+                <span id="busuanzi_container_site_pv" style="display:none">
+                    访问量：<span id="busuanzi_value_site_pv"></span>
+                </span>
+            
+            
+                <span class="post-count">累计字数：309.2k</span>
+            
+                <span><a href="/general/blogLog.html"><i class="fas fa-pen-alt"></i>&nbsp;博客日志</a></span>
+            </p>
+        <p></p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light" title="回到顶部"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/lnmp/discuzX3.4ToInnoDBTable.html&title=《discuzX3.4 数据库由阿里云自建 MySQL 转移至 RDS，填坑日志》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/lnmp/discuzX3.4ToInnoDBTable.html&title=《discuzX3.4 数据库由阿里云自建 MySQL 转移至 RDS，填坑日志》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=如题" data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/lnmp/discuzX3.4ToInnoDBTable.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《discuzX3.4 数据库由阿里云自建 MySQL 转移至 RDS，填坑日志》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/lnmp/discuzX3.4ToInnoDBTable.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/lnmp/discuzX3.4ToInnoDBTable.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACJUlEQVR42u3aS27DMAwA0dz/0i7QVYFU9pCU25gcrYIkjvSyIPjR64XX8b1+vl6t3LPvn77uWDJkyHgsgxwremhyuPfvlP4yGTJkDGDwQMk/zQXT1S4XZ5YhQ4YMHF4rwVSGDBkydjEqRWyurJUhQ4YMXsTegfyHWlyGDBkPZOQGA3/z+vb5hgwZMj6ecQRXtKDNlcfhU8mQIaM1g7e9SFHK8eeJJo+uF2FXhgwZTRm5lv35eIAPMskZlngZMmQMYPBt+GbRxhn/K5epoQwZMpoyco/xd3hamStlZciQ0ZuRKzV5ucuvXJBwj65ZyJAhox1jVwka3ZgklNGUUYYMGRMYuwC5JK8CliFDxgQGuWdVCaBkY55c8r1kyJDRgxFt60dLUF4ek32Xvy9DhoxhjHpyxgeZ0VRy+ZfJkCFjAIM8HB0D8AsW0RHCMuDKkCGjKYNfBePhlQfWSgiWIUPGHAa/8lUZVdYL1wuSDBkyWjP42JIgKy3+aGG8fF+GDBntGIGp5im48hRJGVEtLkOGjDEMXlKS1n+0iCXp4y/flCFDRmtGZdVb/PWEcgNGhgwZH884gouH1zo+EPplyJDRmhENr6ShzzfOXezIXfuQIUPG0xk8yJIhQX38GT2DDBky5jD4BQh+SWLv4BP1DmXIkDGeUYGRzh+hypAhQwZnRJO8aIopQ4YMGXv7VJxERgXn+8qQIWMmY+9gYG8RmwvNMmTIaMT4Aj5VZasZiLkiAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.5.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.5.2" async></script>
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '安迪陈技术日志';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '欢迎回来';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

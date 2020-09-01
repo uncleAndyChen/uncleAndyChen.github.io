@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<!--<script async src="//hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c"></script>-->
+<!-- 统计-->
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var host = window.location.host;
+        var hm = document.createElement("script");
+
+        if (host.indexOf('gitee.io') > 0) { // https://uncleandychen.gitee.io/
+            hm.src = "https://hm.baidu.com/hm.js?0cf4709148b070b8082191d2e456a1a3";
+        } else if (host.indexOf('lovesofttech.com') > 0) { // https://www.lovesofttech.com/
+            hm.src = "https://hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c";
+        } else {
+            hm.src = '';
+        }
+
+        if (hm.src !== '') {
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        }
+    })();
+</script>
+<!-- End Baidu Tongji -->
+
+
+
+<!-- Baidu Push -->
+<!-- 主动推送百度爬虫-->
+<script>
+    (function(){
+        if (window.location.host.indexOf('lovesofttech.com') < 0) {
+            return;
+        }
+
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+<!-- End Baidu Push -->
+
+
+    <meta charset="utf-8">
+    
+    
+    <link rel="canonical" href="https://www.lovesofttech.com/windows/win10Php7Nginx.html">
+    
+    
+    <title>在 win10 下配置 nginx1.14.0 + PHP7.2.6 | 安迪陈技术日志，架构、感悟、系统分析、团队管理 | 自强不息，厚德载物</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="windows,nginx,php">
+    <meta name="description" content="如题">
+<meta name="keywords" content="windows,nginx,php">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在 win10 下配置 nginx1.14.0 + PHP7.2.6">
+<meta property="og:url" content="https://www.lovesofttech.com/windows/win10Php7Nginx.html">
+<meta property="og:site_name" content="安迪陈技术日志，架构、感悟、系统分析、团队管理">
+<meta property="og:description" content="如题">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:image" content="https://www.lovesofttech.com/img/general/xdebug01.png">
+<meta property="og:updated_time" content="2020-09-01T02:53:13.109Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="在 win10 下配置 nginx1.14.0 + PHP7.2.6">
+<meta name="twitter:description" content="如题">
+<meta name="twitter:image" content="https://www.lovesofttech.com/img/general/xdebug01.png">
+    
+        <link rel="alternative" href="/atom.xml" title="安迪陈技术日志，架构、感悟、系统分析、团队管理" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=201912302211">
+    <link rel="stylesheet" href="/css/header.css?v=201912302211">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu">
+  <div class="inner flex-row-vertical">
+    <!--<i class="icon icon-lg icon-close"></i>-->
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off" title="隐藏左侧导航">﹤<i class="icon icon-lg icon-navicon"></i></a>
+    <div class="brand-wrap" style="background-image:url(/img/bannerBackgroundLeft.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/myLogo.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">安迪陈</h5>
+          <a href="mailto:andy@lovesofttech.com" title="andy@lovesofttech.com" class="mail" rel="external nofollow noopener noreferrer" target="_blank">andy@lovesofttech.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articleClassify.html">
+                <i class="icon icon-th-list"></i>
+                文章分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articles.html">
+                <i class="icon icon-th-list articles"></i>
+                文章列表
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/java.html">
+                <i class="icon icon-th-list java"></i>
+                Java
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/database.html">
+                <i class="icon icon-th-list database"></i>
+                MySQL/MyBatis
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/linux.html">
+                <i class="icon icon-th-list linux"></i>
+                CentOS/linux
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/react.html">
+                <i class="icon icon-th-list React"></i>
+                React
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/lnmp.html">
+                <i class="icon icon-th-list LNMP"></i>
+                LNMP
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/git.html">
+                <i class="icon icon-th-list git"></i>
+                git
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/windows.html">
+                <i class="icon icon-th-list windows"></i>
+                windows
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/dailyLives.html">
+                <i class="icon icon-th-list dailyLives"></i>
+                工作 &amp; 生活
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-github"></i>
+                我的 github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://gitee.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link"></i>
+                我的 gitee
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://blog.csdn.net/runAndRun" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link CSDN"></i>
+                我的 CSDN
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/aboutMe.html">
+                <i class="icon icon-address-card"></i>
+                关于我
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+
+        <div class="navbar navbar-custom navbar-fixed-top">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" style="margin-left:10px;" id="menu-toggle" title="显示左侧导航"><i class="icon icon-lg icon-navicon"></i>﹥</a>
+            <ul class="nav navbar-nav navbar-right" id="navMenuTop">
+                <li>
+                    <a href="/">主页</a>
+                </li>
+                
+                    
+                        <li>
+                            <a href="/articleClassify.html" title="本博客的文章分类列表">文章分类</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/articles.html" title="本博客的所有文章列表">文章列表</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/java.html" title="Java 开发，文章目录">Java</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/database.html" title="日常开发中有关 MySQL、MyBatis 的一些经验总结">MySQL/MyBatis</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/linux.html" title="CentOS/linux，文章目录">CentOS/linux</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/react.html" title="React 技术栈（全家桶）学习心得分享，文章目录">React</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/about.html">关于</a>
+                        </li>
+                    
+                
+            </ul>
+        </div>
+
+        <div class="flex-col header-title ellipsis">在 win10 下配置 nginx1.14.0 + PHP7.2.6</div>
+        
+        <div class="search-wrap" id="search-wrap" style="z-index: 2;">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back" style="width:33px;">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search" style="width:33px;">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare" style="z-index: 3;margin-right: 10px; width:30px;">
+                <i class="icon icon-lg icon-share-alt"></i>
+            </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h2 class="title">在 win10 下配置 nginx1.14.0 + PHP7.2.6</h2>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-06-09T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2018-06-10
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/windows/">windows</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/windows/nginx/">nginx</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/windows/nginx/php/">php</a></li></ul></li></ul></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap" id="index-container">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc" style="z-index: 3;">
+            <h4><i class="fa fa-list-alt"></i>&nbsp;&nbsp;本文目录</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#下载-nginx1-14-0"><span class="post-toc-number">1.</span> <span class="post-toc-text">下载 nginx1.14.0</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#下载-winsw-v2-1-2"><span class="post-toc-number">2.</span> <span class="post-toc-text">下载 winsw-v2.1.2</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#下载-PHP7-2-6"><span class="post-toc-number">3.</span> <span class="post-toc-text">下载 PHP7.2.6</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#将-nginx-安装成-windows-服务"><span class="post-toc-number">4.</span> <span class="post-toc-text">将 nginx 安装成 windows 服务</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#检查配置并启动"><span class="post-toc-number">4.1.</span> <span class="post-toc-text">检查配置并启动</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#遇到的问题及解决过程"><span class="post-toc-number">4.2.</span> <span class="post-toc-text">遇到的问题及解决过程</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#因为之前安装过-nginx-1-12-0，用-sc-delete-nginx-删除服务之后，进入新版目录安装时出错。"><span class="post-toc-number">4.2.1.</span> <span class="post-toc-text">因为之前安装过 nginx-1.12.0，用 sc delete nginx 删除服务之后，进入新版目录安装时出错。</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#在另外一台电脑上操作，先停止-nginx，再用之前安装的程序卸载，然后再安装最新版，很顺利"><span class="post-toc-number">4.2.2.</span> <span class="post-toc-text">在另外一台电脑上操作，先停止 nginx，再用之前安装的程序卸载，然后再安装最新版，很顺利</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#配置-PHP7-2-6"><span class="post-toc-number">5.</span> <span class="post-toc-text">配置 PHP7.2.6</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#常规配置"><span class="post-toc-number">5.1.</span> <span class="post-toc-text">常规配置</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#配置-XDebug"><span class="post-toc-number">5.2.</span> <span class="post-toc-text">配置 XDebug</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#运行-php"><span class="post-toc-number">6.</span> <span class="post-toc-text">运行 php</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#遇到的问题"><span class="post-toc-number">7.</span> <span class="post-toc-text">遇到的问题</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#不支持-advice-mysqli-connect"><span class="post-toc-number">8.</span> <span class="post-toc-text">不支持    advice_mysqli_connect</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#No-input-file-specified"><span class="post-toc-number">9.</span> <span class="post-toc-text">No input file specified.</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#php5-6-30-找不到-MSVCR110-dll"><span class="post-toc-number">10.</span> <span class="post-toc-text">php5.6.30 找不到 MSVCR110.dll</span></a></li></ol>
+        </nav>
+    </aside>
+    
+
+<article id="post-windows/win10Php7Nginx" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">在 win10 下配置 nginx1.14.0 + PHP7.2.6</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018年06月10日 0:00" datetime="2018-06-09T16:00:00.000Z" itemprop="datePublished">2018-06-10</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/windows/">windows</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/windows/nginx/">nginx</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/windows/nginx/php/">php</a></li></ul></li></ul></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" style="display:none">
+    阅读量：<span id="busuanzi_value_page_pv"></span>次
+</span>
+
+
+    <span>|</span>
+    <span class="post-count">字数：1.7k</span>
+    <span>|</span>
+    <span class="post-count">阅读时长：大约8分钟</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>如题<br><a id="more"></a></p>
+<h1 id="下载-nginx1-14-0"><a href="#下载-nginx1-14-0" class="headerlink" title="下载 nginx1.14.0"></a>下载 nginx1.14.0</h1><p><a href="http://nginx.org/download/nginx-1.14.0.zip" rel="external nofollow noopener noreferrer" target="_blank">nginx-1.14</a></p>
+<h1 id="下载-winsw-v2-1-2"><a href="#下载-winsw-v2-1-2" class="headerlink" title="下载 winsw-v2.1.2"></a>下载 winsw-v2.1.2</h1><p><a href="https://github.com/kohsuke/winsw/releases" rel="external nofollow noopener noreferrer" target="_blank">winsw release 列表</a>，选：WinSW.NET4.exe</p>
+<blockquote>
+<p><a href="https://github.com/kohsuke/winsw/releases/download/winsw-v2.1.2/WinSW.NET4.exe" rel="external nofollow noopener noreferrer" target="_blank">笔者下载的版本</a></p>
+</blockquote>
+<h1 id="下载-PHP7-2-6"><a href="#下载-PHP7-2-6" class="headerlink" title="下载 PHP7.2.6"></a>下载 PHP7.2.6</h1><p>nginx 下 php 是以 FastCGI 的方式运行，所以我们下载非线程安全也就是 nts 的 php 包。<br><a href="https://windows.php.net/download/" rel="external nofollow noopener noreferrer" target="_blank">php 最新版本下载列表页面</a></p>
+<blockquote>
+<p><a href="https://windows.php.net/downloads/releases/php-7.2.6-nts-Win32-VC15-x64.zip" rel="external nofollow noopener noreferrer" target="_blank">笔者下载的版本</a></p>
+</blockquote>
+<h1 id="将-nginx-安装成-windows-服务"><a href="#将-nginx-安装成-windows-服务" class="headerlink" title="将 nginx 安装成 windows 服务"></a>将 nginx 安装成 windows 服务</h1><ol>
+<li>将 nginx 解压至 c 盘根目录 c:/nginx，不要版本号，方便以后升级至最新版本。</li>
+<li>将下载到的 WinSW.NET4.exe 重命名为：winsw.exe，并移到 nginx 根目录</li>
+<li><p>在 nginx 目录添加配置文件：winsw.xml</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;service&gt;</span><br><span class="line">    &lt;id&gt;nginx&lt;/id&gt;</span><br><span class="line">    &lt;name&gt;nginx&lt;/name&gt;</span><br><span class="line">    &lt;description&gt;nginx&lt;/description&gt;</span><br><span class="line">    &lt;logpath&gt;C:\nginx\logs&lt;/logpath&gt;</span><br><span class="line">    &lt;logmode&gt;roll&lt;/logmode&gt;</span><br><span class="line">    &lt;depend&gt;&lt;/depend&gt;</span><br><span class="line">    &lt;executable&gt;c:\nginx\nginx.exe&lt;/executable&gt;</span><br><span class="line">    &lt;stopexecutable&gt;C:\nginx\nginx.exe -s stop&lt;/stopexecutable&gt;</span><br><span class="line">&lt;/service&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>以管理员身份运行 cmd，进入 nginx 根目录，执行如下命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">C:\nginx&gt;winsw install</span><br><span class="line">2018-06-08 08:20:19,037 INFO  - Installing the service with id &apos;nginx&apos;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="检查配置并启动"><a href="#检查配置并启动" class="headerlink" title="检查配置并启动"></a>检查配置并启动</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">C:\nginx&gt;nginx -t</span><br><span class="line">nginx: the configuration file C:\nginx/conf/nginx.conf syntax is ok</span><br><span class="line">nginx: configuration file C:\nginx/conf/nginx.conf test is successful</span><br><span class="line"></span><br><span class="line">C:\nginx&gt;net start nginx</span><br><span class="line">The nginx service is starting.</span><br><span class="line">The nginx service was started successfully.</span><br><span class="line"></span><br><span class="line">C:\nginx&gt;nginx -v</span><br><span class="line">nginx version: nginx/1.14.0</span><br></pre></td></tr></table></figure>
+<h2 id="遇到的问题及解决过程"><a href="#遇到的问题及解决过程" class="headerlink" title="遇到的问题及解决过程"></a>遇到的问题及解决过程</h2><h3 id="因为之前安装过-nginx-1-12-0，用-sc-delete-nginx-删除服务之后，进入新版目录安装时出错。"><a href="#因为之前安装过-nginx-1-12-0，用-sc-delete-nginx-删除服务之后，进入新版目录安装时出错。" class="headerlink" title="因为之前安装过 nginx-1.12.0，用 sc delete nginx 删除服务之后，进入新版目录安装时出错。"></a>因为之前安装过 nginx-1.12.0，用 sc delete nginx 删除服务之后，进入新版目录安装时出错。</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">C:\Windows\system32&gt;sc delete nginx</span><br><span class="line">[SC] DeleteService SUCCESS</span><br><span class="line"></span><br><span class="line">C:\nginx&gt;winsw install</span><br><span class="line">2018-06-08 08:17:46,936 INFO  - Installing the service with id &apos;nginx&apos;</span><br><span class="line">Service with id &apos;nginx&apos; already exists</span><br><span class="line">To install the service, delete the existing one or change service Id in the configuration file</span><br><span class="line">2018-06-08 08:17:46,940 FATAL - Unhandled exception</span><br><span class="line">System.Exception: Installation failure: Service with id &apos;nginx&apos; already exists</span><br><span class="line">   at winsw.WrapperService.Run(String[] _args, ServiceDescriptor descriptor)</span><br><span class="line">   at winsw.WrapperService.Main(String[] args)</span><br><span class="line">System.Exception: Installation failure: Service with id &apos;nginx&apos; already exists</span><br><span class="line">   at winsw.WrapperService.Run(String[] _args, ServiceDescriptor descriptor)</span><br><span class="line">   at winsw.WrapperService.Main(String[] args)</span><br><span class="line"></span><br><span class="line">C:\nginx&gt;cd ..</span><br><span class="line"></span><br><span class="line">C:\&gt;cd nginx-1.12.0</span><br><span class="line"></span><br><span class="line">C:\nginx-1.12.0&gt;winsw uninstall</span><br><span class="line">2018-06-08 08:18:49,533 INFO  - Starting ServiceWrapper in the CLI mode</span><br><span class="line">2018-06-08 08:18:49,755 INFO  - Uninstalling the service with id &apos;nginx&apos;</span><br><span class="line">2018-06-08 08:18:49,757 WARN  - The service with id &apos;nginx&apos; is running. It may be impossible to uninstall it</span><br><span class="line">2018-06-08 08:18:49,768 ERROR - Failed to uninstall the service with id &apos;nginx&apos;. It has been marked for deletion.</span><br><span class="line">2018-06-08 08:18:49,770 INFO  - Completed. Exit code is 0</span><br><span class="line"></span><br><span class="line">C:\nginx-1.12.0&gt;net stop nginx</span><br><span class="line">The nginx service is stopping.The service name is invalid.</span><br><span class="line"></span><br><span class="line">More help is available by typing NET HELPMSG 2185.</span><br><span class="line"></span><br><span class="line">C:\nginx-1.12.0&gt;winsw uninstall</span><br><span class="line">2018-06-08 08:19:10,163 INFO  - Starting ServiceWrapper in the CLI mode</span><br><span class="line">2018-06-08 08:19:10,569 INFO  - Uninstalling the service with id &apos;nginx&apos;</span><br><span class="line">2018-06-08 08:19:10,570 WARN  - The service with id &apos;nginx&apos; does not exist. Nothing to uninstall</span><br><span class="line">2018-06-08 08:19:10,572 INFO  - Completed. Exit code is 0</span><br><span class="line"></span><br><span class="line">C:\nginx-1.12.0&gt;cd ..</span><br><span class="line">C:\&gt;cd nginx</span><br><span class="line"></span><br><span class="line">C:\nginx&gt;winsw install</span><br><span class="line">2018-06-08 08:20:19,037 INFO  - Installing the service with id &apos;nginx&apos;</span><br></pre></td></tr></table></figure>
+<h3 id="在另外一台电脑上操作，先停止-nginx，再用之前安装的程序卸载，然后再安装最新版，很顺利"><a href="#在另外一台电脑上操作，先停止-nginx，再用之前安装的程序卸载，然后再安装最新版，很顺利" class="headerlink" title="在另外一台电脑上操作，先停止 nginx，再用之前安装的程序卸载，然后再安装最新版，很顺利"></a>在另外一台电脑上操作，先停止 nginx，再用之前安装的程序卸载，然后再安装最新版，很顺利</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">C:\WINDOWS\system32&gt;net stop nginx</span><br><span class="line">nginx 服务正在停止.</span><br><span class="line">nginx 服务已成功停止。</span><br><span class="line"></span><br><span class="line">C:\WINDOWS\system32&gt;cd C:\nginx-1.12.0</span><br><span class="line"></span><br><span class="line">C:\nginx-1.12.0&gt;winsw.exe uninstall</span><br><span class="line">2018-06-09 09:10:07,109 INFO  - Uninstalling the service with id &apos;nginx&apos;</span><br><span class="line"></span><br><span class="line">C:\nginx-1.12.0&gt;cd ..</span><br><span class="line"></span><br><span class="line">C:\&gt;cd nginx</span><br><span class="line"></span><br><span class="line">C:\nginx&gt;winsw.exe install</span><br><span class="line">2018-06-09 09:10:19,289 INFO  - Installing the service with id &apos;nginx&apos;</span><br></pre></td></tr></table></figure>
+<h1 id="配置-PHP7-2-6"><a href="#配置-PHP7-2-6" class="headerlink" title="配置 PHP7.2.6"></a>配置 PHP7.2.6</h1><p>将 PHP 解压至目录：c:/dev/php7<br>复制 php.ini-development 为 php.ini，修改配置</p>
+<h2 id="常规配置"><a href="#常规配置" class="headerlink" title="常规配置"></a>常规配置</h2><ol>
+<li>找到下面的配置项，并作相应的修改<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">error_log = C:\dev\php7\logs\php_errors.log</span><br><span class="line"></span><br><span class="line">extension_dir = &quot;C:\dev\php7\ext&quot;</span><br><span class="line">date.timezone = &quot;Asia/Shanghai&quot;</span><br><span class="line">cgi.fix_pathinfo=1</span><br><span class="line">extension=curl</span><br><span class="line">extension=gd2</span><br><span class="line">extension=openssl</span><br><span class="line">extension=mysqli</span><br><span class="line">extension=pdo_mysql</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<blockquote>
+<p>备注一下，php-7.0.30-nts-Win32-VC14-x64 的扩展跟 7.2 的不一样，如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">extension=php_mysqli.dll</span><br><span class="line">extension=php_curl.dll</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<ol>
+<li>在 [opcache] 下面添加如下配置<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">; dll地址</span><br><span class="line">zend_extension=php_opcache.dll</span><br><span class="line">; 开关打开</span><br><span class="line">opcache.enable=1</span><br><span class="line">; 开启CLI</span><br><span class="line">opcache.enable_cli=1</span><br><span class="line">; 可用内存, 酌情而定, 单位为：Mb</span><br><span class="line">opcache.memory_consumption=528</span><br><span class="line">; Zend Optimizer + 暂存池中字符串的占内存总量.(单位:MB)</span><br><span class="line">opcache.interned_strings_buffer=8</span><br><span class="line">; 对多缓存文件限制, 命中率不到 100% 的话, 可以试着提高这个值</span><br><span class="line">opcache.max_accelerated_files=10000</span><br><span class="line">; Opcache 会在一定时间内去检查文件的修改时间, 这里设置检查的时间周期, 默认为 2, 定位为秒</span><br><span class="line">opcache.revalidate_freq=1</span><br><span class="line">; 打开快速关闭, 打开这个在PHP Request Shutdown的时候回收内存的速度会提高</span><br><span class="line">opcache.fast_shutdown=1</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="配置-XDebug"><a href="#配置-XDebug" class="headerlink" title="配置 XDebug"></a>配置 XDebug</h2><p><a href="https://xdebug.org/download.php" rel="external nofollow noopener noreferrer" target="_blank">下载列表</a>，找到对应的版本，记得是针对 PHP 7.2 并且带 nts 的版本，<a href="https://xdebug.org/files/php_xdebug-2.6.0-7.2-vc15-nts-x86_64.dll" rel="external nofollow noopener noreferrer" target="_blank">本文下载的版本</a><br><a href="https://xdebug.org/docs/install" rel="external nofollow noopener noreferrer" target="_blank">XDebug install</a><br><a href="https://xdebug.org/wizard.php" rel="external nofollow noopener noreferrer" target="_blank">XDebug windows install</a><br>将 phpinfo(); 的页面，Ctrl + A， Ctrl + c 的结果 Ctrl + v 到上面页面的输入框，得到如下结果：<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/general/xdebug01.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure><br>下面是我们要关注的信息：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Instructions</span><br><span class="line">Download php_xdebug-2.6.0-7.2-vc15-nts-x86_64.dll</span><br><span class="line">Move the downloaded file to C:\dev\php7\ext</span><br><span class="line">Edit C:\dev\php7\php.ini and add the line</span><br><span class="line">zend_extension = C:\dev\php7\ext\php_xdebug-2.6.0-7.2-vc15-nts-x86_64.dll</span><br><span class="line">Restart the webserver</span><br></pre></td></tr></table></figure></p>
+<p>添加之后，首先端口跟 php 冲突，添加其它端口之后，依然不能进入断点。<br>解决方法，请参考我之前的文章：<a href="/windows/winPHPXdebugMemcache">windows7 + nginx + php + xdebug（搭配 PhpStorm 调试） + memcache</a><br>下载之后，剪切至 PHP 的 ext 目录，在 php.ini 最后添加如下信息：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">[xdebug]</span><br><span class="line">zend_extension = C:\dev\php7\ext\php_xdebug-2.6.0-7.2-vc15-nts-x86_64.dll</span><br><span class="line">;开启远程调试 </span><br><span class="line">xdebug.remote_enable=1</span><br><span class="line">xdebug.profiler_enable=1</span><br><span class="line">;xdebug.profiler_enable=off</span><br><span class="line">xdebug.profiler_enable_trigger=off</span><br><span class="line">xdebug.profiler_output_name=cachegrind.out.%t.%p</span><br><span class="line">xdebug.profiler_output_dir=&quot;tmp&quot;</span><br><span class="line">xdebug.show_local_vars=0</span><br><span class="line">xdebug.remote_connect_back=1</span><br><span class="line"></span><br><span class="line">;开启自动跟踪</span><br><span class="line">xdebug.auto_trace=1</span><br><span class="line">;开启异常跟踪</span><br><span class="line">xdebug.show_exception_trace=1</span><br><span class="line">;开启异常跟踪</span><br><span class="line">xdebug.remote_autostart=1</span><br><span class="line">;收集变量</span><br><span class="line">xdebug.collect_vars=1</span><br><span class="line">;收集参数</span><br><span class="line">xdebug.collect_params=1</span><br><span class="line">;trace输出路径</span><br><span class="line">xdebug.trace_output_dir=&quot;tmp/xdebug&quot;</span><br><span class="line">;以下三个分别是主机、端口、句柄</span><br><span class="line">xdebug.remote_host=&quot;localhost&quot;</span><br><span class="line">;注意，这里的端口不能跟 php-cgi 冲突，php-cgi 默认为 9000</span><br><span class="line">xdebug.remote_port=9001</span><br><span class="line">xdebug.remote_handler=&quot;dbgp&quot;</span><br></pre></td></tr></table></figure></p>
+<h1 id="运行-php"><a href="#运行-php" class="headerlink" title="运行 php"></a>运行 php</h1><p>运行 cmd，进入 php 根目录，启动 php<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">php-cgi.exe -b 127.0.0.1:9000 -c C:/dev/php7/php.ini</span><br></pre></td></tr></table></figure></p>
+<h1 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h1><h1 id="不支持-advice-mysqli-connect"><a href="#不支持-advice-mysqli-connect" class="headerlink" title="不支持    advice_mysqli_connect"></a>不支持    advice_mysqli_connect</h1><p>运行 Discuz!X3.4 简体中文 UTF8 版 20180101 的安装向导，提示：不支持    advice_mysqli_connect<br>解决：php.ini 找到下面项，将前面的分号删除<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">extension=mysqli</span><br></pre></td></tr></table></figure></p>
+<ol>
+<li>配置站点，将 nginx.conf 里面的 php 配置 copy 出来，可是有问题<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen       80;</span><br><span class="line">    server_name  dz.dev.com;</span><br><span class="line">    charset utf-8;</span><br><span class="line">    access_log  logs/dz.dev.com.access.log;</span><br><span class="line">    error_log   logs/dz.dev.com.com.error.log;</span><br><span class="line">    root C:/workspace/DiscuzX/upload;</span><br><span class="line">    index index.php;</span><br><span class="line"></span><br><span class="line">    #location ~ [^/].php(/|$) &#123;</span><br><span class="line">    #    fastcgi_pass unix:/tmp/php-cgi.sock;</span><br><span class="line">    #    fastcgi_index index.php;</span><br><span class="line">    #    include fastcgi.conf;</span><br><span class="line">    #&#125;</span><br><span class="line"></span><br><span class="line">    location ~ \.php$ &#123;</span><br><span class="line">        fastcgi_pass   127.0.0.1:9000;</span><br><span class="line">        fastcgi_index  index.php;</span><br><span class="line">        fastcgi_param  SCRIPT_FILENAME  /scripts$fastcgi_script_name;</span><br><span class="line">        include        fastcgi_params;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h1 id="No-input-file-specified"><a href="#No-input-file-specified" class="headerlink" title="No input file specified."></a>No input file specified.</h1><p>解决：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SCRIPT_FILENAME  /scripts$fastcgi_script_name;</span><br></pre></td></tr></table></figure></p>
+<p>改为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SCRIPT_FILENAME  $document_root$fastcgi_script_name;</span><br></pre></td></tr></table></figure></p>
+<h1 id="php5-6-30-找不到-MSVCR110-dll"><a href="#php5-6-30-找不到-MSVCR110-dll" class="headerlink" title="php5.6.30 找不到 MSVCR110.dll"></a>php5.6.30 找不到 MSVCR110.dll</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">php-cgi.exe - 系统错误</span><br><span class="line">由于找不到 MSVCR110.dll，无法继续执行代码。重新安装程序可能会解决此问题。</span><br></pre></td></tr></table></figure>
+<p>解决，下载并安装：<a href="https://www.microsoft.com/zh-cn/download/confirmation.aspx?id=30679" rel="external nofollow noopener noreferrer" target="_blank">Visual C++ Redistributable for Visual Studio 2012 Update 4</a></p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-09-01T02:53:13.109Z" itemprop="dateUpdated">2020年9月1日 10:53</time>
+</span><br>
+
+
+        转载请注明出处：<a href="/windows/win10Php7Nginx.html" target="_blank" rel="external">https://www.lovesofttech.com/windows/win10Php7Nginx.html</a>
+    </div>
+    <footer>
+        <a href="https://www.lovesofttech.com">
+            <img src="/img/myLogo.jpg" alt="安迪陈">
+            安迪陈
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nginx/">nginx</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/php/">php</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/windows/">windows</a></li></ul>
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/windows/win10Php7Nginx.html&title=《在 win10 下配置 nginx1.14.0 + PHP7.2.6》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/windows/win10Php7Nginx.html&title=《在 win10 下配置 nginx1.14.0 + PHP7.2.6》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=如题" data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/windows/win10Php7Nginx.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《在 win10 下配置 nginx1.14.0 + PHP7.2.6》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/windows/win10Php7Nginx.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/windows/win10Php7Nginx.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/windows/win10Php7Discuz.html" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">在 win10 下配置 PHP7.2.6 + Discuz! X3.4</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/windows/win10Php7HttpdPhp7.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">在 win10 下配置 Apache2.4.33 + PHP7.2.6</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+    
+    
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="bottom">
+        <p>
+            <span>安迪陈技术日志，架构、感悟、系统分析、团队管理 &copy; 2017 - 2020</span>
+            <span>
+                Power by <a href="https://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>&nbsp;
+                Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank" rel="external nofollow noopener noreferrer">indigo</a>
+            </span>
+            <span>
+                <a href="http://www.beian.miit.gov.cn" target="_blank" rel="external nofollow noopener noreferrer">蜀ICP备17041860号</a>
+            </span>
+            
+            <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            </p><p>
+                <span>
+                    统计始于：2019-03-06
+                </span>
+                <span id="busuanzi_container_site_uv" style="display:none">
+                    访客数：<span id="busuanzi_value_site_uv"></span>
+                </span>
+                <span id="busuanzi_container_site_pv" style="display:none">
+                    访问量：<span id="busuanzi_value_site_pv"></span>
+                </span>
+            
+            
+                <span class="post-count">累计字数：309.2k</span>
+            
+                <span><a href="/general/blogLog.html"><i class="fas fa-pen-alt"></i>&nbsp;博客日志</a></span>
+            </p>
+        <p></p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light" title="回到顶部"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/windows/win10Php7Nginx.html&title=《在 win10 下配置 nginx1.14.0 + PHP7.2.6》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/windows/win10Php7Nginx.html&title=《在 win10 下配置 nginx1.14.0 + PHP7.2.6》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=如题" data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/windows/win10Php7Nginx.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《在 win10 下配置 nginx1.14.0 + PHP7.2.6》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/windows/win10Php7Nginx.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/windows/win10Php7Nginx.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACJ0lEQVR42u3awa6jMAwF0Pf/P92RZlvB3OvA0xAOq6oNhJOFayf++Ymvz9/r+/P3mKNfv8d8j0+esHRhYGA8lvE5vc4nyO9N5j1asvPnY2BgvIeRBNlzRvJySTDNlwADAwPjPAjm7Px7DAwMjPsYbcqYl8EYGBgYs0I0LzjbbbhfqsUxMDAeyFg5GLj78y+db2BgYPzHjE953bGKeXg9fCsMDIytGfkWWNJUkR+CrvwzFBkuBgbGRoyVlou8CSzBtOzLOkcwMDAewmgHzZCzZVpKRjEwMB7OaLf7W/assawtaDEwMPZmtC+RlL7tE2Z3/aOIxcDA2JQxK2WTafJQvtLSgYGBsTejPQxoU8DZ4Wg7LwYGxq6M/EF5aJ6VrG0ZfNgzgoGBsR1jpWFrlurlIXtWWmNgYOzHSMLrSojMDz7zUH6YGmJgYGzKuLa1Ike26V3RM4KBgfECRhtA24259kVrPAYGxnaMfDOrxdzSQnG0TBgYGFsz8qF5g8XKyHYRMTAw3sDIW75mjWKzMXlWi4GB8TZG3h4xSxmT2D8L0BgYGHsz2onzQNxu3l21MYeBgbEf46qS8trNsnZeDAyMvRmzbf02HJ+Hyzb1XDquwMDAeCwjD7Kz10qSwnbLDwMD452MvOqdHSTcXotjYGBgxMG0LVDbew9HYmBgYFy0TZYE7jzUYmBgvI3RhsJrk8X1FjQMDIy9GSsHA/lhZ5v25bNgYGBszfgDL3Nb0ZMAYQsAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.5.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.5.2" async></script>
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '安迪陈技术日志';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '欢迎回来';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<!--<script async src="//hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c"></script>-->
+<!-- 统计-->
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var host = window.location.host;
+        var hm = document.createElement("script");
+
+        if (host.indexOf('gitee.io') > 0) { // https://uncleandychen.gitee.io/
+            hm.src = "https://hm.baidu.com/hm.js?0cf4709148b070b8082191d2e456a1a3";
+        } else if (host.indexOf('lovesofttech.com') > 0) { // https://www.lovesofttech.com/
+            hm.src = "https://hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c";
+        } else {
+            hm.src = '';
+        }
+
+        if (hm.src !== '') {
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        }
+    })();
+</script>
+<!-- End Baidu Tongji -->
+
+
+
+<!-- Baidu Push -->
+<!-- 主动推送百度爬虫-->
+<script>
+    (function(){
+        if (window.location.host.indexOf('lovesofttech.com') < 0) {
+            return;
+        }
+
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+<!-- End Baidu Push -->
+
+
+    <meta charset="utf-8">
+    
+    
+    <link rel="canonical" href="https://www.lovesofttech.com/windows/win10SMBClient.html">
+    
+    
+    <title>windows 10 访问 CentOS 7 的 SMB 共享文件 | 安迪陈技术日志，架构、感悟、系统分析、团队管理 | 自强不息，厚德载物</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="CentOS,smb,win10">
+    <meta name="description" content="如题">
+<meta name="keywords" content="CentOS,smb,win10">
+<meta property="og:type" content="article">
+<meta property="og:title" content="windows 10 访问 CentOS 7 的 SMB 共享文件">
+<meta property="og:url" content="https://www.lovesofttech.com/windows/win10SMBClient.html">
+<meta property="og:site_name" content="安迪陈技术日志，架构、感悟、系统分析、团队管理">
+<meta property="og:description" content="如题">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:image" content="https://www.lovesofttech.com/img/general/win10FileDiscovery01.png">
+<meta property="og:image" content="https://www.lovesofttech.com/img/general/win10FileDiscovery02.png">
+<meta property="og:updated_time" content="2020-09-01T02:53:13.110Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="windows 10 访问 CentOS 7 的 SMB 共享文件">
+<meta name="twitter:description" content="如题">
+<meta name="twitter:image" content="https://www.lovesofttech.com/img/general/win10FileDiscovery01.png">
+    
+        <link rel="alternative" href="/atom.xml" title="安迪陈技术日志，架构、感悟、系统分析、团队管理" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=201912302211">
+    <link rel="stylesheet" href="/css/header.css?v=201912302211">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu">
+  <div class="inner flex-row-vertical">
+    <!--<i class="icon icon-lg icon-close"></i>-->
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off" title="隐藏左侧导航">﹤<i class="icon icon-lg icon-navicon"></i></a>
+    <div class="brand-wrap" style="background-image:url(/img/bannerBackgroundLeft.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/myLogo.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">安迪陈</h5>
+          <a href="mailto:andy@lovesofttech.com" title="andy@lovesofttech.com" class="mail" rel="external nofollow noopener noreferrer" target="_blank">andy@lovesofttech.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articleClassify.html">
+                <i class="icon icon-th-list"></i>
+                文章分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articles.html">
+                <i class="icon icon-th-list articles"></i>
+                文章列表
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/java.html">
+                <i class="icon icon-th-list java"></i>
+                Java
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/database.html">
+                <i class="icon icon-th-list database"></i>
+                MySQL/MyBatis
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/linux.html">
+                <i class="icon icon-th-list linux"></i>
+                CentOS/linux
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/react.html">
+                <i class="icon icon-th-list React"></i>
+                React
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/lnmp.html">
+                <i class="icon icon-th-list LNMP"></i>
+                LNMP
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/git.html">
+                <i class="icon icon-th-list git"></i>
+                git
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/windows.html">
+                <i class="icon icon-th-list windows"></i>
+                windows
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/dailyLives.html">
+                <i class="icon icon-th-list dailyLives"></i>
+                工作 &amp; 生活
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-github"></i>
+                我的 github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://gitee.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link"></i>
+                我的 gitee
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://blog.csdn.net/runAndRun" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link CSDN"></i>
+                我的 CSDN
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/aboutMe.html">
+                <i class="icon icon-address-card"></i>
+                关于我
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+
+        <div class="navbar navbar-custom navbar-fixed-top">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" style="margin-left:10px;" id="menu-toggle" title="显示左侧导航"><i class="icon icon-lg icon-navicon"></i>﹥</a>
+            <ul class="nav navbar-nav navbar-right" id="navMenuTop">
+                <li>
+                    <a href="/">主页</a>
+                </li>
+                
+                    
+                        <li>
+                            <a href="/articleClassify.html" title="本博客的文章分类列表">文章分类</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/articles.html" title="本博客的所有文章列表">文章列表</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/java.html" title="Java 开发，文章目录">Java</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/database.html" title="日常开发中有关 MySQL、MyBatis 的一些经验总结">MySQL/MyBatis</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/linux.html" title="CentOS/linux，文章目录">CentOS/linux</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/react.html" title="React 技术栈（全家桶）学习心得分享，文章目录">React</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/about.html">关于</a>
+                        </li>
+                    
+                
+            </ul>
+        </div>
+
+        <div class="flex-col header-title ellipsis">windows 10 访问 CentOS 7 的 SMB 共享文件</div>
+        
+        <div class="search-wrap" id="search-wrap" style="z-index: 2;">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back" style="width:33px;">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search" style="width:33px;">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare" style="z-index: 3;margin-right: 10px; width:30px;">
+                <i class="icon icon-lg icon-share-alt"></i>
+            </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h2 class="title">windows 10 访问 CentOS 7 的 SMB 共享文件</h2>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-04-16T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2018-04-17
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/CentOS/">CentOS</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/CentOS/win10/">win10</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/CentOS/win10/smb/">smb</a></li></ul></li></ul></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap" id="index-container">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc" style="z-index: 3;">
+            <h4><i class="fa fa-list-alt"></i>&nbsp;&nbsp;本文目录</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#环境"><span class="post-toc-number">1.</span> <span class="post-toc-text">环境</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#现象"><span class="post-toc-number">2.</span> <span class="post-toc-text">现象</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#解决-win10-教育版不可访问的问题"><span class="post-toc-number">3.</span> <span class="post-toc-text">解决 win10 教育版不可访问的问题</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#在其中两台中文版-win10-电脑上，错误提示分别如下："><span class="post-toc-number">3.1.</span> <span class="post-toc-text">在其中两台中文版 win10 电脑上，错误提示分别如下：</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#解决"><span class="post-toc-number">3.1.1.</span> <span class="post-toc-text">解决</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#在其中一台中文版的-win10-上测试重现"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">在其中一台中文版的 win10 上测试重现</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#另外一台-win10-英文版，按如上方法未解决"><span class="post-toc-number">3.3.</span> <span class="post-toc-text">另外一台 win10 英文版，按如上方法未解决</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#明显有问题的现象"><span class="post-toc-number">3.3.1.</span> <span class="post-toc-text">明显有问题的现象</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#解决-1"><span class="post-toc-number">3.3.2.</span> <span class="post-toc-text">解决</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#换了-IP-地址之后，出错，提示：not-accessible"><span class="post-toc-number">4.</span> <span class="post-toc-text">换了 IP 地址之后，出错，提示：not accessible</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#其它"><span class="post-toc-number">5.</span> <span class="post-toc-text">其它</span></a></li></ol>
+        </nav>
+    </aside>
+    
+
+<article id="post-windows/win10SMBClient" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">windows 10 访问 CentOS 7 的 SMB 共享文件</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018年04月17日 0:00" datetime="2018-04-16T16:00:00.000Z" itemprop="datePublished">2018-04-17</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/CentOS/">CentOS</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/CentOS/win10/">win10</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/CentOS/win10/smb/">smb</a></li></ul></li></ul></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" style="display:none">
+    阅读量：<span id="busuanzi_value_page_pv"></span>次
+</span>
+
+
+    <span>|</span>
+    <span class="post-count">字数：1k</span>
+    <span>|</span>
+    <span class="post-count">阅读时长：大约4分钟</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>如题<br><a id="more"></a></p>
+<h1 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h1><ol>
+<li>CentOS 7 安装配置 smba 服务，参见：<a href="/linux/centOS7Smba">CentOS 7.2 安装配置 Samba 服务器</a></li>
+<li>客户端：win7旗舰版，win10 专业版，win10 教育版</li>
+</ol>
+<h1 id="现象"><a href="#现象" class="headerlink" title="现象"></a>现象</h1><ol>
+<li>win7旗舰版，win10 专业版，均可顺利访问到共享文件夹。</li>
+<li>win10 教育版，不可以。</li>
+</ol>
+<h1 id="解决-win10-教育版不可访问的问题"><a href="#解决-win10-教育版不可访问的问题" class="headerlink" title="解决 win10 教育版不可访问的问题"></a>解决 win10 教育版不可访问的问题</h1><h2 id="在其中两台中文版-win10-电脑上，错误提示分别如下："><a href="#在其中两台中文版-win10-电脑上，错误提示分别如下：" class="headerlink" title="在其中两台中文版 win10 电脑上，错误提示分别如下："></a>在其中两台中文版 win10 电脑上，错误提示分别如下：</h2><ul>
+<li>电脑A：请检查名称的拼写。否则，网络可能有问题。要尝试识别并解决网络问题，请单击“诊断”。错误代码: 0x80004005</li>
+<li>电脑B：你不能访问此共享文件夹，因为你组织的安全策略阻止未经身份验证的来宾访问，这些策略可帮助保护你的电脑免受网络上不安全设备或者恶意设备的威胁。</li>
+</ul>
+<h3 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h3><p>修改 Win10 网络策略。按window+R键输入gpedit.msc 来启动本地组策略编辑器。依次找到“计算机配置-管理模板-网络-Lanman工作站”这个节点，在右侧内容区可以看到“启用不安全的来宾登录”这一条策略设置。状态是“未配置”，双击它，将其状态修改为“已启用”并单击确定按钮。</p>
+<h2 id="在其中一台中文版的-win10-上测试重现"><a href="#在其中一台中文版的-win10-上测试重现" class="headerlink" title="在其中一台中文版的 win10 上测试重现"></a>在其中一台中文版的 win10 上测试重现</h2><p>将上面提到的【Lanman工作站】-&gt;【启用不安全的来宾登录】设置为【未设置】，删除之前保存的用户凭据（参见<a href="/general/windowsCredentials">windows 用户凭据管理</a>)，重新访问虚拟机的共享目录，提示如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">[Window Title]</span><br><span class="line">网络错误</span><br><span class="line"></span><br><span class="line">[Main Instruction]</span><br><span class="line">Windows 无法访问 \\192.168.1.88</span><br><span class="line"></span><br><span class="line">[Content]</span><br><span class="line">请检查名称的拼写。否则，网络可能有问题。要尝试识别并解决网络问题，请单击“诊断”。</span><br><span class="line"></span><br><span class="line">[^] 隐藏详细信息  [诊断(D)] [取消]</span><br><span class="line"></span><br><span class="line">[Expanded Information]</span><br><span class="line">错误代码: 0x80070035</span><br><span class="line">找不到网络路径。</span><br></pre></td></tr></table></figure></p>
+<p>说明这一设置是必要的，但是，英文版的却并未解决。</p>
+<h2 id="另外一台-win10-英文版，按如上方法未解决"><a href="#另外一台-win10-英文版，按如上方法未解决" class="headerlink" title="另外一台 win10 英文版，按如上方法未解决"></a>另外一台 win10 英文版，按如上方法未解决</h2><ul>
+<li>提示信息：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">[Window Title]</span><br><span class="line">Network Error</span><br><span class="line"></span><br><span class="line">[Main Instruction]</span><br><span class="line">Windows cannot access \\192.168.1.88</span><br><span class="line"></span><br><span class="line">[Content]</span><br><span class="line">Check the spelling of the name. Otherwise, there might be a problem with your network. To try to identify and resolve network problems, click Diagnose.</span><br><span class="line"></span><br><span class="line">[^] Hide details  [Diagnose] [Cancel]</span><br><span class="line"></span><br><span class="line">[Expanded Information]</span><br><span class="line">Error code: 0x800704b3</span><br><span class="line">The network path was either typed incorrectly, does not exist, or the network provider is not currently available. Please try retyping the path or contact your network administrator.</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="明显有问题的现象"><a href="#明显有问题的现象" class="headerlink" title="明显有问题的现象"></a>明显有问题的现象</h3><p>尝试了网上很多办法，均无果。其中，明显有问题的情况</p>
+<ol>
+<li>打开文件与打印机共享，选择【turn on file and printer sharing】之后，重新打开，还是【turn off file and printer sharing】状态<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/general/win10FileDiscovery01.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure></li>
+<li>执行<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sc.exe config lanmanworkstation depend= bowser/mrxsmb10/mrxsmb20/nsi </span><br><span class="line">sc.exe config mrxsmb10 start= auto</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ul>
+<li>第一条命令执行成功，但第二条命令执行后提示：OpenService FAILED 1060</li>
+</ul>
+<h3 id="解决-1"><a href="#解决-1" class="headerlink" title="解决"></a>解决</h3><p>进入Control Panel\Programs，点击【Turn Windows feautres on or off】，勾选 SMB 1.0/CIFS File Sharing Support 下的 SMB 1.0/CIFS Client 和 SMB 1.0/CIFS Server，点击【ok】,然后，重启电脑。<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/general/win10FileDiscovery02.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure></p>
+<p>如此操作之后，之前打开文件与打印机共享的设置终于生效了，即【Turn Windows feautres on or off】终于保持到被选中状态了。</p>
+<h1 id="换了-IP-地址之后，出错，提示：not-accessible"><a href="#换了-IP-地址之后，出错，提示：not-accessible" class="headerlink" title="换了 IP 地址之后，出错，提示：not accessible"></a>换了 IP 地址之后，出错，提示：not accessible</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[Window Title]</span><br><span class="line">Open Folder</span><br><span class="line"></span><br><span class="line">[Content]</span><br><span class="line">\\192.168.1.90\school-docs is not accessible. You might not have permission to use this network resource. Contact the administrator of this server to find out if you have access permissions.</span><br><span class="line">A device attached to the system is not functioning.</span><br><span class="line">[OK]</span><br></pre></td></tr></table></figure>
+<h1 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h1><ol>
+<li>还涉及到组策略，来宾账户设置之类的，这些是 windows 共享相关的，与本文无关，可网上搜索相关内容。</li>
+<li><a href="https://jingyan.baidu.com/article/c146541382b6950bfcfc4ca5.html" rel="external nofollow noopener noreferrer" target="_blank">win10 无法访问samba，没有权限，登录会话解决</a> <ul>
+<li>win key+R，输入“control userpasswords2”，打开“用户账户”。可直接添加用户凭据。</li>
+</ul>
+</li>
+<li><a href="https://blog.csdn.net/txwtech/article/details/78676045" rel="external nofollow noopener noreferrer" target="_blank">win10无法访问共享解决办法</a></li>
+<li>错误提示：不允许一个用户使用一个以上用户名与一个服务器或共享资源的多重连接。中断与此服务器或共享资源的连接，然后在试一次<ul>
+<li>解决：windows 下 cmd，执行：net use * /del /y</li>
+</ul>
+</li>
+</ol>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-09-01T02:53:13.110Z" itemprop="dateUpdated">2020年9月1日 10:53</time>
+</span><br>
+
+
+        转载请注明出处：<a href="/windows/win10SMBClient.html" target="_blank" rel="external">https://www.lovesofttech.com/windows/win10SMBClient.html</a>
+    </div>
+    <footer>
+        <a href="https://www.lovesofttech.com">
+            <img src="/img/myLogo.jpg" alt="安迪陈">
+            安迪陈
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CentOS/">CentOS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/smb/">smb</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/win10/">win10</a></li></ul>
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/windows/win10SMBClient.html&title=《windows 10 访问 CentOS 7 的 SMB 共享文件》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/windows/win10SMBClient.html&title=《windows 10 访问 CentOS 7 的 SMB 共享文件》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=如题" data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/windows/win10SMBClient.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《windows 10 访问 CentOS 7 的 SMB 共享文件》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/windows/win10SMBClient.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/windows/win10SMBClient.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/windows/experience.html" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">在 windows 下，工作中的一些小经验</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/windows/winCredentials.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">windows 用户凭据管理</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+    
+    
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="bottom">
+        <p>
+            <span>安迪陈技术日志，架构、感悟、系统分析、团队管理 &copy; 2017 - 2020</span>
+            <span>
+                Power by <a href="https://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>&nbsp;
+                Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank" rel="external nofollow noopener noreferrer">indigo</a>
+            </span>
+            <span>
+                <a href="http://www.beian.miit.gov.cn" target="_blank" rel="external nofollow noopener noreferrer">蜀ICP备17041860号</a>
+            </span>
+            
+            <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            </p><p>
+                <span>
+                    统计始于：2019-03-06
+                </span>
+                <span id="busuanzi_container_site_uv" style="display:none">
+                    访客数：<span id="busuanzi_value_site_uv"></span>
+                </span>
+                <span id="busuanzi_container_site_pv" style="display:none">
+                    访问量：<span id="busuanzi_value_site_pv"></span>
+                </span>
+            
+            
+                <span class="post-count">累计字数：309.2k</span>
+            
+                <span><a href="/general/blogLog.html"><i class="fas fa-pen-alt"></i>&nbsp;博客日志</a></span>
+            </p>
+        <p></p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light" title="回到顶部"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/windows/win10SMBClient.html&title=《windows 10 访问 CentOS 7 的 SMB 共享文件》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/windows/win10SMBClient.html&title=《windows 10 访问 CentOS 7 的 SMB 共享文件》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=如题" data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/windows/win10SMBClient.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《windows 10 访问 CentOS 7 的 SMB 共享文件》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/windows/win10SMBClient.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/windows/win10SMBClient.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACG0lEQVR42u3aS24DIRAFwNz/0s42i3j8XmNbGihWkWIBNQvUv5+feD3+rPz37S/bU+qFgYFxW8bjcl0fkBz8bJ/rs/LfY2BgnMNIjp89zdf75KQXd8bAwMAIntr2uvkDjYGBgbHOSALKlR0wMDAwVrbL/zsDfyQXx8DAuCFjVr7/zt8f6W9gYGDcivEoV9IkWElcZwsDA2NvRv7A5Zg2DZ4NamBgYJzDuL5KPgzxroSzfcqjiQ8MDIxNGW1xbaUB0H6mf26CgYGxNSMP1NpxrnZ44vr5zm+FgYGxH2OlHbhSpGsT4BcfBQMDY2tGEnK1Zf08lEx4xdgHBgbGpowk7Msf2VlCu1Joi3JxDAyMmzPa4n6e6LawWasAAwPjZEZeJmthS0X/vF6IgYGxKWNW1n/zhFrZNMXAwDiBkYw7tKlp3kJoSdHMCAYGxgGMvJ8wa16uDFgUDy4GBsZGjFni+q4nNS/zRUEnBgbG1ox2ozxzbFPZtpmKgYFxDiMPyPKHsg3+ZoCncS4GBsamjDzUmyW6dVLa7oyBgXEAI7/crP2ZJ7TDEzEwMDZlPMo1e6Bnj2yRHmNgYGzNyFeOnBXUZo2KGoOBgXFbxsrIxTqyZWNgYJzMaIcw2pDxS7k4BgYGxnLiOvtYERUDAwMjHphoG59tYe7ph8PAwDiA0V4iDwfXk+HoU2JgYGzNmAVwbfo6a4uuj4NgYGDcnPELXj+8KrybfLkAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.5.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.5.2" async></script>
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '安迪陈技术日志';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '欢迎回来';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

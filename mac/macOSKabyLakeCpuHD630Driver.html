@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<!--<script async src="//hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c"></script>-->
+<!-- 统计-->
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var host = window.location.host;
+        var hm = document.createElement("script");
+
+        if (host.indexOf('gitee.io') > 0) { // https://uncleandychen.gitee.io/
+            hm.src = "https://hm.baidu.com/hm.js?0cf4709148b070b8082191d2e456a1a3";
+        } else if (host.indexOf('lovesofttech.com') > 0) { // https://www.lovesofttech.com/
+            hm.src = "https://hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c";
+        } else {
+            hm.src = '';
+        }
+
+        if (hm.src !== '') {
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        }
+    })();
+</script>
+<!-- End Baidu Tongji -->
+
+
+
+<!-- Baidu Push -->
+<!-- 主动推送百度爬虫-->
+<script>
+    (function(){
+        if (window.location.host.indexOf('lovesofttech.com') < 0) {
+            return;
+        }
+
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+<!-- End Baidu Push -->
+
+
+    <meta charset="utf-8">
+    
+    
+    <link rel="canonical" href="https://www.lovesofttech.com/mac/macOSKabyLakeCpuHD630Driver.html">
+    
+    
+    <title>i系列7代cpu，核显（集成显卡） Intel HD 630，MacOS 修改驱动指南 | 安迪陈技术日志，架构、感悟、系统分析、团队管理 | 自强不息，厚德载物</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="MacOS,HD630">
+    <meta name="description" content="本文为黑苹果安装集成显卡驱动经验，花了很多时间鼓捣，走了好多弯路，为了用上黑苹果还专门买了一张A卡，现在A卡拆下来备用了，开心~~~">
+<meta name="keywords" content="MacOS,HD630">
+<meta property="og:type" content="article">
+<meta property="og:title" content="i系列7代cpu，核显（集成显卡） Intel HD 630，MacOS 修改驱动指南">
+<meta property="og:url" content="https://www.lovesofttech.com/mac/macOSKabyLakeCpuHD630Driver.html">
+<meta property="og:site_name" content="安迪陈技术日志，架构、感悟、系统分析、团队管理">
+<meta property="og:description" content="本文为黑苹果安装集成显卡驱动经验，花了很多时间鼓捣，走了好多弯路，为了用上黑苹果还专门买了一张A卡，现在A卡拆下来备用了，开心~~~">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:image" content="https://www.lovesofttech.com/img/hackintosh/macOSInfo.png">
+<meta property="og:image" content="https://www.lovesofttech.com/img/hackintosh/cloverConfig00.png">
+<meta property="og:image" content="https://www.lovesofttech.com/img/hackintosh/cloverConfig01.png">
+<meta property="og:image" content="https://www.lovesofttech.com/img/hackintosh/cloverConfig02.png">
+<meta property="og:image" content="https://www.lovesofttech.com/img/hackintosh/cloverConfig03.png">
+<meta property="og:updated_time" content="2020-09-01T02:53:13.064Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="i系列7代cpu，核显（集成显卡） Intel HD 630，MacOS 修改驱动指南">
+<meta name="twitter:description" content="本文为黑苹果安装集成显卡驱动经验，花了很多时间鼓捣，走了好多弯路，为了用上黑苹果还专门买了一张A卡，现在A卡拆下来备用了，开心~~~">
+<meta name="twitter:image" content="https://www.lovesofttech.com/img/hackintosh/macOSInfo.png">
+    
+        <link rel="alternative" href="/atom.xml" title="安迪陈技术日志，架构、感悟、系统分析、团队管理" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=201912302211">
+    <link rel="stylesheet" href="/css/header.css?v=201912302211">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu">
+  <div class="inner flex-row-vertical">
+    <!--<i class="icon icon-lg icon-close"></i>-->
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off" title="隐藏左侧导航">﹤<i class="icon icon-lg icon-navicon"></i></a>
+    <div class="brand-wrap" style="background-image:url(/img/bannerBackgroundLeft.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/myLogo.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">安迪陈</h5>
+          <a href="mailto:andy@lovesofttech.com" title="andy@lovesofttech.com" class="mail" rel="external nofollow noopener noreferrer" target="_blank">andy@lovesofttech.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articleClassify.html">
+                <i class="icon icon-th-list"></i>
+                文章分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articles.html">
+                <i class="icon icon-th-list articles"></i>
+                文章列表
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/java.html">
+                <i class="icon icon-th-list java"></i>
+                Java
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/database.html">
+                <i class="icon icon-th-list database"></i>
+                MySQL/MyBatis
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/linux.html">
+                <i class="icon icon-th-list linux"></i>
+                CentOS/linux
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/react.html">
+                <i class="icon icon-th-list React"></i>
+                React
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/lnmp.html">
+                <i class="icon icon-th-list LNMP"></i>
+                LNMP
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/git.html">
+                <i class="icon icon-th-list git"></i>
+                git
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/windows.html">
+                <i class="icon icon-th-list windows"></i>
+                windows
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/dailyLives.html">
+                <i class="icon icon-th-list dailyLives"></i>
+                工作 &amp; 生活
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-github"></i>
+                我的 github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://gitee.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link"></i>
+                我的 gitee
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://blog.csdn.net/runAndRun" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link CSDN"></i>
+                我的 CSDN
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/aboutMe.html">
+                <i class="icon icon-address-card"></i>
+                关于我
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+
+        <div class="navbar navbar-custom navbar-fixed-top">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" style="margin-left:10px;" id="menu-toggle" title="显示左侧导航"><i class="icon icon-lg icon-navicon"></i>﹥</a>
+            <ul class="nav navbar-nav navbar-right" id="navMenuTop">
+                <li>
+                    <a href="/">主页</a>
+                </li>
+                
+                    
+                        <li>
+                            <a href="/articleClassify.html" title="本博客的文章分类列表">文章分类</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/articles.html" title="本博客的所有文章列表">文章列表</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/java.html" title="Java 开发，文章目录">Java</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/database.html" title="日常开发中有关 MySQL、MyBatis 的一些经验总结">MySQL/MyBatis</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/linux.html" title="CentOS/linux，文章目录">CentOS/linux</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/react.html" title="React 技术栈（全家桶）学习心得分享，文章目录">React</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/about.html">关于</a>
+                        </li>
+                    
+                
+            </ul>
+        </div>
+
+        <div class="flex-col header-title ellipsis">i系列7代cpu，核显（集成显卡） Intel HD 630，MacOS 修改驱动指南</div>
+        
+        <div class="search-wrap" id="search-wrap" style="z-index: 2;">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back" style="width:33px;">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search" style="width:33px;">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare" style="z-index: 3;margin-right: 10px; width:30px;">
+                <i class="icon icon-lg icon-share-alt"></i>
+            </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h2 class="title">i系列7代cpu，核显（集成显卡） Intel HD 630，MacOS 修改驱动指南</h2>
+        <h5 class="subtitle">
+            
+                <time datetime="2019-02-24T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2019-02-25
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/MacOS/">MacOS</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/MacOS/HD630/">HD630</a></li></ul></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap" id="index-container">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc" style="z-index: 3;">
+            <h4><i class="fa fa-list-alt"></i>&nbsp;&nbsp;本文目录</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#安装情况"><span class="post-toc-number">1.</span> <span class="post-toc-text">安装情况</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#环境"><span class="post-toc-number">2.</span> <span class="post-toc-text">环境</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#正确的姿势"><span class="post-toc-number">3.</span> <span class="post-toc-text">正确的姿势</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#现象"><span class="post-toc-number">4.</span> <span class="post-toc-text">现象</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#解决"><span class="post-toc-number">5.</span> <span class="post-toc-text">解决</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#经验"><span class="post-toc-number">6.</span> <span class="post-toc-text">经验</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#关于从磁盘引导"><span class="post-toc-number">6.1.</span> <span class="post-toc-text">关于从磁盘引导</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#感谢"><span class="post-toc-number">7.</span> <span class="post-toc-text">感谢</span></a></li></ol>
+        </nav>
+    </aside>
+    
+
+<article id="post-mac/macOSKabyLakeCpuHD630Driver" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">i系列7代cpu，核显（集成显卡） Intel HD 630，MacOS 修改驱动指南</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2019年02月25日 0:00" datetime="2019-02-24T16:00:00.000Z" itemprop="datePublished">2019-02-25</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/MacOS/">MacOS</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/MacOS/HD630/">HD630</a></li></ul></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" style="display:none">
+    阅读量：<span id="busuanzi_value_page_pv"></span>次
+</span>
+
+
+    <span>|</span>
+    <span class="post-count">字数：1.3k</span>
+    <span>|</span>
+    <span class="post-count">阅读时长：大约4分钟</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>本文为黑苹果安装集成显卡驱动经验，花了很多时间鼓捣，走了好多弯路，为了用上黑苹果还专门买了一张A卡，现在A卡拆下来备用了，开心~~~<br><a id="more"></a></p>
+<h1 id="安装情况"><a href="#安装情况" class="headerlink" title="安装情况"></a>安装情况</h1><p>我是先在一台装有独立显卡 R9 280X 的台式电脑上安装的，显卡是A卡，装好后直接驱动，完美支持显示器的最大分辨率，显存识别正常。<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/hackintosh/macOSInfo.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure></p>
+<p>在这里说明一下，对于刚刚鼓捣黑苹果的人来说，网上教程提到的好多概念都会比较蒙逼，所以，我这里截图说明，希望能帮到新手。</p>
+<p>为了成功且真正的驱动 HD 630，需要修改两个地方，先看一下相关截图。</p>
+<ul>
+<li>先打开 Clover Configurator，将引导分区挂载，并打开这个文件夹。<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/hackintosh/cloverConfig00.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure></li>
+<li>找到Clover的配置文件<code>config.plist</code>，右键，选择用 Clover Configurator 打开（请忽略我安装的两个版本，这两个版本都 OK）。<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/hackintosh/cloverConfig01.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure></li>
+<li>SMBIOS 配置项，红圈儿里就是机型（截图为安装好的默认值），黑苹果在启动的时候会依赖这个配置项加载不同的驱动。刚开始看到网上的教程说要修改这一项，我是到 BIOS 里去找的，非常蒙逼，请不要笑，你是不是也跟我一样——^_^~~<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/hackintosh/cloverConfig02.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure></li>
+<li>需要修改的第二项 <code>ig-platform-id</code>（截图为安装好的默认值）。<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/hackintosh/cloverConfig03.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+</li>
+</ul>
+<p>我安装好后，机型为<code>MacBookAir6,2</code>，<code>Graphic-&gt;ig-platform-id</code>值为<code>ox12345678</code>，非常顺利，装好后网卡、显卡都能用了，声卡费了一些功夫，声卡后来是安装了一款万能声卡驱动（VoodooHDA）搞定的。</p>
+<p>但是在驱动 HD 630 上，花了好多时间，走了很多弯路。我是把安装好的硬盘直接换到 HD 630 的电脑上的，不知道新安装会是什么情况（猜测会是一样的）。</p>
+<p>以下主角登场了。</p>
+<h1 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h1><p>黑苹果版本：10.14.3<br>电脑：台式兼容机<br>CPU：i3 7100，集成显卡是 HD630</p>
+<h1 id="正确的姿势"><a href="#正确的姿势" class="headerlink" title="正确的姿势"></a>正确的姿势</h1><ul>
+<li><code>SMBIOS-&gt;Product Name</code>：MacBookPro14,3</li>
+<li><code>Graphic-&gt;ig-platform-id</code>：0x591b0000</li>
+<li>敲黑板，重点，重点，重点：连接显示器的线，不要用 vga 接口的，一定要用 HDMI 接口的。<ul>
+<li>用 vga 接口会黑屏，无输出信号。</li>
+</ul>
+</li>
+<li>按以上修改加 HDMI 线，就能真正驱动起来了。</li>
+</ul>
+<p>下面说一下现象和操作过程，看你是不是也跟我一样。</p>
+<h1 id="现象"><a href="#现象" class="headerlink" title="现象"></a>现象</h1><p>直接把安装好 macOS 10.14.3 的 SSD 换到这台电脑上，显卡已经识别出来了，也能达到最大分辨率，网卡、声卡直接识别，但显卡其实没有真正驱动起来，用<code>VGA</code>线，显存只有7M，换成<code>HDMI</code>线，显存变成14M，会局部花屏和卡顿，严重影响使用。</p>
+<h1 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h1><p>按照网上的教程，大多是修改<code>Graphic-&gt;ig-platform-id</code>和<code>SMBIOS-&gt;Product Name</code>，还有换驱动、修改文件的，都试了，无果。</p>
+<p>当然，在这个过程中，网上的教程针对的版本不一定是我安装的版本，对新版10.14.3的教程还比较少。</p>
+<p>还有一个重要的点，就是显示器数据线，我大多数操作都是用 VGA 线连接的，只是用 HDMI 线试了几个参数，但是都没对。其实要真正驱动 HD 630，只能用 HDMI 接口，所以，即使参数修改正确了，线没用对，还是会失败，然后去找别的教程，可能更让人蒙逼。</p>
+<h1 id="经验"><a href="#经验" class="headerlink" title="经验"></a>经验</h1><p>如果进入 macOS 后修改了参数导致黑屏，重启的时候，进入引导界面，选 Clover 的 option，进入可以修改<code>SMBIOS</code>和<code>ig-platform-id</code>，修改后仅对当次启动有效，配置文件不会被修改。</p>
+<p>如果一开始我就知道这一点，就会节约很多时间，一开始黑屏或者启动死机之后，我的做法是重新做启动U盘，从U盘启动系统后再改。</p>
+<p>后来我干脆做了两个U盘，一个坏了就换另外一个启动，再修改启动不了的那个，总之还是效率不高。</p>
+<h2 id="关于从磁盘引导"><a href="#关于从磁盘引导" class="headerlink" title="关于从磁盘引导"></a>关于从磁盘引导</h2><p>首先要保证有一个 EFI 引导分区，如果正常安装，在安装过程中抹盘的话，会自动分出一个200M的EFI分区，在安装好后，把U盘的EFI分区中的文件复制到磁盘的EFI分区即可成功。</p>
+<p>不过，有个例，我用一款比较老（14年）的华擎主板，即使升级官方的最新BIOS也还是不能识别磁盘上的EFI引导分区（还好能识别U盘上的EFI引导分区，否则就装不了黑苹果了），但是在新一点的华硕主板上就可以。</p>
+<h1 id="感谢"><a href="#感谢" class="headerlink" title="感谢"></a>感谢</h1><p>本次驱动成功，要非常感谢<code>黑苹果小兵的部落阁</code>的这篇文章：<a href="https://blog.daliansky.net/Intel-core-display-platformID-finishing.html" rel="external nofollow noopener noreferrer" target="_blank">黑苹果必备：Intel核显platform ID整理及smbios速查表</a></p>
+<p>这篇文章中提到的CPU平台，在中关村在线网站上是：核心代号，可以在这个网站上输入CPU型号去查，比如我的 <a href="http://detail.zol.com.cn/1164/1163851/param.shtml" rel="external nofollow noopener noreferrer" target="_blank">i3 7100 的参数链接</a>，其核心代号是：Kaby Lake</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-09-01T02:53:13.064Z" itemprop="dateUpdated">2020年9月1日 10:53</time>
+</span><br>
+
+
+        转载请注明出处：<a href="/mac/macOSKabyLakeCpuHD630Driver.html" target="_blank" rel="external">https://www.lovesofttech.com/mac/macOSKabyLakeCpuHD630Driver.html</a>
+    </div>
+    <footer>
+        <a href="https://www.lovesofttech.com">
+            <img src="/img/myLogo.jpg" alt="安迪陈">
+            安迪陈
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HD630/">HD630</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MacOS/">MacOS</a></li></ul>
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/mac/macOSKabyLakeCpuHD630Driver.html&title=《i系列7代cpu，核显（集成显卡） Intel HD 630，MacOS 修改驱动指南》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/mac/macOSKabyLakeCpuHD630Driver.html&title=《i系列7代cpu，核显（集成显卡） Intel HD 630，MacOS 修改驱动指南》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=本文为黑苹果安装集成显卡驱动经验，花了很多时间鼓捣，走了好多弯路，为了用上黑苹果还专门买了一张A卡，现在A卡拆下来备用了，开心~~~" data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/mac/macOSKabyLakeCpuHD630Driver.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《i系列7代cpu，核显（集成显卡） Intel HD 630，MacOS 修改驱动指南》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/mac/macOSKabyLakeCpuHD630Driver.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/mac/macOSKabyLakeCpuHD630Driver.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/mac/macNginx.html" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">MacOS 编译安装 nginx 指定版本</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/general/i57200uHD620DriverOnWin7.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">i5 7200u，核显（集成显卡） Intel HD 620，win7 64 位系统安装折腾记录</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+    
+    
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="bottom">
+        <p>
+            <span>安迪陈技术日志，架构、感悟、系统分析、团队管理 &copy; 2017 - 2020</span>
+            <span>
+                Power by <a href="https://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>&nbsp;
+                Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank" rel="external nofollow noopener noreferrer">indigo</a>
+            </span>
+            <span>
+                <a href="http://www.beian.miit.gov.cn" target="_blank" rel="external nofollow noopener noreferrer">蜀ICP备17041860号</a>
+            </span>
+            
+            <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            </p><p>
+                <span>
+                    统计始于：2019-03-06
+                </span>
+                <span id="busuanzi_container_site_uv" style="display:none">
+                    访客数：<span id="busuanzi_value_site_uv"></span>
+                </span>
+                <span id="busuanzi_container_site_pv" style="display:none">
+                    访问量：<span id="busuanzi_value_site_pv"></span>
+                </span>
+            
+            
+                <span class="post-count">累计字数：309.2k</span>
+            
+                <span><a href="/general/blogLog.html"><i class="fas fa-pen-alt"></i>&nbsp;博客日志</a></span>
+            </p>
+        <p></p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light" title="回到顶部"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/mac/macOSKabyLakeCpuHD630Driver.html&title=《i系列7代cpu，核显（集成显卡） Intel HD 630，MacOS 修改驱动指南》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/mac/macOSKabyLakeCpuHD630Driver.html&title=《i系列7代cpu，核显（集成显卡） Intel HD 630，MacOS 修改驱动指南》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=本文为黑苹果安装集成显卡驱动经验，花了很多时间鼓捣，走了好多弯路，为了用上黑苹果还专门买了一张A卡，现在A卡拆下来备用了，开心~~~" data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/mac/macOSKabyLakeCpuHD630Driver.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《i系列7代cpu，核显（集成显卡） Intel HD 630，MacOS 修改驱动指南》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/mac/macOSKabyLakeCpuHD630Driver.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/mac/macOSKabyLakeCpuHD630Driver.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACuElEQVR42u3aQW4bMRAEQP//0841QLJS9wxp61B7EmRpl0UBJN0zX1/x9f3X9e87T399uk/yOr/ngQsPDw9vMfTXt04++Xq4+WTNJvc/U4CHh4d3jZcv4k+PrB/8cuj56zcWPDw8vA/mtQPNj8uzIzseHh7e5/DaJT7//EdsDHh4eHgxL49lk+Fujsi/lrXg4eHhdZlAVEX6nNdX6nt4eHh466r6fqHPy1qbez4+Cw8PD+8CL19wT7UInNqcinHi4eHhXeAlp9B2uT91z3w7iSYCDw8P7xAvWcrzLaE9jte/QIzEw8PDu81rF+t8cHmZatZMUNT38PDw8Na8ZPGdLeLtwXoTQAy/jIeHh3eIl2wAmw3jVNksOcrj4eHh3eBtmp/aCGPTQLDa5PDw8PAu8PJi/OvBHai/xRtP0S6Ah4eHd5SXF65mn29D4U3DwWPTAB4eHt413qllOtk2Xr+eHdP/czc8PDy8C7xNSWz/mTx6OFVOw8PDwzvFy8tRp6rzm+2njj/w8PDwjvKSZqn8pm1xK8+VZ01deHh4eLd5s4aANnRovzWbMjw8PLyf5LWMPJBtG7na3ofifwU8PDy8Na9tZsqH+L2+ZpEuHh4e3j1eG7bmBa220JW8nwfExW+Ih4eHN+LNylftRCQbQB4ND4tteHh4eId4s1CgfcwmbtiEFHh4eHj3ePtb75f7Nowo9jo8PDy8H+S1j58FuF+L603YgYeHh3eUNxtEMqA8vMjvXJfr8PDw8C7wzoaws+CgPZq3k4KHh4d3g7fZDNoWqDwgztlRuwAeHh7eBV572J0V9duS2yyMeGwdwMPDw/tV3uxhyZRtpvsxpcbDw8P7AF7bVpV8N99ginAZDw8P7xqvDQKSUGDfatAeyt90RuDh4eEd4s0OynkkkQ83D4Wv1Pfw8PDw3vP+AMkju2AOVdUEAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.5.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.5.2" async></script>
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '安迪陈技术日志';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '欢迎回来';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

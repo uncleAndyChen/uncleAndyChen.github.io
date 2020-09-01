@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<!--<script async src="//hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c"></script>-->
+<!-- 统计-->
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var host = window.location.host;
+        var hm = document.createElement("script");
+
+        if (host.indexOf('gitee.io') > 0) { // https://uncleandychen.gitee.io/
+            hm.src = "https://hm.baidu.com/hm.js?0cf4709148b070b8082191d2e456a1a3";
+        } else if (host.indexOf('lovesofttech.com') > 0) { // https://www.lovesofttech.com/
+            hm.src = "https://hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c";
+        } else {
+            hm.src = '';
+        }
+
+        if (hm.src !== '') {
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        }
+    })();
+</script>
+<!-- End Baidu Tongji -->
+
+
+
+<!-- Baidu Push -->
+<!-- 主动推送百度爬虫-->
+<script>
+    (function(){
+        if (window.location.host.indexOf('lovesofttech.com') < 0) {
+            return;
+        }
+
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+<!-- End Baidu Push -->
+
+
+    <meta charset="utf-8">
+    
+    
+    <link rel="canonical" href="https://www.lovesofttech.com/linux/centOSGeneralCommand.html">
+    
+    
+    <title>CentOS 常用命令 | 安迪陈技术日志，架构、感悟、系统分析、团队管理 | 自强不息，厚德载物</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="CentOS">
+    <meta name="description" content="如题">
+<meta name="keywords" content="CentOS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CentOS 常用命令">
+<meta property="og:url" content="https://www.lovesofttech.com/linux/centOSGeneralCommand.html">
+<meta property="og:site_name" content="安迪陈技术日志，架构、感悟、系统分析、团队管理">
+<meta property="og:description" content="如题">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2020-09-01T02:53:13.033Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CentOS 常用命令">
+<meta name="twitter:description" content="如题">
+    
+        <link rel="alternative" href="/atom.xml" title="安迪陈技术日志，架构、感悟、系统分析、团队管理" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=201912302211">
+    <link rel="stylesheet" href="/css/header.css?v=201912302211">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu">
+  <div class="inner flex-row-vertical">
+    <!--<i class="icon icon-lg icon-close"></i>-->
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off" title="隐藏左侧导航">﹤<i class="icon icon-lg icon-navicon"></i></a>
+    <div class="brand-wrap" style="background-image:url(/img/bannerBackgroundLeft.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/myLogo.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">安迪陈</h5>
+          <a href="mailto:andy@lovesofttech.com" title="andy@lovesofttech.com" class="mail" rel="external nofollow noopener noreferrer" target="_blank">andy@lovesofttech.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articleClassify.html">
+                <i class="icon icon-th-list"></i>
+                文章分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articles.html">
+                <i class="icon icon-th-list articles"></i>
+                文章列表
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/java.html">
+                <i class="icon icon-th-list java"></i>
+                Java
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/database.html">
+                <i class="icon icon-th-list database"></i>
+                MySQL/MyBatis
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/linux.html">
+                <i class="icon icon-th-list linux"></i>
+                CentOS/linux
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/react.html">
+                <i class="icon icon-th-list React"></i>
+                React
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/lnmp.html">
+                <i class="icon icon-th-list LNMP"></i>
+                LNMP
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/git.html">
+                <i class="icon icon-th-list git"></i>
+                git
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/windows.html">
+                <i class="icon icon-th-list windows"></i>
+                windows
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/dailyLives.html">
+                <i class="icon icon-th-list dailyLives"></i>
+                工作 &amp; 生活
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-github"></i>
+                我的 github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://gitee.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link"></i>
+                我的 gitee
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://blog.csdn.net/runAndRun" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link CSDN"></i>
+                我的 CSDN
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/aboutMe.html">
+                <i class="icon icon-address-card"></i>
+                关于我
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+
+        <div class="navbar navbar-custom navbar-fixed-top">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" style="margin-left:10px;" id="menu-toggle" title="显示左侧导航"><i class="icon icon-lg icon-navicon"></i>﹥</a>
+            <ul class="nav navbar-nav navbar-right" id="navMenuTop">
+                <li>
+                    <a href="/">主页</a>
+                </li>
+                
+                    
+                        <li>
+                            <a href="/articleClassify.html" title="本博客的文章分类列表">文章分类</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/articles.html" title="本博客的所有文章列表">文章列表</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/java.html" title="Java 开发，文章目录">Java</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/database.html" title="日常开发中有关 MySQL、MyBatis 的一些经验总结">MySQL/MyBatis</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/linux.html" title="CentOS/linux，文章目录">CentOS/linux</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/react.html" title="React 技术栈（全家桶）学习心得分享，文章目录">React</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/about.html">关于</a>
+                        </li>
+                    
+                
+            </ul>
+        </div>
+
+        <div class="flex-col header-title ellipsis">CentOS 常用命令</div>
+        
+        <div class="search-wrap" id="search-wrap" style="z-index: 2;">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back" style="width:33px;">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search" style="width:33px;">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare" style="z-index: 3;margin-right: 10px; width:30px;">
+                <i class="icon icon-lg icon-share-alt"></i>
+            </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h2 class="title">CentOS 常用命令</h2>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-07-28T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2017-07-29
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/CentOS/">CentOS</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap" id="index-container">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc" style="z-index: 3;">
+            <h4><i class="fa fa-list-alt"></i>&nbsp;&nbsp;本文目录</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#组、用户操作"><span class="post-toc-number">1.</span> <span class="post-toc-text">组、用户操作</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#关于删除用户的进一步说明：彻底删除用户"><span class="post-toc-number">2.</span> <span class="post-toc-text">关于删除用户的进一步说明：彻底删除用户</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Centos-查看硬盘空间"><span class="post-toc-number">3.</span> <span class="post-toc-text">Centos 查看硬盘空间</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#linux-清除文本文件内容"><span class="post-toc-number">4.</span> <span class="post-toc-text">linux 清除文本文件内容</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#防火墙"><span class="post-toc-number">5.</span> <span class="post-toc-text">防火墙</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#关闭"><span class="post-toc-number">5.1.</span> <span class="post-toc-text">关闭</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#开启"><span class="post-toc-number">5.2.</span> <span class="post-toc-text">开启</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#关闭开机启动"><span class="post-toc-number">5.3.</span> <span class="post-toc-text">关闭开机启动</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#开启开机启动"><span class="post-toc-number">5.4.</span> <span class="post-toc-text">开启开机启动</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Creating-mailbox-file-File-exists"><span class="post-toc-number">6.</span> <span class="post-toc-text">Creating mailbox file: File exists</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#the-home-directory-already-exists"><span class="post-toc-number">7.</span> <span class="post-toc-text">the home directory already exists.</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#cp-omitting-directory"><span class="post-toc-number">8.</span> <span class="post-toc-text">cp: omitting directory</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#shell-脚本调用参数"><span class="post-toc-number">9.</span> <span class="post-toc-text">shell 脚本调用参数</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#shell-脚本里用-curl-会显示统计信息"><span class="post-toc-number">10.</span> <span class="post-toc-text">shell 脚本里用 curl 会显示统计信息</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#查看-CentOS-版本"><span class="post-toc-number">11.</span> <span class="post-toc-text">查看 CentOS 版本</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#修改-CentOS7-IP-地址"><span class="post-toc-number">12.</span> <span class="post-toc-text">修改 CentOS7 IP 地址</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#查看文件更新的详细时间"><span class="post-toc-number">13.</span> <span class="post-toc-text">查看文件更新的详细时间</span></a></li></ol>
+        </nav>
+    </aside>
+    
+
+<article id="post-linux/centOSGeneralCommand" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">CentOS 常用命令</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017年07月29日 0:00" datetime="2017-07-28T16:00:00.000Z" itemprop="datePublished">2017-07-29</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/CentOS/">CentOS</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" style="display:none">
+    阅读量：<span id="busuanzi_value_page_pv"></span>次
+</span>
+
+
+    <span>|</span>
+    <span class="post-count">字数：1.7k</span>
+    <span>|</span>
+    <span class="post-count">阅读时长：大约7分钟</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>如题<br><a id="more"></a></p>
+<h1 id="组、用户操作"><a href="#组、用户操作" class="headerlink" title="组、用户操作"></a>组、用户操作</h1><ol>
+<li><p>查看用户组</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /etc/group</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看系统中有哪些用户</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cut -d : -f 1 /etc/passwd</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看所有用户详细信息</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /etc/passwd</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看可以登录系统的用户</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /etc/passwd | grep -v /sbin/nologin | cut -d : -f 1</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看用户操作：w命令(需要root权限)</p>
+</li>
+<li>查看某一用户：w 用户名</li>
+<li>查看登录用户：who</li>
+<li>查看用户登录历史记录：last</li>
+<li><p>查找用户</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /etc/passwd|grep tomcat</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查找组</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /etc/group|grep tomcat</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>删除用户</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#强制删除该用户的主目录和主目录下的所有文件和子目录</span><br><span class="line">[root@centos6 /]# userdel -rf tomcatuser      </span><br><span class="line">userdel: user tomcatuser is currently used by process 3125</span><br><span class="line"># 退出客户端然后再删除</span><br><span class="line">[root@centos6 /]# userdel -rf tomcatuser</span><br><span class="line">userdel: user &apos;tomcatuser&apos; does not exist</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>从组中删除用户<br>编辑/etc/group 找到GROUP1那一行，删除 A<br>或者用命令<br>gpasswd -d A GROUP</p>
+<ol>
+<li><p>删除用户组</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">groupdel</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>用户和组常用命令</p>
+<ul>
+<li>groups 查看当前登录用户的组内成员</li>
+<li>groups tomcat 查看 tomcat 用户所在的组,以及组内成员</li>
+<li>whoami 查看当前登录用户名</li>
+</ul>
+</li>
+<li><p>创建用户组</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">groupadd group-java</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>创建用户</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">useradd -s /bin/bash -g group-java utomcat</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>创建用户的主要参数</p>
+<ul>
+<li>－c：加上备注文字，备注文字保存在passwd的备注栏中。 </li>
+<li>－d：指定用户登入时的启始目录。</li>
+<li>－D：变更预设值。</li>
+<li>－e：指定账号的有效期限，缺省表示永久有效。</li>
+<li>－f：指定在密码过期后多少天即关闭该账号。</li>
+<li>－g：指定用户所属的起始群组。</li>
+<li>－G：指定用户所属的附加群组。</li>
+<li>－m：自动建立用户的登入目录。</li>
+<li>－M：不要自动建立用户的登入目录。</li>
+<li>－n：取消建立以用户名称为名的群组。</li>
+<li>－r：建立系统账号。</li>
+<li>－s：指定用户登入后所使用的shell。</li>
+<li>－u：指定用户ID号。</li>
+</ul>
+</li>
+<li>修改用户密码<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#usertomcatfor130</span><br><span class="line">usertomcatfor198</span><br><span class="line"></span><br><span class="line">[root@centos6 /]# passwd utomcat</span><br><span class="line">Changing password for user utomcat.</span><br><span class="line">New password: </span><br><span class="line">Retype new password: </span><br><span class="line">passwd: all authentication tokens updated successfully.</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h1 id="关于删除用户的进一步说明：彻底删除用户"><a href="#关于删除用户的进一步说明：彻底删除用户" class="headerlink" title="关于删除用户的进一步说明：彻底删除用户"></a>关于删除用户的进一步说明：彻底删除用户</h1><p>以下以用户 gitadmin 为例。</p>
+<p>彻底删除用户，要带参数 -r，否则，只是 <code>userdel gitadmin</code> 的话，只删除了以下四个文件里的该账户和组的信息<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">/etc/passwd</span><br><span class="line">/etc/shadow</span><br><span class="line">/etc/group/</span><br><span class="line">/etc/gshadow</span><br></pre></td></tr></table></figure></p>
+<p>默认情况下创建一个用户账号，还会创建一个 home 目录和一个用户邮箱（在/var/spool/mail目录以用户名命名）</p>
+<p>查看用户信息：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cat /etc/passwd | grep gitadmin</span><br><span class="line">cat /etc/shadow | grep gitadmin</span><br><span class="line">cat /etc/group | grep gitadmin</span><br><span class="line">cat /etc/gshadow | grep gitadmin</span><br><span class="line">find / -name &quot;*gitadmin*&quot;</span><br></pre></td></tr></table></figure></p>
+<p>验证-&gt;真实执行情况：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# find / -name &quot;*gitadmin*&quot;</span><br><span class="line">/home/gitadmin</span><br><span class="line">/var/spool/mail/gitadmin</span><br><span class="line">[root@localhost ~]# cat /etc/passwd | grep gitadmin</span><br><span class="line">gitadmin:x:1001:1003::/home/gitadmin:/bin/bash</span><br><span class="line">[root@localhost ~]# cat /etc/shadow | grep gitadmin</span><br><span class="line">gitadmin:$6$9v2xSWUA$wy5ZgD5HIj5FYlBkxX43a7zhMlRz2XinKAI1sQd9z7kjJthvArbZ7W7y9twKzrTI4Ug/JsqyvnsJ3t6O7Z6q60:18141:0:99999:7:::</span><br><span class="line">[root@localhost ~]# cat /etc/group | grep gitadmin</span><br><span class="line">gitadmin:x:1003:</span><br><span class="line">[root@localhost ~]# cat /etc/gshadow | grep gitadmin</span><br><span class="line">gitadmin:!::</span><br><span class="line"></span><br><span class="line">[root@localhost ~]# userdel gitadmin</span><br><span class="line">[root@localhost ~]# cat /etc/passwd | grep gitadmin</span><br><span class="line">[root@localhost ~]# cat /etc/shadow | grep gitadmin</span><br><span class="line">[root@localhost ~]# cat /etc/group | grep gitadmin</span><br><span class="line">[root@localhost ~]# cat /etc/gshadow | grep gitadmin</span><br><span class="line">[root@localhost ~]# find / -name &quot;*gitadmin*&quot;</span><br><span class="line">/home/gitadmin</span><br><span class="line">/var/spool/mail/gitadmin</span><br></pre></td></tr></table></figure></p>
+<p>重新添加该用户再执行带参数 -r 的删除：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# useradd gitadmin</span><br><span class="line">useradd: warning: the home directory already exists.</span><br><span class="line">Not copying any file from skel directory into it.</span><br><span class="line">Creating mailbox file: File exists</span><br><span class="line">[root@localhost ~]# userdel -r gitadmin</span><br><span class="line">userdel: /var/spool/mail/gitadmin not owned by gitadmin, not removing</span><br><span class="line">userdel: /home/gitadmin not owned by gitadmin, not removing</span><br><span class="line">[root@localhost ~]# rm -rf /var/spool/mail/gitadmin</span><br><span class="line">[root@localhost ~]# rm -rf /home/gitadmin</span><br><span class="line">[root@localhost ~]# useradd gitadmin</span><br><span class="line">[root@localhost ~]# userdel -r gitadmin</span><br><span class="line">[root@localhost ~]# find / -name &quot;*gitadmin*&quot; # 已经查不到相关目录了</span><br></pre></td></tr></table></figure></p>
+<p>再次<code>useradd gitadmin</code> 也不会有任何提示了。</p>
+<h1 id="Centos-查看硬盘空间"><a href="#Centos-查看硬盘空间" class="headerlink" title="Centos 查看硬盘空间"></a>Centos 查看硬盘空间</h1><p>df -h<br>du -ah –max-depth=1 目录深度为1<br>-h：以人类可读的方式显示<br>-a：显示目录占用的磁盘空间大小，还要显示其下目录和文件占用磁盘空间的大小<br>-s：显示目录占用的磁盘空间大小，不要显示其下子目录和文件占用的磁盘空间大小<br>-c：显示几个目录或文件占用的磁盘空间大小，还要统计它们的总和<br>–apparent-size：显示目录或文件自身的大小<br>-l ：统计硬链接占用磁盘空间的大小<br>-L：统计符号链接所指向的文件占用的磁盘空间大小</p>
+<h1 id="linux-清除文本文件内容"><a href="#linux-清除文本文件内容" class="headerlink" title="linux 清除文本文件内容"></a>linux 清除文本文件内容</h1><p>快速清空文件内容的几种方法:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ : &gt; filename </span><br><span class="line">$ &gt; filename </span><br><span class="line">$ echo &quot;&quot; &gt; filename </span><br><span class="line">$ echo &gt; filename </span><br><span class="line">$ cat /dev/null &gt; filename</span><br></pre></td></tr></table></figure></p>
+<h1 id="防火墙"><a href="#防火墙" class="headerlink" title="防火墙"></a>防火墙</h1><h2 id="关闭"><a href="#关闭" class="headerlink" title="关闭"></a>关闭</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl stop firewalld</span><br></pre></td></tr></table></figure>
+<h2 id="开启"><a href="#开启" class="headerlink" title="开启"></a>开启</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl start firewalld</span><br></pre></td></tr></table></figure>
+<h2 id="关闭开机启动"><a href="#关闭开机启动" class="headerlink" title="关闭开机启动"></a>关闭开机启动</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl disable firewalld</span><br></pre></td></tr></table></figure>
+<h2 id="开启开机启动"><a href="#开启开机启动" class="headerlink" title="开启开机启动"></a>开启开机启动</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl enable firewalld</span><br></pre></td></tr></table></figure>
+<h1 id="Creating-mailbox-file-File-exists"><a href="#Creating-mailbox-file-File-exists" class="headerlink" title="Creating mailbox file: File exists"></a>Creating mailbox file: File exists</h1><p>linux下添加用户后,会在系统里自动加一个邮箱(系统邮箱),路径是:/var/spool/mail/用户名.<br>可以直接用命令#rm -rf /var/spool/mail/用户名<br>这样再次添加同一名字的用户时，就不会提示这个错误。</p>
+<h1 id="the-home-directory-already-exists"><a href="#the-home-directory-already-exists" class="headerlink" title="the home directory already exists."></a>the home directory already exists.</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">useradd: warning: the home directory already exists.</span><br><span class="line">Not copying any file from skel directory into it.</span><br></pre></td></tr></table></figure>
+<p>在执行 userdel 时，用户目录没有被删除，所以，需要手工删除。删除之后再次创建，则不会出现这个错误提示。</p>
+<h1 id="cp-omitting-directory"><a href="#cp-omitting-directory" class="headerlink" title="cp: omitting directory"></a>cp: omitting directory</h1><p>目录下面还有目录，不能直接拷贝<br>解决办法：递归拷贝命令：cp -r bbs ../backup/bbs<br>解释:-r 这个 options 是递归的意思<br>删除的时候也可能出现这种下面有文件不能删除的问题，也用 -r 级联删除<br>如果确定不再需要目录或文件，直接用 rm -rf a # a 可是文件，也可以是一个目录</p>
+<h1 id="shell-脚本调用参数"><a href="#shell-脚本调用参数" class="headerlink" title="shell 脚本调用参数"></a>shell 脚本调用参数</h1><p>采用 $0,$1,$2..等方式获取脚本命令行传入的参数，<br>值得注意的是，$0 获取到的是脚本路径以及脚本名，后面按顺序获取参数，当参数超过10个时(包括10个)，需要使用${10},${11}….才能获取到参数，但是一般很少会超过 10 个参数的情况。<br>函数调用时，传递参数也是一样的用法。</p>
+<h1 id="shell-脚本里用-curl-会显示统计信息"><a href="#shell-脚本里用-curl-会显示统计信息" class="headerlink" title="shell 脚本里用 curl 会显示统计信息"></a>shell 脚本里用 curl 会显示统计信息</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">% Total    % Received % Xferd  Average Speed   Time    Time     Time  Current</span><br><span class="line">                               Dload  Upload   Total   Spent    Left  Speed</span><br><span class="line">0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0</span><br></pre></td></tr></table></figure>
+<p>在 curl 后添加参数 -s 可以不显示统计信息</p>
+<h1 id="查看-CentOS-版本"><a href="#查看-CentOS-版本" class="headerlink" title="查看 CentOS 版本"></a>查看 CentOS 版本</h1><p><code>cat /etc/redhat-release</code></p>
+<h1 id="修改-CentOS7-IP-地址"><a href="#修改-CentOS7-IP-地址" class="headerlink" title="修改 CentOS7 IP 地址"></a>修改 CentOS7 IP 地址</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /etc/sysconfig/network-scripts/</span><br><span class="line">ll *ifcfg*</span><br></pre></td></tr></table></figure>
+<p>找到要修改的文件。如果不是多网卡的主机，一般会有两个文件，如下，其中一个是 127.0.0.1 的，我们需要修改的是另外一个。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@AndyCentOS7Basic network-scripts]# ll *ifcfg*</span><br><span class="line">-rw-r--r--  1 root root 405 Apr 25 16:06 ifcfg-enp0s3 # 普通网卡</span><br><span class="line">-rw-r--r--. 1 root root 254 May  3  2017 ifcfg-lo # 127.0.0.1</span><br></pre></td></tr></table></figure></p>
+<p>执行 <code>vim ifcfg-enp0s3</code> 以编辑各参数，具体参数如何修改，这里不讨论。</p>
+<h1 id="查看文件更新的详细时间"><a href="#查看文件更新的详细时间" class="headerlink" title="查看文件更新的详细时间"></a>查看文件更新的详细时间</h1><p><code>ls --full-time</code></p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-09-01T02:53:13.033Z" itemprop="dateUpdated">2020年9月1日 10:53</time>
+</span><br>
+
+
+        转载请注明出处：<a href="/linux/centOSGeneralCommand.html" target="_blank" rel="external">https://www.lovesofttech.com/linux/centOSGeneralCommand.html</a>
+    </div>
+    <footer>
+        <a href="https://www.lovesofttech.com">
+            <img src="/img/myLogo.jpg" alt="安迪陈">
+            安迪陈
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CentOS/">CentOS</a></li></ul>
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/linux/centOSGeneralCommand.html&title=《CentOS 常用命令》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/linux/centOSGeneralCommand.html&title=《CentOS 常用命令》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=如题" data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/linux/centOSGeneralCommand.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《CentOS 常用命令》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/linux/centOSGeneralCommand.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/linux/centOSGeneralCommand.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/windows/winEF.html" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">EF6 写入数据，调用 SaveChanges() 时异常：Validation failed for one or more entities. See &#39;EntityValidationErrors&#39; property for more details.</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/java/tomcatVirtualHost.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">tomcat 虚拟目录实践</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+    
+    
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="bottom">
+        <p>
+            <span>安迪陈技术日志，架构、感悟、系统分析、团队管理 &copy; 2017 - 2020</span>
+            <span>
+                Power by <a href="https://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>&nbsp;
+                Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank" rel="external nofollow noopener noreferrer">indigo</a>
+            </span>
+            <span>
+                <a href="http://www.beian.miit.gov.cn" target="_blank" rel="external nofollow noopener noreferrer">蜀ICP备17041860号</a>
+            </span>
+            
+            <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            </p><p>
+                <span>
+                    统计始于：2019-03-06
+                </span>
+                <span id="busuanzi_container_site_uv" style="display:none">
+                    访客数：<span id="busuanzi_value_site_uv"></span>
+                </span>
+                <span id="busuanzi_container_site_pv" style="display:none">
+                    访问量：<span id="busuanzi_value_site_pv"></span>
+                </span>
+            
+            
+                <span class="post-count">累计字数：309.2k</span>
+            
+                <span><a href="/general/blogLog.html"><i class="fas fa-pen-alt"></i>&nbsp;博客日志</a></span>
+            </p>
+        <p></p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light" title="回到顶部"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/linux/centOSGeneralCommand.html&title=《CentOS 常用命令》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/linux/centOSGeneralCommand.html&title=《CentOS 常用命令》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=如题" data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/linux/centOSGeneralCommand.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《CentOS 常用命令》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/linux/centOSGeneralCommand.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/linux/centOSGeneralCommand.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACI0lEQVR42u3aO3LDMAwFQN//0kqTIo1pPEDOjMhl5YkVmqsCQ3xer/K63qz1k3//st753f/evDAwMB7LuJZr/gOVfd6xK2fDwMA4h1H5+XVgXQfcepiuBGsMDAyMehCsB9b0comBgYExZ8yT0nqwxsDAwKgnsenWvT2/notjYGA8kNErmf3P56/0NzAwMB7FuMJVD6z1byfn+d0NAwNja0Y9wNXbAPV0NEhQK+fBwMDYmjEflUhL/72XdfPdFgMD4+GM+fBW79p3V8jGwMDYiZGW4HvjrfU3moZsDAyMcxi9QYr0EL0jloI+BgbG1ox0VKKe1s7HyJpjFhgYGMcw5m3L3tDGJNxjYGDszUjLXmlgnYxiBGwMDIxNGWn5LD1QWmjrXVUxMDBOYEwaA5VXkF744mcwMDAOYKRltXpI7TUM4iQWAwNja0YagtN2Qj2k3vwkBgbGRoy0TVi/xqVpcD2Yvu1pYGBgbMpYh8h6sT4eiQhL/6VmJwYGxgGM3nWwknamiW49NAftAQwMjK0Z8/A6SWKDERAMDIwDGL0CWeV6NwnEFRIGBsbejCtcvetgGoibl0IMDIxNGWlITUtjc16veYCBgbEfoxdk57DKzsH/YmBgHMCYNBfn7YS0JPehhYmBgXE8Iy2lzYctSlQMDAyM8uf0215a+6ETi4GBsSmjPmaxPkT6zG3FOwwMjK0Z6QUuTXHXLytNXEeNTAwMjOcxfgANDeTz9IF6SAAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.5.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.5.2" async></script>
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '安迪陈技术日志';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '欢迎回来';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

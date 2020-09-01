@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<!--<script async src="//hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c"></script>-->
+<!-- 统计-->
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var host = window.location.host;
+        var hm = document.createElement("script");
+
+        if (host.indexOf('gitee.io') > 0) { // https://uncleandychen.gitee.io/
+            hm.src = "https://hm.baidu.com/hm.js?0cf4709148b070b8082191d2e456a1a3";
+        } else if (host.indexOf('lovesofttech.com') > 0) { // https://www.lovesofttech.com/
+            hm.src = "https://hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c";
+        } else {
+            hm.src = '';
+        }
+
+        if (hm.src !== '') {
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        }
+    })();
+</script>
+<!-- End Baidu Tongji -->
+
+
+
+<!-- Baidu Push -->
+<!-- 主动推送百度爬虫-->
+<script>
+    (function(){
+        if (window.location.host.indexOf('lovesofttech.com') < 0) {
+            return;
+        }
+
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+<!-- End Baidu Push -->
+
+
+    <meta charset="utf-8">
+    
+    
+    <link rel="canonical" href="https://www.lovesofttech.com/linux/centOS7JenkinsAutoDeploy.html">
+    
+    
+    <title>CentOS 7.5 jenkins + Maven + Git + Tomcat 一键发布 | 安迪陈技术日志，架构、感悟、系统分析、团队管理 | 自强不息，厚德载物</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="CentOS,Maven,jenkins">
+    <meta name="description" content="如题">
+<meta name="keywords" content="CentOS,Maven,jenkins">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CentOS 7.5 jenkins + Maven + Git + Tomcat 一键发布">
+<meta property="og:url" content="https://www.lovesofttech.com/linux/centOS7JenkinsAutoDeploy.html">
+<meta property="og:site_name" content="安迪陈技术日志，架构、感悟、系统分析、团队管理">
+<meta property="og:description" content="如题">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2020-09-01T02:53:13.023Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CentOS 7.5 jenkins + Maven + Git + Tomcat 一键发布">
+<meta name="twitter:description" content="如题">
+    
+        <link rel="alternative" href="/atom.xml" title="安迪陈技术日志，架构、感悟、系统分析、团队管理" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=201912302211">
+    <link rel="stylesheet" href="/css/header.css?v=201912302211">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu">
+  <div class="inner flex-row-vertical">
+    <!--<i class="icon icon-lg icon-close"></i>-->
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off" title="隐藏左侧导航">﹤<i class="icon icon-lg icon-navicon"></i></a>
+    <div class="brand-wrap" style="background-image:url(/img/bannerBackgroundLeft.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/myLogo.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">安迪陈</h5>
+          <a href="mailto:andy@lovesofttech.com" title="andy@lovesofttech.com" class="mail" rel="external nofollow noopener noreferrer" target="_blank">andy@lovesofttech.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articleClassify.html">
+                <i class="icon icon-th-list"></i>
+                文章分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articles.html">
+                <i class="icon icon-th-list articles"></i>
+                文章列表
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/java.html">
+                <i class="icon icon-th-list java"></i>
+                Java
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/database.html">
+                <i class="icon icon-th-list database"></i>
+                MySQL/MyBatis
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/linux.html">
+                <i class="icon icon-th-list linux"></i>
+                CentOS/linux
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/react.html">
+                <i class="icon icon-th-list React"></i>
+                React
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/lnmp.html">
+                <i class="icon icon-th-list LNMP"></i>
+                LNMP
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/git.html">
+                <i class="icon icon-th-list git"></i>
+                git
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/windows.html">
+                <i class="icon icon-th-list windows"></i>
+                windows
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/dailyLives.html">
+                <i class="icon icon-th-list dailyLives"></i>
+                工作 &amp; 生活
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-github"></i>
+                我的 github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://gitee.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link"></i>
+                我的 gitee
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://blog.csdn.net/runAndRun" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link CSDN"></i>
+                我的 CSDN
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/aboutMe.html">
+                <i class="icon icon-address-card"></i>
+                关于我
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+
+        <div class="navbar navbar-custom navbar-fixed-top">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" style="margin-left:10px;" id="menu-toggle" title="显示左侧导航"><i class="icon icon-lg icon-navicon"></i>﹥</a>
+            <ul class="nav navbar-nav navbar-right" id="navMenuTop">
+                <li>
+                    <a href="/">主页</a>
+                </li>
+                
+                    
+                        <li>
+                            <a href="/articleClassify.html" title="本博客的文章分类列表">文章分类</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/articles.html" title="本博客的所有文章列表">文章列表</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/java.html" title="Java 开发，文章目录">Java</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/database.html" title="日常开发中有关 MySQL、MyBatis 的一些经验总结">MySQL/MyBatis</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/linux.html" title="CentOS/linux，文章目录">CentOS/linux</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/react.html" title="React 技术栈（全家桶）学习心得分享，文章目录">React</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/about.html">关于</a>
+                        </li>
+                    
+                
+            </ul>
+        </div>
+
+        <div class="flex-col header-title ellipsis">CentOS 7.5 jenkins + Maven + Git + Tomcat 一键发布</div>
+        
+        <div class="search-wrap" id="search-wrap" style="z-index: 2;">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back" style="width:33px;">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search" style="width:33px;">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare" style="z-index: 3;margin-right: 10px; width:30px;">
+                <i class="icon icon-lg icon-share-alt"></i>
+            </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h2 class="title">CentOS 7.5 jenkins + Maven + Git + Tomcat 一键发布</h2>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-06-05T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2018-06-06
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/CentOS/">CentOS</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/CentOS/Maven/">Maven</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/CentOS/Maven/jenkins/">jenkins</a></li></ul></li></ul></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap" id="index-container">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc" style="z-index: 3;">
+            <h4><i class="fa fa-list-alt"></i>&nbsp;&nbsp;本文目录</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#准备工作"><span class="post-toc-number">1.</span> <span class="post-toc-text">准备工作</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Configure-System"><span class="post-toc-number">2.</span> <span class="post-toc-text">Configure System</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Path-to-key"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">Path to key</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Global-Tool-Configuration"><span class="post-toc-number">3.</span> <span class="post-toc-text">Global Tool Configuration</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#配置邮件服务"><span class="post-toc-number">4.</span> <span class="post-toc-text">配置邮件服务</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#创建-jenkins-任务"><span class="post-toc-number">5.</span> <span class="post-toc-text">创建 jenkins 任务</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Source-Code-Management"><span class="post-toc-number">5.1.</span> <span class="post-toc-text">Source Code Management</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Pre-Steps"><span class="post-toc-number">5.2.</span> <span class="post-toc-text">Pre Steps</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Post-Steps"><span class="post-toc-number">5.3.</span> <span class="post-toc-text">Post Steps</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#通过-Jenkins-远程执行停止-tomcat-的脚本，报错"><span class="post-toc-number">6.</span> <span class="post-toc-text">通过 Jenkins 远程执行停止 tomcat 的脚本，报错</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Jenkins-连接-git-时无权访问的问题"><span class="post-toc-number">7.</span> <span class="post-toc-text">Jenkins 连接 git 时无权访问的问题</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#提示信息"><span class="post-toc-number">7.1.</span> <span class="post-toc-text">提示信息</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#原因"><span class="post-toc-number">7.2.</span> <span class="post-toc-text">原因</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#解决"><span class="post-toc-number">7.3.</span> <span class="post-toc-text">解决</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#在-Jenkins-job-中调用脚本来启动-tomcat，但是并未真正启动"><span class="post-toc-number">8.</span> <span class="post-toc-text">在 Jenkins job 中调用脚本来启动 tomcat，但是并未真正启动</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#现象"><span class="post-toc-number">8.1.</span> <span class="post-toc-text">现象</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#解决-1"><span class="post-toc-number">8.2.</span> <span class="post-toc-text">解决</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#原因分析"><span class="post-toc-number">8.3.</span> <span class="post-toc-text">原因分析</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+    
+
+<article id="post-linux/centOS7JenkinsAutoDeploy" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">CentOS 7.5 jenkins + Maven + Git + Tomcat 一键发布</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018年06月06日 0:00" datetime="2018-06-05T16:00:00.000Z" itemprop="datePublished">2018-06-06</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/CentOS/">CentOS</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/CentOS/Maven/">Maven</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/CentOS/Maven/jenkins/">jenkins</a></li></ul></li></ul></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" style="display:none">
+    阅读量：<span id="busuanzi_value_page_pv"></span>次
+</span>
+
+
+    <span>|</span>
+    <span class="post-count">字数：1.5k</span>
+    <span>|</span>
+    <span class="post-count">阅读时长：大约7分钟</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>如题<br><a id="more"></a></p>
+<h1 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h1><ul>
+<li><a href="/linux/centOS7JenkinsInstall.html">CentOS 7.5 安装配置 jenkins</a></li>
+<li><a href="/linux/centOS7Git">CentOS 7.5 安装配置 git</a></li>
+<li><a href="/linux/centOS7Maven">CentOS 7.5 安装配置 Maven</a></li>
+<li><a href="/linux/centOSTomcatAutoDeploy">CentOS 7.5 war 包发布到 tomcat web 服务器，自动化发布脚本</a></li>
+</ul>
+<h1 id="Configure-System"><a href="#Configure-System" class="headerlink" title="Configure System"></a>Configure System</h1><p>配置 Publish over SSH</p>
+<h2 id="Path-to-key"><a href="#Path-to-key" class="headerlink" title="Path to key"></a>Path to key</h2><p>指定公匙路径，比如我要以 utomcat 的身份来获取 git 源码，则先创建 utomcat 的公匙，然后指定：/home/utomcat/.ssh/utomcat</p>
+<h1 id="Global-Tool-Configuration"><a href="#Global-Tool-Configuration" class="headerlink" title="Global Tool Configuration"></a>Global Tool Configuration</h1><p>配置 Maven Configuration 和 Git，根据服务器上安装情况配置即可。</p>
+<h1 id="配置邮件服务"><a href="#配置邮件服务" class="headerlink" title="配置邮件服务"></a>配置邮件服务</h1><p>作用是可以配置一些通知，比如：在每次构建之后，收到构建情况的邮箱通知。</p>
+<p>以下以配置 qq 发件邮箱为例。<br>需要注意的是，发件人和管理员（System Admin e-mail address）邮箱要配置成一个，否则会导致发邮件失败，提示信息类似为：发件人与发件账号必须为同一个。<br>SMTP server：smtp.qq.com<br>Default user e-mail suffix：@qq.com<br>勾选：Use SMTP Authentication<br>User Name：<a href="mailto:1614923608@qq.com" rel="external nofollow noopener noreferrer" target="_blank">1614923608@qq.com</a><br>Password：#填入邮箱配置的验证码（需要发短信设置的那个，在开启 smtp 配置处），非邮箱登录密码<br>勾选：Use SSL</p>
+<h1 id="创建-jenkins-任务"><a href="#创建-jenkins-任务" class="headerlink" title="创建 jenkins 任务"></a>创建 jenkins 任务</h1><h2 id="Source-Code-Management"><a href="#Source-Code-Management" class="headerlink" title="Source Code Management"></a>Source Code Management</h2><p>选 Git。<br>Repository URL：<a href="mailto:ugit@git.apg.com" rel="external nofollow noopener noreferrer" target="_blank">ugit@git.apg.com</a>:source # 需要先配置好 ssh 方式访问<br>Credentials：none<br>Branch Specifier (blank for ‘any’)：*/master # 分支，这里用默认值</p>
+<h2 id="Pre-Steps"><a href="#Pre-Steps" class="headerlink" title="Pre Steps"></a>Pre Steps</h2><p>Build:pom.xml # 指定项目根目录下的 pom.xml，对于多 module 的项目，如果指向子目录下的 pom.xml，可能不能通过 mvn 编译成功。<br>Goals and options:clean package -Dmaven.test.skip=true # 这是 maven 编译项目的指令</p>
+<h2 id="Post-Steps"><a href="#Post-Steps" class="headerlink" title="Post Steps"></a>Post Steps</h2><p>选:Run only if build succeeds<br>Command:sh /home/utomcat/shell-script/autoDeploy.sh bootProjectName-1.0.0</p>
+<p>执行的脚本 autoDeploy.sh，请参考：<a href="/linux/centOSTomcatAutoDeploy">CentOS 7.5 war 包发布到 tomcat web 服务器，自动化发布脚本</a></p>
+<h1 id="通过-Jenkins-远程执行停止-tomcat-的脚本，报错"><a href="#通过-Jenkins-远程执行停止-tomcat-的脚本，报错" class="headerlink" title="通过 Jenkins 远程执行停止 tomcat 的脚本，报错"></a>通过 Jenkins 远程执行停止 tomcat 的脚本，报错</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Neither the JAVA_HOME nor the JRE_HOME environment variable is defined</span><br><span class="line">At least one of these environment variable is needed to run this program</span><br></pre></td></tr></table></figure>
+<p>解决：在 shutdown.sh 和 startup.sh 的最前面加上下面的脚本<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export JAVA_HOME=/usr/jdk1.8.0_171</span><br></pre></td></tr></table></figure></p>
+<p>还有更好的方式，在脚本 autoDeploy.sh 前面添加：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source /etc/profile</span><br></pre></td></tr></table></figure></p>
+<h1 id="Jenkins-连接-git-时无权访问的问题"><a href="#Jenkins-连接-git-时无权访问的问题" class="headerlink" title="Jenkins 连接 git 时无权访问的问题"></a>Jenkins 连接 git 时无权访问的问题</h1><h2 id="提示信息"><a href="#提示信息" class="headerlink" title="提示信息"></a>提示信息</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Failed to connect to repository : Command &quot;/usr/bin/git ls-remote -h ugit@git.apg.com:source HEAD&quot; returned status code 128:</span><br><span class="line">stdout: </span><br><span class="line">stderr: Permission denied, please try again. </span><br><span class="line">Permission denied, please try again. </span><br><span class="line">Permission denied (publickey,gssapi-keyex,gssapi-with-mic,password). </span><br><span class="line">fatal: Could not read from remote repository.</span><br><span class="line"></span><br><span class="line">Please make sure you have the correct access rights</span><br><span class="line">and the repository exists.</span><br></pre></td></tr></table></figure>
+<h2 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h2><p>这是因为通过 ssh 方式访问 git 服务没有权限导致。</p>
+<h2 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h2><p>以 jenkins 启动用户的身份登录服务器，执行 ssh-keygen -t rsa -C “userName”，将公钥 id_rsa.pub 添加到 git 服务器。</p>
+<ol>
+<li>如果是 gitee.com，则添加项目公钥或者添加用户公钥均可。</li>
+<li>如果是 gitolite 搭建的 git 服务，则将上面生成的公钥添加到 gitolite-admin 项目的 keydir 目录下并改名为 jenkins 的启动用户（也可以自定义），同时在 gitolite.conf 中添加该用户对项目的访问权限。</li>
+</ol>
+<h1 id="在-Jenkins-job-中调用脚本来启动-tomcat，但是并未真正启动"><a href="#在-Jenkins-job-中调用脚本来启动-tomcat，但是并未真正启动" class="headerlink" title="在 Jenkins job 中调用脚本来启动 tomcat，但是并未真正启动"></a>在 Jenkins job 中调用脚本来启动 tomcat，但是并未真正启动</h1><h2 id="现象"><a href="#现象" class="headerlink" title="现象"></a>现象</h2><p>其它脚本都执行成功了，比如：获取项目最新代码、打包项目、停止 tomcat、删除旧文件、解压新生成的 war 包至 web 目录，copy 配置文件至 WEB-INF/classes/。<br>只是最后一步启动 tomcat 之后，调用的地方显示：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Tomcat started.</span><br><span class="line">``` </span><br><span class="line">tomcat 日志停留在下面就不动了</span><br></pre></td></tr></table></figure></p>
+<p>26-Jul-2018 15:29:27.926 WARNING [localhost-startStop-1] org.apache.catalina.webresources.Cache.getResource Unable to add the resource at [/WEB-INF/classes/web/wx/shoppingCart.html] to the cache for web application [] because there was insufficient free space available after evicting expired cache entries - consider increasing the maximum size of the cache<br>26-Jul-2018 15:29:27.926 WARNING [localhost-startStop-1] org.apache.catalina.webresources.Cache.getResource Unable to add the resource at [/WEB-INF/classes/web/wx/shoppingCartEmpty.html] to the cache for web application [] because there was insufficient free space available after evicting expired cache entries - consider increasing the maximum size of the cache<br>26-Jul-2018 15:29:27.926 WARNING [localhost-startStop-1] org.apache.catalina.webresources.Cache.getResource Unable to add the resource at [/WEB-INF/classes/apg/boot] to the cache for web application [] because there was insufficient free space available after evicting expired cache entries - consider increasing the maximum size of the cache<br>26-Jul-2018 15:29:27.926 WARNING [localhost-startStop-1] org.apache.catalina.webresources.Cache.getResource Unable to add the resource at [/WEB-INF/classes/apg/boot/controller] to the cache for web application [] because there was insufficient free space available after evicting expired cache entries - consider increasing the maximum size of the cache<br>26-Jul-2018 15:29:27.926 WARNING [localhost-startStop-1] org.apache.catalina.webresources.Cache.getResource Unable to add the resource at [/WEB-INF/classes/apg/boot/config] to the cache for web application [] because there was insufficient free space available after evicting expired cache entries - consider increasing the maximum size of the cache<br>26-Jul-2018 15:29:27.926 WARNING [localhost-startStop-1] org.apache.catalina.webresources.Cache.getResource Unable to add the resource at [/WEB-INF/classes/apg/boot/common] to the cache for web application [] because there was insufficient free space available after evicting expired cache entries - consider increasing the maximum size of the cache<br>26-Jul-2018 15:29:27.934 WARNING [localhost-startStop-1] org.apache.catalina.webresources.Cache.getResource Unable to add the resource at [/WEB-INF/classes/] to the cache for web application [] because there was insufficient free space available after evicting expired cache entries - consider increasing the maximum size of the cache<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">手动执行发布脚本是正常的。</span><br><span class="line"></span><br><span class="line">百度关键词：after evicting expired cache entries - consider increasing the maximum size of the cache</span><br><span class="line">网上的解决办法</span><br><span class="line">在tomcat的/conf/context.xml中的&lt;Context&gt;中添加</span><br><span class="line">```xml</span><br><span class="line">&lt;Resources</span><br><span class="line">    cachingAllowed=&quot;true&quot;</span><br><span class="line">    cacheMaxSize=&quot;100000&quot; ----&gt;这里单位是 KB</span><br><span class="line">/&gt;</span><br></pre></td></tr></table></figure></p>
+<p>当然，这个办法解决的是内存分配的问题，我这里的问题与内存分配无关。<br>这里的真正原因是 Jenkins 在执行任务结束的时候会关掉所有子进程，导致 tomcat 启动过程中被强制停掉，才会出现上面的现象。</p>
+<p>最开始我是以 root 的身份启动 Jenkins，在执行脚本的时候，切换到 utomcat 下去执行，执行脚本如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">su - utomcat -lc &quot;sh /home/utomcat/shell/autoDeploy.sh&quot;</span><br></pre></td></tr></table></figure></p>
+<p>这种方式，没有问题，因为执行进程已经切换至另外一个用户了。</p>
+<p>后来我把 Jenkins 的启动用户以及相应的目录权限全部设置为 utomcat 之后，才有这种现象。</p>
+<h2 id="解决-1"><a href="#解决-1" class="headerlink" title="解决"></a>解决</h2><p>在 autoDeploy.sh 前面添加：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export BUILD_ID=dontKillMe # for jenkins</span><br></pre></td></tr></table></figure></p>
+<p>另外，网上有添加配置节点来解决的，没有深入研究。</p>
+<h2 id="原因分析"><a href="#原因分析" class="headerlink" title="原因分析"></a>原因分析</h2><p>Jenkins 默认会在 Build 结束后 Kill 掉所有的衍生进程。</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-09-01T02:53:13.023Z" itemprop="dateUpdated">2020年9月1日 10:53</time>
+</span><br>
+
+
+        转载请注明出处：<a href="/linux/centOS7JenkinsAutoDeploy.html" target="_blank" rel="external">https://www.lovesofttech.com/linux/centOS7JenkinsAutoDeploy.html</a>
+    </div>
+    <footer>
+        <a href="https://www.lovesofttech.com">
+            <img src="/img/myLogo.jpg" alt="安迪陈">
+            安迪陈
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CentOS/">CentOS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Maven/">Maven</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jenkins/">jenkins</a></li></ul>
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/linux/centOS7JenkinsAutoDeploy.html&title=《CentOS 7.5 jenkins + Maven + Git + Tomcat 一键发布》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/linux/centOS7JenkinsAutoDeploy.html&title=《CentOS 7.5 jenkins + Maven + Git + Tomcat 一键发布》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=如题" data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/linux/centOS7JenkinsAutoDeploy.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《CentOS 7.5 jenkins + Maven + Git + Tomcat 一键发布》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/linux/centOS7JenkinsAutoDeploy.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/linux/centOS7JenkinsAutoDeploy.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/windows/win10Php7HttpdPhp7.html" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">在 win10 下配置 Apache2.4.33 + PHP7.2.6</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/linux/centOS7TomcatMonitor.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">CentOS 7，tomcat 监控脚本</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+    
+    
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="bottom">
+        <p>
+            <span>安迪陈技术日志，架构、感悟、系统分析、团队管理 &copy; 2017 - 2020</span>
+            <span>
+                Power by <a href="https://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>&nbsp;
+                Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank" rel="external nofollow noopener noreferrer">indigo</a>
+            </span>
+            <span>
+                <a href="http://www.beian.miit.gov.cn" target="_blank" rel="external nofollow noopener noreferrer">蜀ICP备17041860号</a>
+            </span>
+            
+            <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            </p><p>
+                <span>
+                    统计始于：2019-03-06
+                </span>
+                <span id="busuanzi_container_site_uv" style="display:none">
+                    访客数：<span id="busuanzi_value_site_uv"></span>
+                </span>
+                <span id="busuanzi_container_site_pv" style="display:none">
+                    访问量：<span id="busuanzi_value_site_pv"></span>
+                </span>
+            
+            
+                <span class="post-count">累计字数：309.2k</span>
+            
+                <span><a href="/general/blogLog.html"><i class="fas fa-pen-alt"></i>&nbsp;博客日志</a></span>
+            </p>
+        <p></p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light" title="回到顶部"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/linux/centOS7JenkinsAutoDeploy.html&title=《CentOS 7.5 jenkins + Maven + Git + Tomcat 一键发布》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/linux/centOS7JenkinsAutoDeploy.html&title=《CentOS 7.5 jenkins + Maven + Git + Tomcat 一键发布》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=如题" data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/linux/centOS7JenkinsAutoDeploy.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《CentOS 7.5 jenkins + Maven + Git + Tomcat 一键发布》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/linux/centOS7JenkinsAutoDeploy.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/linux/centOS7JenkinsAutoDeploy.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACvklEQVR42u3aQVLDQAwEwPz/01DFCYo4GUkr8KF9SjmBbO/Bq4z0eMTXx9f1/fXvO7/ffX3/9XX1nx8bFx4eHl5r6fnXXCHz+8m71U28+s94eHh4e7zJYZB//estSJ7t+Zrx8PDw7sBLDonXi66WyPlBhYeHh3dPXhIx5IvrFfF4eHh49+HlRXA1IJhEw3+ateDh4eHFvF4D7H9fr/f38PDw8Fpd9aRcTl5X/2evSfbkb/Hw8PAWeMnP/mojqsroRbd5sIuHh4d3ltcLanuHxzwyTpA/PoOHh4e3wMsb/zmgGiIk747AeHh4eEd51cMgX+Ikqsi39c19PDw8vAVe/giujhdMtiA/Ng40w/Dw8PDGYwHVwPRsk6y6zuhdPDw8vGVetYyuNvgn21dtwuHh4eFt8KptrWS5Z4OGvOwuBBB4eHh4Y161ZVUNZ3st//m24uHh4e3xJoFC8rCuDmPlZfSbHwB4eHh4f8LLm2R5Md0bxspHu94EuHh4eHgLvMkwQS/87Q1j5cn0k18MeHh4eId4+cBTPmJVHaUa9e6SzcXDw8Nb5vUC2WqJPAk7qs05PDw8vLO8fHH5wdArl5MDqTzghYeHh7fAqxape+MFkzj4zX08PDy8o7z52FPvCOkdMNXCGg8PD2+PVy1qq02sfIPyz0QTAnh4eHhrvOrDepIZf8RXLwS5nIzAw8PDO8TLv/IUpjfglUe3l1kLHh4e3iFeEqHmUe8pWO9wujz38PDw8NZ4k+Oh95neSFYhFMbDw8Nb4PW+Jh9arRbf89fNCw8PD6/Iyx/0PXyvWJ9Hxnh4eHjbvLyc7ZW8k9K8V3zj4eHh3YFXHdjqHT/5VkblNR4eHt7NeJMwIkkPqsfA5QABHh4e3gIvf2Tn4UK1mM6jh8LW4OHh4S3weg2wXmyRF829htmx/h4eHh7e87V9AjFKxpsDY+t1AAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.5.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.5.2" async></script>
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '安迪陈技术日志';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '欢迎回来';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

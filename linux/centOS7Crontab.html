@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<!--<script async src="//hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c"></script>-->
+<!-- 统计-->
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var host = window.location.host;
+        var hm = document.createElement("script");
+
+        if (host.indexOf('gitee.io') > 0) { // https://uncleandychen.gitee.io/
+            hm.src = "https://hm.baidu.com/hm.js?0cf4709148b070b8082191d2e456a1a3";
+        } else if (host.indexOf('lovesofttech.com') > 0) { // https://www.lovesofttech.com/
+            hm.src = "https://hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c";
+        } else {
+            hm.src = '';
+        }
+
+        if (hm.src !== '') {
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        }
+    })();
+</script>
+<!-- End Baidu Tongji -->
+
+
+
+<!-- Baidu Push -->
+<!-- 主动推送百度爬虫-->
+<script>
+    (function(){
+        if (window.location.host.indexOf('lovesofttech.com') < 0) {
+            return;
+        }
+
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+<!-- End Baidu Push -->
+
+
+    <meta charset="utf-8">
+    
+    
+    <link rel="canonical" href="https://www.lovesofttech.com/linux/centOS7Crontab.html">
+    
+    
+    <title>CentOS 7.5 利用 crontab 定时执行任务 | 安迪陈技术日志，架构、感悟、系统分析、团队管理 | 自强不息，厚德载物</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="CentOS,schemas">
+    <meta name="description" content="如题">
+<meta name="keywords" content="CentOS,schemas">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CentOS 7.5 利用 crontab 定时执行任务">
+<meta property="og:url" content="https://www.lovesofttech.com/linux/centOS7Crontab.html">
+<meta property="og:site_name" content="安迪陈技术日志，架构、感悟、系统分析、团队管理">
+<meta property="og:description" content="如题">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2020-09-01T02:53:13.017Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CentOS 7.5 利用 crontab 定时执行任务">
+<meta name="twitter:description" content="如题">
+    
+        <link rel="alternative" href="/atom.xml" title="安迪陈技术日志，架构、感悟、系统分析、团队管理" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=201912302211">
+    <link rel="stylesheet" href="/css/header.css?v=201912302211">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu">
+  <div class="inner flex-row-vertical">
+    <!--<i class="icon icon-lg icon-close"></i>-->
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off" title="隐藏左侧导航">﹤<i class="icon icon-lg icon-navicon"></i></a>
+    <div class="brand-wrap" style="background-image:url(/img/bannerBackgroundLeft.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/myLogo.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">安迪陈</h5>
+          <a href="mailto:andy@lovesofttech.com" title="andy@lovesofttech.com" class="mail" rel="external nofollow noopener noreferrer" target="_blank">andy@lovesofttech.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articleClassify.html">
+                <i class="icon icon-th-list"></i>
+                文章分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articles.html">
+                <i class="icon icon-th-list articles"></i>
+                文章列表
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/java.html">
+                <i class="icon icon-th-list java"></i>
+                Java
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/database.html">
+                <i class="icon icon-th-list database"></i>
+                MySQL/MyBatis
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/linux.html">
+                <i class="icon icon-th-list linux"></i>
+                CentOS/linux
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/react.html">
+                <i class="icon icon-th-list React"></i>
+                React
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/lnmp.html">
+                <i class="icon icon-th-list LNMP"></i>
+                LNMP
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/git.html">
+                <i class="icon icon-th-list git"></i>
+                git
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/windows.html">
+                <i class="icon icon-th-list windows"></i>
+                windows
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/dailyLives.html">
+                <i class="icon icon-th-list dailyLives"></i>
+                工作 &amp; 生活
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-github"></i>
+                我的 github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://gitee.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link"></i>
+                我的 gitee
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://blog.csdn.net/runAndRun" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link CSDN"></i>
+                我的 CSDN
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/aboutMe.html">
+                <i class="icon icon-address-card"></i>
+                关于我
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+
+        <div class="navbar navbar-custom navbar-fixed-top">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" style="margin-left:10px;" id="menu-toggle" title="显示左侧导航"><i class="icon icon-lg icon-navicon"></i>﹥</a>
+            <ul class="nav navbar-nav navbar-right" id="navMenuTop">
+                <li>
+                    <a href="/">主页</a>
+                </li>
+                
+                    
+                        <li>
+                            <a href="/articleClassify.html" title="本博客的文章分类列表">文章分类</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/articles.html" title="本博客的所有文章列表">文章列表</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/java.html" title="Java 开发，文章目录">Java</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/database.html" title="日常开发中有关 MySQL、MyBatis 的一些经验总结">MySQL/MyBatis</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/linux.html" title="CentOS/linux，文章目录">CentOS/linux</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/react.html" title="React 技术栈（全家桶）学习心得分享，文章目录">React</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/about.html">关于</a>
+                        </li>
+                    
+                
+            </ul>
+        </div>
+
+        <div class="flex-col header-title ellipsis">CentOS 7.5 利用 crontab 定时执行任务</div>
+        
+        <div class="search-wrap" id="search-wrap" style="z-index: 2;">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back" style="width:33px;">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search" style="width:33px;">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare" style="z-index: 3;margin-right: 10px; width:30px;">
+                <i class="icon icon-lg icon-share-alt"></i>
+            </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h2 class="title">CentOS 7.5 利用 crontab 定时执行任务</h2>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-06-20T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2018-06-21
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/CentOS/">CentOS</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/CentOS/schemas/">schemas</a></li></ul></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap" id="index-container">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc" style="z-index: 3;">
+            <h4><i class="fa fa-list-alt"></i>&nbsp;&nbsp;本文目录</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#cron-介绍"><span class="post-toc-number">1.</span> <span class="post-toc-text">cron 介绍</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#运行规则"><span class="post-toc-number">2.</span> <span class="post-toc-text">运行规则</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#基本格式"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">基本格式</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#例子"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">例子</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#查看运行状态"><span class="post-toc-number">3.</span> <span class="post-toc-text">查看运行状态</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#配置定时任务执行脚本"><span class="post-toc-number">4.</span> <span class="post-toc-text">配置定时任务执行脚本</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#并未正确执行"><span class="post-toc-number">4.1.</span> <span class="post-toc-text">并未正确执行</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#定时任务有错"><span class="post-toc-number">4.2.</span> <span class="post-toc-text">定时任务有错</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#【-gt-dev-null-2-gt-amp-1】解释"><span class="post-toc-number">5.</span> <span class="post-toc-text">【&gt; /dev/null 2&gt;&amp;1】解释</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#定时关机"><span class="post-toc-number">6.</span> <span class="post-toc-text">定时关机</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#日志问题"><span class="post-toc-number">7.</span> <span class="post-toc-text">日志问题</span></a></li></ol>
+        </nav>
+    </aside>
+    
+
+<article id="post-linux/centOS7Crontab" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">CentOS 7.5 利用 crontab 定时执行任务</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018年06月21日 0:00" datetime="2018-06-20T16:00:00.000Z" itemprop="datePublished">2018-06-21</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/CentOS/">CentOS</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/CentOS/schemas/">schemas</a></li></ul></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" style="display:none">
+    阅读量：<span id="busuanzi_value_page_pv"></span>次
+</span>
+
+
+    <span>|</span>
+    <span class="post-count">字数：1.2k</span>
+    <span>|</span>
+    <span class="post-count">阅读时长：大约5分钟</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>如题<br><a id="more"></a></p>
+<h1 id="cron-介绍"><a href="#cron-介绍" class="headerlink" title="cron 介绍"></a>cron 介绍</h1><ol>
+<li>cron是一个常驻服务，它提供计时器的功能，让用户在特定的时间得以执行预设的指令或程序。只要用户会编辑计时器的配置文件，就可以使用计时器的功能。</li>
+<li>配置文件格式：Minute Hour Day Month DayOFWeek Command</li>
+<li>参数： <ul>
+<li>-e   编辑该用户的计时器设置。</li>
+<li>-l   列出该用户的计时器设置。</li>
+<li>-r   删除该用户的计时器设置。</li>
+<li>-u&lt;用户名称&gt;   指定要设定计时器的用户名称。</li>
+</ul>
+</li>
+</ol>
+<h1 id="运行规则"><a href="#运行规则" class="headerlink" title="运行规则"></a>运行规则</h1><h2 id="基本格式"><a href="#基本格式" class="headerlink" title="基本格式"></a>基本格式</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">*    *    *   *   *  command</span><br><span class="line">分   时  日   月   周    命令</span><br><span class="line">第1列表示分钟1～59 每分钟用*或者 */1表示</span><br><span class="line">第2列表示小时1～23（0表示0点）</span><br><span class="line">第3列表示日期1～31</span><br><span class="line">第4列表示月份1～12</span><br><span class="line">第5列标识号星期0～6（0表示星期天）</span><br><span class="line">第6列要运行的命令</span><br></pre></td></tr></table></figure>
+<h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">30 19 * * * /usr/sbin/poweroff #每天晚上 7 点半关机</span><br><span class="line">30 21 * * * /usr/local/etc/rc.d/apache restart  #每晚的21:30 重启apache </span><br><span class="line">45 4 1,10,22 * * /usr/local/etc/rc.d/apache restart  #每月1、10、22日的4 : 45重启apache </span><br><span class="line">10 1 * * 6,0 /usr/local/etc/rc.d/apache restart #每周六、周日的1 : 10重启apache  </span><br><span class="line">0,30 18-23 * * * /usr/local/etc/rc.d/apache restart  #每天18 : 00至23 : 00之间每隔30分钟重启apache  </span><br><span class="line">0 23 * * 6 /usr/local/etc/rc.d/apache restart  #每星期六的11 : 00 pm重启apache</span><br><span class="line">* 23-7/1 * * * /usr/local/etc/rc.d/apache restart  #晚上11点到早上7点之间，每隔一小时重启  apache</span><br><span class="line">* */1 * * * /usr/local/etc/rc.d/apache restart  #每一小时重启apache   </span><br><span class="line">0 11 4 * mon-wed /usr/local/etc/rc.d/apache restart #每月的4号与每周一到周三的11点重启apache   </span><br><span class="line">0 4 1 jan * /usr/local/etc/rc.d/apache restart  #一月一号的4点重启apache  </span><br><span class="line">*/30 * * * * /usr/sbin/ntpdate 210.72.145.44  #每半小时同步一下时间 </span><br><span class="line">0 */2 * * * www /usr/bin/somecommand  &gt;&gt;  /dev/null 2&gt;&amp;1 #以用户www的身份每两小时就运行某个程序</span><br></pre></td></tr></table></figure>
+<h1 id="查看运行状态"><a href="#查看运行状态" class="headerlink" title="查看运行状态"></a>查看运行状态</h1><p>如果你的定时任务没有执行，确认一下 crond 服务是否运行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[root@centOS7BasicForTest shell.script]# systemctl status crond</span><br><span class="line">● crond.service - Command Scheduler</span><br><span class="line">   Loaded: loaded (/usr/lib/systemd/system/crond.service; enabled; vendor preset: enabled)</span><br><span class="line">   Active: active (running) since Thu 2018-06-21 07:51:56 HKT; 10h ago</span><br><span class="line"> Main PID: 601 (crond)</span><br><span class="line">   CGroup: /system.slice/crond.service</span><br><span class="line">           └─601 /usr/sbin/crond -n</span><br><span class="line"></span><br><span class="line">Jun 21 07:51:56 centOS7BasicForTest systemd[1]: Started Command Scheduler.</span><br><span class="line">Jun 21 07:51:56 centOS7BasicForTest systemd[1]: Starting Command Scheduler...</span><br><span class="line">Jun 21 07:51:56 centOS7BasicForTest crond[601]: (CRON) INFO (Syslog will be used instead of sendmail.)</span><br><span class="line">Jun 21 07:51:56 centOS7BasicForTest crond[601]: (CRON) INFO (RANDOM_DELAY will be scaled with factor 26% if used.)</span><br><span class="line">Jun 21 07:51:56 centOS7BasicForTest crond[601]: (CRON) INFO (running with inotify support)</span><br></pre></td></tr></table></figure></p>
+<h1 id="配置定时任务执行脚本"><a href="#配置定时任务执行脚本" class="headerlink" title="配置定时任务执行脚本"></a>配置定时任务执行脚本</h1><p>crontab -e<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">5 11 * * * /root/shell.script/elsafly.sh</span><br></pre></td></tr></table></figure></p>
+<h2 id="并未正确执行"><a href="#并未正确执行" class="headerlink" title="并未正确执行"></a>并未正确执行</h2><p>定时任务在日志里有执行，但是实际上，脚本命令执行后，没有生效。</p>
+<p>解决：<br>在要执行的脚本（elsafly.sh）中，加载系统环境变量<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/sh</span><br><span class="line">source /etc/profile</span><br></pre></td></tr></table></figure></p>
+<h2 id="定时任务有错"><a href="#定时任务有错" class="headerlink" title="定时任务有错"></a>定时任务有错</h2><p>tail -f /var/log/cron 查日志，提示：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Jul 10 11:05:01 izwz97mqm1h3u2vxe4kesjz crond[467]: (root) RELOAD (/var/spool/cron/root)</span><br><span class="line">Jul 10 11:05:01 izwz97mqm1h3u2vxe4kesjz CROND[25785]: (root) CMD (/root/shell.script/elsafly.sh)</span><br><span class="line">Jul 10 11:05:02 izwz97mqm1h3u2vxe4kesjz CROND[25793]: (CRON) EXEC FAILED (/usr/sbin/sendmail): No such file or directory</span><br><span class="line">Jul 10 11:05:02 izwz97mqm1h3u2vxe4kesjz CROND[25784]: (root) MAIL (mailed 146 bytes of output but got status 0x0001#012)</span><br><span class="line">Jul 10 11:10:01 izwz97mqm1h3u2vxe4kesjz CROND[25801]: (root) CMD (/usr/lib64/sa/sa1 1 1)</span><br><span class="line">Jul 10 11:14:16 izwz97mqm1h3u2vxe4kesjz crontab[25806]: (root) BEGIN EDIT (root)</span><br></pre></td></tr></table></figure></p>
+<p>解决，在脚本后面添加 &gt; /dev/null 2&gt;&amp;1<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">18 11 * * * sh /root/shell.script/elsafly.sh &gt; /dev/null 2&gt;&amp;1</span><br></pre></td></tr></table></figure></p>
+<h1 id="【-gt-dev-null-2-gt-amp-1】解释"><a href="#【-gt-dev-null-2-gt-amp-1】解释" class="headerlink" title="【&gt; /dev/null 2&gt;&amp;1】解释"></a>【&gt; /dev/null 2&gt;&amp;1】解释</h1><p>可以将/dev/null看作”黑洞”. 它非常等价于一个只写文件. 所有写入它的内容都会永远丢失. 而尝试从它那儿读取内容则什么也读不到. 然而, /dev/null对命令行和脚本都非常的有用.<br>用处:<br>禁止标准输出. 1 cat $filename &gt;/dev/null   # 文件内容丢失，而不会输出到标准输出.<br>禁止标准错误. 2&gt;/dev/null 这样错误信息[标准错误]就被丢到太平洋去了. </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt; 代表重定向到哪里，例如：echo &quot;123&quot; &gt; /home/123.txt </span><br><span class="line">1 表示stdout标准输出，系统默认值是1，所以&quot;&gt;/dev/null&quot;等同于&quot;1&gt;/dev/null&quot; </span><br><span class="line">2 表示stderr标准错误 </span><br><span class="line">&amp; 表示等同于的意思，2&gt;&amp;1，表示2的输出重定向等同于1</span><br></pre></td></tr></table></figure>
+<h1 id="定时关机"><a href="#定时关机" class="headerlink" title="定时关机"></a>定时关机</h1><p>如：上午 11 点过 8 分关机<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">crontab -e</span><br><span class="line"># 输入以下内容</span><br><span class="line">8 11 * * * /sbin/shutdown -h now</span><br></pre></td></tr></table></figure></p>
+<p>注意：<code>/sbin/</code> 是必须的，否则会提示 <code>/bin/sh: shutdown: command not found</code>，该提示，从 <code>/var/log/cron</code> 可查到。</p>
+<h1 id="日志问题"><a href="#日志问题" class="headerlink" title="日志问题"></a>日志问题</h1><p>每条 JOB 执行完毕之后，系统会自动将输出发送邮件给当前系统用户。日积月累，非常的多，甚至会撑爆整个系统。所以每条 JOB 命令后面进行重定向处理是非常必要的： &gt;/dev/null 2&gt;&amp;1 。前提是对 Job 中的命令需要正常输出已经作了一定的处理, 比如追加到某个特定日志文件</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-09-01T02:53:13.017Z" itemprop="dateUpdated">2020年9月1日 10:53</time>
+</span><br>
+
+
+        转载请注明出处：<a href="/linux/centOS7Crontab.html" target="_blank" rel="external">https://www.lovesofttech.com/linux/centOS7Crontab.html</a>
+    </div>
+    <footer>
+        <a href="https://www.lovesofttech.com">
+            <img src="/img/myLogo.jpg" alt="安迪陈">
+            安迪陈
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CentOS/">CentOS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/schemas/">schemas</a></li></ul>
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/linux/centOS7Crontab.html&title=《CentOS 7.5 利用 crontab 定时执行任务》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/linux/centOS7Crontab.html&title=《CentOS 7.5 利用 crontab 定时执行任务》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=如题" data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/linux/centOS7Crontab.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《CentOS 7.5 利用 crontab 定时执行任务》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/linux/centOS7Crontab.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/linux/centOS7Crontab.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/git/centOS7GitSSHKey.html" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">CentOS 7.5 配置 git SSH key 免密获取 gitee.com 个人项目最新代码</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/windows/win10Php7Discuz.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">在 win10 下配置 PHP7.2.6 + Discuz! X3.4</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+    
+    
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="bottom">
+        <p>
+            <span>安迪陈技术日志，架构、感悟、系统分析、团队管理 &copy; 2017 - 2020</span>
+            <span>
+                Power by <a href="https://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>&nbsp;
+                Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank" rel="external nofollow noopener noreferrer">indigo</a>
+            </span>
+            <span>
+                <a href="http://www.beian.miit.gov.cn" target="_blank" rel="external nofollow noopener noreferrer">蜀ICP备17041860号</a>
+            </span>
+            
+            <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            </p><p>
+                <span>
+                    统计始于：2019-03-06
+                </span>
+                <span id="busuanzi_container_site_uv" style="display:none">
+                    访客数：<span id="busuanzi_value_site_uv"></span>
+                </span>
+                <span id="busuanzi_container_site_pv" style="display:none">
+                    访问量：<span id="busuanzi_value_site_pv"></span>
+                </span>
+            
+            
+                <span class="post-count">累计字数：309.2k</span>
+            
+                <span><a href="/general/blogLog.html"><i class="fas fa-pen-alt"></i>&nbsp;博客日志</a></span>
+            </p>
+        <p></p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light" title="回到顶部"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/linux/centOS7Crontab.html&title=《CentOS 7.5 利用 crontab 定时执行任务》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/linux/centOS7Crontab.html&title=《CentOS 7.5 利用 crontab 定时执行任务》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=如题" data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/linux/centOS7Crontab.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《CentOS 7.5 利用 crontab 定时执行任务》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/linux/centOS7Crontab.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/linux/centOS7Crontab.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACI0lEQVR42u3aS3LCQAwFwNz/0uQAic17GkiFmfaKomxQe6Eafb6+4usRXD/vzH+zfXZ4YWBgfCxjFtzVnSu/f/X5/lkMDIxzGFd/n39eASe8JzFjYGBgXITb3p+TMDAwMN7BuD/YzYpYDAwMjFmRmQT0r2txDAyMD2TkXfe///yW+QYGBsZHMR7ldZ9ek0ZbO9qMosLAwNiakSe4+1BmBe1KwsXAwDiN8dqVi3YJIwmuOCxiYGBsysiDSMaW+fBytrRxGQ8GBsYBjFlzrR035i+iTtkYGBgHMJbOlcujyjZ9Y2BgnMN41RpEvcK1PBJ4yzYHBgbGv2TMVrvyQ2RS0Cb/HhWxGBgYBzBmJWXOyxttK68JAwNjP0Y+Bkj+rD04Fk3/+4UPDAyMIxl5GTksNcsStyhcMTAwtmbMGmFtCdoeMaMiFgMD42BGuyLWZr/2AFqvWWBgYGzEWCk722Fn3nQrBqIYGBhbM/LUmTS/2qZ/W0g/SegYGBjHMNrjYPtNXsS2a2oYGBgnMPK0m6fC9SFBUUJjYGAcwMjT3MqCRXtn8RQGBsamjEd5JW39WYh5WfvkUIiBgbEdY/bT7aGtHQDkodcYDAyMj2W0Lf4EkKfsdiCBgYFxMmNlYasdN64cH4eTWAwMjIMZeTLNF8iGVAwMDIwyaSbLEyuv4JdnMTAwDmC0ixSzhn6evvMVEAwMjBMYeek4S4tJiK96QRgYGNsxvgEZctsZAQDuRQAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.5.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.5.2" async></script>
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '安迪陈技术日志';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '欢迎回来';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

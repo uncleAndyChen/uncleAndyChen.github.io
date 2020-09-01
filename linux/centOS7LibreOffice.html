@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<!--<script async src="//hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c"></script>-->
+<!-- 统计-->
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var host = window.location.host;
+        var hm = document.createElement("script");
+
+        if (host.indexOf('gitee.io') > 0) { // https://uncleandychen.gitee.io/
+            hm.src = "https://hm.baidu.com/hm.js?0cf4709148b070b8082191d2e456a1a3";
+        } else if (host.indexOf('lovesofttech.com') > 0) { // https://www.lovesofttech.com/
+            hm.src = "https://hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c";
+        } else {
+            hm.src = '';
+        }
+
+        if (hm.src !== '') {
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        }
+    })();
+</script>
+<!-- End Baidu Tongji -->
+
+
+
+<!-- Baidu Push -->
+<!-- 主动推送百度爬虫-->
+<script>
+    (function(){
+        if (window.location.host.indexOf('lovesofttech.com') < 0) {
+            return;
+        }
+
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+<!-- End Baidu Push -->
+
+
+    <meta charset="utf-8">
+    
+    
+    <link rel="canonical" href="https://www.lovesofttech.com/linux/centOS7LibreOffice.html">
+    
+    
+    <title>CentOS7 安装配置 LibreOffice 6.3.4.2 以及安装 windows 自带中文字体 | 安迪陈技术日志，架构、感悟、系统分析、团队管理 | 自强不息，厚德载物</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="LibreOffice,CentOS7">
+    <meta name="description" content="项目中需要将 Office 文档上传并实现在线预览，用到了 LibreOffice 的转换功能，本文介绍 LibreOffice 环境的搭建。 在线预览的实现，请参考：Java 利用 LibreOffice/OpenOffice 将 Office 文档（.doc/.docx .ppt/.pptx ）转换成 PDF，进而转图片，实现在线预览功能">
+<meta name="keywords" content="LibreOffice,CentOS7">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CentOS7 安装配置 LibreOffice 6.3.4.2 以及安装 windows 自带中文字体">
+<meta property="og:url" content="https://www.lovesofttech.com/linux/centOS7LibreOffice.html">
+<meta property="og:site_name" content="安迪陈技术日志，架构、感悟、系统分析、团队管理">
+<meta property="og:description" content="项目中需要将 Office 文档上传并实现在线预览，用到了 LibreOffice 的转换功能，本文介绍 LibreOffice 环境的搭建。 在线预览的实现，请参考：Java 利用 LibreOffice/OpenOffice 将 Office 文档（.doc/.docx .ppt/.pptx ）转换成 PDF，进而转图片，实现在线预览功能">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:image" content="https://www.lovesofttech.com/img/general/chineseFontSz.png">
+<meta property="og:image" content="https://www.lovesofttech.com/img/general/chineseFonts.png">
+<meta property="og:updated_time" content="2020-09-01T02:53:13.024Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CentOS7 安装配置 LibreOffice 6.3.4.2 以及安装 windows 自带中文字体">
+<meta name="twitter:description" content="项目中需要将 Office 文档上传并实现在线预览，用到了 LibreOffice 的转换功能，本文介绍 LibreOffice 环境的搭建。 在线预览的实现，请参考：Java 利用 LibreOffice/OpenOffice 将 Office 文档（.doc/.docx .ppt/.pptx ）转换成 PDF，进而转图片，实现在线预览功能">
+<meta name="twitter:image" content="https://www.lovesofttech.com/img/general/chineseFontSz.png">
+    
+        <link rel="alternative" href="/atom.xml" title="安迪陈技术日志，架构、感悟、系统分析、团队管理" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=201912302211">
+    <link rel="stylesheet" href="/css/header.css?v=201912302211">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu">
+  <div class="inner flex-row-vertical">
+    <!--<i class="icon icon-lg icon-close"></i>-->
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off" title="隐藏左侧导航">﹤<i class="icon icon-lg icon-navicon"></i></a>
+    <div class="brand-wrap" style="background-image:url(/img/bannerBackgroundLeft.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/myLogo.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">安迪陈</h5>
+          <a href="mailto:andy@lovesofttech.com" title="andy@lovesofttech.com" class="mail" rel="external nofollow noopener noreferrer" target="_blank">andy@lovesofttech.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articleClassify.html">
+                <i class="icon icon-th-list"></i>
+                文章分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articles.html">
+                <i class="icon icon-th-list articles"></i>
+                文章列表
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/java.html">
+                <i class="icon icon-th-list java"></i>
+                Java
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/database.html">
+                <i class="icon icon-th-list database"></i>
+                MySQL/MyBatis
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/linux.html">
+                <i class="icon icon-th-list linux"></i>
+                CentOS/linux
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/react.html">
+                <i class="icon icon-th-list React"></i>
+                React
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/lnmp.html">
+                <i class="icon icon-th-list LNMP"></i>
+                LNMP
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/git.html">
+                <i class="icon icon-th-list git"></i>
+                git
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/windows.html">
+                <i class="icon icon-th-list windows"></i>
+                windows
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/dailyLives.html">
+                <i class="icon icon-th-list dailyLives"></i>
+                工作 &amp; 生活
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-github"></i>
+                我的 github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://gitee.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link"></i>
+                我的 gitee
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://blog.csdn.net/runAndRun" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link CSDN"></i>
+                我的 CSDN
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/aboutMe.html">
+                <i class="icon icon-address-card"></i>
+                关于我
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+
+        <div class="navbar navbar-custom navbar-fixed-top">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" style="margin-left:10px;" id="menu-toggle" title="显示左侧导航"><i class="icon icon-lg icon-navicon"></i>﹥</a>
+            <ul class="nav navbar-nav navbar-right" id="navMenuTop">
+                <li>
+                    <a href="/">主页</a>
+                </li>
+                
+                    
+                        <li>
+                            <a href="/articleClassify.html" title="本博客的文章分类列表">文章分类</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/articles.html" title="本博客的所有文章列表">文章列表</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/java.html" title="Java 开发，文章目录">Java</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/database.html" title="日常开发中有关 MySQL、MyBatis 的一些经验总结">MySQL/MyBatis</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/linux.html" title="CentOS/linux，文章目录">CentOS/linux</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/react.html" title="React 技术栈（全家桶）学习心得分享，文章目录">React</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/about.html">关于</a>
+                        </li>
+                    
+                
+            </ul>
+        </div>
+
+        <div class="flex-col header-title ellipsis">CentOS7 安装配置 LibreOffice 6.3.4.2 以及安装 windows 自带中文字体</div>
+        
+        <div class="search-wrap" id="search-wrap" style="z-index: 2;">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back" style="width:33px;">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search" style="width:33px;">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare" style="z-index: 3;margin-right: 10px; width:30px;">
+                <i class="icon icon-lg icon-share-alt"></i>
+            </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h2 class="title">CentOS7 安装配置 LibreOffice 6.3.4.2 以及安装 windows 自带中文字体</h2>
+        <h5 class="subtitle">
+            
+                <time datetime="2020-02-22T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2020-02-23
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/CentOS7/">CentOS7</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/CentOS7/LibreOffice/">LibreOffice</a></li></ul></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap" id="index-container">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc" style="z-index: 3;">
+            <h4><i class="fa fa-list-alt"></i>&nbsp;&nbsp;本文目录</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#下载并安装-LibreOffice-6-3-4"><span class="post-toc-number">1.</span> <span class="post-toc-text">下载并安装 LibreOffice 6.3.4</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#安装中文字体"><span class="post-toc-number">2.</span> <span class="post-toc-text">安装中文字体</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#用-fc-list-检测"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">用 fc-list 检测</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#windows-开发环境搭建"><span class="post-toc-number">3.</span> <span class="post-toc-text">windows 开发环境搭建</span></a></li></ol>
+        </nav>
+    </aside>
+    
+
+<article id="post-linux/centOS7LibreOffice" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">CentOS7 安装配置 LibreOffice 6.3.4.2 以及安装 windows 自带中文字体</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2020年02月23日 0:00" datetime="2020-02-22T16:00:00.000Z" itemprop="datePublished">2020-02-23</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/CentOS7/">CentOS7</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/CentOS7/LibreOffice/">LibreOffice</a></li></ul></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" style="display:none">
+    阅读量：<span id="busuanzi_value_page_pv"></span>次
+</span>
+
+
+    <span>|</span>
+    <span class="post-count">字数：1.2k</span>
+    <span>|</span>
+    <span class="post-count">阅读时长：大约5分钟</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <ul>
+<li>项目中需要将 Office 文档上传并实现在线预览，用到了 LibreOffice 的转换功能，本文介绍 LibreOffice 环境的搭建。</li>
+<li>在线预览的实现，请参考：<a href="/java/javaLibreOffice.html">Java 利用 LibreOffice/OpenOffice 将 Office 文档（.doc/.docx .ppt/.pptx ）转换成 PDF，进而转图片，实现在线预览功能</a></li>
+</ul>
+<a id="more"></a>
+<h1 id="下载并安装-LibreOffice-6-3-4"><a href="#下载并安装-LibreOffice-6-3-4" class="headerlink" title="下载并安装 LibreOffice 6.3.4"></a>下载并安装 LibreOffice 6.3.4</h1><ul>
+<li>官网：<a href="https://www.libreoffice.org/" rel="external nofollow noopener noreferrer" target="_blank">https://www.libreoffice.org/</a></li>
+<li>下载页面：<a href="https://www.libreoffice.org/download/download/" rel="external nofollow noopener noreferrer" target="_blank">https://www.libreoffice.org/download/download/</a><ul>
+<li>选好针对的平台（windows、linux），下载相关版本，这里推荐下载稳定版本：6.3.4</li>
+</ul>
+</li>
+</ul>
+<p>除了下载主安装包外，还需要下载中文包，我下载到的两个文件分别是：</p>
+<ul>
+<li>LibreOffice_6.3.4_Linux_x86-64_rpm.tar.gz</li>
+<li>LibreOffice_6.3.4_Linux_x86-64_rpm_langpack_zh-CN.tar.gz</li>
+</ul>
+<p>分别解压：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tar -xzvf LibreOffice_6.3.4_Linux_x86-64_rpm.tar.gz</span><br><span class="line">tar -xzvf LibreOffice_6.3.4_Linux_x86-64_rpm_langpack_zh-CN.tar.gz</span><br></pre></td></tr></table></figure></p>
+<p>分别进入这两个文件的 RPMS 目录，用命令 <code>yum localinstall *.rpm</code> 执行本地安装，我解压后的两个目录：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /root/soft/LibreOffice_6.3.4.2_Linux_x86-64_rpm_langpack_zh-CN/RPMS</span><br><span class="line">cd /root/soft/LibreOffice_6.3.4.2_Linux_x86-64_rpm/RPMS</span><br></pre></td></tr></table></figure></p>
+<p>执行 <code>libreoffice6.3 --version</code> 查看版本，提示：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/opt/libreoffice6.3/program/soffice.bin: error while loading shared libraries: libcairo.so.2: cannot open shared object file: No such file or directory</span><br></pre></td></tr></table></figure></p>
+<p>解决：安装相应的依赖<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y install cairo cups-libs libSM</span><br></pre></td></tr></table></figure></p>
+<h1 id="安装中文字体"><a href="#安装中文字体" class="headerlink" title="安装中文字体"></a>安装中文字体</h1><p>仅仅安装官方的中文字体包是不够的，很多时候我们要转换的中文 .doc/.docx，.ppt/.pptx 文件，用到的字体都是 windows 系统下面的，所以，需要把 windows 系统下面的中文字体全部都安装到 CentOS7 上。</p>
+<p>在终端执行 sz 命令上传字体时，定位到 windows 的 Fonts 目录，提示无权限。<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/general/chineseFontSz.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure></p>
+<ul>
+<li><p>我们可以事先准备好所有中文字体，如下，在<code>设计用于</code>列，倒排序，复制所有简体中文字体到非系统目录，上传的时候方便全部上传。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/general/chineseFonts.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+</li>
+<li><p>在 CentOS7 上，以 root 身份安装 fontconfig <code>yum -y install fontconfig</code></p>
+</li>
+<li>创建中文字体目录 <code>mkdir -p /usr/share/fonts/chinese</code></li>
+<li>然后上传刚才准备好的字体文件到 <code>/usr/share/fonts/chinese</code></li>
+<li>安装 ttmkfdir <code>yum -y install ttmkfdir</code>（注：这一步不确定是否必要，todo:下次再配置服务器先跳过这一步）</li>
+</ul>
+<p>安装之后，跳过了网上教程的后续步骤，试着转换了一个 ppt 到 pdf，中文全都正常。</p>
+<p>为了确定这样的中文安装步骤可以正常工作，于是将中文目录的中文字体移到别的目录，再次转换同样的 ppt，结果得到的 pdf 文件的中文字体全部变成方框了，于是再把中文字体移回<code>/usr/share/fonts/chinese</code>，再次转换，中文正常。</p>
+<p>那么，安装中文字体就算成功了。</p>
+<h2 id="用-fc-list-检测"><a href="#用-fc-list-检测" class="headerlink" title="用 fc-list 检测"></a>用 <code>fc-list</code> 检测</h2><p><code>/usr/share/fonts/chinese/</code> 目录下的中文字体都列出来了，再一次证明中文字体安装正确，结果如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">[root@ebs-60027 lib64]# fc-list</span><br><span class="line">/usr/share/fonts/chinese/stxingka.ttf: STXingkai:style=Regular</span><br><span class="line">/usr/share/fonts/chinese/幼圆.ttf: YouYuan:style=Regular</span><br><span class="line">/usr/share/fonts/dejavu/DejaVuSansCondensed-Oblique.ttf: DejaVu Sans,DejaVu Sans Condensed:style=Condensed Oblique,Oblique</span><br><span class="line">/usr/share/fonts/chinese/msyh.ttc: Microsoft YaHei:style=Normal</span><br><span class="line">/usr/share/fonts/dejavu/DejaVuSansCondensed-Bold.ttf: DejaVu Sans,DejaVu Sans Condensed:style=Condensed Bold,Bold</span><br><span class="line">/usr/share/fonts/chinese/stxihei.ttf: STXihei:style=Regular</span><br><span class="line">/usr/share/fonts/chinese/simsun.ttc: SimSun,宋体:style=Regular,常规</span><br><span class="line">/usr/share/fonts/chinese/msyhbd.ttc: Microsoft YaHei:style=Έντονα</span><br><span class="line">/usr/share/fonts/chinese/stkaiti.ttf: STKaiti:style=Regular</span><br><span class="line">/usr/share/fonts/chinese/Dengl.ttf: DengXian,DengXian Light:style=Light,Regular</span><br><span class="line">/usr/share/fonts/dejavu/DejaVuSans.ttf: DejaVu Sans:style=Book</span><br><span class="line">/usr/share/fonts/chinese/Deng.ttf: DengXian:style=Regular</span><br><span class="line">/usr/share/fonts/chinese/msyh.ttc: Microsoft YaHei UI:style=Normal</span><br><span class="line">/usr/share/fonts/chinese/fzstk.ttf: FZShuTi:style=Regular</span><br><span class="line">/usr/share/fonts/chinese/msyhbd.ttc: Microsoft YaHei UI:style=Έντονα</span><br><span class="line">/usr/share/fonts/chinese/stfangso.ttf: STFangsong:style=Regular</span><br><span class="line">/usr/share/fonts/chinese/Dengb.ttf: DengXian:style=Bold</span><br><span class="line">/usr/share/fonts/chinese/stcaiyun.ttf: STCaiyun:style=Regular</span><br><span class="line">/usr/share/fonts/chinese/simsun.ttc: NSimSun,新宋体:style=Regular,常规</span><br><span class="line">/usr/share/fonts/chinese/msyhl.ttc: Microsoft YaHei UI,Microsoft YaHei UI Light:style=Light,Regular</span><br><span class="line">/usr/share/fonts/chinese/simkai.ttf: KaiTi:style=Regular,Normaali</span><br><span class="line">/usr/share/fonts/chinese/fzytk.ttf: FZYaoTi:style=Regular</span><br><span class="line">/usr/share/fonts/dejavu/DejaVuSans-Bold.ttf: DejaVu Sans:style=Bold</span><br><span class="line">/usr/share/fonts/chinese/stsong.ttf: STSong:style=Regular</span><br><span class="line">/usr/share/fonts/chinese/sthupo.ttf: STHupo:style=Regular</span><br><span class="line">/usr/share/fonts/chinese/simli.ttf: LiSu:style=Regular</span><br><span class="line">/usr/share/fonts/chinese/stxinwei.ttf: STXinwei:style=Regular</span><br><span class="line">/usr/share/fonts/chinese/stliti.ttf: STLiti:style=Regular</span><br><span class="line">/usr/share/fonts/chinese/stzhongs.ttf: STZhongsong:style=Regular</span><br><span class="line">/usr/share/fonts/dejavu/DejaVuSansCondensed.ttf: DejaVu Sans,DejaVu Sans Condensed:style=Condensed,Book</span><br><span class="line">/usr/share/fonts/dejavu/DejaVuSans-ExtraLight.ttf: DejaVu Sans,DejaVu Sans Light:style=ExtraLight</span><br><span class="line">/usr/share/fonts/chinese/simsunb.ttf: SimSun\-ExtB:style=Regular,obyčejné</span><br><span class="line">/usr/share/fonts/chinese/simhei.ttf: SimHei:style=Normal</span><br><span class="line">/usr/share/fonts/dejavu/DejaVuSansCondensed-BoldOblique.ttf: DejaVu Sans,DejaVu Sans Condensed:style=Condensed Bold Oblique,Bold Oblique</span><br><span class="line">/usr/share/fonts/dejavu/DejaVuSans-Oblique.ttf: DejaVu Sans:style=Oblique</span><br><span class="line">/usr/share/fonts/chinese/simfang.ttf: FangSong:style=Regular,Normaali</span><br><span class="line">/usr/share/fonts/dejavu/DejaVuSans-BoldOblique.ttf: DejaVu Sans:style=Bold Oblique</span><br><span class="line">/usr/share/fonts/chinese/msyhl.ttc: Microsoft YaHei,Microsoft YaHei Light:style=Light,Regular</span><br></pre></td></tr></table></figure></p>
+<h1 id="windows-开发环境搭建"><a href="#windows-开发环境搭建" class="headerlink" title="windows 开发环境搭建"></a>windows 开发环境搭建</h1><p>到 <a href="https://www.libreoffice.org/download/download/" rel="external nofollow noopener noreferrer" target="_blank">https://www.libreoffice.org/download/download/</a> 下载 .msi 版本直接安装，安装好后，将安装目录下的 program 目录添加到环境变量，在 windows 控制台执行：<code>soffice -version</code>，如果弹出一个新的控制台窗口显示版本信息，或者如下显示，说明安装配置已成功。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\Andy&gt;soffice --version</span><br><span class="line">LibreOffice 6.4.0.3 b0a288ab3d2d4774cb44b62f04d5d28733ac6df8</span><br></pre></td></tr></table></figure></p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-09-01T02:53:13.024Z" itemprop="dateUpdated">2020年9月1日 10:53</time>
+</span><br>
+
+
+        转载请注明出处：<a href="/linux/centOS7LibreOffice.html" target="_blank" rel="external">https://www.lovesofttech.com/linux/centOS7LibreOffice.html</a>
+    </div>
+    <footer>
+        <a href="https://www.lovesofttech.com">
+            <img src="/img/myLogo.jpg" alt="安迪陈">
+            安迪陈
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CentOS7/">CentOS7</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LibreOffice/">LibreOffice</a></li></ul>
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/linux/centOS7LibreOffice.html&title=《CentOS7 安装配置 LibreOffice 6.3.4.2 以及安装 windows 自带中文字体》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/linux/centOS7LibreOffice.html&title=《CentOS7 安装配置 LibreOffice 6.3.4.2 以及安装 windows 自带中文字体》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=
+项目中需要将 Office 文档上传并实现在线预览，用到了 LibreOffice 的转换功能，本文介绍 LibreOffice 环境的搭建。
+在线预览..." data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/linux/centOS7LibreOffice.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《CentOS7 安装配置 LibreOffice 6.3.4.2 以及安装 windows 自带中文字体》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/linux/centOS7LibreOffice.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/linux/centOS7LibreOffice.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/java/timeZone.html" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">CentOS7 时区与 MySQL 连接参数 serverTimezone 的关系，以及与保存到数据库的 timestamp 字段值（比实际少13小时）的关系</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/mybatis/mybatisPluginShard.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">基于spring 切面（AOP）实现动态多数据源切换，基于 MyBatis 插件方式实现动态分表查询</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+    
+    
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="bottom">
+        <p>
+            <span>安迪陈技术日志，架构、感悟、系统分析、团队管理 &copy; 2017 - 2020</span>
+            <span>
+                Power by <a href="https://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>&nbsp;
+                Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank" rel="external nofollow noopener noreferrer">indigo</a>
+            </span>
+            <span>
+                <a href="http://www.beian.miit.gov.cn" target="_blank" rel="external nofollow noopener noreferrer">蜀ICP备17041860号</a>
+            </span>
+            
+            <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            </p><p>
+                <span>
+                    统计始于：2019-03-06
+                </span>
+                <span id="busuanzi_container_site_uv" style="display:none">
+                    访客数：<span id="busuanzi_value_site_uv"></span>
+                </span>
+                <span id="busuanzi_container_site_pv" style="display:none">
+                    访问量：<span id="busuanzi_value_site_pv"></span>
+                </span>
+            
+            
+                <span class="post-count">累计字数：309.2k</span>
+            
+                <span><a href="/general/blogLog.html"><i class="fas fa-pen-alt"></i>&nbsp;博客日志</a></span>
+            </p>
+        <p></p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light" title="回到顶部"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/linux/centOS7LibreOffice.html&title=《CentOS7 安装配置 LibreOffice 6.3.4.2 以及安装 windows 自带中文字体》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/linux/centOS7LibreOffice.html&title=《CentOS7 安装配置 LibreOffice 6.3.4.2 以及安装 windows 自带中文字体》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=
+项目中需要将 Office 文档上传并实现在线预览，用到了 LibreOffice 的转换功能，本文介绍 LibreOffice 环境的搭建。
+在线预览..." data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/linux/centOS7LibreOffice.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《CentOS7 安装配置 LibreOffice 6.3.4.2 以及安装 windows 自带中文字体》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/linux/centOS7LibreOffice.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/linux/centOS7LibreOffice.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACJ0lEQVR42u3aQW7DMAwF0dz/0u62G7PzSaeAqdGqCARFTwUYUtTng8f1a9x9Us+sV67XfGzIkCHjtYyrHCkjXb9mk/kyZMg4h0FCYT2HgOv5PFjLkCFDRs2oN0TWrIO1DBkyZDzLIJh5sJYhQ4aMtLDkn9RscjRfqcVlyJDxQga/df//v7/S35AhQ8arGFc4Jm1OHr7jXcmQIWM1gwe4Ho80QVGBCo5MhgwZWxnpVnrUXo4X7EGGDBmrGZPAx1sFPOFLmwTod0OGDBkrGLwQ/cbjCVK+xj8GMmTIWMToPaHolbi9LaLHZzJkyDiGQRKyXo90kmIGr0VkyJCxlEFI/Iqfl6a9A0I/AzJkyFjKSNO+NDSnKWPvKGXIkLGVwcNfGhBH1/ogbb39P8iQIWMdI03aSMMgfWbRSwqDs5QhQ8YKBk/LyNb5OikeFbEyZMg4gJF+AaE+G3z/uC+UIUPGOsbkaj69PksfcwTPamXIkLGakdaAvPTlxzQ5DhkyZJzD4OkgTxPr9kA6EzUwZMiQcTCDPwibtD97B9rsecqQIeO1DF7Q8lCYHhDvUcqQIeMcxhWOSZjmF2fNpFCGDBlLGXzMwT3eU0mnDBky3s4gGyLL8YblKJOVIUPGwYw08JEv4yVueiWHbg1lyJBxMIOnjGkzYESVIUOGDNwq6JXBKfW2PSBDhozVDFLE8jmTxxY86ZQhQ8Y5jDSBI4vyg3jqeYcMGTKWMn4AvfcNy3i89HsAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.5.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.5.2" async></script>
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '安迪陈技术日志';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '欢迎回来';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,17 @@
+User-agent: *
+Allow: /
+Allow: /archives/
+Allow: /categories/
+Allow: /tags/
+Allow: /page/
+
+Disallow: /css/
+Disallow: /download/
+Disallow: /es6/
+Disallow: /img/
+Disallow: /js/
+Disallow: /sdtm/
+Disallow: /ljxp.html
+
+Sitemap: https://www.lovesofttech.com/sitemap.xml
+Sitemap: https://www.lovesofttech.com/baidusitemap.xml

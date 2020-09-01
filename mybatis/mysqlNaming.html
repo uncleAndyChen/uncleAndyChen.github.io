@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<!--<script async src="//hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c"></script>-->
+<!-- 统计-->
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var host = window.location.host;
+        var hm = document.createElement("script");
+
+        if (host.indexOf('gitee.io') > 0) { // https://uncleandychen.gitee.io/
+            hm.src = "https://hm.baidu.com/hm.js?0cf4709148b070b8082191d2e456a1a3";
+        } else if (host.indexOf('lovesofttech.com') > 0) { // https://www.lovesofttech.com/
+            hm.src = "https://hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c";
+        } else {
+            hm.src = '';
+        }
+
+        if (hm.src !== '') {
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        }
+    })();
+</script>
+<!-- End Baidu Tongji -->
+
+
+
+<!-- Baidu Push -->
+<!-- 主动推送百度爬虫-->
+<script>
+    (function(){
+        if (window.location.host.indexOf('lovesofttech.com') < 0) {
+            return;
+        }
+
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+<!-- End Baidu Push -->
+
+
+    <meta charset="utf-8">
+    
+    
+    <link rel="canonical" href="https://www.lovesofttech.com/mybatis/mysqlNaming.html">
+    
+    
+    <title>MyBatis 项目中，有关 MySQL 命名规范，用驼峰命名法与下划线命名法的取舍 | 安迪陈技术日志，架构、感悟、系统分析、团队管理 | 自强不息，厚德载物</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="MyBatis,MySQL 命名规范">
+    <meta name="description" content="如果有人问我到底哪一种命名法更好，曾经，我的答案是：驼峰命名法，而现在，我的答案是：当然是下划线命名法，这还用问吗？嘻嘻~~~">
+<meta name="keywords" content="MyBatis,MySQL 命名规范">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MyBatis 项目中，有关 MySQL 命名规范，用驼峰命名法与下划线命名法的取舍">
+<meta property="og:url" content="https://www.lovesofttech.com/mybatis/mysqlNaming.html">
+<meta property="og:site_name" content="安迪陈技术日志，架构、感悟、系统分析、团队管理">
+<meta property="og:description" content="如果有人问我到底哪一种命名法更好，曾经，我的答案是：驼峰命名法，而现在，我的答案是：当然是下划线命名法，这还用问吗？嘻嘻~~~">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2020-09-01T02:53:13.074Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="MyBatis 项目中，有关 MySQL 命名规范，用驼峰命名法与下划线命名法的取舍">
+<meta name="twitter:description" content="如果有人问我到底哪一种命名法更好，曾经，我的答案是：驼峰命名法，而现在，我的答案是：当然是下划线命名法，这还用问吗？嘻嘻~~~">
+    
+        <link rel="alternative" href="/atom.xml" title="安迪陈技术日志，架构、感悟、系统分析、团队管理" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=201912302211">
+    <link rel="stylesheet" href="/css/header.css?v=201912302211">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu">
+  <div class="inner flex-row-vertical">
+    <!--<i class="icon icon-lg icon-close"></i>-->
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off" title="隐藏左侧导航">﹤<i class="icon icon-lg icon-navicon"></i></a>
+    <div class="brand-wrap" style="background-image:url(/img/bannerBackgroundLeft.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/myLogo.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">安迪陈</h5>
+          <a href="mailto:andy@lovesofttech.com" title="andy@lovesofttech.com" class="mail" rel="external nofollow noopener noreferrer" target="_blank">andy@lovesofttech.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articleClassify.html">
+                <i class="icon icon-th-list"></i>
+                文章分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articles.html">
+                <i class="icon icon-th-list articles"></i>
+                文章列表
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/java.html">
+                <i class="icon icon-th-list java"></i>
+                Java
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/database.html">
+                <i class="icon icon-th-list database"></i>
+                MySQL/MyBatis
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/linux.html">
+                <i class="icon icon-th-list linux"></i>
+                CentOS/linux
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/react.html">
+                <i class="icon icon-th-list React"></i>
+                React
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/lnmp.html">
+                <i class="icon icon-th-list LNMP"></i>
+                LNMP
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/git.html">
+                <i class="icon icon-th-list git"></i>
+                git
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/windows.html">
+                <i class="icon icon-th-list windows"></i>
+                windows
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/dailyLives.html">
+                <i class="icon icon-th-list dailyLives"></i>
+                工作 &amp; 生活
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-github"></i>
+                我的 github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://gitee.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link"></i>
+                我的 gitee
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://blog.csdn.net/runAndRun" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link CSDN"></i>
+                我的 CSDN
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/aboutMe.html">
+                <i class="icon icon-address-card"></i>
+                关于我
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+
+        <div class="navbar navbar-custom navbar-fixed-top">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" style="margin-left:10px;" id="menu-toggle" title="显示左侧导航"><i class="icon icon-lg icon-navicon"></i>﹥</a>
+            <ul class="nav navbar-nav navbar-right" id="navMenuTop">
+                <li>
+                    <a href="/">主页</a>
+                </li>
+                
+                    
+                        <li>
+                            <a href="/articleClassify.html" title="本博客的文章分类列表">文章分类</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/articles.html" title="本博客的所有文章列表">文章列表</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/java.html" title="Java 开发，文章目录">Java</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/database.html" title="日常开发中有关 MySQL、MyBatis 的一些经验总结">MySQL/MyBatis</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/linux.html" title="CentOS/linux，文章目录">CentOS/linux</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/react.html" title="React 技术栈（全家桶）学习心得分享，文章目录">React</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/about.html">关于</a>
+                        </li>
+                    
+                
+            </ul>
+        </div>
+
+        <div class="flex-col header-title ellipsis">MyBatis 项目中，有关 MySQL 命名规范，用驼峰命名法与下划线命名法的取舍</div>
+        
+        <div class="search-wrap" id="search-wrap" style="z-index: 2;">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back" style="width:33px;">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search" style="width:33px;">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare" style="z-index: 3;margin-right: 10px; width:30px;">
+                <i class="icon icon-lg icon-share-alt"></i>
+            </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h2 class="title">MyBatis 项目中，有关 MySQL 命名规范，用驼峰命名法与下划线命名法的取舍</h2>
+        <h5 class="subtitle">
+            
+                <time datetime="2019-12-27T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2019-12-28
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/MyBatis/">MyBatis</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/MyBatis/MySQL-命名规范/">MySQL 命名规范</a></li></ul></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap" id="index-container">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc" style="z-index: 3;">
+            <h4><i class="fa fa-list-alt"></i>&nbsp;&nbsp;本文目录</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#选驼峰命名法的理由"><span class="post-toc-number">1.</span> <span class="post-toc-text">选驼峰命名法的理由</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#选下划线命名法的理由"><span class="post-toc-number">2.</span> <span class="post-toc-text">选下划线命名法的理由</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#现在的选择：下划线命名法"><span class="post-toc-number">3.</span> <span class="post-toc-text">现在的选择：下划线命名法</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#MyBatis-的配置项：mapUnderscoreToCamelCase"><span class="post-toc-number">4.</span> <span class="post-toc-text">MyBatis 的配置项：mapUnderscoreToCamelCase</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#有关-MBG-的使用和详细的配置"><span class="post-toc-number">5.</span> <span class="post-toc-text">有关 MBG 的使用和详细的配置</span></a></li></ol>
+        </nav>
+    </aside>
+    
+
+<article id="post-mybatis/mysqlNaming" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">MyBatis 项目中，有关 MySQL 命名规范，用驼峰命名法与下划线命名法的取舍</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2019年12月28日 0:00" datetime="2019-12-27T16:00:00.000Z" itemprop="datePublished">2019-12-28</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/MyBatis/">MyBatis</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/MyBatis/MySQL-命名规范/">MySQL 命名规范</a></li></ul></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" style="display:none">
+    阅读量：<span id="busuanzi_value_page_pv"></span>次
+</span>
+
+
+    <span>|</span>
+    <span class="post-count">字数：924</span>
+    <span>|</span>
+    <span class="post-count">阅读时长：大约3分钟</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>如果有人问我到底哪一种命名法更好，曾经，我的答案是：驼峰命名法，而现在，我的答案是：当然是下划线命名法，这还用问吗？嘻嘻~~~<br><a id="more"></a></p>
+<h1 id="选驼峰命名法的理由"><a href="#选驼峰命名法的理由" class="headerlink" title="选驼峰命名法的理由"></a>选驼峰命名法的理由</h1><ul>
+<li>无论是 Java 还是 C#，业界几乎都采用驼峰命名法，为了保持命名规范的一致性。</li>
+<li>如果 MySQL 采用下划线命名法<ul>
+<li>在一开始采用 MyBatis 这个框架的时候。由于忽略了 MyBatis 针对驼峰命名与下划线命名的一个转换配置 <code>mapUnderscoreToCamelCase</code>，在把自定义 SQL 语句查询结果对应到自定义的 POJO 时，为了与 POJO 属性名对应，有两种方式：<ol>
+<li>POJO 采用驼峰式命名法，自定义的 SQL 语句需要写类似这样的语句 <code>select student_name as studentName</code> ，或者定义 resultMap，类似 <code>&lt;result column=&quot;student_name&quot; jdbcType=&quot;VARCHAR&quot; property=&quot;studentName&quot; /&gt;</code>，这将<strong>带来额外的工作量和维护成本，而且还容易出错</strong>。</li>
+<li>POJO 采用下划线命名法，这样不用写类似 <code>student_name as studentName</code> 的 SQL 语句，也不用额外定义 resultMap，但是，这是重点，<strong>与 Java 的命名规范冲突</strong>。</li>
+</ol>
+</li>
+<li>前面两种解决方案都有缺点，那么再看第三种，就是从根本上统一，那就是 MySQL 也采用驼峰式命名法，至于大小写敏感问题，可以通过配置项 <code>lower_case_table_names</code> 解决。</li>
+</ul>
+</li>
+</ul>
+<p>所以，曾经，我所在项目组在使用 MyBatis 时，MySQL 采用了驼峰式命名法，虽然有效避开了上面提到的两种解决方案的缺点，但是因为这种命名方式有背业界规范，所以一直觉得这并不完美的解决方法。</p>
+<p>好的是，在后来研究 MyBatis 的过程中，无意中发现了完美的解决方案，就是上面提到的关键配置，下面会写。</p>
+<h1 id="选下划线命名法的理由"><a href="#选下划线命名法的理由" class="headerlink" title="选下划线命名法的理由"></a>选下划线命名法的理由</h1><ul>
+<li>对于 MySQL 的命名法，业界更多的是下划线命名法，原因是 MySQL 在不同操作系统上有不同的大小写敏感问题（这里就不展开这个话题了）。</li>
+<li>特意看了一些比较知名的开源项目，MySQL 的命名规范几乎都是下划线命名法。</li>
+<li>参考大公司的规范，如《阿里巴巴Java开发手册》，也是下划线命名法。</li>
+</ul>
+<h1 id="现在的选择：下划线命名法"><a href="#现在的选择：下划线命名法" class="headerlink" title="现在的选择：下划线命名法"></a>现在的选择：下划线命名法</h1><p>在得知 MyBatis 的这个配置项 <code>mapUnderscoreToCamelCase</code> 后，关于 MySQL 命名规范，我在新项目中，就坚定的采用下划线命名法了，甚至有把以前 MySQL 采用驼峰命名的项目重构回下划线命名的冲动~~</p>
+<h1 id="MyBatis-的配置项：mapUnderscoreToCamelCase"><a href="#MyBatis-的配置项：mapUnderscoreToCamelCase" class="headerlink" title="MyBatis 的配置项：mapUnderscoreToCamelCase"></a>MyBatis 的配置项：mapUnderscoreToCamelCase</h1><p>设置启用数据库字段下划线映射到 java POJO 的驼峰式命名属性。该配置项，一般性地，在文件 <code>mybatis-config.xml</code> 中，默认值为 false，将其配置为 true：</p>
+<ul>
+<li>开启驼峰映射，为自定义的SQL语句服务。</li>
+<li>针对自定义 SQL 查询结果，对应的自定义 POJO 保持驼峰命名法，查询数据库的 SQL 语句保留原生下划线，不用写 resultMap。</li>
+<li>即从经典数据库列名 a_column 到经典 Java 属性名 aColumn 的类似映射。<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">settings</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">setting</span> <span class="attr">name</span>=<span class="string">"mapUnderscoreToCamelCase"</span> <span class="attr">value</span>=<span class="string">"true"</span>/&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- other config item --&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">settings</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>请注意，MySQL 采用下划线命名法的话，使用 MBG 生成实体的配置项 <code>table</code>，不需要配置 useActualColumnNames，该配置项默认为 false，如果要配置，其 value 需要设置 false，如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;property name=&quot;useActualColumnNames&quot; value=&quot;false&quot;/&gt;</span><br></pre></td></tr></table></figure></p>
+<h1 id="有关-MBG-的使用和详细的配置"><a href="#有关-MBG-的使用和详细的配置" class="headerlink" title="有关 MBG 的使用和详细的配置"></a>有关 MBG 的使用和详细的配置</h1><p>请参考：<a href="https://github.com/uncleAndyChen/mybatis-generator" rel="external nofollow noopener noreferrer" target="_blank">https://github.com/uncleAndyChen/mybatis-generator</a></p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-09-01T02:53:13.074Z" itemprop="dateUpdated">2020年9月1日 10:53</time>
+</span><br>
+
+
+        转载请注明出处：<a href="/mybatis/mysqlNaming.html" target="_blank" rel="external">https://www.lovesofttech.com/mybatis/mysqlNaming.html</a>
+    </div>
+    <footer>
+        <a href="https://www.lovesofttech.com">
+            <img src="/img/myLogo.jpg" alt="安迪陈">
+            安迪陈
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MyBatis/">MyBatis</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL-命名规范/">MySQL 命名规范</a></li></ul>
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/mybatis/mysqlNaming.html&title=《MyBatis 项目中，有关 MySQL 命名规范，用驼峰命名法与下划线命名法的取舍》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/mybatis/mysqlNaming.html&title=《MyBatis 项目中，有关 MySQL 命名规范，用驼峰命名法与下划线命名法的取舍》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=如果有人问我到底哪一种命名法更好，曾经，我的答案是：驼峰命名法，而现在，我的答案是：当然是下划线命名法，这还用问吗？嘻嘻~~~" data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/mybatis/mysqlNaming.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《MyBatis 项目中，有关 MySQL 命名规范，用驼峰命名法与下划线命名法的取舍》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/mybatis/mysqlNaming.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/mybatis/mysqlNaming.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/mybatis/MBGForMySQL8.html" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">解决 mybatis generator 使用 mysql 驱动 8.x 版本时会生成多个库里的同名表的问题</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/database/powerDesignerER.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">PowerDesigner 逆向生成数据库物理模型，以 MySQL 为例</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+    
+    
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="bottom">
+        <p>
+            <span>安迪陈技术日志，架构、感悟、系统分析、团队管理 &copy; 2017 - 2020</span>
+            <span>
+                Power by <a href="https://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>&nbsp;
+                Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank" rel="external nofollow noopener noreferrer">indigo</a>
+            </span>
+            <span>
+                <a href="http://www.beian.miit.gov.cn" target="_blank" rel="external nofollow noopener noreferrer">蜀ICP备17041860号</a>
+            </span>
+            
+            <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            </p><p>
+                <span>
+                    统计始于：2019-03-06
+                </span>
+                <span id="busuanzi_container_site_uv" style="display:none">
+                    访客数：<span id="busuanzi_value_site_uv"></span>
+                </span>
+                <span id="busuanzi_container_site_pv" style="display:none">
+                    访问量：<span id="busuanzi_value_site_pv"></span>
+                </span>
+            
+            
+                <span class="post-count">累计字数：309.2k</span>
+            
+                <span><a href="/general/blogLog.html"><i class="fas fa-pen-alt"></i>&nbsp;博客日志</a></span>
+            </p>
+        <p></p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light" title="回到顶部"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/mybatis/mysqlNaming.html&title=《MyBatis 项目中，有关 MySQL 命名规范，用驼峰命名法与下划线命名法的取舍》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/mybatis/mysqlNaming.html&title=《MyBatis 项目中，有关 MySQL 命名规范，用驼峰命名法与下划线命名法的取舍》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=如果有人问我到底哪一种命名法更好，曾经，我的答案是：驼峰命名法，而现在，我的答案是：当然是下划线命名法，这还用问吗？嘻嘻~~~" data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/mybatis/mysqlNaming.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《MyBatis 项目中，有关 MySQL 命名规范，用驼峰命名法与下划线命名法的取舍》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/mybatis/mysqlNaming.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/mybatis/mysqlNaming.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACNElEQVR42u3ay27bMBAF0Pz/T7tAVy2ayvdyGCSiDldGIlg8XIw5j4+PeL1+r+vP/z7/51r7++aFgYFxW8brcv1v69eY6+fzo0n2hoGB8RzGPMgmATePk/neMDAwMPKXtceRB2sMDAyMXa+fhONv+N3AwMC4ISMPqUlSer31PN39klwcAwPjhoxdjYGv+PwN/Q0MDIwfxngtreswmj+z1gz4ZD8YGBhHM5JiWTtIsYZZO6Do7omBgXFzRj6wNSnMtRfNtv2JgYFxNmNSGmtbCPl3biirYWBgHMSYJKWTsYzJk29+NzAwMI5j5PGqbWS2ZbgNl0UMDIxDGW3i2pbG2qGNtSPAwMA4m7EWcNfKanngXjxQDAyMoxl5iGzL+snwRDt8FrUzMTAwDmKshdp5S7KeB7k+bgwMjMcw2iLXWgth7RL5JgRjYGAczWgHrZL/5i/Ln68PCAMD4zjGJLFMhrfaC2L7zRgYGBjJdW2thbCrwIeBgfEExq7xiPza125924gYBgbGbRl5e6C98E0KcBtKbBgYGMcx8kve2lBXHr6TwtyGXBwDA+NWjLVUNk8v5wW74nkMDIzjGK9y5SF1cqJ5OP5rLAwDA+NQxiSZnA9yrTVN8zQbAwPjJMY8yLYnlKTN9XljYGA8gDEqypeBeC321y1MDAyMxzPadkJ73WwPEQMDAyO/zM2p7VswMDCew2gHVfMR1fbvbUTFwMB4AmPSGHiTWJaH1Ybvbf0NDAyMn8v4BX4hQc9o1qRVAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.5.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.5.2" async></script>
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '安迪陈技术日志';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '欢迎回来';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

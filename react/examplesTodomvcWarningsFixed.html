@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<!--<script async src="//hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c"></script>-->
+<!-- 统计-->
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var host = window.location.host;
+        var hm = document.createElement("script");
+
+        if (host.indexOf('gitee.io') > 0) { // https://uncleandychen.gitee.io/
+            hm.src = "https://hm.baidu.com/hm.js?0cf4709148b070b8082191d2e456a1a3";
+        } else if (host.indexOf('lovesofttech.com') > 0) { // https://www.lovesofttech.com/
+            hm.src = "https://hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c";
+        } else {
+            hm.src = '';
+        }
+
+        if (hm.src !== '') {
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        }
+    })();
+</script>
+<!-- End Baidu Tongji -->
+
+
+
+<!-- Baidu Push -->
+<!-- 主动推送百度爬虫-->
+<script>
+    (function(){
+        if (window.location.host.indexOf('lovesofttech.com') < 0) {
+            return;
+        }
+
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+<!-- End Baidu Push -->
+
+
+    <meta charset="utf-8">
+    
+    
+    <link rel="canonical" href="https://www.lovesofttech.com/react/examplesTodomvcWarningsFixed.html">
+    
+    
+    <title>redux 官方示例 todomvc 两个警告修复 | 安迪陈技术日志，架构、感悟、系统分析、团队管理 | 自强不息，厚德载物</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="react,redux">
+    <meta name="description" content="通过解决这类问题，会让自己对相关代码的理解更加深入，做到知其然，并且知其所以然，同时，能够让自己对相关知识点印象深刻。">
+<meta name="keywords" content="react,redux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="redux 官方示例 todomvc 两个警告修复">
+<meta property="og:url" content="https://www.lovesofttech.com/react/examplesTodomvcWarningsFixed.html">
+<meta property="og:site_name" content="安迪陈技术日志，架构、感悟、系统分析、团队管理">
+<meta property="og:description" content="通过解决这类问题，会让自己对相关代码的理解更加深入，做到知其然，并且知其所以然，同时，能够让自己对相关知识点印象深刻。">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:image" content="https://www.lovesofttech.com/img/react/examplesTodomvcWarnings.png">
+<meta property="og:updated_time" content="2020-09-01T02:53:13.086Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="redux 官方示例 todomvc 两个警告修复">
+<meta name="twitter:description" content="通过解决这类问题，会让自己对相关代码的理解更加深入，做到知其然，并且知其所以然，同时，能够让自己对相关知识点印象深刻。">
+<meta name="twitter:image" content="https://www.lovesofttech.com/img/react/examplesTodomvcWarnings.png">
+    
+        <link rel="alternative" href="/atom.xml" title="安迪陈技术日志，架构、感悟、系统分析、团队管理" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=201912302211">
+    <link rel="stylesheet" href="/css/header.css?v=201912302211">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu">
+  <div class="inner flex-row-vertical">
+    <!--<i class="icon icon-lg icon-close"></i>-->
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off" title="隐藏左侧导航">﹤<i class="icon icon-lg icon-navicon"></i></a>
+    <div class="brand-wrap" style="background-image:url(/img/bannerBackgroundLeft.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/myLogo.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">安迪陈</h5>
+          <a href="mailto:andy@lovesofttech.com" title="andy@lovesofttech.com" class="mail" rel="external nofollow noopener noreferrer" target="_blank">andy@lovesofttech.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articleClassify.html">
+                <i class="icon icon-th-list"></i>
+                文章分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articles.html">
+                <i class="icon icon-th-list articles"></i>
+                文章列表
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/java.html">
+                <i class="icon icon-th-list java"></i>
+                Java
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/database.html">
+                <i class="icon icon-th-list database"></i>
+                MySQL/MyBatis
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/linux.html">
+                <i class="icon icon-th-list linux"></i>
+                CentOS/linux
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/react.html">
+                <i class="icon icon-th-list React"></i>
+                React
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/lnmp.html">
+                <i class="icon icon-th-list LNMP"></i>
+                LNMP
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/git.html">
+                <i class="icon icon-th-list git"></i>
+                git
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/windows.html">
+                <i class="icon icon-th-list windows"></i>
+                windows
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/dailyLives.html">
+                <i class="icon icon-th-list dailyLives"></i>
+                工作 &amp; 生活
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-github"></i>
+                我的 github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://gitee.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link"></i>
+                我的 gitee
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://blog.csdn.net/runAndRun" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link CSDN"></i>
+                我的 CSDN
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/aboutMe.html">
+                <i class="icon icon-address-card"></i>
+                关于我
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+
+        <div class="navbar navbar-custom navbar-fixed-top">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" style="margin-left:10px;" id="menu-toggle" title="显示左侧导航"><i class="icon icon-lg icon-navicon"></i>﹥</a>
+            <ul class="nav navbar-nav navbar-right" id="navMenuTop">
+                <li>
+                    <a href="/">主页</a>
+                </li>
+                
+                    
+                        <li>
+                            <a href="/articleClassify.html" title="本博客的文章分类列表">文章分类</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/articles.html" title="本博客的所有文章列表">文章列表</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/java.html" title="Java 开发，文章目录">Java</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/database.html" title="日常开发中有关 MySQL、MyBatis 的一些经验总结">MySQL/MyBatis</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/linux.html" title="CentOS/linux，文章目录">CentOS/linux</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/react.html" title="React 技术栈（全家桶）学习心得分享，文章目录">React</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/about.html">关于</a>
+                        </li>
+                    
+                
+            </ul>
+        </div>
+
+        <div class="flex-col header-title ellipsis">redux 官方示例 todomvc 两个警告修复</div>
+        
+        <div class="search-wrap" id="search-wrap" style="z-index: 2;">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back" style="width:33px;">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search" style="width:33px;">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare" style="z-index: 3;margin-right: 10px; width:30px;">
+                <i class="icon icon-lg icon-share-alt"></i>
+            </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h2 class="title">redux 官方示例 todomvc 两个警告修复</h2>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-11-24T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2018-11-25
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/react/">react</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/react/redux/">redux</a></li></ul></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap" id="index-container">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc" style="z-index: 3;">
+            <h4><i class="fa fa-list-alt"></i>&nbsp;&nbsp;本文目录</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#题外话"><span class="post-toc-number">1.</span> <span class="post-toc-text">题外话</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#examples-todomvc-src-components-TodoTextInput-js"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">examples/todomvc/src/components/TodoTextInput.js</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#解决"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">解决</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#examples-todomvc-src-components-MainSection-js"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">examples/todomvc/src/components/MainSection.js</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#解读第二个警告"><span class="post-toc-number">2.</span> <span class="post-toc-text">解读第二个警告</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Controlled-Components"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">Controlled Components</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Uncontrolled-Components"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">Uncontrolled Components</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#扩展阅读"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">扩展阅读</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+    
+
+<article id="post-react/examplesTodomvcWarningsFixed" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">redux 官方示例 todomvc 两个警告修复</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018年11月25日 0:00" datetime="2018-11-24T16:00:00.000Z" itemprop="datePublished">2018-11-25</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/react/">react</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/react/redux/">redux</a></li></ul></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" style="display:none">
+    阅读量：<span id="busuanzi_value_page_pv"></span>次
+</span>
+
+
+    <span>|</span>
+    <span class="post-count">字数：1.3k</span>
+    <span>|</span>
+    <span class="post-count">阅读时长：大约5分钟</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>通过解决这类问题，会让自己对相关代码的理解更加深入，做到知其然，并且知其所以然，同时，能够让自己对相关知识点印象深刻。<br><a id="more"></a></p>
+<h1 id="题外话"><a href="#题外话" class="headerlink" title="题外话"></a>题外话</h1><p>本人有轻度代码洁癖，只要有警告，我会认为代码还有需要完善的地方，只要有时间我就会着手去解决它，去了解其背后的原因，了解为什么会发出警告，以及解决方案是什么，最终消除这些影响代码质量的“隐患”。  </p>
+<p><a href="https://github.com/reduxjs/redux/pull/3211" rel="external nofollow noopener noreferrer" target="_blank">两个警告相关的 PR</a></p>
+<blockquote>
+<p>备注：PR 合并之后，最新版已经没有这两个警告了</p>
+</blockquote>
+<p><a href="https://github.com/reduxjs/redux/tree/master/examples/todomvc" rel="external nofollow noopener noreferrer" target="_blank">官方 todomvc 示例源码</a>  </p>
+<p>其实改动很小，主要看解决思路和理解相关的知识点。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/react/examplesTodomvcWarnings.png" alt="两个大大的红色警告" title>
+                </div>
+                <div class="image-caption">两个大大的红色警告</div>
+            </figure>
+<h2 id="examples-todomvc-src-components-TodoTextInput-js"><a href="#examples-todomvc-src-components-TodoTextInput-js" class="headerlink" title="examples/todomvc/src/components/TodoTextInput.js"></a>examples/todomvc/src/components/TodoTextInput.js</h2><p>完整警告信息如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Warning: Received the string `true` for the boolean attribute `autoFocus`. Although this works, </span><br><span class="line">it will not work as expected if you pass the string &quot;false&quot;. Did you mean autoFocus=&#123;true&#125;?</span><br><span class="line">    in input (at TodoTextInput.js:40)</span><br><span class="line">    in TodoTextInput (at Header.js:8)</span><br><span class="line">    in header (at Header.js:6)</span><br><span class="line">    in Header (created by Connect(Header))</span><br><span class="line">    in Connect(Header) (at App.js:7)</span><br><span class="line">    in div (at App.js:6)</span><br><span class="line">    in App (at src/index.js:13)</span><br><span class="line">    in Provider (at src/index.js:12)</span><br></pre></td></tr></table></figure></p>
+<h2 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h2><p>上面的提示信息，其实已经非常友好了，看重点：<code>Did you mean autoFocus={true}?</code><br>看一下报错的地方的源码（<code>TodoTextInput.js:40</code>）<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">className</span>=<span class="string">&#123;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">classnames</span>(&#123;</span></span><br><span class="line"><span class="tag">    <span class="attr">edit:</span> <span class="attr">this.props.editing</span>,</span></span><br><span class="line"><span class="tag">    '<span class="attr">new-todo</span>'<span class="attr">:</span> <span class="attr">this.props.newTodo</span></span></span><br><span class="line"><span class="tag">  &#125;)&#125;</span></span><br><span class="line"><span class="tag">  <span class="attr">type</span>=<span class="string">"text"</span></span></span><br><span class="line"><span class="tag">  <span class="attr">placeholder</span>=<span class="string">&#123;this.props.placeholder&#125;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">autoFocus</span>=<span class="string">"true"</span></span></span><br><span class="line"><span class="tag">  <span class="attr">value</span>=<span class="string">&#123;this.state.text&#125;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">onBlur</span>=<span class="string">&#123;this.handleBlur&#125;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">onChange</span>=<span class="string">&#123;this.handleChange&#125;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">onKeyDown</span>=<span class="string">&#123;this.handleSubmit&#125;</span> /&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>根据友好的提示信息，将上面的 <code>autoFocus=&quot;true&quot;</code> 改为 <code>autoFocus={true}</code> 即可。</p>
+<h2 id="examples-todomvc-src-components-MainSection-js"><a href="#examples-todomvc-src-components-MainSection-js" class="headerlink" title="examples/todomvc/src/components/MainSection.js"></a>examples/todomvc/src/components/MainSection.js</h2><p>完整警告信息如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">index.js:1452 Warning: Failed prop type: You provided a `checked` prop to a form field without an `onChange` handler. </span><br><span class="line">This will render a read-only field. </span><br><span class="line">If the field should be mutable use `defaultChecked`. Otherwise, set either `onChange` or `readOnly`.</span><br><span class="line">    in input (at MainSection.js:12)</span><br><span class="line">    in span (at MainSection.js:11)</span><br><span class="line">    in section (at MainSection.js:8)</span><br><span class="line">    in MainSection (created by Connect(MainSection))</span><br><span class="line">    in Connect(MainSection) (at App.js:8)</span><br><span class="line">    in div (at App.js:6)</span><br><span class="line">    in App (at src/index.js:13)</span><br><span class="line">    in Provider (at src/index.js:12)</span><br></pre></td></tr></table></figure></p>
+<p>看一下报错的地方的源码（<code>MainSection.js:12</code>）<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span></span></span><br><span class="line"><span class="tag">  <span class="attr">className</span>=<span class="string">"toggle-all"</span></span></span><br><span class="line"><span class="tag">  <span class="attr">type</span>=<span class="string">"checkbox"</span></span></span><br><span class="line"><span class="tag">  <span class="attr">checked</span>=<span class="string">&#123;completedCount</span> === <span class="string">todosCount&#125;</span></span></span><br><span class="line"><span class="tag">/&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>从下面的提示信息看<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">You provided a `checked` prop to a form field without an `onChange` handler. This will render a read-only field.</span><br></pre></td></tr></table></figure></p>
+<p>我的理解是：设置了 checked 属性，但是又没有提供 onChange 事件来更新它，那么，将会自动为其设置一个 read-only 属性。<br>将上面的代码，去掉 className 属性，如下：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span></span></span><br><span class="line"><span class="tag">  <span class="attr">type</span>=<span class="string">"checkbox"</span></span></span><br><span class="line"><span class="tag">  <span class="attr">checked</span>=<span class="string">&#123;completedCount</span> === <span class="string">todosCount&#125;</span></span></span><br><span class="line"><span class="tag">/&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>再看界面，这时候，一个可以看到是否选中状态的复选框出现了，它确实是只读的，点击没有反应，当所有待办事项变成完成状态时，该 checkbox 会被设置为选中状态，否则为非选中状态。<br>再看后面的提示：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">If the field should be mutable use `defaultChecked`. Otherwise, set either `onChange` or `readOnly`</span><br></pre></td></tr></table></figure></p>
+<p>我的理解是：如果该 checkbox 是可变的，那么，请为其设置一个默认值，否则，要么设置 onChange 事件，要么设置 readOnly 属性。<br>设置默认值，例如设置默认选中，可以这样：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span></span></span><br><span class="line"><span class="tag">  <span class="attr">type</span>=<span class="string">"checkbox"</span></span></span><br><span class="line"><span class="tag">  <span class="attr">defaultChecked</span>=<span class="string">&#123;true&#125;</span></span></span><br><span class="line"><span class="tag">/&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>如果为其设置默认值 defaultChecked，但不动态设置 checked 属性，是不会有上面的警告的，但我们需要动态为其设置 checked 属性，这样在界面上能看出来是否为全部选中状态（向下的箭头颜色有差别，更详细的，请运行起来查看实际效果）。</p>
+<p>很明显，如果要为其设置 checked 属性，设置 defaultChecked 是没有意义的（即使设置了，也还是会报同样的警告）。<br>所以，从提示信息看上，为了消除这个警告，有两种解决办法：</p>
+<ol>
+<li><p>设置 readOnly 属性。</p>
+ <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span></span></span><br><span class="line"><span class="tag">  <span class="attr">type</span>=<span class="string">"checkbox"</span></span></span><br><span class="line"><span class="tag">  <span class="attr">defaultChecked</span>=<span class="string">&#123;completedCount</span> === <span class="string">todosCount&#125;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">readOnly</span></span></span><br><span class="line"><span class="tag">/&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>设置一个 onChange 事件，哪怕是一个什么也不做的“空”事件。</p>
+ <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span></span></span><br><span class="line"><span class="tag">  <span class="attr">type</span>=<span class="string">"checkbox"</span></span></span><br><span class="line"><span class="tag">  <span class="attr">defaultChecked</span>=<span class="string">&#123;completedCount</span> === <span class="string">todosCount&#125;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">onChange</span>=<span class="string">&#123;()</span>=&gt;</span>&#123;&#125;&#125;</span><br><span class="line">/&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>对于这个例子，设置 readOnly 是最好的方案，本来也是需要只读的嘛。设置“空”事件有点莫名其妙。</p>
+<h1 id="解读第二个警告"><a href="#解读第二个警告" class="headerlink" title="解读第二个警告"></a>解读第二个警告</h1><p>至于为什么 react 会有这样的检查，<a href="https://stackoverflow.com/questions/36715901/reactjs-error-warning" rel="external nofollow noopener noreferrer" target="_blank">stackoverflow.com 网站上有一个网友的回答</a>，我认为是比较贴切的，摘录如下：</p>
+<h2 id="Controlled-Components"><a href="#Controlled-Components" class="headerlink" title="Controlled Components"></a>Controlled Components</h2><p>Attributes needed:</p>
+<ol>
+<li><code>value - &lt;input&gt; (not checkbox or radio), &lt;select&gt;, &lt;textbox&gt; or checked for (checkbox or radio).</code></li>
+<li><code>onChange</code></li>
+</ol>
+<ul>
+<li>React handles the condition of the element by updating the value or checked attribute (depending on the element) from the props or the state. </li>
+<li>We need to notify react when we make a change, like inserting data, or checking the box, </li>
+<li>so react can update the element’s condition when it rerenders the component. </li>
+<li>To do so, we must include an onChange handler, in which we will update the state or notify the component’s parent, so it will update the props.<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span></span></span><br><span class="line"><span class="tag">  <span class="attr">type</span>=<span class="string">"checkbox"</span></span></span><br><span class="line"><span class="tag">  <span class="attr">checked</span>=<span class="string">&#123;</span> <span class="attr">this.props.checked</span> &#125;</span></span><br><span class="line"><span class="tag">  <span class="attr">onChange</span>=<span class="string">&#123;</span> <span class="attr">this.checkboxHandler</span> &#125; </span></span><br><span class="line"><span class="tag">/&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="Uncontrolled-Components"><a href="#Uncontrolled-Components" class="headerlink" title="Uncontrolled Components"></a>Uncontrolled Components</h2><p>Attributes needed:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">defaultValue - &lt;input&gt; (not checkbox or radio), &lt;select&gt;, &lt;textbox&gt; or defaultChecked for (checkbox or radio).</span><br></pre></td></tr></table></figure></p>
+<p>React sets the initial value using <a href="https://reactjs.org/docs/uncontrolled-components.html#default-values" rel="external nofollow noopener noreferrer" target="_blank">defaultValue or defaultChecked</a>, and the update of the element’s state is controlled by the user, usually via the DOM using refs.<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span></span></span><br><span class="line"><span class="tag">  <span class="attr">type</span>=<span class="string">"checkbox"</span></span></span><br><span class="line"><span class="tag">  <span class="attr">defaultChecked</span>=<span class="string">&#123;</span> <span class="attr">this.props.checked</span> &#125; </span></span><br><span class="line"><span class="tag">/&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="扩展阅读"><a href="#扩展阅读" class="headerlink" title="扩展阅读"></a>扩展阅读</h2><p>是有关可控组件和非可控组件的。</p>
+<ul>
+<li><a href="https://reactjs.org/docs/forms.html" rel="external nofollow noopener noreferrer" target="_blank">Forms</a></li>
+<li><a href="https://reactjs.org/docs/uncontrolled-components.html#default-values" rel="external nofollow noopener noreferrer" target="_blank">Uncontrolled Components</a></li>
+</ul>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-09-01T02:53:13.086Z" itemprop="dateUpdated">2020年9月1日 10:53</time>
+</span><br>
+
+
+        转载请注明出处：<a href="/react/examplesTodomvcWarningsFixed.html" target="_blank" rel="external">https://www.lovesofttech.com/react/examplesTodomvcWarningsFixed.html</a>
+    </div>
+    <footer>
+        <a href="https://www.lovesofttech.com">
+            <img src="/img/myLogo.jpg" alt="安迪陈">
+            安迪陈
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/react/">react</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/redux/">redux</a></li></ul>
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/react/examplesTodomvcWarningsFixed.html&title=《redux 官方示例 todomvc 两个警告修复》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/react/examplesTodomvcWarningsFixed.html&title=《redux 官方示例 todomvc 两个警告修复》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=通过解决这类问题，会让自己对相关代码的理解更加深入，做到知其然，并且知其所以然，同时，能够让自己对相关知识点印象深刻。" data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/react/examplesTodomvcWarningsFixed.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《redux 官方示例 todomvc 两个警告修复》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/react/examplesTodomvcWarningsFixed.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/react/examplesTodomvcWarningsFixed.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/react/js.html" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">React 技术栈学习，js 知识点</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/react/prepare.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">react 技术栈学习，相关知识储备</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+    
+    
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="bottom">
+        <p>
+            <span>安迪陈技术日志，架构、感悟、系统分析、团队管理 &copy; 2017 - 2020</span>
+            <span>
+                Power by <a href="https://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>&nbsp;
+                Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank" rel="external nofollow noopener noreferrer">indigo</a>
+            </span>
+            <span>
+                <a href="http://www.beian.miit.gov.cn" target="_blank" rel="external nofollow noopener noreferrer">蜀ICP备17041860号</a>
+            </span>
+            
+            <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            </p><p>
+                <span>
+                    统计始于：2019-03-06
+                </span>
+                <span id="busuanzi_container_site_uv" style="display:none">
+                    访客数：<span id="busuanzi_value_site_uv"></span>
+                </span>
+                <span id="busuanzi_container_site_pv" style="display:none">
+                    访问量：<span id="busuanzi_value_site_pv"></span>
+                </span>
+            
+            
+                <span class="post-count">累计字数：309.2k</span>
+            
+                <span><a href="/general/blogLog.html"><i class="fas fa-pen-alt"></i>&nbsp;博客日志</a></span>
+            </p>
+        <p></p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light" title="回到顶部"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/react/examplesTodomvcWarningsFixed.html&title=《redux 官方示例 todomvc 两个警告修复》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/react/examplesTodomvcWarningsFixed.html&title=《redux 官方示例 todomvc 两个警告修复》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=通过解决这类问题，会让自己对相关代码的理解更加深入，做到知其然，并且知其所以然，同时，能够让自己对相关知识点印象深刻。" data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/react/examplesTodomvcWarningsFixed.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《redux 官方示例 todomvc 两个警告修复》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/react/examplesTodomvcWarningsFixed.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/react/examplesTodomvcWarningsFixed.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACwklEQVR42u3aQW7jMAwF0N7/0h1gtm2c/0mp0wGeV0Xq2HxaSAzJj4/4+vx7ff3k+fp65/OTX73l1X+PXXh4eHij0PMQX92TLER7z6tv5fHg4eHh3eMlW/YzKQnu+ZB4PgySQwIPDw/vt/GSFHl/2LRsPDw8vP+LNwtxFigeHh7eb+Mlm/isgJscLW2h4UqtBQ8PD2+yb3+06ey/+vtifw8PDw9v0VXPN+X88yQhPnXh4eHh3eAlYZ2daHouTLStsuRpeHh4ePd4s206GTVInpws6KxVhoeHh3eWlwTaDlHtj4TNyNfLXwx4eHh4h3izL89GAaIzagF7c+7h4eHhHeLNkubNcMBzkp2nzlF6jYeHh3eBV58hZaNrM241izOqVePh4eEd4kXNpMUg1KYxNiv14uHh4d3jtRt3XoaYHSrPn+dvwcPDw7vNS752tsyaM/LYVmUIPDw8vLK22bbt2+BuFHDfJPp4eHh4F3jtXtomwTnmVB2l7vjh4eHhXeDlm/V+SGtTpIgSbjw8PLxDvFnzPm9xnWqVDZtqeHh4eEd5SYOqTWGTUGbpeNJUK27Fw8PDG/H2ja5ku5/dn0RVD13h4eHhrXlJEytv8ycFiHYwKycVZQg8PDy8NW/WvG8b+Tm7TdPfFHDx8PDwjvKSm9pkul2gWbpcjGTh4eHhHeVtktdNA6xtks1SfDw8PLyf5M3S2byYW083lK0vPDw8vHu8vHywGYQ6FfTsuMLDw8M7y/ssr00DbJZ252WRb56Dh4eHd4E3S4hnaXe7cG0JIyny4uHh4Z3izV7clnHzpDlnFP09PDw8vAu8/DWzxlXbKhueYLM5BTw8PLxrvH3KOxtHSJY4an3h4eHh/QJejslLD+3T3tyPh4eHd43XNr02C5Fs97Py7jef4OHh4V3gzX7R54uSB9Qu7oFSBR4eHl7H+wPVQYi9xwcuFQAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.5.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.5.2" async></script>
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '安迪陈技术日志';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '欢迎回来';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

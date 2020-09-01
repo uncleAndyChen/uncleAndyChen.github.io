@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<!--<script async src="//hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c"></script>-->
+<!-- 统计-->
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var host = window.location.host;
+        var hm = document.createElement("script");
+
+        if (host.indexOf('gitee.io') > 0) { // https://uncleandychen.gitee.io/
+            hm.src = "https://hm.baidu.com/hm.js?0cf4709148b070b8082191d2e456a1a3";
+        } else if (host.indexOf('lovesofttech.com') > 0) { // https://www.lovesofttech.com/
+            hm.src = "https://hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c";
+        } else {
+            hm.src = '';
+        }
+
+        if (hm.src !== '') {
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        }
+    })();
+</script>
+<!-- End Baidu Tongji -->
+
+
+
+<!-- Baidu Push -->
+<!-- 主动推送百度爬虫-->
+<script>
+    (function(){
+        if (window.location.host.indexOf('lovesofttech.com') < 0) {
+            return;
+        }
+
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+<!-- End Baidu Push -->
+
+
+    <meta charset="utf-8">
+    
+    
+    <link rel="canonical" href="https://www.lovesofttech.com/mybatis/mybatisPluginShard.html">
+    
+    
+    <title>基于spring 切面（AOP）实现动态多数据源切换，基于 MyBatis 插件方式实现动态分表查询 | 安迪陈技术日志，架构、感悟、系统分析、团队管理 | 自强不息，厚德载物</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="java,MyBatis,分库,分表,多数据源">
+    <meta name="description" content="基于spring 切面（AOP）实现动态多数据源切换；基于 MyBatis 插件方式实现动态分表查询。 来源于多个已上线项目实践，本项目有完整的测试示例。">
+<meta name="keywords" content="java,MyBatis,分库,分表,多数据源">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基于spring 切面（AOP）实现动态多数据源切换，基于 MyBatis 插件方式实现动态分表查询">
+<meta property="og:url" content="https://www.lovesofttech.com/mybatis/mybatisPluginShard.html">
+<meta property="og:site_name" content="安迪陈技术日志，架构、感悟、系统分析、团队管理">
+<meta property="og:description" content="基于spring 切面（AOP）实现动态多数据源切换；基于 MyBatis 插件方式实现动态分表查询。 来源于多个已上线项目实践，本项目有完整的测试示例。">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:image" content="https://www.lovesofttech.com/img/java/mybatis-shard-default-data-source.png">
+<meta property="og:image" content="https://www.lovesofttech.com/img/java/mybatis-shard-api-test.png">
+<meta property="og:updated_time" content="2020-09-01T02:53:13.073Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="基于spring 切面（AOP）实现动态多数据源切换，基于 MyBatis 插件方式实现动态分表查询">
+<meta name="twitter:description" content="基于spring 切面（AOP）实现动态多数据源切换；基于 MyBatis 插件方式实现动态分表查询。 来源于多个已上线项目实践，本项目有完整的测试示例。">
+<meta name="twitter:image" content="https://www.lovesofttech.com/img/java/mybatis-shard-default-data-source.png">
+    
+        <link rel="alternative" href="/atom.xml" title="安迪陈技术日志，架构、感悟、系统分析、团队管理" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=201912302211">
+    <link rel="stylesheet" href="/css/header.css?v=201912302211">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu">
+  <div class="inner flex-row-vertical">
+    <!--<i class="icon icon-lg icon-close"></i>-->
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off" title="隐藏左侧导航">﹤<i class="icon icon-lg icon-navicon"></i></a>
+    <div class="brand-wrap" style="background-image:url(/img/bannerBackgroundLeft.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/myLogo.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">安迪陈</h5>
+          <a href="mailto:andy@lovesofttech.com" title="andy@lovesofttech.com" class="mail" rel="external nofollow noopener noreferrer" target="_blank">andy@lovesofttech.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articleClassify.html">
+                <i class="icon icon-th-list"></i>
+                文章分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articles.html">
+                <i class="icon icon-th-list articles"></i>
+                文章列表
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/java.html">
+                <i class="icon icon-th-list java"></i>
+                Java
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/database.html">
+                <i class="icon icon-th-list database"></i>
+                MySQL/MyBatis
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/linux.html">
+                <i class="icon icon-th-list linux"></i>
+                CentOS/linux
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/react.html">
+                <i class="icon icon-th-list React"></i>
+                React
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/lnmp.html">
+                <i class="icon icon-th-list LNMP"></i>
+                LNMP
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/git.html">
+                <i class="icon icon-th-list git"></i>
+                git
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/windows.html">
+                <i class="icon icon-th-list windows"></i>
+                windows
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/dailyLives.html">
+                <i class="icon icon-th-list dailyLives"></i>
+                工作 &amp; 生活
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-github"></i>
+                我的 github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://gitee.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link"></i>
+                我的 gitee
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://blog.csdn.net/runAndRun" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link CSDN"></i>
+                我的 CSDN
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/aboutMe.html">
+                <i class="icon icon-address-card"></i>
+                关于我
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+
+        <div class="navbar navbar-custom navbar-fixed-top">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" style="margin-left:10px;" id="menu-toggle" title="显示左侧导航"><i class="icon icon-lg icon-navicon"></i>﹥</a>
+            <ul class="nav navbar-nav navbar-right" id="navMenuTop">
+                <li>
+                    <a href="/">主页</a>
+                </li>
+                
+                    
+                        <li>
+                            <a href="/articleClassify.html" title="本博客的文章分类列表">文章分类</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/articles.html" title="本博客的所有文章列表">文章列表</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/java.html" title="Java 开发，文章目录">Java</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/database.html" title="日常开发中有关 MySQL、MyBatis 的一些经验总结">MySQL/MyBatis</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/linux.html" title="CentOS/linux，文章目录">CentOS/linux</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/react.html" title="React 技术栈（全家桶）学习心得分享，文章目录">React</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/about.html">关于</a>
+                        </li>
+                    
+                
+            </ul>
+        </div>
+
+        <div class="flex-col header-title ellipsis">基于spring 切面（AOP）实现动态多数据源切换，基于 MyBatis 插件方式实现动态分表查询</div>
+        
+        <div class="search-wrap" id="search-wrap" style="z-index: 2;">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back" style="width:33px;">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search" style="width:33px;">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare" style="z-index: 3;margin-right: 10px; width:30px;">
+                <i class="icon icon-lg icon-share-alt"></i>
+            </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h2 class="title">基于spring 切面（AOP）实现动态多数据源切换，基于 MyBatis 插件方式实现动态分表查询</h2>
+        <h5 class="subtitle">
+            
+                <time datetime="2020-01-04T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2020-01-05
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/MyBatis/">MyBatis</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/MyBatis/java/">java</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/MyBatis/java/分库/">分库</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/MyBatis/java/分库/分表/">分表</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/MyBatis/java/分库/分表/多数据源/">多数据源</a></li></ul></li></ul></li></ul></li></ul></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap" id="index-container">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc" style="z-index: 3;">
+            <h4><i class="fa fa-list-alt"></i>&nbsp;&nbsp;本文目录</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#mybatis-plugin-shard"><span class="post-toc-number">1.</span> <span class="post-toc-text">mybatis-plugin-shard</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#todo"><span class="post-toc-number">2.</span> <span class="post-toc-text">todo</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#项目地址"><span class="post-toc-number">3.</span> <span class="post-toc-text">项目地址</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#配套-MBG-增强插件"><span class="post-toc-number">4.</span> <span class="post-toc-text">配套 MBG 增强插件</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#功能概述"><span class="post-toc-number">5.</span> <span class="post-toc-text">功能概述</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#分库（多数据源管理）实现方式"><span class="post-toc-number">6.</span> <span class="post-toc-text">分库（多数据源管理）实现方式</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#service-类在拦截器规则之外的数据源"><span class="post-toc-number">7.</span> <span class="post-toc-text">service 类在拦截器规则之外的数据源</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#指定数据源的三种方式"><span class="post-toc-number">8.</span> <span class="post-toc-text">指定数据源的三种方式</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#最佳实践–基于接口编程"><span class="post-toc-number">9.</span> <span class="post-toc-text">最佳实践–基于接口编程</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#分库分表思路"><span class="post-toc-number">10.</span> <span class="post-toc-text">分库分表思路</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#分表分库场景"><span class="post-toc-number">11.</span> <span class="post-toc-text">分表分库场景</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#运行"><span class="post-toc-number">12.</span> <span class="post-toc-text">运行</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#数据源配置（部分）"><span class="post-toc-number">13.</span> <span class="post-toc-text">数据源配置（部分）</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#配置分表分库配置类"><span class="post-toc-number">14.</span> <span class="post-toc-text">配置分表分库配置类</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#切面配置"><span class="post-toc-number">15.</span> <span class="post-toc-text">切面配置</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#请求参数-ShardRequest-java-类"><span class="post-toc-number">16.</span> <span class="post-toc-text">请求参数 ShardRequest.java 类</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#分表测试"><span class="post-toc-number">17.</span> <span class="post-toc-text">分表测试</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#重新生成-mapper-和-entity"><span class="post-toc-number">18.</span> <span class="post-toc-text">重新生成 mapper 和 entity</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#有关-xxx-Mapper-xml-文件"><span class="post-toc-number">19.</span> <span class="post-toc-text">有关 {xxx}Mapper.xml 文件</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#技术清单"><span class="post-toc-number">20.</span> <span class="post-toc-text">技术清单</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#支持"><span class="post-toc-number">21.</span> <span class="post-toc-text">支持</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#如果帮到了你"><span class="post-toc-number">22.</span> <span class="post-toc-text">如果帮到了你</span></a></li></ol>
+        </nav>
+    </aside>
+    
+
+<article id="post-mybatis/mybatisPluginShard" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">基于spring 切面（AOP）实现动态多数据源切换，基于 MyBatis 插件方式实现动态分表查询</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2020年01月05日 0:00" datetime="2020-01-04T16:00:00.000Z" itemprop="datePublished">2020-01-05</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/MyBatis/">MyBatis</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/MyBatis/java/">java</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/MyBatis/java/分库/">分库</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/MyBatis/java/分库/分表/">分表</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/MyBatis/java/分库/分表/多数据源/">多数据源</a></li></ul></li></ul></li></ul></li></ul></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" style="display:none">
+    阅读量：<span id="busuanzi_value_page_pv"></span>次
+</span>
+
+
+    <span>|</span>
+    <span class="post-count">字数：4.8k</span>
+    <span>|</span>
+    <span class="post-count">阅读时长：大约19分钟</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>基于spring 切面（AOP）实现动态多数据源切换；基于 MyBatis 插件方式实现动态分表查询。 来源于多个已上线项目实践，本项目有完整的测试示例。<br><a id="more"></a></p>
+<h1 id="mybatis-plugin-shard"><a href="#mybatis-plugin-shard" class="headerlink" title="mybatis-plugin-shard"></a>mybatis-plugin-shard</h1><ul>
+<li>基于spring 切面（AOP）实现动态多数据源切换。</li>
+<li>基于 MyBatis 插件方式实现动态分表策略。</li>
+<li>来源于多个已上线项目实践。</li>
+<li>本项目有完整的测试示例。</li>
+</ul>
+<p>以后会出详细的文档，敬请期待。</p>
+<h1 id="todo"><a href="#todo" class="headerlink" title="todo"></a>todo</h1><ul>
+<li>[x] 将分库分表配置与数据源配置统一放到文件 db-config.xml，并作为配置的切面的参数，在整个分库分表过程都可访问。</li>
+<li>[x] 完善分表逻辑，比起之前将分库分表配置在一个文件中更加优雅，也更加灵活，扩展性越好。</li>
+<li>[x] 完善文档</li>
+</ul>
+<h1 id="项目地址"><a href="#项目地址" class="headerlink" title="项目地址"></a>项目地址</h1><ul>
+<li>github: <a href="https://github.com/uncleAndyChen/mybatis-plugin-shard" rel="external nofollow noopener noreferrer" target="_blank">https://github.com/uncleAndyChen/mybatis-plugin-shard</a></li>
+<li>gitee: &nbsp;&nbsp;<a href="https://gitee.com/uncleAndyChen/mybatis-plugin-shard" rel="external nofollow noopener noreferrer" target="_blank">https://gitee.com/uncleAndyChen/mybatis-plugin-shard</a></li>
+</ul>
+<h1 id="配套-MBG-增强插件"><a href="#配套-MBG-增强插件" class="headerlink" title="配套 MBG 增强插件"></a>配套 MBG 增强插件</h1><p>查看 MBG 增强插件请移步：<a href="https://github.com/uncleAndyChen/mybatis-generator" rel="external nofollow noopener noreferrer" target="_blank">mybatis-generator</a></p>
+<ul>
+<li>用该 MBG 增强插件生成的 {xxx}Mapper.xml，会把表名用[`]（不包括中括号）引起来，这样做的目的是分表时，动态给表名添加后缀后替换原始表名时不会“添乱”。</li>
+<li>注意 [`] 并非单引号，是在ESC 键下面、Q 键左上角的数字键 1 的左边那个键对应的“单引号”。</li>
+<li>比如有两张表：biz_trade、biz_trade_order，现在需要动态将 biz_trade 替换成 biz_trade_9，如果表名前后没有[`]，则 biz_trade_order 也会被替换，替换后为：biz_trade_9_order，这显然不是我们希望发生的。</li>
+</ul>
+<h1 id="功能概述"><a href="#功能概述" class="headerlink" title="功能概述"></a>功能概述</h1><ul>
+<li>分库：简单的分库功能，更确切的讲，是多数据源管理，可根据业务动态切换，基于切面（AOP）。</li>
+<li>分表：对于同一数据源或不同数据源下的相同表结构的表，通过简单配置，实现分表查询功能。<ul>
+<li>适用数据量增加迅速的业务场景。</li>
+<li>底层实现：基于 MyBatis 插件，拦截最终执行的 SQL 语句并且根据分表配置对 SQL 语句中的表名进行修改之后再执行。<ul>
+<li>要求表名必须用 [`]（不包括中括号）引起来。请使用增强插件（<a href="https://github.com/uncleAndyChen/mybatis-generator" rel="external nofollow noopener noreferrer" target="_blank">mybatis-generator</a>）生成 Mapper 和 entity model。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="分库（多数据源管理）实现方式"><a href="#分库（多数据源管理）实现方式" class="headerlink" title="分库（多数据源管理）实现方式"></a>分库（多数据源管理）实现方式</h1><p>spring 框架获取数据源是在 <code>org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource.determineTargetDataSource</code> 方法中定义的：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> DataSource <span class="title">determineTargetDataSource</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    Assert.notNull(<span class="keyword">this</span>.resolvedDataSources, <span class="string">"DataSource router not initialized"</span>);</span><br><span class="line">    Object lookupKey = determineCurrentLookupKey();</span><br><span class="line">    DataSource dataSource = <span class="keyword">this</span>.resolvedDataSources.get(lookupKey);</span><br><span class="line">    <span class="keyword">if</span> (dataSource == <span class="keyword">null</span> &amp;&amp; (<span class="keyword">this</span>.lenientFallback || lookupKey == <span class="keyword">null</span>)) &#123;</span><br><span class="line">        dataSource = <span class="keyword">this</span>.resolvedDefaultDataSource;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (dataSource == <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> IllegalStateException(<span class="string">"Cannot determine target DataSource for lookup key ["</span> + lookupKey + <span class="string">"]"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> dataSource;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>该方法首先通过 determineCurrentLookupKey() 来获得数据源的 key 值 lookupKey，在本项目中，如果 lookupKey 为 null，那么获取到的 dataSource 肯定也是为 null 的，这时就去取默认数据源。</li>
+<li><p>查看 determineCurrentLookupKey() 的定义：<code>protected abstract Object determineCurrentLookupKey();</code>，是一个抽象方法，如果我们自己来实现这个方法，那么就可以在每次操作数据库之前设置好数据源。本项目重写该方法的类是：ChooseDataSource</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">public class ChooseDataSource extends AbstractRoutingDataSource &#123;</span><br><span class="line">    @Override</span><br><span class="line">    protected Object determineCurrentLookupKey() &#123;</span><br><span class="line">        return HandleDataSource.getSchemaKey();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>ChooseDataSource 类继续自 AbstractRoutingDataSource，重写了 determineCurrentLookupKey() 方法，这就是实现拦截器的关键所在，符合拦截器规则的每次请求，拦截器通过设置 lookupKey 来动态设置数据源，从而达到分库（多数据管理）的目的。</p>
+</li>
+<li>ChooseDataSource 定义好了，如何使用呢？请看文件 <code>db-source.xml</code> 中配置的 dataSource：<code>&lt;bean id=&quot;dataSource&quot; class=&quot;common.aspect.ChooseDataSource&quot; primary=&quot;true&quot;&gt;</code></li>
+<li>ChooseDataSource 类中用到的 HandleDataSource() 是为分库分表插件的拦截器准备的，在此就不一一展开了，如果想了解详情，请下载源码 debug 起来，打个断点、跟踪，一切尽收眼底~~</li>
+</ul>
+<h1 id="service-类在拦截器规则之外的数据源"><a href="#service-类在拦截器规则之外的数据源" class="headerlink" title="service 类在拦截器规则之外的数据源"></a>service 类在拦截器规则之外的数据源</h1><ul>
+<li>service 类（如SysDeptService），在拦截器规则之外的情况下，分库分表插件没有工作，会使用默认数据源，如下：<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/java/mybatis-shard-default-data-source.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+</li>
+</ul>
+<h1 id="指定数据源的三种方式"><a href="#指定数据源的三种方式" class="headerlink" title="指定数据源的三种方式"></a>指定数据源的三种方式</h1><ol>
+<li>通过参数 <a href="https://github.com/uncleAndyChen/mybatis-plugin-shard/blob/master/common/common-shard/src/main/java/common/shard/ShardRequest.java" rel="external nofollow noopener noreferrer" target="_blank">ShardRequest.java</a> 指定：优先级最高，也最灵活。<ul>
+<li>优点：可以根据具体业务场景决定要连接哪个数据源，可以在满足某种特定条件下动态设置，运行时决定。</li>
+</ul>
+</li>
+<li>注解。可用在类和方法上，方法注解优先于类注解。优先级第二。<ul>
+<li>优点：在同一个类里可以灵活的连接多个数据源，如果没有这种业务需求，则建议用第三种。</li>
+</ul>
+</li>
+<li>biz service 配置，优先级最低。<ul>
+<li>以上两种方式均没有的情况下，会读取 ShardConfig.shardSchemaInterfaceClassNameList 配置信息，在运行过程中，通过 AOP 拦截 biz.service.impl，从而识别应该使用哪个数据源，达到分库（多数据源管理）的目的。</li>
+<li>优点：可以由专人统一管理，同时生产环境与开发、测试环境可以用不同的配置信息，开发人员与测试人员不用关注分库的细节。</li>
+<li>可参考本项目的配置项：<code>biz\biz-config\src\main\resources\db-source.xml</code> 的 <code>&lt;property name=&quot;shardSchemaInterfaceClassNameList&quot;&gt;</code>。</li>
+</ul>
+</li>
+</ol>
+<h1 id="最佳实践–基于接口编程"><a href="#最佳实践–基于接口编程" class="headerlink" title="最佳实践–基于接口编程"></a>最佳实践–基于接口编程</h1><ul>
+<li>如果以上三种方式都没有找到数据源，或者 service 类在拦截器规则之外，则使用默认数据源，所以，对于非默认数据库的操作，一定要通过以上三种方式之一来指定数据源，并且一定要符合 <code>biz\biz-config\src\main\resources\db-source.xml</code> 定义的拦截规则，该规则一定是基于接口编程的。</li>
+<li>对于默认数据库的操作，可以不基于接口编程。</li>
+<li>是否要基于接口编程，这个需要根据项目的实际情况灵活制定，本项目的 SysDeptService、UserService 没有基于接口编程，这里只是<strong>示例，并不一定是最佳实践（可能不适合你的项目）</strong>。</li>
+<li><strong>真实项目建议统一基于接口编程</strong>，先不说这是大师们推荐的方式，也是很多成功开源项目采用的方式，这里不说长篇大论，这里只说一下实际体会：统一基于接口编程，方便将来扩展，也不用给团队成员解释为什么有的基于接口，而有的没有，解释了可能也有人理解不好，而且，可怕的是，可能有团队成员在该用接口时不用，遇到问题了来问你怎么回事儿。总之，统一好规则，可以避免好多坑。</li>
+</ul>
+<h1 id="分库分表思路"><a href="#分库分表思路" class="headerlink" title="分库分表思路"></a>分库分表思路</h1><ul>
+<li>分库思路：<ul>
+<li>每个库有一个唯一的标志，起名叫 shardKeySchema，每个数据库的 shardKeySchema 与 <a href="https://github.com/uncleAndyChen/mybatis-plugin-shard/blob/master/biz/biz-config/src/main/resources/db-source.xml" rel="external nofollow noopener noreferrer" target="_blank">db-source.xml</a> 定义的数据源 dataSource -&gt; targetDataSources -&gt; map -&gt; key 一一对应。</li>
+<li>用户在初始化时根据业务规则分配到某一个库，将该库的 shardKeySchema 保存到用户表。</li>
+</ul>
+</li>
+<li>分表思路：<ul>
+<li>每个用户分配一个用于分表的数字编号 shardKeyTableNumber，同样保存到用户表。</li>
+</ul>
+</li>
+<li>用户表：<ul>
+<li>集中在一个库用于统一登录验证，登录时获取用户 shardKeySchema 和 shardKeyTableNumber 并将用户登录信息缓存于 Session 或非关系型数据库，业界常用的如 redis、memcached。</li>
+</ul>
+</li>
+<li>业务操作请求：<ul>
+<li>在请求数据时，就可以根据 shardKeySchema 动态切换数据源，根据 shardKeyTableNumber 决定查哪张表了（分表操作通过 MyBatis 插件实现）。</li>
+</ul>
+</li>
+</ul>
+<h1 id="分表分库场景"><a href="#分表分库场景" class="headerlink" title="分表分库场景"></a>分表分库场景</h1><ul>
+<li>场景一：<ul>
+<li>SaaS 平台，用户量成千上万，交易表 biz_trade 每天100万级增长，如果只用一个库的一张表，写入和读取压力会非常大，会成为瓶颈，所以需要分库分表。</li>
+<li>请求数据时，需要通过 <a href="https://github.com/uncleAndyChen/mybatis-plugin-shard/blob/master/common/common-shard/src/main/java/common/shard/ShardRequest.java" rel="external nofollow noopener noreferrer" target="_blank">ShardRequest.java</a> 传 shardKeySchema 和 shardKeyTableNumber 参数。</li>
+<li>业务场景之：平均分配<ul>
+<li>每个数据库实例最多分配 10 万用户，超过 10 万的用户，再分配到新库。</li>
+<li>交易记录平均分到 10 张表，这就意味着用于分表的 shardKeyTableNumber，一个数字编号最多同时分配给一万个用户。</li>
+<li>用户请求数据时，将用户的 shardKeyTableNumber 除以 10，将余数作为分表后缀，比如用户的 shardKeyTableNumber=8888，那么，8888%10=8，则用户的交易表是 biz_trade_8。</li>
+<li>同理，如果要平均分配到 100 张表，那么就除以 100 再取余作为分表后缀，8888%100=88，则用户的交易表是 biz_trade_88。</li>
+</ul>
+</li>
+<li>业务场景之：区别对待<ul>
+<li>在平均分配的基础上，由于运营需要，现在有 vip 客户，要保证 vip 客户的用户体验，vip 客户的数据库读写速度要快，那怎么办呢？</li>
+<li>其实只要针对这部分用户再制定一套规则就可以了，因为 shardKeySchema 和 shardKeyTableNumber 都是可以指定的。</li>
+<li>如果用户由一般用户变为了 vip 用户，那么在重新指定 shardKeySchema 和 shardKeyTableNumber 之后，用户原来的数据做相应的迁移即可。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>场景二：<ul>
+<li>不同于场景一，在某一些业务场景，需要与其它业务系统做对接，在其它系统不能提供 api 的情况下，直接操作数据库无疑是最快也最直接的方式。</li>
+<li>这种情况，不同业务数据保存在不同的数据库，请求数据的时候，对于从哪个数据库请求数据是明确的，那么最直接的方式就是使用注解，或者配置 ShardConfig.shardSchemaInterfaceClassNameList。</li>
+<li>在不需要分表的情况下，用注解和配置 ShardConfig.shardSchemaInterfaceClassNameList 就够了，这种情况下请求数据时，不需要通过 ShardRequest（<a href="https://github.com/uncleAndyChen/mybatis-plugin-shard/blob/master/common/common-shard/src/main/java/common/shard/ShardRequest.java" rel="external nofollow noopener noreferrer" target="_blank">ShardRequest.java</a>）传 shardKeySchema 和 shardKeyTableNumber 参数。</li>
+<li>当然，也可以不用注解也不用配置 ShardConfig.shardSchemaInterfaceClassNameList，还是通过 ShardRequest 传递参数也行，怎么灵活怎么来。</li>
+</ul>
+</li>
+<li>场景三：<ul>
+<li>分表是确定的，不是动态分配的，那么 <a href="https://github.com/uncleAndyChen/mybatis-plugin-shard/blob/master/common/common-shard/src/main/java/common/shard/ShardRequest.java" rel="external nofollow noopener noreferrer" target="_blank">ShardRequest.java</a> 只传 shardKeyTable 即可。</li>
+</ul>
+</li>
+</ul>
+<h1 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h1><ul>
+<li><code>git clone https://github.com/uncleAndyChen/mybatis-plugin-shard.git</code></li>
+<li><p>因为依赖统一管理，添加了一个父模块：dependencies，只有一个 pom.xml 文件，需要先把这个 model 安装到本地仓库，否则会去 maven 配置的仓库下载。打开 cmd 窗口，在项目根目录下操作：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cd dependencies</span><br><span class="line">mvn clean</span><br><span class="line">mvn compile</span><br><span class="line">mvn install</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>强烈建议：maven 远程仓库添加阿里云镜像。</p>
+<ul>
+<li>修改 maven 根目录下 <code>config/settings.xml</code>，在 <code>&lt;mirrors&gt;</code> 下添加：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;mirror&gt; </span><br><span class="line">    &lt;id&gt;alimaven&lt;/id&gt; </span><br><span class="line">    &lt;name&gt;aliyun maven&lt;/name&gt; </span><br><span class="line">    &lt;url&gt;https://maven.aliyun.com/repository/jcenter&lt;/url&gt; </span><br><span class="line">    &lt;mirrorOf&gt;central&lt;/mirrorOf&gt; </span><br><span class="line">&lt;/mirror&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>用你喜欢的 IDE 导入项目，如果你要我推荐一款 IDE，那么我强烈推荐 IntelliJ IDEA，官网：<a href="http://www.jetbrains.com/" rel="external nofollow noopener noreferrer" target="_blank">http://www.jetbrains.com/</a></p>
+</li>
+<li>IDE 安装 Lombok 插件。</li>
+<li>MySQL 数据库，导入 <code>docs/schemas.sql</code></li>
+<li>修改 <code>biz/biz-config/src/main/resources/jdbc.properties</code> 中连接数据库的参数</li>
+<li>启动</li>
+<li>访问：<code>http://localhost:81</code>，可以测试以三种不同方式切换数据源来查询数据。具体细节请看源代码，以后会出详细的文档，敬请期待。<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/java/mybatis-shard-api-test.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+</li>
+</ul>
+<h1 id="数据源配置（部分）"><a href="#数据源配置（部分）" class="headerlink" title="数据源配置（部分）"></a>数据源配置（部分）</h1><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"dataSource"</span> <span class="attr">class</span>=<span class="string">"common.aspect.ChooseDataSource"</span> <span class="attr">primary</span>=<span class="string">"true"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"defaultTargetDataSource"</span> <span class="attr">ref</span>=<span class="string">"dataSourceSystem"</span>/&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 下面的各个 0key 需要配置到 shardTableConfigView 的 schemaKeyList --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"targetDataSources"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">map</span> <span class="attr">key-type</span>=<span class="string">"java.lang.String"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">entry</span> <span class="attr">key</span>=<span class="string">"system"</span> <span class="attr">value-ref</span>=<span class="string">"dataSourceSystem"</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">entry</span> <span class="attr">key</span>=<span class="string">"student"</span> <span class="attr">value-ref</span>=<span class="string">"dataSourceStudent"</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">entry</span> <span class="attr">key</span>=<span class="string">"finance"</span> <span class="attr">value-ref</span>=<span class="string">"dataSourceFinance"</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">entry</span> <span class="attr">key</span>=<span class="string">"biz"</span> <span class="attr">value-ref</span>=<span class="string">"dataSourceBiz"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">map</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h1 id="配置分表分库配置类"><a href="#配置分表分库配置类" class="headerlink" title="配置分表分库配置类"></a>配置分表分库配置类</h1><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 以下配置，部分表名只是用于配置示例，仅为了更好的展示如何配置。</span></span><br><span class="line"><span class="comment">    本项目没有用到的表名有：edu_class、biz_trade_order、biz_item、biz_item_sku</span></span><br><span class="line"><span class="comment">--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"shardConfig"</span> <span class="attr">class</span>=<span class="string">"common.shard.ShardConfig"</span> &gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 列表值为 dataSource.targetDataSources 的 keys  --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"schemaKeyList"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">list</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">value</span>&gt;</span>system<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">value</span>&gt;</span>student<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">value</span>&gt;</span>finance<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">value</span>&gt;</span>biz<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">list</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 基于服务接口分库策略，</span></span><br><span class="line"><span class="comment">        把针对某个 schema 的接口配置在该数据源 key 对应的 list 下，没有就不配置</span></span><br><span class="line"><span class="comment">    --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"shardSchemaInterfaceClassNameList"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">map</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">entry</span> <span class="attr">key</span>=<span class="string">"student"</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">list</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">value</span>&gt;</span>biz.service.facade.IEduStudentService<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">list</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">entry</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">map</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 分表策略</span></span><br><span class="line"><span class="comment">        直接将 ShardRequest.shardKeyTable（优先级高于后者） 或 ShardRequest.shardKeyTableNumber 作为分表后缀的表。</span></span><br><span class="line"><span class="comment">        需要配合 shardKeyTable 或 shardKeyTableNumber 使用，二选一，shardKeyTable 的优先级高于 shardKeyTableNumber，如 shardKeyTable=3，则下面的 edu_student 最终分表为 edu_student_3</span></span><br><span class="line"><span class="comment">        ShardRequest 参见：https://github.com/uncleAndyChen/mybatis-plugin-shard/blob/master/common/common-shard/src/main/java/common/shard/ShardRequest.java</span></span><br><span class="line"><span class="comment">     --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"shardTableDirectlyList"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">list</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">value</span>&gt;</span>edu_student<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">value</span>&gt;</span>edu_class<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">list</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 分表策略</span></span><br><span class="line"><span class="comment">        通过两个数相除取余作为后缀的表，配合 ShardRequest.shardKeyTableNumber 使用</span></span><br><span class="line"><span class="comment">        ShardRequest 参见：https://github.com/uncleAndyChen/mybatis-plugin-shard/blob/master/common/common-shard/src/main/java/common/shard/ShardRequest.java</span></span><br><span class="line"><span class="comment">    --&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- key 将作为 shardKeyTableNumber 的除数（取余）， 余数作为分表后缀--&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- shardKeyTableNumber 通过 ShardRequest 传递，在请求 api 时传递 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"shardTableDivideList"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">map</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">entry</span> <span class="attr">key</span>=<span class="string">"10"</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">list</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">value</span>&gt;</span>biz_trade<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">value</span>&gt;</span>biz_trade_order<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">list</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">entry</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">entry</span> <span class="attr">key</span>=<span class="string">"5"</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">list</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">value</span>&gt;</span>biz_item<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">value</span>&gt;</span>biz_item_sku<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">list</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">entry</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">map</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 打印分表的 sql 语句，默认为 false 即不打印。--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"printShardSqlInfo"</span> <span class="attr">value</span>=<span class="string">"true"</span> /&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 不需要分表的 sql 语句列表，以下这句为 MyBatis 操作数据库新增记录时，查询新增的主键值的语句 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"notNeedShardSqlList"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">list</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">value</span>&gt;</span>SELECT LAST_INSERT_ID()<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">list</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h1 id="切面配置"><a href="#切面配置" class="headerlink" title="切面配置"></a>切面配置</h1><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 用于切面，实现拦截数据库操作，实现分库分表的类 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"dataSourceAspect"</span> <span class="attr">class</span>=<span class="string">"common.aspect.DataSourceAspect"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"shardTableConfigView"</span> <span class="attr">ref</span>=<span class="string">"shardConfig"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 定义切面，用于拦截数据库操作，实现分库分表 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">aop:config</span> <span class="attr">proxy-target-class</span>=<span class="string">"true"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">aop:aspect</span> <span class="attr">id</span>=<span class="string">"dataSourceAspect"</span> <span class="attr">ref</span>=<span class="string">"dataSourceAspect"</span> <span class="attr">order</span>=<span class="string">"1"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">aop:pointcut</span> <span class="attr">id</span>=<span class="string">"point"</span> <span class="attr">expression</span>=<span class="string">"(execution(* biz.service.impl.*.*(..)))"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">aop:before</span> <span class="attr">pointcut-ref</span>=<span class="string">"point"</span> <span class="attr">method</span>=<span class="string">"before"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">aop:after</span> <span class="attr">pointcut-ref</span>=<span class="string">"point"</span> <span class="attr">method</span>=<span class="string">"afterHandler"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">aop:aspect</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">aop:config</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h1 id="请求参数-ShardRequest-java-类"><a href="#请求参数-ShardRequest-java-类" class="headerlink" title="请求参数 ShardRequest.java 类"></a>请求参数 ShardRequest.java 类</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ShardRequest</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 分库标志 key，是定义数据源时指定的 key，在执行数据库操作之前，通过该 key 动态切换数据源。</span></span><br><span class="line"><span class="comment">     * 如果只是分库，除了用到个属性，还可利用 ShardTableConfig.shardSchemaInterfaceNameList 实现。</span></span><br><span class="line"><span class="comment">     *      有关这两项配置的详细信息，请参见：https://github.com/uncleAndyChen/mybatis-plugin-shard/blob/master/biz/biz-config/src/main/resources/db-source.xml</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> String shardKeySchema;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 分表标志 key，直接用作分表后缀的 key 值，针对直接添加后缀的表</span></span><br><span class="line"><span class="comment">     *      举例：应用该规则的原始表名为 table_name，则对应的分表为：table_name_key</span></span><br><span class="line"><span class="comment">     * 需要配合 ShardTableConfig 使用，与该类位于同一个目录，在 db-source.xml 中配置各属性值</span></span><br><span class="line"><span class="comment">     *     应用该规则的原始表名:ShardTableConfig.shardTableDirectlyList</span></span><br><span class="line"><span class="comment">     *          详细描述，请参见:https://github.com/uncleAndyChen/mybatis-plugin-shard/blob/master/biz/biz-config/src/main/resources/db-source.xml</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> String shardKeyTable;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 动态分表参数编号，整形，一般与用户绑定，针对需要除一个数得到后缀的表</span></span><br><span class="line"><span class="comment">     * 需要配合 ShardTableConfig 使用，与该类位于同一个目录，在 db-source.xml 中配置各属性值</span></span><br><span class="line"><span class="comment">     *     应用该规则的原始表名:ShardTableConfig.shardTableDivideList</span></span><br><span class="line"><span class="comment">     *          详细描述，请参见:https://github.com/uncleAndyChen/mybatis-plugin-shard/blob/master/biz/biz-config/src/main/resources/db-source.xml</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * 场景：SaaS 平台，每个用户分配一个编码值，可以按一定规则平均分配，比如现有有10万个用户，我们打算分10张表，那么，平均分配的话，就意味着每一万个用户有一个分表编号。</span></span><br><span class="line"><span class="comment">     * 极端地，对于 SasS 的超级 VIP 用户，可以分配一个唯一的分表编号，这就意味着这个 VIP 用户独享一套表。</span></span><br><span class="line"><span class="comment">     * 多个用户的数据可能存在于同一个数据库实例，也可能存在于多个数据库实例，可根据业务灵活分配。</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> shardKeyTableNumber;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// getter and setter</span></span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="分表测试"><a href="#分表测试" class="headerlink" title="分表测试"></a>分表测试</h1><p>运行起来后，点击【搜索商家订单】<br>根据选择的商家ID，后台模拟获取用户的分库分表信息，如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 注意：这里为了演示，简单的返回用户 bizId 作为分表用的 shardKeyTableNumber，而数据库 key 则假设为 biz</span></span><br><span class="line"><span class="comment"> * 通过用户 bizId 获取用户分表用的 shardKeyTableNumber</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> bizId 用户 ID</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> shardKeyTableNumber</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> UserShardView <span class="title">getShardKeyTableNumberByBizId</span><span class="params">(<span class="keyword">int</span> bizId)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 获取 shardKeyTableNumber 的代码</span></span><br><span class="line">    <span class="comment">// 可能是从数据库取</span></span><br><span class="line">    <span class="comment">// 可能是从 Session 取</span></span><br><span class="line">    <span class="comment">// 如果是 JWT 机制，那么请求过来就能唯一确定用户信息</span></span><br><span class="line">    UserShardView userShardView = <span class="keyword">new</span> UserShardView();</span><br><span class="line"></span><br><span class="line">    userShardView.setShardKeySchema(<span class="string">"biz"</span>);</span><br><span class="line">    userShardView.setShardKeyTableNumber(bizId);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> userShardView;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>其中视图 UserShardView 代码如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> biz.model.view;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> lombok.Data;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserShardView</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> shardKeyTableNumber;</span><br><span class="line">    <span class="keyword">private</span> String shardKeySchema;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在指定 shardKeySchema 和 shardKeyTableNumber 的情况下，数据库以及分表信息已经足够了，再配合分库分表配置（参见:<a href="https://github.com/uncleAndyChen/mybatis-plugin-shard/blob/master/biz/biz-config/src/main/resources/db-source.xml）" rel="external nofollow noopener noreferrer" target="_blank">https://github.com/uncleAndyChen/mybatis-plugin-shard/blob/master/biz/biz-config/src/main/resources/db-source.xml）</a><br>在选择【商家ID】为 10682 的情况下，打印的分表前后的 sql 语句如下（在原始语句的基本上删除了影响阅读的空行）：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">--------------shard table sql start-------------- </span><br><span class="line">current data source key：biz</span><br><span class="line">before shard table sql：</span><br><span class="line">---&gt;</span><br><span class="line">select</span><br><span class="line">    id, biz_id, tid, buyer_nick, payment, status, pay_time</span><br><span class="line">    from `biz_trade`</span><br><span class="line">     WHERE (  biz_id = ? )</span><br><span class="line">&lt;---</span><br><span class="line">after shard table sql：</span><br><span class="line">---&gt;</span><br><span class="line">select</span><br><span class="line">    id, biz_id, tid, buyer_nick, payment, status, pay_time</span><br><span class="line">    from `biz_trade_2`</span><br><span class="line">     WHERE (  biz_id = ? )</span><br><span class="line">&lt;---</span><br><span class="line">--------------shard table sql end  --------------</span><br></pre></td></tr></table></figure></p>
+<h1 id="重新生成-mapper-和-entity"><a href="#重新生成-mapper-和-entity" class="headerlink" title="重新生成 mapper 和 entity"></a>重新生成 mapper 和 entity</h1><p>请参考 <a href="https://github.com/uncleAndyChen/mybatis-plugin-shard/tree/master/docs" rel="external nofollow noopener noreferrer" target="_blank">生成 Mapper 操作</a></p>
+<h1 id="有关-xxx-Mapper-xml-文件"><a href="#有关-xxx-Mapper-xml-文件" class="headerlink" title="有关 {xxx}Mapper.xml 文件"></a>有关 {xxx}Mapper.xml 文件</h1><p>我是直接把 MBG 生成的 {xxx}Mapper.xml 文件放到了 biz-service-dal 模块下与 {xxx}Mapper.java 平级的目录下了，包名为：<code>biz.mapper.xml.original</code> 和 <code>biz.mapper.xml.extend</code></p>
+<p>默认情况下，xml 文件不会被打包，所以，运行的时候会出现类似这样的错误：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Invalid bound statement (not found): biz.service.dal.mapper.original.EduStudentMapper.selectByExample</span><br></pre></td></tr></table></figure></p>
+<p>解决：需要在 pom.xml 里设置为需要将 xml 一起打包，如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;build&gt;</span><br><span class="line">    &lt;resources&gt;</span><br><span class="line">        &lt;resource&gt;</span><br><span class="line">            &lt;directory&gt;src/main/java&lt;/directory&gt;</span><br><span class="line">            &lt;includes&gt;</span><br><span class="line">                &lt;include&gt;**/*.xml&lt;/include&gt;</span><br><span class="line">            &lt;/includes&gt;</span><br><span class="line">            &lt;filtering&gt;false&lt;/filtering&gt;</span><br><span class="line">        &lt;/resource&gt;</span><br><span class="line">    &lt;/resources&gt;</span><br><span class="line">&lt;/build&gt;</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>directory 配置到 xml 的父目录 <code>src/main/java/biz/mapper/xml</code> 不会生效，配置成 <code>src/main/java</code> 就好。</p>
+</blockquote>
+<h1 id="技术清单"><a href="#技术清单" class="headerlink" title="技术清单"></a>技术清单</h1><ul>
+<li>JDK 1.8，理论上支持 1.8 以上的版本，如需升级，比如要改为 JDK 11，将文件 <code>./dependencies/pom.xml</code> 中 <code>&lt;java.version&gt;1.8&lt;/java.version&gt;</code> 改为 <code>&lt;java.version&gt;11&lt;/java.version&gt;</code></li>
+<li>MySQL 5.6.46、MySQL 5.7，用这两个版本作的测试，理论上支持 5.6 及以上版本。</li>
+<li>maven 依赖库<ul>
+<li>maven 依赖版本在 <code>./dependencies/pom.xml</code> 维护，如果要升级某一框架的版本，只需要修改这个文件就行，模块 dependencies 被作为其它模块的 parent，目的就是统一管理版本，同样的依赖库只定义一次版本号。</li>
+<li>以下依赖为当前（2020-01-06）最新版本<ul>
+<li>Spring Boot 2.2.2.RELEASE</li>
+<li>Spring Framework 5.2.2.RELEASE （common-shard 模块直接依赖了 spring framework 下的 spring-aspects）</li>
+<li>MyBatis 3.5.3</li>
+<li>druid 1.1.21</li>
+<li>lombok 1.18.10</li>
+<li>jackson 2.10.1</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="支持"><a href="#支持" class="headerlink" title="支持"></a>支持</h1><p>如果有疑问或建议，欢迎请提 <a href="https://github.com/uncleAndyChen/mybatis-plugin-shard/issues" rel="external nofollow noopener noreferrer" target="_blank">Issue</a>。<br>可能不会立即回复，尤其上班时间，不过我会尽量抽业余时间回复的。</p>
+<h1 id="如果帮到了你"><a href="#如果帮到了你" class="headerlink" title="如果帮到了你"></a>如果帮到了你</h1><p>请 Star 一下，让我有动力继续完善和优化。</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-09-01T02:53:13.073Z" itemprop="dateUpdated">2020年9月1日 10:53</time>
+</span><br>
+
+
+        转载请注明出处：<a href="/mybatis/mybatisPluginShard.html" target="_blank" rel="external">https://www.lovesofttech.com/mybatis/mybatisPluginShard.html</a>
+    </div>
+    <footer>
+        <a href="https://www.lovesofttech.com">
+            <img src="/img/myLogo.jpg" alt="安迪陈">
+            安迪陈
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MyBatis/">MyBatis</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/分库/">分库</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/分表/">分表</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/多数据源/">多数据源</a></li></ul>
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/mybatis/mybatisPluginShard.html&title=《基于spring 切面（AOP）实现动态多数据源切换，基于 MyBatis 插件方式实现动态分表查询》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/mybatis/mybatisPluginShard.html&title=《基于spring 切面（AOP）实现动态多数据源切换，基于 MyBatis 插件方式实现动态分表查询》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=基于spring 切面（AOP）实现动态多数据源切换；基于 MyBatis 插件方式实现动态分表查询。 来源于多个已上线项目实践，本项目有完整的测试示例。" data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/mybatis/mybatisPluginShard.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《基于spring 切面（AOP）实现动态多数据源切换，基于 MyBatis 插件方式实现动态分表查询》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/mybatis/mybatisPluginShard.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/mybatis/mybatisPluginShard.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/linux/centOS7LibreOffice.html" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">CentOS7 安装配置 LibreOffice 6.3.4.2 以及安装 windows 自带中文字体</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/mybatis/MBGForMySQL8.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">解决 mybatis generator 使用 mysql 驱动 8.x 版本时会生成多个库里的同名表的问题</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+    
+    
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="bottom">
+        <p>
+            <span>安迪陈技术日志，架构、感悟、系统分析、团队管理 &copy; 2017 - 2020</span>
+            <span>
+                Power by <a href="https://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>&nbsp;
+                Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank" rel="external nofollow noopener noreferrer">indigo</a>
+            </span>
+            <span>
+                <a href="http://www.beian.miit.gov.cn" target="_blank" rel="external nofollow noopener noreferrer">蜀ICP备17041860号</a>
+            </span>
+            
+            <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            </p><p>
+                <span>
+                    统计始于：2019-03-06
+                </span>
+                <span id="busuanzi_container_site_uv" style="display:none">
+                    访客数：<span id="busuanzi_value_site_uv"></span>
+                </span>
+                <span id="busuanzi_container_site_pv" style="display:none">
+                    访问量：<span id="busuanzi_value_site_pv"></span>
+                </span>
+            
+            
+                <span class="post-count">累计字数：309.2k</span>
+            
+                <span><a href="/general/blogLog.html"><i class="fas fa-pen-alt"></i>&nbsp;博客日志</a></span>
+            </p>
+        <p></p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light" title="回到顶部"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/mybatis/mybatisPluginShard.html&title=《基于spring 切面（AOP）实现动态多数据源切换，基于 MyBatis 插件方式实现动态分表查询》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/mybatis/mybatisPluginShard.html&title=《基于spring 切面（AOP）实现动态多数据源切换，基于 MyBatis 插件方式实现动态分表查询》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=基于spring 切面（AOP）实现动态多数据源切换；基于 MyBatis 插件方式实现动态分表查询。 来源于多个已上线项目实践，本项目有完整的测试示例。" data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/mybatis/mybatisPluginShard.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《基于spring 切面（AOP）实现动态多数据源切换，基于 MyBatis 插件方式实现动态分表查询》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/mybatis/mybatisPluginShard.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/mybatis/mybatisPluginShard.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACKklEQVR42u3awY7DIAxF0f7/T6fbkTqg++y0UsxlVY0S4GThMdivFx7Xx/j799WTq2c+n1+9e/OQIUPGYxnXduwXIEvu59mzyd5kyJBxDoMszwPofivkI/K9yZAhQwZP4HhgJSQZMmTIuIvBMTzUypAhQ0bnEMvTQTIzAX/lLC5DhowHMvit++9/f6W+IUOGjEcxrnDUlk/DZbwrGTJkjGakZUi+Id6WUQu4MmTIOIdRC5H8Qp9Q+WEY5a0yZMgYx0hbteJ0LbyYSwPxP/83ZMiQMY5x1xGUB9YUQD6KDBkyTmAEL+DEjods3li2TDplyJAxmpEeQWuBlZck0xWDl2XIkDGaUQx/paaNdP7WWVyGDBmPZZDWiloSWZuTl0hlyJAxm8Ffu+sQS1LGVnCXIUPGOAYvOvKpO9utfUQZMmRMZdQaJjoFzv4zqIQpQ4aMQQxypOxfvXUKA0GYliFDxlAGKVvW0jjeThHksPueERkyZAxl1AoDnfaItBUsSF5lyJBxAIOkaGSLnbQyTROXCaIMGTKGMvgC++k6M9QSRBkyZJzG4Mukv/ls8X2hDBkyRjOucJACQFoE5RdqS7YMGTJGM2pT146dPMj2iwcyZMiYx+BBtlZiTL8Zf1eGDBmnMWqBj6drpGBQC/0yZMiQ0blQS6/PWlQZMmTIKJUha40XPFi3UkMZMmQ8kJEWA9JSQXoll34UGTJkzGa0OjVwQEw3kc4pQ4aMoYw3TcK8KkSl+HsAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.5.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.5.2" async></script>
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '安迪陈技术日志';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '欢迎回来';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

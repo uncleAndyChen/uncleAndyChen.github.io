@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<!--<script async src="//hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c"></script>-->
+<!-- 统计-->
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var host = window.location.host;
+        var hm = document.createElement("script");
+
+        if (host.indexOf('gitee.io') > 0) { // https://uncleandychen.gitee.io/
+            hm.src = "https://hm.baidu.com/hm.js?0cf4709148b070b8082191d2e456a1a3";
+        } else if (host.indexOf('lovesofttech.com') > 0) { // https://www.lovesofttech.com/
+            hm.src = "https://hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c";
+        } else {
+            hm.src = '';
+        }
+
+        if (hm.src !== '') {
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        }
+    })();
+</script>
+<!-- End Baidu Tongji -->
+
+
+
+<!-- Baidu Push -->
+<!-- 主动推送百度爬虫-->
+<script>
+    (function(){
+        if (window.location.host.indexOf('lovesofttech.com') < 0) {
+            return;
+        }
+
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+<!-- End Baidu Push -->
+
+
+    <meta charset="utf-8">
+    
+    
+    <link rel="canonical" href="https://www.lovesofttech.com/linux/centOSMemory.html">
+    
+    
+    <title>linux 内存占用情况查询 | 安迪陈技术日志，架构、感悟、系统分析、团队管理 | 自强不息，厚德载物</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="linux 内存占用">
+    <meta name="description" content="如题">
+<meta name="keywords" content="linux 内存占用">
+<meta property="og:type" content="article">
+<meta property="og:title" content="linux 内存占用情况查询">
+<meta property="og:url" content="https://www.lovesofttech.com/linux/centOSMemory.html">
+<meta property="og:site_name" content="安迪陈技术日志，架构、感悟、系统分析、团队管理">
+<meta property="og:description" content="如题">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2020-09-01T02:53:13.035Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="linux 内存占用情况查询">
+<meta name="twitter:description" content="如题">
+    
+        <link rel="alternative" href="/atom.xml" title="安迪陈技术日志，架构、感悟、系统分析、团队管理" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=201912302211">
+    <link rel="stylesheet" href="/css/header.css?v=201912302211">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu">
+  <div class="inner flex-row-vertical">
+    <!--<i class="icon icon-lg icon-close"></i>-->
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off" title="隐藏左侧导航">﹤<i class="icon icon-lg icon-navicon"></i></a>
+    <div class="brand-wrap" style="background-image:url(/img/bannerBackgroundLeft.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/myLogo.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">安迪陈</h5>
+          <a href="mailto:andy@lovesofttech.com" title="andy@lovesofttech.com" class="mail" rel="external nofollow noopener noreferrer" target="_blank">andy@lovesofttech.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articleClassify.html">
+                <i class="icon icon-th-list"></i>
+                文章分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articles.html">
+                <i class="icon icon-th-list articles"></i>
+                文章列表
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/java.html">
+                <i class="icon icon-th-list java"></i>
+                Java
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/database.html">
+                <i class="icon icon-th-list database"></i>
+                MySQL/MyBatis
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/linux.html">
+                <i class="icon icon-th-list linux"></i>
+                CentOS/linux
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/react.html">
+                <i class="icon icon-th-list React"></i>
+                React
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/lnmp.html">
+                <i class="icon icon-th-list LNMP"></i>
+                LNMP
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/git.html">
+                <i class="icon icon-th-list git"></i>
+                git
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/windows.html">
+                <i class="icon icon-th-list windows"></i>
+                windows
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/dailyLives.html">
+                <i class="icon icon-th-list dailyLives"></i>
+                工作 &amp; 生活
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-github"></i>
+                我的 github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://gitee.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link"></i>
+                我的 gitee
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://blog.csdn.net/runAndRun" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link CSDN"></i>
+                我的 CSDN
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/aboutMe.html">
+                <i class="icon icon-address-card"></i>
+                关于我
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+
+        <div class="navbar navbar-custom navbar-fixed-top">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" style="margin-left:10px;" id="menu-toggle" title="显示左侧导航"><i class="icon icon-lg icon-navicon"></i>﹥</a>
+            <ul class="nav navbar-nav navbar-right" id="navMenuTop">
+                <li>
+                    <a href="/">主页</a>
+                </li>
+                
+                    
+                        <li>
+                            <a href="/articleClassify.html" title="本博客的文章分类列表">文章分类</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/articles.html" title="本博客的所有文章列表">文章列表</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/java.html" title="Java 开发，文章目录">Java</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/database.html" title="日常开发中有关 MySQL、MyBatis 的一些经验总结">MySQL/MyBatis</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/linux.html" title="CentOS/linux，文章目录">CentOS/linux</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/react.html" title="React 技术栈（全家桶）学习心得分享，文章目录">React</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/about.html">关于</a>
+                        </li>
+                    
+                
+            </ul>
+        </div>
+
+        <div class="flex-col header-title ellipsis">linux 内存占用情况查询</div>
+        
+        <div class="search-wrap" id="search-wrap" style="z-index: 2;">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back" style="width:33px;">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search" style="width:33px;">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare" style="z-index: 3;margin-right: 10px; width:30px;">
+                <i class="icon icon-lg icon-share-alt"></i>
+            </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h2 class="title">linux 内存占用情况查询</h2>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-08-14T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2018-08-15
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/linux-内存占用/">linux 内存占用</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap" id="index-container">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc" style="z-index: 3;">
+            <h4><i class="fa fa-list-alt"></i>&nbsp;&nbsp;本文目录</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#linux-ps-命令的结果中-VSZ，RSS，STAT-的含义和大小"><span class="post-toc-number">1.</span> <span class="post-toc-text">linux ps 命令的结果中 VSZ，RSS，STAT 的含义和大小</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#按占用内存由高到低排序"><span class="post-toc-number">2.</span> <span class="post-toc-text">按占用内存由高到低排序</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#查看-utomcat-运行的-java-程序"><span class="post-toc-number">3.</span> <span class="post-toc-text">查看 utomcat 运行的 java 程序</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#查看-elasticsearch-内存占用"><span class="post-toc-number">4.</span> <span class="post-toc-text">查看 elasticsearch 内存占用</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#查看-php-进程内存占用情况"><span class="post-toc-number">5.</span> <span class="post-toc-text">查看 php 进程内存占用情况</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#查看-utomcat-运行的-java-程序，同时程序目录带-pre"><span class="post-toc-number">6.</span> <span class="post-toc-text">查看 utomcat 运行的 java 程序，同时程序目录带 pre</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#查看内存占用的更多参数"><span class="post-toc-number">7.</span> <span class="post-toc-text">查看内存占用的更多参数</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#只看需要了解的参数，可调整参数列表"><span class="post-toc-number">8.</span> <span class="post-toc-text">只看需要了解的参数，可调整参数列表</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#内存的整体使用情况"><span class="post-toc-number">9.</span> <span class="post-toc-text">内存的整体使用情况</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#top-命令查看内存使用情况"><span class="post-toc-number">10.</span> <span class="post-toc-text">top 命令查看内存使用情况</span></a></li></ol>
+        </nav>
+    </aside>
+    
+
+<article id="post-linux/centOSMemory" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">linux 内存占用情况查询</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018年08月15日 0:00" datetime="2018-08-14T16:00:00.000Z" itemprop="datePublished">2018-08-15</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/linux-内存占用/">linux 内存占用</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" style="display:none">
+    阅读量：<span id="busuanzi_value_page_pv"></span>次
+</span>
+
+
+    <span>|</span>
+    <span class="post-count">字数：2.2k</span>
+    <span>|</span>
+    <span class="post-count">阅读时长：大约13分钟</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>如题<br><a id="more"></a></p>
+<h1 id="linux-ps-命令的结果中-VSZ，RSS，STAT-的含义和大小"><a href="#linux-ps-命令的结果中-VSZ，RSS，STAT-的含义和大小" class="headerlink" title="linux ps 命令的结果中 VSZ，RSS，STAT 的含义和大小"></a>linux ps 命令的结果中 VSZ，RSS，STAT 的含义和大小</h1><table>
+<thead>
+<tr>
+<th style="text-align:left">参数名</th>
+<th style="text-align:left">含义</th>
+<th style="text-align:left">单位</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">USER</td>
+<td style="text-align:left">进程所属用户</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">PID</td>
+<td style="text-align:left">进程ID</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">%CPU</td>
+<td style="text-align:left">进程占用CPU百分比</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">%MEM</td>
+<td style="text-align:left">进程占用内存百分比</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">VSZ</td>
+<td style="text-align:left">虚拟内存占用大小</td>
+<td style="text-align:left">单位：kb（killobytes）</td>
+</tr>
+<tr>
+<td style="text-align:left">RSS</td>
+<td style="text-align:left">实际内存占用大小</td>
+<td style="text-align:left">单位：kb（killobytes）</td>
+</tr>
+<tr>
+<td style="text-align:left">TTY</td>
+<td style="text-align:left">终端类型</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">STAT</td>
+<td style="text-align:left">进程状态</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">START</td>
+<td style="text-align:left">进程启动时刻</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">TIME</td>
+<td style="text-align:left">进程运行时长</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">COMMAND</td>
+<td style="text-align:left">启动进程的命令</td>
+</tr>
+</tbody>
+</table>
+<h1 id="按占用内存由高到低排序"><a href="#按占用内存由高到低排序" class="headerlink" title="按占用内存由高到低排序"></a>按占用内存由高到低排序</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps auxw|head -1;ps auxw|sort -rn -k4|head -40</span><br></pre></td></tr></table></figure>
+<h1 id="查看-utomcat-运行的-java-程序"><a href="#查看-utomcat-运行的-java-程序" class="headerlink" title="查看 utomcat 运行的 java 程序"></a>查看 utomcat 运行的 java 程序</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps aux|head -1; ps aux | grep java | grep utomcat | sort -k4nr | head -10</span><br></pre></td></tr></table></figure>
+<p>示例<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@hjweb01 script]# ps aux|head -1; ps aux | grep java | grep utomcat | sort -k4nr | head -10</span><br><span class="line">USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND</span><br><span class="line">utomcat  13545  1.6 14.4 3571532 562676 pts/1  Sl   13:31   0:45 /usr/jdk1.8.0_181/bin/java -Djava.util.logging.config.file=/home/utomcat/tomcat/pre/webLoadBalance/web2/conf/logging.properties -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager -Djdk.tls.ephemeralDHKeySize=2048 -Djava.protocol.handler.pkgs=org.apache.catalina.webresources -Dorg.apache.catalina.security.SecurityListener.UMASK=0027 -Dignore.endorsed.dirs= -classpath /home/utomcat/tomcat/pre/webLoadBalance/web2/bin/bootstrap.jar:/home/utomcat/tomcat/pre/webLoadBalance/web2/bin/tomcat-juli.jar -Dcatalina.base=/home/utomcat/tomcat/pre/webLoadBalance/web2 -Dcatalina.home=/home/utomcat/tomcat/pre/webLoadBalance/web2 -Djava.io.tmpdir=/home/utomcat/tomcat/pre/webLoadBalance/web2/temp org.apache.catalina.startup.Bootstrap start</span><br><span class="line">utomcat  13777  1.5 14.0 3565988 544356 pts/5  Sl   13:34   0:41 /usr/jdk1.8.0_181/bin/java -Djava.util.logging.config.file=/home/utomcat/tomcat/pre/backend/schedule/conf/logging.properties -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager -Djdk.tls.ephemeralDHKeySize=2048 -Djava.protocol.handler.pkgs=org.apache.catalina.webresources -Dorg.apache.catalina.security.SecurityListener.UMASK=0027 -Dignore.endorsed.dirs= -classpath /home/utomcat/tomcat/pre/backend/schedule/bin/bootstrap.jar:/home/utomcat/tomcat/pre/backend/schedule/bin/tomcat-juli.jar -Dcatalina.base=/home/utomcat/tomcat/pre/backend/schedule -Dcatalina.home=/home/utomcat/tomcat/pre/backend/schedule -Djava.io.tmpdir=/home/utomcat/tomcat/pre/backend/schedule/temp org.apache.catalina.startup.Bootstrap start</span><br><span class="line">utomcat  32454  0.3 13.8 3563932 535848 ?      Sl   10:21   0:54 /usr/jdk1.8.0_181/bin/java -Djava.util.logging.config.file=/home/utomcat/tomcat/webLoadBalance/web1/conf/logging.properties -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager -Djdk.tls.ephemeralDHKeySize=2048 -Djava.protocol.handler.pkgs=org.apache.catalina.webresources -Dorg.apache.catalina.security.SecurityListener.UMASK=0027 -Dignore.endorsed.dirs= -classpath /home/utomcat/tomcat/webLoadBalance/web1/bin/bootstrap.jar:/home/utomcat/tomcat/webLoadBalance/web1/bin/tomcat-juli.jar -Dcatalina.base=/home/utomcat/tomcat/webLoadBalance/web1 -Dcatalina.home=/home/utomcat/tomcat/webLoadBalance/web1 -Djava.io.tmpdir=/home/utomcat/tomcat/webLoadBalance/web1/temp org.apache.catalina.startup.Bootstrap start</span><br><span class="line">utomcat  22929  0.1 13.5 3593488 524296 ?      Sl   Jul24   2:02 /usr/jdk1.8.0_181/bin/java -Djava.util.logging.config.file=/home/utomcat/tomcat/webLoadBalance/web2/conf/logging.properties -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager -Djdk.tls.ephemeralDHKeySize=2048 -Djava.protocol.handler.pkgs=org.apache.catalina.webresources -Dorg.apache.catalina.security.SecurityListener.UMASK=0027 -Dignore.endorsed.dirs= -classpath /home/utomcat/tomcat/webLoadBalance/web2/bin/bootstrap.jar:/home/utomcat/tomcat/webLoadBalance/web2/bin/tomcat-juli.jar -Dcatalina.base=/home/utomcat/tomcat/webLoadBalance/web2 -Dcatalina.home=/home/utomcat/tomcat/webLoadBalance/web2 -Djava.io.tmpdir=/home/utomcat/tomcat/webLoadBalance/web2/temp org.apache.catalina.startup.Bootstrap start</span><br><span class="line">utomcat  13981  1.5 13.3 3563932 519680 pts/1  Sl   13:36   0:40 /usr/jdk1.8.0_181/bin/java -Djava.util.logging.config.file=/home/utomcat/tomcat/pre/webLoadBalance/web1/conf/logging.properties -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager -Djdk.tls.ephemeralDHKeySize=2048 -Djava.protocol.handler.pkgs=org.apache.catalina.webresources -Dorg.apache.catalina.security.SecurityListener.UMASK=0027 -Dignore.endorsed.dirs= -classpath /home/utomcat/tomcat/pre/webLoadBalance/web1/bin/bootstrap.jar:/home/utomcat/tomcat/pre/webLoadBalance/web1/bin/tomcat-juli.jar -Dcatalina.base=/home/utomcat/tomcat/pre/webLoadBalance/web1 -Dcatalina.home=/home/utomcat/tomcat/pre/webLoadBalance/web1 -Djava.io.tmpdir=/home/utomcat/tomcat/pre/webLoadBalance/web1/temp org.apache.catalina.startup.Bootstrap start</span><br><span class="line">utomcat  15263  0.1  6.6 3568036 259860 ?      Sl   Jul19  12:08 /usr/jdk1.8.0_181/bin/java -Djava.util.logging.config.file=/home/utomcat/tomcat/backend/schedule/conf/logging.properties -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager -Djdk.tls.ephemeralDHKeySize=2048 -Djava.protocol.handler.pkgs=org.apache.catalina.webresources -Dorg.apache.catalina.security.SecurityListener.UMASK=0027 -Dignore.endorsed.dirs= -classpath /home/utomcat/tomcat/backend/schedule/bin/bootstrap.jar:/home/utomcat/tomcat/backend/schedule/bin/tomcat-juli.jar -Dcatalina.base=/home/utomcat/tomcat/backend/schedule -Dcatalina.home=/home/utomcat/tomcat/backend/schedule -Djava.io.tmpdir=/home/utomcat/tomcat/backend/schedule/temp org.apache.catalina.startup.Bootstrap start</span><br></pre></td></tr></table></figure></p>
+<h1 id="查看-elasticsearch-内存占用"><a href="#查看-elasticsearch-内存占用" class="headerlink" title="查看 elasticsearch 内存占用"></a>查看 elasticsearch 内存占用</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps aux|head -1; ps aux | grep elasticsearch | sort -k4nr | head -10</span><br></pre></td></tr></table></figure>
+<h1 id="查看-php-进程内存占用情况"><a href="#查看-php-进程内存占用情况" class="headerlink" title="查看 php 进程内存占用情况"></a>查看 php 进程内存占用情况</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps aux|head -1; ps aux | grep php-fpm | sort -k4nr | head -10</span><br></pre></td></tr></table></figure>
+<h1 id="查看-utomcat-运行的-java-程序，同时程序目录带-pre"><a href="#查看-utomcat-运行的-java-程序，同时程序目录带-pre" class="headerlink" title="查看 utomcat 运行的 java 程序，同时程序目录带 pre"></a>查看 utomcat 运行的 java 程序，同时程序目录带 pre</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps aux|head -1; ps aux | grep java | grep utomcat | grep pre | sort -k4nr | head -10</span><br></pre></td></tr></table></figure>
+<p>示例<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[root@hjweb01 script]# ps aux|head -1; ps aux | grep java | grep utomcat | grep pre | sort -k4nr | head -10  </span><br><span class="line">USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND</span><br><span class="line">utomcat  21006 20.8  8.4 2923740 326200 pts/9  Sl   15:05   0:35 /usr/jdk1.8.0_181/bin/java -Djava.util.logging.config.file=/home/utomcat/tomcat/pre/webLoadBalance/web2/conf/logging.properties -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager -server -Xms350M -Xmx350M -Xss512k -XX:+AggressiveOpts -XX:+UseBiasedLocking -XX:+DisableExplicitGC -XX:MaxTenuringThreshold=15 -XX:+UseConcMarkSweepGC -XX:+UseParNewGC -XX:+CMSParallelRemarkEnabled -XX:LargePageSizeInBytes=128m -XX:+UseFastAccessorMethods -XX:+UseCMSInitiatingOccupancyOnly -Djava.awt.headless=true -Djdk.tls.ephemeralDHKeySize=2048 -Djava.protocol.handler.pkgs=org.apache.catalina.webresources -Dorg.apache.catalina.security.SecurityListener.UMASK=0027 -Dignore.endorsed.dirs= -classpath /home/utomcat/tomcat/pre/webLoadBalance/web2/bin/bootstrap.jar:/home/utomcat/tomcat/pre/webLoadBalance/web2/bin/tomcat-juli.jar -Dcatalina.base=/home/utomcat/tomcat/pre/webLoadBalance/web2 -Dcatalina.home=/home/utomcat/tomcat/pre/webLoadBalance/web2 -Djava.io.tmpdir=/home/utomcat/tomcat/pre/webLoadBalance/web2/temp org.apache.catalina.startup.Bootstrap start</span><br><span class="line">utomcat  20706 10.7  8.3 2923740 325332 pts/5  Sl   15:02   0:36 /usr/jdk1.8.0_181/bin/java -Djava.util.logging.config.file=/home/utomcat/tomcat/pre/webLoadBalance/web1/conf/logging.properties -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager -server -Xms350M -Xmx350M -Xss512k -XX:+AggressiveOpts -XX:+UseBiasedLocking -XX:+DisableExplicitGC -XX:MaxTenuringThreshold=15 -XX:+UseConcMarkSweepGC -XX:+UseParNewGC -XX:+CMSParallelRemarkEnabled -XX:LargePageSizeInBytes=128m -XX:+UseFastAccessorMethods -XX:+UseCMSInitiatingOccupancyOnly -Djava.awt.headless=true -Djdk.tls.ephemeralDHKeySize=2048 -Djava.protocol.handler.pkgs=org.apache.catalina.webresources -Dorg.apache.catalina.security.SecurityListener.UMASK=0027 -Dignore.endorsed.dirs= -classpath /home/utomcat/tomcat/pre/webLoadBalance/web1/bin/bootstrap.jar:/home/utomcat/tomcat/pre/webLoadBalance/web1/bin/tomcat-juli.jar -Dcatalina.base=/home/utomcat/tomcat/pre/webLoadBalance/web1 -Dcatalina.home=/home/utomcat/tomcat/pre/webLoadBalance/web1 -Djava.io.tmpdir=/home/utomcat/tomcat/pre/webLoadBalance/web1/temp org.apache.catalina.startup.Bootstrap start</span><br><span class="line">utomcat  21273 70.5  7.2 2823004 282968 pts/10 Sl   15:07   0:30 /usr/jdk1.8.0_181/bin/java -Djava.util.logging.config.file=/home/utomcat/tomcat/pre/backend/schedule/conf/logging.properties -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager -server -Xms250M -Xmx250M -Xss512k -XX:+AggressiveOpts -XX:+UseBiasedLocking -XX:+DisableExplicitGC -XX:MaxTenuringThreshold=15 -XX:+UseConcMarkSweepGC -XX:+UseParNewGC -XX:+CMSParallelRemarkEnabled -XX:LargePageSizeInBytes=128m -XX:+UseFastAccessorMethods -XX:+UseCMSInitiatingOccupancyOnly -Djava.awt.headless=true -Djdk.tls.ephemeralDHKeySize=2048 -Djava.protocol.handler.pkgs=org.apache.catalina.webresources -Dorg.apache.catalina.security.SecurityListener.UMASK=0027 -Dignore.endorsed.dirs= -classpath /home/utomcat/tomcat/pre/backend/schedule/bin/bootstrap.jar:/home/utomcat/tomcat/pre/backend/schedule/bin/tomcat-juli.jar -Dcatalina.base=/home/utomcat/tomcat/pre/backend/schedule -Dcatalina.home=/home/utomcat/tomcat/pre/backend/schedule -Djava.io.tmpdir=/home/utomcat/tomcat/pre/backend/schedule/temp org.apache.catalina.startup.Bootstrap start</span><br><span class="line"></span><br><span class="line"># -v 是不显示匹配上的内容</span><br><span class="line">[utomcat@hjweb01 ~]$ ps aux|head -1; ps aux | grep java | grep utomcat | grep -v pre | sort -k4nr | head -10</span><br><span class="line">USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND</span><br><span class="line">utomcat  24909  0.1 15.6 3635036 608380 ?      Sl   Jul25   4:00 /usr/jdk1.8.0_181/bin/java -Djava.util.logging.config.file=/home/utomcat/tomcat/webLoadBalance/web2/conf/logging.properties -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager -Djdk.tls.ephemeralDHKeySize=2048 -Djava.protocol.handler.pkgs=org.apache.catalina.webresources -Dorg.apache.catalina.security.SecurityListener.UMASK=0027 -Dignore.endorsed.dirs= -classpath /home/utomcat/tomcat/webLoadBalance/web2/bin/bootstrap.jar:/home/utomcat/tomcat/webLoadBalance/web2/bin/tomcat-juli.jar -Dcatalina.base=/home/utomcat/tomcat/webLoadBalance/web2 -Dcatalina.home=/home/utomcat/tomcat/webLoadBalance/web2 -Djava.io.tmpdir=/home/utomcat/tomcat/webLoadBalance/web2/temp org.apache.catalina.startup.Bootstrap start</span><br><span class="line">utomcat  24722  0.0 13.6 3571100 530576 ?      Sl   Jul25   2:36 /usr/jdk1.8.0_181/bin/java -Djava.util.logging.config.file=/home/utomcat/tomcat/webLoadBalance/web1/conf/logging.properties -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager -Djdk.tls.ephemeralDHKeySize=2048 -Djava.protocol.handler.pkgs=org.apache.catalina.webresources -Dorg.apache.catalina.security.SecurityListener.UMASK=0027 -Dignore.endorsed.dirs= -classpath /home/utomcat/tomcat/webLoadBalance/web1/bin/bootstrap.jar:/home/utomcat/tomcat/webLoadBalance/web1/bin/tomcat-juli.jar -Dcatalina.base=/home/utomcat/tomcat/webLoadBalance/web1 -Dcatalina.home=/home/utomcat/tomcat/webLoadBalance/web1 -Djava.io.tmpdir=/home/utomcat/tomcat/webLoadBalance/web1/temp org.apache.catalina.startup.Bootstrap start</span><br><span class="line">utomcat  15263  0.1  6.7 3568036 263564 ?      Sl   Jul19  15:52 /usr/jdk1.8.0_181/bin/java -Djava.util.logging.config.file=/home/utomcat/tomcat/backend/schedule/conf/logging.properties -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager -Djdk.tls.ephemeralDHKeySize=2048 -Djava.protocol.handler.pkgs=org.apache.catalina.webresources -Dorg.apache.catalina.security.SecurityListener.UMASK=0027 -Dignore.endorsed.dirs= -classpath /home/utomcat/tomcat/backend/schedule/bin/bootstrap.jar:/home/utomcat/tomcat/backend/schedule/bin/tomcat-juli.jar -Dcatalina.base=/home/utomcat/tomcat/backend/schedule -Dcatalina.home=/home/utomcat/tomcat/backend/schedule -Djava.io.tmpdir=/home/utomcat/tomcat/backend/schedule/temp org.apache.catalina.startup.Bootstrap start</span><br><span class="line">utomcat  31221  0.0  0.0 112708   972 pts/0    S+   14:22   0:00 grep --color=auto java</span><br></pre></td></tr></table></figure></p>
+<h1 id="查看内存占用的更多参数"><a href="#查看内存占用的更多参数" class="headerlink" title="查看内存占用的更多参数"></a>查看内存占用的更多参数</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps -e -o &apos;pid,comm,args,pcpu,rsz,vsz,stime,user,uid&apos; | grep java | sort -nrk5</span><br></pre></td></tr></table></figure>
+<p>rsz 为实际内存占用，示例如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@hjweb01 script]# ps -e -o &apos;pid,comm,args,pcpu,rsz,vsz,stime,user,uid&apos; | grep java | sort -nrk5</span><br><span class="line">13545 java            /usr/jdk1.8.0_181/bin/java   2.1 562456 3569484 13:31 utomcat 1001</span><br><span class="line">13777 java            /usr/jdk1.8.0_181/bin/java   2.0 543828 3565988 13:34 utomcat 1001</span><br><span class="line">32454 java            /usr/jdk1.8.0_181/bin/java   0.3 535532 3563932 10:21 utomcat 1001</span><br><span class="line">22929 java            /usr/jdk1.8.0_181/bin/java   0.1 524296 3593488 Jul24 utomcat 1001</span><br><span class="line">13981 java            /usr/jdk1.8.0_181/bin/java   2.1 519696 3563932 13:36 utomcat 1001</span><br><span class="line">15263 java            /usr/jdk1.8.0_181/bin/java   0.1 259860 3568036 Jul19 utomcat 1001</span><br><span class="line"> 8454 java            /usr/local/cloudmonitor/jre  0.4 72252 2522436 Jul18 root        0</span><br><span class="line">16264 grep            grep --color=auto java       0.0   972 112708 14:06 root         0</span><br></pre></td></tr></table></figure></p>
+<h1 id="只看需要了解的参数，可调整参数列表"><a href="#只看需要了解的参数，可调整参数列表" class="headerlink" title="只看需要了解的参数，可调整参数列表"></a>只看需要了解的参数，可调整参数列表</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps -e -o &apos;pid,comm,rsz,rss,user&apos; | grep java | sort -nrk5</span><br></pre></td></tr></table></figure>
+<p>示例<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@hjweb01 script]# ps -e -o &apos;pid,comm,rsz,rss,user&apos; | grep java | sort -nrk5</span><br><span class="line"> 8454 java            72252 root</span><br><span class="line">32454 java            535596 utomcat</span><br><span class="line">22929 java            524296 utomcat</span><br><span class="line">15263 java            259860 utomcat</span><br><span class="line">13981 java            519680 utomcat</span><br><span class="line">13777 java            544028 utomcat</span><br><span class="line">13545 java            562440 utomcat</span><br></pre></td></tr></table></figure></p>
+<h1 id="内存的整体使用情况"><a href="#内存的整体使用情况" class="headerlink" title="内存的整体使用情况"></a>内存的整体使用情况</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@hjweb01 script]# free -m</span><br><span class="line">              total        used        free      shared  buff/cache   available</span><br><span class="line">Mem:           3790        2618         446           0         726         931</span><br><span class="line">Swap:             0           0           0</span><br></pre></td></tr></table></figure>
+<h1 id="top-命令查看内存使用情况"><a href="#top-命令查看内存使用情况" class="headerlink" title="top 命令查看内存使用情况"></a>top 命令查看内存使用情况</h1><p>输入 top 之后，再按 m 键<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">top - 16:39:15 up 7 days, 22:33, 12 users,  load average: 0.02, 0.05, 0.05</span><br><span class="line">Tasks: 119 total,   1 running, 118 sleeping,   0 stopped,   0 zombie</span><br><span class="line">%Cpu(s):  1.5 us,  0.3 sy,  0.0 ni, 98.2 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st</span><br><span class="line">KiB Mem : 75.6/3881692  [|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||                         ]</span><br><span class="line">KiB Swap:  0.0/0        [                                                                                                    ]</span><br><span class="line"></span><br><span class="line">  PID USER      PR  NI    VIRT    RES    SHR S  %CPU %MEM     TIME+ COMMAND                                                                                                                                                                                                                                                                                                                                                                                                                                                     </span><br><span class="line"> 8454 root      20   0 2522436  72500   2724 S   1.3  1.9  49:36.58 java                                                                                                                                                                                                                                                                                                                                                                                                                                                        </span><br><span class="line">14569 unginx    20   0  341748  17380   3332 S   0.7  0.4   0:13.04 php-fpm                                                                                                                                                                                                                                                                                                                                                                                                                                                     </span><br><span class="line">  574 unginx    20   0  342432  15616   3400 S   0.3  0.4   0:16.23 php-fpm                                                                                                                                                                                                                                                                                                                                                                                                                                                     </span><br><span class="line">12413 root      20   0  150832   3112   1724 S   0.3  0.1   0:00.28 sshd                                                                                                                                                                                                                                                                                                                                                                                                                                                        </span><br><span class="line">28174 root      20   0  157748   2196   1540 R   0.3  0.1   0:00.01 top                   </span><br><span class="line">...</span><br></pre></td></tr></table></figure></p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-09-01T02:53:13.035Z" itemprop="dateUpdated">2020年9月1日 10:53</time>
+</span><br>
+
+
+        转载请注明出处：<a href="/linux/centOSMemory.html" target="_blank" rel="external">https://www.lovesofttech.com/linux/centOSMemory.html</a>
+    </div>
+    <footer>
+        <a href="https://www.lovesofttech.com">
+            <img src="/img/myLogo.jpg" alt="安迪陈">
+            安迪陈
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux-内存占用/">linux 内存占用</a></li></ul>
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/linux/centOSMemory.html&title=《linux 内存占用情况查询》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/linux/centOSMemory.html&title=《linux 内存占用情况查询》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=如题" data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/linux/centOSMemory.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《linux 内存占用情况查询》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/linux/centOSMemory.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/linux/centOSMemory.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/java/sprintBootWhitelabelErrorPage.html" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">spring boot，404，502 错误转向定制页面</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/general/JIRAExperience.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">JIRA 精选插件</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+    
+    
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="bottom">
+        <p>
+            <span>安迪陈技术日志，架构、感悟、系统分析、团队管理 &copy; 2017 - 2020</span>
+            <span>
+                Power by <a href="https://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>&nbsp;
+                Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank" rel="external nofollow noopener noreferrer">indigo</a>
+            </span>
+            <span>
+                <a href="http://www.beian.miit.gov.cn" target="_blank" rel="external nofollow noopener noreferrer">蜀ICP备17041860号</a>
+            </span>
+            
+            <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            </p><p>
+                <span>
+                    统计始于：2019-03-06
+                </span>
+                <span id="busuanzi_container_site_uv" style="display:none">
+                    访客数：<span id="busuanzi_value_site_uv"></span>
+                </span>
+                <span id="busuanzi_container_site_pv" style="display:none">
+                    访问量：<span id="busuanzi_value_site_pv"></span>
+                </span>
+            
+            
+                <span class="post-count">累计字数：309.2k</span>
+            
+                <span><a href="/general/blogLog.html"><i class="fas fa-pen-alt"></i>&nbsp;博客日志</a></span>
+            </p>
+        <p></p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light" title="回到顶部"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/linux/centOSMemory.html&title=《linux 内存占用情况查询》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/linux/centOSMemory.html&title=《linux 内存占用情况查询》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=如题" data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/linux/centOSMemory.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《linux 内存占用情况查询》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/linux/centOSMemory.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/linux/centOSMemory.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACKklEQVR42u3aS5LCMAwFQO5/aWbLhvAkGWpid1YUlRC3F8L6PB7x9Xy5Xr9J7qz+ZvJs88LAwLgt43l5JfdUF329Kfl7MTAwTmO8e3H+OQmaSZjOwzoGBgbGZOnNoBm8CwMDA2NVwE3S1Op2YGBgYORJZpKUzpPkL+biGBgYN2TkVffff/5KfwMDA+NWjGfxyhPUtUH5w6owMDC2ZuQBLkk+q4WzavPgQ/sBAwNjU0Ze2PpNwlndpnInAQMD44aMXjm+OiLWo+YlPwwMjL0ZvRdPQnYP+eEPAwMDY2tGnl6uCsHVJRY2DgMDY1NG78XVFmP+VO/oiYGBcQ6jV7mqDoolrdDoIJifcDEwMLZj5KWxeSNhkiS/nRnBwMDYlJH/aN4KrXYn8kQ6mhbBwMDYjnF9RMuPjwsm1OJDYSHGY2BgbMdozmsUi26TVsHiXBwDA+PfM3rBt/pUlTq6EwMDYztGL+DmLc9JY7Jw6MTAwNiakRe21i6lWvqPAjoGBsYBjFVFt6QBUD1iXlMxMDBOY/QS12qKO6ntv/0eAwPjAEZvhCI53s2HOaJNwcDA2JQxSVDzw1+1cLbsUIiBgbEFYzIq0Vvu2vvLGAwMjNsyekuctDmrbYnyyAUGBsamjF5zsXpn8vvVVBYDAwOjNxJRTVknyTAGBgZGLydOhify9kC0cRgYGAcwkiS2NxyWj4XlQRwDA+M0Rp46JsG0WozrtSVG/Q0MDIw7Mf4AuX/RPx7Lg8oAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.5.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.5.2" async></script>
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '安迪陈技术日志';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '欢迎回来';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

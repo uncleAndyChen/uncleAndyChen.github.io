@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<!--<script async src="//hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c"></script>-->
+<!-- 统计-->
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var host = window.location.host;
+        var hm = document.createElement("script");
+
+        if (host.indexOf('gitee.io') > 0) { // https://uncleandychen.gitee.io/
+            hm.src = "https://hm.baidu.com/hm.js?0cf4709148b070b8082191d2e456a1a3";
+        } else if (host.indexOf('lovesofttech.com') > 0) { // https://www.lovesofttech.com/
+            hm.src = "https://hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c";
+        } else {
+            hm.src = '';
+        }
+
+        if (hm.src !== '') {
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        }
+    })();
+</script>
+<!-- End Baidu Tongji -->
+
+
+
+<!-- Baidu Push -->
+<!-- 主动推送百度爬虫-->
+<script>
+    (function(){
+        if (window.location.host.indexOf('lovesofttech.com') < 0) {
+            return;
+        }
+
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+<!-- End Baidu Push -->
+
+
+    <meta charset="utf-8">
+    
+    
+    <link rel="canonical" href="https://www.lovesofttech.com/windows/winInstallNginxAsService.html">
+    
+    
+    <title>把 nginx 安装为 Windows 的一个服务 | 安迪陈技术日志，架构、感悟、系统分析、团队管理 | 自强不息，厚德载物</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="windows,nginx">
+    <meta name="description" content="更详细的说明，请参考文章末尾的参考链接，我这里只讲直接的操作步骤。">
+<meta name="keywords" content="windows,nginx">
+<meta property="og:type" content="article">
+<meta property="og:title" content="把 nginx 安装为 Windows 的一个服务">
+<meta property="og:url" content="https://www.lovesofttech.com/windows/winInstallNginxAsService.html">
+<meta property="og:site_name" content="安迪陈技术日志，架构、感悟、系统分析、团队管理">
+<meta property="og:description" content="更详细的说明，请参考文章末尾的参考链接，我这里只讲直接的操作步骤。">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2020-09-01T02:53:13.116Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="把 nginx 安装为 Windows 的一个服务">
+<meta name="twitter:description" content="更详细的说明，请参考文章末尾的参考链接，我这里只讲直接的操作步骤。">
+    
+        <link rel="alternative" href="/atom.xml" title="安迪陈技术日志，架构、感悟、系统分析、团队管理" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=201912302211">
+    <link rel="stylesheet" href="/css/header.css?v=201912302211">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu">
+  <div class="inner flex-row-vertical">
+    <!--<i class="icon icon-lg icon-close"></i>-->
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off" title="隐藏左侧导航">﹤<i class="icon icon-lg icon-navicon"></i></a>
+    <div class="brand-wrap" style="background-image:url(/img/bannerBackgroundLeft.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/myLogo.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">安迪陈</h5>
+          <a href="mailto:andy@lovesofttech.com" title="andy@lovesofttech.com" class="mail" rel="external nofollow noopener noreferrer" target="_blank">andy@lovesofttech.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articleClassify.html">
+                <i class="icon icon-th-list"></i>
+                文章分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articles.html">
+                <i class="icon icon-th-list articles"></i>
+                文章列表
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/java.html">
+                <i class="icon icon-th-list java"></i>
+                Java
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/database.html">
+                <i class="icon icon-th-list database"></i>
+                MySQL/MyBatis
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/linux.html">
+                <i class="icon icon-th-list linux"></i>
+                CentOS/linux
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/react.html">
+                <i class="icon icon-th-list React"></i>
+                React
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/lnmp.html">
+                <i class="icon icon-th-list LNMP"></i>
+                LNMP
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/git.html">
+                <i class="icon icon-th-list git"></i>
+                git
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/windows.html">
+                <i class="icon icon-th-list windows"></i>
+                windows
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/dailyLives.html">
+                <i class="icon icon-th-list dailyLives"></i>
+                工作 &amp; 生活
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-github"></i>
+                我的 github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://gitee.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link"></i>
+                我的 gitee
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://blog.csdn.net/runAndRun" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link CSDN"></i>
+                我的 CSDN
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/aboutMe.html">
+                <i class="icon icon-address-card"></i>
+                关于我
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+
+        <div class="navbar navbar-custom navbar-fixed-top">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" style="margin-left:10px;" id="menu-toggle" title="显示左侧导航"><i class="icon icon-lg icon-navicon"></i>﹥</a>
+            <ul class="nav navbar-nav navbar-right" id="navMenuTop">
+                <li>
+                    <a href="/">主页</a>
+                </li>
+                
+                    
+                        <li>
+                            <a href="/articleClassify.html" title="本博客的文章分类列表">文章分类</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/articles.html" title="本博客的所有文章列表">文章列表</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/java.html" title="Java 开发，文章目录">Java</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/database.html" title="日常开发中有关 MySQL、MyBatis 的一些经验总结">MySQL/MyBatis</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/linux.html" title="CentOS/linux，文章目录">CentOS/linux</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/react.html" title="React 技术栈（全家桶）学习心得分享，文章目录">React</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/about.html">关于</a>
+                        </li>
+                    
+                
+            </ul>
+        </div>
+
+        <div class="flex-col header-title ellipsis">把 nginx 安装为 Windows 的一个服务</div>
+        
+        <div class="search-wrap" id="search-wrap" style="z-index: 2;">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back" style="width:33px;">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search" style="width:33px;">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare" style="z-index: 3;margin-right: 10px; width:30px;">
+                <i class="icon icon-lg icon-share-alt"></i>
+            </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h2 class="title">把 nginx 安装为 Windows 的一个服务</h2>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-05-08T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2017-05-09
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/windows/">windows</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/windows/nginx/">nginx</a></li></ul></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap" id="index-container">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc" style="z-index: 3;">
+            <h4><i class="fa fa-list-alt"></i>&nbsp;&nbsp;本文目录</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#环境"><span class="post-toc-number">1.</span> <span class="post-toc-text">环境</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#步骤"><span class="post-toc-number">2.</span> <span class="post-toc-text">步骤</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#在win-8-1-win10-上安装"><span class="post-toc-number">3.</span> <span class="post-toc-text">在win 8.1 / win10 上安装</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#删除-nginx-服务"><span class="post-toc-number">4.</span> <span class="post-toc-text">删除 nginx 服务</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#备注"><span class="post-toc-number">5.</span> <span class="post-toc-text">备注</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#端口被占用报错信息"><span class="post-toc-number">6.</span> <span class="post-toc-text">端口被占用报错信息</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#安装成服务后，nginx-s-reload-不可用"><span class="post-toc-number">7.</span> <span class="post-toc-text">安装成服务后，nginx -s reload 不可用</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#could-not-build-server-names-hash"><span class="post-toc-number">8.</span> <span class="post-toc-text">could not build server_names_hash</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#解决"><span class="post-toc-number">8.1.</span> <span class="post-toc-text">解决</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#参考链接"><span class="post-toc-number">9.</span> <span class="post-toc-text">参考链接</span></a></li></ol>
+        </nav>
+    </aside>
+    
+
+<article id="post-windows/winInstallNginxAsService" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">把 nginx 安装为 Windows 的一个服务</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017年05月09日 0:00" datetime="2017-05-08T16:00:00.000Z" itemprop="datePublished">2017-05-09</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/windows/">windows</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/windows/nginx/">nginx</a></li></ul></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" style="display:none">
+    阅读量：<span id="busuanzi_value_page_pv"></span>次
+</span>
+
+
+    <span>|</span>
+    <span class="post-count">字数：1.4k</span>
+    <span>|</span>
+    <span class="post-count">阅读时长：大约6分钟</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>更详细的说明，请参考文章末尾的参考链接，我这里只讲直接的操作步骤。<br><a id="more"></a></p>
+<h1 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h1><ol>
+<li>windows 7 / win 8.1 / win 10 pro</li>
+<li>nginx v1.12.0</li>
+<li>winsw v2.1.0</li>
+<li>如果在 windows 7 下配置 nginx 为系统服务，启动报错（System error 1067 has occurred）的童鞋，请按我的配置文件配置。</li>
+</ol>
+<h1 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h1><ol>
+<li>下载最新版的 winsw，github 开源项目地址：<a href="https://github.com/kohsuke/winsw" rel="external nofollow noopener noreferrer" target="_blank">传送门-&gt;猛戳进入</a>，这是一个开源项目，求快的，直接进入下载页面：<a href="https://github.com/kohsuke/winsw/releases" rel="external nofollow noopener noreferrer" target="_blank">传送门-&gt;猛戳进入</a>，笔者写该文时最新版为winsw-v2.1.0。</li>
+<li>下载合适的 nginx 版本， <a href="http://nginx.org/" rel="external nofollow noopener noreferrer" target="_blank">传送门-&gt;猛戳进入</a>，笔者下载的是 <a href="http://nginx.org/download/nginx-1.12.0.zip" rel="external nofollow noopener noreferrer" target="_blank">nginx-1.12.0 stable version</a>，解压到 C:\nginx-1.12.0</li>
+<li>将第一步下载到的 WinSW.NET4.exe copy 到 nginx 目录：C:\nginx-1.12.0并改名为 winsw.exe</li>
+<li><p>添加 winsw.xml，内容如下：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">service</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">id</span>&gt;</span>nginx<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>nginx<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">description</span>&gt;</span>nginx<span class="tag">&lt;/<span class="name">description</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">logpath</span>&gt;</span>C:\nginx-1.12.0\logs<span class="tag">&lt;/<span class="name">logpath</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">logmode</span>&gt;</span>roll<span class="tag">&lt;/<span class="name">logmode</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">depend</span>&gt;</span><span class="tag">&lt;/<span class="name">depend</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">executable</span>&gt;</span>c:\nginx-1.12.0\nginx.exe<span class="tag">&lt;/<span class="name">executable</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">stopexecutable</span>&gt;</span>C:\nginx-1.12.0\nginx.exe -s stop<span class="tag">&lt;/<span class="name">stopexecutable</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">service</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>以管理员身份运行控制台（cmd），进入 nginx 主目录，运行 winsw install，即大功告成。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">C:\nginx-1.12.0&gt;winsw install</span><br><span class="line">2017-05-09 19:17:49,419 INFO  - Starting ServiceWrapper <span class="keyword">in</span> the CLI mode</span><br><span class="line">2017-05-09 19:17:49,753 INFO  - Completed. Exit code is 0</span><br><span class="line"></span><br><span class="line">C:\nginx-1.12.0&gt;net start nginx</span><br><span class="line">The nginx service is starting.</span><br><span class="line">The nginx service was started successfully.</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h1 id="在win-8-1-win10-上安装"><a href="#在win-8-1-win10-上安装" class="headerlink" title="在win 8.1 / win10 上安装"></a>在win 8.1 / win10 上安装</h1><p>按上面的方式，直接在运行窗口输入cmd 进入dos窗口执行命令，报错如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">C:\nginx-1.12.0&gt;winsw install</span><br><span class="line">2017-06-17 11:40:10,216 INFO  - Installing the service with id &apos;nginx&apos;</span><br><span class="line">2017-06-17 11:40:10,244 FATAL - WMI Operation failure: AccessDenied</span><br><span class="line">WMI.WmiException: AccessDenied</span><br><span class="line">   at WMI.WmiRoot.BaseHandler.CheckError(ManagementBaseObject result)</span><br><span class="line">   at WMI.WmiRoot.ClassHandler.Invoke(Object proxy, MethodInfo method, Object[] args)</span><br><span class="line">   at winsw.WrapperService.Run(String[] _args, ServiceDescriptor descriptor)</span><br><span class="line">   at winsw.WrapperService.Main(String[] args)</span><br><span class="line">WMI.WmiException: AccessDenied</span><br><span class="line">   at WMI.WmiRoot.BaseHandler.CheckError(ManagementBaseObject result)</span><br><span class="line">   at WMI.WmiRoot.ClassHandler.Invoke(Object proxy, MethodInfo method, Object[] args)</span><br><span class="line">   at winsw.WrapperService.Run(String[] _args, ServiceDescriptor descriptor)</span><br><span class="line">   at winsw.WrapperService.Main(String[] args)</span><br></pre></td></tr></table></figure></p>
+<p>很明显是权限问题，到这个目录:C:\Windows\System32，找到cmd.exe，右键-&gt;以管理员身份运行，再次执行，成功。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">C:\nginx-1.12.0&gt;winsw.exe install</span><br><span class="line">2017-06-17 11:43:38,476 INFO  - Installing the service with id &apos;nginx&apos;</span><br></pre></td></tr></table></figure></p>
+<p>需要注意的是，在 windows8.1 /win10 环境下，执行 net stop nginx 也会有权限问题。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\andy&gt;net stop nginx</span><br><span class="line">System error 5 has occurred.</span><br><span class="line"></span><br><span class="line">Access is denied.</span><br></pre></td></tr></table></figure></p>
+<p>也需要以管理员身份运行 cmd.exe，推荐将 cmd.exe 添加一个快捷键到桌面或开始页(Start)。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">C:\Windows\system32&gt;net stop nginx</span><br><span class="line">The nginx service is stopping.</span><br><span class="line">The nginx service was stopped successfully.</span><br><span class="line"></span><br><span class="line">C:\Windows\system32&gt;net start nginx</span><br><span class="line">The nginx service is starting.</span><br><span class="line">The nginx service was started successfully.</span><br></pre></td></tr></table></figure></p>
+<ol>
+<li>注意，nginx默认配置端口为80，若本机80端口被其它程序占用，可能导致服务启动失败。</li>
+<li>查看 windows 服务，将看到名为 nginx 的服务，其它操作如启动、重启、停止跟普通 windows 服务一样，在此不再赘述。</li>
+</ol>
+<h1 id="删除-nginx-服务"><a href="#删除-nginx-服务" class="headerlink" title="删除 nginx 服务"></a>删除 nginx 服务</h1><p>执行 winsw uninstall 或者 sc delete nginx，然后关闭所有 windows service 控制面板。</p>
+<h1 id="备注"><a href="#备注" class="headerlink" title="备注"></a>备注</h1><ul>
+<li>按照参考链接里的配置文件配置，启动时报错，原因是他用的 winsw 版本跟我的不一样。<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">service</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">id</span>&gt;</span>nginx<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>nginx<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">description</span>&gt;</span>nginx<span class="tag">&lt;/<span class="name">description</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">executable</span>&gt;</span>c:/nginx-1.12.0/nginx.exe<span class="tag">&lt;/<span class="name">executable</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">logpath</span>&gt;</span>C:/nginx-1.12.0/logs<span class="tag">&lt;/<span class="name">logpath</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">logmode</span>&gt;</span>roll<span class="tag">&lt;/<span class="name">logmode</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">depend</span>&gt;</span><span class="tag">&lt;/<span class="name">depend</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">startargument</span>&gt;</span>-p C:/nginx-1.12.0<span class="tag">&lt;/<span class="name">startargument</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">stopargument</span>&gt;</span>-p C:/nginx-1.12.0 -s stop<span class="tag">&lt;/<span class="name">stopargument</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">service</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>如上配置，启动时报错如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">C:\nginx-1.12.0&gt;net start nginx</span><br><span class="line">The nginx service is starting.</span><br><span class="line">The nginx service could not be started.</span><br><span class="line"></span><br><span class="line">A system error has occurred.</span><br><span class="line"></span><br><span class="line">System error 1067 has occurred.</span><br><span class="line"></span><br><span class="line">The process terminated unexpectedly.</span><br></pre></td></tr></table></figure></p>
+<h1 id="端口被占用报错信息"><a href="#端口被占用报错信息" class="headerlink" title="端口被占用报错信息"></a>端口被占用报错信息</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">C:\nginx-1.12.0&gt;nginx -t</span><br><span class="line">nginx: the configuration file C:\nginx-1.12.0/conf/nginx.conf syntax is ok</span><br><span class="line">nginx: [emerg] bind() to 0.0.0.0:80 failed (10013: An attempt was made to access a socket in a way forbidden by its access permissions)</span><br><span class="line">nginx: configuration file C:\nginx-1.12.0/conf/nginx.conf test failed</span><br></pre></td></tr></table></figure>
+<h1 id="安装成服务后，nginx-s-reload-不可用"><a href="#安装成服务后，nginx-s-reload-不可用" class="headerlink" title="安装成服务后，nginx -s reload 不可用"></a>安装成服务后，nginx -s reload 不可用</h1><p>暂时还没有解决。替代方案是，net stop nginx，然后 net start nginx<br>如果将服务停掉 net stop nginx，然后 nginx start<br>则可以正常使用 nginx -s reload</p>
+<p>另外，发现一个现象，就是 nginx 作为服务启动之后，有时候修改了配置，net stop nginx 再 net start nginx 并没有使配置生效，到任务管理器查看，发现后台有很多个 nginx 进程，逐一结束掉，然后再 net start nginx，或者进入 nginx 目录， start nginx 之后，配置才会生效。<br>解决办法，呵呵，还未尝试，等空了再试，然后更新到这里。 todo ***<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">C:\nginx-1.12.0&gt;nginx -s reload</span><br><span class="line">nginx: [error] OpenEvent(&quot;Global\ngx_reload_2076&quot;) failed (5: Access is denied)</span><br></pre></td></tr></table></figure></p>
+<h1 id="could-not-build-server-names-hash"><a href="#could-not-build-server-names-hash" class="headerlink" title="could not build server_names_hash"></a>could not build server_names_hash</h1><p>当我在本地配置了第 13 个网站的时候，以管理员身份先停止 nginx，再启动 nginx，启动时报了如下错误：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">C:\nginx&gt;net stop nginx</span><br><span class="line">nginx 服务正在停止.</span><br><span class="line">nginx 服务已成功停止。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">C:\nginx&gt;net start nginx</span><br><span class="line">nginx 服务正在启动 .</span><br><span class="line">nginx 服务无法启动。</span><br><span class="line"></span><br><span class="line">系统出错。</span><br><span class="line"></span><br><span class="line">发生系统错误 1067。</span><br><span class="line"></span><br><span class="line">进程意外终止。</span><br></pre></td></tr></table></figure></p>
+<p>于是检查配置：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">C:\nginx&gt;nginx -t</span><br><span class="line">nginx: [emerg] could not build server_names_hash, you should increase server_names_hash_bucket_size: 32</span><br><span class="line">nginx: configuration file C:\nginx/conf/nginx.conf test failed</span><br></pre></td></tr></table></figure></p>
+<h2 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h2><p>nginx 根目录下，conf/nginx.conf，在 <code>server {</code> 与 <code>}</code> 中间添加一行：<code>server_names_hash_bucket_size 32;</code>，如果再报这个错，则将 32 再增加到 32 的 N 倍，N 大于等于 2。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">C:\nginx&gt;nginx -t</span><br><span class="line">nginx: the configuration file C:\nginx/conf/nginx.conf syntax is ok</span><br><span class="line">nginx: configuration file C:\nginx/conf/nginx.conf test is successful</span><br></pre></td></tr></table></figure></p>
+<h1 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h1><ul>
+<li><a href="http://blog.csdn.net/defonds/article/details/7906005" rel="external nofollow noopener noreferrer" target="_blank">把 Nginx 创建为 Windows 的一个服务</a></li>
+</ul>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-09-01T02:53:13.116Z" itemprop="dateUpdated">2020年9月1日 10:53</time>
+</span><br>
+
+
+        转载请注明出处：<a href="/windows/winInstallNginxAsService.html" target="_blank" rel="external">https://www.lovesofttech.com/windows/winInstallNginxAsService.html</a>
+    </div>
+    <footer>
+        <a href="https://www.lovesofttech.com">
+            <img src="/img/myLogo.jpg" alt="安迪陈">
+            安迪陈
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nginx/">nginx</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/windows/">windows</a></li></ul>
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/windows/winInstallNginxAsService.html&title=《把 nginx 安装为 Windows 的一个服务》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/windows/winInstallNginxAsService.html&title=《把 nginx 安装为 Windows 的一个服务》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=更详细的说明，请参考文章末尾的参考链接，我这里只讲直接的操作步骤。" data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/windows/winInstallNginxAsService.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《把 nginx 安装为 Windows 的一个服务》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/windows/winInstallNginxAsService.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/windows/winInstallNginxAsService.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/windows/winInstallMemcachedAsService.html" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">在 Windows 将 Memcached 安装为服务</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/windows/winNginxSupportPhp.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">在 windows7 下配置 nginx 支持 php</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+    
+    
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="bottom">
+        <p>
+            <span>安迪陈技术日志，架构、感悟、系统分析、团队管理 &copy; 2017 - 2020</span>
+            <span>
+                Power by <a href="https://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>&nbsp;
+                Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank" rel="external nofollow noopener noreferrer">indigo</a>
+            </span>
+            <span>
+                <a href="http://www.beian.miit.gov.cn" target="_blank" rel="external nofollow noopener noreferrer">蜀ICP备17041860号</a>
+            </span>
+            
+            <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            </p><p>
+                <span>
+                    统计始于：2019-03-06
+                </span>
+                <span id="busuanzi_container_site_uv" style="display:none">
+                    访客数：<span id="busuanzi_value_site_uv"></span>
+                </span>
+                <span id="busuanzi_container_site_pv" style="display:none">
+                    访问量：<span id="busuanzi_value_site_pv"></span>
+                </span>
+            
+            
+                <span class="post-count">累计字数：309.2k</span>
+            
+                <span><a href="/general/blogLog.html"><i class="fas fa-pen-alt"></i>&nbsp;博客日志</a></span>
+            </p>
+        <p></p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light" title="回到顶部"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/windows/winInstallNginxAsService.html&title=《把 nginx 安装为 Windows 的一个服务》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/windows/winInstallNginxAsService.html&title=《把 nginx 安装为 Windows 的一个服务》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=更详细的说明，请参考文章末尾的参考链接，我这里只讲直接的操作步骤。" data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/windows/winInstallNginxAsService.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《把 nginx 安装为 Windows 的一个服务》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/windows/winInstallNginxAsService.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/windows/winInstallNginxAsService.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACsUlEQVR42u3awW6sMAwF0P7/T/dt+zQCru14xOKwGtEZyKFSEq798xMfv3+OqzNXv/r8fvX4vNrhAw8PD28w9PtLJze4GlA+3M/z9+O5GjMeHh7eNi8f6KkFoPoIeo8GDw8P7w28e0wyuefLzHxRwcPDw3sbb/6r9avh4eHhrfGqEer9DZL4IA+Iv5S14OHh4cW8fFP7ns8r9T08PDy8cVW9F7wm508FHw+jxcPDw1vg5RNulZEHuNUwtzxOPDw8vKO85DU+eeE/22g1udd/n/Hw8PAWePNgIv9rsjlOGPm2Hg8PD2+D1wtS86AhL01Vy2PRXfDw8PAWeNVAIQ8pqlvtxQMPDw9vDdab1nttVfeTfnWrXajv4eHh4S3zTk3xk6bV3iLU3NHj4eHhxbxJ2DoPL3olrnLWgoeHh3eUVx10vlHOQ4fCdJ83CuDh4eEt8JItctJsWg01ktbVySb7ocqHh4eHN+Dll5sw9kpiD8sDHh4e3ld4k0GcfTR5o8NKTxkeHh5ekVdttOpFt/ky0BwbHh4e3gKv3MY0CGp7jQX5A7r8V+Hh4eEd5VUj1GrxPrlClVQooeHh4eEt8PLWq14xLG9WmCwzD6UyPDw8vDVe9YW/OvfOF4xqbQsPDw9vj9drkJrHr6eaDwotCHh4eHiHePOFYdJYEE3orUeJh4eHt82rTtDVaTpvpUoij7xch4eHh/cd3qmtdi8OniwMD1U+PDw8vDHvt3hUS1m9b+aP+OFR4uHh4S3w5uX5+fKQBx/NohceHh7eAq8aASRb5Hwqr8YQ5VYDPDw8vDVetWTVi4B7xbNJgwIeHh7eG3inWql6U395e42Hh4f3Gl51iEkTwErZDA8PD2+Nd2rK7g2r2kpVaO3Cw8PDW+BNXvjzOLUaDVcbEQ7U9/Dw8PCeef8AnomccW52NVkAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.5.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.5.2" async></script>
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '安迪陈技术日志';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '欢迎回来';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

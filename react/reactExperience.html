@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<!--<script async src="//hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c"></script>-->
+<!-- 统计-->
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var host = window.location.host;
+        var hm = document.createElement("script");
+
+        if (host.indexOf('gitee.io') > 0) { // https://uncleandychen.gitee.io/
+            hm.src = "https://hm.baidu.com/hm.js?0cf4709148b070b8082191d2e456a1a3";
+        } else if (host.indexOf('lovesofttech.com') > 0) { // https://www.lovesofttech.com/
+            hm.src = "https://hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c";
+        } else {
+            hm.src = '';
+        }
+
+        if (hm.src !== '') {
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        }
+    })();
+</script>
+<!-- End Baidu Tongji -->
+
+
+
+<!-- Baidu Push -->
+<!-- 主动推送百度爬虫-->
+<script>
+    (function(){
+        if (window.location.host.indexOf('lovesofttech.com') < 0) {
+            return;
+        }
+
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+<!-- End Baidu Push -->
+
+
+    <meta charset="utf-8">
+    
+    
+    <link rel="canonical" href="https://www.lovesofttech.com/react/reactExperience.html">
+    
+    
+    <title>react开发，日常经验汇总 | 安迪陈技术日志，架构、感悟、系统分析、团队管理 | 自强不息，厚德载物</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="react,redux,experience">
+    <meta name="description" content="如题">
+<meta name="keywords" content="react,redux,experience">
+<meta property="og:type" content="article">
+<meta property="og:title" content="react开发，日常经验汇总">
+<meta property="og:url" content="https://www.lovesofttech.com/react/reactExperience.html">
+<meta property="og:site_name" content="安迪陈技术日志，架构、感悟、系统分析、团队管理">
+<meta property="og:description" content="如题">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2020-09-01T02:53:13.090Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="react开发，日常经验汇总">
+<meta name="twitter:description" content="如题">
+    
+        <link rel="alternative" href="/atom.xml" title="安迪陈技术日志，架构、感悟、系统分析、团队管理" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=201912302211">
+    <link rel="stylesheet" href="/css/header.css?v=201912302211">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu">
+  <div class="inner flex-row-vertical">
+    <!--<i class="icon icon-lg icon-close"></i>-->
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off" title="隐藏左侧导航">﹤<i class="icon icon-lg icon-navicon"></i></a>
+    <div class="brand-wrap" style="background-image:url(/img/bannerBackgroundLeft.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/myLogo.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">安迪陈</h5>
+          <a href="mailto:andy@lovesofttech.com" title="andy@lovesofttech.com" class="mail" rel="external nofollow noopener noreferrer" target="_blank">andy@lovesofttech.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articleClassify.html">
+                <i class="icon icon-th-list"></i>
+                文章分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articles.html">
+                <i class="icon icon-th-list articles"></i>
+                文章列表
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/java.html">
+                <i class="icon icon-th-list java"></i>
+                Java
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/database.html">
+                <i class="icon icon-th-list database"></i>
+                MySQL/MyBatis
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/linux.html">
+                <i class="icon icon-th-list linux"></i>
+                CentOS/linux
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/react.html">
+                <i class="icon icon-th-list React"></i>
+                React
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/lnmp.html">
+                <i class="icon icon-th-list LNMP"></i>
+                LNMP
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/git.html">
+                <i class="icon icon-th-list git"></i>
+                git
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/windows.html">
+                <i class="icon icon-th-list windows"></i>
+                windows
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/dailyLives.html">
+                <i class="icon icon-th-list dailyLives"></i>
+                工作 &amp; 生活
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-github"></i>
+                我的 github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://gitee.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link"></i>
+                我的 gitee
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://blog.csdn.net/runAndRun" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link CSDN"></i>
+                我的 CSDN
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/aboutMe.html">
+                <i class="icon icon-address-card"></i>
+                关于我
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+
+        <div class="navbar navbar-custom navbar-fixed-top">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" style="margin-left:10px;" id="menu-toggle" title="显示左侧导航"><i class="icon icon-lg icon-navicon"></i>﹥</a>
+            <ul class="nav navbar-nav navbar-right" id="navMenuTop">
+                <li>
+                    <a href="/">主页</a>
+                </li>
+                
+                    
+                        <li>
+                            <a href="/articleClassify.html" title="本博客的文章分类列表">文章分类</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/articles.html" title="本博客的所有文章列表">文章列表</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/java.html" title="Java 开发，文章目录">Java</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/database.html" title="日常开发中有关 MySQL、MyBatis 的一些经验总结">MySQL/MyBatis</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/linux.html" title="CentOS/linux，文章目录">CentOS/linux</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/react.html" title="React 技术栈（全家桶）学习心得分享，文章目录">React</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/about.html">关于</a>
+                        </li>
+                    
+                
+            </ul>
+        </div>
+
+        <div class="flex-col header-title ellipsis">react开发，日常经验汇总</div>
+        
+        <div class="search-wrap" id="search-wrap" style="z-index: 2;">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back" style="width:33px;">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search" style="width:33px;">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare" style="z-index: 3;margin-right: 10px; width:30px;">
+                <i class="icon icon-lg icon-share-alt"></i>
+            </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h2 class="title">react开发，日常经验汇总</h2>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-11-25T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2018-11-26
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/react/">react</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/react/redux/">redux</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/react/redux/experience/">experience</a></li></ul></li></ul></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap" id="index-container">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc" style="z-index: 3;">
+            <h4><i class="fa fa-list-alt"></i>&nbsp;&nbsp;本文目录</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#react-函数调用的坑"><span class="post-toc-number">1.</span> <span class="post-toc-text">react 函数调用的坑</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#npm-升级-package-json-依赖包到最新版本号"><span class="post-toc-number">2.</span> <span class="post-toc-text">npm 升级 package.json 依赖包到最新版本号</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#使用"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">使用</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Google-Chrome-不能在线安装-React-相关的插件，可下载离线版进行安装"><span class="post-toc-number">3.</span> <span class="post-toc-text">Google Chrome 不能在线安装 React 相关的插件，可下载离线版进行安装</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#安装方式"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">安装方式</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Redux-DevTools-调试，版本不兼容问题"><span class="post-toc-number">4.</span> <span class="post-toc-text">Redux DevTools 调试，版本不兼容问题</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#WebStorm-React-项目，配置-ESLint"><span class="post-toc-number">5.</span> <span class="post-toc-text">WebStorm + React 项目，配置 ESLint</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#依赖包版本"><span class="post-toc-number">6.</span> <span class="post-toc-text">依赖包版本</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#npm-start-时，指定启动端口"><span class="post-toc-number">7.</span> <span class="post-toc-text">npm start 时，指定启动端口</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#macOS-下遇到的总是"><span class="post-toc-number">7.1.</span> <span class="post-toc-text">macOS 下遇到的总是</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#解决"><span class="post-toc-number">7.2.</span> <span class="post-toc-text">解决</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#package-json-不能添加注释"><span class="post-toc-number">8.</span> <span class="post-toc-text">package.json 不能添加注释</span></a></li></ol>
+        </nav>
+    </aside>
+    
+
+<article id="post-react/reactExperience" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">react开发，日常经验汇总</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018年11月26日 0:00" datetime="2018-11-25T16:00:00.000Z" itemprop="datePublished">2018-11-26</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/react/">react</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/react/redux/">redux</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/react/redux/experience/">experience</a></li></ul></li></ul></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" style="display:none">
+    阅读量：<span id="busuanzi_value_page_pv"></span>次
+</span>
+
+
+    <span>|</span>
+    <span class="post-count">字数：910</span>
+    <span>|</span>
+    <span class="post-count">阅读时长：大约4分钟</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>如题<br><a id="more"></a></p>
+<h1 id="react-函数调用的坑"><a href="#react-函数调用的坑" class="headerlink" title="react 函数调用的坑"></a>react 函数调用的坑</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">render: item =&gt; (</span><br><span class="line">          &lt;span title=&#123;item.opContent&#125;&gt;</span><br><span class="line">            &#123;item.opContent.length &gt; opContentMaxLength ? &lt;span&gt;item.opContent.substr(0, opContentMaxLength)&amp;nbsp;&amp;nbsp;&lt;a onClick=&#123;this.handleModalVisible(true, item)&#125;&gt;查看&lt;/a&gt;&lt;/span&gt; : item.opContent&#125;</span><br><span class="line">          &lt;/span&gt;</span><br><span class="line">        ),</span><br></pre></td></tr></table></figure>
+<p>在页面加载时，每一条记录都会调用一次 <code>this.handleModalVisible(true, item)</code><br>正确的应该是这样：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">render: item =&gt; (</span><br><span class="line">          &lt;span title=&#123;item.opContent&#125;&gt;</span><br><span class="line">            &#123;item.opContent.length &gt; opContentMaxLength ? &lt;span&gt;item.opContent.substr(0, opContentMaxLength)&amp;nbsp;&amp;nbsp;&lt;a onClick=&#123;() =&gt; this.handleModalVisible(true, item)&#125;&gt;查看&lt;/a&gt;&lt;/span&gt; : item.opContent&#125;</span><br><span class="line">          &lt;/span&gt;</span><br><span class="line">        ),</span><br></pre></td></tr></table></figure></p>
+<h1 id="npm-升级-package-json-依赖包到最新版本号"><a href="#npm-升级-package-json-依赖包到最新版本号" class="headerlink" title="npm 升级 package.json 依赖包到最新版本号"></a>npm 升级 package.json 依赖包到最新版本号</h1><p>使用工具包：npm-check-updates</p>
+<p>全局安装ncu：<code>npm install -g npm-check-updates</code></p>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><ul>
+<li>检查package.json中dependencies的最新版本：<code>ncu</code></li>
+<li>更新dependencies到新版本：<code>ncu -u</code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Hmmmmm... this is taking a long time. Your console is telling me to wait for input</span><br><span class="line">on stdin, but maybe that is not what you want.</span><br><span class="line">Try winpty ncu.cmd, or specify a package file explicitly with --packageFile package.json.</span><br><span class="line">See https://github.com/tjunnone/npm-check-updates/issues/136#issuecomment-155721102</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>指定 packageFile 文件名的方式会快一些<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ncu -u --packageFile package.json</span><br></pre></td></tr></table></figure></p>
+<h1 id="Google-Chrome-不能在线安装-React-相关的插件，可下载离线版进行安装"><a href="#Google-Chrome-不能在线安装-React-相关的插件，可下载离线版进行安装" class="headerlink" title="Google Chrome 不能在线安装 React 相关的插件，可下载离线版进行安装"></a>Google Chrome 不能在线安装 React 相关的插件，可下载离线版进行安装</h1><p>由于众所周知的原因，Google Chrome 不能访问应用商店，所以，不能在线安装 React Developer Tools、Redux DevTools、JetBrains IDE Support，不过网上有离线版可供下载，地址如下：</p>
+<ul>
+<li><a href="https://www.crx4chrome.com/crx/3068/" rel="external nofollow noopener noreferrer" target="_blank">React Developer Tools</a></li>
+<li><a href="https://www.crx4chrome.com/crx/18896/" rel="external nofollow noopener noreferrer" target="_blank">Redux DevTools</a></li>
+<li><a href="https://www.crx4chrome.com/crx/768/" rel="external nofollow noopener noreferrer" target="_blank">JetBrains IDE Support</a></li>
+</ul>
+<p>到<a href="https://www.crx4chrome.com" rel="external nofollow noopener noreferrer" target="_blank">crx4chrome</a>官网，还可以搜索扩展。</p>
+<h2 id="安装方式"><a href="#安装方式" class="headerlink" title="安装方式"></a>安装方式</h2><p>请参考<a href="/react/JetBrainsIDESupport.html">像用 IDEA 调试 Java 代码一样，用 WebStorm 调试 react 代码</a>，该文章有离线安装的详细讲解。</p>
+<h1 id="Redux-DevTools-调试，版本不兼容问题"><a href="#Redux-DevTools-调试，版本不兼容问题" class="headerlink" title="Redux DevTools 调试，版本不兼容问题"></a>Redux DevTools 调试，版本不兼容问题</h1><p>在<code>Google Chrome Version 70.0.3538.67 (Official Build) (64-bit)</code>安装Redux DevTools 2.15.1的离线版，结果报了很多错，错误直指Redux源码。在没有安装该插件的浏览器上可以正常运行。</p>
+<p>解决方式，安装最新版的<a href="https://www.crx4chrome.com/crx/18896/" rel="external nofollow noopener noreferrer" target="_blank">Redux DevTools 2.16.5</a>。</p>
+<h1 id="WebStorm-React-项目，配置-ESLint"><a href="#WebStorm-React-项目，配置-ESLint" class="headerlink" title="WebStorm + React 项目，配置 ESLint"></a>WebStorm + React 项目，配置 ESLint</h1><p><a href="/react/eslintConfig.html">传送门</a></p>
+<h1 id="依赖包版本"><a href="#依赖包版本" class="headerlink" title="依赖包版本"></a>依赖包版本</h1><p>在 <code>package.json</code> 这样定义 <code>&quot;eslint&quot;: &quot;^5.6.0&quot;,</code>，<code>cnpm i</code> 之后，实际上安装的是当前最新版本 <code>5.10.0</code>，运行 · 的时候，会得到以下提示：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">The react-scripts package provided by Create React App requires a dependency:</span><br><span class="line"></span><br><span class="line">  &quot;eslint&quot;: &quot;5.6.0&quot;</span><br><span class="line"></span><br><span class="line">Don&apos;t try to install it manually: your package manager does it automatically.</span><br><span class="line">However, a different version of eslint was detected higher up in the tree:</span><br><span class="line"></span><br><span class="line">  C:\workspace\react\react-full-stack-learning\node_modules\eslint (version: 5.10.0)</span><br></pre></td></tr></table></figure></p>
+<p>解决办法是，把版本号前面的 <code>^</code> 去掉，这样会精确匹配。</p>
+<p>关于版本号的定义，请自行百度。</p>
+<h1 id="npm-start-时，指定启动端口"><a href="#npm-start-时，指定启动端口" class="headerlink" title="npm start 时，指定启动端口"></a>npm start 时，指定启动端口</h1><p>以指定 91 端口为例</p>
+<ul>
+<li><p>windows</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;start&quot;: &quot;set PORT=91 &amp;&amp; react-scripts start&quot;,</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>linux</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;start&quot;: &quot;export PORT=91 &amp;&amp; react-scripts start&quot;,</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="macOS-下遇到的总是"><a href="#macOS-下遇到的总是" class="headerlink" title="macOS 下遇到的总是"></a>macOS 下遇到的总是</h2><p>npm start 之后，提示：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">? Admin permissions are required to run a server on a port below 1024.</span><br><span class="line">Would you like to run the app on another port instead? (Y/n)</span><br></pre></td></tr></table></figure></p>
+<p>这是因为非 root 用户，不允许在 1024 以下的端口运行项目。</p>
+<h2 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h2><ul>
+<li>想要在指定1024以下的端口运行，可以先 dudo -i 以 root 用户来运行 npm start。<ul>
+<li>执行 sudo -i 之后，会默认进入 root 根目录，要启动项目，还需要 cd 到项目的根目录下。</li>
+</ul>
+</li>
+<li>当然，不设置则用默认3000端口，或者设置为 1024 以上的端口最省事儿。</li>
+</ul>
+<h1 id="package-json-不能添加注释"><a href="#package-json-不能添加注释" class="headerlink" title="package.json 不能添加注释"></a>package.json 不能添加注释</h1><ul>
+<li>node 项目的 package.json 添加注释会报错。</li>
+<li>JSON 数据不支持注释，虽然某些解析器支持，但最好不要在 JSON 数据内容添加注释，否则遇到不支持的解析器，可能会花很多时间来找问题。</li>
+</ul>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-09-01T02:53:13.090Z" itemprop="dateUpdated">2020年9月1日 10:53</time>
+</span><br>
+
+
+        转载请注明出处：<a href="/react/reactExperience.html" target="_blank" rel="external">https://www.lovesofttech.com/react/reactExperience.html</a>
+    </div>
+    <footer>
+        <a href="https://www.lovesofttech.com">
+            <img src="/img/myLogo.jpg" alt="安迪陈">
+            安迪陈
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/experience/">experience</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/react/">react</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/redux/">redux</a></li></ul>
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/react/reactExperience.html&title=《react开发，日常经验汇总》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/react/reactExperience.html&title=《react开发，日常经验汇总》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=如题" data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/react/reactExperience.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《react开发，日常经验汇总》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/react/reactExperience.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/react/reactExperience.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/git/gitContributors.html" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">Git 用户名邮箱的全局配置和单仓库配置</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/react/JetBrainsIDESupport.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">像用 IDEA 调试 Java 代码一样，用 WebStorm 调试 react 代码</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+    
+    
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="bottom">
+        <p>
+            <span>安迪陈技术日志，架构、感悟、系统分析、团队管理 &copy; 2017 - 2020</span>
+            <span>
+                Power by <a href="https://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>&nbsp;
+                Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank" rel="external nofollow noopener noreferrer">indigo</a>
+            </span>
+            <span>
+                <a href="http://www.beian.miit.gov.cn" target="_blank" rel="external nofollow noopener noreferrer">蜀ICP备17041860号</a>
+            </span>
+            
+            <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            </p><p>
+                <span>
+                    统计始于：2019-03-06
+                </span>
+                <span id="busuanzi_container_site_uv" style="display:none">
+                    访客数：<span id="busuanzi_value_site_uv"></span>
+                </span>
+                <span id="busuanzi_container_site_pv" style="display:none">
+                    访问量：<span id="busuanzi_value_site_pv"></span>
+                </span>
+            
+            
+                <span class="post-count">累计字数：309.2k</span>
+            
+                <span><a href="/general/blogLog.html"><i class="fas fa-pen-alt"></i>&nbsp;博客日志</a></span>
+            </p>
+        <p></p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light" title="回到顶部"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/react/reactExperience.html&title=《react开发，日常经验汇总》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/react/reactExperience.html&title=《react开发，日常经验汇总》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=如题" data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/react/reactExperience.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《react开发，日常经验汇总》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/react/reactExperience.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/react/reactExperience.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACLUlEQVR42u3aQW7DMAwFUd//0u62hWt7PhkFkDRaBU0j63lBkBSPA6/zsn7/nX++2/n6lGPEkiFDxrSM83HdPeDu2+shTrzIzrdUGTJkbMAgoTBlk+DL93k5swwZMmRgRi1k8/+RIUOGjJSR7kMOLUOGDBmdIrZW0KbheHgtLkOGjAkZvOv+/c9D7jdkyJAxFaMWHPk+5NvaSf7sI0OGjKUZPMDx1n/aXKsFXBkyZOzMIKGQN9FImH45HE8WZciQsSiDt714IthJHNMX90+GK0OGjOUYtajFk7xPheBi602GDBlLMHjpmF4r8oYaJ92+FBkyZGzJqKV9fICsFqyL96syZMiYnDFu8IIXtJ3mXYsnQ4aMCRnPG3FYWr52wroMGTL2YaSAWiFaa9IFz5UhQ8bSjE5hWSt9+wFdhgwZ+zCCzLGWb+IrgdpoBZoZkSFDxuQM0srvh9H0V/xZMmTI2IdBml98tIKPq5LXV6TKkCFjA0Yn+KaBsjZwFk+RyJAhY3JGJxWrBdb+zqjpJkOGjOUY6RgE/1WNkb5iGTJk7MboFLFpMXyEKwi4MmTIWIJxhotfT44Ye0W5rQwZMpZjpGGu+ONS658cPT6PDBkypmXwdnwaHD/bwnv5rQwZMjZgBFVv2PrvjFa0anEZMmTIaLT7eSIYUGXIkCEDD2+lV5uc+vIsGTJkbMDgY6PP15P8IpO8uGAIQ4YMGUszOqUjT+bSa87OOKwMGTIWYvwA7Zzk89SmKWUAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.5.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.5.2" async></script>
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '安迪陈技术日志';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '欢迎回来';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

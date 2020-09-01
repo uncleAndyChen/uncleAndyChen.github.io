@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<!--<script async src="//hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c"></script>-->
+<!-- 统计-->
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var host = window.location.host;
+        var hm = document.createElement("script");
+
+        if (host.indexOf('gitee.io') > 0) { // https://uncleandychen.gitee.io/
+            hm.src = "https://hm.baidu.com/hm.js?0cf4709148b070b8082191d2e456a1a3";
+        } else if (host.indexOf('lovesofttech.com') > 0) { // https://www.lovesofttech.com/
+            hm.src = "https://hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c";
+        } else {
+            hm.src = '';
+        }
+
+        if (hm.src !== '') {
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        }
+    })();
+</script>
+<!-- End Baidu Tongji -->
+
+
+
+<!-- Baidu Push -->
+<!-- 主动推送百度爬虫-->
+<script>
+    (function(){
+        if (window.location.host.indexOf('lovesofttech.com') < 0) {
+            return;
+        }
+
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+<!-- End Baidu Push -->
+
+
+    <meta charset="utf-8">
+    
+    
+    <link rel="canonical" href="https://www.lovesofttech.com/windows/winOffice2016Uninstall.html">
+    
+    
+    <title>卸载 Office 2016 遇到的那些坑（完全干净的卸载 Office 2016） | 安迪陈技术日志，架构、感悟、系统分析、团队管理 | 自强不息，厚德载物</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="office">
+    <meta name="description" content="安装激活，请参考：office 2016 系列： office(Word,Excel,PowerPoint)/visio/project 安装并激活">
+<meta name="keywords" content="office">
+<meta property="og:type" content="article">
+<meta property="og:title" content="卸载 Office 2016 遇到的那些坑（完全干净的卸载 Office 2016）">
+<meta property="og:url" content="https://www.lovesofttech.com/windows/winOffice2016Uninstall.html">
+<meta property="og:site_name" content="安迪陈技术日志，架构、感悟、系统分析、团队管理">
+<meta property="og:description" content="安装激活，请参考：office 2016 系列： office(Word,Excel,PowerPoint)/visio/project 安装并激活">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2020-09-01T02:53:13.119Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="卸载 Office 2016 遇到的那些坑（完全干净的卸载 Office 2016）">
+<meta name="twitter:description" content="安装激活，请参考：office 2016 系列： office(Word,Excel,PowerPoint)/visio/project 安装并激活">
+    
+        <link rel="alternative" href="/atom.xml" title="安迪陈技术日志，架构、感悟、系统分析、团队管理" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=201912302211">
+    <link rel="stylesheet" href="/css/header.css?v=201912302211">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu">
+  <div class="inner flex-row-vertical">
+    <!--<i class="icon icon-lg icon-close"></i>-->
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off" title="隐藏左侧导航">﹤<i class="icon icon-lg icon-navicon"></i></a>
+    <div class="brand-wrap" style="background-image:url(/img/bannerBackgroundLeft.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/myLogo.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">安迪陈</h5>
+          <a href="mailto:andy@lovesofttech.com" title="andy@lovesofttech.com" class="mail" rel="external nofollow noopener noreferrer" target="_blank">andy@lovesofttech.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articleClassify.html">
+                <i class="icon icon-th-list"></i>
+                文章分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articles.html">
+                <i class="icon icon-th-list articles"></i>
+                文章列表
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/java.html">
+                <i class="icon icon-th-list java"></i>
+                Java
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/database.html">
+                <i class="icon icon-th-list database"></i>
+                MySQL/MyBatis
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/linux.html">
+                <i class="icon icon-th-list linux"></i>
+                CentOS/linux
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/react.html">
+                <i class="icon icon-th-list React"></i>
+                React
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/lnmp.html">
+                <i class="icon icon-th-list LNMP"></i>
+                LNMP
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/git.html">
+                <i class="icon icon-th-list git"></i>
+                git
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/windows.html">
+                <i class="icon icon-th-list windows"></i>
+                windows
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/dailyLives.html">
+                <i class="icon icon-th-list dailyLives"></i>
+                工作 &amp; 生活
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-github"></i>
+                我的 github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://gitee.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link"></i>
+                我的 gitee
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://blog.csdn.net/runAndRun" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link CSDN"></i>
+                我的 CSDN
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/aboutMe.html">
+                <i class="icon icon-address-card"></i>
+                关于我
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+
+        <div class="navbar navbar-custom navbar-fixed-top">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" style="margin-left:10px;" id="menu-toggle" title="显示左侧导航"><i class="icon icon-lg icon-navicon"></i>﹥</a>
+            <ul class="nav navbar-nav navbar-right" id="navMenuTop">
+                <li>
+                    <a href="/">主页</a>
+                </li>
+                
+                    
+                        <li>
+                            <a href="/articleClassify.html" title="本博客的文章分类列表">文章分类</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/articles.html" title="本博客的所有文章列表">文章列表</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/java.html" title="Java 开发，文章目录">Java</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/database.html" title="日常开发中有关 MySQL、MyBatis 的一些经验总结">MySQL/MyBatis</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/linux.html" title="CentOS/linux，文章目录">CentOS/linux</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/react.html" title="React 技术栈（全家桶）学习心得分享，文章目录">React</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/about.html">关于</a>
+                        </li>
+                    
+                
+            </ul>
+        </div>
+
+        <div class="flex-col header-title ellipsis">卸载 Office 2016 遇到的那些坑（完全干净的卸载 Office 2016）</div>
+        
+        <div class="search-wrap" id="search-wrap" style="z-index: 2;">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back" style="width:33px;">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search" style="width:33px;">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare" style="z-index: 3;margin-right: 10px; width:30px;">
+                <i class="icon icon-lg icon-share-alt"></i>
+            </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h2 class="title">卸载 Office 2016 遇到的那些坑（完全干净的卸载 Office 2016）</h2>
+        <h5 class="subtitle">
+            
+                <time datetime="2019-05-26T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2019-05-27
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/office/">office</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap" id="index-container">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc" style="z-index: 3;">
+            <h4><i class="fa fa-list-alt"></i>&nbsp;&nbsp;本文目录</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#现象"><span class="post-toc-number">1.</span> <span class="post-toc-text">现象</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#尝试"><span class="post-toc-number">2.</span> <span class="post-toc-text">尝试</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#解决"><span class="post-toc-number">3.</span> <span class="post-toc-text">解决</span></a></li></ol>
+        </nav>
+    </aside>
+    
+
+<article id="post-windows/winOffice2016Uninstall" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">卸载 Office 2016 遇到的那些坑（完全干净的卸载 Office 2016）</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2019年05月27日 0:00" datetime="2019-05-26T16:00:00.000Z" itemprop="datePublished">2019-05-27</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/office/">office</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" style="display:none">
+    阅读量：<span id="busuanzi_value_page_pv"></span>次
+</span>
+
+
+    <span>|</span>
+    <span class="post-count">字数：801</span>
+    <span>|</span>
+    <span class="post-count">阅读时长：大约2分钟</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>安装激活，请参考：<a href="/windows/winOffice2016Active.html">office 2016 系列： office(Word,Excel,PowerPoint)/visio/project 安装并激活</a><br><a id="more"></a></p>
+<h1 id="现象"><a href="#现象" class="headerlink" title="现象"></a>现象</h1><p>参照上面链接（安装并激活）已经安装了 Office 2016，打开一个同事给的 ppt 时提示字体缺失并且部分内容显示不全。被告之是用 wps 编辑的，用 wps 可以正常打开和编辑，于是乎安装了 wps，然后：</p>
+<ol>
+<li>打开 Word 文档时，莫名其妙的提示有问题，每次打开都是这样，而且还不能保存文件，一保存就提示要另存为，但另存为也还是不行。</li>
+<li><p>打开 Visio 则提示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Microsoft Visio</span><br><span class="line">---------------------------</span><br><span class="line">An unspecified error occurred.</span><br><span class="line">---------------------------</span><br><span class="line">OK</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Excel 的现象是，不能输入任何字符。</p>
+</li>
+</ol>
+<ul>
+<li>当然，不知道是不是因为安装了 wps 之后才这样的，因为平时也不怎么用 office 系列软件，是过了好长一段时间要用 Word/Visio/Excel 的时候才发现有问题的。</li>
+<li>这里得说明一下，wps 是一款很棒的国产软件，在移动端有很好的表现，还能自动保存阅读过的文件（大小有限制）。</li>
+<li>也许只是 wps 跟 Office 2016 这个版本有冲突吧。</li>
+</ul>
+<h1 id="尝试"><a href="#尝试" class="headerlink" title="尝试"></a>尝试</h1><p>于是开始了漫长的卸载和重装（踩坑） Office 2016 之旅。</p>
+<ol>
+<li>卸载 wps，很顺利。</li>
+<li>在控制面板用自带的卸载程序，打开之后，一直停留在一共4步中的第一步。索性有一次下班时没关机专门运行卸载 Office 2016 的程序，但不幸的是，直到第二天上班，还停留在第一步。</li>
+<li>用腾讯的软件管家卸载，转了几下圈儿之后，安静了，程序列表依然还有。</li>
+<li>先不管了，又过了几天，再去控制面板操作，现象也是转几下圈儿就安静了，程序列表依然还是有。</li>
+<li>好吧，那就不卸载了，重新安装。安装过程跟新安装一样，但是还是不能正常使用，问题依旧。</li>
+<li>安装 64 位版本，提示已经安装了 32 位版本了。说明还是没有卸载干净。</li>
+</ol>
+<p>不知道跟使用破解版是否有关系。<br>后来百度，发现好多人都遇到过，卸载不干净，重新安装时会出错。</p>
+<h1 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h1><p>参考官网：<a href="https://support.office.com/zh-cn/article/%E4%BB%8E-PC-%E5%8D%B8%E8%BD%BD-Office-9dd49b83-264a-477a-8fcc-2fdf5dbf61d8?ui=zh-CN&amp;rs=zh-CN&amp;ad=CN" rel="external nofollow noopener noreferrer" target="_blank">从 PC 卸载 Office</a></p>
+<p>最终的解决办法是，使用微软官方提供的一个完全卸载 office 的 小工具，<strong>相当好使</strong>，用它卸载之后重启电脑，重新安装 64 位，熟悉的 Office 系列软件又能正常使用了，啦啦啦~~~，心情大好，赶紧记录下来，以防以后遇到同样的问题时手足无措，同时也希望能帮到大家。</p>
+<p><a href="https://aka.ms/SaRA-officeUninstallFromPC" rel="external nofollow noopener noreferrer" target="_blank">微软官网，卸载工具下载链接</a></p>
+<p>由于众所周知的网速问题，这里友情提供下载：</p>
+<ul>
+<li><a href="https://pan.baidu.com/s/1CCk3b-3P3jbcrOXr23FkcA" rel="external nofollow noopener noreferrer" target="_blank">百度网盘链接</a> </li>
+<li>提取码: <code>87th</code></li>
+</ul>
+<p>有两个文件：</p>
+<ul>
+<li><code>SetupProd_OffScrub.exe</code>：从官方下载到的版本。</li>
+<li><code>office2016-uninstall-assistant.diagcab</code>：是我从网友提供的网盘下载的版本，用于卸载 Office 2016 以及 Visio 2016 绝对没问题，杠杠的。没有验证其它版本的 Office 的卸载情况，从官网的介绍来看，应该通吃才对。</li>
+</ul>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-09-01T02:53:13.119Z" itemprop="dateUpdated">2020年9月1日 10:53</time>
+</span><br>
+
+
+        转载请注明出处：<a href="/windows/winOffice2016Uninstall.html" target="_blank" rel="external">https://www.lovesofttech.com/windows/winOffice2016Uninstall.html</a>
+    </div>
+    <footer>
+        <a href="https://www.lovesofttech.com">
+            <img src="/img/myLogo.jpg" alt="安迪陈">
+            安迪陈
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/office/">office</a></li></ul>
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/windows/winOffice2016Uninstall.html&title=《卸载 Office 2016 遇到的那些坑（完全干净的卸载 Office 2016）》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/windows/winOffice2016Uninstall.html&title=《卸载 Office 2016 遇到的那些坑（完全干净的卸载 Office 2016）》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=安装激活，请参考：office 2016 系列： office(Word,Excel,PowerPoint)/visio/project 安装并激活" data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/windows/winOffice2016Uninstall.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《卸载 Office 2016 遇到的那些坑（完全干净的卸载 Office 2016）》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/windows/winOffice2016Uninstall.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/windows/winOffice2016Uninstall.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/redis/general.html" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">redis5.0.5 在 CentOS7 上的安装和使用</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/git/repoChangeUser.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">git 仓库从一个用户下迁移到另外一个用户下，包含提交历史</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+    
+    
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="bottom">
+        <p>
+            <span>安迪陈技术日志，架构、感悟、系统分析、团队管理 &copy; 2017 - 2020</span>
+            <span>
+                Power by <a href="https://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>&nbsp;
+                Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank" rel="external nofollow noopener noreferrer">indigo</a>
+            </span>
+            <span>
+                <a href="http://www.beian.miit.gov.cn" target="_blank" rel="external nofollow noopener noreferrer">蜀ICP备17041860号</a>
+            </span>
+            
+            <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            </p><p>
+                <span>
+                    统计始于：2019-03-06
+                </span>
+                <span id="busuanzi_container_site_uv" style="display:none">
+                    访客数：<span id="busuanzi_value_site_uv"></span>
+                </span>
+                <span id="busuanzi_container_site_pv" style="display:none">
+                    访问量：<span id="busuanzi_value_site_pv"></span>
+                </span>
+            
+            
+                <span class="post-count">累计字数：309.2k</span>
+            
+                <span><a href="/general/blogLog.html"><i class="fas fa-pen-alt"></i>&nbsp;博客日志</a></span>
+            </p>
+        <p></p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light" title="回到顶部"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/windows/winOffice2016Uninstall.html&title=《卸载 Office 2016 遇到的那些坑（完全干净的卸载 Office 2016）》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/windows/winOffice2016Uninstall.html&title=《卸载 Office 2016 遇到的那些坑（完全干净的卸载 Office 2016）》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=安装激活，请参考：office 2016 系列： office(Word,Excel,PowerPoint)/visio/project 安装并激活" data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/windows/winOffice2016Uninstall.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《卸载 Office 2016 遇到的那些坑（完全干净的卸载 Office 2016）》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/windows/winOffice2016Uninstall.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/windows/winOffice2016Uninstall.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACrklEQVR42u3awa4aMRAEQP7/p8k1UrJO99jmoaj2hGDBrj3Ypmder/h6x9fv989+If/NYxceHh7e0ak/3fPnkOvh8+muH00+Zzw8PLzbvPUwT0OuMeuprO9s5/P4Ph4eHt4X89bvRIt4cB7Gw8PD+7957Sj5HPDw8PC+gTc7+Laxxfr9H85a8PDw8GJeXkX6ntdX6nt4eHh4RxsC2gP0zsE631r+MVs8PDy8C7x8ojuH2vaw3hbG1vPEw8PDu8drw9w82G3j11ls8TgKHh4e3gXefjg7e0z5hlFsA20wgYeHh1fykrL9bANYP5SdNoWikQsPDw/vAi9f9NtIog0Xrtfu8PDw8C7A8iPyflvV/ujR0RwPDw/vMm8WK8wOxO2IbfPBa2cwPDw8vFGXVP7nv42AdyKM9nfw8PDwbvPaxqlkmT613Oef1mEuHh4e3og3Ky+1R/D8yqcePXQ8PDy8a7wbg7WxRb5tFEEGHh4e3kd47SE7iTOSQ3ZyBK83Jzw8PLyjvFkUOwtzZyFFW3L7S+sAHh4e3gVeW+7Ku0NPFduG2xgeHh7eZV4by56KDGZbzkd7yvDw8PDi4duy1qzY3wYWeQyNh4eH90leEtrmgP22g1nDFh4eHt4N3qwAlrQFzOLX/SawxzIYHh4e3gVevj3UbU9Bu1Ub/hbfwsPDw7vGa8v8ySE7DxfewTUMQfDw8PA+wmsnlIcOO61Xsy0HDw8P7yzvXV51CSreeHZKbo+f4uHh4V3gtYvvGtAu3Ddeb+0teHh4eDEvjwCSCHXWjrATQ9T1PTw8PLxDvDrD2JjisJS103SFh4eH96O89g//2aU/Kbbh4eHhfRuvxeTlsfaeaIZ4eHh413jtkp3HAbPv5mWzaGPAw8PDO8qbNTa17QKzaHgn4MDDw8O7wPsFI1yIvSqiuKsAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.5.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.5.2" async></script>
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '安迪陈技术日志';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '欢迎回来';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

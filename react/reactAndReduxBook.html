@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<!--<script async src="//hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c"></script>-->
+<!-- 统计-->
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var host = window.location.host;
+        var hm = document.createElement("script");
+
+        if (host.indexOf('gitee.io') > 0) { // https://uncleandychen.gitee.io/
+            hm.src = "https://hm.baidu.com/hm.js?0cf4709148b070b8082191d2e456a1a3";
+        } else if (host.indexOf('lovesofttech.com') > 0) { // https://www.lovesofttech.com/
+            hm.src = "https://hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c";
+        } else {
+            hm.src = '';
+        }
+
+        if (hm.src !== '') {
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        }
+    })();
+</script>
+<!-- End Baidu Tongji -->
+
+
+
+<!-- Baidu Push -->
+<!-- 主动推送百度爬虫-->
+<script>
+    (function(){
+        if (window.location.host.indexOf('lovesofttech.com') < 0) {
+            return;
+        }
+
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+<!-- End Baidu Push -->
+
+
+    <meta charset="utf-8">
+    
+    
+    <link rel="canonical" href="https://www.lovesofttech.com/react/reactAndReduxBook.html">
+    
+    
+    <title>《深入浅出React和Redux》一书的部分章节例子代码演练及相关知识点 | 安迪陈技术日志，架构、感悟、系统分析、团队管理 | 自强不息，厚德载物</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="react,redux">
+    <meta name="description" content="如题">
+<meta name="keywords" content="react,redux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《深入浅出React和Redux》一书的部分章节例子代码演练及相关知识点">
+<meta property="og:url" content="https://www.lovesofttech.com/react/reactAndReduxBook.html">
+<meta property="og:site_name" content="安迪陈技术日志，架构、感悟、系统分析、团队管理">
+<meta property="og:description" content="如题">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2020-09-01T02:53:13.089Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="《深入浅出React和Redux》一书的部分章节例子代码演练及相关知识点">
+<meta name="twitter:description" content="如题">
+    
+        <link rel="alternative" href="/atom.xml" title="安迪陈技术日志，架构、感悟、系统分析、团队管理" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=201912302211">
+    <link rel="stylesheet" href="/css/header.css?v=201912302211">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu">
+  <div class="inner flex-row-vertical">
+    <!--<i class="icon icon-lg icon-close"></i>-->
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off" title="隐藏左侧导航">﹤<i class="icon icon-lg icon-navicon"></i></a>
+    <div class="brand-wrap" style="background-image:url(/img/bannerBackgroundLeft.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/myLogo.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">安迪陈</h5>
+          <a href="mailto:andy@lovesofttech.com" title="andy@lovesofttech.com" class="mail" rel="external nofollow noopener noreferrer" target="_blank">andy@lovesofttech.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articleClassify.html">
+                <i class="icon icon-th-list"></i>
+                文章分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articles.html">
+                <i class="icon icon-th-list articles"></i>
+                文章列表
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/java.html">
+                <i class="icon icon-th-list java"></i>
+                Java
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/database.html">
+                <i class="icon icon-th-list database"></i>
+                MySQL/MyBatis
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/linux.html">
+                <i class="icon icon-th-list linux"></i>
+                CentOS/linux
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/react.html">
+                <i class="icon icon-th-list React"></i>
+                React
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/lnmp.html">
+                <i class="icon icon-th-list LNMP"></i>
+                LNMP
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/git.html">
+                <i class="icon icon-th-list git"></i>
+                git
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/windows.html">
+                <i class="icon icon-th-list windows"></i>
+                windows
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/dailyLives.html">
+                <i class="icon icon-th-list dailyLives"></i>
+                工作 &amp; 生活
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-github"></i>
+                我的 github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://gitee.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link"></i>
+                我的 gitee
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://blog.csdn.net/runAndRun" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link CSDN"></i>
+                我的 CSDN
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/aboutMe.html">
+                <i class="icon icon-address-card"></i>
+                关于我
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+
+        <div class="navbar navbar-custom navbar-fixed-top">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" style="margin-left:10px;" id="menu-toggle" title="显示左侧导航"><i class="icon icon-lg icon-navicon"></i>﹥</a>
+            <ul class="nav navbar-nav navbar-right" id="navMenuTop">
+                <li>
+                    <a href="/">主页</a>
+                </li>
+                
+                    
+                        <li>
+                            <a href="/articleClassify.html" title="本博客的文章分类列表">文章分类</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/articles.html" title="本博客的所有文章列表">文章列表</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/java.html" title="Java 开发，文章目录">Java</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/database.html" title="日常开发中有关 MySQL、MyBatis 的一些经验总结">MySQL/MyBatis</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/linux.html" title="CentOS/linux，文章目录">CentOS/linux</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/react.html" title="React 技术栈（全家桶）学习心得分享，文章目录">React</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/about.html">关于</a>
+                        </li>
+                    
+                
+            </ul>
+        </div>
+
+        <div class="flex-col header-title ellipsis">《深入浅出React和Redux》一书的部分章节例子代码演练及相关知识点</div>
+        
+        <div class="search-wrap" id="search-wrap" style="z-index: 2;">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back" style="width:33px;">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search" style="width:33px;">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare" style="z-index: 3;margin-right: 10px; width:30px;">
+                <i class="icon icon-lg icon-share-alt"></i>
+            </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h2 class="title">《深入浅出React和Redux》一书的部分章节例子代码演练及相关知识点</h2>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-11-24T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2018-11-25
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/react/">react</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/react/redux/">redux</a></li></ul></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap" id="index-container">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc" style="z-index: 3;">
+            <h4><i class="fa fa-list-alt"></i>&nbsp;&nbsp;本文目录</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#对应源码项目地址"><span class="post-toc-number">1.</span> <span class="post-toc-text">对应源码项目地址</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#前言"><span class="post-toc-number">2.</span> <span class="post-toc-text">前言</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#PropTypes-依赖变化"><span class="post-toc-number">3.</span> <span class="post-toc-text">PropTypes 依赖变化</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#第二章，分支-controlpanel"><span class="post-toc-number">4.</span> <span class="post-toc-text">第二章，分支 controlpanel</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#知识点"><span class="post-toc-number">4.1.</span> <span class="post-toc-text">知识点</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#第二章，分支-controlpanel-with-summary"><span class="post-toc-number">5.</span> <span class="post-toc-text">第二章，分支 controlpanel_with_summary</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#知识点-1"><span class="post-toc-number">5.1.</span> <span class="post-toc-text">知识点</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#第三章，分支-react-redux"><span class="post-toc-number">6.</span> <span class="post-toc-text">第三章，分支 react-redux</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#知识点-2"><span class="post-toc-number">6.1.</span> <span class="post-toc-text">知识点</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#第四章，分支-todo-controlled-component"><span class="post-toc-number">7.</span> <span class="post-toc-text">第四章，分支 todo_controlled_component</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#知识点-3"><span class="post-toc-number">7.1.</span> <span class="post-toc-text">知识点</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#代码文件组织结构"><span class="post-toc-number">7.1.1.</span> <span class="post-toc-text">代码文件组织结构</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#确定模块的边界。"><span class="post-toc-number">7.1.2.</span> <span class="post-toc-text">确定模块的边界。</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#状态树的设计"><span class="post-toc-number">7.1.3.</span> <span class="post-toc-text">状态树的设计</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#combineReducers"><span class="post-toc-number">7.1.4.</span> <span class="post-toc-text">combineReducers</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#bindActionCreators"><span class="post-toc-number">7.1.5.</span> <span class="post-toc-text">bindActionCreators</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#代码修改及完善"><span class="post-toc-number">7.2.</span> <span class="post-toc-text">代码修改及完善</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#警告-Warning-A-component-is-changing-an-uncontrolled-input-of-type-checkbox-to-be-controlled…"><span class="post-toc-number">7.2.1.</span> <span class="post-toc-text">警告 Warning: A component is changing an uncontrolled input of type checkbox to be controlled…</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#解决"><span class="post-toc-number">7.2.1.1.</span> <span class="post-toc-text">解决</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#a-标签的-href-属性只是-会引发的警告"><span class="post-toc-number">7.2.2.</span> <span class="post-toc-text">a 标签的 href 属性只是 # 会引发的警告</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#解决-1"><span class="post-toc-number">7.2.2.1.</span> <span class="post-toc-text">解决</span></a></li></ol></li></ol></li></ol></li></ol>
+        </nav>
+    </aside>
+    
+
+<article id="post-react/reactAndReduxBook" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">《深入浅出React和Redux》一书的部分章节例子代码演练及相关知识点</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018年11月25日 0:00" datetime="2018-11-24T16:00:00.000Z" itemprop="datePublished">2018-11-25</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/react/">react</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/react/redux/">redux</a></li></ul></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" style="display:none">
+    阅读量：<span id="busuanzi_value_page_pv"></span>次
+</span>
+
+
+    <span>|</span>
+    <span class="post-count">字数：2.3k</span>
+    <span>|</span>
+    <span class="post-count">阅读时长：大约9分钟</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>如题<br><a id="more"></a></p>
+<h1 id="对应源码项目地址"><a href="#对应源码项目地址" class="headerlink" title="对应源码项目地址"></a>对应源码项目地址</h1><ul>
+<li>托管在 github 上的项目链接：<a href="https://github.com/uncleAndyChen/react-full-stack-learning" rel="external nofollow noopener noreferrer" target="_blank">https://github.com/uncleAndyChen/react-full-stack-learning</a></li>
+<li>托管在 gitee 上的项目链接 ：<a href="https://gitee.com/uncleAndyChen/react-full-stack-learning" rel="external nofollow noopener noreferrer" target="_blank">https://gitee.com/uncleAndyChen/react-full-stack-learning</a></li>
+</ul>
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>针对《深入浅出React和Redux》一书中，某一个被挑选的例子，完成之后，会创建一个相应的分支。  </p>
+<ol>
+<li><strong>在原书代码的基础上，把相关依赖升级到当前最新版（截止 2018-11-06）。</strong><ul>
+<li>react v16.6.0</li>
+<li>redux v4.0.1</li>
+<li>react-redux v5.1.0</li>
+</ul>
+</li>
+<li><a href="https://github.com/mocheng/react-and-redux" rel="external nofollow noopener noreferrer" target="_blank">《深入浅出React和Redux》原书例子代码，传送门</a></li>
+<li>第一章代码位于 chapter-01，第二章的代码位于  chapter-02，依次类推。</li>
+<li>子目录名即为分支名，如第四章代码目录下的子目录：<code>todo_controlled_component</code>，会有一个对应分支也叫 <code>todo_controlled_component</code>。</li>
+</ol>
+<h1 id="PropTypes-依赖变化"><a href="#PropTypes-依赖变化" class="headerlink" title="PropTypes 依赖变化"></a>PropTypes 依赖变化</h1><p>react 的类型检查 PropTypes 自 React v15.5 起已弃用，请使用 prop-types。<br>《深入浅出React和Redux》一书示例代码使用的 react 是 15.4.1 版本，需要调整 PropTypes 的引用：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// 书中的代码是</span><br><span class="line">import &#123; PropTypes &#125; from &apos;react&apos;;</span><br><span class="line">// 要改为：</span><br><span class="line">import PropTypes from &apos;prop-types&apos;;</span><br></pre></td></tr></table></figure></p>
+<p>扩展阅读：<a href="https://react.docschina.org/docs/typechecking-with-proptypes.html" rel="external nofollow noopener noreferrer" target="_blank">使用 PropTypes 进行类型检查</a></p>
+<h1 id="第二章，分支-controlpanel"><a href="#第二章，分支-controlpanel" class="headerlink" title="第二章，分支 controlpanel"></a>第二章，分支 controlpanel</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># 切换至该分支</span><br><span class="line">git checkout controlpanel</span><br><span class="line">git pull</span><br></pre></td></tr></table></figure>
+<h2 id="知识点"><a href="#知识点" class="headerlink" title="知识点"></a>知识点</h2><ol>
+<li>组件。</li>
+<li>组件的 state、props。</li>
+<li>父组件通过 props 向子组件传递数据。</li>
+</ol>
+<h1 id="第二章，分支-controlpanel-with-summary"><a href="#第二章，分支-controlpanel-with-summary" class="headerlink" title="第二章，分支 controlpanel_with_summary"></a>第二章，分支 controlpanel_with_summary</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># 切换至该分支</span><br><span class="line">git checkout controlpanel_with_summary</span><br><span class="line">git pull</span><br></pre></td></tr></table></figure>
+<h2 id="知识点-1"><a href="#知识点-1" class="headerlink" title="知识点"></a>知识点</h2><ol>
+<li>组件的 props，父组件向子组件传递数据，包括传递函数。</li>
+<li>子组件通过调用父组件的函数，来达到向父组件传递数据的目的。</li>
+</ol>
+<h1 id="第三章，分支-react-redux"><a href="#第三章，分支-react-redux" class="headerlink" title="第三章，分支 react-redux"></a>第三章，分支 react-redux</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># 切换至该分支</span><br><span class="line">git checkout react-redux</span><br><span class="line">git pull</span><br></pre></td></tr></table></figure>
+<p>到项目根目录，添加 redux 和 react-redux 依赖。<br>以下操作会添加最新版的 redux（截止 2018-11-06，版本为：4.0.1） 和 react-redux（截止 2018-11-06，版本为：5.1.0）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cnpm i redux --save</span><br><span class="line">cnpm i react-redux --save</span><br></pre></td></tr></table></figure></p>
+<p>如果不事先添加 redux 依赖而直接添加 react-redux 依赖，会有警告：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">peerDependencies WARNING react-redux@* requires a peer of redux@^2.0.0 || ^3.0.0 || ^4.0.0-0 but none was installed</span><br></pre></td></tr></table></figure></p>
+<h2 id="知识点-2"><a href="#知识点-2" class="headerlink" title="知识点"></a>知识点</h2><ol>
+<li>UI 组件（presentational component）（傻瓜组件） </li>
+<li>容器组件（container component）</li>
+<li>应用 redux 的三大原则</li>
+<li>redux 库：const store = createStore(reducer, initValues)</li>
+<li>React-Redux 库<ul>
+<li>connect(mapStateToProps, mapDispatchToProps)(componentName)</li>
+<li>mapStateToProps</li>
+<li>mapDispatchToProps</li>
+</ul>
+</li>
+</ol>
+<p>相关知识点，已经总结到文档：<a href="/react/redux">React 技术栈学习，redux 知识点</a></p>
+<h1 id="第四章，分支-todo-controlled-component"><a href="#第四章，分支-todo-controlled-component" class="headerlink" title="第四章，分支 todo_controlled_component"></a>第四章，分支 todo_controlled_component</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># 切换至该分支</span><br><span class="line">git checkout todo_controlled_component</span><br><span class="line">git pull</span><br></pre></td></tr></table></figure>
+<h2 id="知识点-3"><a href="#知识点-3" class="headerlink" title="知识点"></a>知识点</h2><h3 id="代码文件组织结构"><a href="#代码文件组织结构" class="headerlink" title="代码文件组织结构"></a>代码文件组织结构</h3><p>推荐按照功能组织与角色组织的混合方式。具体请参考：<a href="/react/reactReduxDirectoryStructure">React+Redux工程目录结构，最佳实践</a></p>
+<h3 id="确定模块的边界。"><a href="#确定模块的边界。" class="headerlink" title="确定模块的边界。"></a>确定模块的边界。</h3><p>参考《深入浅出React和Redux》P75-81。</p>
+<ol>
+<li>把一个目录看做一个模块，那么我们要做的是明确这个模块对外的接口，而这个接口应该实现把内部封装起来。</li>
+<li>目录下人 index.js 文件，就是我们的模块接口。</li>
+<li>各个模块之间只能假设其他模块包含 index.js 文件，要引用模块只能导入 index.js，不能够直接去导入其他文件。</li>
+<li>导人一个目录的时候，默认导人的就是这个目录下的 index.js 文件， index.js 文件中导出的内容，就是这个模块想要公开出来的接口。</li>
+<li>推荐使用 export（命名式）的方式导出模块，而不是用 export default（默认）的方式，因为 export default 在导入时，会增加代码量。</li>
+</ol>
+<h3 id="状态树的设计"><a href="#状态树的设计" class="headerlink" title="状态树的设计"></a>状态树的设计</h3><p>参考《深入浅出React和Redux》P81-83。</p>
+<ol>
+<li>一个模块控制一个状态节点。 </li>
+<li>避免冗余数据。</li>
+<li>树形结构扁平。</li>
+<li>只能通过 reducer 纯函数修改 state，不能直接修改 state。<ul>
+<li>所以，push 和 unshift 会改变原来那个数组，是不能直接作用于 state 的。</li>
+<li>利用扩展操作符。</li>
+</ul>
+</li>
+</ol>
+<h3 id="combineReducers"><a href="#combineReducers" class="headerlink" title="combineReducers"></a>combineReducers</h3><ul>
+<li>利用 combineReducers 可以把多个只针对局部状态的“小的”reducer 合并为一个操纵整个状态树的“大的“ reducer。</li>
+<li>更妙的是，没有两个”小的“ reducer 会发生冲突，因为无论怎么组合，状态树上一个子状态都只会被一个 reducer 处理，Redux 就是用这种方法隔绝了各个模块。</li>
+<li><p>很明显，无论我们有多少“小的” reducer，也无论如何组合，都不用在乎它们被因为调用的顺序，因为调用顺序和结果没有关系。</p>
+</li>
+<li><p>随着应用变得复杂，需要对 reducer 函数进行拆分，拆分后的每一块独立负责管理 state 的一部分。</p>
+</li>
+<li>combineReducers 辅助函数的作用是，把一个由多个不同 reducer 函数作为 value 的 object，合并成一个最终的 reducer 函数，然后就可以对这个 reducer 调用 createStore。</li>
+<li>合并后的 reducer 可以调用各个子 reducer，并把它们的结果合并成一个 state 对象。state 对象的结构由传入的多个 reducer 的 key 决定。</li>
+<li><p>最终，state 对象的结构会是这样的：</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  todos: ...</span><br><span class="line">  filter: ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>通过为传入对象的 reducer 命名不同来控制 state key 的命名。例如，你可以调用 combineReducers({ todos: todoReducer, filter: filterReducer }) 将 state 结构变为 { todos, counter }。</p>
+</li>
+<li>个人认为，更好的做法是直接用 reducer 名作为 state 的 key，使用 ES6 的简写方法：combineReducers({ todos, filter })。这与 combineReducers({ todos: todoReducer, filter: filterReducer }) 产生的 state 结果是一样的。</li>
+</ul>
+<p>关于 state key 的使用，实际开发过程中还需要注意些什么呢？看笔者总结的踩坑经验：<a href="./redux.md#stateKey">state 的 key</a></p>
+<h3 id="bindActionCreators"><a href="#bindActionCreators" class="headerlink" title="bindActionCreators"></a>bindActionCreators</h3><p>把原来笨重的函数调用过程封装起来，使最终的业务代码更加优雅。</p>
+<h2 id="代码修改及完善"><a href="#代码修改及完善" class="headerlink" title="代码修改及完善"></a>代码修改及完善</h2><p>添加新的依赖<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cnpm i --save react-addons-perf</span><br><span class="line">...</span><br><span class="line">peerDependencies WARNING react-addons-perf@* requires a peer of react-dom@^15.4.2 but react-dom@16.6.0 was installed</span><br></pre></td></tr></table></figure></p>
+<p>意思是，需要 react v15.4.2 支持，所以，将 Store.js 修改如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">// 以下代码删除</span><br><span class="line">import Perf from &apos;react-addons-perf&apos;</span><br><span class="line">win.Perf = Perf;</span><br><span class="line">const middlewares = [];</span><br><span class="line">if (process.env.NODE_ENV !== &apos;production&apos;) &#123;</span><br><span class="line">  middlewares.push(require(&apos;redux-immutable-state-invariant&apos;)());</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const storeEnhancers = compose(</span><br><span class="line">  applyMiddleware(...middlewares),</span><br><span class="line">  (win &amp;&amp; win.devToolsExtension) ? win.devToolsExtension() : (f) =&gt; f,</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">export default createStore(reducer, &#123;&#125;, storeEnhancers);</span><br><span class="line">// 上一行代码改为</span><br><span class="line">export default createStore(reducer, &#123;&#125;, window.__REDUX_DEVTOOLS_EXTENSION__ &amp;&amp; window.__REDUX_DEVTOOLS_EXTENSION__());</span><br></pre></td></tr></table></figure></p>
+<p>createStore 第三个参数：<code>window.__REDUX_DEVTOOLS_EXTENSION__ &amp;&amp; window.__REDUX_DEVTOOLS_EXTENSION__()</code>，是为了支持 Redux DevTools 插件。 </p>
+<h3 id="警告-Warning-A-component-is-changing-an-uncontrolled-input-of-type-checkbox-to-be-controlled…"><a href="#警告-Warning-A-component-is-changing-an-uncontrolled-input-of-type-checkbox-to-be-controlled…" class="headerlink" title="警告 Warning: A component is changing an uncontrolled input of type checkbox to be controlled…"></a>警告 Warning: A component is changing an uncontrolled input of type checkbox to be controlled…</h3><p>完整的警告如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Warning: A component is changing an uncontrolled input of type checkbox to be controlled. </span><br><span class="line">Input elements should not switch from uncontrolled to controlled (or vice versa). </span><br><span class="line">Decide between using a controlled or uncontrolled input element for the lifetime of the component. </span><br><span class="line">More info: https://fb.me/react-controlled-components</span><br><span class="line">    in input (at todoItem.js:13)</span><br><span class="line">    in li (at todoItem.js:7)</span><br><span class="line">    in TodoItem (at todoList.js:14)</span><br><span class="line">    in ul (at todoList.js:11)</span><br><span class="line">    in TodoList (created by Connect(TodoList))</span><br><span class="line">    in Connect(TodoList) (at todos.js:11)</span><br><span class="line">    in div (at todos.js:9)</span><br><span class="line">    in Unknown (at TodoApp.js:8)</span><br><span class="line">    in div (at TodoApp.js:7)</span><br><span class="line">    in TodoApp (at src/index.js:10)</span><br><span class="line">    in Provider (at src/index.js:9)</span><br></pre></td></tr></table></figure></p>
+<p>这是因为 todoItem.js:13 代码中的 checkbox 的 checked 属性没有用 state 来记录，所以会警告，但这并不影响该示例的正常运行。<br>关于页面控件是否受控，以及相关问题，请看官方文档：<a href="https://reactjs.org/docs/forms.html#controlled-components" rel="external nofollow noopener noreferrer" target="_blank">Controlled Components</a></p>
+<h4 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h4><p>为了消除以上警告，同时，为了更方便理解 state 变化会引起页面的重新渲染，作如下修改：</p>
+<ol>
+<li>将 checkbox 的 onClick 事件删除，这样，点击 checkbox 控件不会有任何反应（checkbox 设置了只读属性）。</li>
+<li>将设置待办事项状态的点击事件放到 label 上，添加了 a 标签。<blockquote>
+<p>不过，a 标签的 href 属性只是 <code>#</code> 会引发另外的警告，这个下面再解决。</p>
+</blockquote>
+</li>
+<li>同时将 checkbox 的 checked 属性添加上去，其值就是待办事项的数据：currentState.completed，这是一个 bool 变量。</li>
+<li>将变量 <code>checkedProp</code> 定义行 <code>const checkedProp = completed ? {checked: true} : {};</code> 删除。<br>最后，关键代码如下： <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;input className=&quot;toggle&quot; type=&quot;checkbox&quot; checked=&#123;completed&#125; readOnly/&gt;</span><br><span class="line">&lt;label className=&quot;text&quot;&gt;&lt;a href=&quot;#&quot; onClick=&#123;onToggle&#125;&gt;&#123;text&#125;&lt;/a&gt;&lt;/label&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="a-标签的-href-属性只是-会引发的警告"><a href="#a-标签的-href-属性只是-会引发的警告" class="headerlink" title="a 标签的 href 属性只是 # 会引发的警告"></a>a 标签的 href 属性只是 <code>#</code> 会引发的警告</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">./src/todos/views/todoItem.js</span><br><span class="line">  Line 13:  The href attribute requires a valid value to be accessible. </span><br><span class="line">  Provide a valid, navigable address as the href value. </span><br><span class="line">  If you cannot provide a valid href, but still need the element to resemble a link, </span><br><span class="line">  use a button and change it with appropriate styles. </span><br><span class="line">  Learn more: https://github.com/evcohen/eslint-plugin-jsx-a11y/blob/master/docs/rules/anchor-is-valid.md  </span><br><span class="line">  jsx-a11y/anchor-is-valid</span><br></pre></td></tr></table></figure>
+<p>项目中用到的 Link 组件 <code>./src/filter/views/link.js</code> 也有同样的警告，一起修改。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">./src/filter/views/link.js</span><br><span class="line">  Line 11:  The href attribute requires a valid value to be accessible.</span><br><span class="line">  ...</span><br></pre></td></tr></table></figure></p>
+<h4 id="解决-1"><a href="#解决-1" class="headerlink" title="解决"></a>解决</h4><p>参照文章<a href="https://github.com/evcohen/eslint-plugin-jsx-a11y/blob/master/docs/rules/anchor-is-valid.md" rel="external nofollow noopener noreferrer" target="_blank">anchor-is-valid</a>，作如下调整：</p>
+<p>将 a 标签 <code>&lt;a href=&quot;#&quot; onClick={onToggle}&gt;{text}&lt;/a&gt;</code> 换成 button 控件，同时增加 button 相关的 style.css 文件放到 src 根目录下。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;button</span><br><span class="line">    type=&quot;button&quot;</span><br><span class="line">    className=&quot;link-button filter not-selected&quot;</span><br><span class="line">    onClick=&#123;(ev) =&gt; &#123;</span><br><span class="line">        ev.preventDefault();</span><br><span class="line">        onClick();</span><br><span class="line">    &#125;&#125;&gt;</span><br><span class="line">    &#123;children&#125;</span><br><span class="line">&lt;/button&gt;</span><br></pre></td></tr></table></figure></p>
+<p>将 link.js 组件中的 a 标签也换成 button，这里就不贴代码了，直接<a href="https://github.com/uncleAndyChen/react-full-stack-learning/blob/todo_controlled_component/src/filter/views/link.js" rel="external nofollow noopener noreferrer" target="_blank">看代码文件</a>吧。</p>
+<p>最后还有一个警告，在点击【添加】按钮的时候触发的，不过 chrome 浏览器才有该警告，QQ 浏览器没有，没再深入研究。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[Deprecation] Using unescaped &apos;#&apos; characters in a data URI body is deprecated and will be removed in M71, around December 2018. </span><br><span class="line">Please use &apos;%23&apos; instead. See https://www.chromestatus.com/features/5656049583390720 for more details.</span><br></pre></td></tr></table></figure></p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-09-01T02:53:13.089Z" itemprop="dateUpdated">2020年9月1日 10:53</time>
+</span><br>
+
+
+        转载请注明出处：<a href="/react/reactAndReduxBook.html" target="_blank" rel="external">https://www.lovesofttech.com/react/reactAndReduxBook.html</a>
+    </div>
+    <footer>
+        <a href="https://www.lovesofttech.com">
+            <img src="/img/myLogo.jpg" alt="安迪陈">
+            安迪陈
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/react/">react</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/redux/">redux</a></li></ul>
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/react/reactAndReduxBook.html&title=《《深入浅出React和Redux》一书的部分章节例子代码演练及相关知识点》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/react/reactAndReduxBook.html&title=《《深入浅出React和Redux》一书的部分章节例子代码演练及相关知识点》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=如题" data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/react/reactAndReduxBook.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《《深入浅出React和Redux》一书的部分章节例子代码演练及相关知识点》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/react/reactAndReduxBook.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/react/reactAndReduxBook.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/react/prepare.html" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">react 技术栈学习，相关知识储备</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/react/reactPropTypes.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">react 项目，在生产环境去掉 propTypes 检查代码，打包时自动去除</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+    
+    
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="bottom">
+        <p>
+            <span>安迪陈技术日志，架构、感悟、系统分析、团队管理 &copy; 2017 - 2020</span>
+            <span>
+                Power by <a href="https://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>&nbsp;
+                Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank" rel="external nofollow noopener noreferrer">indigo</a>
+            </span>
+            <span>
+                <a href="http://www.beian.miit.gov.cn" target="_blank" rel="external nofollow noopener noreferrer">蜀ICP备17041860号</a>
+            </span>
+            
+            <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            </p><p>
+                <span>
+                    统计始于：2019-03-06
+                </span>
+                <span id="busuanzi_container_site_uv" style="display:none">
+                    访客数：<span id="busuanzi_value_site_uv"></span>
+                </span>
+                <span id="busuanzi_container_site_pv" style="display:none">
+                    访问量：<span id="busuanzi_value_site_pv"></span>
+                </span>
+            
+            
+                <span class="post-count">累计字数：309.2k</span>
+            
+                <span><a href="/general/blogLog.html"><i class="fas fa-pen-alt"></i>&nbsp;博客日志</a></span>
+            </p>
+        <p></p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light" title="回到顶部"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/react/reactAndReduxBook.html&title=《《深入浅出React和Redux》一书的部分章节例子代码演练及相关知识点》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/react/reactAndReduxBook.html&title=《《深入浅出React和Redux》一书的部分章节例子代码演练及相关知识点》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=如题" data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/react/reactAndReduxBook.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《《深入浅出React和Redux》一书的部分章节例子代码演练及相关知识点》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/react/reactAndReduxBook.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/react/reactAndReduxBook.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACJElEQVR42u3aS26EQAwFwNz/0pNtomhazzYTCVOsUMI0XSyMP3x9xcfrx3G+5u95snJ+l9GBgYFxW8breLy7pko9r/DuESR7w8DAeA4jD6AJLzlPkMneMDAwMKrX5CH7qvtiYGBg9ILsef2EioGBgdErYnvF6iR9/EgtjoGBcUNGr33/P+cfmW9gYGDcivEqHpOUMd9oeVcYGBirGXmAS0aP5+urY8vyfjAwMFYz8o0mjEmpWX1YzSUwMDBuxeh9+FUNkUmrrjd4+JXhYmBgLGVMGv3Jpqsh+yNvDAwMjEWMPOGblKznxzH51BUDA2Mr47xc3uKvjgqq5WtUxGJgYDyGkbfJrvpV8y3xtxbHwMBYzaimg9UEsVoklyMqBgbGakZv6Dj/gOwjw1EMDIyHMc5BczLsTPr5vZ4/BgbGbka1cZ8ncJOV8xCMgYGxm5F/nlUdcOYBd56kYmBg7GY0069WKz8vdyejAgwMjN2M3qCxip808qrjUgwMjE2MamssTyiTwFodA7xdDQMD4wGM/Ab5xxC9Irba4MPAwHgOo5cg5qE231z1kWFgYOxmvIpH0vAatfXnSSEGBsY6xqQRdu1/r2r2YWBgbGXkQXbe4p802gq1OAYGxlLGZJD5n2+AaL6BgYGB0QuIxW2Vgz4GBgZGK5gmY4PqiPTtbzEwMB7A6A0Dkk9L87+MhqAYGBirGdXS8Zy65Q8iTyuvagJiYGDckPENCD9+TExTMFEAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.5.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.5.2" async></script>
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '安迪陈技术日志';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '欢迎回来';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

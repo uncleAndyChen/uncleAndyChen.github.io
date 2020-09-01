@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<!--<script async src="//hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c"></script>-->
+<!-- 统计-->
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var host = window.location.host;
+        var hm = document.createElement("script");
+
+        if (host.indexOf('gitee.io') > 0) { // https://uncleandychen.gitee.io/
+            hm.src = "https://hm.baidu.com/hm.js?0cf4709148b070b8082191d2e456a1a3";
+        } else if (host.indexOf('lovesofttech.com') > 0) { // https://www.lovesofttech.com/
+            hm.src = "https://hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c";
+        } else {
+            hm.src = '';
+        }
+
+        if (hm.src !== '') {
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        }
+    })();
+</script>
+<!-- End Baidu Tongji -->
+
+
+
+<!-- Baidu Push -->
+<!-- 主动推送百度爬虫-->
+<script>
+    (function(){
+        if (window.location.host.indexOf('lovesofttech.com') < 0) {
+            return;
+        }
+
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+<!-- End Baidu Push -->
+
+
+    <meta charset="utf-8">
+    
+    
+    <link rel="canonical" href="https://www.lovesofttech.com/redis/general.html">
+    
+    
+    <title>redis5.0.5 在 CentOS7 上的安装和使用 | 安迪陈技术日志，架构、感悟、系统分析、团队管理 | 自强不息，厚德载物</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="redis">
+    <meta name="description" content="介绍安装以及简单的配置。">
+<meta name="keywords" content="redis">
+<meta property="og:type" content="article">
+<meta property="og:title" content="redis5.0.5 在 CentOS7 上的安装和使用">
+<meta property="og:url" content="https://www.lovesofttech.com/redis/general.html">
+<meta property="og:site_name" content="安迪陈技术日志，架构、感悟、系统分析、团队管理">
+<meta property="og:description" content="介绍安装以及简单的配置。">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2020-09-01T02:53:13.093Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="redis5.0.5 在 CentOS7 上的安装和使用">
+<meta name="twitter:description" content="介绍安装以及简单的配置。">
+    
+        <link rel="alternative" href="/atom.xml" title="安迪陈技术日志，架构、感悟、系统分析、团队管理" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=201912302211">
+    <link rel="stylesheet" href="/css/header.css?v=201912302211">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu">
+  <div class="inner flex-row-vertical">
+    <!--<i class="icon icon-lg icon-close"></i>-->
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off" title="隐藏左侧导航">﹤<i class="icon icon-lg icon-navicon"></i></a>
+    <div class="brand-wrap" style="background-image:url(/img/bannerBackgroundLeft.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/myLogo.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">安迪陈</h5>
+          <a href="mailto:andy@lovesofttech.com" title="andy@lovesofttech.com" class="mail" rel="external nofollow noopener noreferrer" target="_blank">andy@lovesofttech.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articleClassify.html">
+                <i class="icon icon-th-list"></i>
+                文章分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articles.html">
+                <i class="icon icon-th-list articles"></i>
+                文章列表
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/java.html">
+                <i class="icon icon-th-list java"></i>
+                Java
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/database.html">
+                <i class="icon icon-th-list database"></i>
+                MySQL/MyBatis
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/linux.html">
+                <i class="icon icon-th-list linux"></i>
+                CentOS/linux
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/react.html">
+                <i class="icon icon-th-list React"></i>
+                React
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/lnmp.html">
+                <i class="icon icon-th-list LNMP"></i>
+                LNMP
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/git.html">
+                <i class="icon icon-th-list git"></i>
+                git
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/windows.html">
+                <i class="icon icon-th-list windows"></i>
+                windows
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/dailyLives.html">
+                <i class="icon icon-th-list dailyLives"></i>
+                工作 &amp; 生活
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-github"></i>
+                我的 github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://gitee.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link"></i>
+                我的 gitee
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://blog.csdn.net/runAndRun" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link CSDN"></i>
+                我的 CSDN
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/aboutMe.html">
+                <i class="icon icon-address-card"></i>
+                关于我
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+
+        <div class="navbar navbar-custom navbar-fixed-top">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" style="margin-left:10px;" id="menu-toggle" title="显示左侧导航"><i class="icon icon-lg icon-navicon"></i>﹥</a>
+            <ul class="nav navbar-nav navbar-right" id="navMenuTop">
+                <li>
+                    <a href="/">主页</a>
+                </li>
+                
+                    
+                        <li>
+                            <a href="/articleClassify.html" title="本博客的文章分类列表">文章分类</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/articles.html" title="本博客的所有文章列表">文章列表</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/java.html" title="Java 开发，文章目录">Java</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/database.html" title="日常开发中有关 MySQL、MyBatis 的一些经验总结">MySQL/MyBatis</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/linux.html" title="CentOS/linux，文章目录">CentOS/linux</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/react.html" title="React 技术栈（全家桶）学习心得分享，文章目录">React</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/about.html">关于</a>
+                        </li>
+                    
+                
+            </ul>
+        </div>
+
+        <div class="flex-col header-title ellipsis">redis5.0.5 在 CentOS7 上的安装和使用</div>
+        
+        <div class="search-wrap" id="search-wrap" style="z-index: 2;">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back" style="width:33px;">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search" style="width:33px;">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare" style="z-index: 3;margin-right: 10px; width:30px;">
+                <i class="icon icon-lg icon-share-alt"></i>
+            </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h2 class="title">redis5.0.5 在 CentOS7 上的安装和使用</h2>
+        <h5 class="subtitle">
+            
+                <time datetime="2019-05-29T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2019-05-30
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/redis/">redis</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap" id="index-container">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc" style="z-index: 3;">
+            <h4><i class="fa fa-list-alt"></i>&nbsp;&nbsp;本文目录</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Redis-安装"><span class="post-toc-number">1.</span> <span class="post-toc-text">Redis 安装</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#make-test"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">make test</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Redis-运行"><span class="post-toc-number">2.</span> <span class="post-toc-text">Redis 运行</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#检查后台进程是否正在运行"><span class="post-toc-number">3.</span> <span class="post-toc-text">检查后台进程是否正在运行</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#检测6379端口是否在监听"><span class="post-toc-number">4.</span> <span class="post-toc-text">检测6379端口是否在监听</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#退出redis服务器"><span class="post-toc-number">5.</span> <span class="post-toc-text">退出redis服务器</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#修改配置项"><span class="post-toc-number">6.</span> <span class="post-toc-text">修改配置项</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#protected-mode-属性"><span class="post-toc-number">6.1.</span> <span class="post-toc-text">protected-mode 属性</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#指定配置文件启动"><span class="post-toc-number">7.</span> <span class="post-toc-text">指定配置文件启动</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#开机启动"><span class="post-toc-number">8.</span> <span class="post-toc-text">开机启动</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#官网文档"><span class="post-toc-number">9.</span> <span class="post-toc-text">官网文档</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#windows-版"><span class="post-toc-number">10.</span> <span class="post-toc-text">windows 版</span></a></li></ol>
+        </nav>
+    </aside>
+    
+
+<article id="post-redis/general" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">redis5.0.5 在 CentOS7 上的安装和使用</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2019年05月30日 0:00" datetime="2019-05-29T16:00:00.000Z" itemprop="datePublished">2019-05-30</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/redis/">redis</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" style="display:none">
+    阅读量：<span id="busuanzi_value_page_pv"></span>次
+</span>
+
+
+    <span>|</span>
+    <span class="post-count">字数：1.4k</span>
+    <span>|</span>
+    <span class="post-count">阅读时长：大约7分钟</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>介绍安装以及简单的配置。<br><a id="more"></a></p>
+<h1 id="Redis-安装"><a href="#Redis-安装" class="headerlink" title="Redis 安装"></a>Redis 安装</h1><p>下载安装，进官网：<a href="https://redis.io/" rel="external nofollow noopener noreferrer" target="_blank">https://redis.io/</a></p>
+<p>建议将解压目录放到 /opt 下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@AndyCentOS7Basic ~]# wget http://download.redis.io/releases/redis-5.0.5.tar.gz</span><br><span class="line">[root@AndyCentOS7Basic ~]# tar xzf redis-5.0.5.tar.gz</span><br><span class="line">[root@AndyCentOS7Basic ~]# mv redis-5.0.5 /opt/</span><br></pre></td></tr></table></figure></p>
+<p>参照官网，安装步骤：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@AndyCentOS7Basic ~]# cd /opt/redis-5.0.5/</span><br><span class="line">[root@AndyCentOS7Basic ~]# make</span><br></pre></td></tr></table></figure></p>
+<h2 id="make-test"><a href="#make-test" class="headerlink" title="make test"></a>make test</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost redis-5.0.7]# make test</span><br><span class="line">cd src &amp;&amp; make test</span><br><span class="line">make[1]: Entering directory `/root/redis-5.0.7/src&apos;</span><br><span class="line">    CC Makefile.dep</span><br><span class="line">make[1]: Leaving directory `/root/redis-5.0.7/src&apos;</span><br><span class="line">make[1]: Entering directory `/root/redis-5.0.7/src&apos;</span><br><span class="line">You need tcl 8.5 or newer in order to run the Redis test</span><br><span class="line">make[1]: *** [test] Error 1</span><br><span class="line">make[1]: Leaving directory `/root/redis-5.0.7/src&apos;</span><br><span class="line">make: *** [test] Error 2</span><br></pre></td></tr></table></figure>
+<p>解决：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y tcl</span><br></pre></td></tr></table></figure></p>
+<h1 id="Redis-运行"><a href="#Redis-运行" class="headerlink" title="Redis 运行"></a>Redis 运行</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">[root@AndyCentOS7Basic ~]# /opt/redis-5.0.5/src/redis-server</span><br><span class="line">6105:C 30 May 2019 08:26:04.160 # oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo</span><br><span class="line">6105:C 30 May 2019 08:26:04.160 # Redis version=5.0.5, bits=64, commit=00000000, modified=0, pid=6105, just started</span><br><span class="line">6105:C 30 May 2019 08:26:04.160 # Warning: no config file specified, using the default config. In order to specify a config file use /opt/redis-5.0.5/src/redis-server /path/to/redis.conf</span><br><span class="line">6105:M 30 May 2019 08:26:04.161 * Increased maximum number of open files to 10032 (it was originally set to 1024).</span><br><span class="line">                _._                                                  </span><br><span class="line">           _.-``__ &apos;&apos;-._                                             </span><br><span class="line">      _.-``    `.  `_.  &apos;&apos;-._           Redis 5.0.5 (00000000/0) 64 bit</span><br><span class="line">  .-`` .-```.  ```\/    _.,_ &apos;&apos;-._                                   </span><br><span class="line"> (    &apos;      ,       .-`  | `,    )     Running in standalone mode</span><br><span class="line"> |`-._`-...-` __...-.``-._|&apos;` _.-&apos;|     Port: 6379</span><br><span class="line"> |    `-._   `._    /     _.-&apos;    |     PID: 6105</span><br><span class="line">  `-._    `-._  `-./  _.-&apos;    _.-&apos;                                   </span><br><span class="line"> |`-._`-._    `-.__.-&apos;    _.-&apos;_.-&apos;|                                  </span><br><span class="line"> |    `-._`-._        _.-&apos;_.-&apos;    |           http://redis.io        </span><br><span class="line">  `-._    `-._`-.__.-&apos;_.-&apos;    _.-&apos;                                   </span><br><span class="line"> |`-._`-._    `-.__.-&apos;    _.-&apos;_.-&apos;|                                  </span><br><span class="line"> |    `-._`-._        _.-&apos;_.-&apos;    |                                  </span><br><span class="line">  `-._    `-._`-.__.-&apos;_.-&apos;    _.-&apos;                                   </span><br><span class="line">      `-._    `-.__.-&apos;    _.-&apos;                                       </span><br><span class="line">          `-._        _.-&apos;                                           </span><br><span class="line">              `-.__.-&apos;                                               </span><br><span class="line"></span><br><span class="line">6105:M 30 May 2019 08:26:04.161 # WARNING: The TCP backlog setting of 511 cannot be enforced because /proc/sys/net/core/somaxconn is set to the lower value of 128.</span><br><span class="line">6105:M 30 May 2019 08:26:04.162 # Server initialized</span><br><span class="line">6105:M 30 May 2019 08:26:04.162 # WARNING overcommit_memory is set to 0! Background save may fail under low memory condition. To fix this issue add &apos;vm.overcommit_memory = 1&apos; to /etc/sysctl.conf and then reboot or run the command &apos;sysctl vm.overcommit_memory=1&apos; for this to take effect.</span><br><span class="line">6105:M 30 May 2019 08:26:04.162 # WARNING you have Transparent Huge Pages (THP) support enabled in your kernel. This will create latency and memory usage issues with Redis. To fix this issue run the command &apos;echo never &gt; /sys/kernel/mm/transparent_hugepage/enabled&apos; as root, and add it to your /etc/rc.local in order to retain the setting after a reboot. Redis must be restarted after THP is disabled.</span><br><span class="line">6105:M 30 May 2019 08:26:04.162 * Ready to accept connections</span><br></pre></td></tr></table></figure>
+<p>以后台程序方式运行:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@AndyCentOS7Basic ~]# /opt/redis-5.0.5/src/redis-server &amp;</span><br></pre></td></tr></table></figure></p>
+<h1 id="检查后台进程是否正在运行"><a href="#检查后台进程是否正在运行" class="headerlink" title="检查后台进程是否正在运行"></a>检查后台进程是否正在运行</h1><p>没有运行：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@AndyCentOS7Basic ~]# ps -ef |grep redis</span><br><span class="line">root      1726  1707  0 09:01 pts/1    00:00:00 grep --color=auto redis</span><br></pre></td></tr></table></figure></p>
+<p>运行后：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@AndyCentOS7Basic ~]# ps -ef |grep redis</span><br><span class="line">root      6105  1998  0 08:26 pts/2    00:00:00 /opt/redis-5.0.5/src/redis-server *:6379</span><br><span class="line">root      6127  6109  0 08:27 pts/3    00:00:00 grep --color=auto redis</span><br></pre></td></tr></table></figure></p>
+<h1 id="检测6379端口是否在监听"><a href="#检测6379端口是否在监听" class="headerlink" title="检测6379端口是否在监听"></a>检测6379端口是否在监听</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@AndyCentOS7Basic ~]# netstat -lntp | grep 6379</span><br><span class="line">tcp        0      0 0.0.0.0:6379            0.0.0.0:*               LISTEN      6130/redis-server * </span><br><span class="line">tcp6       0      0 :::6379                 :::*                    LISTEN      6130/redis-server *</span><br></pre></td></tr></table></figure>
+<h1 id="退出redis服务器"><a href="#退出redis服务器" class="headerlink" title="退出redis服务器"></a>退出redis服务器</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@AndyCentOS7Basic ~]# /opt/redis-5.0.5/src/redis-cli shutdown</span><br><span class="line">6130:M 30 May 2019 09:14:18.481 # User requested shutdown...</span><br><span class="line">6130:M 30 May 2019 09:14:18.481 * Saving the final RDB snapshot before exiting.</span><br><span class="line">6130:M 30 May 2019 09:14:18.548 * DB saved on disk</span><br><span class="line">6130:M 30 May 2019 09:14:18.548 # Redis is now ready to exit, bye bye...</span><br><span class="line">[1]+  Done                    /opt/redis-5.0.5/src/redis-server</span><br></pre></td></tr></table></figure>
+<p>因为Redis可以妥善处理SIGTERM信号，所以直接 <code>kill -9 PID</code> 也是可以的。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@AndyCentOS7Basic ~]# ps -ef |grep redis</span><br><span class="line">root      6199  1998  0 09:20 pts/2    00:00:00 /opt/redis-5.0.5/src/redis-server *:6379</span><br><span class="line">root      6205  1998  0 09:22 pts/2    00:00:00 grep --color=auto redis</span><br><span class="line">[root@AndyCentOS7Basic ~]# kill -9 6199</span><br><span class="line">[root@AndyCentOS7Basic ~]# ps -ef |grep redis</span><br><span class="line">root      6207  1998  0 09:22 pts/2    00:00:00 grep --color=auto redis</span><br><span class="line">[1]+  Killed                  /opt/redis-5.0.5/src/redis-server</span><br></pre></td></tr></table></figure></p>
+<p>redis 设置密码登录后，要用 <code>redis-cli</code> 关闭 redis 服务器，需要 <code>redis-cli -a 密码 shutdown</code> </p>
+<h1 id="修改配置项"><a href="#修改配置项" class="headerlink" title="修改配置项"></a>修改配置项</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /opt/redis-5.0.5/redis.conf</span><br></pre></td></tr></table></figure>
+<ol>
+<li>设置访问需要密码：<code># requirepass foobared</code> 改为：<code>requirepass andyRedisPass</code>，其中 <code>andyRedisPass</code> 为密码，改为你自己的密码。</li>
+<li><code>bind 127.0.0.1</code> 直接注释掉，改为：<code># bind 127.0.0.1</code></li>
+<li>将 <code>daemonize no</code> 改为 <code>daemonize yes</code>，作用是默认启动时为后台启动。</li>
+</ol>
+<h2 id="protected-mode-属性"><a href="#protected-mode-属性" class="headerlink" title="protected-mode 属性"></a>protected-mode 属性</h2><p>redis3.2 版本后新增 <code>protected-mode</code> 配置，默认是 <code>protected-mode yes</code>，即开启。<br>设置外部网络连接 redis 服务时，与该配置相关，如下：</p>
+<ol>
+<li>关闭 protected-mode 模式，即改为：<code>protected-mode no</code>，此时外部网络可以直接访问（连接）。</li>
+<li>开启 protected-mode 保护模式，需配置 bind ip 或者设置访问密码才能访问（连接）。</li>
+</ol>
+<h1 id="指定配置文件启动"><a href="#指定配置文件启动" class="headerlink" title="指定配置文件启动"></a>指定配置文件启动</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@AndyCentOS7Basic ~]# /opt/redis-5.0.5/src/redis-server /opt/redis-5.0.5/redis.conf &amp;</span><br><span class="line">[1] 6209</span><br><span class="line">[root@AndyCentOS7Basic ~]# 6209:C 30 May 2019 09:25:05.539 # oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo</span><br><span class="line">6209:C 30 May 2019 09:25:05.539 # Redis version=5.0.5, bits=64, commit=00000000, modified=0, pid=6209, just started</span><br><span class="line">6209:C 30 May 2019 09:25:05.539 # Configuration loaded</span><br><span class="line">[1]+  Done                    /opt/redis-5.0.5/src/redis-server /opt/redis-5.0.5/redis.conf</span><br><span class="line">[root@AndyCentOS7Basic ~]# ps -ef |grep redis</span><br><span class="line">root      6210     1  0 09:25 ?        00:00:00 /opt/redis-5.0.5/src/redis-server *:6379</span><br><span class="line">root      6215  1998  0 09:25 pts/2    00:00:00 grep --color=auto redis</span><br></pre></td></tr></table></figure>
+<h1 id="开机启动"><a href="#开机启动" class="headerlink" title="开机启动"></a>开机启动</h1><p>vim /lib/systemd/system/redis.service<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=Redis</span><br><span class="line">After=network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=forking</span><br><span class="line">PIDFile=/var/run/redis_6379.pid</span><br><span class="line">ExecStart=/opt/redis-5.0.7/src/redis-server /opt/redis-5.0.7/redis.conf</span><br><span class="line">ExecReload=/bin/kill -s HUP $MAINPID</span><br><span class="line">ExecStop=/bin/kill -s QUIT $MAINPID</span><br><span class="line">PrivateTmp=true</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure></p>
+<h1 id="官网文档"><a href="#官网文档" class="headerlink" title="官网文档"></a>官网文档</h1><p><a href="https://redis.io/documentation" rel="external nofollow noopener noreferrer" target="_blank">官方文档</a></p>
+<h1 id="windows-版"><a href="#windows-版" class="headerlink" title="windows 版"></a>windows 版</h1><p>下载地址：<a href="https://github.com/microsoftarchive/redis/releases" rel="external nofollow noopener noreferrer" target="_blank">https://github.com/microsoftarchive/redis/releases</a></p>
+<p>目前2016年7月份发布的 Redis-x64-3.2.100 版本为最新版，下载 Redis-x64-3.2.100.msi 文件，一路默认配置安装即可。安装之后，服务即已自动启动，可以连接。</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-09-01T02:53:13.093Z" itemprop="dateUpdated">2020年9月1日 10:53</time>
+</span><br>
+
+
+        转载请注明出处：<a href="/redis/general.html" target="_blank" rel="external">https://www.lovesofttech.com/redis/general.html</a>
+    </div>
+    <footer>
+        <a href="https://www.lovesofttech.com">
+            <img src="/img/myLogo.jpg" alt="安迪陈">
+            安迪陈
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/redis/">redis</a></li></ul>
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/redis/general.html&title=《redis5.0.5 在 CentOS7 上的安装和使用》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/redis/general.html&title=《redis5.0.5 在 CentOS7 上的安装和使用》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=介绍安装以及简单的配置。" data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/redis/general.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《redis5.0.5 在 CentOS7 上的安装和使用》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/redis/general.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/redis/general.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/redis/index.html" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">redis 文章目录</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/windows/winOffice2016Uninstall.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">卸载 Office 2016 遇到的那些坑（完全干净的卸载 Office 2016）</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+    
+    
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="bottom">
+        <p>
+            <span>安迪陈技术日志，架构、感悟、系统分析、团队管理 &copy; 2017 - 2020</span>
+            <span>
+                Power by <a href="https://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>&nbsp;
+                Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank" rel="external nofollow noopener noreferrer">indigo</a>
+            </span>
+            <span>
+                <a href="http://www.beian.miit.gov.cn" target="_blank" rel="external nofollow noopener noreferrer">蜀ICP备17041860号</a>
+            </span>
+            
+            <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            </p><p>
+                <span>
+                    统计始于：2019-03-06
+                </span>
+                <span id="busuanzi_container_site_uv" style="display:none">
+                    访客数：<span id="busuanzi_value_site_uv"></span>
+                </span>
+                <span id="busuanzi_container_site_pv" style="display:none">
+                    访问量：<span id="busuanzi_value_site_pv"></span>
+                </span>
+            
+            
+                <span class="post-count">累计字数：309.2k</span>
+            
+                <span><a href="/general/blogLog.html"><i class="fas fa-pen-alt"></i>&nbsp;博客日志</a></span>
+            </p>
+        <p></p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light" title="回到顶部"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/redis/general.html&title=《redis5.0.5 在 CentOS7 上的安装和使用》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/redis/general.html&title=《redis5.0.5 在 CentOS7 上的安装和使用》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=介绍安装以及简单的配置。" data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/redis/general.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《redis5.0.5 在 CentOS7 上的安装和使用》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/redis/general.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/redis/general.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACK0lEQVR42u3aQW7DMAwEwPz/0y7QU4G0xi7lFLA8OgVuY2l0YCiRr1c8ju/x15P3zz/H+7fOn7//9bKBgYFxW8ZxOv5izJD5RuRrw8DAeA6jnSaB5WG03T4MDAyMlaXn25HMgoGBgXFV6pZQj3JgYGBgzA6x58/XN+WfzuIYGBg3ZLSFgf/8/MH6BgYGxk0Yx2i0E8/eVqwHAwNja0Z+lZY3TJwnfLNDbxSIMTAwtma0i1s/UrahtihFYGBgbMpIgmCCTELtCrjeGwwMjO0YeRExKQysHFbbzcXAwHgCYxZY2/A6A+TvxMDA2JXRJoV5QEzSwfWWDgwMjCcw8mv9lRJCfuqcNYphYGDszciDXXsZ1745LxgUJQEMDIwtGHkQnKWAsyaz9v4fAwNjb0ZbgFxvDmuTyPMQPKyjYmBg3JDRXo0l/5kz8sPzsAaLgYFxc0Zyibb+fJYg1m1kGBgYj2G07RHt1Vt79V/UNzAwMB7AyOPYSmFy1oQRXQhiYGA8gNEmiHkK+FoYxTsxMDAew2gLliuFgbaQWTRYYGBgbMdYT8vaBq880M9+HjAwMHZiHOVICpBtkL1gszAwMLZmtIfJJFBGjVxBSpoHawwMjCcw2jaIBJlvyjCHzW/mMDAwNmLMFpdP1lLruTAwMDDKTLO9YmubWX9ZMwYGBkZczvzEoi8OuBgYGLdl5Atql3JVUeGyszgGBsYNGeuFgbwwmZcWPtIgi4GBcT/GF6dYA/GTfNRYAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.5.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.5.2" async></script>
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '安迪陈技术日志';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '欢迎回来';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

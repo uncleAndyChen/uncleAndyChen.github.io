@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<!--<script async src="//hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c"></script>-->
+<!-- 统计-->
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var host = window.location.host;
+        var hm = document.createElement("script");
+
+        if (host.indexOf('gitee.io') > 0) { // https://uncleandychen.gitee.io/
+            hm.src = "https://hm.baidu.com/hm.js?0cf4709148b070b8082191d2e456a1a3";
+        } else if (host.indexOf('lovesofttech.com') > 0) { // https://www.lovesofttech.com/
+            hm.src = "https://hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c";
+        } else {
+            hm.src = '';
+        }
+
+        if (hm.src !== '') {
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        }
+    })();
+</script>
+<!-- End Baidu Tongji -->
+
+
+
+<!-- Baidu Push -->
+<!-- 主动推送百度爬虫-->
+<script>
+    (function(){
+        if (window.location.host.indexOf('lovesofttech.com') < 0) {
+            return;
+        }
+
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+<!-- End Baidu Push -->
+
+
+    <meta charset="utf-8">
+    
+    
+    <link rel="canonical" href="https://www.lovesofttech.com/java/javaLibreOffice.html">
+    
+    
+    <title>Java 利用 LibreOffice/OpenOffice 将 Office 文档（.doc/.docx .ppt/.pptx ）转换成 PDF，进而转图片，实现在线预览功能 | 安迪陈技术日志，架构、感悟、系统分析、团队管理 | 自强不息，厚德载物</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="java,LibreOffice,OpenOffice,PDF">
+    <meta name="description" content="项目中需要将 Office 文档上传并实现在线预览，用到了 LibreOffice 将 Office 文档转换为 PDF 文档，然后再用 pdfbox 将 PDF 转为图片。 本文介绍借助 LibreOffice 将 Office 文当转换成 PDF 文档。 本文同样适用于 OpenOffice，以下仅以 LibreOffice 为例。">
+<meta name="keywords" content="java,LibreOffice,OpenOffice,PDF">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java 利用 LibreOffice&#x2F;OpenOffice 将 Office 文档（.doc&#x2F;.docx .ppt&#x2F;.pptx ）转换成 PDF，进而转图片，实现在线预览功能">
+<meta property="og:url" content="https://www.lovesofttech.com/java/javaLibreOffice.html">
+<meta property="og:site_name" content="安迪陈技术日志，架构、感悟、系统分析、团队管理">
+<meta property="og:description" content="项目中需要将 Office 文档上传并实现在线预览，用到了 LibreOffice 将 Office 文档转换为 PDF 文档，然后再用 pdfbox 将 PDF 转为图片。 本文介绍借助 LibreOffice 将 Office 文当转换成 PDF 文档。 本文同样适用于 OpenOffice，以下仅以 LibreOffice 为例。">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2020-09-01T02:53:12.982Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java 利用 LibreOffice&#x2F;OpenOffice 将 Office 文档（.doc&#x2F;.docx .ppt&#x2F;.pptx ）转换成 PDF，进而转图片，实现在线预览功能">
+<meta name="twitter:description" content="项目中需要将 Office 文档上传并实现在线预览，用到了 LibreOffice 将 Office 文档转换为 PDF 文档，然后再用 pdfbox 将 PDF 转为图片。 本文介绍借助 LibreOffice 将 Office 文当转换成 PDF 文档。 本文同样适用于 OpenOffice，以下仅以 LibreOffice 为例。">
+    
+        <link rel="alternative" href="/atom.xml" title="安迪陈技术日志，架构、感悟、系统分析、团队管理" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=201912302211">
+    <link rel="stylesheet" href="/css/header.css?v=201912302211">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu">
+  <div class="inner flex-row-vertical">
+    <!--<i class="icon icon-lg icon-close"></i>-->
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off" title="隐藏左侧导航">﹤<i class="icon icon-lg icon-navicon"></i></a>
+    <div class="brand-wrap" style="background-image:url(/img/bannerBackgroundLeft.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/myLogo.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">安迪陈</h5>
+          <a href="mailto:andy@lovesofttech.com" title="andy@lovesofttech.com" class="mail" rel="external nofollow noopener noreferrer" target="_blank">andy@lovesofttech.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articleClassify.html">
+                <i class="icon icon-th-list"></i>
+                文章分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articles.html">
+                <i class="icon icon-th-list articles"></i>
+                文章列表
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/java.html">
+                <i class="icon icon-th-list java"></i>
+                Java
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/database.html">
+                <i class="icon icon-th-list database"></i>
+                MySQL/MyBatis
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/linux.html">
+                <i class="icon icon-th-list linux"></i>
+                CentOS/linux
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/react.html">
+                <i class="icon icon-th-list React"></i>
+                React
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/lnmp.html">
+                <i class="icon icon-th-list LNMP"></i>
+                LNMP
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/git.html">
+                <i class="icon icon-th-list git"></i>
+                git
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/windows.html">
+                <i class="icon icon-th-list windows"></i>
+                windows
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/dailyLives.html">
+                <i class="icon icon-th-list dailyLives"></i>
+                工作 &amp; 生活
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-github"></i>
+                我的 github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://gitee.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link"></i>
+                我的 gitee
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://blog.csdn.net/runAndRun" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link CSDN"></i>
+                我的 CSDN
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/aboutMe.html">
+                <i class="icon icon-address-card"></i>
+                关于我
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+
+        <div class="navbar navbar-custom navbar-fixed-top">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" style="margin-left:10px;" id="menu-toggle" title="显示左侧导航"><i class="icon icon-lg icon-navicon"></i>﹥</a>
+            <ul class="nav navbar-nav navbar-right" id="navMenuTop">
+                <li>
+                    <a href="/">主页</a>
+                </li>
+                
+                    
+                        <li>
+                            <a href="/articleClassify.html" title="本博客的文章分类列表">文章分类</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/articles.html" title="本博客的所有文章列表">文章列表</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/java.html" title="Java 开发，文章目录">Java</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/database.html" title="日常开发中有关 MySQL、MyBatis 的一些经验总结">MySQL/MyBatis</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/linux.html" title="CentOS/linux，文章目录">CentOS/linux</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/react.html" title="React 技术栈（全家桶）学习心得分享，文章目录">React</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/about.html">关于</a>
+                        </li>
+                    
+                
+            </ul>
+        </div>
+
+        <div class="flex-col header-title ellipsis">Java 利用 LibreOffice/OpenOffice 将 Office 文档（.doc/.docx .ppt/.pptx ）转换成 PDF，进而转图片，实现在线预览功能</div>
+        
+        <div class="search-wrap" id="search-wrap" style="z-index: 2;">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back" style="width:33px;">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search" style="width:33px;">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare" style="z-index: 3;margin-right: 10px; width:30px;">
+                <i class="icon icon-lg icon-share-alt"></i>
+            </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h2 class="title">Java 利用 LibreOffice/OpenOffice 将 Office 文档（.doc/.docx .ppt/.pptx ）转换成 PDF，进而转图片，实现在线预览功能</h2>
+        <h5 class="subtitle">
+            
+                <time datetime="2020-02-22T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2020-02-23
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/java/">java</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/java/LibreOffice/">LibreOffice</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/java/LibreOffice/OpenOffice/">OpenOffice</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/java/LibreOffice/OpenOffice/PDF/">PDF</a></li></ul></li></ul></li></ul></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap" id="index-container">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc" style="z-index: 3;">
+            <h4><i class="fa fa-list-alt"></i>&nbsp;&nbsp;本文目录</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#前言"><span class="post-toc-number">1.</span> <span class="post-toc-text">前言</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Java-利用-LibreOffice-将-Office-文档转换成-PDF"><span class="post-toc-number">2.</span> <span class="post-toc-text">Java 利用 LibreOffice 将 Office 文档转换成 PDF</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#异步转换"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">异步转换</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#同步转换"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">同步转换</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#完整代码"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">完整代码</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#添加依赖（仅同步方式需要）"><span class="post-toc-number">2.3.1.</span> <span class="post-toc-text">添加依赖（仅同步方式需要）</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#在-resources-目录添加-libre-properties-文件（仅同步方式需要）"><span class="post-toc-number">2.3.2.</span> <span class="post-toc-text">在 resources 目录添加 libre.properties 文件（仅同步方式需要）</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#转换类-LibreOfficeUtil"><span class="post-toc-number">2.3.3.</span> <span class="post-toc-text">转换类 LibreOfficeUtil</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#OfficeManagerInstance（仅同步方式需要）"><span class="post-toc-number">2.3.4.</span> <span class="post-toc-text">OfficeManagerInstance（仅同步方式需要）</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#参考"><span class="post-toc-number">3.</span> <span class="post-toc-text">参考</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#遇到的坑"><span class="post-toc-number">4.</span> <span class="post-toc-text">遇到的坑</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#附：libreoffice6-3-转换帮助文档"><span class="post-toc-number">5.</span> <span class="post-toc-text">附：libreoffice6.3 转换帮助文档</span></a></li></ol>
+        </nav>
+    </aside>
+    
+
+<article id="post-java/javaLibreOffice" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Java 利用 LibreOffice/OpenOffice 将 Office 文档（.doc/.docx .ppt/.pptx ）转换成 PDF，进而转图片，实现在线预览功能</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2020年02月23日 0:00" datetime="2020-02-22T16:00:00.000Z" itemprop="datePublished">2020-02-23</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/java/">java</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/java/LibreOffice/">LibreOffice</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/java/LibreOffice/OpenOffice/">OpenOffice</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/java/LibreOffice/OpenOffice/PDF/">PDF</a></li></ul></li></ul></li></ul></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" style="display:none">
+    阅读量：<span id="busuanzi_value_page_pv"></span>次
+</span>
+
+
+    <span>|</span>
+    <span class="post-count">字数：2.6k</span>
+    <span>|</span>
+    <span class="post-count">阅读时长：大约13分钟</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <ul>
+<li>项目中需要将 Office 文档上传并实现在线预览，用到了 LibreOffice 将 Office 文档转换为 PDF 文档，然后再用 pdfbox 将 PDF 转为图片。</li>
+<li>本文介绍借助 LibreOffice 将 Office 文当转换成 PDF 文档。</li>
+<li>本文同样适用于 OpenOffice，以下仅以 LibreOffice 为例。</li>
+</ul>
+<a id="more"></a>
+<p>相关文章 </p>
+<ul>
+<li>配置 LibreOffice 环境：<a href="/linux/centOS7LibreOffice.html">CentOS7 安装配置 LibreOffice 6.3.4.2 以及安装 windows 自带中文字体</a></li>
+<li>将 PDF 转换为图片：<a href="/java/javaPdfToImage.html">Java 利用 pdfbox 将 PDF 转换为图片</a></li>
+</ul>
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><ul>
+<li>为了实现 Office 文档上传并实现在线预览功能，我试了 POI 和收费库 aspose，均不理想。</li>
+<li>但是将 PDF 转换为图片有成熟的方案，于是，问题变成了：如何将 Office 文档转换成 PDF。</li>
+<li>LibreOffice 可将 Office 文当转换成 PDF文件，并且效果非常棒，和通过微软的 Office 直接另存为 PDF 文件的效果几乎一样。针对在线预览的需求，效果是最好的，也许是最好的解决方案。</li>
+<li>不过，前提是需要在服务器上安装 LibreOffice，为了测试，开发环境也需要安装，不过，好的是 LibreOffice 跨平台。<blockquote>
+<p>尝试通过 LibreOffice 将 Office 文档直接转换成图片，可惜只得到第一页的内容，查看帮助，没有找到直接转换为图片的方法。</p>
+</blockquote>
+</li>
+</ul>
+<h1 id="Java-利用-LibreOffice-将-Office-文档转换成-PDF"><a href="#Java-利用-LibreOffice-将-Office-文档转换成-PDF" class="headerlink" title="Java 利用 LibreOffice 将 Office 文档转换成 PDF"></a>Java 利用 LibreOffice 将 Office 文档转换成 PDF</h1><p>有两种转换方式，各有优劣，请自行选择。</p>
+<h2 id="异步转换"><a href="#异步转换" class="headerlink" title="异步转换"></a>异步转换</h2><p>通过调用操作系统命令的方式实现，这个转换是异步的，根据文件的大小需要的时间不确定，如果在上传之后就要立即预览，需要用同步方式。</p>
+<ul>
+<li>优点：实现方式简单，不需要额外配置信息，不需要添加第三方依赖库（当然 LibreOffice 是必须要安装的）。</li>
+<li>缺点：发送指令之后，转换是否成功，是否有异常，无法获知，也就是说，转换是否成功，是不确定的。当然，通过严格的测试，一般还是可以保证转换的可靠性的。</li>
+</ul>
+<h2 id="同步转换"><a href="#同步转换" class="headerlink" title="同步转换"></a>同步转换</h2><p>用到了 JodConverter：<a href="https://github.com/sbraconnier/jodconverter" rel="external nofollow noopener noreferrer" target="_blank">https://github.com/sbraconnier/jodconverter</a></p>
+<ul>
+<li>优点：转换是同步的，转换成功与否是确定的。</li>
+<li>缺点：代码运行期需要启动 LibreOffice 服务，需要占用操作系统资源，相对于异步转换方式，需要依赖第三方库，需要额外配置信息。</li>
+</ul>
+<h2 id="完整代码"><a href="#完整代码" class="headerlink" title="完整代码"></a>完整代码</h2><h3 id="添加依赖（仅同步方式需要）"><a href="#添加依赖（仅同步方式需要）" class="headerlink" title="添加依赖（仅同步方式需要）"></a>添加依赖（仅同步方式需要）</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.jodconverter&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;jodconverter-local&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;4.2.4&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="在-resources-目录添加-libre-properties-文件（仅同步方式需要）"><a href="#在-resources-目录添加-libre-properties-文件（仅同步方式需要）" class="headerlink" title="在 resources 目录添加 libre.properties 文件（仅同步方式需要）"></a>在 resources 目录添加 libre.properties 文件（仅同步方式需要）</h3><p>内容如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># LibreOffice主目录</span><br><span class="line">libreOfficeHome=C:/dev/LibreOffice6.4</span><br><span class="line"># 开启多个LibreOffice进程，每个端口对应一个进程</span><br><span class="line"># portNumbers=2002,2003</span><br><span class="line">portNumbers=2002</span><br><span class="line"># 任务执行超时为5分钟</span><br><span class="line">taskExecutionTimeoutMinutes=5</span><br><span class="line"># 任务队列超时为1小时</span><br><span class="line">taskQueueTimeoutHours=1</span><br></pre></td></tr></table></figure></p>
+<h3 id="转换类-LibreOfficeUtil"><a href="#转换类-LibreOfficeUtil" class="headerlink" title="转换类 LibreOfficeUtil"></a>转换类 LibreOfficeUtil</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.demo;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.example.factory.OfficeManagerInstance;</span><br><span class="line"><span class="keyword">import</span> org.jodconverter.JodConverter;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.File;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LibreOfficeUtil</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 利用 JodConverter 将 Offfice 文档转换为 PDF（要依赖 LibreOffice），该转换为同步转换，返回时就已经转换完成</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">convertOffice2PDFSyncIsSuccess</span><span class="params">(File sourceFile, File targetFile)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            OfficeManagerInstance.start();</span><br><span class="line">            JodConverter.convert(sourceFile).to(targetFile).execute();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 利用 LibreOffice 将 Office 文档转换成 PDF，该转换是异步的，返回时，转换可能还在进行中，转换是否有异常也未可知</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> filePath       目标文件地址</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> targetFilePath 输出文件夹</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 子线程执行完毕的返回值</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">convertOffice2PDFAsync</span><span class="params">(String filePath, String fileName, String targetFilePath)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        String command;</span><br><span class="line">        <span class="keyword">int</span> exitStatus;</span><br><span class="line">        String osName = System.getProperty(<span class="string">"os.name"</span>);</span><br><span class="line">        String outDir = targetFilePath.length() &gt; <span class="number">0</span> ? <span class="string">" --outdir "</span> + targetFilePath : <span class="string">""</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (osName.contains(<span class="string">"Windows"</span>)) &#123;</span><br><span class="line">            command = <span class="string">"cmd /c cd /d "</span> + filePath + <span class="string">" &amp;&amp; start soffice --headless --invisible --convert-to pdf ./"</span> + fileName + outDir;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            command = <span class="string">"libreoffice6.3 --headless --invisible --convert-to pdf:writer_pdf_Export "</span> + filePath + fileName + outDir;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        exitStatus = executeOSCommand(command);</span><br><span class="line">        <span class="keyword">return</span> exitStatus;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 调用操作系统的控制台，执行 command 指令</span></span><br><span class="line"><span class="comment">     * 执行该方法时，并没有等到指令执行完毕才返回，而是执行之后立即返回，返回结果为 0，只能说明正确的调用了操作系统的控制台指令，但执行结果如何，是否有异常，在这里是不能体现的，所以，更好的姿势是用同步转换功能。</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">executeOSCommand</span><span class="params">(String command)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        Process process;</span><br><span class="line">        process = Runtime.getRuntime().exec(command); <span class="comment">// 转换需要时间，比如一个 3M 左右的文档大概需要 8 秒左右，但实际测试时，并不会等转换结束才执行下一行代码，而是把执行指令发送出去后就立即执行下一行代码了。</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> exitStatus = process.waitFor();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (exitStatus == <span class="number">0</span>) &#123;</span><br><span class="line">            exitStatus = process.exitValue();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 销毁子进程</span></span><br><span class="line">        process.destroy();</span><br><span class="line">        <span class="keyword">return</span> exitStatus;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="OfficeManagerInstance（仅同步方式需要）"><a href="#OfficeManagerInstance（仅同步方式需要）" class="headerlink" title="OfficeManagerInstance（仅同步方式需要）"></a>OfficeManagerInstance（仅同步方式需要）</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.factory;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.jodconverter.office.LocalOfficeManager;</span><br><span class="line"><span class="keyword">import</span> org.jodconverter.office.OfficeManager;</span><br><span class="line"><span class="keyword">import</span> org.springframework.core.io.support.PropertiesLoaderUtils;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Component;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.annotation.PostConstruct;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.util.Properties;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * github https://github.com/uncleAndyChen</span></span><br><span class="line"><span class="comment"> * email andy@lovesofttech.com</span></span><br><span class="line"><span class="comment"> * homepage https://www.lovesofttech.com/</span></span><br><span class="line"><span class="comment"> * author andyChen</span></span><br><span class="line"><span class="comment"> * since 2020/02/29</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">OfficeManagerInstance</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> OfficeManager INSTANCE = <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">start</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        officeManagerStart();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@PostConstruct</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            Properties properties = PropertiesLoaderUtils.loadAllProperties(<span class="string">"libre.properties"</span>);</span><br><span class="line">            String[] portNumbers = properties.getProperty(<span class="string">"portNumbers"</span>, <span class="string">""</span>).split(<span class="string">","</span>);</span><br><span class="line">            <span class="keyword">int</span>[] ports = <span class="keyword">new</span> <span class="keyword">int</span>[portNumbers.length];</span><br><span class="line"></span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; portNumbers.length; i++) &#123;</span><br><span class="line">                ports[i] = Integer.parseInt(portNumbers[i]);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            LocalOfficeManager.Builder builder = LocalOfficeManager.builder().install();</span><br><span class="line">            builder.officeHome(properties.getProperty(<span class="string">"libreOfficeHome"</span>, <span class="string">""</span>));</span><br><span class="line">            builder.portNumbers(ports);</span><br><span class="line">            builder.taskExecutionTimeout(Integer.parseInt(properties.getProperty(<span class="string">"taskExecutionTimeoutMinutes"</span>, <span class="string">""</span>)) * <span class="number">1000</span> * <span class="number">60</span>); <span class="comment">// minute</span></span><br><span class="line">            builder.taskQueueTimeout(Integer.parseInt(properties.getProperty(<span class="string">"taskQueueTimeoutHours"</span>, <span class="string">""</span>)) * <span class="number">1000</span> * <span class="number">60</span> * <span class="number">60</span>); <span class="comment">// hour</span></span><br><span class="line"></span><br><span class="line">            INSTANCE = builder.build();</span><br><span class="line">            officeManagerStart();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">officeManagerStart</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (INSTANCE.isRunning()) &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            INSTANCE.start();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a href="https://github.com/sbraconnier/jodconverter/wiki/Getting-Started" rel="external nofollow noopener noreferrer" target="_blank">https://github.com/sbraconnier/jodconverter/wiki/Getting-Started</a><br><a href="https://github.com/sbraconnier/jodconverter/wiki/Configuration" rel="external nofollow noopener noreferrer" target="_blank">https://github.com/sbraconnier/jodconverter/wiki/Configuration</a><br><a href="https://github.com/sbraconnier/jodconverter/wiki/Java-Library" rel="external nofollow noopener noreferrer" target="_blank">https://github.com/sbraconnier/jodconverter/wiki/Java-Library</a></p>
+<h1 id="遇到的坑"><a href="#遇到的坑" class="headerlink" title="遇到的坑"></a>遇到的坑</h1><p>请移步：<a href="/java/runtimeOmittedForConflict.html">Maven 项目 jar 包依赖冲突导致运行期错误的排查方法</a></p>
+<h1 id="附：libreoffice6-3-转换帮助文档"><a href="#附：libreoffice6-3-转换帮助文档" class="headerlink" title="附：libreoffice6.3 转换帮助文档"></a>附：libreoffice6.3 转换帮助文档</h1><p>libreoffice6.3 转换文档的用法，官方没有详细的在线文档，通过 -h 可以查看到详细的帮助，已经可以满足开发所需。<br>例如将一个文件转换为 pdf ：<code>libreoffice6.3 --headless --invisible --convert-to pdf:writer_pdf_Export ./奇妙的记忆力.pptx</code>，后面可以指定保存 pdf 的目录，不指定就保存到当前目录。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br></pre></td><td class="code"><pre><span class="line">[root@ebs-60027 lib64]#  libreoffice6.3 -h</span><br><span class="line">Usage: soffice [argument...]</span><br><span class="line">       argument - switches, switch parameters and document URIs (filenames).   </span><br><span class="line"></span><br><span class="line">Using without special arguments:                                               </span><br><span class="line">Opens the start center, if it is used without any arguments.                   </span><br><span class="line">   &#123;file&#125;              Tries to open the file (files) in the components        </span><br><span class="line">                       suitable for them.                                      </span><br><span class="line">   &#123;file&#125; &#123;macro:///Library.Module.MacroName&#125;                                  </span><br><span class="line">                       Opens the file and runs specified macros from           </span><br><span class="line">                       the file.                                               </span><br><span class="line"></span><br><span class="line">Getting help and information:                                                  </span><br><span class="line">   --help | -h | -?    Shows this help and quits.                              </span><br><span class="line">   --helpwriter        Opens built-in or online Help on Writer.                </span><br><span class="line">   --helpcalc          Opens built-in or online Help on Calc.                  </span><br><span class="line">   --helpdraw          Opens built-in or online Help on Draw.                  </span><br><span class="line">   --helpimpress       Opens built-in or online Help on Impress.               </span><br><span class="line">   --helpbase          Opens built-in or online Help on Base.                  </span><br><span class="line">   --helpbasic         Opens built-in or online Help on Basic scripting        </span><br><span class="line">                       language.                                               </span><br><span class="line">   --helpmath          Opens built-in or online Help on Math.                  </span><br><span class="line">   --version           Shows the version and quits.                            </span><br><span class="line">   --nstemporarydirectory                                                      </span><br><span class="line">                       (MacOS X sandbox only) Returns path of the temporary    </span><br><span class="line">                       directory for the current user and exits. Overrides     </span><br><span class="line">                       all other arguments.                                    </span><br><span class="line"></span><br><span class="line">General arguments:                                                             </span><br><span class="line">   --quickstart[=no]   Activates[Deactivates] the Quickstarter service.        </span><br><span class="line">   --nolockcheck       Disables check for remote instances using one           </span><br><span class="line">                       installation.                                           </span><br><span class="line">   --infilter=&#123;filter&#125; Force an input filter type if possible. For example:    </span><br><span class="line">                       --infilter=&quot;Calc Office Open XML&quot;                     </span><br><span class="line">                       --infilter=&quot;Text (encoded):UTF8,LF,,,&quot;                </span><br><span class="line">   --pidfile=&#123;file&#125;    Store soffice.bin pid to &#123;file&#125;.                        </span><br><span class="line">   --display &#123;display&#125; Sets the DISPLAY environment variable on UNIX-like      </span><br><span class="line">                       platforms to the value &#123;display&#125; (only supported by a   </span><br><span class="line">                       start script).                                          </span><br><span class="line"></span><br><span class="line">User/programmatic interface control:                                           </span><br><span class="line">   --nologo            Disables the splash screen at program start.            </span><br><span class="line">   --minimized         Starts minimized. The splash screen is not displayed.   </span><br><span class="line">   --nodefault         Starts without displaying anything except the splash    </span><br><span class="line">                       screen (do not display initial window).                 </span><br><span class="line">   --invisible         Starts in invisible mode. Neither the start-up logo nor </span><br><span class="line">                       the initial program window will be visible. Application </span><br><span class="line">                       can be controlled, and documents and dialogs can be     </span><br><span class="line">                       controlled and opened via the API. Using the parameter, </span><br><span class="line">                       the process can only be ended using the taskmanager     </span><br><span class="line">                       (Windows) or the kill command (UNIX-like systems). It   </span><br><span class="line">                       cannot be used in conjunction with --quickstart.        </span><br><span class="line">   --headless          Starts in &quot;headless mode&quot; which allows using the      </span><br><span class="line">                       application without GUI. This special mode can be used  </span><br><span class="line">                       when the application is controlled by external clients  </span><br><span class="line">                       via the API.                                            </span><br><span class="line">   --norestore         Disables restart and file recovery after a system crash.</span><br><span class="line">   --safe-mode         Starts in a safe mode, i.e. starts temporarily with a   </span><br><span class="line">                       fresh user profile and helps to restore a broken        </span><br><span class="line">                       configuration.                                          </span><br><span class="line">   --accept=&#123;connect-string&#125;  Specifies a UNO connect-string to create a UNO   </span><br><span class="line">                       acceptor through which other programs can connect to    </span><br><span class="line">                       access the API. Note that API access allows execution   </span><br><span class="line">                       of arbitrary commands.                                  </span><br><span class="line">                       The syntax of the &#123;connect-string&#125; is:                  </span><br><span class="line">                         connection-type,params;protocol-name,params           </span><br><span class="line">                       e.g.  pipe,name=&#123;some name&#125;;urp                         </span><br><span class="line">                         or  socket,host=localhost,port=54321;urp              </span><br><span class="line">   --unaccept=&#123;connect-string&#125;  Closes an acceptor that was created with       </span><br><span class="line">                       --accept. Use --unaccept=all to close all acceptors.    </span><br><span class="line">   --language=&#123;lang&#125;   Uses specified language, if language is not selected    </span><br><span class="line">                       yet for UI. The lang is a tag of the language in IETF   </span><br><span class="line">                       language tag.                                           </span><br><span class="line"></span><br><span class="line">Developer arguments:                                                           </span><br><span class="line">   --terminate_after_init                                                      </span><br><span class="line">                       Exit after initialization complete (no documents loaded)</span><br><span class="line">   --eventtesting      Exit after loading documents.                           </span><br><span class="line"></span><br><span class="line">New document creation arguments:                                               </span><br><span class="line">The arguments create an empty document of specified kind. Only one of them may </span><br><span class="line">be used in one command line. If filenames are specified after an argument,     </span><br><span class="line">then it tries to open those files in the specified component.                  </span><br><span class="line">   --writer            Creates an empty Writer document.                       </span><br><span class="line">   --calc              Creates an empty Calc document.                         </span><br><span class="line">   --draw              Creates an empty Draw document.                         </span><br><span class="line">   --impress           Creates an empty Impress document.                      </span><br><span class="line">   --base              Creates a new database.                                 </span><br><span class="line">   --global            Creates an empty Writer master (global) document.       </span><br><span class="line">   --math              Creates an empty Math document (formula).               </span><br><span class="line">   --web               Creates an empty HTML document.                         </span><br><span class="line"></span><br><span class="line">File open arguments:                                                           </span><br><span class="line">The arguments define how following filenames are treated. New treatment begins </span><br><span class="line">after the argument and ends at the next argument. The default treatment is to  </span><br><span class="line">open documents for editing, and create new documents from document templates.  </span><br><span class="line">   -n                  Treats following files as templates for creation of new </span><br><span class="line">                       documents.                                              </span><br><span class="line">   -o                  Opens following files for editing, regardless whether   </span><br><span class="line">                       they are templates or not.                              </span><br><span class="line">   --pt &#123;Printername&#125;  Prints following files to the printer &#123;Printername&#125;,    </span><br><span class="line">                       after which those files are closed. The splash screen   </span><br><span class="line">                       does not appear. If used multiple times, only last      </span><br><span class="line">                       &#123;Printername&#125; is effective for all documents of all     </span><br><span class="line">                       --pt runs. Also, --printer-name argument of             </span><br><span class="line">                       --print-to-file switch interferes with &#123;Printername&#125;.   </span><br><span class="line">   -p                  Prints following files to the default printer, after    </span><br><span class="line">                       which those files are closed. The splash screen does    </span><br><span class="line">                       not appear. If the file name contains spaces, then it   </span><br><span class="line">                       must be enclosed in quotation marks.                    </span><br><span class="line">   --view              Opens following files in viewer mode (read-only).       </span><br><span class="line">   --show              Opens and starts the following presentation documents   </span><br><span class="line">                       of each immediately. Files are closed after the showing.</span><br><span class="line">                       Files other than Impress documents are opened in        </span><br><span class="line">                       default mode , regardless of previous mode.             </span><br><span class="line">   --convert-to OutputFileExtension[:OutputFilterName] \                      </span><br><span class="line">     [--outdir output_dir] [--convert-images-to]                               </span><br><span class="line">                       Batch convert files (implies --headless). If --outdir   </span><br><span class="line">                       isn&apos;t specified, then current working directory is used </span><br><span class="line">                       as output_dir. If --convert-images-to is given, its     </span><br><span class="line">                       parameter is taken as the target filter format for *all*</span><br><span class="line">                       images written to the output format. If --convert-to is </span><br><span class="line">                       used more than once, the last value of                  </span><br><span class="line">                       OutputFileExtension[:OutputFilterName] is effective. If </span><br><span class="line">                       --outdir is used more than once, only its last value is </span><br><span class="line">                       effective. For example:                                 </span><br><span class="line">                   --convert-to pdf *.odt                                      </span><br><span class="line">                   --convert-to epub *.doc                                     </span><br><span class="line">                   --convert-to pdf:writer_pdf_Export --outdir /home/user *.doc</span><br><span class="line">                   --convert-to &quot;html:XHTML Writer File:UTF8&quot; \             </span><br><span class="line">                                --convert-images-to &quot;jpg&quot; *.doc              </span><br><span class="line">                   --convert-to &quot;txt:Text (encoded):UTF8&quot; *.doc              </span><br><span class="line">   --print-to-file [--printer-name printer_name] [--outdir output_dir]         </span><br><span class="line">                       Batch print files to file. If --outdir is not specified,</span><br><span class="line">                       then current working directory is used as output_dir.   </span><br><span class="line">                       If --printer-name or --outdir used multiple times, only </span><br><span class="line">                       last value of each is effective. Also, &#123;Printername&#125; of </span><br><span class="line">                       --pt switch interferes with --printer-name.             </span><br><span class="line">   --cat               Dump text content of the following files to console     </span><br><span class="line">                       (implies --headless). Cannot be used with --convert-to. </span><br><span class="line">   --script-cat        Dump text content of any scripts embedded in the files  </span><br><span class="line">                       to console (implies --headless). Cannot be used with    </span><br><span class="line">                       --convert-to.                                           </span><br><span class="line">   -env:&lt;VAR&gt;[=&lt;VALUE&gt;] Set a bootstrap variable. For example: to set          </span><br><span class="line">                       a non-default user profile path:                        </span><br><span class="line">                       -env:UserInstallation=file:///tmp/test                  </span><br><span class="line"></span><br><span class="line">Ignored switches:                                                              </span><br><span class="line">   -psn                Ignored (MacOS X only).                                 </span><br><span class="line">   -Embedding          Ignored (COM+ related; Windows only).                   </span><br><span class="line">   --nofirststartwizard Does nothing, accepted only for backward compatibility.</span><br><span class="line">   --protector &#123;arg1&#125; &#123;arg2&#125;                                                   </span><br><span class="line">                       Used only in unit tests and should have two arguments.</span><br></pre></td></tr></table></figure></p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-09-01T02:53:12.982Z" itemprop="dateUpdated">2020年9月1日 10:53</time>
+</span><br>
+
+
+        转载请注明出处：<a href="/java/javaLibreOffice.html" target="_blank" rel="external">https://www.lovesofttech.com/java/javaLibreOffice.html</a>
+    </div>
+    <footer>
+        <a href="https://www.lovesofttech.com">
+            <img src="/img/myLogo.jpg" alt="安迪陈">
+            安迪陈
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LibreOffice/">LibreOffice</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OpenOffice/">OpenOffice</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PDF/">PDF</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/java/javaLibreOffice.html&title=《Java 利用 LibreOffice/OpenOffice 将 Office 文档（.doc/.docx .ppt/.pptx ）转换成 PDF，进而转图片，实现在线预览功能》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/java/javaLibreOffice.html&title=《Java 利用 LibreOffice/OpenOffice 将 Office 文档（.doc/.docx .ppt/.pptx ）转换成 PDF，进而转图片，实现在线预览功能》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=
+项目中需要将 Office 文档上传并实现在线预览，用到了 LibreOffice 将 Office 文档转换为 PDF 文档，然后再用 pdfbox ..." data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/java/javaLibreOffice.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Java 利用 LibreOffice/OpenOffice 将 Office 文档（.doc/.docx .ppt/.pptx ）转换成 PDF，进而转图片，实现在线预览功能》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/java/javaLibreOffice.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/java/javaLibreOffice.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/java/runtimeOmittedForConflict.html" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">Maven 项目 jar 包依赖冲突导致运行期错误的排查方法</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/java/timeZone.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">CentOS7 时区与 MySQL 连接参数 serverTimezone 的关系，以及与保存到数据库的 timestamp 字段值（比实际少13小时）的关系</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+    
+    
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="bottom">
+        <p>
+            <span>安迪陈技术日志，架构、感悟、系统分析、团队管理 &copy; 2017 - 2020</span>
+            <span>
+                Power by <a href="https://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>&nbsp;
+                Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank" rel="external nofollow noopener noreferrer">indigo</a>
+            </span>
+            <span>
+                <a href="http://www.beian.miit.gov.cn" target="_blank" rel="external nofollow noopener noreferrer">蜀ICP备17041860号</a>
+            </span>
+            
+            <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            </p><p>
+                <span>
+                    统计始于：2019-03-06
+                </span>
+                <span id="busuanzi_container_site_uv" style="display:none">
+                    访客数：<span id="busuanzi_value_site_uv"></span>
+                </span>
+                <span id="busuanzi_container_site_pv" style="display:none">
+                    访问量：<span id="busuanzi_value_site_pv"></span>
+                </span>
+            
+            
+                <span class="post-count">累计字数：309.2k</span>
+            
+                <span><a href="/general/blogLog.html"><i class="fas fa-pen-alt"></i>&nbsp;博客日志</a></span>
+            </p>
+        <p></p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light" title="回到顶部"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/java/javaLibreOffice.html&title=《Java 利用 LibreOffice/OpenOffice 将 Office 文档（.doc/.docx .ppt/.pptx ）转换成 PDF，进而转图片，实现在线预览功能》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/java/javaLibreOffice.html&title=《Java 利用 LibreOffice/OpenOffice 将 Office 文档（.doc/.docx .ppt/.pptx ）转换成 PDF，进而转图片，实现在线预览功能》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=
+项目中需要将 Office 文档上传并实现在线预览，用到了 LibreOffice 将 Office 文档转换为 PDF 文档，然后再用 pdfbox ..." data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/java/javaLibreOffice.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Java 利用 LibreOffice/OpenOffice 将 Office 文档（.doc/.docx .ppt/.pptx ）转换成 PDF，进而转图片，实现在线预览功能》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/java/javaLibreOffice.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/java/javaLibreOffice.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACKUlEQVR42u3aSW7DMAwF0Nz/0inQVYvW9ifpDpGeVkaCWnpZsOLweMTr+b4+Pn/95OjbyZtvXhgYGC/LeJ6ur5sdbZ8c5fyIR/uenw0DA2MfRi8UJoE4f//588WZMTAwMFqBMgnrvX0xMDAwzoNpvk0eUv/g/wYGBsYLMpIkdrLmxbvbcnEMDIwXZPTK97/z/OP9DQwMjH/P6AXN3oUvv2KWT4WBgbE0I2lPnn8+D5rV1sLhmzEwMJZmJHet6phFL9VMdixgMDAwFmIkm1VLYJOxsGrLAQMDY23GpByfDEzkgbta4PsmF8fAwFiaUb2QzfEYGBgYE0aesubUfMgsL7p9eicGBsYGjOSqV01rewG0mlRjYGDswMhDZyH8FRsG1Z8AAwNjZ0a1EDYpyfWGOTAwMPZkTApnvZJZ/gM1xywwMDCWY0xKZpMQ2Rsmu9gLAwNjA0bedJwnnL0xsgswBgbGBox82Kv6ebWdmV9JMTAwMG4bhmi1QqvpNAYGxqqM5Dp4Xpirlsl6Q2bR3AcGBsbSjB4yT0on74nOjIGBsTQjT2Krh64mt/kl8vCvMDAwFmU8iysppU2S1aT9gIGBsRsjX9WiWz5CkYCrYxkYGBjrMZKNJyX+HqOc0GJgYGzAqB5r3myorou3YWBgYNyagibDZ+XwjYGBgXFTEb/asMxTaAwMjB0YSRKbBMr8yjhpfB4GXAwMjEUZdzUGJoW5812SgI6BgbEo4w35bJNhewrJWwAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.5.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.5.2" async></script>
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '安迪陈技术日志';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '欢迎回来';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

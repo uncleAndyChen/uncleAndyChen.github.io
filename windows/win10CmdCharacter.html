@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<!--<script async src="//hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c"></script>-->
+<!-- 统计-->
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var host = window.location.host;
+        var hm = document.createElement("script");
+
+        if (host.indexOf('gitee.io') > 0) { // https://uncleandychen.gitee.io/
+            hm.src = "https://hm.baidu.com/hm.js?0cf4709148b070b8082191d2e456a1a3";
+        } else if (host.indexOf('lovesofttech.com') > 0) { // https://www.lovesofttech.com/
+            hm.src = "https://hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c";
+        } else {
+            hm.src = '';
+        }
+
+        if (hm.src !== '') {
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        }
+    })();
+</script>
+<!-- End Baidu Tongji -->
+
+
+
+<!-- Baidu Push -->
+<!-- 主动推送百度爬虫-->
+<script>
+    (function(){
+        if (window.location.host.indexOf('lovesofttech.com') < 0) {
+            return;
+        }
+
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+<!-- End Baidu Push -->
+
+
+    <meta charset="utf-8">
+    
+    
+    <link rel="canonical" href="https://www.lovesofttech.com/windows/win10CmdCharacter.html">
+    
+    
+    <title>windows 控制台 cmd/PowerShell 中文显示乱码，解决方法 | 安迪陈技术日志，架构、感悟、系统分析、团队管理 | 自强不息，厚德载物</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="windows,cmd,PowerShell">
+    <meta name="description" content="cmd 控制台默认编码，一般是简体中文默认的GBK，如果出现中文乱码，一般改为UTF-8可解决。">
+<meta name="keywords" content="windows,cmd,PowerShell">
+<meta property="og:type" content="article">
+<meta property="og:title" content="windows 控制台 cmd&#x2F;PowerShell 中文显示乱码，解决方法">
+<meta property="og:url" content="https://www.lovesofttech.com/windows/win10CmdCharacter.html">
+<meta property="og:site_name" content="安迪陈技术日志，架构、感悟、系统分析、团队管理">
+<meta property="og:description" content="cmd 控制台默认编码，一般是简体中文默认的GBK，如果出现中文乱码，一般改为UTF-8可解决。">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:image" content="https://www.lovesofttech.com/img/general/cmd-chinese-character-01.png">
+<meta property="og:image" content="https://www.lovesofttech.com/img/general/cmd-chinese-character.png">
+<meta property="og:image" content="https://www.lovesofttech.com/img/general/cmd-chinese-character-02.png">
+<meta property="og:updated_time" content="2020-09-01T02:53:13.106Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="windows 控制台 cmd&#x2F;PowerShell 中文显示乱码，解决方法">
+<meta name="twitter:description" content="cmd 控制台默认编码，一般是简体中文默认的GBK，如果出现中文乱码，一般改为UTF-8可解决。">
+<meta name="twitter:image" content="https://www.lovesofttech.com/img/general/cmd-chinese-character-01.png">
+    
+        <link rel="alternative" href="/atom.xml" title="安迪陈技术日志，架构、感悟、系统分析、团队管理" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=201912302211">
+    <link rel="stylesheet" href="/css/header.css?v=201912302211">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu">
+  <div class="inner flex-row-vertical">
+    <!--<i class="icon icon-lg icon-close"></i>-->
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off" title="隐藏左侧导航">﹤<i class="icon icon-lg icon-navicon"></i></a>
+    <div class="brand-wrap" style="background-image:url(/img/bannerBackgroundLeft.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/myLogo.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">安迪陈</h5>
+          <a href="mailto:andy@lovesofttech.com" title="andy@lovesofttech.com" class="mail" rel="external nofollow noopener noreferrer" target="_blank">andy@lovesofttech.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articleClassify.html">
+                <i class="icon icon-th-list"></i>
+                文章分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articles.html">
+                <i class="icon icon-th-list articles"></i>
+                文章列表
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/java.html">
+                <i class="icon icon-th-list java"></i>
+                Java
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/database.html">
+                <i class="icon icon-th-list database"></i>
+                MySQL/MyBatis
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/linux.html">
+                <i class="icon icon-th-list linux"></i>
+                CentOS/linux
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/react.html">
+                <i class="icon icon-th-list React"></i>
+                React
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/lnmp.html">
+                <i class="icon icon-th-list LNMP"></i>
+                LNMP
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/git.html">
+                <i class="icon icon-th-list git"></i>
+                git
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/windows.html">
+                <i class="icon icon-th-list windows"></i>
+                windows
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/dailyLives.html">
+                <i class="icon icon-th-list dailyLives"></i>
+                工作 &amp; 生活
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-github"></i>
+                我的 github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://gitee.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link"></i>
+                我的 gitee
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://blog.csdn.net/runAndRun" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link CSDN"></i>
+                我的 CSDN
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/aboutMe.html">
+                <i class="icon icon-address-card"></i>
+                关于我
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+
+        <div class="navbar navbar-custom navbar-fixed-top">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" style="margin-left:10px;" id="menu-toggle" title="显示左侧导航"><i class="icon icon-lg icon-navicon"></i>﹥</a>
+            <ul class="nav navbar-nav navbar-right" id="navMenuTop">
+                <li>
+                    <a href="/">主页</a>
+                </li>
+                
+                    
+                        <li>
+                            <a href="/articleClassify.html" title="本博客的文章分类列表">文章分类</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/articles.html" title="本博客的所有文章列表">文章列表</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/java.html" title="Java 开发，文章目录">Java</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/database.html" title="日常开发中有关 MySQL、MyBatis 的一些经验总结">MySQL/MyBatis</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/linux.html" title="CentOS/linux，文章目录">CentOS/linux</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/react.html" title="React 技术栈（全家桶）学习心得分享，文章目录">React</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/about.html">关于</a>
+                        </li>
+                    
+                
+            </ul>
+        </div>
+
+        <div class="flex-col header-title ellipsis">windows 控制台 cmd/PowerShell 中文显示乱码，解决方法</div>
+        
+        <div class="search-wrap" id="search-wrap" style="z-index: 2;">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back" style="width:33px;">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search" style="width:33px;">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare" style="z-index: 3;margin-right: 10px; width:30px;">
+                <i class="icon icon-lg icon-share-alt"></i>
+            </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h2 class="title">windows 控制台 cmd/PowerShell 中文显示乱码，解决方法</h2>
+        <h5 class="subtitle">
+            
+                <time datetime="2019-11-12T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2019-11-13
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/windows/">windows</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/windows/cmd/">cmd</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/windows/cmd/PowerShell/">PowerShell</a></li></ul></li></ul></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap" id="index-container">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc" style="z-index: 3;">
+            <h4><i class="fa fa-list-alt"></i>&nbsp;&nbsp;本文目录</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#打开-cmd-控制台窗口"><span class="post-toc-number">1.</span> <span class="post-toc-text">打开 cmd 控制台窗口</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#检查当前的编码"><span class="post-toc-number">2.</span> <span class="post-toc-text">检查当前的编码</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#常用的编码及对应的码值-10进制"><span class="post-toc-number">3.</span> <span class="post-toc-text">常用的编码及对应的码值(10进制)</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#测试中文显示"><span class="post-toc-number">4.</span> <span class="post-toc-text">测试中文显示</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#修改控制台CMD编码格式为UTF-8"><span class="post-toc-number">5.</span> <span class="post-toc-text">修改控制台CMD编码格式为UTF-8</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#临时修改为-UTF-8"><span class="post-toc-number">5.1.</span> <span class="post-toc-text">临时修改为 UTF-8</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#永久修改方法一"><span class="post-toc-number">5.2.</span> <span class="post-toc-text">永久修改方法一</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#永久修改方法二"><span class="post-toc-number">5.3.</span> <span class="post-toc-text">永久修改方法二</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#再次测试中文显示"><span class="post-toc-number">6.</span> <span class="post-toc-text">再次测试中文显示</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#小技巧"><span class="post-toc-number">7.</span> <span class="post-toc-text">小技巧</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#附：所有编码对照表"><span class="post-toc-number">8.</span> <span class="post-toc-text">附：所有编码对照表</span></a></li></ol>
+        </nav>
+    </aside>
+    
+
+<article id="post-windows/win10CmdCharacter" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">windows 控制台 cmd/PowerShell 中文显示乱码，解决方法</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2019年11月13日 0:00" datetime="2019-11-12T16:00:00.000Z" itemprop="datePublished">2019-11-13</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/windows/">windows</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/windows/cmd/">cmd</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/windows/cmd/PowerShell/">PowerShell</a></li></ul></li></ul></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" style="display:none">
+    阅读量：<span id="busuanzi_value_page_pv"></span>次
+</span>
+
+
+    <span>|</span>
+    <span class="post-count">字数：898</span>
+    <span>|</span>
+    <span class="post-count">阅读时长：大约3分钟</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>cmd 控制台默认编码，一般是简体中文默认的GBK，如果出现中文乱码，一般改为UTF-8可解决。<br><a id="more"></a></p>
+<h1 id="打开-cmd-控制台窗口"><a href="#打开-cmd-控制台窗口" class="headerlink" title="打开 cmd 控制台窗口"></a>打开 cmd 控制台窗口</h1><p>win（窗口键，在Ctrl与Alt之间）+R，输入 cmd，回车，这样操作会打开 cmd 控制台窗口。</p>
+<h1 id="检查当前的编码"><a href="#检查当前的编码" class="headerlink" title="检查当前的编码"></a>检查当前的编码</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\AndyChen&gt;chcp</span><br><span class="line">Active code page: 936</span><br></pre></td></tr></table></figure>
+<p>显示当家的编码格式为 936。</p>
+<h1 id="常用的编码及对应的码值-10进制"><a href="#常用的编码及对应的码值-10进制" class="headerlink" title="常用的编码及对应的码值(10进制)"></a>常用的编码及对应的码值(10进制)</h1><table>
+<thead>
+<tr>
+<th style="text-align:left">十进制码值</th>
+<th style="text-align:left">对应编码名称</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">950</td>
+<td style="text-align:left">繁体中文</td>
+</tr>
+<tr>
+<td style="text-align:left">65001</td>
+<td style="text-align:left">Unicode (UTF-8)</td>
+</tr>
+<tr>
+<td style="text-align:left">936</td>
+<td style="text-align:left">简体中文默认的GBK</td>
+</tr>
+<tr>
+<td style="text-align:left">437</td>
+<td style="text-align:left">MS-DOS 美国英语</td>
+</tr>
+</tbody>
+</table>
+<h1 id="测试中文显示"><a href="#测试中文显示" class="headerlink" title="测试中文显示"></a>测试中文显示</h1><p>将以下代码保存为一个批处理文件，如 test.bat，或者 test.cmd，双击运行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">@echo off</span><br><span class="line">echo test chinese character view  测试中文字符显示</span><br><span class="line">pause</span><br></pre></td></tr></table></figure></p>
+<p>我的测试如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">test chinese character view  娴嬭瘯涓枃瀛楃鏄剧ず</span><br><span class="line">Press any key to continue . . .</span><br></pre></td></tr></table></figure></p>
+<p>当为936时，中文显示乱码。</p>
+<h1 id="修改控制台CMD编码格式为UTF-8"><a href="#修改控制台CMD编码格式为UTF-8" class="headerlink" title="修改控制台CMD编码格式为UTF-8"></a>修改控制台CMD编码格式为UTF-8</h1><h2 id="临时修改为-UTF-8"><a href="#临时修改为-UTF-8" class="headerlink" title="临时修改为 UTF-8"></a>临时修改为 UTF-8</h2><p>执行 <code>chcp 65001</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\AndyChen&gt;chcp 65001</span><br><span class="line">Active code page: 65001</span><br></pre></td></tr></table></figure></p>
+<p>这种方式在关闭 cmd 之后会自动失效，下次再打开，还是会变回默认的 936。</p>
+<h2 id="永久修改方法一"><a href="#永久修改方法一" class="headerlink" title="永久修改方法一"></a>永久修改方法一</h2><ol>
+<li>win+R 或者点击开始菜单，找到运行，在运行输入框里面输入<code>regedit</code>，回车，会打开注册码编辑窗口，在地址栏输入：<code>Computer\HKEY_CURRENT_USER\Console\%SystemRoot%_System32_cmd.exe</code>，回车。<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/general/cmd-chinese-character-01.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure></li>
+<li>双击 <code>CodePage</code> 然后先择十进制，改为65001。<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/general/cmd-chinese-character.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure></li>
+<li>同理，可以修改 PowerShell 的默认编码，位置：<code>Computer\HKEY_CURRENT_USER\Console\%SystemRoot%_System32_WindowsPowerShell_v1.0_powershell.exe</code>，如果没有 <code>CodePage</code>，则在该项下新建一个 DWORD（32位值），命名为<code>CodePage</code>，值设为<code>65001</code> </li>
+</ol>
+<p>重启 cmd/PowerShell 后生效。</p>
+<h2 id="永久修改方法二"><a href="#永久修改方法二" class="headerlink" title="永久修改方法二"></a>永久修改方法二</h2><p>创建文本文件 characterSet.reg，内容如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Windows Registry Editor Version 5.00</span><br><span class="line"></span><br><span class="line">[HKEY_CURRENT_USER\Console\%SystemRoot%_SysWOW64_WindowsPowerShell_v1.0_powershell.exe]</span><br><span class="line">&quot;CodePage&quot;=dword:0000fde9</span><br><span class="line"></span><br><span class="line">[HKEY_CURRENT_USER\Console\%SystemRoot%_System32_WindowsPowerShell_v1.0_powershell.exe]</span><br><span class="line">&quot;CodePage&quot;=dword:0000fde9</span><br><span class="line"></span><br><span class="line">[HKEY_CURRENT_USER\Console\%SystemRoot%_System32_cmd.exe]</span><br><span class="line">&quot;CodePage&quot;=dword:0000fde9</span><br></pre></td></tr></table></figure></p>
+<p>双击运行。</p>
+<h1 id="再次测试中文显示"><a href="#再次测试中文显示" class="headerlink" title="再次测试中文显示"></a>再次测试中文显示</h1><p>运行之前的测试脚本，显示如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">test chinese character view  测试中文字符显示</span><br><span class="line">Press any key to continue . . .</span><br></pre></td></tr></table></figure></p>
+<p>能够正常显示，说明设置成功。</p>
+<h1 id="小技巧"><a href="#小技巧" class="headerlink" title="小技巧"></a>小技巧</h1><p>在某一个文件夹/目录下，按住 Shift 点鼠标右建，可以打开 PowerShell。<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/general/cmd-chinese-character-02.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure></p>
+<h1 id="附：所有编码对照表"><a href="#附：所有编码对照表" class="headerlink" title="附：所有编码对照表"></a>附：所有编码对照表</h1><table>
+<thead>
+<tr>
+<th style="text-align:left">十进制码值</th>
+<th style="text-align:left">对应编码名称</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">代码页</td>
+<td style="text-align:left">国家(地区)或语言</td>
+</tr>
+<tr>
+<td style="text-align:left">437</td>
+<td style="text-align:left">美国</td>
+</tr>
+<tr>
+<td style="text-align:left">708</td>
+<td style="text-align:left">阿拉伯文(ASMO 708)</td>
+</tr>
+<tr>
+<td style="text-align:left">720</td>
+<td style="text-align:left">阿拉伯文(DOS)</td>
+</tr>
+<tr>
+<td style="text-align:left">850</td>
+<td style="text-align:left">多语言(拉丁文 I)</td>
+</tr>
+<tr>
+<td style="text-align:left">852</td>
+<td style="text-align:left">中欧(DOS) - 斯拉夫语(拉丁文 II)</td>
+</tr>
+<tr>
+<td style="text-align:left">855</td>
+<td style="text-align:left">西里尔文(俄语)</td>
+</tr>
+<tr>
+<td style="text-align:left">857</td>
+<td style="text-align:left">土耳其语</td>
+</tr>
+<tr>
+<td style="text-align:left">860</td>
+<td style="text-align:left">葡萄牙语</td>
+</tr>
+<tr>
+<td style="text-align:left">861</td>
+<td style="text-align:left">冰岛语</td>
+</tr>
+<tr>
+<td style="text-align:left">862</td>
+<td style="text-align:left">希伯来文(DOS)</td>
+</tr>
+<tr>
+<td style="text-align:left">863</td>
+<td style="text-align:left">加拿大 - 法语</td>
+</tr>
+<tr>
+<td style="text-align:left">865</td>
+<td style="text-align:left">日耳曼语</td>
+</tr>
+<tr>
+<td style="text-align:left">866</td>
+<td style="text-align:left">俄语 - 西里尔文(DOS)</td>
+</tr>
+<tr>
+<td style="text-align:left">869</td>
+<td style="text-align:left">现代希腊语</td>
+</tr>
+<tr>
+<td style="text-align:left">874</td>
+<td style="text-align:left">泰文(Windows)</td>
+</tr>
+<tr>
+<td style="text-align:left">932</td>
+<td style="text-align:left">日文(Shift-JIS)</td>
+</tr>
+<tr>
+<td style="text-align:left">936</td>
+<td style="text-align:left">中国 - 简体中文(GB2312)</td>
+</tr>
+<tr>
+<td style="text-align:left">949</td>
+<td style="text-align:left">韩文</td>
+</tr>
+<tr>
+<td style="text-align:left">950</td>
+<td style="text-align:left">繁体中文(Big5)</td>
+</tr>
+<tr>
+<td style="text-align:left">1200</td>
+<td style="text-align:left">Unicode</td>
+</tr>
+<tr>
+<td style="text-align:left">1201</td>
+<td style="text-align:left">Unicode (Big-Endian)</td>
+</tr>
+<tr>
+<td style="text-align:left">1250</td>
+<td style="text-align:left">中欧(Windows)</td>
+</tr>
+<tr>
+<td style="text-align:left">1251</td>
+<td style="text-align:left">西里尔文(Windows)</td>
+</tr>
+<tr>
+<td style="text-align:left">1252</td>
+<td style="text-align:left">西欧(Windows)</td>
+</tr>
+<tr>
+<td style="text-align:left">1253</td>
+<td style="text-align:left">希腊文(Windows)</td>
+</tr>
+<tr>
+<td style="text-align:left">1254</td>
+<td style="text-align:left">土耳其文(Windows)</td>
+</tr>
+<tr>
+<td style="text-align:left">1255</td>
+<td style="text-align:left">希伯来文(Windows)</td>
+</tr>
+<tr>
+<td style="text-align:left">1256</td>
+<td style="text-align:left">阿拉伯文(Windows)</td>
+</tr>
+<tr>
+<td style="text-align:left">1257</td>
+<td style="text-align:left">波罗的海文(Windows)</td>
+</tr>
+<tr>
+<td style="text-align:left">1258</td>
+<td style="text-align:left">越南文(Windows)</td>
+</tr>
+<tr>
+<td style="text-align:left">20866</td>
+<td style="text-align:left">西里尔文(KOI8-R)</td>
+</tr>
+<tr>
+<td style="text-align:left">21866</td>
+<td style="text-align:left">西里尔文(KOI8-U)</td>
+</tr>
+<tr>
+<td style="text-align:left">28592</td>
+<td style="text-align:left">中欧(ISO)</td>
+</tr>
+<tr>
+<td style="text-align:left">28593</td>
+<td style="text-align:left">拉丁文 3 (ISO)</td>
+</tr>
+<tr>
+<td style="text-align:left">28594</td>
+<td style="text-align:left">波罗的海文(ISO)</td>
+</tr>
+<tr>
+<td style="text-align:left">28595</td>
+<td style="text-align:left">西里尔文(ISO)</td>
+</tr>
+<tr>
+<td style="text-align:left">28596</td>
+<td style="text-align:left">阿拉伯文(ISO)</td>
+</tr>
+<tr>
+<td style="text-align:left">28597</td>
+<td style="text-align:left">希腊文(ISO)</td>
+</tr>
+<tr>
+<td style="text-align:left">28598</td>
+<td style="text-align:left">希伯来文(ISO-Visual)</td>
+</tr>
+<tr>
+<td style="text-align:left">38598</td>
+<td style="text-align:left">希伯来文(ISO-Logical)</td>
+</tr>
+<tr>
+<td style="text-align:left">50000</td>
+<td style="text-align:left">用户定义的</td>
+</tr>
+<tr>
+<td style="text-align:left">50001</td>
+<td style="text-align:left">自动选择</td>
+</tr>
+<tr>
+<td style="text-align:left">50220</td>
+<td style="text-align:left">日文(JIS)</td>
+</tr>
+<tr>
+<td style="text-align:left">50221</td>
+<td style="text-align:left">日文(JIS-允许一个字节的片假名)</td>
+</tr>
+<tr>
+<td style="text-align:left">50222</td>
+<td style="text-align:left">日文(JIS-允许一个字节的片假名 - SO/SI)</td>
+</tr>
+<tr>
+<td style="text-align:left">50225</td>
+<td style="text-align:left">韩文(ISO)</td>
+</tr>
+<tr>
+<td style="text-align:left">50932</td>
+<td style="text-align:left">日文(自动选择)</td>
+</tr>
+<tr>
+<td style="text-align:left">50949</td>
+<td style="text-align:left">韩文(自动选择)</td>
+</tr>
+<tr>
+<td style="text-align:left">51932</td>
+<td style="text-align:left">日文(EUC)</td>
+</tr>
+<tr>
+<td style="text-align:left">51949</td>
+<td style="text-align:left">韩文(EUC)</td>
+</tr>
+<tr>
+<td style="text-align:left">52936</td>
+<td style="text-align:left">简体中文(HZ)</td>
+</tr>
+<tr>
+<td style="text-align:left">65000</td>
+<td style="text-align:left">Unicode (UTF-7)</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>65001</strong></td>
+<td style="text-align:left"><strong>Unicode (UTF-8)</strong></td>
+</tr>
+</tbody>
+</table>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-09-01T02:53:13.106Z" itemprop="dateUpdated">2020年9月1日 10:53</time>
+</span><br>
+
+
+        转载请注明出处：<a href="/windows/win10CmdCharacter.html" target="_blank" rel="external">https://www.lovesofttech.com/windows/win10CmdCharacter.html</a>
+    </div>
+    <footer>
+        <a href="https://www.lovesofttech.com">
+            <img src="/img/myLogo.jpg" alt="安迪陈">
+            安迪陈
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PowerShell/">PowerShell</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/cmd/">cmd</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/windows/">windows</a></li></ul>
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/windows/win10CmdCharacter.html&title=《windows 控制台 cmd/PowerShell 中文显示乱码，解决方法》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/windows/win10CmdCharacter.html&title=《windows 控制台 cmd/PowerShell 中文显示乱码，解决方法》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=cmd 控制台默认编码，一般是简体中文默认的GBK，如果出现中文乱码，一般改为UTF-8可解决。" data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/windows/win10CmdCharacter.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《windows 控制台 cmd/PowerShell 中文显示乱码，解决方法》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/windows/win10CmdCharacter.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/windows/win10CmdCharacter.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/database/powerDesignerER.html" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">PowerDesigner 逆向生成数据库物理模型，以 MySQL 为例</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/articleClassify.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">本博客的文章分类列表，点击某一类别会进入相关文章列表</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+    
+    
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="bottom">
+        <p>
+            <span>安迪陈技术日志，架构、感悟、系统分析、团队管理 &copy; 2017 - 2020</span>
+            <span>
+                Power by <a href="https://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>&nbsp;
+                Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank" rel="external nofollow noopener noreferrer">indigo</a>
+            </span>
+            <span>
+                <a href="http://www.beian.miit.gov.cn" target="_blank" rel="external nofollow noopener noreferrer">蜀ICP备17041860号</a>
+            </span>
+            
+            <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            </p><p>
+                <span>
+                    统计始于：2019-03-06
+                </span>
+                <span id="busuanzi_container_site_uv" style="display:none">
+                    访客数：<span id="busuanzi_value_site_uv"></span>
+                </span>
+                <span id="busuanzi_container_site_pv" style="display:none">
+                    访问量：<span id="busuanzi_value_site_pv"></span>
+                </span>
+            
+            
+                <span class="post-count">累计字数：309.2k</span>
+            
+                <span><a href="/general/blogLog.html"><i class="fas fa-pen-alt"></i>&nbsp;博客日志</a></span>
+            </p>
+        <p></p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light" title="回到顶部"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/windows/win10CmdCharacter.html&title=《windows 控制台 cmd/PowerShell 中文显示乱码，解决方法》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/windows/win10CmdCharacter.html&title=《windows 控制台 cmd/PowerShell 中文显示乱码，解决方法》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=cmd 控制台默认编码，一般是简体中文默认的GBK，如果出现中文乱码，一般改为UTF-8可解决。" data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/windows/win10CmdCharacter.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《windows 控制台 cmd/PowerShell 中文显示乱码，解决方法》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/windows/win10CmdCharacter.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/windows/win10CmdCharacter.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACK0lEQVR42u3a0Y6DMAxEUf7/p9nXShXpHRtWIr48Vd0WcrqS5XFyHPg6L67vv36+8/366s5X97n5kiFDxmsZ5/JaL3T9LfITrNn8KTJkyJjAIKVwXRb5UtJSvl6bDBkyZKRFkJTstFmUIUOGjJRR+8y61JIwLEOGDBm8ReNtYr8cP5LFZciQ8UIGn7r//+tH9jdkyJDxKkYnjpJCyePr2bhkyJCxN4MXuNrg/raASoKxDBkyBjDIgzvbBmmPt4ahLC5DhowtGPyRacGt5c003P7ocGXIkDGAUWvv1u+kxyxQ6ylDhoytGXy5dy2iRkJ3kCFDxgBGkHpxBCUhtl/iZciQsTcjjovhcK12n7jRlCFDxtaMWouWbiTwgVq6VSBDhowJjNqgn8dL3uTxljQYtMmQIWNTRi2a1qIvP4oRHLaQIUPGpgzS9vGjEvyYBXkiwsiQIWNrRm1k1omsnQMWPwq6DBkyNmXUHkCKJv8MeRb6P8iQIWNTRicD8tFbrWVMtzZlyJAxgdE5GPEEO76bDBkyBjA6Q7f0wemG5cErtwwZMrZm3Dsmq/0E6WplyJAxgXGGFxmcxYWyVDllyJAxh9G5da29I9/iS48xMmTIeC2DF9k0yvLDEzxCy5AhYzIjLZR8bMdD7w1ZXIYMGTLCcVvajbaoMmTIkAGG/nxZaeOIDnbIkCFjAINvBqSbkelgjm8MyJAhYw6DR8c0XvIxHG89WxuZMmTIeB/jD0iGA/H0/wBCAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.5.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.5.2" async></script>
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '安迪陈技术日志';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '欢迎回来';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

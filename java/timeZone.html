@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<!--<script async src="//hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c"></script>-->
+<!-- 统计-->
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var host = window.location.host;
+        var hm = document.createElement("script");
+
+        if (host.indexOf('gitee.io') > 0) { // https://uncleandychen.gitee.io/
+            hm.src = "https://hm.baidu.com/hm.js?0cf4709148b070b8082191d2e456a1a3";
+        } else if (host.indexOf('lovesofttech.com') > 0) { // https://www.lovesofttech.com/
+            hm.src = "https://hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c";
+        } else {
+            hm.src = '';
+        }
+
+        if (hm.src !== '') {
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        }
+    })();
+</script>
+<!-- End Baidu Tongji -->
+
+
+
+<!-- Baidu Push -->
+<!-- 主动推送百度爬虫-->
+<script>
+    (function(){
+        if (window.location.host.indexOf('lovesofttech.com') < 0) {
+            return;
+        }
+
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+<!-- End Baidu Push -->
+
+
+    <meta charset="utf-8">
+    
+    
+    <link rel="canonical" href="https://www.lovesofttech.com/java/timeZone.html">
+    
+    
+    <title>CentOS7 时区与 MySQL 连接参数 serverTimezone 的关系，以及与保存到数据库的 timestamp 字段值（比实际少13小时）的关系 | 安迪陈技术日志，架构、感悟、系统分析、团队管理 | 自强不息，厚德载物</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="MySQL,java,CentOS7,timeZone">
+    <meta name="description" content="windows 下开发测试没有问题，上线后（CentOS 服务器）发现页面上显示的时间比实际时间少了13小时，来看看到底怎么回事儿。">
+<meta name="keywords" content="MySQL,java,CentOS7,timeZone">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CentOS7 时区与 MySQL 连接参数 serverTimezone 的关系，以及与保存到数据库的 timestamp 字段值（比实际少13小时）的关系">
+<meta property="og:url" content="https://www.lovesofttech.com/java/timeZone.html">
+<meta property="og:site_name" content="安迪陈技术日志，架构、感悟、系统分析、团队管理">
+<meta property="og:description" content="windows 下开发测试没有问题，上线后（CentOS 服务器）发现页面上显示的时间比实际时间少了13小时，来看看到底怎么回事儿。">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2020-09-01T02:53:12.997Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CentOS7 时区与 MySQL 连接参数 serverTimezone 的关系，以及与保存到数据库的 timestamp 字段值（比实际少13小时）的关系">
+<meta name="twitter:description" content="windows 下开发测试没有问题，上线后（CentOS 服务器）发现页面上显示的时间比实际时间少了13小时，来看看到底怎么回事儿。">
+    
+        <link rel="alternative" href="/atom.xml" title="安迪陈技术日志，架构、感悟、系统分析、团队管理" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=201912302211">
+    <link rel="stylesheet" href="/css/header.css?v=201912302211">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu">
+  <div class="inner flex-row-vertical">
+    <!--<i class="icon icon-lg icon-close"></i>-->
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off" title="隐藏左侧导航">﹤<i class="icon icon-lg icon-navicon"></i></a>
+    <div class="brand-wrap" style="background-image:url(/img/bannerBackgroundLeft.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/myLogo.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">安迪陈</h5>
+          <a href="mailto:andy@lovesofttech.com" title="andy@lovesofttech.com" class="mail" rel="external nofollow noopener noreferrer" target="_blank">andy@lovesofttech.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articleClassify.html">
+                <i class="icon icon-th-list"></i>
+                文章分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articles.html">
+                <i class="icon icon-th-list articles"></i>
+                文章列表
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/java.html">
+                <i class="icon icon-th-list java"></i>
+                Java
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/database.html">
+                <i class="icon icon-th-list database"></i>
+                MySQL/MyBatis
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/linux.html">
+                <i class="icon icon-th-list linux"></i>
+                CentOS/linux
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/react.html">
+                <i class="icon icon-th-list React"></i>
+                React
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/lnmp.html">
+                <i class="icon icon-th-list LNMP"></i>
+                LNMP
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/git.html">
+                <i class="icon icon-th-list git"></i>
+                git
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/windows.html">
+                <i class="icon icon-th-list windows"></i>
+                windows
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/dailyLives.html">
+                <i class="icon icon-th-list dailyLives"></i>
+                工作 &amp; 生活
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-github"></i>
+                我的 github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://gitee.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link"></i>
+                我的 gitee
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://blog.csdn.net/runAndRun" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link CSDN"></i>
+                我的 CSDN
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/aboutMe.html">
+                <i class="icon icon-address-card"></i>
+                关于我
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+
+        <div class="navbar navbar-custom navbar-fixed-top">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" style="margin-left:10px;" id="menu-toggle" title="显示左侧导航"><i class="icon icon-lg icon-navicon"></i>﹥</a>
+            <ul class="nav navbar-nav navbar-right" id="navMenuTop">
+                <li>
+                    <a href="/">主页</a>
+                </li>
+                
+                    
+                        <li>
+                            <a href="/articleClassify.html" title="本博客的文章分类列表">文章分类</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/articles.html" title="本博客的所有文章列表">文章列表</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/java.html" title="Java 开发，文章目录">Java</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/database.html" title="日常开发中有关 MySQL、MyBatis 的一些经验总结">MySQL/MyBatis</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/linux.html" title="CentOS/linux，文章目录">CentOS/linux</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/react.html" title="React 技术栈（全家桶）学习心得分享，文章目录">React</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/about.html">关于</a>
+                        </li>
+                    
+                
+            </ul>
+        </div>
+
+        <div class="flex-col header-title ellipsis">CentOS7 时区与 MySQL 连接参数 serverTimezone 的关系，以及与保存到数据库的 timestamp 字段值（比实际少13小时）的关系</div>
+        
+        <div class="search-wrap" id="search-wrap" style="z-index: 2;">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back" style="width:33px;">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search" style="width:33px;">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare" style="z-index: 3;margin-right: 10px; width:30px;">
+                <i class="icon icon-lg icon-share-alt"></i>
+            </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h2 class="title">CentOS7 时区与 MySQL 连接参数 serverTimezone 的关系，以及与保存到数据库的 timestamp 字段值（比实际少13小时）的关系</h2>
+        <h5 class="subtitle">
+            
+                <time datetime="2020-02-22T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2020-02-23
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/java/">java</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/java/CentOS7/">CentOS7</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/java/CentOS7/MySQL/">MySQL</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/java/CentOS7/MySQL/timeZone/">timeZone</a></li></ul></li></ul></li></ul></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap" id="index-container">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc" style="z-index: 3;">
+            <h4><i class="fa fa-list-alt"></i>&nbsp;&nbsp;本文目录</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#现象"><span class="post-toc-number">1.</span> <span class="post-toc-text">现象</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#排查"><span class="post-toc-number">2.</span> <span class="post-toc-text">排查</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#各种搭配测试结果"><span class="post-toc-number">3.</span> <span class="post-toc-text">各种搭配测试结果</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#总结"><span class="post-toc-number">4.</span> <span class="post-toc-text">总结</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#相关知识点"><span class="post-toc-number">5.</span> <span class="post-toc-text">相关知识点</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#MySQL-时区"><span class="post-toc-number">5.1.</span> <span class="post-toc-text">MySQL 时区</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#配置-MySQL-默认时区"><span class="post-toc-number">5.1.1.</span> <span class="post-toc-text">配置 MySQL 默认时区</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#永久修改"><span class="post-toc-number">5.1.1.1.</span> <span class="post-toc-text">永久修改</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#临时修改"><span class="post-toc-number">5.1.1.2.</span> <span class="post-toc-text">临时修改</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#配置默认时区后"><span class="post-toc-number">5.1.2.</span> <span class="post-toc-text">配置默认时区后</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#时区概念"><span class="post-toc-number">5.2.</span> <span class="post-toc-text">时区概念</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#查看-CentOS-服务器时区"><span class="post-toc-number">5.2.1.</span> <span class="post-toc-text">查看 CentOS 服务器时区</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#timedatectl"><span class="post-toc-number">5.2.2.</span> <span class="post-toc-text">timedatectl</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#MySQL-timestamp-类型-和-datetime-类型"><span class="post-toc-number">5.3.</span> <span class="post-toc-text">MySQL timestamp 类型 和 datetime 类型</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#关于时区的调优"><span class="post-toc-number">5.4.</span> <span class="post-toc-text">关于时区的调优</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#结论"><span class="post-toc-number">6.</span> <span class="post-toc-text">结论</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#参考"><span class="post-toc-number">7.</span> <span class="post-toc-text">参考</span></a></li></ol>
+        </nav>
+    </aside>
+    
+
+<article id="post-java/timeZone" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">CentOS7 时区与 MySQL 连接参数 serverTimezone 的关系，以及与保存到数据库的 timestamp 字段值（比实际少13小时）的关系</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2020年02月23日 0:00" datetime="2020-02-22T16:00:00.000Z" itemprop="datePublished">2020-02-23</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/java/">java</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/java/CentOS7/">CentOS7</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/java/CentOS7/MySQL/">MySQL</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/java/CentOS7/MySQL/timeZone/">timeZone</a></li></ul></li></ul></li></ul></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" style="display:none">
+    阅读量：<span id="busuanzi_value_page_pv"></span>次
+</span>
+
+
+    <span>|</span>
+    <span class="post-count">字数：2.1k</span>
+    <span>|</span>
+    <span class="post-count">阅读时长：大约8分钟</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>windows 下开发测试没有问题，上线后（CentOS 服务器）发现页面上显示的时间比实际时间少了13小时，来看看到底怎么回事儿。<br><a id="more"></a></p>
+<h1 id="现象"><a href="#现象" class="headerlink" title="现象"></a>现象</h1><ol>
+<li>开发环境：win10 + windows 版 MySQL 8.0.19</li>
+<li>服务器环境：CentOS7 + MySQL 8.0.19</li>
+<li>SpringMvc + Hibernate + JQuery + Bootstrap，前后端分离开发</li>
+<li>服务器上 Nginx 代理 Tomcat</li>
+<li>上线后，类型为 timestamp 的字段的值，在保存前取的系统时间，系统时间正常，保存之后，比系统时间少了13小时。</li>
+</ol>
+<h1 id="排查"><a href="#排查" class="headerlink" title="排查"></a>排查</h1><p>刚开始排查时，只是通过页面来查看时间，后来发现，这样排查是不科学的，通过查看数据库里保存的值与页面上显示的值，才发现从数据库里取出来的值，到页面显示出来，也有可能相差13小时或者14小时，而这些差异，取决于：</p>
+<ol>
+<li>MySQL 时区</li>
+<li>操作系统时区</li>
+<li>数据库连接参数 serverTimezone。</li>
+</ol>
+<h1 id="各种搭配测试结果"><a href="#各种搭配测试结果" class="headerlink" title="各种搭配测试结果"></a>各种搭配测试结果</h1><p>费话不多说，以下是测试情况</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">序号</th>
+<th style="text-align:left">MySQL 时区</th>
+<th style="text-align:left">CentOS 时区</th>
+<th style="text-align:left">连接参数 serverTimezone</th>
+<th>保存到数据库的值</th>
+<th>读出来的值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">1</td>
+<td style="text-align:left">+8:00</td>
+<td style="text-align:left">Asia/Shanghai</td>
+<td style="text-align:left">America/New_York</td>
+<td>比实际时间少13小时</td>
+<td>比数据库多13小时</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>2</strong></td>
+<td style="text-align:left"><strong>+8:00</strong></td>
+<td style="text-align:left"><strong>Asia/Shanghai</strong></td>
+<td style="text-align:left"><strong>Asia/Shanghai</strong></td>
+<td><strong>与实际时间一致</strong></td>
+<td><strong>与数据库一致</strong></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>3</strong></td>
+<td style="text-align:left"><strong>+8:00</strong></td>
+<td style="text-align:left"><strong>Asia/Shanghai</strong></td>
+<td style="text-align:left"><strong>删除该参数</strong></td>
+<td><strong>与实际时间一致</strong></td>
+<td><strong>与数据库一致</strong></td>
+</tr>
+<tr>
+<td style="text-align:left">4</td>
+<td style="text-align:left">+8:00</td>
+<td style="text-align:left">America/New_York</td>
+<td style="text-align:left">America/New_York</td>
+<td>比实际少13小时</td>
+<td>与数据库一致</td>
+</tr>
+<tr>
+<td style="text-align:left">5</td>
+<td style="text-align:left">+8:00</td>
+<td style="text-align:left">America/New_York</td>
+<td style="text-align:left">Asia/Shanghai</td>
+<td>与实际时间一致</td>
+<td>比数据库少13小时</td>
+</tr>
+<tr>
+<td style="text-align:left">6</td>
+<td style="text-align:left">+8:00</td>
+<td style="text-align:left">America/New_York</td>
+<td style="text-align:left">删除该参数</td>
+<td>与实际时间一致</td>
+<td>比数据库少13小时</td>
+</tr>
+<tr>
+<td style="text-align:left">7</td>
+<td style="text-align:left">默认</td>
+<td style="text-align:left">America/New_York</td>
+<td style="text-align:left">America/New_York</td>
+<td>比实际少13小时</td>
+<td>与数据库一致</td>
+</tr>
+<tr>
+<td style="text-align:left">8</td>
+<td style="text-align:left">默认</td>
+<td style="text-align:left">America/New_York</td>
+<td style="text-align:left">Asia/Shanghai</td>
+<td>与实际时间一致</td>
+<td>比数据库少13小时</td>
+</tr>
+<tr>
+<td style="text-align:left">9</td>
+<td style="text-align:left">默认</td>
+<td style="text-align:left">America/New_York</td>
+<td style="text-align:left">删除该参数</td>
+<td>比实际少14小时</td>
+<td>比数据库多1小时</td>
+</tr>
+<tr>
+<td style="text-align:left">10</td>
+<td style="text-align:left">默认</td>
+<td style="text-align:left">Asia/Shanghai</td>
+<td style="text-align:left">America/New_York</td>
+<td>比实际少13小时</td>
+<td>比数据库多13小时</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>11</strong></td>
+<td style="text-align:left"><strong>默认</strong></td>
+<td style="text-align:left"><strong>Asia/Shanghai</strong></td>
+<td style="text-align:left"><strong>Asia/Shanghai</strong></td>
+<td><strong>与实际时间一致</strong></td>
+<td><strong>与数据库一致</strong></td>
+</tr>
+<tr>
+<td style="text-align:left">12</td>
+<td style="text-align:left">默认</td>
+<td style="text-align:left">Asia/Shanghai</td>
+<td style="text-align:left">删除该参数</td>
+<td>比实际少14小时</td>
+<td>比数据库多14小时</td>
+</tr>
+</tbody>
+</table>
+<p>注：应用程序读取数据库中 timestamp 字段的值，在修改服务器时区之后，要重启 Tomcat 之后才会生效。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>从上表可以看出，要想让 timestamp 字段保存到数据库的值与读出来的值跟北京时间（时区定义的是中国东八区时间）一致，只有序号 2、3、11 这三种配置才可以，更进一步总结：</p>
+<ol>
+<li>MySQL 时区与服务器（这里是CentOS）时区均为中国东八区，MySQL 连接参数要么也是东八区，要么不指定（删除 serverTimezone 参数）。</li>
+<li>服务器（这里是CentOS）时区与数据库连接参数均为中国东八区，MySQL 数据库时区可以保持默认配置。</li>
+</ol>
+<p>从上表还可以看出，timestamp 字段的值：</p>
+<ol>
+<li>服务器（这里是CentOS）时区与连接参数 serverTimezone 时区一致的情况，读出来的值与数据库一致，否则会自动做转换。</li>
+<li>保存到数据库的值与连接参数 serverTimezone 指定的时区有关，如果没有该参数，则与 MySQL 默认时区有关。</li>
+</ol>
+<p>以下，介绍相关知识点。</p>
+<h1 id="相关知识点"><a href="#相关知识点" class="headerlink" title="相关知识点"></a>相关知识点</h1><h2 id="MySQL-时区"><a href="#MySQL-时区" class="headerlink" title="MySQL 时区"></a>MySQL 时区</h2><p>查看时区：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show variables like &apos;%time_zone%&apos;;</span><br><span class="line">+------------------+--------+</span><br><span class="line">| Variable_name    | Value  |</span><br><span class="line">+------------------+--------+</span><br><span class="line">| system_time_zone |        |</span><br><span class="line">| time_zone        | SYSTEM |</span><br><span class="line">+------------------+--------+</span><br><span class="line">2 rows in set, 1 warning (0.00 sec)</span><br></pre></td></tr></table></figure></p>
+<p>MySQL 的时区默认与系统时区一致。</p>
+<h3 id="配置-MySQL-默认时区"><a href="#配置-MySQL-默认时区" class="headerlink" title="配置 MySQL 默认时区"></a>配置 MySQL 默认时区</h3><p>MySQL使用的time_zone属性是UTC时间即：+00:00，而北京时间比UTC时间早8小时，即：UTC+08:00</p>
+<h4 id="永久修改"><a href="#永久修改" class="headerlink" title="永久修改"></a>永久修改</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/my.cnf</span><br></pre></td></tr></table></figure>
+<p>在 <code>[mysqld]</code> 下面添加一行：<code>default-time_zone = &#39;+8:00&#39;</code></p>
+<p>重启 MySQL 生效：<code>systemctl restart mysqld</code></p>
+<h4 id="临时修改"><a href="#临时修改" class="headerlink" title="临时修改"></a>临时修改</h4><p>mysql&gt; set time_zone = ‘+8:00’;<br>mysql&gt; set global time_zone = ‘+8:00’;</p>
+<ul>
+<li>优点：立即生效，不用重启 MySQL</li>
+<li>缺点：重启 MySQL 后会失效</li>
+</ul>
+<h3 id="配置默认时区后"><a href="#配置默认时区后" class="headerlink" title="配置默认时区后"></a>配置默认时区后</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show variables like &apos;%time_zone%&apos;;</span><br><span class="line">+------------------+--------+</span><br><span class="line">| Variable_name    | Value  |</span><br><span class="line">+------------------+--------+</span><br><span class="line">| system_time_zone | CST    |</span><br><span class="line">| time_zone        | +08:00 |</span><br><span class="line">+------------------+--------+</span><br><span class="line">2 rows in set (0.03 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; select @@global.time_zone,@@session.time_zone,@@global.system_time_zone;</span><br><span class="line">+--------------------+---------------------+---------------------------+</span><br><span class="line">| @@global.time_zone | @@session.time_zone | @@global.system_time_zone |</span><br><span class="line">+--------------------+---------------------+---------------------------+</span><br><span class="line">| +08:00             | +08:00              | CST                       |</span><br><span class="line">+--------------------+---------------------+---------------------------+</span><br><span class="line">1 row in set (0.00 sec)</span><br></pre></td></tr></table></figure>
+<h2 id="时区概念"><a href="#时区概念" class="headerlink" title="时区概念"></a>时区概念</h2><p>地球总是自西向东自转，东边总比西边先看到太阳，东边的时间也总比西边的早。东边时刻与西边时刻的差值不仅要以时计，而且还要以分和秒来计算。整个地球分为二十四时区，每个时区都有自己的本地时间。在国际无线电通信场合，为了统一起见，使用一个统一的时间，称为通用协调时(UTC, Universal Time Coordinated)。UTC与格林尼治平均时(GMT, Greenwich Mean Time)一样，都与英国伦敦的本地时相同。</p>
+<p>关于时间的几个标准：</p>
+<ol>
+<li>CST：中国标准时间（China Standard Time），这个解释可能是针对 RedHat Linux。</li>
+<li>JST：日本标准时间（Japan Standard Time）。</li>
+<li>UTC：协调世界时，又称世界标准时间，简称UTC，从英文国际时间/法文协调时间”Universal Time/Temps Cordonné”而来。中国大陆、香港、澳门、台湾、蒙古国、新加坡、马来西亚、菲律宾、澳洲西部的时间与UTC的时差均为+8，也就是UTC+8。</li>
+<li>GMT：格林尼治标准时间（旧译格林威治平均时间或格林威治标准时间；英语：Greenwich Mean Time，GMT）是指位于英国伦敦郊区的皇家格林尼治天文台的标准时间，因为本初子午线被定义在通过那里的经线。</li>
+</ol>
+<p>我们国家跨越了东五区、东六区、东七区、东八区、东九区五个时区，一般都统一采用东八区计时时间。</p>
+<h3 id="查看-CentOS-服务器时区"><a href="#查看-CentOS-服务器时区" class="headerlink" title="查看 CentOS 服务器时区"></a>查看 CentOS 服务器时区</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[utomcat@ebs-60027 ~]$ date -R</span><br><span class="line">Sun, 23 Feb 2020 21:55:49 +0800</span><br></pre></td></tr></table></figure>
+<p>上面命令 <code>date -R</code> 输出了 <code>+0800</code> 表示东八区，也就是我们国家的时间。相反，如果是 <code>-0800</code> 表示美国旧金山所在的时区，西八区。<br>我们在安装Linux操作系统的时候，如果地区选择了Asia/Shanghai，那么系统的时区就是东八区。</p>
+<h3 id="timedatectl"><a href="#timedatectl" class="headerlink" title="timedatectl"></a>timedatectl</h3><ul>
+<li>通过 timedatectl 可以查看服务器具体的时区</li>
+<li>timedatectl set-timezone <code>timezone</code> 来设置时区<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">[root@ebs-60027 ~]# timedatectl set-timezone Asia/Shanghai</span><br><span class="line">[root@ebs-60027 ~]# timedatectl</span><br><span class="line">      Local time: Sun 2020-02-16 10:23:04 CST</span><br><span class="line">  Universal time: Sun 2020-02-16 02:23:04 UTC</span><br><span class="line">        RTC time: Sun 2020-02-16 02:23:04</span><br><span class="line">       Time zone: Asia/Shanghai (CST, +0800)</span><br><span class="line">     NTP enabled: n/a</span><br><span class="line">NTP synchronized: no</span><br><span class="line"> RTC in local TZ: no</span><br><span class="line">      DST active: n/a</span><br><span class="line">[root@ebs-60027 ~]# timedatectl set-timezone America/New_York</span><br><span class="line">[root@ebs-60027 ~]# timedatectl</span><br><span class="line">      Local time: Sun 2020-02-16 10:56:48 CST</span><br><span class="line">  Universal time: Sun 2020-02-16 02:56:48 UTC</span><br><span class="line">        RTC time: Sun 2020-02-16 02:56:48</span><br><span class="line">       Time zone: America/New_York (CST, +0800)</span><br><span class="line">     NTP enabled: n/a</span><br><span class="line">NTP synchronized: no</span><br><span class="line"> RTC in local TZ: no</span><br><span class="line">      DST active: n/a</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="MySQL-timestamp-类型-和-datetime-类型"><a href="#MySQL-timestamp-类型-和-datetime-类型" class="headerlink" title="MySQL timestamp 类型 和 datetime 类型"></a>MySQL timestamp 类型 和 datetime 类型</h2><ul>
+<li>timestamp类型：会自动把时间转成 gmt 时间存储时间，取出时，又会自动转换成服务器的时区。</li>
+<li>datetime类型： 没有时区概念，对于有跨国业务的数据库，存储时统一转换成 gmt 格式存储，取出时指定时区显示。</li>
+</ul>
+<h2 id="关于时区的调优"><a href="#关于时区的调优" class="headerlink" title="关于时区的调优"></a>关于时区的调优</h2><ul>
+<li>对于使用timestamp的场景，MySQL 在访问 timestamp 字段时会做时区转换，当time_zone 设置为 system （默认）时，MySQL 访问每一行的 timestamp 字段时，都会通过 libc 的时区函数，获取 Linux 设置的时区，在这个函数中会持有 mutex，当大量并发 SQL 需要访问 timestamp 字段时，会出现 mutex 竞争。MySQL 访问每一行都会做这个时区转换，转换完后释放 mutex，所有等待这个 mutex 的线程全部唤醒，结果又会只有一个线程会成功持有 mutex，其余又会再次 sleep，这样就会导致 context switch 非常高但 qps 很低，系统吞吐量急剧下降。</li>
+<li>就是当参数设置 time_zone=system 的时候，查询 timestamp 字段，会调用系统的时区做时区转换，有全局锁 _libc_lock_lock 的保护，导致线程并发环境下，系统性能受限。如果 time_zone=’+8:00’则不会调用系统时区，则不会触发系统时区转换，使用 MySQL 自身转换，大大提高了性能。</li>
+</ul>
+<h1 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h1><p>有关时间字段，统一用时间戳（int类型）保存可以有效避免时区带来的问题。</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
+<li><a href="http://www.seiang.com/?p=350" rel="external nofollow noopener noreferrer" target="_blank">聊聊Linux和MYSQL的时区问题</a></li>
+<li><a href="https://mp.weixin.qq.com/s/AtyaIP92L6KnZFB9bQA3ug" rel="external nofollow noopener noreferrer" target="_blank">MySQL参数 time_zone 导致线上sys cpu高</a></li>
+<li><a href="https://blog.csdn.net/cug_jiang126com/article/details/51985396" rel="external nofollow noopener noreferrer" target="_blank">故障案例–binlog_format不为row模式下关于时区设置的一个坑</a></li>
+</ul>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-09-01T02:53:12.997Z" itemprop="dateUpdated">2020年9月1日 10:53</time>
+</span><br>
+
+
+        转载请注明出处：<a href="/java/timeZone.html" target="_blank" rel="external">https://www.lovesofttech.com/java/timeZone.html</a>
+    </div>
+    <footer>
+        <a href="https://www.lovesofttech.com">
+            <img src="/img/myLogo.jpg" alt="安迪陈">
+            安迪陈
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CentOS7/">CentOS7</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL/">MySQL</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/timeZone/">timeZone</a></li></ul>
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/java/timeZone.html&title=《CentOS7 时区与 MySQL 连接参数 serverTimezone 的关系，以及与保存到数据库的 timestamp 字段值（比实际少13小时）的关系》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/java/timeZone.html&title=《CentOS7 时区与 MySQL 连接参数 serverTimezone 的关系，以及与保存到数据库的 timestamp 字段值（比实际少13小时）的关系》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=windows 下开发测试没有问题，上线后（CentOS 服务器）发现页面上显示的时间比实际时间少了13小时，来看看到底怎么回事儿。" data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/java/timeZone.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《CentOS7 时区与 MySQL 连接参数 serverTimezone 的关系，以及与保存到数据库的 timestamp 字段值（比实际少13小时）的关系》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/java/timeZone.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/java/timeZone.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/java/javaLibreOffice.html" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">Java 利用 LibreOffice/OpenOffice 将 Office 文档（.doc/.docx .ppt/.pptx ）转换成 PDF，进而转图片，实现在线预览功能</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/linux/centOS7LibreOffice.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">CentOS7 安装配置 LibreOffice 6.3.4.2 以及安装 windows 自带中文字体</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+    
+    
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="bottom">
+        <p>
+            <span>安迪陈技术日志，架构、感悟、系统分析、团队管理 &copy; 2017 - 2020</span>
+            <span>
+                Power by <a href="https://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>&nbsp;
+                Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank" rel="external nofollow noopener noreferrer">indigo</a>
+            </span>
+            <span>
+                <a href="http://www.beian.miit.gov.cn" target="_blank" rel="external nofollow noopener noreferrer">蜀ICP备17041860号</a>
+            </span>
+            
+            <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            </p><p>
+                <span>
+                    统计始于：2019-03-06
+                </span>
+                <span id="busuanzi_container_site_uv" style="display:none">
+                    访客数：<span id="busuanzi_value_site_uv"></span>
+                </span>
+                <span id="busuanzi_container_site_pv" style="display:none">
+                    访问量：<span id="busuanzi_value_site_pv"></span>
+                </span>
+            
+            
+                <span class="post-count">累计字数：309.2k</span>
+            
+                <span><a href="/general/blogLog.html"><i class="fas fa-pen-alt"></i>&nbsp;博客日志</a></span>
+            </p>
+        <p></p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light" title="回到顶部"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/java/timeZone.html&title=《CentOS7 时区与 MySQL 连接参数 serverTimezone 的关系，以及与保存到数据库的 timestamp 字段值（比实际少13小时）的关系》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/java/timeZone.html&title=《CentOS7 时区与 MySQL 连接参数 serverTimezone 的关系，以及与保存到数据库的 timestamp 字段值（比实际少13小时）的关系》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=windows 下开发测试没有问题，上线后（CentOS 服务器）发现页面上显示的时间比实际时间少了13小时，来看看到底怎么回事儿。" data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/java/timeZone.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《CentOS7 时区与 MySQL 连接参数 serverTimezone 的关系，以及与保存到数据库的 timestamp 字段值（比实际少13小时）的关系》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/java/timeZone.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/java/timeZone.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACJ0lEQVR42u3a0WrDMAwF0P7/T2ewt7GmvZLSQuzjp7KFzMcDVbL0eMTr+F35z8+eOU7W/98+PrEwMDBuyzherrNncl71mYT95J0YGBgbMPJAOQmdvQAdBXoMDAyMlxtKAuIRLAwMDIxrGb20Mk8EMTAwMHpbqRaWUfH5/VocAwPjhoxqY+Cbnz/Y38DAwLgJ4yiuakC8qsH55v0YGBhLM3rtyaRVkGxxEvqjDBcDA2MJxqShmBex0Vm22H++NzAwMDZgXLuheVDOhzwwMDAwkpRxHpR7b8DAwNiBMbm4z6/1e+VxdewDAwNjH0bSH8xHypISdHKIhUs3DAyMmzN6I1yvQ3Ce2PWSztNDxMDAWI4xH6TIQ3AC7o1iYGBgrM2Yl505slfEFkIwBgbG0ox8W8nVWx40k0PMhzMwMDBWZcyHLSaJXRJ8o2s4DAyMDRjJdVjCqwbiSf/xSW6LgYGxNKOXwPXGLJI2Z/mdGBgYSzOqAxB5EpmE5rzOHtXiGBgYN2fkCVyv2VkoRFvNTgwMjD0ZV4XFXnJZLl97Z4yBgXErRrXR2GtYJpuuBv03/xkMDIyFGEdx5Ynj5MnykAcGBsbSjHzlQXaeeuYhGwMDYx9GEmSrzYAkOPZ4GBgYOzN6V2m9hmV+GVfuvmJgYGzP6G232hbtJZoYGBgYvSu5vEDtXcNhYGDsxugVsdWhimpSWDg4DAyMpRmT0rGZxsV/8TIABgbGXRk/YyQUGfl5PlwAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.5.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.5.2" async></script>
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '安迪陈技术日志';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '欢迎回来';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

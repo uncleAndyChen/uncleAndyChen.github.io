@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<!--<script async src="//hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c"></script>-->
+<!-- 统计-->
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var host = window.location.host;
+        var hm = document.createElement("script");
+
+        if (host.indexOf('gitee.io') > 0) { // https://uncleandychen.gitee.io/
+            hm.src = "https://hm.baidu.com/hm.js?0cf4709148b070b8082191d2e456a1a3";
+        } else if (host.indexOf('lovesofttech.com') > 0) { // https://www.lovesofttech.com/
+            hm.src = "https://hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c";
+        } else {
+            hm.src = '';
+        }
+
+        if (hm.src !== '') {
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        }
+    })();
+</script>
+<!-- End Baidu Tongji -->
+
+
+
+<!-- Baidu Push -->
+<!-- 主动推送百度爬虫-->
+<script>
+    (function(){
+        if (window.location.host.indexOf('lovesofttech.com') < 0) {
+            return;
+        }
+
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+<!-- End Baidu Push -->
+
+
+    <meta charset="utf-8">
+    
+    
+    <link rel="canonical" href="https://www.lovesofttech.com/java/codeSpecification.html">
+    
+    
+    <title>java/js 代码规约 | 安迪陈技术日志，架构、感悟、系统分析、团队管理 | 自强不息，厚德载物</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="java,team,代码规约">
+    <meta name="description" content="主要参考阿里出品的《码出高效 阿里巴巴java开发手册 终极版》">
+<meta name="keywords" content="java,team,代码规约">
+<meta property="og:type" content="article">
+<meta property="og:title" content="java&#x2F;js 代码规约">
+<meta property="og:url" content="https://www.lovesofttech.com/java/codeSpecification.html">
+<meta property="og:site_name" content="安迪陈技术日志，架构、感悟、系统分析、团队管理">
+<meta property="og:description" content="主要参考阿里出品的《码出高效 阿里巴巴java开发手册 终极版》">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2020-09-01T02:53:12.974Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="java&#x2F;js 代码规约">
+<meta name="twitter:description" content="主要参考阿里出品的《码出高效 阿里巴巴java开发手册 终极版》">
+    
+        <link rel="alternative" href="/atom.xml" title="安迪陈技术日志，架构、感悟、系统分析、团队管理" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=201912302211">
+    <link rel="stylesheet" href="/css/header.css?v=201912302211">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu">
+  <div class="inner flex-row-vertical">
+    <!--<i class="icon icon-lg icon-close"></i>-->
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off" title="隐藏左侧导航">﹤<i class="icon icon-lg icon-navicon"></i></a>
+    <div class="brand-wrap" style="background-image:url(/img/bannerBackgroundLeft.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/myLogo.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">安迪陈</h5>
+          <a href="mailto:andy@lovesofttech.com" title="andy@lovesofttech.com" class="mail" rel="external nofollow noopener noreferrer" target="_blank">andy@lovesofttech.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articleClassify.html">
+                <i class="icon icon-th-list"></i>
+                文章分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articles.html">
+                <i class="icon icon-th-list articles"></i>
+                文章列表
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/java.html">
+                <i class="icon icon-th-list java"></i>
+                Java
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/database.html">
+                <i class="icon icon-th-list database"></i>
+                MySQL/MyBatis
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/linux.html">
+                <i class="icon icon-th-list linux"></i>
+                CentOS/linux
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/react.html">
+                <i class="icon icon-th-list React"></i>
+                React
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/lnmp.html">
+                <i class="icon icon-th-list LNMP"></i>
+                LNMP
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/git.html">
+                <i class="icon icon-th-list git"></i>
+                git
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/windows.html">
+                <i class="icon icon-th-list windows"></i>
+                windows
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/dailyLives.html">
+                <i class="icon icon-th-list dailyLives"></i>
+                工作 &amp; 生活
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-github"></i>
+                我的 github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://gitee.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link"></i>
+                我的 gitee
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://blog.csdn.net/runAndRun" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link CSDN"></i>
+                我的 CSDN
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/aboutMe.html">
+                <i class="icon icon-address-card"></i>
+                关于我
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+
+        <div class="navbar navbar-custom navbar-fixed-top">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" style="margin-left:10px;" id="menu-toggle" title="显示左侧导航"><i class="icon icon-lg icon-navicon"></i>﹥</a>
+            <ul class="nav navbar-nav navbar-right" id="navMenuTop">
+                <li>
+                    <a href="/">主页</a>
+                </li>
+                
+                    
+                        <li>
+                            <a href="/articleClassify.html" title="本博客的文章分类列表">文章分类</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/articles.html" title="本博客的所有文章列表">文章列表</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/java.html" title="Java 开发，文章目录">Java</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/database.html" title="日常开发中有关 MySQL、MyBatis 的一些经验总结">MySQL/MyBatis</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/linux.html" title="CentOS/linux，文章目录">CentOS/linux</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/react.html" title="React 技术栈（全家桶）学习心得分享，文章目录">React</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/about.html">关于</a>
+                        </li>
+                    
+                
+            </ul>
+        </div>
+
+        <div class="flex-col header-title ellipsis">java/js 代码规约</div>
+        
+        <div class="search-wrap" id="search-wrap" style="z-index: 2;">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back" style="width:33px;">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search" style="width:33px;">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare" style="z-index: 3;margin-right: 10px; width:30px;">
+                <i class="icon icon-lg icon-share-alt"></i>
+            </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h2 class="title">java/js 代码规约</h2>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-05-06T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2018-05-07
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/java/">java</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/java/team/">team</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/java/team/代码规约/">代码规约</a></li></ul></li></ul></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap" id="index-container">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc" style="z-index: 3;">
+            <h4><i class="fa fa-list-alt"></i>&nbsp;&nbsp;本文目录</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#前言"><span class="post-toc-number">1.</span> <span class="post-toc-text">前言</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#本规约的-java-规范"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">本规约的 java 规范</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#本规约的-js-规范"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">本规约的 js 规范</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#关键目的"><span class="post-toc-number">2.</span> <span class="post-toc-text">关键目的</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#关键差异"><span class="post-toc-number">3.</span> <span class="post-toc-text">关键差异</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#命名风格"><span class="post-toc-number">4.</span> <span class="post-toc-text">命名风格</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#各层命名规约"><span class="post-toc-number">4.1.</span> <span class="post-toc-text">各层命名规约</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Service-DAO-层方法命名规约"><span class="post-toc-number">4.1.1.</span> <span class="post-toc-text">Service/DAO 层方法命名规约</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#领域模型命名规约"><span class="post-toc-number">4.1.2.</span> <span class="post-toc-text">领域模型命名规约</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#常量定义"><span class="post-toc-number">5.</span> <span class="post-toc-text">常量定义</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#代码格式"><span class="post-toc-number">6.</span> <span class="post-toc-text">代码格式</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#空行"><span class="post-toc-number">6.1.</span> <span class="post-toc-text">空行</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#to-be-continued"><span class="post-toc-number">7.</span> <span class="post-toc-text">to be continued</span></a></li></ol>
+        </nav>
+    </aside>
+    
+
+<article id="post-java/codeSpecification" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">java/js 代码规约</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018年05月07日 0:00" datetime="2018-05-06T16:00:00.000Z" itemprop="datePublished">2018-05-07</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/java/">java</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/java/team/">team</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/java/team/代码规约/">代码规约</a></li></ul></li></ul></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" style="display:none">
+    阅读量：<span id="busuanzi_value_page_pv"></span>次
+</span>
+
+
+    <span>|</span>
+    <span class="post-count">字数：2.4k</span>
+    <span>|</span>
+    <span class="post-count">阅读时长：大约8分钟</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>主要参考阿里出品的《码出高效 阿里巴巴java开发手册 终极版》<br><a id="more"></a></p>
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><ol>
+<li>发现已有代码与本规约冲突的，需要重构，可逐步改进。</li>
+<li>代码写出来，除了能够实现正确的功能，更多的，是给人阅读的，因为软件需要不停的维护。</li>
+</ol>
+<h2 id="本规约的-java-规范"><a href="#本规约的-java-规范" class="headerlink" title="本规约的 java 规范"></a>本规约的 java 规范</h2><p>主要参考阿里出品的《码出高效 阿里巴巴java开发手册 终极版》，以下简称《码出高效》。</p>
+<h2 id="本规约的-js-规范"><a href="#本规约的-js-规范" class="headerlink" title="本规约的 js 规范"></a>本规约的 js 规范</h2><p><a href="https://github.com/sivan/javascript-style-guide/blob/master/es5/README.md" rel="external nofollow noopener noreferrer" target="_blank">Airbnb JavaScript Style Guide -&gt; js 编码规范参考</a></p>
+<ul>
+<li>与该规范不一样的地方：缩进，保留 WebStorm 的默认行为，即一个 tab 对应 4 个空格。编码时使用 tab 键进行缩进即可。 </li>
+</ul>
+<h1 id="关键目的"><a href="#关键目的" class="headerlink" title="关键目的"></a>关键目的</h1><ol>
+<li>见名知义</li>
+<li>代码自解释</li>
+<li>易读<ul>
+<li>美女，秀色可餐，养眼，大家都爱看。</li>
+<li>代码如人，干净利索，赏心悦目，读起来是一种享受。</li>
+</ul>
+</li>
+<li>易维护。不要一看就想骂 ^_^</li>
+<li>养成好的习惯，受益终生。</li>
+</ol>
+<h1 id="关键差异"><a href="#关键差异" class="headerlink" title="关键差异"></a>关键差异</h1><table>
+<thead>
+<tr>
+<th style="text-align:left">条目</th>
+<th style="text-align:left">阿里</th>
+<th style="text-align:left">团队</th>
+<th style="text-align:left">备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">抽象类命名</td>
+<td style="text-align:left">使用 Abstratc 或 Base 开头</td>
+<td style="text-align:left">只用 Abstratc 开头</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">常量命名</td>
+<td style="text-align:left">全部大写，单词间用下划线隔开</td>
+<td style="text-align:left">lowerCamelCase 风格，驼峰形式</td>
+<td style="text-align:left">全部大写不利于阅读，但是跟一般的规范冲突，如果有理由，本条可修改</td>
+</tr>
+<tr>
+<td style="text-align:left">枚举成员名称</td>
+<td style="text-align:left">需要全大写，单词间用下划线隔开，枚举其实就是特殊的常量类</td>
+<td style="text-align:left">同上</td>
+<td style="text-align:left">同上</td>
+</tr>
+</tbody>
+</table>
+<h1 id="命名风格"><a href="#命名风格" class="headerlink" title="命名风格"></a>命名风格</h1><ol>
+<li>代码中的命名不能包括特殊字符，如下划线、美元符号等。</li>
+<li>代码中的命名严禁使用拼音与英文混合的方式，更不允许直接使用中文的方式。<ul>
+<li>例外：alibaba / taobao / youku / hangzhou 等国际通用的名称，可视同英文。</li>
+<li>说明：正确的英文拼写和语法可以让阅读者易于理解，避免歧义。</li>
+<li>注意，即使纯拼音命名方式也要避免采用。</li>
+</ul>
+</li>
+<li>类名使用 UpperCamelCase 风格，必须遵从驼峰形式，但以下情形例外：DO/BO/DTO/VO/AO。</li>
+<li>方法名、参数名、成员变量、局部变量都统一使用 lowerCamelCase 风格，遵从驼峰形式。</li>
+<li>html、js、css 文件，命名规则，统一使用 lowerCamelCase 风格，遵从驼峰形式。</li>
+<li>常量命名使用 lowerCamelCase 风格，遵从驼峰形式。力求语义表达完整清楚，不要嫌名字长。<strong>注：本条与《码出高效》不一致。</strong></li>
+<li>包名统一使用小写，点分隔符之间有且仅有一个自然语义的英语单词。包名统一使用单数形式，但是类名如果有复数含义，类名可以使用复数形式。</li>
+<li>中括号是数组类型的一部分，数组定义如下：String[] args;</li>
+<li>抽象类命名使用 Abstract 开头；异常类命名使用 Exception 结尾；测试类命名以它要测试的类的名称开始，以 Test 结尾。</li>
+<li>杜绝完全不规范的缩写，避免望文不知义。</li>
+<li>为了达到代码自解释的目标，任何定义编程元素在命名时使用尽量完整单词组合来表达其意。正例：从远程仓库拉取代码的类命名为 PullCodeFromRemoteRepository。</li>
+<li>POJO 类中布尔类型的变量，都不要加 is，否则部分框架解析会引起序列化错误。<strong>注：现有代码里有一部分与该规则冲突，需要重构。</strong></li>
+<li>如果模块、接口、类、方法使用了设计模式，在命名时体现出具体模式。说明：将设计模式体现在名字中，有利于阅读者快速理解架构设计理念。</li>
+<li>接口类中的方法和属性不要加任何修饰符号（public 也不要加），保持代码的简洁性，并加上有效的 Javadoc 注释。尽量不要在接口里定义变量，如果一定要定义变量，肯定是与接口方法相关，并且是整个应用的基础常量。</li>
+<li>接口和实现类的命名，对于Service和 DAO 类，基于 SOA 的理念，暴露出来的服务一定是接口，内部的实现类用Impl的后缀与接口区别。正例：CacheServiceImpl 实现 CacheService 接口。</li>
+<li>枚举类名建议带上Enum后缀，枚举成员名称，统一使用 lowerCamelCase 风格，遵从驼峰形式，这样方便阅读。<strong>注：本条与《码出高效》不一致。</strong></li>
+</ol>
+<h2 id="各层命名规约"><a href="#各层命名规约" class="headerlink" title="各层命名规约"></a>各层命名规约</h2><h3 id="Service-DAO-层方法命名规约"><a href="#Service-DAO-层方法命名规约" class="headerlink" title="Service/DAO 层方法命名规约"></a>Service/DAO 层方法命名规约</h3><ol>
+<li>获取单个对象的方法用 get 做前缀</li>
+<li>获取多个对象的方法用 list 做前缀</li>
+<li>获取统计值的方法用 count 做前缀</li>
+<li>插入的方法用 save/insert 做前缀</li>
+<li>删除的方法用 remove/delete 做前缀</li>
+<li>修改的方法用 update 做前缀</li>
+</ol>
+<h3 id="领域模型命名规约"><a href="#领域模型命名规约" class="headerlink" title="领域模型命名规约"></a>领域模型命名规约</h3><ol>
+<li>数据对象：xxxDO，xxx 即为数据表名</li>
+<li>数据传输对象：xxxDTO，xxx 为业务领域相关的名称</li>
+<li>展示对象：xxxVO，xxx 一般为网页名称</li>
+<li>POJO 是 DO/DTO/BO/VO 的统称，禁止命名成 xxxPOJO</li>
+</ol>
+<h1 id="常量定义"><a href="#常量定义" class="headerlink" title="常量定义"></a>常量定义</h1><ol>
+<li><p>常量定义不允许使用魔法值，（即未经定义的常量）直接出现在代码中。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//反例</span></span><br><span class="line"><span class="keyword">int</span> priceTable[] = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">16</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment">//正例</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> PRICE_TABLE_MAX = <span class="number">16</span>;</span><br><span class="line"><span class="keyword">int</span> priceTable[] = <span class="keyword">new</span> <span class="keyword">int</span>[PRICE_TABLE_MAX];</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>long或者Long初始赋值时，使用大写的L，不能是小写的l，小写容易跟数字1混淆，造成误解。<strong>说明：Long a = 2l; 写的是数字的21，还是Long型的2?</strong></p>
+</li>
+<li>不要使用一个常量类维护所有常量，按常量功能进行归类，分开维护。 说明：大而全的常量类，非得使用查找功能才能定位到修改的常量，不利于理解和维护。正例：<ul>
+<li>缓存相关常量放在类 CacheConsts 下</li>
+<li>系统配置相关常量放在类ConfigConsts下</li>
+</ul>
+</li>
+</ol>
+<h1 id="代码格式"><a href="#代码格式" class="headerlink" title="代码格式"></a>代码格式</h1><ol>
+<li>大括号的使用约定。如果是大括号内为空，则简洁地写成 {} 即可，不需要换行；如果是非空代码块则： <ul>
+<li>左大括号前不换行</li>
+<li>左大括号后换行</li>
+<li>右大括号前换行</li>
+<li>右大括号后还有 else, catch 等代码则不换行</li>
+<li>表示终止的右大括号后必须换行</li>
+</ul>
+</li>
+<li>左小括号和字符之间不出现空格；同样，右小括号和字符之间也不出现空格。反例：if (空格a == b空格)</li>
+<li>if/for/while/switch/do 等保留字与括号之间都必须加空格。</li>
+<li>任何二目、三目运算符的左右两边都需要加一个空格。说明：运算符包括赋值运算符 =、逻辑运算符 &amp;&amp;、加减乘除符号等。</li>
+<li><p>采用4个空格缩进，禁止使用 tab 字符。说明：如果使用 tab 缩进，必须设置 1 个 tab 为 4个空格。IDEA 设置 tab 为 4个空格时，请勿勾选 Use tab character；而在 eclipse 中，必须勾选 insert spaces for tabs。</p>
+<ul>
+<li>正例：（涉及1-5点）<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 缩进4个空格</span></span><br><span class="line">    String say = <span class="string">"hello"</span>;</span><br><span class="line">    <span class="comment">// 运算符的左右必须有一个空格</span></span><br><span class="line">    <span class="keyword">int</span> flag = <span class="number">0</span>;</span><br><span class="line">    <span class="comment">// 关键词if与括号之间必须有一个空格，括号内的f与左括号，0与右括号不需要空格</span></span><br><span class="line">    <span class="keyword">if</span> (flag == <span class="number">0</span>) &#123;</span><br><span class="line">        System.out.println(say);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 左大括号前加空格且不换行；左大括号后换行</span></span><br><span class="line">    <span class="keyword">if</span> (flag == <span class="number">1</span>) &#123;</span><br><span class="line">        System.out.println(<span class="string">"world"</span>);</span><br><span class="line">    <span class="comment">// 右大括号前换行，右大括号后有else，不用换行</span></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">"ok"</span>);</span><br><span class="line">    <span class="comment">// 在右大括号后直接结束，则必须换行</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>注释的双斜线与注释内容之间有且仅有一个空格。</p>
+</li>
+<li><p>单行字符数限不超过 120 个（<strong>可适当放宽该约束</strong>），超出需要换行时，遵循如下原则： </p>
+<ul>
+<li>第二行相对第一行缩进 4 个空格，<strong>或者遵从 IDEA Ctrl+Alt+L 的代码格式化结果（以下缩进了8个空格）</strong>，从第三行开始不再继续缩进，即保持与第二行排列整齐，参考示例。 </li>
+<li>运算符与下文一起换行。 </li>
+<li>方法调用的点符号与下文一起换行。 </li>
+<li>方法调用时，多个参数，需要换行时，在逗号后进行。 </li>
+<li>在括号前不要换行，见反例。 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    StringBuffer sb = <span class="keyword">new</span> StringBuffer();</span><br><span class="line">    <span class="comment">// 正例：</span></span><br><span class="line">    <span class="comment">// 超过120个字符的情况下，换行缩进4个空格，点号和方法名称一起换行</span></span><br><span class="line">    sb.append(<span class="string">"zi"</span>).append(<span class="string">"xin"</span>)<span class="comment">//...</span></span><br><span class="line">            .append(<span class="string">"huang"</span>)<span class="comment">//...</span></span><br><span class="line">            .append(<span class="string">"huang"</span>)<span class="comment">//...</span></span><br><span class="line">            .append(<span class="string">"huang"</span>);</span><br><span class="line">    <span class="comment">// 反例：</span></span><br><span class="line">    <span class="comment">// 超过120个字符的情况下，不要在括号前换行</span></span><br><span class="line">    sb.append(<span class="string">"zi"</span>).append(<span class="string">"xin"</span>).<span class="comment">/*...*/</span>append</span><br><span class="line">            (<span class="string">"huang"</span>);</span><br><span class="line">    <span class="comment">// 参数很多的方法调用可能超过120个字符，不要在逗号前换行</span></span><br><span class="line">    method(args1, args2, args3 <span class="comment">/*,...*/</span></span><br><span class="line">            , argsX);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>方法参数在定义和传入时，多个参数逗号后边必须加空格。 正例：下例中实参的”a”,后边必须要有一个空格。method(“a”, “b”, “c”);</p>
+</li>
+<li>IDE的text file encoding 设置为 UTF-8; IDE中文件的换行符使用Unix格式，不要使用Windows格式。</li>
+<li><p>没有必要增加若干空格来使某一行的字符与上一行对应位置的字符对齐。 正例：</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a = <span class="number">3</span>;</span><br><span class="line"><span class="keyword">long</span> b = <span class="number">4L</span>;</span><br><span class="line"><span class="keyword">float</span> c = <span class="number">5F</span>;</span><br><span class="line">StringBuffer sb = <span class="keyword">new</span> StringBuffer();</span><br></pre></td></tr></table></figure>
+<ul>
+<li>说明：增加 sb 这个变量，如果需要对齐，则给a、b、c都要增加几个空格，在变量比较多的情况下，是一种累赘的事情。</li>
+</ul>
+</li>
+</ol>
+<h2 id="空行"><a href="#空行" class="headerlink" title="空行"></a>空行</h2><ol>
+<li>方法体内的执行语句组、变量的定义语句组、不同的业务逻辑之间或者不同的语义之间插入一个空行。</li>
+<li>相同业务逻辑和语义之间不需要插入空行。</li>
+<li>没有必要插入多个空行进行隔开。</li>
+<li>不要插入没有必要的空行，如方法结束前的返回语句后面。</li>
+</ol>
+<h1 id="to-be-continued"><a href="#to-be-continued" class="headerlink" title="to be continued"></a>to be continued</h1><p>做到以上规范是基本要求。后续还会添加剩下的规范。</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-09-01T02:53:12.974Z" itemprop="dateUpdated">2020年9月1日 10:53</time>
+</span><br>
+
+
+        转载请注明出处：<a href="/java/codeSpecification.html" target="_blank" rel="external">https://www.lovesofttech.com/java/codeSpecification.html</a>
+    </div>
+    <footer>
+        <a href="https://www.lovesofttech.com">
+            <img src="/img/myLogo.jpg" alt="安迪陈">
+            安迪陈
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/team/">team</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/代码规约/">代码规约</a></li></ul>
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/java/codeSpecification.html&title=《java/js 代码规约》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/java/codeSpecification.html&title=《java/js 代码规约》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=主要参考阿里出品的《码出高效 阿里巴巴java开发手册 终极版》" data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/java/codeSpecification.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《java/js 代码规约》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/java/codeSpecification.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/java/codeSpecification.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/java/javaDevConfig.html" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">windows java 开发环境配置，以及一些常用网址收藏</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/lnmp/centOS7Php7.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">CentOS7 以源码方式安装 php7</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+    
+    
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="bottom">
+        <p>
+            <span>安迪陈技术日志，架构、感悟、系统分析、团队管理 &copy; 2017 - 2020</span>
+            <span>
+                Power by <a href="https://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>&nbsp;
+                Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank" rel="external nofollow noopener noreferrer">indigo</a>
+            </span>
+            <span>
+                <a href="http://www.beian.miit.gov.cn" target="_blank" rel="external nofollow noopener noreferrer">蜀ICP备17041860号</a>
+            </span>
+            
+            <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            </p><p>
+                <span>
+                    统计始于：2019-03-06
+                </span>
+                <span id="busuanzi_container_site_uv" style="display:none">
+                    访客数：<span id="busuanzi_value_site_uv"></span>
+                </span>
+                <span id="busuanzi_container_site_pv" style="display:none">
+                    访问量：<span id="busuanzi_value_site_pv"></span>
+                </span>
+            
+            
+                <span class="post-count">累计字数：309.2k</span>
+            
+                <span><a href="/general/blogLog.html"><i class="fas fa-pen-alt"></i>&nbsp;博客日志</a></span>
+            </p>
+        <p></p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light" title="回到顶部"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/java/codeSpecification.html&title=《java/js 代码规约》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/java/codeSpecification.html&title=《java/js 代码规约》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=主要参考阿里出品的《码出高效 阿里巴巴java开发手册 终极版》" data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/java/codeSpecification.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《java/js 代码规约》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/java/codeSpecification.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/java/codeSpecification.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACJUlEQVR42u3aW3LDIAwF0O5/0+kCWqf3CqczhuOvjB/A+VGQxNdXfL2C6+eb+Zjtt8MLAwPjsYx2ce3E79+/upOvDQMD4xxGMv0saLbj5O9jYGBg5EtJpo+CZsnGwMDAaJeebOxWgjUGBgZGksTmVa+V8T+ei2NgYDyQ0S7uP39/pL+BgYHxKMarvFZKb21Ts1gVBgbG1ow8wM22ZUkaPAu4GBgY5zDyclhywGI94UxKeL/cwcDAOIAxS1bv4rVH0C4DLgYGxgGMvFm4coTrffBNQu0vTzEwMI5h1B/HxbLkaZ42X1YNMTAwNmXkgTXfILZhtD189kdKjIGBsR3j3sNeny7hXbIxMDCOYeQbvnZB74Py7Omw3IaBgbERIw98s7L+Suntj9MiGBgYWzPao2B5S7LddNYNAwwMjAMYK5u5WYk/aRgUh8MwMDC2ZiQBrh36/QhJYJ01GzAwMHZlzALuXY2EWYp72RjAwMDYlJEX3+tBy1MQs6Je3UPAwMDYgpGX2GbFsrxV2f7GwMA4gZFMvNLmXNliJnNhYGCcw2gXOivcrwTuyzVgYGBsyniVV764u4JsRMXAwNiacVchrG0JzJLe9XIeBgbGcxltkJ0d81ppdkbfYmBgHMCYFfSTr+5qMESpLAYGBsaoDLeyESx2tRgYGBhliW12pw3it/1vYGBgPISRp6Z5Kru+WcyboBgYGHsz2g1cXoBrMW2QxcDAOIDxDSzpdHKhTo9dAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.5.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.5.2" async></script>
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '安迪陈技术日志';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '欢迎回来';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

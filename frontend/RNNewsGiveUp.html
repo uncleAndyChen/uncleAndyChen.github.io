@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<!--<script async src="//hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c"></script>-->
+<!-- 统计-->
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var host = window.location.host;
+        var hm = document.createElement("script");
+
+        if (host.indexOf('gitee.io') > 0) { // https://uncleandychen.gitee.io/
+            hm.src = "https://hm.baidu.com/hm.js?0cf4709148b070b8082191d2e456a1a3";
+        } else if (host.indexOf('lovesofttech.com') > 0) { // https://www.lovesofttech.com/
+            hm.src = "https://hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c";
+        } else {
+            hm.src = '';
+        }
+
+        if (hm.src !== '') {
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        }
+    })();
+</script>
+<!-- End Baidu Tongji -->
+
+
+
+<!-- Baidu Push -->
+<!-- 主动推送百度爬虫-->
+<script>
+    (function(){
+        if (window.location.host.indexOf('lovesofttech.com') < 0) {
+            return;
+        }
+
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+<!-- End Baidu Push -->
+
+
+    <meta charset="utf-8">
+    
+    
+    <link rel="canonical" href="https://www.lovesofttech.com/frontend/RNNewsGiveUp.html">
+    
+    
+    <title>React Native 已死？被Airbnb抛弃之后，Udacity也弃用了 | 安迪陈技术日志，架构、感悟、系统分析、团队管理 | 自强不息，厚德载物</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="RN">
+    <meta name="description" content="开源中国: https://www.oschina.net/news/97790/udacity-moved-all-react-native-code 英文原文：https://inthepocket.com/blog/2018/react-native-is-dead-long-live-react-native">
+<meta name="keywords" content="RN">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React Native 已死？被Airbnb抛弃之后，Udacity也弃用了">
+<meta property="og:url" content="https://www.lovesofttech.com/frontend/RNNewsGiveUp.html">
+<meta property="og:site_name" content="安迪陈技术日志，架构、感悟、系统分析、团队管理">
+<meta property="og:description" content="开源中国: https://www.oschina.net/news/97790/udacity-moved-all-react-native-code 英文原文：https://inthepocket.com/blog/2018/react-native-is-dead-long-live-react-native">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2020-09-01T02:53:12.930Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="React Native 已死？被Airbnb抛弃之后，Udacity也弃用了">
+<meta name="twitter:description" content="开源中国: https://www.oschina.net/news/97790/udacity-moved-all-react-native-code 英文原文：https://inthepocket.com/blog/2018/react-native-is-dead-long-live-react-native">
+    
+        <link rel="alternative" href="/atom.xml" title="安迪陈技术日志，架构、感悟、系统分析、团队管理" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=201912302211">
+    <link rel="stylesheet" href="/css/header.css?v=201912302211">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu">
+  <div class="inner flex-row-vertical">
+    <!--<i class="icon icon-lg icon-close"></i>-->
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off" title="隐藏左侧导航">﹤<i class="icon icon-lg icon-navicon"></i></a>
+    <div class="brand-wrap" style="background-image:url(/img/bannerBackgroundLeft.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/myLogo.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">安迪陈</h5>
+          <a href="mailto:andy@lovesofttech.com" title="andy@lovesofttech.com" class="mail" rel="external nofollow noopener noreferrer" target="_blank">andy@lovesofttech.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articleClassify.html">
+                <i class="icon icon-th-list"></i>
+                文章分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articles.html">
+                <i class="icon icon-th-list articles"></i>
+                文章列表
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/java.html">
+                <i class="icon icon-th-list java"></i>
+                Java
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/database.html">
+                <i class="icon icon-th-list database"></i>
+                MySQL/MyBatis
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/linux.html">
+                <i class="icon icon-th-list linux"></i>
+                CentOS/linux
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/react.html">
+                <i class="icon icon-th-list React"></i>
+                React
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/lnmp.html">
+                <i class="icon icon-th-list LNMP"></i>
+                LNMP
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/git.html">
+                <i class="icon icon-th-list git"></i>
+                git
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/windows.html">
+                <i class="icon icon-th-list windows"></i>
+                windows
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/dailyLives.html">
+                <i class="icon icon-th-list dailyLives"></i>
+                工作 &amp; 生活
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-github"></i>
+                我的 github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://gitee.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link"></i>
+                我的 gitee
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://blog.csdn.net/runAndRun" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link CSDN"></i>
+                我的 CSDN
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/aboutMe.html">
+                <i class="icon icon-address-card"></i>
+                关于我
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+
+        <div class="navbar navbar-custom navbar-fixed-top">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" style="margin-left:10px;" id="menu-toggle" title="显示左侧导航"><i class="icon icon-lg icon-navicon"></i>﹥</a>
+            <ul class="nav navbar-nav navbar-right" id="navMenuTop">
+                <li>
+                    <a href="/">主页</a>
+                </li>
+                
+                    
+                        <li>
+                            <a href="/articleClassify.html" title="本博客的文章分类列表">文章分类</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/articles.html" title="本博客的所有文章列表">文章列表</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/java.html" title="Java 开发，文章目录">Java</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/database.html" title="日常开发中有关 MySQL、MyBatis 的一些经验总结">MySQL/MyBatis</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/linux.html" title="CentOS/linux，文章目录">CentOS/linux</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/react.html" title="React 技术栈（全家桶）学习心得分享，文章目录">React</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/about.html">关于</a>
+                        </li>
+                    
+                
+            </ul>
+        </div>
+
+        <div class="flex-col header-title ellipsis">React Native 已死？被Airbnb抛弃之后，Udacity也弃用了</div>
+        
+        <div class="search-wrap" id="search-wrap" style="z-index: 2;">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back" style="width:33px;">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search" style="width:33px;">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare" style="z-index: 3;margin-right: 10px; width:30px;">
+                <i class="icon icon-lg icon-share-alt"></i>
+            </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h2 class="title">React Native 已死？被Airbnb抛弃之后，Udacity也弃用了</h2>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-07-06T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2018-07-07
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/RN/">RN</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap" id="index-container">
+    
+
+<article id="post-frontend/RNNewsGiveUp" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">React Native 已死？被Airbnb抛弃之后，Udacity也弃用了</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018年07月07日 0:00" datetime="2018-07-06T16:00:00.000Z" itemprop="datePublished">2018-07-07</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/RN/">RN</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" style="display:none">
+    阅读量：<span id="busuanzi_value_page_pv"></span>次
+</span>
+
+
+    <span>|</span>
+    <span class="post-count">字数：2.3k</span>
+    <span>|</span>
+    <span class="post-count">阅读时长：大约8分钟</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <ul>
+<li>开源中国: <a href="https://www.oschina.net/news/97790/udacity-moved-all-react-native-code" rel="external nofollow noopener noreferrer" target="_blank">https://www.oschina.net/news/97790/udacity-moved-all-react-native-code</a></li>
+<li>英文原文：<a href="https://inthepocket.com/blog/2018/react-native-is-dead-long-live-react-native" rel="external nofollow noopener noreferrer" target="_blank">https://inthepocket.com/blog/2018/react-native-is-dead-long-live-react-native</a></li>
+</ul>
+<a id="more"></a>
+<p>在线教育机构 Udacity 宣布放弃使用 React Native！</p>
+<p>上个月，Airbnb 刚刚决定弃用 React Native 的消息，一瞬间仿佛 RN 变成了危险、不可靠的角色，而最近在 Udacity 的 Media 博客中，Udacity 的移动团队也宣布其已经删除了应用中使用 React Native 编写的所有功能。</p>
+<p>Udacity 为什么弃用 React Native？</p>
+<p>Udacity 的移动团队表示虽然 React Native 有许多优势，但是他们在开发过程中也遇到了不少困难，包括 UI/UX、性能、向后兼容性与后期维护等问题，这些问题最终导致了开发团队决定放弃使用 React Native，在尝试了 18 个月、做出 4 个功能之后完全将其代码删除。</p>
+<p>作者还表示，删除的功能并没有使用替代方案重新开发，团队决定不再维护这几个功能。而至于将来会不会再用到 React Native，他表示 iOS 和 Android 团队有不同的考量，iOS 方面将来还是有可能使用 RN，但是 Android 上将不会再使用，它的体验和组件集成等问题过于严重。</p>
+<p>Airbnb 为何放弃使用 React Native？<br>Airbnb 表示，尽管很多团队都依赖 React Native 并计划在可预见的将来使用它，但他们最终还是无法实现最初的目标。此外，还有一些他们无法克服的技术和组织挑战，如果继续使用 React Native，这些挑战最终会变成更大的难题。</p>
+<p>因此，Airbnb 放弃使用 React Native 的主要原因是 React Native 未能实现完全的跨平台抽象，有时候仍然需要针对特定平台单独编写代码来解决问题。这就间接要求他们的工程师必须熟悉三个平台才能真正用好 React Native，然而绝大多数开发者只熟悉一两个平台，久而久之便引发了一系列的问题。</p>
+<p>写在最后<br>虽然Airbnb和Udacity如今都弃用React Native，但它仍然是个极其强大的框架，能处理超大型应用，但任何工具都有局限性，目前 React Native 社区依然很活跃，Facebook 也刚刚宣布了他们在进行大规模的架构改动，让框架更灵活，并且与原生架构结合得更好，而 Expo 等公司也做出了许多突破性的库，如 react-native-gesture-handler 等。<br>所以说，虽然 Airbnb 弃用了 React Native，但整体而言，React Native 还活着。</p>
+<blockquote>
+<p>来源：<a href="http://baijiahao.baidu.com/s?id=1603957763408488922&amp;wfr=spider&amp;for=pc" rel="external nofollow noopener noreferrer" target="_blank">http://baijiahao.baidu.com/s?id=1603957763408488922&amp;wfr=spider&amp;for=pc</a></p>
+</blockquote>
+<p>20 日晚，Airbnb 在 Medium 上发博文宣布，“由于许多技术上和组织上的问题，我们决定放弃 React Native，将所有精力投入到原生应用上。”</p>
+<p>▌Airbnb 的心路历程</p>
+<p>与此同时，Airbnb 团队以 5 篇博文表达了对 React Native 从入门到放弃的心路历程：</p>
+<p>Part 1：React Native at Airbnb（<a href="https://medium.com/airbnb-engineering/react-native-at-airbnb-f95aa460be1c）" rel="external nofollow noopener noreferrer" target="_blank">https://medium.com/airbnb-engineering/react-native-at-airbnb-f95aa460be1c）</a></p>
+<p>经过不断地评估新技术，最终于 2016 年初遇了 React Native 的美好，更多的工程师可以利用其跨平台的特性进行快速地开发、还能保持原生的质量、以及只需为 App 进行一次编码、同时提高了开发者的体验，基于以上的种种优点，促使 Airbnb 团队开始基于 React Native 大刀阔斧地布局。<br>Part 2：React Native at Airbnb: The Technology（<a href="https://medium.com/airbnb-engineering/react-native-at-airbnb-the-technology-dafd0b43838）" rel="external nofollow noopener noreferrer" target="_blank">https://medium.com/airbnb-engineering/react-native-at-airbnb-the-technology-dafd0b43838）</a></p>
+<p>详解了 React Native 作为一项技术的工作原理和优缺点。其在跨平台、统一设计语言系统（DLS）、React、迭代速度、基础架构、性能、Redux 等方面都有良好的优势，但 React Native 彼时仍不成熟、JavaScript 工具缺少安全性类型难以扩展、重构易出错。<br>Part 3：Building a Cross-Platform Mobile Team（<a href="https://medium.com/airbnb-engineering/building-a-cross-platform-mobile-team-3e1837b40a88）" rel="external nofollow noopener noreferrer" target="_blank">https://medium.com/airbnb-engineering/building-a-cross-platform-mobile-team-3e1837b40a88）</a></p>
+<p>剖析了 React Native 对团队的一些复杂的挑战。<br>Part 4：Making a Decision on React Native（<a href="https://medium.com/airbnb-engineering/sunsetting-react-native-1868ba28e30a）" rel="external nofollow noopener noreferrer" target="_blank">https://medium.com/airbnb-engineering/sunsetting-react-native-1868ba28e30a）</a></p>
+<p>React Native 如今已经难以满足 Airbnb 的快速开发、产品质量，以及虽说 React Native 功能代码几乎均可跨平台共享，但 Airbnb 的 App 中只有一小部分是基于 React Native，所以需要大量桥接基础架构，因此Airbnb 宣布即将放弃 React Native 的使用。<br>Part 5：What’s Next for Mobile（<a href="https://medium.com/airbnb-engineering/whats-next-for-mobile-at-airbnb-5e71618576ab）" rel="external nofollow noopener noreferrer" target="_blank">https://medium.com/airbnb-engineering/whats-next-for-mobile-at-airbnb-5e71618576ab）</a></p>
+<p>从 React Native 开发中吸取经验，回归基于原生技术的自有框架开发将会更好。<br>最终得出结论，他们决定在今年年底全面放弃 React Native。</p>
+<p>这条消息来得很突然，因为 Airbnb 一直在为 React Native 贡献开源项目和工作流工具，就在上个月还在 React Europe 大会上发布了 Lona 工具，但没过多久就有了上文所述的话题……</p>
+<p>▌React Native 从入门到放弃</p>
+<p>Airbnb 是硅谷创业公司中最早使用 React Native 的公司之一，他们从 2016 年就开始使用，而彼时距离 2015 年 React Native 发布才仅仅过去了一年。那时，Airbnb 有原生的 iOS 和 Android 应用，在 Web 上则使用 React。由于有着丰富的 React 经验，他们决定采用 React Native 来加速原生应用的开发。这次移植造成的影响就是带来了大量的额外工作，而这个影响刚开始时并不明显。他们花费了大量时间去研究如何编写辅助功能（如原生桥梁、封装代码等）以便让 JavaScript 支持已有的原生功能。同时，每当 iOS、Android 或 React Native 升级时，这些库都要进行维护。这不仅是技术上的难题，也造成了毫无必要的组织问题。</p>
+<p>由于最初的意图是“作为公司整体快速前进”，因此出于诸多原因（上文 Part 2 中所述），使用 React Native 已不再是个可行的策略。</p>
+<p>但这是否意味着其他人也要拒绝 React Native？我看未必。Airbnb 的博文中提到的许多问题我们都遇到过。但对于 Airbnb 的规模（作为比较，笔者公司 In The Pocket 的移动应用一共有 100 名开发者，一个产品团队通常包含 4~10 名开发者）以及他们在产品和用户体验需求方面的投入的力量来说，他们的确有理由放弃 React Native。不管是什么工具，都要知道，甚至预料到它的局限性。</p>
+<p>▌“混合应用很难。”</p>
+<p>尽管 React Native 是个 JavaScript 框架，但绝大多数 React Native 至少会两种平台（Android、iOS、React Native）。笔者使用 React Native 大约有一年半的经验。我们认识到，理解常见的原生开发模式（如导航等）非常有必要，而且某些时候不得不在代码中加入一些原生的东西。没错，这会带来不必要的复杂性，但最终，我们仍然希望尽量使用 JavaScript，尽管其实底层是原生的。</p>
+<p>“我们不得不支持三个平台（以前是两个），这让我们感到很疲惫……”</p>
+<p>Airbnb 有 220 个 React Native 的界面，但每个平台上还有 880 个原生界面面，这就是说只有 20% 的功能是 React Native 的。“我们遇到的大多数问题都是由混合模式造成的“。我们在将 React 与原生代码结合的过程中也认识到了这一点。但是，这些困难不应该成为选择 React Native 平台的阻力。</p>
+<p>“许多功能都要求把各种技术结合到一起，此时迭代速度、代码质量和开发者经验都符合甚至超过了我们的目标值和期望。许多时候我们感觉我们站在了移动开发变革的最前沿。”</p>
+<p>即使 Airbnb 已经决定要在移动产品中放弃 React Native，这也不应该对 React Native 的未来造成负面影响。Airbnb 的主要开源项目（Lottie、react-native-maps）已成为开发者日常生活的一部分，现在它们都被转交给了 React Native 社区。读完所有五篇博文之后我们可以认为，考虑到可维护性和可持续性，React Native 并不适合像 Airbnb 这种规模的应用。最终，他们证明了 React Native 是个极其强大的框架，能处理超大型应用。但任何工具都会有局限性。</p>
+<p>但目前 React Native 社区仍然很活跃，Facebook 也刚刚宣布了他们在进行大规模的架构改动，让框架更灵活，并且与原生架构结合得更好，而 Expo 等公司也做出了许多突破性的库，如 react-native-gesture-handler 等。</p>
+<p>所以说，虽然 Airbnb 弃用了 React Native，但整体而言，React Native 还活着。</p>
+<p>原文：<a href="https://inthepocket.com/blog/2018/react-native-is-dead-long-live-react-native作者：Kevin" rel="external nofollow noopener noreferrer" target="_blank">https://inthepocket.com/blog/2018/react-native-is-dead-long-live-react-native作者：Kevin</a> Meyvaert，In The Pocket 的 Web 全栈工程师，React Native专家。译者：弯月审校：屠敏</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-09-01T02:53:12.930Z" itemprop="dateUpdated">2020年9月1日 10:53</time>
+</span><br>
+
+
+        转载请注明出处：<a href="/frontend/RNNewsGiveUp.html" target="_blank" rel="external">https://www.lovesofttech.com/frontend/RNNewsGiveUp.html</a>
+    </div>
+    <footer>
+        <a href="https://www.lovesofttech.com">
+            <img src="/img/myLogo.jpg" alt="安迪陈">
+            安迪陈
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/RN/">RN</a></li></ul>
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/frontend/RNNewsGiveUp.html&title=《React Native 已死？被Airbnb抛弃之后，Udacity也弃用了》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/frontend/RNNewsGiveUp.html&title=《React Native 已死？被Airbnb抛弃之后，Udacity也弃用了》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=
+开源中国: https://www.oschina.net/news/97790/udacity-moved-all-react-native-code..." data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/frontend/RNNewsGiveUp.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《React Native 已死？被Airbnb抛弃之后，Udacity也弃用了》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/frontend/RNNewsGiveUp.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/frontend/RNNewsGiveUp.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/softTest/testDev.html" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">测试 &amp; 开发</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/job/stovePrinciple.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">火炉原则</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+    
+    
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="bottom">
+        <p>
+            <span>安迪陈技术日志，架构、感悟、系统分析、团队管理 &copy; 2017 - 2020</span>
+            <span>
+                Power by <a href="https://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>&nbsp;
+                Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank" rel="external nofollow noopener noreferrer">indigo</a>
+            </span>
+            <span>
+                <a href="http://www.beian.miit.gov.cn" target="_blank" rel="external nofollow noopener noreferrer">蜀ICP备17041860号</a>
+            </span>
+            
+            <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            </p><p>
+                <span>
+                    统计始于：2019-03-06
+                </span>
+                <span id="busuanzi_container_site_uv" style="display:none">
+                    访客数：<span id="busuanzi_value_site_uv"></span>
+                </span>
+                <span id="busuanzi_container_site_pv" style="display:none">
+                    访问量：<span id="busuanzi_value_site_pv"></span>
+                </span>
+            
+            
+                <span class="post-count">累计字数：309.2k</span>
+            
+                <span><a href="/general/blogLog.html"><i class="fas fa-pen-alt"></i>&nbsp;博客日志</a></span>
+            </p>
+        <p></p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light" title="回到顶部"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/frontend/RNNewsGiveUp.html&title=《React Native 已死？被Airbnb抛弃之后，Udacity也弃用了》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/frontend/RNNewsGiveUp.html&title=《React Native 已死？被Airbnb抛弃之后，Udacity也弃用了》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=
+开源中国: https://www.oschina.net/news/97790/udacity-moved-all-react-native-code..." data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/frontend/RNNewsGiveUp.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《React Native 已死？被Airbnb抛弃之后，Udacity也弃用了》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/frontend/RNNewsGiveUp.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/frontend/RNNewsGiveUp.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACIUlEQVR42u3aQU4DMQwF0N7/0kVixYIZ/ndaBMnLqmJKmjcLy479eMTr+bm+fr76y9XT2c4vXhgYGP+W8bxdVz92tcP90RNS8oK+2QcDA+MARh4KrxhJDEyeDl8HBgYGRhwo7w/XHhEDAwNjJeAmaVxyuPybGBgYGO0R2wSxvbx7Yy2OgYHxDxmzxsDvfH57fwMDA+PPM57lai/U2tcxWxgYGHszktStbUDmjHxQIwrHGBgYBzDyUNsG4hmpfUEYGBi7MvJRsGSHBJAE0zqsY2BgbM24D6B5+FsvgGelLwYGBkYbXpMRinYgY6mIxcDA2IKRX9PP2pzJ/klI/YGEgYGxNaNNv/IkLz/oSrDGwMA4gTG7+s9Dc17KzpqpGBgYJzDagrYtYtuWJAYGBsZ9wG3TuFk6mKeABQwDA+Ngxqt+JqmkV8bIMDAwzmG0o1orh8hJUcjGwMA4gNEeZaUBmaeMRRmMgYGxNSMBtOnabCxjNmSGgYFxAmNWxK43O/NXUMyJYGBgbM1o/61tQLbJX56eYmBgnMBIErWVzy0sD75RRY6BgbEF41mutnmQfz8pZS+fYmBgbM1YuSCbHSJJ8vKdMTAwzmHkQbYdnlhpG9TtCgwMjAMY7SDXO0LtrPGJgYGBEW1RNgnyK7l6ZgQDAwMjLmtnl27tyMUP/VgMDIztGHkzYL2dkLOL4hYDA2NrRltADovMUdLZDnNgYGBsx/gAYGfRP7f9K/sAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.5.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.5.2" async></script>
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '安迪陈技术日志';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '欢迎回来';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

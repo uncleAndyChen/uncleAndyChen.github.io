@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<!--<script async src="//hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c"></script>-->
+<!-- 统计-->
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var host = window.location.host;
+        var hm = document.createElement("script");
+
+        if (host.indexOf('gitee.io') > 0) { // https://uncleandychen.gitee.io/
+            hm.src = "https://hm.baidu.com/hm.js?0cf4709148b070b8082191d2e456a1a3";
+        } else if (host.indexOf('lovesofttech.com') > 0) { // https://www.lovesofttech.com/
+            hm.src = "https://hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c";
+        } else {
+            hm.src = '';
+        }
+
+        if (hm.src !== '') {
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        }
+    })();
+</script>
+<!-- End Baidu Tongji -->
+
+
+
+<!-- Baidu Push -->
+<!-- 主动推送百度爬虫-->
+<script>
+    (function(){
+        if (window.location.host.indexOf('lovesofttech.com') < 0) {
+            return;
+        }
+
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+<!-- End Baidu Push -->
+
+
+    <meta charset="utf-8">
+    
+    
+    <link rel="canonical" href="https://www.lovesofttech.com/windows/ghost.html">
+    
+    
+    <title>记一次用 ghost 还原镜像，调换两台电脑系统盘的操作 | 安迪陈技术日志，架构、感悟、系统分析、团队管理 | 自强不息，厚德载物</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="windows,ghost">
+    <meta name="description" content="看似简单的操作，实际上出现了几点意外，导致本来认为一个下午可以搞定的事情，实际上花了一天时间，各种折腾，还熬夜了，囧~~。">
+<meta name="keywords" content="windows,ghost">
+<meta property="og:type" content="article">
+<meta property="og:title" content="记一次用 ghost 还原镜像，调换两台电脑系统盘的操作">
+<meta property="og:url" content="https://www.lovesofttech.com/windows/ghost.html">
+<meta property="og:site_name" content="安迪陈技术日志，架构、感悟、系统分析、团队管理">
+<meta property="og:description" content="看似简单的操作，实际上出现了几点意外，导致本来认为一个下午可以搞定的事情，实际上花了一天时间，各种折腾，还熬夜了，囧~~。">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:image" content="https://www.lovesofttech.com/img/windows/windows-ghost-01.png">
+<meta property="og:updated_time" content="2020-09-01T02:53:13.105Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="记一次用 ghost 还原镜像，调换两台电脑系统盘的操作">
+<meta name="twitter:description" content="看似简单的操作，实际上出现了几点意外，导致本来认为一个下午可以搞定的事情，实际上花了一天时间，各种折腾，还熬夜了，囧~~。">
+<meta name="twitter:image" content="https://www.lovesofttech.com/img/windows/windows-ghost-01.png">
+    
+        <link rel="alternative" href="/atom.xml" title="安迪陈技术日志，架构、感悟、系统分析、团队管理" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=201912302211">
+    <link rel="stylesheet" href="/css/header.css?v=201912302211">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu">
+  <div class="inner flex-row-vertical">
+    <!--<i class="icon icon-lg icon-close"></i>-->
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off" title="隐藏左侧导航">﹤<i class="icon icon-lg icon-navicon"></i></a>
+    <div class="brand-wrap" style="background-image:url(/img/bannerBackgroundLeft.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/myLogo.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">安迪陈</h5>
+          <a href="mailto:andy@lovesofttech.com" title="andy@lovesofttech.com" class="mail" rel="external nofollow noopener noreferrer" target="_blank">andy@lovesofttech.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articleClassify.html">
+                <i class="icon icon-th-list"></i>
+                文章分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articles.html">
+                <i class="icon icon-th-list articles"></i>
+                文章列表
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/java.html">
+                <i class="icon icon-th-list java"></i>
+                Java
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/database.html">
+                <i class="icon icon-th-list database"></i>
+                MySQL/MyBatis
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/linux.html">
+                <i class="icon icon-th-list linux"></i>
+                CentOS/linux
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/react.html">
+                <i class="icon icon-th-list React"></i>
+                React
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/lnmp.html">
+                <i class="icon icon-th-list LNMP"></i>
+                LNMP
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/git.html">
+                <i class="icon icon-th-list git"></i>
+                git
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/windows.html">
+                <i class="icon icon-th-list windows"></i>
+                windows
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/dailyLives.html">
+                <i class="icon icon-th-list dailyLives"></i>
+                工作 &amp; 生活
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-github"></i>
+                我的 github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://gitee.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link"></i>
+                我的 gitee
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://blog.csdn.net/runAndRun" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link CSDN"></i>
+                我的 CSDN
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/aboutMe.html">
+                <i class="icon icon-address-card"></i>
+                关于我
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+
+        <div class="navbar navbar-custom navbar-fixed-top">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" style="margin-left:10px;" id="menu-toggle" title="显示左侧导航"><i class="icon icon-lg icon-navicon"></i>﹥</a>
+            <ul class="nav navbar-nav navbar-right" id="navMenuTop">
+                <li>
+                    <a href="/">主页</a>
+                </li>
+                
+                    
+                        <li>
+                            <a href="/articleClassify.html" title="本博客的文章分类列表">文章分类</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/articles.html" title="本博客的所有文章列表">文章列表</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/java.html" title="Java 开发，文章目录">Java</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/database.html" title="日常开发中有关 MySQL、MyBatis 的一些经验总结">MySQL/MyBatis</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/linux.html" title="CentOS/linux，文章目录">CentOS/linux</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/react.html" title="React 技术栈（全家桶）学习心得分享，文章目录">React</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/about.html">关于</a>
+                        </li>
+                    
+                
+            </ul>
+        </div>
+
+        <div class="flex-col header-title ellipsis">记一次用 ghost 还原镜像，调换两台电脑系统盘的操作</div>
+        
+        <div class="search-wrap" id="search-wrap" style="z-index: 2;">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back" style="width:33px;">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search" style="width:33px;">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare" style="z-index: 3;margin-right: 10px; width:30px;">
+                <i class="icon icon-lg icon-share-alt"></i>
+            </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h2 class="title">记一次用 ghost 还原镜像，调换两台电脑系统盘的操作</h2>
+        <h5 class="subtitle">
+            
+                <time datetime="2020-08-02T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2020-08-03
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/windows/">windows</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/windows/ghost/">ghost</a></li></ul></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap" id="index-container">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc" style="z-index: 3;">
+            <h4><i class="fa fa-list-alt"></i>&nbsp;&nbsp;本文目录</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#背景"><span class="post-toc-number">1.</span> <span class="post-toc-text">背景</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#现状"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">现状</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#需求"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">需求</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#需要达到的效果"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">需要达到的效果</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#我的操作"><span class="post-toc-number">2.</span> <span class="post-toc-text">我的操作</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#成功启动的操作"><span class="post-toc-number">3.</span> <span class="post-toc-text">成功启动的操作</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#总结"><span class="post-toc-number">4.</span> <span class="post-toc-text">总结</span></a></li></ol>
+        </nav>
+    </aside>
+    
+
+<article id="post-windows/ghost" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">记一次用 ghost 还原镜像，调换两台电脑系统盘的操作</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2020年08月03日 0:00" datetime="2020-08-02T16:00:00.000Z" itemprop="datePublished">2020-08-03</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/windows/">windows</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/windows/ghost/">ghost</a></li></ul></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" style="display:none">
+    阅读量：<span id="busuanzi_value_page_pv"></span>次
+</span>
+
+
+    <span>|</span>
+    <span class="post-count">字数：1.8k</span>
+    <span>|</span>
+    <span class="post-count">阅读时长：大约6分钟</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>看似简单的操作，实际上出现了几点意外，导致本来认为一个下午可以搞定的事情，实际上花了一天时间，各种折腾，还熬夜了，囧~~。<br><a id="more"></a></p>
+<blockquote>
+<p>花在等待 Ghost 制作镜像和还原镜像上的时间比较多，一次操作在半小时到一个小时的样子。</p>
+</blockquote>
+<h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><h2 id="现状"><a href="#现状" class="headerlink" title="现状"></a>现状</h2><ul>
+<li>有两台电脑，操作系统均安装到一块固态硬盘上，每台电脑的固态硬盘为唯一启动盘。</li>
+<li>两块固态硬盘都只有一个分区，一块是容量为 250G，记为硬盘 A，对应电脑 A，另外一块容量 500G，记为硬盘 B，对应电脑 B。</li>
+<li>由于两台电脑定位不同，安装的软件不一样，C 盘空间占用情况差距很大。</li>
+</ul>
+<h2 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h2><p>调换两块固态硬盘，即将硬盘 A 挂到电脑 B 上，将硬盘 B 挂到电脑 A 上，安装好的操作系统要互换。</p>
+<h2 id="需要达到的效果"><a href="#需要达到的效果" class="headerlink" title="需要达到的效果"></a>需要达到的效果</h2><p>硬盘调换之后，之前安装好的操作系统和相关软件完全不变，从使用角度看，唯一变的只有 C 盘空间。</p>
+<h1 id="我的操作"><a href="#我的操作" class="headerlink" title="我的操作"></a>我的操作</h1><ol>
+<li>将两块硬盘都整个 Ghost 到一个镜像文件（Disk -&gt; To Image）。<ul>
+<li>期间，硬盘 A 在镜像的时候，有提示错误，大概是说有系统文件，需要运行 checkdisk 之类的，我没有继续，启动老毛桃增强版操作系统，将 c 盘的虚拟内存页面文件 pagefile.sys 和睡眠文件 Hiberfil.sys 删除之后再试，不再有错误提示。这两个文件占用了 20G 左右的空间。</li>
+</ul>
+</li>
+<li>将硬盘 A 的镜像文件恢复到硬盘 B （Disk -&gt; From Image）。</li>
+<li><p>将硬盘 B 挂到电脑 A（原来硬盘 A 所在的电脑）上，启动，提示无法找到可启动的操作系统。</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">你的电脑/设备需要修复</span><br><span class="line">无法加载应用程序或操作系统，原因是所需文件丢失或包含错误。</span><br><span class="line">文件：\windows\system32\winload.efi</span><br><span class="line">错误代码：0xc000000e</span><br><span class="line"></span><br><span class="line">你需要使用恢复工具...</span><br></pre></td></tr></table></figure>
+<p> <img src="/img/windows/windows-ghost-01.png" alt></p>
+</li>
+<li>我用老毛桃工具，启动恢复，提示恢复成功，但是问题依旧。<ul>
+<li>在这一步，我记得当时是挂了两块可启动硬盘，当时还可以选择恢复哪块硬盘上的操作系统。</li>
+<li>另外，记得有一次硬盘 B 在恢复了硬盘 A 的镜像文件后，为了测试，直接在电脑 B 上启动，能正常启动了的，当时还挂着老毛桃工具 U 盘，但是拿到电脑 A 上，启动时还是报上面的错误。</li>
+</ul>
+</li>
+<li>用 Ghost 软件打开硬盘 B 的镜像文件，把相应目录下的 winload.efi 文件，复制到硬盘 B 的 c 盘同样的目录下覆盖原来的文件，启动，还是一样的错误提示。</li>
+<li>于是我用分区到分区的镜像方式（Partition -&gt; To Partition），将硬盘 A 的 C 盘（唯一的活动分区）镜像到硬盘 B 的 C 盘（也是唯一的活动分区）。还是同样的启动错误。</li>
+<li>将硬盘 B 的整个硬盘镜像恢复回硬盘 B，在原来的电脑（即电脑 B）上启动，竟然还是报这个错误，用启动恢复工具恢复之后，恢复如初。看来整个硬盘恢复后还需要启动恢复操作，于是我想到，在不破坏原来启动分区（为隐藏分区）的情况下操作，于是删除硬盘镜像，制作了硬盘 B 的 C 盘的镜像备用。<ul>
+<li>这次使用恢复工具时，只挂了一块带有操作系统的硬盘，之前恢复后启动报错，不知道是不是因为挂了两块有操作系统的硬盘有关。</li>
+</ul>
+</li>
+</ol>
+<h1 id="成功启动的操作"><a href="#成功启动的操作" class="headerlink" title="成功启动的操作"></a>成功启动的操作</h1><ol>
+<li>我把硬盘 B 的那块固态硬盘所有分区删除，重新分一个区，选 GPT/GUID 格式，其余全部默认。</li>
+<li>通过分区到分区的方式镜像硬盘 A 的 C 盘到硬盘 B 的 C 盘，恢复启动，然后挂到电脑 A 上，提示需要修复，按提示操作之后，修复并重启之后，出现了久违的登录界面，这期间大概要花三分钟的样子吧。</li>
+<li>电脑 B 的恢复，没有删除分区，只是将硬盘 B 的 C 盘镜像恢复到硬盘 A 的 C 盘，然后启动，一次成功，没有经过启动修复过程。</li>
+</ol>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ol>
+<li>电脑 A 在恢复镜像后第一次启动有一个修复过程，可能跟我的操作有关，在镜像之前，我把虚拟内存文件由 C 盘设置到了 D 盘（C 盘残留了 pagefile.sys 和 Hiberfil.sys），设置之后没有重启而是直接关机了，也就是说，这个设置其实还没有生效，需要在下一次启动之后生效。</li>
+<li>启动修复时，挂载了两块有操作系统的硬盘，就是本文提到的硬盘 A 和硬盘 B ，导致修复后启动不成功，不过，这一点不是很确定。</li>
+<li>整个硬盘镜像，恢复时用默认值，导致启动有问题。理论上，应该不会出现这样的问题（曾经这样操作过，直接一步成功，不过已经过去了很多年，Ghost 软件以及操作系统都不一样了），也许是我操作不当，比如在恢复启动的时候，应该只挂载一块硬盘。如果这样能成功的话，应该能节省我非常多的时间，以后如果再作类似的操作，可以再次尝试一下。</li>
+<li>应该做好重装操作系统的准备。这次操作，只制作了老毛桃工具 U 盘，如果期间镜像备份没做好或者有问题，现有硬盘又启动不了，就只能重装操作系统了，但我还没有下载 windows 10 的安装镜像文件。</li>
+<li>远远超出了我的预期时间，本来认为先制作硬盘 B 的整个硬盘镜像到文件 A.gho，然后从硬盘 A 直接整个硬盘 Ghost 到硬盘 B ，最后恢复镜像文件 A.gho 到硬盘 A，操作系统层面的操作就完事儿的。</li>
+<li>一件我们认为简单的事，哪怕做过，也很有可能因为存在某些我们考虑不到的情况而完全背离我们的经验，从而导致超出我们预期的情况发生，所以，要提前做好最坏的打算。</li>
+<li>这件事，对应到软件开发，非常相似。<ul>
+<li>开发人员在评估工作量的时候，往往只是凭借自己的工作经验，即便有意预留出三分一的时间，也经常出现实际工作量要远远大于评估的工作量。</li>
+<li>这很正常，所以，工作量的评估，也是需要不断完善的，是需要分阶段的，不能一下子说死，必须留有余地。好象扯远了~~</li>
+</ul>
+</li>
+</ol>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-09-01T02:53:13.105Z" itemprop="dateUpdated">2020年9月1日 10:53</time>
+</span><br>
+
+
+        转载请注明出处：<a href="/windows/ghost.html" target="_blank" rel="external">https://www.lovesofttech.com/windows/ghost.html</a>
+    </div>
+    <footer>
+        <a href="https://www.lovesofttech.com">
+            <img src="/img/myLogo.jpg" alt="安迪陈">
+            安迪陈
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ghost/">ghost</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/windows/">windows</a></li></ul>
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/windows/ghost.html&title=《记一次用 ghost 还原镜像，调换两台电脑系统盘的操作》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/windows/ghost.html&title=《记一次用 ghost 还原镜像，调换两台电脑系统盘的操作》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=看似简单的操作，实际上出现了几点意外，导致本来认为一个下午可以搞定的事情，实际上花了一天时间，各种折腾，还熬夜了，囧~~。" data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/windows/ghost.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《记一次用 ghost 还原镜像，调换两台电脑系统盘的操作》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/windows/ghost.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/windows/ghost.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/windows/diskFormat.html" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">MBR、GPT/GUID 分区格式</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/mac/iPadFileShare.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">使用 iTunes 在电脑与 iOS 或 iPad 设备之间共享（传输）文件</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+    
+    
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="bottom">
+        <p>
+            <span>安迪陈技术日志，架构、感悟、系统分析、团队管理 &copy; 2017 - 2020</span>
+            <span>
+                Power by <a href="https://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>&nbsp;
+                Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank" rel="external nofollow noopener noreferrer">indigo</a>
+            </span>
+            <span>
+                <a href="http://www.beian.miit.gov.cn" target="_blank" rel="external nofollow noopener noreferrer">蜀ICP备17041860号</a>
+            </span>
+            
+            <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            </p><p>
+                <span>
+                    统计始于：2019-03-06
+                </span>
+                <span id="busuanzi_container_site_uv" style="display:none">
+                    访客数：<span id="busuanzi_value_site_uv"></span>
+                </span>
+                <span id="busuanzi_container_site_pv" style="display:none">
+                    访问量：<span id="busuanzi_value_site_pv"></span>
+                </span>
+            
+            
+                <span class="post-count">累计字数：309.2k</span>
+            
+                <span><a href="/general/blogLog.html"><i class="fas fa-pen-alt"></i>&nbsp;博客日志</a></span>
+            </p>
+        <p></p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light" title="回到顶部"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/windows/ghost.html&title=《记一次用 ghost 还原镜像，调换两台电脑系统盘的操作》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/windows/ghost.html&title=《记一次用 ghost 还原镜像，调换两台电脑系统盘的操作》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=看似简单的操作，实际上出现了几点意外，导致本来认为一个下午可以搞定的事情，实际上花了一天时间，各种折腾，还熬夜了，囧~~。" data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/windows/ghost.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《记一次用 ghost 还原镜像，调换两台电脑系统盘的操作》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/windows/ghost.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/windows/ghost.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACM0lEQVR42u3azWoDMQxF4bz/S0+hdFEo45wrTQqWj1clST3+ZiGsn9cLr+t73X1y/Vp335Kd/+7z8JIhQ8a2jGu5+KHXR+/8Zn02GTJknMPgoTANpnx/HqxlyJAhg2y3Dpdr9h2PvyYZMmTISNNUcsTatVKGDBkyngqU/dfBn/tALi5DhowNGWlj4D///mB/Q4YMGZswrnDxHfhzO+f52UGGDBmjGbyUxh/ziaENFI5lyJAxlPHskARPd/mz0IuWIUPGwQxe+q8V+juthSDgypAhY3NGp1hPQm0ayltDYzJkyBjKqF3patQgq06H1WTIkHEAIx2GSC95tZ3Xn8iQIeMcRmfAol+k403Q9FopQ4aMSYxakpkGxFpKHJxBhgwZoxlpYYsnvfzaxy9/b/aRIUPGUAZPIEnRrXbt6wx2xBmzDBkytmV0kkk+7FULuGhnGTJkjGbULmckNe20P2sjIDJkyJjKqJX+0+GJWjszCP0yZMgYzUibi8VeaGNgQoYMGTJIsYw0Gmv/VSMVa34yZMjYnEEGHXihjWfP/IpZ7MHKkCFjBIMnqOn1jrc2ecshDrsyZMgYwbjClSa6tRGKeOBMhgwZoxl8pcE3vVDyNFiGDBlnMkiQTZNYPubVeREyZMg4jZEmt7ypkDYkeMtBhgwZMtIWJh/kqiW9b/AyZMiQAZLYzuFqobYVcGXIkLEhgw9G1JLYdWKcjp3FjUwZMmRszugkkLXyHCn9p7+UIUPGUMYXBCCJhxEY5XsAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.5.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.5.2" async></script>
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '安迪陈技术日志';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '欢迎回来';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<!--<script async src="//hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c"></script>-->
+<!-- 统计-->
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var host = window.location.host;
+        var hm = document.createElement("script");
+
+        if (host.indexOf('gitee.io') > 0) { // https://uncleandychen.gitee.io/
+            hm.src = "https://hm.baidu.com/hm.js?0cf4709148b070b8082191d2e456a1a3";
+        } else if (host.indexOf('lovesofttech.com') > 0) { // https://www.lovesofttech.com/
+            hm.src = "https://hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c";
+        } else {
+            hm.src = '';
+        }
+
+        if (hm.src !== '') {
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        }
+    })();
+</script>
+<!-- End Baidu Tongji -->
+
+
+
+<!-- Baidu Push -->
+<!-- 主动推送百度爬虫-->
+<script>
+    (function(){
+        if (window.location.host.indexOf('lovesofttech.com') < 0) {
+            return;
+        }
+
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+<!-- End Baidu Push -->
+
+
+    <meta charset="utf-8">
+    
+    
+    <link rel="canonical" href="https://www.lovesofttech.com/react.html">
+    
+    
+    <title>React 技术栈（全家桶）学习心得分享，文章目录 | 安迪陈技术日志，架构、感悟、系统分析、团队管理 | 自强不息，厚德载物</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="react,redux">
+    <meta name="description" content="react 技术栈学习，有文章有代码（github），花了很多时间整理，如果觉得不错，请在 github 或 gitee 的开源项目上给个小星星儿（star）。">
+<meta name="keywords" content="react,redux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React 技术栈（全家桶）学习心得分享，文章目录">
+<meta property="og:url" content="https://www.lovesofttech.com/react.html">
+<meta property="og:site_name" content="安迪陈技术日志，架构、感悟、系统分析、团队管理">
+<meta property="og:description" content="react 技术栈学习，有文章有代码（github），花了很多时间整理，如果觉得不错，请在 github 或 gitee 的开源项目上给个小星星儿（star）。">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:image" content="https://pub.idqqimg.com/wpa/images/group.png">
+<meta property="og:image" content="https://www.lovesofttech.com/img/react/reactStackLearning.png">
+<meta property="og:updated_time" content="2020-09-01T02:53:13.077Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="React 技术栈（全家桶）学习心得分享，文章目录">
+<meta name="twitter:description" content="react 技术栈学习，有文章有代码（github），花了很多时间整理，如果觉得不错，请在 github 或 gitee 的开源项目上给个小星星儿（star）。">
+<meta name="twitter:image" content="https://pub.idqqimg.com/wpa/images/group.png">
+    
+        <link rel="alternative" href="/atom.xml" title="安迪陈技术日志，架构、感悟、系统分析、团队管理" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=201912302211">
+    <link rel="stylesheet" href="/css/header.css?v=201912302211">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu">
+  <div class="inner flex-row-vertical">
+    <!--<i class="icon icon-lg icon-close"></i>-->
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off" title="隐藏左侧导航">﹤<i class="icon icon-lg icon-navicon"></i></a>
+    <div class="brand-wrap" style="background-image:url(/img/bannerBackgroundLeft.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/myLogo.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">安迪陈</h5>
+          <a href="mailto:andy@lovesofttech.com" title="andy@lovesofttech.com" class="mail" rel="external nofollow noopener noreferrer" target="_blank">andy@lovesofttech.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articleClassify.html">
+                <i class="icon icon-th-list"></i>
+                文章分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articles.html">
+                <i class="icon icon-th-list articles"></i>
+                文章列表
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/java.html">
+                <i class="icon icon-th-list java"></i>
+                Java
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/database.html">
+                <i class="icon icon-th-list database"></i>
+                MySQL/MyBatis
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/linux.html">
+                <i class="icon icon-th-list linux"></i>
+                CentOS/linux
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect active">
+              <a href="/react.html">
+                <i class="icon icon-th-list React"></i>
+                React
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/lnmp.html">
+                <i class="icon icon-th-list LNMP"></i>
+                LNMP
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/git.html">
+                <i class="icon icon-th-list git"></i>
+                git
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/windows.html">
+                <i class="icon icon-th-list windows"></i>
+                windows
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/dailyLives.html">
+                <i class="icon icon-th-list dailyLives"></i>
+                工作 &amp; 生活
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-github"></i>
+                我的 github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://gitee.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link"></i>
+                我的 gitee
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://blog.csdn.net/runAndRun" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link CSDN"></i>
+                我的 CSDN
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/aboutMe.html">
+                <i class="icon icon-address-card"></i>
+                关于我
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+
+        <div class="navbar navbar-custom navbar-fixed-top">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" style="margin-left:10px;" id="menu-toggle" title="显示左侧导航"><i class="icon icon-lg icon-navicon"></i>﹥</a>
+            <ul class="nav navbar-nav navbar-right" id="navMenuTop">
+                <li>
+                    <a href="/">主页</a>
+                </li>
+                
+                    
+                        <li>
+                            <a href="/articleClassify.html" title="本博客的文章分类列表">文章分类</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/articles.html" title="本博客的所有文章列表">文章列表</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/java.html" title="Java 开发，文章目录">Java</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/database.html" title="日常开发中有关 MySQL、MyBatis 的一些经验总结">MySQL/MyBatis</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/linux.html" title="CentOS/linux，文章目录">CentOS/linux</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/react.html" title="React 技术栈（全家桶）学习心得分享，文章目录">React</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/about.html">关于</a>
+                        </li>
+                    
+                
+            </ul>
+        </div>
+
+        <div class="flex-col header-title ellipsis">React 技术栈（全家桶）学习心得分享，文章目录</div>
+        
+        <div class="search-wrap" id="search-wrap" style="z-index: 2;">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back" style="width:33px;">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search" style="width:33px;">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare" style="z-index: 3;margin-right: 10px; width:30px;">
+                <i class="icon icon-lg icon-share-alt"></i>
+            </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h2 class="title">React 技术栈（全家桶）学习心得分享，文章目录</h2>
+        <h5 class="subtitle">
+            
+                <time datetime="2019-11-02T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2019-11-03
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/react/">react</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/react/redux/">redux</a></li></ul></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap" id="index-container">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc" style="z-index: 3;">
+            <h4><i class="fa fa-list-alt"></i>&nbsp;&nbsp;本文目录</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#相关文章"><span class="post-toc-number">1.</span> <span class="post-toc-text">相关文章</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#结合例子代码学习"><span class="post-toc-number">2.</span> <span class="post-toc-text">结合例子代码学习</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#个人学习心得项目地址"><span class="post-toc-number">3.</span> <span class="post-toc-text">个人学习心得项目地址</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#前言"><span class="post-toc-number">4.</span> <span class="post-toc-text">前言</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#项目依赖及版本"><span class="post-toc-number">4.1.</span> <span class="post-toc-text">项目依赖及版本</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#分支说明"><span class="post-toc-number">5.</span> <span class="post-toc-text">分支说明</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#获取（切换至）某分支"><span class="post-toc-number">6.</span> <span class="post-toc-text">获取（切换至）某分支</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#如何参与项目，如何提交-PR？"><span class="post-toc-number">7.</span> <span class="post-toc-text">如何参与项目，如何提交 PR？</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#加群一起学习"><span class="post-toc-number">8.</span> <span class="post-toc-text">加群一起学习</span></a></li></ol>
+        </nav>
+    </aside>
+    
+
+<article id="post-react" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">React 技术栈（全家桶）学习心得分享，文章目录</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2019年11月03日 0:00" datetime="2019-11-02T16:00:00.000Z" itemprop="datePublished">2019-11-03</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/react/">react</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/react/redux/">redux</a></li></ul></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" style="display:none">
+    阅读量：<span id="busuanzi_value_page_pv"></span>次
+</span>
+
+
+    <span>|</span>
+    <span class="post-count">字数：619</span>
+    <span>|</span>
+    <span class="post-count">阅读时长：大约2分钟</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>react 技术栈学习，有文章有代码（github），花了很多时间整理，如果觉得不错，请在 github 或 gitee 的开源项目上给个小星星儿（star）。<br><a id="more"></a></p>
+<h1 id="相关文章"><a href="#相关文章" class="headerlink" title="相关文章"></a>相关文章</h1><blockquote>
+<p>友情提示：如果要<strong>在新窗口中打开</strong>以下链接，请按住 Ctrl 键再点相关链接。</p>
+</blockquote>
+<ul>
+<li><a href="/react/antDesignProDownloadExcel.html">Ant Design Pro v4 从后端下载 excel，后端返回的是文件流</a></li>
+<li><a href="/react/antDesignProTs.html">Ant Design Pro v4 开发备忘，TypeScript 版本</a></li>
+<li><a href="/react/prepare.html">react 技术栈学习，相关知识储备</a></li>
+<li><a href="/react/js.html">React 技术栈学习，js 知识点</a></li>
+<li><a href="/react/redux.html">React 技术栈学习，redux 知识点</a></li>
+<li><a href="/react/debug.html">React 项目调试技巧</a></li>
+<li><a href="/react/JetBrainsIDESupport.html">像用 IDEA 调试 Java 代码一样，用 WebStorm 调试 react 代码</a></li>
+<li><a href="/react/examplesTodomvcGetVisibleTodos.html">redux 官方示例 todomvc 中的 todoList 过滤事件解析</a></li>
+<li><a href="/react/examplesTodomvcWarningsFixed.html">redux 官方示例 todomvc 两个警告修复</a></li>
+<li><a href="/react/reactReduxDirectoryStructure.html">React+Redux工程目录结构，最佳实践</a></li>
+<li><a href="/react/reactPropTypes.html">react 项目，在生产环境去掉 propTypes 检查代码，打包时自动去除</a></li>
+<li><a href="/react/eslintConfig.html">WebStorm + React 项目，配置 ESLint</a></li>
+<li><a href="/react/eslintConfigExample.html">ESLint 配置文件 .eslintrc 示例及说明</a></li>
+<li><a href="/react/reactExperience.html">react开发，日常经验汇总</a></li>
+</ul>
+<h1 id="结合例子代码学习"><a href="#结合例子代码学习" class="headerlink" title="结合例子代码学习"></a>结合例子代码学习</h1><ul>
+<li><a href="/react/reactAdvancedStageBBSUnscramble.html">《React进阶之路》第九章示例 bbs-redux-reselect 解读</a></li>
+<li><a href="/react/reactAndReduxBook.html">《深入浅出React和Redux》一书的部分章节例子代码演练及相关知识点</a></li>
+</ul>
+<h1 id="个人学习心得项目地址"><a href="#个人学习心得项目地址" class="headerlink" title="个人学习心得项目地址"></a>个人学习心得项目地址</h1><ul>
+<li>托管在 github 上的项目链接：<a href="https://github.com/uncleAndyChen/react-full-stack-learning" rel="external nofollow noopener noreferrer" target="_blank">https://github.com/uncleAndyChen/react-full-stack-learning</a></li>
+<li>托管在 gitee 上的项目链接 ：<a href="https://gitee.com/uncleAndyChen/react-full-stack-learning" rel="external nofollow noopener noreferrer" target="_blank">https://gitee.com/uncleAndyChen/react-full-stack-learning</a></li>
+</ul>
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><ul>
+<li>本项目分享个人学习 react 全家桶技术栈的一些经验心得。</li>
+<li>学习过程会结合相关示例代码，在实践中学习更有成效。</li>
+<li>欢迎补充，可通过 fork + pull request 的方式，参与到该项目。</li>
+</ul>
+<h2 id="项目依赖及版本"><a href="#项目依赖及版本" class="headerlink" title="项目依赖及版本"></a>项目依赖及版本</h2><ul>
+<li><p>用 Create React App 初始化项目</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npx create-react-app react-and-redux-demo</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>相关依赖均使用当前最新版（截止 2018-11-06 的最新版）。</p>
+<ul>
+<li>react v16.6.0</li>
+<li>redux v4.0.1</li>
+<li>react-redux v5.1.0</li>
+</ul>
+</li>
+</ul>
+<h1 id="分支说明"><a href="#分支说明" class="headerlink" title="分支说明"></a>分支说明</h1><p>用 Create React App 初始化项目，所有练习代码都会体现到 master 分支。<br>针对某一个知识点，完成练习之后，记录相关知识点，提交 master，然后从 master 创建一个分支。  </p>
+<h1 id="获取（切换至）某分支"><a href="#获取（切换至）某分支" class="headerlink" title="获取（切换至）某分支"></a>获取（切换至）某分支</h1><p>以分支 branchName 为例，切换到该分支并拉取最新代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git checkout branchName</span><br><span class="line">git pull</span><br></pre></td></tr></table></figure></p>
+<h1 id="如何参与项目，如何提交-PR？"><a href="#如何参与项目，如何提交-PR？" class="headerlink" title="如何参与项目，如何提交 PR？"></a>如何参与项目，如何提交 PR？</h1><p>以下是两大平台的帮助文档。</p>
+<ul>
+<li>github.com -&gt; <a href="https://help.github.com/articles/creating-a-pull-request-from-a-fork" rel="external nofollow noopener noreferrer" target="_blank">Creating a pull request from a fork</a></li>
+<li>gitee.com  -&gt; <a href="https://gitee.com/help/articles/4128" rel="external nofollow noopener noreferrer" target="_blank">Fork + Pull 模式 </a></li>
+</ul>
+<h1 id="加群一起学习"><a href="#加群一起学习" class="headerlink" title="加群一起学习"></a>加群一起学习</h1><p><a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=2960c66b59efccc81149126d4f740719d58bdef14589960584dc2838ceb9093b"><img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="react stack(react全家桶)" title="react stack(react全家桶)"></a><br>（QQ 群号：683414457，进群密码：<code>react stack</code>）</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/react/reactStackLearning.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-09-01T02:53:13.077Z" itemprop="dateUpdated">2020年9月1日 10:53</time>
+</span><br>
+
+
+        转载请注明出处：<a href="/react.html" target="_blank" rel="external">https://www.lovesofttech.com/react.html</a>
+    </div>
+    <footer>
+        <a href="https://www.lovesofttech.com">
+            <img src="/img/myLogo.jpg" alt="安迪陈">
+            安迪陈
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/react/">react</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/redux/">redux</a></li></ul>
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/react.html&title=《React 技术栈（全家桶）学习心得分享，文章目录》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/react.html&title=《React 技术栈（全家桶）学习心得分享，文章目录》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=react 技术栈学习，有文章有代码（github），花了很多时间整理，如果觉得不错，请在 github 或 gitee 的开源项目上给个小星星儿（sta..." data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/react.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《React 技术栈（全家桶）学习心得分享，文章目录》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/react.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/react.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/lnmp.html" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">Linux + Nginx + MySQL + PHP 文章目录</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/windows.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">windows 环境下的日常工作，文章目录</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+    
+    
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="bottom">
+        <p>
+            <span>安迪陈技术日志，架构、感悟、系统分析、团队管理 &copy; 2017 - 2020</span>
+            <span>
+                Power by <a href="https://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>&nbsp;
+                Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank" rel="external nofollow noopener noreferrer">indigo</a>
+            </span>
+            <span>
+                <a href="http://www.beian.miit.gov.cn" target="_blank" rel="external nofollow noopener noreferrer">蜀ICP备17041860号</a>
+            </span>
+            
+            <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            </p><p>
+                <span>
+                    统计始于：2019-03-06
+                </span>
+                <span id="busuanzi_container_site_uv" style="display:none">
+                    访客数：<span id="busuanzi_value_site_uv"></span>
+                </span>
+                <span id="busuanzi_container_site_pv" style="display:none">
+                    访问量：<span id="busuanzi_value_site_pv"></span>
+                </span>
+            
+            
+                <span class="post-count">累计字数：309.2k</span>
+            
+                <span><a href="/general/blogLog.html"><i class="fas fa-pen-alt"></i>&nbsp;博客日志</a></span>
+            </p>
+        <p></p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light" title="回到顶部"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/react.html&title=《React 技术栈（全家桶）学习心得分享，文章目录》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/react.html&title=《React 技术栈（全家桶）学习心得分享，文章目录》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=react 技术栈学习，有文章有代码（github），花了很多时间整理，如果觉得不错，请在 github 或 gitee 的开源项目上给个小星星儿（sta..." data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/react.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《React 技术栈（全家桶）学习心得分享，文章目录》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/react.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/react.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAABzElEQVR42u3awarDMAwEwPz/T+ddH4S6K8s2KYxPoS3JuAehrHxd8bo/rOe3/z95Xj/vee1YuLi4be49XNXfjEHjLY3vj4uLe547LjT5dYJoFTtcXNxXcpObdui4uLi/zk2gySZxcXHfyZ0rNGNiUs42vqvh4uI2uHlKue96S76Li4s7xb2La7yBTowSPR0XF/cINy8o1RYk32T+XFxc3DPc6mvJ+JfJt3OdzJVUQVxc3EXcTmA6d9hiLhaJ6i4uLu5SbjX0nItN8y1FzRAuLu5xbj4Uydua6oGML38WLi7uNm7nAdVPqqOaj70YLi7uEW6nVFWDj3w8UwhMcXFxt3HXnnOojmmjdgoXF/cIt9qUjMvWXGCahCa4uLjnudVHVsck+fbKRzRwcXG3cedy1mrRWRWy4OLinucmyWT1+EX1kFbr5QcXF3cbN++MqpFrzl18ygMXFzfmdoLRuQClemgDFxf3PHduOFqokYsKZXkzuLi4bW51yFF9cD6OjQocLi7uQW4+0sjbmk7h+1LIcHFxX8ZdFY9OHgDFxcV9PTdvhjohyLJChouLW+QmLz/V5qZzpCMasuLi4m7j9ue01aFLXtRa+S4uLu4M9w+GEjPScMbRJgAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.5.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.5.2" async></script>
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '安迪陈技术日志';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '欢迎回来';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

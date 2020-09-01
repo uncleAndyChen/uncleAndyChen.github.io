@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<!--<script async src="//hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c"></script>-->
+<!-- 统计-->
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var host = window.location.host;
+        var hm = document.createElement("script");
+
+        if (host.indexOf('gitee.io') > 0) { // https://uncleandychen.gitee.io/
+            hm.src = "https://hm.baidu.com/hm.js?0cf4709148b070b8082191d2e456a1a3";
+        } else if (host.indexOf('lovesofttech.com') > 0) { // https://www.lovesofttech.com/
+            hm.src = "https://hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c";
+        } else {
+            hm.src = '';
+        }
+
+        if (hm.src !== '') {
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        }
+    })();
+</script>
+<!-- End Baidu Tongji -->
+
+
+
+<!-- Baidu Push -->
+<!-- 主动推送百度爬虫-->
+<script>
+    (function(){
+        if (window.location.host.indexOf('lovesofttech.com') < 0) {
+            return;
+        }
+
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+<!-- End Baidu Push -->
+
+
+    <meta charset="utf-8">
+    
+    
+    <link rel="canonical" href="https://www.lovesofttech.com/job/influencePower.html">
+    
+    
+    <title>聊聊工程师的影响力 | 安迪陈技术日志，架构、感悟、系统分析、团队管理 | 自强不息，厚德载物</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="job">
+    <meta name="description" content="原文链接">
+<meta name="keywords" content="job">
+<meta property="og:type" content="article">
+<meta property="og:title" content="聊聊工程师的影响力">
+<meta property="og:url" content="https://www.lovesofttech.com/job/influencePower.html">
+<meta property="og:site_name" content="安迪陈技术日志，架构、感悟、系统分析、团队管理">
+<meta property="og:description" content="原文链接">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2020-09-01T02:53:13.008Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="聊聊工程师的影响力">
+<meta name="twitter:description" content="原文链接">
+    
+        <link rel="alternative" href="/atom.xml" title="安迪陈技术日志，架构、感悟、系统分析、团队管理" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=201912302211">
+    <link rel="stylesheet" href="/css/header.css?v=201912302211">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu">
+  <div class="inner flex-row-vertical">
+    <!--<i class="icon icon-lg icon-close"></i>-->
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off" title="隐藏左侧导航">﹤<i class="icon icon-lg icon-navicon"></i></a>
+    <div class="brand-wrap" style="background-image:url(/img/bannerBackgroundLeft.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/myLogo.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">安迪陈</h5>
+          <a href="mailto:andy@lovesofttech.com" title="andy@lovesofttech.com" class="mail" rel="external nofollow noopener noreferrer" target="_blank">andy@lovesofttech.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articleClassify.html">
+                <i class="icon icon-th-list"></i>
+                文章分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articles.html">
+                <i class="icon icon-th-list articles"></i>
+                文章列表
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/java.html">
+                <i class="icon icon-th-list java"></i>
+                Java
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/database.html">
+                <i class="icon icon-th-list database"></i>
+                MySQL/MyBatis
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/linux.html">
+                <i class="icon icon-th-list linux"></i>
+                CentOS/linux
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/react.html">
+                <i class="icon icon-th-list React"></i>
+                React
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/lnmp.html">
+                <i class="icon icon-th-list LNMP"></i>
+                LNMP
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/git.html">
+                <i class="icon icon-th-list git"></i>
+                git
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/windows.html">
+                <i class="icon icon-th-list windows"></i>
+                windows
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/dailyLives.html">
+                <i class="icon icon-th-list dailyLives"></i>
+                工作 &amp; 生活
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-github"></i>
+                我的 github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://gitee.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link"></i>
+                我的 gitee
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://blog.csdn.net/runAndRun" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link CSDN"></i>
+                我的 CSDN
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/aboutMe.html">
+                <i class="icon icon-address-card"></i>
+                关于我
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+
+        <div class="navbar navbar-custom navbar-fixed-top">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" style="margin-left:10px;" id="menu-toggle" title="显示左侧导航"><i class="icon icon-lg icon-navicon"></i>﹥</a>
+            <ul class="nav navbar-nav navbar-right" id="navMenuTop">
+                <li>
+                    <a href="/">主页</a>
+                </li>
+                
+                    
+                        <li>
+                            <a href="/articleClassify.html" title="本博客的文章分类列表">文章分类</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/articles.html" title="本博客的所有文章列表">文章列表</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/java.html" title="Java 开发，文章目录">Java</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/database.html" title="日常开发中有关 MySQL、MyBatis 的一些经验总结">MySQL/MyBatis</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/linux.html" title="CentOS/linux，文章目录">CentOS/linux</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/react.html" title="React 技术栈（全家桶）学习心得分享，文章目录">React</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/about.html">关于</a>
+                        </li>
+                    
+                
+            </ul>
+        </div>
+
+        <div class="flex-col header-title ellipsis">聊聊工程师的影响力</div>
+        
+        <div class="search-wrap" id="search-wrap" style="z-index: 2;">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back" style="width:33px;">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search" style="width:33px;">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare" style="z-index: 3;margin-right: 10px; width:30px;">
+                <i class="icon icon-lg icon-share-alt"></i>
+            </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h2 class="title">聊聊工程师的影响力</h2>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-10-02T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2018-10-03
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/job/">job</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap" id="index-container">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc" style="z-index: 3;">
+            <h4><i class="fa fa-list-alt"></i>&nbsp;&nbsp;本文目录</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#创造的力量"><span class="post-toc-number">1.</span> <span class="post-toc-text">创造的力量</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#影响力原型"><span class="post-toc-number">2.</span> <span class="post-toc-text">影响力原型</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#大多数影响力的形式可归结为“影响和被影响”"><span class="post-toc-number">3.</span> <span class="post-toc-text">大多数影响力的形式可归结为“影响和被影响”</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#这不是一个“零和游戏”"><span class="post-toc-number">4.</span> <span class="post-toc-text">这不是一个“零和游戏”</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#选择你的战斗"><span class="post-toc-number">5.</span> <span class="post-toc-text">选择你的战斗</span></a></li></ol>
+        </nav>
+    </aside>
+    
+
+<article id="post-job/influencePower" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">聊聊工程师的影响力</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018年10月03日 0:00" datetime="2018-10-02T16:00:00.000Z" itemprop="datePublished">2018-10-03</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/job/">job</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" style="display:none">
+    阅读量：<span id="busuanzi_value_page_pv"></span>次
+</span>
+
+
+    <span>|</span>
+    <span class="post-count">字数：2.9k</span>
+    <span>|</span>
+    <span class="post-count">阅读时长：大约9分钟</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p><a href="http://www.infoq.com/cn/articles/engineers-and-influence" rel="external nofollow noopener noreferrer" target="_blank">原文链接</a></p>
+<a id="more"></a>
+<p>让我们来聊聊工程师的影响力。作为一名工程师，你是如何获得影响力的？什么是影响力，它的根源是什么，你该如何运用它或者怎样会失去它？它与管理者的权力和影响力有什么不同？</p>
+<p>这个话题通常与那些迫切希望成为管理者以便获取更多信息和决策影响力的工程师有关。这是一个危险的信号，但糟糕的是，这种情况却很普遍。</p>
+<p>如果出现这种情况，你需要做一些自我反省。你的公司是否为高级工程师提供参与领导和决策的机会？是否有一个与管理者并行的工程师职位轨道，至少和总监一个级别？他们之间是否平等互补？公司是否有为工程师量身定制的职业发展阶梯？对于非管理者来说，公司的决策过程是否太过神秘？你认为理所当然的东西，别人可能不这么想，所以一定要去问问他们的想法。</p>
+<p>或许他们说的只是个人的想法。或许他们不相信你。或许他们只在管理者“独裁”的公司工作过。或许他们在很多公司工作过，还和你一样认为工程师可以拥有巨大的影响力，但其实这是彻头彻尾的谎言，以致于到最后希望彻底破灭。或许他们因为各种原因不习惯于掌握权力。</p>
+<p>不管怎样，那些想要成为管理者以便能够长久利用权力的人，到最后一定不希望成为管理者。</p>
+<p>那么什么是工程师的影响力？它是如何体现出来？</p>
+<p>我不想重复讨论有关性别、种族和阶级的相关问题，我只是认为，从某种程度上讲，某些人掌握权力要比其他人更难。</p>
+<h1 id="创造的力量"><a href="#创造的力量" class="headerlink" title="创造的力量"></a>创造的力量</h1><p>行动是工程师的超级神力。我们在用笔记本电脑和自己的大脑创造事物！这太不可思议了！我们不必说服、忽悠或强迫他人为我们做事情，我们亲力亲为。</p>
+<p>这看起来很浅显，但却很重要。创造是一切力量的源泉。除非我们同意，否则什么都不会发生。</p>
+<p>Facebook的一张海报上写着“CODE WINS ARGUMENTS（代码胜于雄辩）”。这句话说得太过绝对了。不过，有多少次，一场又一场的技术争辩都是因为有人愿意动手去做而得到解决的？行动避免了争辩，行动是对理论最好的证明，行动就是力量。（当然，“做”并不仅仅是指“写代码”。）</p>
+<p>此外，开发软件是一项创造性的活动，而大规模的开发协作就更是一项非常具有共通性的活动。作为一种创造性行为，当我们对自己的工作充满动力、灵感和热情时（与砍伐木材相比），才会成为更好的创造者。作为一种协作行为，当我们拥有高度信任感和社交凝聚力时，才会做得更好。</p>
+<p>工程能力和判断力、自主性和目标感、社会信任感和合作行为，这些都是伟大工程的基础。每个人都有一两种他们感到最舒适的模式，我们可以将这些模式大致分为几种原型。</p>
+<h1 id="影响力原型"><a href="#影响力原型" class="headerlink" title="影响力原型"></a>影响力原型</h1><p>“选择极其困难且迫在眉睫的工作（也往往极度无聊）”。SOC2合规性、备份和恢复、可怕的重构、认证集成：只要能够推动业务发展，他们才不管这些工作无不无聊。如果你是这样的工程师，那么你将获得别人的尊重和感激。<br>“杀手锏调试器”。通常是工作时间最长或最初构建系统的老工程师。如果你对自己的历史和背景感到乐观，那么它们将成为你的一笔巨大的资产。实际上，人们倾向于高估这种人的不可或缺性，但我不鼓励这样做。<br>“专家”。如果你是某个方面的技术专家，那么你在自己的领域里将会产生巨大的影响。你应该在自己的领域内与时俱进，这样才能保持你的优势。<br>有些人持续提供输出，强大到令人感到费解，有时甚至会在多个方面同时取得进展。有些人长时间工作，有些人对如何最大限度地发挥影响力有着本能的反应。没有人想要惹恼这些人。他们的参与通常会加快一个项目的进度，或者让项目在终点线上挣扎。</p>
+<p>并非所有的影响力都源于原始技术实力或产出，只是一小部分创意、协作、人际关系是占据优势的：</p>
+<p>有些人怀有好奇心，并且总能比其他人提早一步嗅到新事物的味道。他们似乎在玩弄一些毫无意义的东西，你很想骂他们，但他们却可能救你于灾难之中，所以你不得不学会珍惜他们的这种“玩物丧志”。<br>有些人通过社交的方式来解决问题，比如交友、交换技能、互相帮忙等。不要低估了这种社交方式，它往往是为问题找到正确答案的最快途径。<br>有些人非常懒惰，并且通过他们所谓的优雅的捷径来打击你。<br>有些人是招募磁铁，这种人是值得重金聘请的，因为所有人都喜欢与他们共事。<br>有些人擅长推动利益相关者达成共识。<br>有些人擅长表达、讲故事或教育他人。<br>有些人是人人都想要成为的榜样。<br>有些人很会画饼，让每个人都心甘情愿照着大饼去做事。<br>有些人将代码评审变成了教学艺术形式。<br>有些人会让身边的每个人都更有成效和更有效率。有些人创造了无限的前进动力。有些人善于说不。<br>还有一些特殊的影响力是通过以下这些形式表现出来的。</p>
+<p>曾经做过管理者的工程师是非常珍贵的。他们懂得如何为初级工程师解释业务目标，并让他们深信不疑（在初级工程师看来，这些是纯粹的管理者所不具备的东西）。他们拥有强大的技术领导力，他们可以将项目分解为组件，让其他工程师能够赶在截止日期之前完成项目却不会让他们精疲力竭。<br>有些工程师是怎么也甩不掉的顽疾，他们质疑和挑战每个系统和组织架构。但他们也可能是可以打磨成优秀人才的好苗子，只是需要强有力的领导把他们的能量引导到富有成效的对话和改进上，并防止他们影响整个团队。<br>我们不要忘了轮班待命的工程师。如果你的公司有健康的轮班待命文化，那么产品所有权就会形成一种权力和道德权威——提出需求、推动变革、优先安排事项。轮班待命不应该是人人避之不及的东西，而应该是每个代码工程师应该肩负的荣誉勋章。（但它不应该让人感到痛苦不堪或影响他们的生活。）<br>这样的例子我可以说上一整天……工程包含了如此强大的角色和技能，所以我们有必要揭开影响力的面纱，并了解他人如何看待你的影响力。</p>
+<h1 id="大多数影响力的形式可归结为“影响和被影响”"><a href="#大多数影响力的形式可归结为“影响和被影响”" class="headerlink" title="大多数影响力的形式可归结为“影响和被影响”"></a>大多数影响力的形式可归结为“影响和被影响”</h1><p>只是会写代码是不够的。你可能拥有信誉度，但拥有它与使用它是不一样的。要将影响力转化为真实的力量，必须使用它，而使用它的最好方式是沟通。</p>
+<p>藏在你脑子里的东西对其他人是没有影响力的，你必须把它们表达出来。</p>
+<p>你可以通过多种方式实现这一目标：通过写作、小组谈话、公开招募盟友、说服权威人士、公开表达想法等等。</p>
+<p>因为工程是一项创造性的活动，所以独裁主义实际上是非常脆弱和具有破坏性的。唯一可持续的权力形式是所谓的“软实力”，如影响力和激励能力，这就是为什么优秀的管理者喜欢使用软实力，而非常不情愿使用权力。如果你的领导经常强调他们的权威，那就是一种反模式。</p>
+<p>如果你不发声，就无法发挥你的影响力。在他人面前说出真实想法可能也会把自己的弱点暴露出来，但有时候也不一定是这样。</p>
+<h1 id="这不是一个“零和游戏”"><a href="#这不是一个“零和游戏”" class="headerlink" title="这不是一个“零和游戏”"></a>这不是一个“零和游戏”</h1><p>你们当中的大多数人拥有的潜能远远超出自己的想象，因为你们感觉不到它们的存在，或者意识不到自己在做什么。</p>
+<p>管理者可能拥有硬实力和权威，但是有关技术交付的具体决策通常是由他们身边的工程师做出的。这些工程师都属于行动者，因为他们就是需要为这些决策后果提供支持的人。</p>
+<p>权力倾向于流向管理者，因为他们了解更多信息。因此聘请了解这一​​点的管理者并借助它来向其他人行使权力就变得非常重要。</p>
+<p>在健康的支配与臣服关系中，臣服一方通常拥有最终权力。同理，在健康的团队中，工程师实际上拥有最终权力。因为你有最终的否决权：你可以拒绝参与贡献。你通常可以另寻更好的下家，或许很多人都应该这样做。</p>
+<p>当技术和管理发生冲突，谁会赢？理想情况下，他们需要一起努力为业务和人员寻找最佳的解决方案。在身处水深火热的团队中，他们两者之间反而能够保持紧密的联系。</p>
+<h1 id="选择你的战斗"><a href="#选择你的战斗" class="headerlink" title="选择你的战斗"></a>选择你的战斗</h1><p>如果你能够正确地培养和发挥自己的影响力，你就可以对构建的内容及其构建的方式有很多发言权。但你不可能对一切事情都有发言权，这不合逻辑。</p>
+<p>你越是将影响力用在好的产出上，就会积累越多的影响力。但它是一种非常精确的工具，需要以精确的方式来运用。想象一下，在按摩时，按摩师整个人压在你的背上，而不是用他们的肘部或手掌来按压某个部位。过于宽泛的目标会分散你的注意力，并限制你的潜在影响力。</p>
+<p>所以，要正确地运用你的注意力。</p>
+<p>一旦你有了影响力，别忘了帮助别人提升影响力。注意那些被忽视的人，帮助他们提升他们的影响力。借出你的时间和信誉度，把那些让你变得强大的技能也教给需要它们的人。</p>
+<p>英文原文：<a href="https://charity.wtf/2018/08/17/on-engineers-and-influence/" rel="external nofollow noopener noreferrer" target="_blank">https://charity.wtf/2018/08/17/on-engineers-and-influence/</a></p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-09-01T02:53:13.008Z" itemprop="dateUpdated">2020年9月1日 10:53</time>
+</span><br>
+
+
+        转载请注明出处：<a href="/job/influencePower.html" target="_blank" rel="external">https://www.lovesofttech.com/job/influencePower.html</a>
+    </div>
+    <footer>
+        <a href="https://www.lovesofttech.com">
+            <img src="/img/myLogo.jpg" alt="安迪陈">
+            安迪陈
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/job/">job</a></li></ul>
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/job/influencePower.html&title=《聊聊工程师的影响力》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/job/influencePower.html&title=《聊聊工程师的影响力》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=原文链接" data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/job/influencePower.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《聊聊工程师的影响力》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/job/influencePower.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/job/influencePower.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/job/lessWorkTime.html" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">如何在更少的时间内完成更多的工作</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/linux/centOS7Elasticsearch.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">CentOS 7 配置 ElasticSearch-6.4.1</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+    
+    
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="bottom">
+        <p>
+            <span>安迪陈技术日志，架构、感悟、系统分析、团队管理 &copy; 2017 - 2020</span>
+            <span>
+                Power by <a href="https://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>&nbsp;
+                Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank" rel="external nofollow noopener noreferrer">indigo</a>
+            </span>
+            <span>
+                <a href="http://www.beian.miit.gov.cn" target="_blank" rel="external nofollow noopener noreferrer">蜀ICP备17041860号</a>
+            </span>
+            
+            <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            </p><p>
+                <span>
+                    统计始于：2019-03-06
+                </span>
+                <span id="busuanzi_container_site_uv" style="display:none">
+                    访客数：<span id="busuanzi_value_site_uv"></span>
+                </span>
+                <span id="busuanzi_container_site_pv" style="display:none">
+                    访问量：<span id="busuanzi_value_site_pv"></span>
+                </span>
+            
+            
+                <span class="post-count">累计字数：309.2k</span>
+            
+                <span><a href="/general/blogLog.html"><i class="fas fa-pen-alt"></i>&nbsp;博客日志</a></span>
+            </p>
+        <p></p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light" title="回到顶部"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/job/influencePower.html&title=《聊聊工程师的影响力》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/job/influencePower.html&title=《聊聊工程师的影响力》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=原文链接" data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/job/influencePower.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《聊聊工程师的影响力》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/job/influencePower.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/job/influencePower.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACN0lEQVR42u3aQW7DMAxEUd//0irQVQrHxMzQCWrqaxUUgeLnxVQUeRzyWr/r9fPrOn/z/Hd35+MTCwYMGI9lrHKdf8x9FHef+pVdUmHAgLEBIwvZDkDfs342GDBgwFCCsv6+Hpp60MOAAQNGv7ysD3n6o8OAAQOGW8Qqj6IHq864uRaHAQPGAxnZ9f13Pn+8vwEDBox/z1jm0o99ejS7IftmBxgwYIxm1Ff2SunYLz6zF3S4W8OAAeOxDAWwblrZJZ30nDBgwBjNyDbKhiSU6HQbpTBgwNiB0fnhOkyVwO00NS//b8CAAWMcQw8196GzVmhWSMOAAWM2Q7/Kz8pad2jMvSn809+AAQPGUEZWoGYlqBvW+mQFDBgwZjOyA5/7nuodbih0YcCAMZqhD0lkPP24mY19wIABYx+GUl7WAao0MvXjZr/NCQMGjNkMvRztHxyzHYxGJgwYMEYzsoEJd3jCLXpdNgwYMGYw3GOc21Z026K3dWJhwIAxiOEOVbiB27+8U/4CAwaM2YxOIGbXZB2k/SUYMGAMYrjla6co1YczlJf45oQLAwaMcQy3Kahf/bvHzSx8YcCAsQNjmavTUHQj1YhpGDBgjGboSx/8crum7kEQBgwYezKUkHUbln2G/b5hwICxASMbm8jamXbeC9EMAwYMGEosugNhSlvCeKEwYMCAYV636W3OzujYbYELAwaMhzCyAK2D0m1w6kF8GbgwYMAYyug3BvQC1T322QdEGDBgTGP8ADYGslDoGDYbAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.5.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.5.2" async></script>
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '安迪陈技术日志';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '欢迎回来';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

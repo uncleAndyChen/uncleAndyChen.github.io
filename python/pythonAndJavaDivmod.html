@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<!--<script async src="//hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c"></script>-->
+<!-- 统计-->
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var host = window.location.host;
+        var hm = document.createElement("script");
+
+        if (host.indexOf('gitee.io') > 0) { // https://uncleandychen.gitee.io/
+            hm.src = "https://hm.baidu.com/hm.js?0cf4709148b070b8082191d2e456a1a3";
+        } else if (host.indexOf('lovesofttech.com') > 0) { // https://www.lovesofttech.com/
+            hm.src = "https://hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c";
+        } else {
+            hm.src = '';
+        }
+
+        if (hm.src !== '') {
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        }
+    })();
+</script>
+<!-- End Baidu Tongji -->
+
+
+
+<!-- Baidu Push -->
+<!-- 主动推送百度爬虫-->
+<script>
+    (function(){
+        if (window.location.host.indexOf('lovesofttech.com') < 0) {
+            return;
+        }
+
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+<!-- End Baidu Push -->
+
+
+    <meta charset="utf-8">
+    
+    
+    <link rel="canonical" href="https://www.lovesofttech.com/python/pythonAndJavaDivmod.html">
+    
+    
+    <title>Java 和 Python 中的整数除法，取余，舍入 | 安迪陈技术日志，架构、感悟、系统分析、团队管理 | 自强不息，厚德载物</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="java,Python">
+    <meta name="description" content="本文为转载，原文 Java和Python中的整数除法，取余，舍入">
+<meta name="keywords" content="java,Python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java 和 Python 中的整数除法，取余，舍入">
+<meta property="og:url" content="https://www.lovesofttech.com/python/pythonAndJavaDivmod.html">
+<meta property="og:site_name" content="安迪陈技术日志，架构、感悟、系统分析、团队管理">
+<meta property="og:description" content="本文为转载，原文 Java和Python中的整数除法，取余，舍入">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2020-09-01T02:53:13.077Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java 和 Python 中的整数除法，取余，舍入">
+<meta name="twitter:description" content="本文为转载，原文 Java和Python中的整数除法，取余，舍入">
+    
+        <link rel="alternative" href="/atom.xml" title="安迪陈技术日志，架构、感悟、系统分析、团队管理" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=201912302211">
+    <link rel="stylesheet" href="/css/header.css?v=201912302211">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu">
+  <div class="inner flex-row-vertical">
+    <!--<i class="icon icon-lg icon-close"></i>-->
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off" title="隐藏左侧导航">﹤<i class="icon icon-lg icon-navicon"></i></a>
+    <div class="brand-wrap" style="background-image:url(/img/bannerBackgroundLeft.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/myLogo.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">安迪陈</h5>
+          <a href="mailto:andy@lovesofttech.com" title="andy@lovesofttech.com" class="mail" rel="external nofollow noopener noreferrer" target="_blank">andy@lovesofttech.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articleClassify.html">
+                <i class="icon icon-th-list"></i>
+                文章分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articles.html">
+                <i class="icon icon-th-list articles"></i>
+                文章列表
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/java.html">
+                <i class="icon icon-th-list java"></i>
+                Java
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/database.html">
+                <i class="icon icon-th-list database"></i>
+                MySQL/MyBatis
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/linux.html">
+                <i class="icon icon-th-list linux"></i>
+                CentOS/linux
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/react.html">
+                <i class="icon icon-th-list React"></i>
+                React
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/lnmp.html">
+                <i class="icon icon-th-list LNMP"></i>
+                LNMP
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/git.html">
+                <i class="icon icon-th-list git"></i>
+                git
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/windows.html">
+                <i class="icon icon-th-list windows"></i>
+                windows
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/dailyLives.html">
+                <i class="icon icon-th-list dailyLives"></i>
+                工作 &amp; 生活
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-github"></i>
+                我的 github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://gitee.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link"></i>
+                我的 gitee
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://blog.csdn.net/runAndRun" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link CSDN"></i>
+                我的 CSDN
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/aboutMe.html">
+                <i class="icon icon-address-card"></i>
+                关于我
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+
+        <div class="navbar navbar-custom navbar-fixed-top">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" style="margin-left:10px;" id="menu-toggle" title="显示左侧导航"><i class="icon icon-lg icon-navicon"></i>﹥</a>
+            <ul class="nav navbar-nav navbar-right" id="navMenuTop">
+                <li>
+                    <a href="/">主页</a>
+                </li>
+                
+                    
+                        <li>
+                            <a href="/articleClassify.html" title="本博客的文章分类列表">文章分类</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/articles.html" title="本博客的所有文章列表">文章列表</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/java.html" title="Java 开发，文章目录">Java</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/database.html" title="日常开发中有关 MySQL、MyBatis 的一些经验总结">MySQL/MyBatis</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/linux.html" title="CentOS/linux，文章目录">CentOS/linux</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/react.html" title="React 技术栈（全家桶）学习心得分享，文章目录">React</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/about.html">关于</a>
+                        </li>
+                    
+                
+            </ul>
+        </div>
+
+        <div class="flex-col header-title ellipsis">Java 和 Python 中的整数除法，取余，舍入</div>
+        
+        <div class="search-wrap" id="search-wrap" style="z-index: 2;">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back" style="width:33px;">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search" style="width:33px;">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare" style="z-index: 3;margin-right: 10px; width:30px;">
+                <i class="icon icon-lg icon-share-alt"></i>
+            </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h2 class="title">Java 和 Python 中的整数除法，取余，舍入</h2>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-11-12T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2018-11-13
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Python/">Python</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Python/java/">java</a></li></ul></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap" id="index-container">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc" style="z-index: 3;">
+            <h4><i class="fa fa-list-alt"></i>&nbsp;&nbsp;本文目录</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#整数除法"><span class="post-toc-number">1.</span> <span class="post-toc-text">整数除法</span></a></li></ol>
+        </nav>
+    </aside>
+    
+
+<article id="post-python/pythonAndJavaDivmod" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Java 和 Python 中的整数除法，取余，舍入</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018年11月13日 0:00" datetime="2018-11-12T16:00:00.000Z" itemprop="datePublished">2018-11-13</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Python/">Python</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Python/java/">java</a></li></ul></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" style="display:none">
+    阅读量：<span id="busuanzi_value_page_pv"></span>次
+</span>
+
+
+    <span>|</span>
+    <span class="post-count">字数：1.9k</span>
+    <span>|</span>
+    <span class="post-count">阅读时长：大约7分钟</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>本文为转载，原文 <a href="https://segmentfault.com/a/1190000003912449" rel="external nofollow noopener noreferrer" target="_blank">Java和Python中的整数除法，取余，舍入</a><br><a id="more"></a></p>
+<h1 id="整数除法"><a href="#整数除法" class="headerlink" title="整数除法"></a>整数除法</h1><p>对两个不能整除的整数做除法，就要面对舍入的问题。和大多数编程语言一样，Java的基本策略是向零取整(round to zero)，也就是向绝对值变小的方向取整。举几个香甜的小栗子：3/2=1, -3/2=-1。而对于Python而言，情况就有所不同了。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;-1/10 </span><br><span class="line">-1</span><br></pre></td></tr></table></figure></p>
+<p>显然如果按照Java的取整策略，<code>-1/10</code>应该得0，而Python给出的结果是-1。<br>事实上Python的取整方式是向下取整，也就是向着数轴上负无穷的方向取整。<br>好吧，Java和Python的取整方式不同，夺大点事儿啊…那么如果我们要在Python下采用向零取整的结果，咋整？一种比较直接的方式是：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;int(float(-1)/10)</span><br><span class="line">0</span><br><span class="line">``` </span><br><span class="line"># 取余 </span><br><span class="line">谁说没大事？(╰(￣▽￣)╭) 大事来了！ Java和Python整数除法都遵循下面这个公式：` (a/b)*b+c=a` </span><br><span class="line">也就是说： `a mod b=c=a-(a/b)*b `这里的`/`表示的是整数除法。</span><br><span class="line">既然它们的取整方式不一样，那么取余也会受到影响：</span><br></pre></td></tr></table></figure></p>
+<p>For Java: -2 % 3==-2<br>For Python: -2 % 3==1<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">在某些实际应用中，我们可能会被要求得到一个整数的个位数字。如果输入的整数是正的，Java和Python都可以用相同的方法来解决：</span><br></pre></td></tr></table></figure></p>
+<p>def func(a):<br>    pos, res=1, []<br>    while a/pos:<br>        res+=(a/pos)%10,<br>        pos*=10<br>    return res<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">Java代码也差不多就是这样了。但如果输入的整数是一个负数，Java版本的代码还是可以得到正确的结果，而Python不能（曾经在这里被坑的，举手）。</span><br><span class="line">那怎样用Python正确地搞定这个问题嘞？可以先去绝对值和符号，当正数来处理，最后再在结果里搭上符号。</span><br><span class="line"> </span><br><span class="line"># Python中的另一个除法操作</span><br><span class="line">我们知道，在Python中，基本的除号“/”是被重载了的。</span><br><span class="line">当两个操作数都是整数时，进行整数除法，得到整数结果，否则进行浮点数除法（真除法），得到浮点数结果。</span><br><span class="line">从Python 2.2开始，另一个除号被引入：`//`，它只执行整数除法。</span><br><span class="line">注意，`//`的结果类型依操作数而定。 </span><br><span class="line">``` </span><br><span class="line">&gt;&gt;&gt;1.0/2</span><br><span class="line">0.0</span><br><span class="line">&gt;&gt;&gt;1.0//2.0</span><br><span class="line">0.0</span><br><span class="line">&gt;&gt;&gt;1//2</span><br><span class="line">&gt;0</span><br><span class="line">``` </span><br><span class="line">另外，如果想同时得到商和余数，可以使用内建的函数 divmod，结果是一个 tuple。</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>divmod(7, 2)<br>(3, 1)<br>divmod(7.0, 2)<br>(3.0, 1.0)<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># Python中的舍入</span><br><span class="line">除了缺省的舍入方式，Python还有多种舍入可供选择。 </span><br><span class="line">* Floor rounding:</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>import math<br>math.floor(1.2)<br>1.0<br>math.floor(-1.2)<br>-2.0<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">* Ceiling rounding:</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>math.ceil(1.2)<br>2.0<br>math.ceil(-1.2)<br>-1.0<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">* Round-off:</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>round(0.5)<br>1.0<br>round(-0.4)<br>-0.0<br>round(-0.5)<br>-1.0<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">内嵌的round函数也可以指定一个保留小数位数的参数：</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>round(0.21, 1)<br>0.2<br>round(0.21, 2)<br>0.21<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">* Caution 特别注意！</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>round(2.675, 2)<br>2.67<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">咦?bug啦?!当然不是。这里要明确一件事:计算机只认识0,1(量子计算机?懵)。就是说,我们输入的十进制数,在计算机内部都是用二进制来表示的。有的十进制数可以用二进制准确地表示出来,比如十进制的0.125可以表示为0b0.001;然而很多的小数是没法用二进制数精确表示的,计算机里存储的是它们的近似值,例如十进制的0.1,用二进制表示,可以近似为: 0b0.00011001100110011001100110011001100110011001100110011010,所以当我们把它换回十进制数以输出或者使用,得到的值就是0.1000000000000000055511151231257827021181583404541015625。也就是说,0.1在计算机里并不是刚好等于1/10的。你看:</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>0.1+0.20.30000000000000004<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">同样,当我们运行round()函数,也是对计算机中实际存储的值近似取舍。2.67实际上近似为2.67499999999999982236431605997495353221893310546875,第三位小数是4,那么round(2.675, 2)就相当于round(2.674, 2),结果当然是2.67。值得注意的是,这种现象是广泛存在于各种计算机和各种编程语言的,不是bug,只是有的语言选择了不让你看到。</span><br><span class="line"># Java中的舍入</span><br><span class="line">Java提供了floor和ceil方法来实现向下和向上取整。</span><br><span class="line">Math.floor(2.9)Math.ceil(2.1)</span><br><span class="line"></span><br><span class="line">这俩函数简单方便,居家旅行必备。另外Java中也有个round函数,可以实现各种复杂的取整。</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+</blockquote>
+</blockquote>
+<p>System.out.println(Math.round(0.5));//输出 1<br>System.out.println(Math.round(-0.5));//输出 0<br>System.out.println(Math.round(-0.51));//输出 -1<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">这什么鬼!Keep Calm and Carry On!</span><br><span class="line">数学上有多种不同的策略来进行取整,比如我们体育老师教的四舍五入。各种取整策略的共同点就是要做真值作近似,那就会引入偏差。四舍五入显然并不是一种公平的策略(想想0~4的舍和5~9的得)。</span><br><span class="line">有一个叫做银行家舍入(Banker’s Rounding)的东西,不造你听过没,反正我是最近才知道的。事实上.NET和VB6都是默认采用这种方式,而且IEEE 754默认采用这种Rounding。Banker’s Rounding 也就是 round to even 策略。</span><br><span class="line">假设当前考虑那位的数字是d(其实d就是将不被保留的第一位),如果d&lt;5,则舍(round to zero);如果d&gt;5,则入(round away from zero);而当d==5时,就要根据d前后的数位来确定往哪边取了。</span><br><span class="line">1) 如果d之后存在非零的数位,则入;</span><br><span class="line">2)如果d之后不存在非零的数位,则看d之前的一个数位,用c表示:</span><br><span class="line">a.如果c是奇数,则入;</span><br><span class="line">b.如果c是偶数,则舍。</span><br><span class="line"></span><br><span class="line">再来一把栗子,对下列数保留0位小数,</span><br><span class="line">第一位小数就是d,整数位就是c:</span><br></pre></td></tr></table></figure></p>
+<p>BankRound(0.4)==0, BankRound(0.6)==1, BankRound(-0.4)==0, BankRound(-0.6)==-1<br>BankRound(1.5)==2.0, BankRound(-1.5)==-2.0, BankRound(2.5)==2.0, BankRound(-2.5)==-2.0<br>BankRound(1.51)==2.0, BankRound(-1.51)==-2.0, BankRound(2.51)==3.0, BankRound(-2.51)==-3.0<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">可以看出,Banker’s Rounding对正数和负数的处理是对称的,因此不会引入符号带来的偏差。另外它以均等的几率来舍入数位(考虑c, c有各一半的几率为奇数和偶数),所以多次舍入后与真值的差别会较小。</span><br><span class="line"></span><br><span class="line">扯了这么多,跟Java的Math.round( )有什么关系呢?我也是写到这才发现,好像没什么软(luan)关系。因为它并没有遵循Banker’s rounding。而是按照以下策略进行取整:</span><br><span class="line">当考虑的数位d不是5,d&lt;5就舍,d&gt;5则入。</span><br><span class="line">当d==5:</span><br><span class="line">a.如果d的右边有非零数位,则入;</span><br><span class="line">b.如果d的右边没有非零数位,则 round to ceiling,即对负数舍,对正数入。</span><br><span class="line"></span><br><span class="line">Java文档里是这么表述的</span><br><span class="line"></span><br><span class="line">还有还有, 在Java里可以使用 BigDecimal 和 RoundingMode 实现更通用的取整方式。</span><br></pre></td></tr></table></figure></p>
+<p>double d=-2.5;<br>BigDecimal bd=new BigDecimal(d);<br>double nd=bd.setScale(0,RoundingMode.HALF_EVEN).doubleValue();<br>System.out.println(nd);//输出 -2.0<br><code>`</code><br>setScale 的第一个参数是保留的小数位数,第二个参数是舍入模式。可选的舍入模式有:<br>HALF_EVEN, 也就是银行家方式;<br>HALF_UP, 四舍五入;<br>HALF_DOWN, 五舍六入;<br>CEILING、FLOOR, 向正无穷、负无穷方向;<br>UP、DOWN*, 向零和远离零;<br>UNNECESSARY, 断言舍入后的值和原值相等,也就是不需要舍入。如果断言错了,抛出ArithmeticException异常。</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-09-01T02:53:13.077Z" itemprop="dateUpdated">2020年9月1日 10:53</time>
+</span><br>
+
+
+        转载请注明出处：<a href="/python/pythonAndJavaDivmod.html" target="_blank" rel="external">https://www.lovesofttech.com/python/pythonAndJavaDivmod.html</a>
+    </div>
+    <footer>
+        <a href="https://www.lovesofttech.com">
+            <img src="/img/myLogo.jpg" alt="安迪陈">
+            安迪陈
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/">Python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/python/pythonAndJavaDivmod.html&title=《Java 和 Python 中的整数除法，取余，舍入》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/python/pythonAndJavaDivmod.html&title=《Java 和 Python 中的整数除法，取余，舍入》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=本文为转载，原文 Java和Python中的整数除法，取余，舍入" data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/python/pythonAndJavaDivmod.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Java 和 Python 中的整数除法，取余，舍入》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/python/pythonAndJavaDivmod.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/python/pythonAndJavaDivmod.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/react/redux.html" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">React 技术栈学习，redux 知识点</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/python/centOS7PythonNewVersion.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">在 CentOS7 安装最新版 Python（v3.7.1），并与系统自带 Python2.7.5 共存，不影响 yum 正常使用</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+    
+    
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="bottom">
+        <p>
+            <span>安迪陈技术日志，架构、感悟、系统分析、团队管理 &copy; 2017 - 2020</span>
+            <span>
+                Power by <a href="https://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>&nbsp;
+                Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank" rel="external nofollow noopener noreferrer">indigo</a>
+            </span>
+            <span>
+                <a href="http://www.beian.miit.gov.cn" target="_blank" rel="external nofollow noopener noreferrer">蜀ICP备17041860号</a>
+            </span>
+            
+            <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            </p><p>
+                <span>
+                    统计始于：2019-03-06
+                </span>
+                <span id="busuanzi_container_site_uv" style="display:none">
+                    访客数：<span id="busuanzi_value_site_uv"></span>
+                </span>
+                <span id="busuanzi_container_site_pv" style="display:none">
+                    访问量：<span id="busuanzi_value_site_pv"></span>
+                </span>
+            
+            
+                <span class="post-count">累计字数：309.2k</span>
+            
+                <span><a href="/general/blogLog.html"><i class="fas fa-pen-alt"></i>&nbsp;博客日志</a></span>
+            </p>
+        <p></p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light" title="回到顶部"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/python/pythonAndJavaDivmod.html&title=《Java 和 Python 中的整数除法，取余，舍入》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/python/pythonAndJavaDivmod.html&title=《Java 和 Python 中的整数除法，取余，舍入》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=本文为转载，原文 Java和Python中的整数除法，取余，舍入" data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/python/pythonAndJavaDivmod.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Java 和 Python 中的整数除法，取余，舍入》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/python/pythonAndJavaDivmod.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/python/pythonAndJavaDivmod.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACN0lEQVR42u3aS27DMAxFUe9/0+40QGH5PkptIPFqFCSx7OMBwY+uC6/7Y31+8/vz0zfjnZ/usnjJkCFjW8Y9XOMbkFuOdx6/FPJsMmTI6MMgoZAH4vGjcCR5NhkyZMgYJ388QL+Ey9LrkyFDhgyervHgWwvWMmTIkMGL2LRAvcH6Qi0uQ4aMDRm19v3/fP6T+YYMGTK2YtzhSlPDdDB5l5YMGTLOZtTGkDOHM4oFKnkeGTJkHM3grf+ZwQB5XH6k43FnGTJkHMdI21jk17QxxxPKR4wMGTKaMXh6x2M5v4q/1pdaXIYMGQcxagVnOm5Mi9hi806GDBkNGGnLjCeR6T+LeBkyZBzNqN2sdkiCBGteygZhV4YMGdsyeEnJG2e80VYbjj7W4jJkyDiakR7wWnW0gv/6kpjKkCGjAYM0zmqHMNKkMz2WIUOGjD4MkurVhpdpakhSzODMiAwZMo5g8EMPtUEmD6m1wYMMGTK6MWYSNR46yQvihbQMGTK6MWottjS9S0NtPEiQIUPGoYz5Y14zAwM+NngJ0zJkyGjDmB9kpq9g2euQIUNGAwYvXGeGl6vSxwX1twwZMjZh3OFKr7pKi7fkZMiQ0YExs3V6A34VGZQWYTJkyNiWwYMsHySkxyZq6aMMGTK6MWYCX9pKW3V0bKrbJ0OGjKMZBMmp6T5x11CGDBktGbVhZ3xODeyzIDWUIUPGVox0GMBjXW38me4sQ4aMsxm8dOStNz74nLm7DBkyGjB+ADHidHL+5SiRAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.5.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.5.2" async></script>
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '安迪陈技术日志';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '欢迎回来';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<!--<script async src="//hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c"></script>-->
+<!-- 统计-->
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var host = window.location.host;
+        var hm = document.createElement("script");
+
+        if (host.indexOf('gitee.io') > 0) { // https://uncleandychen.gitee.io/
+            hm.src = "https://hm.baidu.com/hm.js?0cf4709148b070b8082191d2e456a1a3";
+        } else if (host.indexOf('lovesofttech.com') > 0) { // https://www.lovesofttech.com/
+            hm.src = "https://hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c";
+        } else {
+            hm.src = '';
+        }
+
+        if (hm.src !== '') {
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        }
+    })();
+</script>
+<!-- End Baidu Tongji -->
+
+
+
+<!-- Baidu Push -->
+<!-- 主动推送百度爬虫-->
+<script>
+    (function(){
+        if (window.location.host.indexOf('lovesofttech.com') < 0) {
+            return;
+        }
+
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+<!-- End Baidu Push -->
+
+
+    <meta charset="utf-8">
+    
+    
+    <link rel="canonical" href="https://www.lovesofttech.com/database/mysqlPrcedureAnalyse.html">
+    
+    
+    <title>用 PROCEDURE ANALYSE() 为 mysql 提高性能提供建议 | 安迪陈技术日志，架构、感悟、系统分析、团队管理 | 自强不息，厚德载物</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="MySQL">
+    <meta name="description" content="PROCEDURE ANALYSE() 通过分析 select 查询结果对现有的表的每一列给出优化的建议。">
+<meta name="keywords" content="MySQL">
+<meta property="og:type" content="article">
+<meta property="og:title" content="用 PROCEDURE ANALYSE() 为 mysql 提高性能提供建议">
+<meta property="og:url" content="https://www.lovesofttech.com/database/mysqlPrcedureAnalyse.html">
+<meta property="og:site_name" content="安迪陈技术日志，架构、感悟、系统分析、团队管理">
+<meta property="og:description" content="PROCEDURE ANALYSE() 通过分析 select 查询结果对现有的表的每一列给出优化的建议。">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2020-09-01T02:53:12.925Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="用 PROCEDURE ANALYSE() 为 mysql 提高性能提供建议">
+<meta name="twitter:description" content="PROCEDURE ANALYSE() 通过分析 select 查询结果对现有的表的每一列给出优化的建议。">
+    
+        <link rel="alternative" href="/atom.xml" title="安迪陈技术日志，架构、感悟、系统分析、团队管理" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=201912302211">
+    <link rel="stylesheet" href="/css/header.css?v=201912302211">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu">
+  <div class="inner flex-row-vertical">
+    <!--<i class="icon icon-lg icon-close"></i>-->
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off" title="隐藏左侧导航">﹤<i class="icon icon-lg icon-navicon"></i></a>
+    <div class="brand-wrap" style="background-image:url(/img/bannerBackgroundLeft.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/myLogo.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">安迪陈</h5>
+          <a href="mailto:andy@lovesofttech.com" title="andy@lovesofttech.com" class="mail" rel="external nofollow noopener noreferrer" target="_blank">andy@lovesofttech.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articleClassify.html">
+                <i class="icon icon-th-list"></i>
+                文章分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articles.html">
+                <i class="icon icon-th-list articles"></i>
+                文章列表
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/java.html">
+                <i class="icon icon-th-list java"></i>
+                Java
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/database.html">
+                <i class="icon icon-th-list database"></i>
+                MySQL/MyBatis
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/linux.html">
+                <i class="icon icon-th-list linux"></i>
+                CentOS/linux
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/react.html">
+                <i class="icon icon-th-list React"></i>
+                React
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/lnmp.html">
+                <i class="icon icon-th-list LNMP"></i>
+                LNMP
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/git.html">
+                <i class="icon icon-th-list git"></i>
+                git
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/windows.html">
+                <i class="icon icon-th-list windows"></i>
+                windows
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/dailyLives.html">
+                <i class="icon icon-th-list dailyLives"></i>
+                工作 &amp; 生活
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-github"></i>
+                我的 github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://gitee.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link"></i>
+                我的 gitee
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://blog.csdn.net/runAndRun" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link CSDN"></i>
+                我的 CSDN
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/aboutMe.html">
+                <i class="icon icon-address-card"></i>
+                关于我
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+
+        <div class="navbar navbar-custom navbar-fixed-top">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" style="margin-left:10px;" id="menu-toggle" title="显示左侧导航"><i class="icon icon-lg icon-navicon"></i>﹥</a>
+            <ul class="nav navbar-nav navbar-right" id="navMenuTop">
+                <li>
+                    <a href="/">主页</a>
+                </li>
+                
+                    
+                        <li>
+                            <a href="/articleClassify.html" title="本博客的文章分类列表">文章分类</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/articles.html" title="本博客的所有文章列表">文章列表</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/java.html" title="Java 开发，文章目录">Java</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/database.html" title="日常开发中有关 MySQL、MyBatis 的一些经验总结">MySQL/MyBatis</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/linux.html" title="CentOS/linux，文章目录">CentOS/linux</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/react.html" title="React 技术栈（全家桶）学习心得分享，文章目录">React</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/about.html">关于</a>
+                        </li>
+                    
+                
+            </ul>
+        </div>
+
+        <div class="flex-col header-title ellipsis">用 PROCEDURE ANALYSE() 为 mysql 提高性能提供建议</div>
+        
+        <div class="search-wrap" id="search-wrap" style="z-index: 2;">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back" style="width:33px;">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search" style="width:33px;">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare" style="z-index: 3;margin-right: 10px; width:30px;">
+                <i class="icon icon-lg icon-share-alt"></i>
+            </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h2 class="title">用 PROCEDURE ANALYSE() 为 mysql 提高性能提供建议</h2>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-09-03T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2017-09-04
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/MySQL/">MySQL</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap" id="index-container">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc" style="z-index: 3;">
+            <h4><i class="fa fa-list-alt"></i>&nbsp;&nbsp;本文目录</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#语法说明"><span class="post-toc-number">1.</span> <span class="post-toc-text">语法说明</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#示例"><span class="post-toc-number">2.</span> <span class="post-toc-text">示例</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#查询一个字段"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">查询一个字段</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#全表查询"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">全表查询</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#根据实际数据来决定是否采用建议"><span class="post-toc-number">3.</span> <span class="post-toc-text">根据实际数据来决定是否采用建议</span></a></li></ol>
+        </nav>
+    </aside>
+    
+
+<article id="post-database/mysqlPrcedureAnalyse" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">用 PROCEDURE ANALYSE() 为 mysql 提高性能提供建议</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017年09月04日 0:00" datetime="2017-09-03T16:00:00.000Z" itemprop="datePublished">2017-09-04</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/MySQL/">MySQL</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" style="display:none">
+    阅读量：<span id="busuanzi_value_page_pv"></span>次
+</span>
+
+
+    <span>|</span>
+    <span class="post-count">字数：825</span>
+    <span>|</span>
+    <span class="post-count">阅读时长：大约3分钟</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>PROCEDURE ANALYSE() 通过分析 select 查询结果对现有的表的每一列给出优化的建议。<br><a id="more"></a></p>
+<h1 id="语法说明"><a href="#语法说明" class="headerlink" title="语法说明"></a>语法说明</h1><p>PROCEDURE ANALYSE() 的语法如下：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> ... <span class="keyword">FROM</span> ... <span class="keyword">WHERE</span> ... <span class="keyword">PROCEDURE</span> ANALYSE([max_elements,[max_memory]])</span><br></pre></td></tr></table></figure></p>
+<p>max_elements （默认值256）  analyze 查找每一列不同值时所需关注的最大不同值的数量。analyze 还用这个值来检查优化的数据类型是否该是ENUM,如果该列的不同值的数量超过了 max_elements 值 ENUM 就不做为建议优化的数据类型。<br>max_memory   （默认值8192） analyze 查找每一列所有不同值时可能分配的最大的内存数量。</p>
+<h1 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h1><h2 id="查询一个字段"><a href="#查询一个字段" class="headerlink" title="查询一个字段"></a>查询一个字段</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; select stepType from crmTradeSmsFlowStep procedure analyse(); </span><br><span class="line">.+<span class="comment">----------------------------------+-----------+-----------+------------+------------+------------------+-------+-------------------------+----------+-------------------------------------------------------------------------------------------------------------------+</span></span><br><span class="line">| Field_name                       | Min_value | Max_value | Min_length | Max_length | Empties_or_zeros | Nulls | Avg_value_or_avg_length | Std      | Optimal_fieldtype                                                                                                 |</span><br><span class="line">+<span class="comment">----------------------------------+-----------+-----------+------------+------------+------------------+-------+-------------------------+----------+-------------------------------------------------------------------------------------------------------------------+</span></span><br><span class="line">| crm.crmTradeSmsFlowStep.stepType | 10        | 450       |          2 |          3 |                0 |     0 | 284.0072                | 181.4181 | ENUM('10','40','60','110','130','140','160','220','250','270','320','330','340','360','400','420','450') NOT NULL |</span><br><span class="line">+<span class="comment">----------------------------------+-----------+-----------+------------+------------+------------------+-------+-------------------------+----------+-------------------------------------------------------------------------------------------------------------------+</span></span><br><span class="line">1 row in <span class="keyword">set</span> (<span class="number">0.17</span> sec)</span><br></pre></td></tr></table></figure>
+<p>stepType 目前为 int 类型，上面的结果，建议改为 ENUM(‘10’,’40’,’60’,’110’,’130’,’140’,’160’,’220’,’250’,’270’,’320’,’330’,’340’,’360’,’400’,’420’,’450’) NOT NULL</p>
+<h2 id="全表查询"><a href="#全表查询" class="headerlink" title="全表查询"></a>全表查询</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; select * from crmTradeSmsFlowStep procedure analyse();</span><br><span class="line">+<span class="comment">---------------------------------------------+------------------+-------------------+------------+------------+------------------+--------+-------------------------+--------------+-------------------------------------------------------------------------------------------------------------------+</span></span><br><span class="line">| Field_name                                  | Min_value        | Max_value         | Min_length | Max_length | Empties_or_zeros | Nulls  | Avg_value_or_avg_length | Std          | Optimal_fieldtype                                                                                                 |</span><br><span class="line">+<span class="comment">---------------------------------------------+------------------+-------------------+------------+------------+------------------+--------+-------------------------+--------------+-------------------------------------------------------------------------------------------------------------------+</span></span><br><span class="line">| crm.crmTradeSmsFlowStep.tradeSFSID          | 1                | 376962            |          1 |          6 |                0 |      0 | 188481.5000             | 217740.6281  | MEDIUMINT(6) UNSIGNED NOT NULL                                                                                    |</span><br><span class="line">| crm.crmTradeSmsFlowStep.shopID              | 1                | 6                 |          1 |          1 |                0 |      0 | 2.9401                  | 1.6544       | ENUM('1','2','3','5','6') NOT NULL                                                                                |</span><br><span class="line">| crm.crmTradeSmsFlowStep.memberID            | 1                | 388               |          1 |          3 |                0 | 148496 | 16.8742                 | 12.7759      | SMALLINT(3) UNSIGNED                                                                                              |</span><br><span class="line">| crm.crmTradeSmsFlowStep.tid                 | 7041333954030634 | 38963331550441785 |         16 |         17 |                0 |      0 | 17198890865242.2950     | 0.0000       | BIGINT(17) UNSIGNED NOT NULL                                                                                      |</span><br><span class="line">| crm.crmTradeSmsFlowStep.messageTopicQueueID | 2                | 1402014           |          1 |          7 |                0 |    193 | 1562.5533               | 37735.0148   | MEDIUMINT(7) UNSIGNED                                                                                             |</span><br><span class="line">| crm.crmTradeSmsFlowStep.smsType             | 2                | 131               |          1 |          3 |                0 | 376769 | 3.6632                  | 9.2437       | ENUM('2','4','131')                                                                                               |</span><br><span class="line">| crm.crmTradeSmsFlowStep.stepType            | 10               | 450               |          2 |          3 |                0 |      0 | 284.0072                | 181.4181     | ENUM('10','40','60','110','130','140','160','220','250','270','320','330','340','360','400','420','450') NOT NULL |</span><br><span class="line">| crm.crmTradeSmsFlowStep.stepTime            | 1499233308       | 1504141200        |         10 |         10 |                0 |      0 | 1499249509.7180         | 2122583.3568 | INT(10) UNSIGNED NOT NULL                                                                                         |</span><br><span class="line">| crm.crmTradeSmsFlowStep.stepOutType         | 1                | 2                 |          1 |          1 |                0 |      0 | 1.9995                  | 0.0226       | ENUM('1','2') NOT NULL                                                                                            |</span><br><span class="line">| crm.crmTradeSmsFlowStep.stepOutID           | 1                | 193               |          1 |          3 |                0 |      0 | 11.0440                 | 2.3182       | TINYINT(3) UNSIGNED NOT NULL                                                                                      |</span><br><span class="line">| crm.crmTradeSmsFlowStep.created             | 1504088017       | 1504171900        |         10 |         10 |                0 |      0 | 1504142055.8102         | 4260253.8171 | INT(10) UNSIGNED NOT NULL                                                                                         |</span><br><span class="line">| crm.crmTradeSmsFlowStep.modified            | 1504171916       | 1504171916        |         10 |         10 |                0 | 376961 | 1504171916.0000         | 0.0000       | ENUM('1504171916')                                                                                                |</span><br><span class="line">+<span class="comment">---------------------------------------------+------------------+-------------------+------------+------------+------------------+--------+-------------------------+--------------+-------------------------------------------------------------------------------------------------------------------+</span></span><br><span class="line">12 rows in <span class="keyword">set</span> (<span class="number">0.42</span> sec)</span><br></pre></td></tr></table></figure>
+<h1 id="根据实际数据来决定是否采用建议"><a href="#根据实际数据来决定是否采用建议" class="headerlink" title="根据实际数据来决定是否采用建议"></a>根据实际数据来决定是否采用建议</h1><ol>
+<li>PROCEDURE ANALYSE() 会让 MySQL 帮你去分析你的字段和其实际的数据，并会给你一些有用的建议。</li>
+<li>只有表中有实际的数据，这些建议才会变得有用，而且具有代表性的数据越全越好。</li>
+<li>例如上面的例子。<ol>
+<li>针对字段 stepType，给出建议是 ENUM(‘10’,’40’,’60’,’110’,’130’,’140’,’160’,’220’,’250’,’270’,’320’,’330’,’340’,’360’,’400’,’420’,’450’) NOT NULL, 如果这里列出的值还没有覆盖到业务的所有类型，那就是不准确的，这个需要自己根据业务数据做适当的修改，将不全的部分补上。</li>
+<li>modified，这个字段保存记录修改时间。由于这个表需要修改的场景不多，所以，测试数据只有一条记录有值，没有修改的记录，modified 为空，所以，PROCEDURE ANALYSE() 给出的建议也是不准的。</li>
+</ol>
+</li>
+<li>一定要注意，PROCEDURE ANALYSE() 结果，只是建议，可以参考，只有当你的表里的数据越来越多时，这些建议才会变得准确。你自己要能判断哪些是准确的哪些是不准确的，最终，只有你自己才能做出更合理的判断。</li>
+</ol>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-09-01T02:53:12.925Z" itemprop="dateUpdated">2020年9月1日 10:53</time>
+</span><br>
+
+
+        转载请注明出处：<a href="/database/mysqlPrcedureAnalyse.html" target="_blank" rel="external">https://www.lovesofttech.com/database/mysqlPrcedureAnalyse.html</a>
+    </div>
+    <footer>
+        <a href="https://www.lovesofttech.com">
+            <img src="/img/myLogo.jpg" alt="安迪陈">
+            安迪陈
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL/">MySQL</a></li></ul>
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/database/mysqlPrcedureAnalyse.html&title=《用 PROCEDURE ANALYSE() 为 mysql 提高性能提供建议》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/database/mysqlPrcedureAnalyse.html&title=《用 PROCEDURE ANALYSE() 为 mysql 提高性能提供建议》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=PROCEDURE ANALYSE() 通过分析 select 查询结果对现有的表的每一列给出优化的建议。" data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/database/mysqlPrcedureAnalyse.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《用 PROCEDURE ANALYSE() 为 mysql 提高性能提供建议》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/database/mysqlPrcedureAnalyse.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/database/mysqlPrcedureAnalyse.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/general/regularExpression.html" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">正则表达式全部符号解释</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/linux/centOSZip.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">linux 下 zip/unzip 命令详解</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+    
+    
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="bottom">
+        <p>
+            <span>安迪陈技术日志，架构、感悟、系统分析、团队管理 &copy; 2017 - 2020</span>
+            <span>
+                Power by <a href="https://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>&nbsp;
+                Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank" rel="external nofollow noopener noreferrer">indigo</a>
+            </span>
+            <span>
+                <a href="http://www.beian.miit.gov.cn" target="_blank" rel="external nofollow noopener noreferrer">蜀ICP备17041860号</a>
+            </span>
+            
+            <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            </p><p>
+                <span>
+                    统计始于：2019-03-06
+                </span>
+                <span id="busuanzi_container_site_uv" style="display:none">
+                    访客数：<span id="busuanzi_value_site_uv"></span>
+                </span>
+                <span id="busuanzi_container_site_pv" style="display:none">
+                    访问量：<span id="busuanzi_value_site_pv"></span>
+                </span>
+            
+            
+                <span class="post-count">累计字数：309.2k</span>
+            
+                <span><a href="/general/blogLog.html"><i class="fas fa-pen-alt"></i>&nbsp;博客日志</a></span>
+            </p>
+        <p></p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light" title="回到顶部"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/database/mysqlPrcedureAnalyse.html&title=《用 PROCEDURE ANALYSE() 为 mysql 提高性能提供建议》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/database/mysqlPrcedureAnalyse.html&title=《用 PROCEDURE ANALYSE() 为 mysql 提高性能提供建议》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=PROCEDURE ANALYSE() 通过分析 select 查询结果对现有的表的每一列给出优化的建议。" data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/database/mysqlPrcedureAnalyse.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《用 PROCEDURE ANALYSE() 为 mysql 提高性能提供建议》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/database/mysqlPrcedureAnalyse.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/database/mysqlPrcedureAnalyse.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACtElEQVR42u3aMW7DMBAEQP//00mTIoBteZdHCi5GlWBIMocFSezd4xFfP0/X/9+fn7n+Jbl/dz1OXHh4eHjjoecDfTfEd78kX7t+q54CPDw8vGO85HPzDSCn5uP5YMHDw8P7Al57IM4naO8U4OHh4X0P7x012TCuBz0ZAx4eHt79vCSMWDtAtzHuWnixIWvBw8PDO1BF+p77I/U9PDw8vHFV/XrBzZ9vvz//zt9beHh4eAd4+YKbHLUn8Wv+7/WTeHh4eFt5SeS6tujPv9A2db24x8PDw7uF17YOtNFqWx7LI5IiQcHDw8Mb8HLY2nKfbx7JlC1+GQ8PD28rr40J8nChnY5bq3Z4eHh4x8DXAW6yTCfH3/bAnZfK8PDw8E7w2sHlZf62hJbHwUUwgYeHh3eAtxbLTsCTNoXR83h4eHhbeUlxq31y0jowP4jj4eHhneNNjsJrxbNi1udfw8PDwzvAa4tYk+JZ2yKwrXSHh4eHt5XXNlclB+VJyNtuNnXTFR4eHt5W3q4ItW3DSjanNqR40TqAh4eHt4nXLtNtAawdSt5AUPSR4eHh4R3gtTPRlsEmk7UW+OLh4eGd47WLb94KkAcHbbtqMVo8PDy8A7y1klgb3U52rTwQKd7Cw8PDO8ZrB7o2Kfn2kE8lHh4e3mlee6jdtYW0TVrJvzwmQ8HDw8MreUmT01rhqm0vaEPhD5sWHh4e3o28FpkXw/KtYsNGgoeHh7eVt6scVQepZVvAWlkODw8P7wSvXWoni3gbzq7dL154eHh4Ja8td+UNAfNANokePowBDw8P7xgvP+yuDTHfGCbJyovv4OHh4X0Nb60NKz8it+8WBTA8PDy823lr4emuAKLeYPDw8PCO8SYH33lRKi+5tSEFHh4e3gneJH5tQ9j80Lx2vB7V9/Dw8PA+834B7bPkKb0yRJgAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.5.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.5.2" async></script>
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '安迪陈技术日志';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '欢迎回来';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

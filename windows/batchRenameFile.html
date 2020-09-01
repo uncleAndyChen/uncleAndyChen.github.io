@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<!--<script async src="//hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c"></script>-->
+<!-- 统计-->
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var host = window.location.host;
+        var hm = document.createElement("script");
+
+        if (host.indexOf('gitee.io') > 0) { // https://uncleandychen.gitee.io/
+            hm.src = "https://hm.baidu.com/hm.js?0cf4709148b070b8082191d2e456a1a3";
+        } else if (host.indexOf('lovesofttech.com') > 0) { // https://www.lovesofttech.com/
+            hm.src = "https://hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c";
+        } else {
+            hm.src = '';
+        }
+
+        if (hm.src !== '') {
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        }
+    })();
+</script>
+<!-- End Baidu Tongji -->
+
+
+
+<!-- Baidu Push -->
+<!-- 主动推送百度爬虫-->
+<script>
+    (function(){
+        if (window.location.host.indexOf('lovesofttech.com') < 0) {
+            return;
+        }
+
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+<!-- End Baidu Push -->
+
+
+    <meta charset="utf-8">
+    
+    
+    <link rel="canonical" href="https://www.lovesofttech.com/windows/batchRenameFile.html">
+    
+    
+    <title>批处理文件遍历所有子目录批量移除文件名和目录名中特殊字符 | 安迪陈技术日志，架构、感悟、系统分析、团队管理 | 自强不息，厚德载物</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="windows,experience">
+    <meta name="description" content="从网上下载到的某些资源（感谢那些无私奉献学习资源的人），文件名或目录名有一些特殊字符，如何批量移除呢？本文介绍利用批处理脚本，遍历指定目录以及指定目录下的所有子目录批量移除文件名和目录名中特殊字符的方法。方便快捷绿色省心~~">
+<meta name="keywords" content="windows,experience">
+<meta property="og:type" content="article">
+<meta property="og:title" content="批处理文件遍历所有子目录批量移除文件名和目录名中特殊字符">
+<meta property="og:url" content="https://www.lovesofttech.com/windows/batchRenameFile.html">
+<meta property="og:site_name" content="安迪陈技术日志，架构、感悟、系统分析、团队管理">
+<meta property="og:description" content="从网上下载到的某些资源（感谢那些无私奉献学习资源的人），文件名或目录名有一些特殊字符，如何批量移除呢？本文介绍利用批处理脚本，遍历指定目录以及指定目录下的所有子目录批量移除文件名和目录名中特殊字符的方法。方便快捷绿色省心~~">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2020-09-01T02:53:13.102Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="批处理文件遍历所有子目录批量移除文件名和目录名中特殊字符">
+<meta name="twitter:description" content="从网上下载到的某些资源（感谢那些无私奉献学习资源的人），文件名或目录名有一些特殊字符，如何批量移除呢？本文介绍利用批处理脚本，遍历指定目录以及指定目录下的所有子目录批量移除文件名和目录名中特殊字符的方法。方便快捷绿色省心~~">
+    
+        <link rel="alternative" href="/atom.xml" title="安迪陈技术日志，架构、感悟、系统分析、团队管理" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=201912302211">
+    <link rel="stylesheet" href="/css/header.css?v=201912302211">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu">
+  <div class="inner flex-row-vertical">
+    <!--<i class="icon icon-lg icon-close"></i>-->
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off" title="隐藏左侧导航">﹤<i class="icon icon-lg icon-navicon"></i></a>
+    <div class="brand-wrap" style="background-image:url(/img/bannerBackgroundLeft.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/myLogo.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">安迪陈</h5>
+          <a href="mailto:andy@lovesofttech.com" title="andy@lovesofttech.com" class="mail" rel="external nofollow noopener noreferrer" target="_blank">andy@lovesofttech.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articleClassify.html">
+                <i class="icon icon-th-list"></i>
+                文章分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articles.html">
+                <i class="icon icon-th-list articles"></i>
+                文章列表
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/java.html">
+                <i class="icon icon-th-list java"></i>
+                Java
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/database.html">
+                <i class="icon icon-th-list database"></i>
+                MySQL/MyBatis
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/linux.html">
+                <i class="icon icon-th-list linux"></i>
+                CentOS/linux
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/react.html">
+                <i class="icon icon-th-list React"></i>
+                React
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/lnmp.html">
+                <i class="icon icon-th-list LNMP"></i>
+                LNMP
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/git.html">
+                <i class="icon icon-th-list git"></i>
+                git
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/windows.html">
+                <i class="icon icon-th-list windows"></i>
+                windows
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/dailyLives.html">
+                <i class="icon icon-th-list dailyLives"></i>
+                工作 &amp; 生活
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-github"></i>
+                我的 github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://gitee.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link"></i>
+                我的 gitee
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://blog.csdn.net/runAndRun" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link CSDN"></i>
+                我的 CSDN
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/aboutMe.html">
+                <i class="icon icon-address-card"></i>
+                关于我
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+
+        <div class="navbar navbar-custom navbar-fixed-top">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" style="margin-left:10px;" id="menu-toggle" title="显示左侧导航"><i class="icon icon-lg icon-navicon"></i>﹥</a>
+            <ul class="nav navbar-nav navbar-right" id="navMenuTop">
+                <li>
+                    <a href="/">主页</a>
+                </li>
+                
+                    
+                        <li>
+                            <a href="/articleClassify.html" title="本博客的文章分类列表">文章分类</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/articles.html" title="本博客的所有文章列表">文章列表</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/java.html" title="Java 开发，文章目录">Java</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/database.html" title="日常开发中有关 MySQL、MyBatis 的一些经验总结">MySQL/MyBatis</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/linux.html" title="CentOS/linux，文章目录">CentOS/linux</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/react.html" title="React 技术栈（全家桶）学习心得分享，文章目录">React</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/about.html">关于</a>
+                        </li>
+                    
+                
+            </ul>
+        </div>
+
+        <div class="flex-col header-title ellipsis">批处理文件遍历所有子目录批量移除文件名和目录名中特殊字符</div>
+        
+        <div class="search-wrap" id="search-wrap" style="z-index: 2;">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back" style="width:33px;">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search" style="width:33px;">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare" style="z-index: 3;margin-right: 10px; width:30px;">
+                <i class="icon icon-lg icon-share-alt"></i>
+            </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h2 class="title">批处理文件遍历所有子目录批量移除文件名和目录名中特殊字符</h2>
+        <h5 class="subtitle">
+            
+                <time datetime="2019-07-12T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2019-07-13
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/windows/">windows</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/windows/experience/">experience</a></li></ul></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap" id="index-container">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc" style="z-index: 3;">
+            <h4><i class="fa fa-list-alt"></i>&nbsp;&nbsp;本文目录</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#遍历当前目录以及所有子目录批量处理"><span class="post-toc-number">1.</span> <span class="post-toc-text">遍历当前目录以及所有子目录批量处理</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#批处理脚本内容"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">批处理脚本内容</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#批处理脚本说明"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">批处理脚本说明</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#仅处理当前目录下的文件名和目录名"><span class="post-toc-number">2.</span> <span class="post-toc-text">仅处理当前目录下的文件名和目录名</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#处理过程，以下介绍均为只处理当前目录"><span class="post-toc-number">3.</span> <span class="post-toc-text">处理过程，以下介绍均为只处理当前目录</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#特殊字符不带空格"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">特殊字符不带空格</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#特殊字符包含空格"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">特殊字符包含空格</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#解决"><span class="post-toc-number">3.2.1.</span> <span class="post-toc-text">解决</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#批量删除文件名中的空格"><span class="post-toc-number">4.</span> <span class="post-toc-text">批量删除文件名中的空格</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#百度-PC-端下载文件完成后，文件名后缀没有被及时修改（其实是下载完成了的），用秕处理脚本删除这些后缀"><span class="post-toc-number">5.</span> <span class="post-toc-text">百度 PC 端下载文件完成后，文件名后缀没有被及时修改（其实是下载完成了的），用秕处理脚本删除这些后缀</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#bat批处理的注释语句"><span class="post-toc-number">6.</span> <span class="post-toc-text">bat批处理的注释语句</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#后记，对变量赋值含中文时找不到文件"><span class="post-toc-number">7.</span> <span class="post-toc-text">后记，对变量赋值含中文时找不到文件</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#现象"><span class="post-toc-number">7.1.</span> <span class="post-toc-text">现象</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#解决方法一"><span class="post-toc-number">7.2.</span> <span class="post-toc-text">解决方法一</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#解决办法二"><span class="post-toc-number">7.3.</span> <span class="post-toc-text">解决办法二</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#直接修改注册表"><span class="post-toc-number">7.3.1.</span> <span class="post-toc-text">直接修改注册表</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#在脚本最前面指定，更具通用性，本文介绍的脚本已经添加"><span class="post-toc-number">7.3.2.</span> <span class="post-toc-text">在脚本最前面指定，更具通用性，本文介绍的脚本已经添加</span></a></li></ol></li></ol></li></ol>
+        </nav>
+    </aside>
+    
+
+<article id="post-windows/batchRenameFile" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">批处理文件遍历所有子目录批量移除文件名和目录名中特殊字符</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2019年07月13日 0:00" datetime="2019-07-12T16:00:00.000Z" itemprop="datePublished">2019-07-13</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/windows/">windows</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/windows/experience/">experience</a></li></ul></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" style="display:none">
+    阅读量：<span id="busuanzi_value_page_pv"></span>次
+</span>
+
+
+    <span>|</span>
+    <span class="post-count">字数：2.2k</span>
+    <span>|</span>
+    <span class="post-count">阅读时长：大约8分钟</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>从网上下载到的某些资源（感谢那些无私奉献学习资源的人），文件名或目录名有一些特殊字符，如何批量移除呢？<br>本文介绍利用批处理脚本，遍历指定目录以及指定目录下的所有子目录批量移除文件名和目录名中特殊字符的方法。方便快捷绿色省心~~</p>
+<a id="more"></a>
+<h1 id="遍历当前目录以及所有子目录批量处理"><a href="#遍历当前目录以及所有子目录批量处理" class="headerlink" title="遍历当前目录以及所有子目录批量处理"></a>遍历当前目录以及所有子目录批量处理</h1><h2 id="批处理脚本内容"><a href="#批处理脚本内容" class="headerlink" title="批处理脚本内容"></a>批处理脚本内容</h2><p>创建一个后缀为 <code>.bat</code> 或 <code>.cmd</code> 的批处理文件，内容如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">@echo off</span><br><span class="line">setlocal enabledelayedexpansion</span><br><span class="line">chcp 65001</span><br><span class="line"></span><br><span class="line">:: 如果要指定绝对路径，用以下两行，注释 set path=. 所在行。也就是用以下两行代替 set path=. 这一行。</span><br><span class="line">:: set path=&quot;C:\temp\test&quot;</span><br><span class="line">:: cd &quot;/d %path%&quot;</span><br><span class="line"></span><br><span class="line">set path=.</span><br><span class="line">:: echo.&amp;set /p path=please input path:</span><br><span class="line"></span><br><span class="line">:: 删除需要删除的广告字符，记得替换成你自己需要删除的。</span><br><span class="line">:: 并且需要把广告字符中的空格去掉，因为在删除广告信息之前会把文件名中的空格清除掉。</span><br><span class="line">set adv=【我是特殊字符】</span><br><span class="line">:: echo.&amp;set /p adv=please input to be delete characters:</span><br><span class="line"></span><br><span class="line">call:renameFiles</span><br><span class="line"></span><br><span class="line">for /f &quot;delims=&quot; %%i in (&apos;dir /ad/b/s &quot;%path%&quot;&apos;) do (</span><br><span class="line">	cd %%i</span><br><span class="line">	call:renameFiles</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">echo.</span><br><span class="line">echo 处理完毕</span><br><span class="line">echo.</span><br><span class="line"></span><br><span class="line">pause</span><br><span class="line"></span><br><span class="line">:: 子过程一般放在最后，主程序最后要加上exit或跳转语句，避免错误的进入子过程。</span><br><span class="line">:: 如果没有 exit，子程序还会被执行（而不是调用）一次，这样在执行 echo %1 时，因为没有参数，会提示：ECHO is off.</span><br><span class="line">exit</span><br><span class="line"></span><br><span class="line">:renameFiles</span><br><span class="line">    echo 正在处理的目录：【%cd%】 ...</span><br><span class="line">    </span><br><span class="line">    :: 先删除空格</span><br><span class="line">    for /f &quot;delims=&quot; %%i in (&apos;dir /b *.*&apos;) do (</span><br><span class="line">        set &quot;foo=%%~nxi&quot;</span><br><span class="line">        set foo=!foo: =!</span><br><span class="line">        ren &quot;%%~fi&quot; &quot;!foo!&quot;</span><br><span class="line">    )</span><br><span class="line">    </span><br><span class="line">    for /f &quot;delims=&quot; %%i in (&apos;dir /b *%adv%*&apos;) do (</span><br><span class="line">        :: echo %%i</span><br><span class="line">        set var=%%i</span><br><span class="line">        set var=!var:%adv%=!</span><br><span class="line">        echo rename &quot;%%i&quot; to &quot;!var!&quot;</span><br><span class="line">        ren &quot;%%i&quot; &quot;!var!&quot;</span><br><span class="line">    )</span><br><span class="line">    </span><br><span class="line">    echo.</span><br><span class="line">goto:eof</span><br></pre></td></tr></table></figure></p>
+<h2 id="批处理脚本说明"><a href="#批处理脚本说明" class="headerlink" title="批处理脚本说明"></a>批处理脚本说明</h2><ul>
+<li>该批处理脚本会把脚本中变量 path 定义的路径下、以及该路径下的所有子目录（含子目录下的子目录）下的文件名和目录名中的 adv 定义的字符删除，还一个干净的文件名和目录名。</li>
+<li>如果子目录下的子目录名也包含特殊字符，第一次处理时会提示：The system cannot find the path specified.，这是因为目录名被改了，之前读入内存的目录名不存在了，这没有关系，重复执行该脚本，直到不再出现这个提示为止即表示所有目录名和文件名都已经改完了。</li>
+<li><code>path=.</code> 表示当前目录，需要把此批处理文件复制到需要处理的顶层文件夹下再双击执行。</li>
+<li>如果设置 path 为绝对路径，则脚本文件放哪个位置都行。</li>
+<li>也可以每次输入需要处理的绝对路径和需要移除的特殊字符，见下面 path 和 adv 变量的下一行注释代码。</li>
+</ul>
+<h1 id="仅处理当前目录下的文件名和目录名"><a href="#仅处理当前目录下的文件名和目录名" class="headerlink" title="仅处理当前目录下的文件名和目录名"></a>仅处理当前目录下的文件名和目录名</h1><p>创建一个后缀为 <code>.bat</code> 或 <code>.cmd</code> 的批处理文件，内容如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">@echo off</span><br><span class="line">:: 仅处理当前目录下的所有文件，所以，需要把该文件 copy 至需要改名的文件夹下，双击执行</span><br><span class="line">setlocal enabledelayedexpansion</span><br><span class="line">chcp 65001</span><br><span class="line"></span><br><span class="line">:: 先删除空格</span><br><span class="line">for /f &quot;delims=&quot; %%i in (&apos;dir /b *.*&apos;) do (</span><br><span class="line">    set &quot;foo=%%~nxi&quot;</span><br><span class="line">    set foo=!foo: =!</span><br><span class="line">    ren &quot;%%~fi&quot; &quot;!foo!&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">:: 删除需要删除的广告字符，记得替换成你自己需要删除的。</span><br><span class="line">:: 并且需要把广告字符中的空格去掉，因为在删除广告信息之前会把文件名中的空格清除掉。</span><br><span class="line">set adv=【我是特殊字符】</span><br><span class="line"></span><br><span class="line">for /f &quot;delims=&quot; %%i in (&apos;dir /b *%adv%*&apos;) do (</span><br><span class="line">    ::echo %%i</span><br><span class="line">    set var=%%i</span><br><span class="line">    set var=!var:%adv%=!</span><br><span class="line">    echo rename &quot;%%i&quot; to &quot;!var!&quot;</span><br><span class="line">    ren &quot;%%i&quot; &quot;!var!&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">pause</span><br></pre></td></tr></table></figure></p>
+<h1 id="处理过程，以下介绍均为只处理当前目录"><a href="#处理过程，以下介绍均为只处理当前目录" class="headerlink" title="处理过程，以下介绍均为只处理当前目录"></a>处理过程，以下介绍均为只处理当前目录</h1><h2 id="特殊字符不带空格"><a href="#特殊字符不带空格" class="headerlink" title="特殊字符不带空格"></a>特殊字符不带空格</h2><p>如：<code>test【我是特殊字符】.txt</code><br>这类文件用以下脚本即可正常处理，批处理脚本如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">@echo off</span><br><span class="line">setlocal enabledelayedexpansion</span><br><span class="line">chcp 65001</span><br><span class="line">set adv=【我是特殊字符】</span><br><span class="line"></span><br><span class="line">for /f &quot;delims=&quot; %%i in (&apos;dir /b *%adv%*&apos;) do (</span><br><span class="line">    ::echo %%i</span><br><span class="line">    set var=%%i</span><br><span class="line">    set var=!var:%adv%=!</span><br><span class="line">    echo rename &quot;%%i&quot; to &quot;!var!&quot;</span><br><span class="line">    ren &quot;%%i&quot; &quot;!var!&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">pause</span><br></pre></td></tr></table></figure></p>
+<h2 id="特殊字符包含空格"><a href="#特殊字符包含空格" class="headerlink" title="特殊字符包含空格"></a>特殊字符包含空格</h2><p>但是，如果需要删除的特殊字符部分有空格，如：<code>1. test - [加微信 xxxx 有妹子].txt</code>，下面的批处理脚本不能达到去除特殊字符的目的。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">@echo off</span><br><span class="line">setlocal enabledelayedexpansion</span><br><span class="line">chcp 65001</span><br><span class="line">set adv=&quot;- [加微信 xxxx 有妹子]&quot;</span><br><span class="line"></span><br><span class="line">for /f &quot;delims=&quot; %%i in (&apos;dir /b *%adv%*&apos;) do (</span><br><span class="line">    ::echo %%i</span><br><span class="line">    set var=%%i</span><br><span class="line">    set var=!var:%adv%=!</span><br><span class="line">    echo rename &quot;%%i&quot; to &quot;!var!&quot;</span><br><span class="line">    ren &quot;%%i&quot; &quot;!var!&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">pause</span><br></pre></td></tr></table></figure></p>
+<p>执行的时候会提示：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rename &quot;1. test - [加微信 xxxx 有妹子].txt&quot; to &quot;1. test - [加微信 xxxx 有妹子].txt&quot;</span><br><span class="line">Press any key to continue . . .</span><br></pre></td></tr></table></figure></p>
+<h3 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h3><p>在删除特殊字符前，先将空格删除，然后，处理方式就与删除不带空格的特殊字符相同了。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">@echo off</span><br><span class="line">chcp 65001</span><br><span class="line">setlocal enabledelayedexpansion</span><br><span class="line"></span><br><span class="line">:: 先删除空格</span><br><span class="line">for /f &quot;delims=&quot; %%i in (&apos;dir /b *.*&apos;) do (</span><br><span class="line">    set &quot;foo=%%~nxi&quot;</span><br><span class="line">    set foo=!foo: =!</span><br><span class="line">    ren &quot;%%~fi&quot; &quot;!foo!&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">:: 删除需要删除的广告字符，记得替换成你自己需要删除的。</span><br><span class="line">:: 并且需要把广告字符中的空格去掉，因为在删除广告信息之前会把文件名中的空格清除掉。</span><br><span class="line">set adv=-[加微信xxxx有妹子]</span><br><span class="line"></span><br><span class="line">for /f &quot;delims=&quot; %%i in (&apos;dir /b *%adv%*&apos;) do (</span><br><span class="line">    ::echo %%i</span><br><span class="line">    set var=%%i</span><br><span class="line">    set var=!var:%adv%=!</span><br><span class="line">    echo rename &quot;%%i&quot; to &quot;!var!&quot;</span><br><span class="line">    ren &quot;%%i&quot; &quot;!var!&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">pause</span><br></pre></td></tr></table></figure></p>
+<p>执行结果：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rename &quot;1.test-[加微信xxxx有妹子].txt&quot; to &quot;1.test.txt&quot;</span><br><span class="line">Press any key to continue . . .</span><br></pre></td></tr></table></figure></p>
+<h1 id="批量删除文件名中的空格"><a href="#批量删除文件名中的空格" class="headerlink" title="批量删除文件名中的空格"></a>批量删除文件名中的空格</h1><ul>
+<li>会处理当前目录以及所有子目录和子目录下的所有文件，如子目录也带空格，则需要多执行几次，因为子目录会先被修改。</li>
+<li>正确的姿势是，在循环里判断是否为文件夹，如果是，则先处理文件夹下的文件，最后处理文件夹名，这一点请读者自行研究。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">@echo off&amp;setlocal enabledelayedexpansion</span><br><span class="line"></span><br><span class="line">for /f &quot;delims=&quot; %%i in (&apos;dir /s/b *.*&apos;) do (</span><br><span class="line">    set &quot;foo=%%~nxi&quot;</span><br><span class="line">    set foo=!foo: =!</span><br><span class="line">    ren &quot;%%~fi&quot; &quot;!foo!&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">pause</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h1 id="百度-PC-端下载文件完成后，文件名后缀没有被及时修改（其实是下载完成了的），用秕处理脚本删除这些后缀"><a href="#百度-PC-端下载文件完成后，文件名后缀没有被及时修改（其实是下载完成了的），用秕处理脚本删除这些后缀" class="headerlink" title="百度 PC 端下载文件完成后，文件名后缀没有被及时修改（其实是下载完成了的），用秕处理脚本删除这些后缀"></a>百度 PC 端下载文件完成后，文件名后缀没有被及时修改（其实是下载完成了的），用秕处理脚本删除这些后缀</h1><p>但并不总是这样，后来的版本没有这个问题，估计官方修复这个 bug 了。批量修改脚本如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@ECHO OFF</span><br><span class="line">FOR /F &quot;delims=&quot; %%I IN (&apos;DIR /A-D /B *.baiduyun.p.downloading.*&apos;) DO REN &quot;%%~I&quot; &quot;%%~nI&quot;</span><br><span class="line">FOR /F &quot;delims=&quot; %%I IN (&apos;DIR /A-D /B *.baiduyun.p&apos;) DO REN &quot;%%~I&quot; &quot;%%~nI&quot;</span><br><span class="line">FOR /F &quot;delims=&quot; %%I IN (&apos;DIR /A-D /B *.baiduyun&apos;) DO REN &quot;%%~I&quot; &quot;%%~nI&quot;</span><br></pre></td></tr></table></figure></p>
+<h1 id="bat批处理的注释语句"><a href="#bat批处理的注释语句" class="headerlink" title="bat批处理的注释语句"></a>bat批处理的注释语句</h1><ol>
+<li><code>::</code> 注释内容（第一个冒号后也可以跟任何一个非字母数字的字符）</li>
+<li><code>rem</code> 注释内容（不能出现重定向符号和管道符号）</li>
+<li><code>echo</code> 注释内容（不能出现重定向符号和管道符号）</li>
+<li><code>if not exist nul</code> 注释内容（不能出现重定向符号和管道符号）</li>
+<li><code>:</code>注释内容（注释文本不能与已有标签重名）</li>
+<li><code>%</code>注释内容%（可以用作行间注释，不能出现重定向符号和管道符号）</li>
+<li><code>goto</code> 标签 注释内容（可以用作说明goto的条件和执行内容）</li>
+<li><code>:</code>标签 注释内容（可以用作标签下方段的执行内容）</li>
+</ol>
+<h1 id="后记，对变量赋值含中文时找不到文件"><a href="#后记，对变量赋值含中文时找不到文件" class="headerlink" title="后记，对变量赋值含中文时找不到文件"></a>后记，对变量赋值含中文时找不到文件</h1><h2 id="现象"><a href="#现象" class="headerlink" title="现象"></a>现象</h2><p>批处理文件变量赋值语句<code>set adv=【我是特殊字符】</code>，给变量赋值含有中文时，如果 cmd/PowerShell 的编码为非 UTF-8，则不会正常执行。</p>
+<h2 id="解决方法一"><a href="#解决方法一" class="headerlink" title="解决方法一"></a>解决方法一</h2><p>通过动态赋值的方式，可以正常执行，具体代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo.&amp;set /p adv=please input to be delete characters:</span><br></pre></td></tr></table></figure></p>
+<h2 id="解决办法二"><a href="#解决办法二" class="headerlink" title="解决办法二"></a>解决办法二</h2><p>修改 cmd/PowerShell 的默认编码为 UTF-8。</p>
+<h3 id="直接修改注册表"><a href="#直接修改注册表" class="headerlink" title="直接修改注册表"></a>直接修改注册表</h3><p>一劳永逸，具体可参考：<a href="/windows/win10CmdCharacter.html">windows 控制台 cmd/PowerShell 中文显示乱码，解决方法</a></p>
+<h3 id="在脚本最前面指定，更具通用性，本文介绍的脚本已经添加"><a href="#在脚本最前面指定，更具通用性，本文介绍的脚本已经添加" class="headerlink" title="在脚本最前面指定，更具通用性，本文介绍的脚本已经添加"></a>在脚本最前面指定，更具通用性，本文介绍的脚本已经添加</h3><p>另一种方式，简单粗暴但是非常实用，就是在脚本前面添加 <code>chcp 65001</code>，每次执行批量删除文件名中的特殊字符之前，先设置编码格式。</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-09-01T02:53:13.102Z" itemprop="dateUpdated">2020年9月1日 10:53</time>
+</span><br>
+
+
+        转载请注明出处：<a href="/windows/batchRenameFile.html" target="_blank" rel="external">https://www.lovesofttech.com/windows/batchRenameFile.html</a>
+    </div>
+    <footer>
+        <a href="https://www.lovesofttech.com">
+            <img src="/img/myLogo.jpg" alt="安迪陈">
+            安迪陈
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/experience/">experience</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/windows/">windows</a></li></ul>
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/windows/batchRenameFile.html&title=《批处理文件遍历所有子目录批量移除文件名和目录名中特殊字符》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/windows/batchRenameFile.html&title=《批处理文件遍历所有子目录批量移除文件名和目录名中特殊字符》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=从网上下载到的某些资源（感谢那些无私奉献学习资源的人），文件名或目录名有一些特殊字符，如何批量移除呢？本文介绍利用批处理脚本，遍历指定目录以及指定目录下的..." data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/windows/batchRenameFile.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《批处理文件遍历所有子目录批量移除文件名和目录名中特殊字符》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/windows/batchRenameFile.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/windows/batchRenameFile.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/linux/centOS7InstallFont.html" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">CentOS7 安装中文字体 Arial</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/java/experience.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">java 开发中的一些小经验</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+    
+    
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="bottom">
+        <p>
+            <span>安迪陈技术日志，架构、感悟、系统分析、团队管理 &copy; 2017 - 2020</span>
+            <span>
+                Power by <a href="https://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>&nbsp;
+                Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank" rel="external nofollow noopener noreferrer">indigo</a>
+            </span>
+            <span>
+                <a href="http://www.beian.miit.gov.cn" target="_blank" rel="external nofollow noopener noreferrer">蜀ICP备17041860号</a>
+            </span>
+            
+            <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            </p><p>
+                <span>
+                    统计始于：2019-03-06
+                </span>
+                <span id="busuanzi_container_site_uv" style="display:none">
+                    访客数：<span id="busuanzi_value_site_uv"></span>
+                </span>
+                <span id="busuanzi_container_site_pv" style="display:none">
+                    访问量：<span id="busuanzi_value_site_pv"></span>
+                </span>
+            
+            
+                <span class="post-count">累计字数：309.2k</span>
+            
+                <span><a href="/general/blogLog.html"><i class="fas fa-pen-alt"></i>&nbsp;博客日志</a></span>
+            </p>
+        <p></p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light" title="回到顶部"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/windows/batchRenameFile.html&title=《批处理文件遍历所有子目录批量移除文件名和目录名中特殊字符》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/windows/batchRenameFile.html&title=《批处理文件遍历所有子目录批量移除文件名和目录名中特殊字符》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=从网上下载到的某些资源（感谢那些无私奉献学习资源的人），文件名或目录名有一些特殊字符，如何批量移除呢？本文介绍利用批处理脚本，遍历指定目录以及指定目录下的..." data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/windows/batchRenameFile.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《批处理文件遍历所有子目录批量移除文件名和目录名中特殊字符》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/windows/batchRenameFile.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/windows/batchRenameFile.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACL0lEQVR42u3aQW6DMBAF0N7/0qnUVaUI8r8dqmZ4XiFCwI/FMOPx11c8Hj/j+czv80fH5/d8/lfy38WBgYHxsYzH6Tia4hEsP25hR3PDwMC4D+M8yJ7f4vwOV7AxMDAw2sfkIftF0MTAwMB4U8BNytq1oIyBgYFxzsjDZb4kt1O4XliLY2BgfCCjbQz85fGF/Q0MDIwPYTzK0TY12wW4xVlhYGCMZpxPqA27a/G+TUkPn4KBgXEDRltG7oTUvKAtXjQGBsZoxn6TIJ9KEkzXFvUwMDBmM/ImYrvBNCmDc/CLhTkMDIyhjDzk5Utj+VaM/YYoBgbGnRntg9smQdt4eHENBgbGDRhtCpjUxGvpZvsBwMDAuBsjT+nyZG5t00Yd0DEwMEYz3vXIFt/ep2hOYGBg3ICRNx330742oVzcZoGBgTGCkUw0CYL5RrG2bRmdwcDAGMpot028K+1b2xVyOCsMDIzRjHYpf3/hbGerWZEgYmBgjGO0mx7aSe8kjhgYGBj5Qth+CN4P2dG3AgMDYygjKWLXug15GbzzOjAwMGYz3tu8jLZtBb/mqeQlPVgMDIx/xniUIyk+25fStlEPvxsYGBhDGW2Ya5fy18LuVgsTAwNjKGOtfN1Z72pbBdECHAYGxg0YO5PLi961zRlJ0MfAwMBYoyalbJIyRuEbAwMDI25VXpEyLrYwMTAwxjHyVC+Zek5qU8YXARcDA2Mooy0g969Mlv7bKzEwMIYyvgEu4bJQdDKACQAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.5.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.5.2" async></script>
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '安迪陈技术日志';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '欢迎回来';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

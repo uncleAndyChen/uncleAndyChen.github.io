@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<!--<script async src="//hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c"></script>-->
+<!-- 统计-->
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var host = window.location.host;
+        var hm = document.createElement("script");
+
+        if (host.indexOf('gitee.io') > 0) { // https://uncleandychen.gitee.io/
+            hm.src = "https://hm.baidu.com/hm.js?0cf4709148b070b8082191d2e456a1a3";
+        } else if (host.indexOf('lovesofttech.com') > 0) { // https://www.lovesofttech.com/
+            hm.src = "https://hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c";
+        } else {
+            hm.src = '';
+        }
+
+        if (hm.src !== '') {
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        }
+    })();
+</script>
+<!-- End Baidu Tongji -->
+
+
+
+<!-- Baidu Push -->
+<!-- 主动推送百度爬虫-->
+<script>
+    (function(){
+        if (window.location.host.indexOf('lovesofttech.com') < 0) {
+            return;
+        }
+
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+<!-- End Baidu Push -->
+
+
+    <meta charset="utf-8">
+    
+    
+    <link rel="canonical" href="https://www.lovesofttech.com/git/gitBasicUsage.html">
+    
+    
+    <title>git 在工作中的基本用法 | 安迪陈技术日志，架构、感悟、系统分析、团队管理 | 自强不息，厚德载物</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="git">
+    <meta name="description" content="如题">
+<meta name="keywords" content="git">
+<meta property="og:type" content="article">
+<meta property="og:title" content="git 在工作中的基本用法">
+<meta property="og:url" content="https://www.lovesofttech.com/git/gitBasicUsage.html">
+<meta property="og:site_name" content="安迪陈技术日志，架构、感悟、系统分析、团队管理">
+<meta property="og:description" content="如题">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:image" content="https://www.lovesofttech.com/img/gitCancelCommit.jpg">
+<meta property="og:updated_time" content="2020-09-01T02:53:12.961Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="git 在工作中的基本用法">
+<meta name="twitter:description" content="如题">
+<meta name="twitter:image" content="https://www.lovesofttech.com/img/gitCancelCommit.jpg">
+    
+        <link rel="alternative" href="/atom.xml" title="安迪陈技术日志，架构、感悟、系统分析、团队管理" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=201912302211">
+    <link rel="stylesheet" href="/css/header.css?v=201912302211">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu">
+  <div class="inner flex-row-vertical">
+    <!--<i class="icon icon-lg icon-close"></i>-->
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off" title="隐藏左侧导航">﹤<i class="icon icon-lg icon-navicon"></i></a>
+    <div class="brand-wrap" style="background-image:url(/img/bannerBackgroundLeft.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/myLogo.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">安迪陈</h5>
+          <a href="mailto:andy@lovesofttech.com" title="andy@lovesofttech.com" class="mail" rel="external nofollow noopener noreferrer" target="_blank">andy@lovesofttech.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articleClassify.html">
+                <i class="icon icon-th-list"></i>
+                文章分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articles.html">
+                <i class="icon icon-th-list articles"></i>
+                文章列表
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/java.html">
+                <i class="icon icon-th-list java"></i>
+                Java
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/database.html">
+                <i class="icon icon-th-list database"></i>
+                MySQL/MyBatis
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/linux.html">
+                <i class="icon icon-th-list linux"></i>
+                CentOS/linux
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/react.html">
+                <i class="icon icon-th-list React"></i>
+                React
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/lnmp.html">
+                <i class="icon icon-th-list LNMP"></i>
+                LNMP
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/git.html">
+                <i class="icon icon-th-list git"></i>
+                git
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/windows.html">
+                <i class="icon icon-th-list windows"></i>
+                windows
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/dailyLives.html">
+                <i class="icon icon-th-list dailyLives"></i>
+                工作 &amp; 生活
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-github"></i>
+                我的 github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://gitee.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link"></i>
+                我的 gitee
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://blog.csdn.net/runAndRun" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link CSDN"></i>
+                我的 CSDN
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/aboutMe.html">
+                <i class="icon icon-address-card"></i>
+                关于我
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+
+        <div class="navbar navbar-custom navbar-fixed-top">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" style="margin-left:10px;" id="menu-toggle" title="显示左侧导航"><i class="icon icon-lg icon-navicon"></i>﹥</a>
+            <ul class="nav navbar-nav navbar-right" id="navMenuTop">
+                <li>
+                    <a href="/">主页</a>
+                </li>
+                
+                    
+                        <li>
+                            <a href="/articleClassify.html" title="本博客的文章分类列表">文章分类</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/articles.html" title="本博客的所有文章列表">文章列表</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/java.html" title="Java 开发，文章目录">Java</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/database.html" title="日常开发中有关 MySQL、MyBatis 的一些经验总结">MySQL/MyBatis</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/linux.html" title="CentOS/linux，文章目录">CentOS/linux</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/react.html" title="React 技术栈（全家桶）学习心得分享，文章目录">React</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/about.html">关于</a>
+                        </li>
+                    
+                
+            </ul>
+        </div>
+
+        <div class="flex-col header-title ellipsis">git 在工作中的基本用法</div>
+        
+        <div class="search-wrap" id="search-wrap" style="z-index: 2;">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back" style="width:33px;">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search" style="width:33px;">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare" style="z-index: 3;margin-right: 10px; width:30px;">
+                <i class="icon icon-lg icon-share-alt"></i>
+            </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h2 class="title">git 在工作中的基本用法</h2>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-04-18T14:18:12.000Z" itemprop="datePublished" class="page-time">
+  2017-04-18
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/git/">git</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap" id="index-container">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc" style="z-index: 3;">
+            <h4><i class="fa fa-list-alt"></i>&nbsp;&nbsp;本文目录</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#windows-版工具下载"><span class="post-toc-number">1.</span> <span class="post-toc-text">windows 版工具下载</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#在windows下，为不同的项目设置不同的用户名，linux下类似"><span class="post-toc-number">2.</span> <span class="post-toc-text">在windows下，为不同的项目设置不同的用户名，linux下类似</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#git基本操作"><span class="post-toc-number">3.</span> <span class="post-toc-text">git基本操作</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#创建-tag"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">创建 tag</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#由-master-创建新分支-v2-1-并提交至远端"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">由 master 创建新分支 v2.1 并提交至远端</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#将-master-的修改同步-合并（merge）到-v2-1"><span class="post-toc-number">3.3.</span> <span class="post-toc-text">将 master 的修改同步/合并（merge）到 v2.1</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#git-clone"><span class="post-toc-number">4.</span> <span class="post-toc-text">git clone</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#reference"><span class="post-toc-number">5.</span> <span class="post-toc-text">reference</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#git-clone-指定分支"><span class="post-toc-number">6.</span> <span class="post-toc-text">git clone 指定分支</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#提交代码时，写备注"><span class="post-toc-number">7.</span> <span class="post-toc-text">提交代码时，写备注</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#撤销-git-commit-但是未-git-push-的修改"><span class="post-toc-number">8.</span> <span class="post-toc-text">撤销 git commit 但是未 git push 的修改</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#第三方-windows-客户端工具"><span class="post-toc-number">9.</span> <span class="post-toc-text">第三方 windows 客户端工具</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#github-上-fork-一个分支之后，如何和主分支同步"><span class="post-toc-number">10.</span> <span class="post-toc-text">github 上 fork 一个分支之后，如何和主分支同步</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#TortoiseGit-git-did-not-exit-cleanly-exit-code-1"><span class="post-toc-number">11.</span> <span class="post-toc-text">TortoiseGit-git did not exit cleanly (exit code 1)</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#git-clone-报错：-fatal-The-remote-end-hung-up-unexpectedly"><span class="post-toc-number">12.</span> <span class="post-toc-text">git clone 报错： fatal: The remote end hung up unexpectedly</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#git无法断点续传的下载办法：git-fetch-git"><span class="post-toc-number">12.1.</span> <span class="post-toc-text">git无法断点续传的下载办法：git fetch git</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#后续步骤"><span class="post-toc-number">12.1.1.</span> <span class="post-toc-text">后续步骤</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#指定分支，并仅克隆最近一次提交，以减小下载文件大小，同时交款-https-换成-git-方式"><span class="post-toc-number">12.2.</span> <span class="post-toc-text">指定分支，并仅克隆最近一次提交，以减小下载文件大小，同时交款 https 换成 git 方式</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#remove-remote-branch"><span class="post-toc-number">13.</span> <span class="post-toc-text">remove remote branch?</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#只克隆最近一次commit以减小下载文件大小"><span class="post-toc-number">14.</span> <span class="post-toc-text">只克隆最近一次commit以减小下载文件大小</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#git-config-–add-core-compression-1"><span class="post-toc-number">15.</span> <span class="post-toc-text">git config –add core.compression -1</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#git-submodule"><span class="post-toc-number">16.</span> <span class="post-toc-text">git submodule</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#git-submodule-gt-子项目"><span class="post-toc-number">16.1.</span> <span class="post-toc-text">git submodule -&gt; 子项目</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#git-强制-pull"><span class="post-toc-number">17.</span> <span class="post-toc-text">git 强制 pull</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#推送本地分支到远程新分支上面去"><span class="post-toc-number">18.</span> <span class="post-toc-text">推送本地分支到远程新分支上面去</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#HTTP-413-curl-22-The-requested-URL-returned-error-413-Request-Entity-Too-Large"><span class="post-toc-number">19.</span> <span class="post-toc-text">HTTP 413 curl 22 The requested URL returned error: 413 Request Entity Too Large</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#解决"><span class="post-toc-number">19.1.</span> <span class="post-toc-text">解决</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Out-of-memory-malloc-failed-tried-to-allocate-1895825408-bytes-failed-to-push-some-refs"><span class="post-toc-number">20.</span> <span class="post-toc-text">Out of memory, malloc failed (tried to allocate 1895825408 bytes) failed to push some refs</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#colliding-group-is-in-the-working-tree"><span class="post-toc-number">21.</span> <span class="post-toc-text">colliding group is in the working tree</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#git-查看-config-配置信息"><span class="post-toc-number">22.</span> <span class="post-toc-text">git 查看 config 配置信息</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#config-配置的三个级别"><span class="post-toc-number">22.1.</span> <span class="post-toc-text">config 配置的三个级别</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#查看系统-config"><span class="post-toc-number">22.2.</span> <span class="post-toc-text">查看系统 config</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#查看当前用户（global）配置"><span class="post-toc-number">22.3.</span> <span class="post-toc-text">查看当前用户（global）配置</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#查看当前仓库配置信息"><span class="post-toc-number">22.4.</span> <span class="post-toc-text">查看当前仓库配置信息</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#查看具体的设置项"><span class="post-toc-number">22.5.</span> <span class="post-toc-text">查看具体的设置项</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+    
+
+<article id="post-git/gitBasicUsage" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">git 在工作中的基本用法</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017年04月18日 22:18" datetime="2017-04-18T14:18:12.000Z" itemprop="datePublished">2017-04-18</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/git/">git</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" style="display:none">
+    阅读量：<span id="busuanzi_value_page_pv"></span>次
+</span>
+
+
+    <span>|</span>
+    <span class="post-count">字数：4.2k</span>
+    <span>|</span>
+    <span class="post-count">阅读时长：大约18分钟</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>如题<br><a id="more"></a></p>
+<h1 id="windows-版工具下载"><a href="#windows-版工具下载" class="headerlink" title="windows 版工具下载"></a>windows 版工具下载</h1><ol>
+<li><a href="https://gitforwindows.org/" rel="external nofollow noopener noreferrer" target="_blank">点击进入 Git for Windows 官网</a></li>
+<li><a href="https://tortoisegit.org/" rel="external nofollow noopener noreferrer" target="_blank">点击进入 TortoiseGit for Windows 官网</a></li>
+</ol>
+<h1 id="在windows下，为不同的项目设置不同的用户名，linux下类似"><a href="#在windows下，为不同的项目设置不同的用户名，linux下类似" class="headerlink" title="在windows下，为不同的项目设置不同的用户名，linux下类似"></a>在windows下，为不同的项目设置不同的用户名，linux下类似</h1><ol>
+<li><p>用 notepad++ 编辑项目根目录下.git/config，在最后添加：</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[user]</span><br><span class="line">    name = yourName</span><br><span class="line">    email = yourEmail</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>文件夹.git是隐藏文件夹，如果看不到，需要设置显示隐藏文件夹。</p>
+</li>
+<li>添加之后，在commit和push的时候就不会串了。</li>
+</ol>
+<h1 id="git基本操作"><a href="#git基本操作" class="headerlink" title="git基本操作"></a>git基本操作</h1><p>如果是 windows 环境，在项目所在文件夹下，右键-&gt;Git Bash Here，在出来的命令窗口进行后续操作。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">命令</th>
+<th style="text-align:left">解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">git clone url</td>
+<td style="text-align:left">从url克隆项目。</td>
+</tr>
+<tr>
+<td style="text-align:left">git clone -b branchName url</td>
+<td style="text-align:left">从url克隆项目的分支</td>
+</tr>
+<tr>
+<td style="text-align:left">git status</td>
+<td style="text-align:left">查看当前状态。</td>
+</tr>
+<tr>
+<td style="text-align:left">git add -A 或者 git add .</td>
+<td style="text-align:left">把改变的文件放到暂缓区。</td>
+</tr>
+<tr>
+<td style="text-align:left">git commit</td>
+<td style="text-align:left">提交到本地文件库。</td>
+</tr>
+<tr>
+<td style="text-align:left">git commit -m ‘备注信息`</td>
+<td style="text-align:left">提交的同时，添加备注，这样就不会出现 vim 编辑。</td>
+</tr>
+<tr>
+<td style="text-align:left">git pull</td>
+<td style="text-align:left">在 push 前，建议先再执行 git pull 命令获取最新，如果有冲突，会提示 merge。直接 pull　其实也没问题，如果有冲突，也会提示需要 merge，只是建议先 merge 再 push。  </td>
+</tr>
+<tr>
+<td style="text-align:left">git push</td>
+<td style="text-align:left">将本地修改过并且 commit 过的文件推到 git 服务器。</td>
+</tr>
+<tr>
+<td style="text-align:left">git branch -v</td>
+<td style="text-align:left">查看本地项目分支情况</td>
+</tr>
+<tr>
+<td style="text-align:left">git branch -r</td>
+<td style="text-align:left">查看远端库的分支情况</td>
+</tr>
+<tr>
+<td style="text-align:left">git branch -a</td>
+<td style="text-align:left">-a 参数可以查看远程和本地分支，远程分支会用红色表示出来（如果你开了颜色支持的话）</td>
+</tr>
+<tr>
+<td style="text-align:left">git branch –set-upstream-to=origin/dev</td>
+<td style="text-align:left">建立本地 dev 分支到上游（远端）仓的链接，这样代码才能提交上去</td>
+</tr>
+<tr>
+<td style="text-align:left">git branch –unset-upstream master</td>
+<td style="text-align:left">取消对master的跟踪</td>
+</tr>
+<tr>
+<td style="text-align:left">git branch <new-branch-name> <tag-name></tag-name></new-branch-name></td>
+<td style="text-align:left">从 tag 创建新分支</td>
+</tr>
+<tr>
+<td style="text-align:left">git branch -d dev</td>
+<td style="text-align:left">删除本地分支 dev</td>
+</tr>
+<tr>
+<td style="text-align:left">git push origin –delete dev</td>
+<td style="text-align:left">删除远端分支 dev</td>
+</tr>
+<tr>
+<td style="text-align:left">git tag v1.0</td>
+<td style="text-align:left">轻量级标签。实际上就是一个保存着对应提交对象的校验和信息的文件。要创建这样的标签，一个 -a，-s 或 -m 选项都不用，直接给出标签名字即可</td>
+</tr>
+<tr>
+<td style="text-align:left">git tag -a v1.1 -m ‘my version 1.1’</td>
+<td style="text-align:left">含附注的标签。创建标签 v1.1，用 -a （译注：取 annotated 的首字母）指定标签名字，-m 选项则指定了对应的标签说明</td>
+</tr>
+<tr>
+<td style="text-align:left">git fetch upstream</td>
+<td style="text-align:left">获取主分支的最新修改到本地</td>
+</tr>
+<tr>
+<td style="text-align:left">git merge upstream/master</td>
+<td style="text-align:left">将upstream分支修改内容 merge 到本地个人分支</td>
+</tr>
+<tr>
+<td style="text-align:left">git checkout -b dev</td>
+<td style="text-align:left">从已有的分支 master 创建新的 dev 分支，并切换至新分支 dev，相当于两个命令：git branch dev; git checkout dev;</td>
+</tr>
+<tr>
+<td style="text-align:left">git push –set-upstream origin v2.0.0</td>
+<td style="text-align:left">提交新分支 v2.0.0 至远端，注意：set-upstream 前面是两个中杠字符，在网页看，不明显</td>
+</tr>
+<tr>
+<td style="text-align:left">git push origin v2.0.0</td>
+<td style="text-align:left">提交新分支至远端，经测试，与上面的命令等效，具体有什么差别，还没深入研究。</td>
+</tr>
+<tr>
+<td style="text-align:left">git checkout master</td>
+<td style="text-align:left">切换回 master 分支</td>
+</tr>
+<tr>
+<td style="text-align:left">git checkout dev</td>
+<td style="text-align:left">切换至 dev 分支</td>
+</tr>
+<tr>
+<td style="text-align:left">git merge dev</td>
+<td style="text-align:left">将 dev 分支合并到当前分支</td>
+</tr>
+<tr>
+<td style="text-align:left">git push origin dev</td>
+<td style="text-align:left">提交 dev 分支到远程仓库</td>
+</tr>
+<tr>
+<td style="text-align:left">git push origin newBranch</td>
+<td style="text-align:left">把本地创建的 newBranch 分支提交到远程仓库</td>
+</tr>
+<tr>
+<td style="text-align:left">git push –tags</td>
+<td style="text-align:left">把本地 tag 推送到远程</td>
+</tr>
+<tr>
+<td style="text-align:left">git fetch origin tag <tagname></tagname></td>
+<td style="text-align:left">获取远程 tag</td>
+</tr>
+<tr>
+<td style="text-align:left">git fetch origin master</td>
+<td style="text-align:left">从远程获取最新版本到本地，不会自动merge，需要注意的是: 和push不同, fetch会自动获取远程[新加入]的分支.</td>
+</tr>
+<tr>
+<td style="text-align:left">git remote add [shortname] [url]</td>
+<td style="text-align:left">添加远程仓库</td>
+</tr>
+<tr>
+<td style="text-align:left">git remote show [shortname]</td>
+<td style="text-align:left">查看远程仓库信息</td>
+</tr>
+<tr>
+<td style="text-align:left">git remote rename [old-name] [new-name]</td>
+<td style="text-align:left">重命名远程仓库</td>
+</tr>
+<tr>
+<td style="text-align:left">git remote rm [shortname]</td>
+<td style="text-align:left">删除远程仓库（解除与远程仓库的关系） </td>
+</tr>
+</tbody>
+</table>
+<h2 id="创建-tag"><a href="#创建-tag" class="headerlink" title="创建 tag"></a>创建 tag</h2><p>Git 使用的标签有两种类型：轻量级的（lightweight）和含附注的（annotated）。<br>lightweight ：轻量级标签就像是个不会变化的分支，实际上它就是个指向特定提交对象的引用。<br>annotated：含附注标签，实际上是存储在仓库中的一个独立对象，它有自身的校验和信息，包含着标签的名字，电子邮件地址和日期，以及标签说明，标签本身也允许使用 GNU Privacy Guard (GPG) 来签署或验证。</p>
+<p>一般我们都建议使用含附注型的标签，以便保留相关信息；当然，如果只是临时性加注标签，或者不需要旁注额外信息，用轻量级标签也没问题。</p>
+<p>含附注的标签<br>创建一个含附注类型的标签非常简单，用 -a （译注：取 annotated 的首字母）指定标签名字即可<br>而 -m 选项则指定了对应的标签说明，Git 会将此说明一同保存在标签对象中。如果没有给出该选项，Git 会启动文本编辑软件供你输入标签说明。（git 提交注释都是-m ‘XXxx’）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ git tag v1.0 -m &apos;2018-06-26 1.0 版本&apos;                                                 </span><br><span class="line">AndyChen@AndyChen MINGW64 /c/workspace/source (master)</span><br><span class="line">$ git tag</span><br><span class="line">v1.0</span><br></pre></td></tr></table></figure>
+<h2 id="由-master-创建新分支-v2-1-并提交至远端"><a href="#由-master-创建新分支-v2-1-并提交至远端" class="headerlink" title="由 master 创建新分支 v2.1 并提交至远端"></a>由 master 创建新分支 v2.1 并提交至远端</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git checkout -b v2.1</span><br><span class="line">git push origin v2.1</span><br></pre></td></tr></table></figure>
+<h2 id="将-master-的修改同步-合并（merge）到-v2-1"><a href="#将-master-的修改同步-合并（merge）到-v2-1" class="headerlink" title="将 master 的修改同步/合并（merge）到 v2.1"></a>将 master 的修改同步/合并（merge）到 v2.1</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git checkout master</span><br><span class="line">git pull</span><br><span class="line">git checkout v2.1</span><br><span class="line">git merge master</span><br><span class="line">git push -u origin v2.1</span><br></pre></td></tr></table></figure>
+<h1 id="git-clone"><a href="#git-clone" class="headerlink" title="git clone"></a>git clone</h1><ul>
+<li>git clone git_仓库_url 获取全部branch内容，整体下载时间较长 &amp; 所占磁盘空间较大</li>
+<li>git clone -b git_分支名称 git_仓库_url 根上述 1. 结果一致</li>
+<li>git clone -b git_分支名称 –single–branch git_仓库_url 获取指定分支的代码</li>
+<li>git clone –depth 10 git_仓库_url 只会获取最近 xx（10条提交记录的）代码，默认是master分支， 如果想要指定分支，可以结合 -b –single–branch 使用！</li>
+</ul>
+<h1 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h1><p><a href="https://git-scm.com/book/zh/v2/Git-%E5%9F%BA%E7%A1%80-%E6%89%93%E6%A0%87%E7%AD%BE#%E5%90%AB%E9%99%84%E6%B3%A8%E7%9A%84%E6%A0%87%E7%AD%BE" rel="external nofollow noopener noreferrer" target="_blank">Git 基础 - 打标签</a><br><a href="https://git-scm.com/book/zh/v2/Git-%E5%88%86%E6%94%AF-%E5%88%86%E6%94%AF%E7%9A%84%E6%96%B0%E5%BB%BA%E4%B8%8E%E5%90%88%E5%B9%B6" rel="external nofollow noopener noreferrer" target="_blank">Git 分支 - 分支的新建与合并</a><br><a href="https://git-scm.com/book/zh/v2/Git-%E5%88%86%E6%94%AF-%E5%88%86%E6%94%AF%E5%BC%80%E5%8F%91%E5%B7%A5%E4%BD%9C%E6%B5%81" rel="external nofollow noopener noreferrer" target="_blank">Git 分支 - 分支开发工作流</a></p>
+<h1 id="git-clone-指定分支"><a href="#git-clone-指定分支" class="headerlink" title="git clone 指定分支"></a>git clone 指定分支</h1><p>如果不指定分支，默认是 master 分支，而如果库里没有 master 这个默认分支，则会得到下面的错误信息。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">remote: Counting objects: 13978, done.</span><br><span class="line">remote: Compressing objects: 100% (672/672), done.</span><br><span class="line">remote: Total 13978 (delta 1219), reused 1566 (delta 1079), pack-reused 12201</span><br><span class="line">Receiving objects: 100% (13978/13978), 9.23 MiB | 1.46 MiB/s, done.</span><br><span class="line">Resolving deltas: 100% (9473/9473), done.</span><br><span class="line">warning: remote HEAD refers to nonexistent ref, unable to checkout.</span><br></pre></td></tr></table></figure></p>
+<p>这个时候，就需要指定一个存在的分支来 clone。<br>git clone -b 分支名 仓库地址<br>git clone -b Router <a href="https://github.com/user/project.git" rel="external nofollow noopener noreferrer" target="_blank">https://github.com/user/project.git</a></p>
+<h1 id="提交代码时，写备注"><a href="#提交代码时，写备注" class="headerlink" title="提交代码时，写备注"></a>提交代码时，写备注</h1><ol>
+<li>在 git commit 之后会出现一个 vim 编辑框，按 ESC 可以退出当前编辑，然后输入 wq 回车，表示保存并退出，输入 q! 表示不保存并退出。这个 vim 编辑窗口的操作命令跟 linux 下的 vim 是一样的。</li>
+</ol>
+<h1 id="撤销-git-commit-但是未-git-push-的修改"><a href="#撤销-git-commit-但是未-git-push-的修改" class="headerlink" title="撤销 git commit 但是未 git push 的修改"></a>撤销 git commit 但是未 git push 的修改</h1><p>如果不小心 commit 了一次不需要 commit 的修改，可以对其进行撤销。<br>先使用 git log 查看 commit 日志<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">log</span></span><br><span class="line">commit f20c593a52b21c53b9c5ad831068697ebe1b4d21</span><br><span class="line">Author: AndyChen &lt;1614923608@qq.com&gt;</span><br><span class="line">Date:   Thu May 18 22:11:47 2017 +0800</span><br><span class="line"></span><br><span class="line">    <span class="built_in">test</span></span><br><span class="line"></span><br><span class="line">commit 7b39f469f3751bddbca59c3eae05c3288a469c7f</span><br><span class="line">Author: AndyChen &lt;1614923608@qq.com&gt;</span><br><span class="line">Date:   Thu May 18 22:09:54 2017 +0800</span><br><span class="line"></span><br><span class="line">    Initial commit</span><br><span class="line"></span><br><span class="line">AndyChen@AndyChen-PC MINGW64 /d/dev.workspace/myself/mytest (master)</span><br><span class="line">$</span><br></pre></td></tr></table></figure></p>
+<p>找到需要回退到的那次 commit 的 hash 值，上面的例子，hash 值为 7b39f469f3751bddbca59c3eae05c3288a469c7f<br>记住，不是错误 commit 的那次的 hash 值（上面的例子，是：f20c593a52b21c53b9c5ad831068697ebe1b4d21），而是错误 commit 之前 commit 的 hash 值，也就是你希望回退到哪次，就选哪次的 hash 值<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/gitCancelCommit.jpg" alt="错误 commit 那次的 hash 值是：f20c593a52b21c53b9c5ad831068697ebe1b4d21" title>
+                </div>
+                <div class="image-caption">错误 commit 那次的 hash 值是：f20c593a52b21c53b9c5ad831068697ebe1b4d21</div>
+            </figure><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ git reset --hard 7b39f469f3751bddbca59c3eae05c3288a469c7f</span><br><span class="line">HEAD is now at 7b39f46 Initial commit</span><br><span class="line"></span><br><span class="line">AndyChen@AndyChen-PC MINGW64 /d/dev.workspace/myself/mytest (master)</span><br><span class="line">$</span><br></pre></td></tr></table></figure></p>
+<p>执行上面的命令之后，从提示也能看出来，已经回退到“Initial commit”那个版本了，之前日志为“test”的提交被删除，相应的代码修改将会丢失。</p>
+<h1 id="第三方-windows-客户端工具"><a href="#第三方-windows-客户端工具" class="headerlink" title="第三方 windows 客户端工具"></a>第三方 windows 客户端工具</h1><ol>
+<li>用过 SVN 的童鞋，估计大多数都用过小乌龟客户端 TortoiseSVN，其实小乌龟客同样有 Git 的客户端：TortoiseGit。操作跟 TortoiseSVN 基本一样，用过 TortoiseSVN 的童鞋几乎不用学就会用了，什么？没用过？从下面的下载链接下载并安装之后，你在项目文件夹点右键试试…</li>
+<li><a href="https://tortoisegit.org/download/" rel="external nofollow noopener noreferrer" target="_blank">猛戳进入下载页面</a></li>
+</ol>
+<h1 id="github-上-fork-一个分支之后，如何和主分支同步"><a href="#github-上-fork-一个分支之后，如何和主分支同步" class="headerlink" title="github 上 fork 一个分支之后，如何和主分支同步"></a>github 上 fork 一个分支之后，如何和主分支同步</h1><p>github fork 一个分支后，如果过一段时间就会和主分支的差异比较大。 这样提交 pr 的时候就会冲突，这个时候我们就需要和主分支同步代码<br>下面，以项目 <a href="https://github.com/uncleAndyChen/springBootIntegrationUEditor" rel="external nofollow noopener noreferrer" target="_blank">https://github.com/uncleAndyChen/springBootIntegrationUEditor</a> 为例<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git remote add upstream git@github.com:uncleAndyChen/springBootIntegrationUEditor.git</span><br><span class="line">git fetch upstream</span><br><span class="line">git merge upstream/master</span><br><span class="line">git push</span><br></pre></td></tr></table></figure></p>
+<h1 id="TortoiseGit-git-did-not-exit-cleanly-exit-code-1"><a href="#TortoiseGit-git-did-not-exit-cleanly-exit-code-1" class="headerlink" title="TortoiseGit-git did not exit cleanly (exit code 1)"></a>TortoiseGit-git did not exit cleanly (exit code 1)</h1><p>如果服务器有更新没有同步到本地，同时本地又有新的修改没有 commit，则在 push 本地 commit 的时候会报这个错误。<br>解决办法，把本地所有修改 commit，然后 pull, 再 push.</p>
+<h1 id="git-clone-报错：-fatal-The-remote-end-hung-up-unexpectedly"><a href="#git-clone-报错：-fatal-The-remote-end-hung-up-unexpectedly" class="headerlink" title="git clone 报错： fatal: The remote end hung up unexpectedly"></a>git clone 报错： fatal: The remote end hung up unexpectedly</h1><p>reference: <a href="https://segmentfault.com/q/1010000007502362" rel="external nofollow noopener noreferrer" target="_blank">https://segmentfault.com/q/1010000007502362</a><br>?<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git repack -a -f -d --window=250 --depth=250</span><br><span class="line"></span><br><span class="line">git clone git@github.com:username/repo</span><br></pre></td></tr></table></figure></p>
+<p>报错信息：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">fatal: The remote end hung up unexpectedly</span><br><span class="line">...</span><br></pre></td></tr></table></figure></p>
+<p>进行全局设置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global http.postBuffer 1048576000</span><br><span class="line">#git config --global core.compression 9 # 最大压缩，会让传输文件变小</span><br></pre></td></tr></table></figure></p>
+<p>配置git的最低速度和最低速度时间 单位 秒：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global http.lowSpeedLimit 0</span><br><span class="line">git config --global http.lowSpeedTime 999999</span><br></pre></td></tr></table></figure></p>
+<p>错误信息变成：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">remote: Enumerating objects: 692, done.</span><br><span class="line">Receiving objects:  28% (199/692), 19.96 MiB | 47.00 KiB/s</span><br><span class="line">error: RPC failed; curl 56 OpenSSL SSL_read: SSL_ERROR_SYSCALL, errno 10054</span><br><span class="line">fatal: The remote end hung up unexpectedly</span><br><span class="line">fatal: early EOF</span><br><span class="line">fatal: index-pack failed</span><br></pre></td></tr></table></figure></p>
+<p>主要原因是安全设置的问题：<br>执行 <code>git config --global http.sslVerify &quot;false&quot;</code></p>
+<p>不过，以上方法都试过了，还是报下面的错误<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Cloning into &apos;comparing_images&apos;...</span><br><span class="line">remote: Enumerating objects: 692, done.</span><br><span class="line">error: RPC failed; curl 18 transfer closed with outstanding read data remaining</span><br><span class="line">fatal: The remote end hung up unexpectedly</span><br><span class="line">fatal: early EOF</span><br><span class="line">fatal: index-pack failed</span><br></pre></td></tr></table></figure></p>
+<p>网上有人说继续加大 http.postBuffer 的值，于是我再加大10倍，<code>git config --global http.postBuffer 1048576000</code>，这下错误又变回之前发行过的错误信息了：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Cloning into &apos;comparing_images&apos;...</span><br><span class="line">remote: Enumerating objects: 692, done.</span><br><span class="line">error: RPC failed; curl 56 OpenSSL SSL_read: SSL_ERROR_SYSCALL, errno 10054</span><br><span class="line">fatal: The remote end hung up unexpectedly</span><br><span class="line">fatal: early EOF</span><br><span class="line">fatal: index-pack failed</span><br></pre></td></tr></table></figure></p>
+<h2 id="git无法断点续传的下载办法：git-fetch-git"><a href="#git无法断点续传的下载办法：git-fetch-git" class="headerlink" title="git无法断点续传的下载办法：git fetch git"></a>git无法断点续传的下载办法：git fetch git</h2><p>reference:<a href="https://blog.csdn.net/Sayai/article/details/81452496" rel="external nofollow noopener noreferrer" target="_blank">https://blog.csdn.net/Sayai/article/details/81452496</a></p>
+<p>创建一个空目录，进入该目录，执行 <code>git init</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git fetch git://github.com/userName/repoName   # 用http也会断，只有用git才行。如果还是断了，重复执行该命令。不过，有网友反映：再次执行git fetch还是重新下载</span><br><span class="line">git checkout FETCH_HEAD  # 成功提取也就ok了。</span><br></pre></td></tr></table></figure></p>
+<p>中间可能碰到权限问题，需要去git上增加一个ssh的key<br><code>Please make sure you have the correct access rights and the repository exists.</code><br>命令行执行以下语句<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name 【你的登录用户】</span><br><span class="line">git config --global user.email 【你的注册邮箱】</span><br><span class="line">ssh-keygen -t rsa -C &quot;your@email.com&quot;   # 等待提示，然后输入yes</span><br></pre></td></tr></table></figure></p>
+<p>按照提示去目标的.ssh文件夹下找到<code>id_rsa.pub</code>文件，用记事本打开，拷贝全部内容。<br>打开<code>https://github.com/</code>，登陆你的账户，进入设置，然后是<code>SSH and GPG keys</code>。<br>New SSH Key 把刚刚拷贝的内容贴进去，title随便起。<br>回到命令行中执行：ssh -T <a href="mailto:git@github.com" rel="external nofollow noopener noreferrer" target="_blank">git@github.com</a><br>等待提示出现后，输入yes。<br>然后可以继续刚刚命令行的步骤了。</p>
+<h3 id="后续步骤"><a href="#后续步骤" class="headerlink" title="后续步骤"></a>后续步骤</h3><p>等到fetch完会出现以下字样<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">From git://….</span><br><span class="line">*branch HEAD -&gt; FETCH_HEAD</span><br></pre></td></tr></table></figure></p>
+<p>如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">remote: Enumerating objects: 53, done.</span><br><span class="line">remote: Counting objects: 100% (53/53), done.</span><br><span class="line">remote: Compressing objects: 100% (3/3), done.</span><br><span class="line">remote: Total 664 (delta 50), reused 50 (delta 50), pack-reused 611</span><br><span class="line">Receiving objects: 100% (664/664), 74.66 MiB | 13.00 KiB/s, done.</span><br><span class="line">Resolving deltas: 100% (360/360), done.</span><br><span class="line">From git://github.com/vzat/comparing_images</span><br><span class="line"> * branch            HEAD       -&gt; FETCH_HEAD</span><br></pre></td></tr></table></figure></p>
+<p>意思是把最新的数据fetch到了本地的FETCH_HEAD分支上去了<br>然后用git checkout FETCH_HEAD切换至该分支即可。</p>
+<h2 id="指定分支，并仅克隆最近一次提交，以减小下载文件大小，同时交款-https-换成-git-方式"><a href="#指定分支，并仅克隆最近一次提交，以减小下载文件大小，同时交款-https-换成-git-方式" class="headerlink" title="指定分支，并仅克隆最近一次提交，以减小下载文件大小，同时交款 https 换成 git 方式"></a>指定分支，并仅克隆最近一次提交，以减小下载文件大小，同时交款 https 换成 git 方式</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone -b master git://github.com/UserName/repoName --depth 1</span><br></pre></td></tr></table></figure>
+<p>还是会遇到中断：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">remote: Enumerating objects: 129, done.</span><br><span class="line">remote: Counting objects: 100% (129/129), done.</span><br><span class="line">remote: Compressing objects: 100% (124/124), done.</span><br><span class="line">fatal: The remote end hung up unexpectedlyB | 6.00 KiB/s</span><br><span class="line">fatal: early EOF</span><br><span class="line">fatal: index-pack failed</span><br></pre></td></tr></table></figure></p>
+<p>当重复执行上述命令时，还是会从头开始下载，并未断点续传。</p>
+<h1 id="remove-remote-branch"><a href="#remove-remote-branch" class="headerlink" title="remove remote branch?"></a>remove remote branch?</h1><p>reference:<a href="https://blog.csdn.net/worn_xiao/article/details/79233983" rel="external nofollow noopener noreferrer" target="_blank">https://blog.csdn.net/worn_xiao/article/details/79233983</a><br>同样的指令只是少了个空格 结果却不尽相同。<br>本意是更新远程分支，结果却是删除原有的分支<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$git push origin A:B</span><br><span class="line">$git push origin A :B</span><br></pre></td></tr></table></figure></p>
+<h1 id="只克隆最近一次commit以减小下载文件大小"><a href="#只克隆最近一次commit以减小下载文件大小" class="headerlink" title="只克隆最近一次commit以减小下载文件大小"></a>只克隆最近一次commit以减小下载文件大小</h1><p>git clone https:xxx.git –depth 1<br>depth用于指定克隆深度，为1即表示只克隆最近一次commit.</p>
+<h1 id="git-config-–add-core-compression-1"><a href="#git-config-–add-core-compression-1" class="headerlink" title="git config –add core.compression -1"></a>git config –add core.compression -1</h1><p>compression 是压缩的意思，从 clone 的终端输出就知道，服务器会压缩目标文件，然后传输到客户端，客户端再解压。取值为 [-1, 9]，-1 以 zlib 为默认压缩库，0 表示不进行压缩，1..9 是压缩速度与最终获得文件大小的不同程度的权衡，数字越大，压缩越慢，当然得到的文件会越小。</p>
+<h1 id="git-submodule"><a href="#git-submodule" class="headerlink" title="git submodule"></a>git submodule</h1><p>git clone –recursive 用于循环克隆git子项目 </p>
+<h2 id="git-submodule-gt-子项目"><a href="#git-submodule-gt-子项目" class="headerlink" title="git submodule -&gt; 子项目"></a>git submodule -&gt; 子项目</h2><p><a href="http://blog.gezhiqiang.com/2017/03/08/git-submodule/" rel="external nofollow noopener noreferrer" target="_blank">git submodule 使用小结</a></p>
+<p>克隆一个包含子仓库的仓库目录，并不会clone下子仓库的文件，只是会克隆下.gitmodule描述文件，需要进一步克隆子仓库文件。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// 初始化本地配置文件</span><br><span class="line">$ git submodule init</span><br><span class="line"></span><br><span class="line">// 检出父仓库列出的commit</span><br><span class="line">$ git submodule update</span><br></pre></td></tr></table></figure></p>
+<p>或者使用组合指令。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git submodule update --init --recursive</span><br></pre></td></tr></table></figure></p>
+<h1 id="git-强制-pull"><a href="#git-强制-pull" class="headerlink" title="git 强制 pull"></a>git 强制 pull</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git fetch --all </span><br><span class="line">git reset --hard origin/master</span><br><span class="line">git pull</span><br></pre></td></tr></table></figure>
+<h1 id="推送本地分支到远程新分支上面去"><a href="#推送本地分支到远程新分支上面去" class="headerlink" title="推送本地分支到远程新分支上面去"></a>推送本地分支到远程新分支上面去</h1><p><code>git push origin local_branch:remote_branch</code><br>这个操作，local_branch必须为你本地存在的分支，remote_branch为远程分支，如果remote_branch不存在则会自动创建分支。</p>
+<p>操作示例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ git push origin master:v2.3.1</span><br><span class="line">Total 0 (delta 0), reused 0 (delta 0)</span><br><span class="line">remote: Powered By Gitee.com</span><br><span class="line">To https://gitee.com/uncleAndyChen/ant-design-pro-official.git</span><br><span class="line"> * [new branch]      master -&gt; v2.3.1</span><br></pre></td></tr></table></figure></p>
+<h1 id="HTTP-413-curl-22-The-requested-URL-returned-error-413-Request-Entity-Too-Large"><a href="#HTTP-413-curl-22-The-requested-URL-returned-error-413-Request-Entity-Too-Large" class="headerlink" title="HTTP 413 curl 22 The requested URL returned error: 413 Request Entity Too Large"></a>HTTP 413 curl 22 The requested URL returned error: 413 Request Entity Too Large</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Enumerating objects: 107, done.</span><br><span class="line">Counting objects: 100% (107/107), done.</span><br><span class="line">Delta compression using up to 16 threads</span><br><span class="line">Compressing objects: 100% (102/102), done.</span><br><span class="line">Writing objects: 100% (102/102), 670.98 MiB | 14.64 MiB/s, done.</span><br><span class="line">Total 102 (delta 11), reused 0 (delta 0)</span><br><span class="line">error: RPC failed; HTTP 413 curl 22 The requested URL returned error: 413 Request Entity Too Large</span><br><span class="line">fatal: the remote end hung up unexpectedly</span><br><span class="line">fatal: the remote end hung up unexpectedly</span><br><span class="line">Everything up-to-date</span><br></pre></td></tr></table></figure>
+<p>原因：仓库的大小超过了 gitee 的限制。</p>
+<h2 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h2><ul>
+<li>当然是取消大文件的提交。<ul>
+<li>如果在本地已经有大文件 commit，哪怕你在 push 时遇到错误，然后把大文件删除，再 commit，接着 push，也还是会报这个错的。</li>
+<li>因为还是会把之前添加大文件的 commit 提交，然后再提交删除大文件的提交。</li>
+</ul>
+</li>
+</ul>
+<p>可以通过命令把之前添加大文件的 commit 删除掉，不过这个过程有一点复杂，具体脚本这里就是写了，百度一下。这里建议重新拉取项目，把除了添加大文件之外的修改同步一下再提交（commit 后 push）。</p>
+<h1 id="Out-of-memory-malloc-failed-tried-to-allocate-1895825408-bytes-failed-to-push-some-refs"><a href="#Out-of-memory-malloc-failed-tried-to-allocate-1895825408-bytes-failed-to-push-some-refs" class="headerlink" title="Out of memory, malloc failed (tried to allocate 1895825408 bytes) failed to push some refs"></a>Out of memory, malloc failed (tried to allocate 1895825408 bytes) failed to push some refs</h1><p>当内存使用接近100%时，<code>git push</code> 会报错，解决方案是关掉一些应用释放内存占用再操作。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Delta compression using up to 8 threads. </span><br><span class="line">Out of memory, malloc failed (tried to allocate 1895825408 bytes) failed to push some refs </span><br><span class="line">to &apos;https://gitee.com/uncleAndyChen/tech.git&apos; </span><br><span class="line">The remote end hung up unexpectedly sha1 file &apos; &apos; write error: Broken pipe</span><br></pre></td></tr></table></figure></p>
+<h1 id="colliding-group-is-in-the-working-tree"><a href="#colliding-group-is-in-the-working-tree" class="headerlink" title="colliding group is in the working tree"></a>colliding group is in the working tree</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">warning: the following paths have collided (e.g. case-sensitive paths</span><br><span class="line">on a case-insensitive filesystem) and only one from the same</span><br><span class="line">colliding group is in the working tree:</span><br></pre></td></tr></table></figure>
+<p>原因是服务器上有两个目录 wechat 和 weChat，而本地的是 weChat，而 windows 文件系统对大小写不敏感，所以会有这个问题，在这个问题解决之前，修改的文件提交会失败：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">14:56	Commit failed with error</span><br><span class="line">		0 files committed, 1 file failed to commit: improve</span><br><span class="line">		On branch master</span><br><span class="line">		Your branch is up to date with &apos;origin/master&apos;.</span><br></pre></td></tr></table></figure></p>
+<p>解决：<br>以管理员身份运行Windows PowerShell<br>执行命令：<code>Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux</code><br>这个时候会提示是否重启，输入 “Y” 回车执行重启。<br>重启完以后，继续以管理员身份运行Windows PowerShell，开始设置目录区分大小写，比如出现问题的那个目录是 <code>C:\workspace\wechat</code><br>那么执行命令：<code>fsutil.exe file setCaseSensitiveInfo C:\workspace\wechat</code></p>
+<p>只是需要注意的是，这样的解决办法只对当前目录有效，而对其子目录并无作用。</p>
+<h1 id="git-查看-config-配置信息"><a href="#git-查看-config-配置信息" class="headerlink" title="git 查看 config 配置信息"></a>git 查看 config 配置信息</h1><p>config 配置指令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --system/global/local 具体配置项 配置项值</span><br></pre></td></tr></table></figure></p>
+<p>如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name &quot;AndyChen&quot;</span><br><span class="line">git config --global user.email  &quot;andy@lovesofttech.com&quot;</span><br></pre></td></tr></table></figure></p>
+<h2 id="config-配置的三个级别"><a href="#config-配置的三个级别" class="headerlink" title="config 配置的三个级别"></a>config 配置的三个级别</h2><ol>
+<li>system</li>
+<li>global（用户级别）</li>
+<li>local（当前仓库）</li>
+</ol>
+<p>设置优先级，由低到高为：system -&gt; global -&gt; local，底层配置会覆盖顶层配置。</p>
+<h2 id="查看系统-config"><a href="#查看系统-config" class="headerlink" title="查看系统 config"></a>查看系统 config</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --system --list</span><br></pre></td></tr></table></figure>
+<h2 id="查看当前用户（global）配置"><a href="#查看当前用户（global）配置" class="headerlink" title="查看当前用户（global）配置"></a>查看当前用户（global）配置</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global  --list</span><br></pre></td></tr></table></figure>
+<h2 id="查看当前仓库配置信息"><a href="#查看当前仓库配置信息" class="headerlink" title="查看当前仓库配置信息"></a>查看当前仓库配置信息</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --local  --list</span><br></pre></td></tr></table></figure>
+<h2 id="查看具体的设置项"><a href="#查看具体的设置项" class="headerlink" title="查看具体的设置项"></a>查看具体的设置项</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --system/global/local 具体配置项</span><br></pre></td></tr></table></figure>
+<p>比起设置配置项，不要后面的值即可。如查看 <code>global user.name</code> 和 <code>global user.email</code> 的设置项：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\Andy&gt;git config --global user.name</span><br><span class="line">AndyChen</span><br><span class="line"></span><br><span class="line">C:\Users\Andy&gt;git config --global user.email</span><br><span class="line">andy@lovesofttech.com</span><br></pre></td></tr></table></figure></p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-09-01T02:53:12.961Z" itemprop="dateUpdated">2020年9月1日 10:53</time>
+</span><br>
+
+
+        转载请注明出处：<a href="/git/gitBasicUsage.html" target="_blank" rel="external">https://www.lovesofttech.com/git/gitBasicUsage.html</a>
+    </div>
+    <footer>
+        <a href="https://www.lovesofttech.com">
+            <img src="/img/myLogo.jpg" alt="安迪陈">
+            安迪陈
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/">git</a></li></ul>
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/git/gitBasicUsage.html&title=《git 在工作中的基本用法》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/git/gitBasicUsage.html&title=《git 在工作中的基本用法》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=如题" data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/git/gitBasicUsage.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《git 在工作中的基本用法》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/git/gitBasicUsage.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/git/gitBasicUsage.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/general/hexoExperience.html" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">hexo 使用经验汇总</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/general/hexoBlog.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Hexo + gitee 免费个人博客搭建</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+    
+    
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="bottom">
+        <p>
+            <span>安迪陈技术日志，架构、感悟、系统分析、团队管理 &copy; 2017 - 2020</span>
+            <span>
+                Power by <a href="https://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>&nbsp;
+                Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank" rel="external nofollow noopener noreferrer">indigo</a>
+            </span>
+            <span>
+                <a href="http://www.beian.miit.gov.cn" target="_blank" rel="external nofollow noopener noreferrer">蜀ICP备17041860号</a>
+            </span>
+            
+            <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            </p><p>
+                <span>
+                    统计始于：2019-03-06
+                </span>
+                <span id="busuanzi_container_site_uv" style="display:none">
+                    访客数：<span id="busuanzi_value_site_uv"></span>
+                </span>
+                <span id="busuanzi_container_site_pv" style="display:none">
+                    访问量：<span id="busuanzi_value_site_pv"></span>
+                </span>
+            
+            
+                <span class="post-count">累计字数：309.2k</span>
+            
+                <span><a href="/general/blogLog.html"><i class="fas fa-pen-alt"></i>&nbsp;博客日志</a></span>
+            </p>
+        <p></p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light" title="回到顶部"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/git/gitBasicUsage.html&title=《git 在工作中的基本用法》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/git/gitBasicUsage.html&title=《git 在工作中的基本用法》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=如题" data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/git/gitBasicUsage.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《git 在工作中的基本用法》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/git/gitBasicUsage.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/git/gitBasicUsage.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACKklEQVR42u3aS26DQBAFwNz/0s42km38XoMjMVOsIkKAYtHp389PfDz+HM/nn695Pn985+OnXHZgYGDclvE4PN49IDkzox5f/5aKgYGxASMJhVe9ShIt83fDwMDAyBO4NnC3z8XAwMBoGVcF0+QMBgYGRh4ok5bZ8T0TwNdrcQwMjBsy8q77///8lfkGBgbGrRiP8mhDaj6YzIPsiydiYGAszcgDXJs45tfMAi4GBsZujHZImQPaJC9Z1/hAxcDAWJQxW57I076E1y5zvDiDgYGxKCO/XbtykY8Qhv8f8j/DwMBYgpGnYmeK0nYYWXwmDAyMDRh5GndmhWIWxKPUEwMDY2nGFxv0ZSmbDEo/vCEGBsbSjNnSQ16U5o22trjFwMDYhzEbGeYt/rboHQ5HMTAwNmDUsXlUps7Sygt6hxgYGAsx2uZ+O5jMG3n5fTAwMNZmzIrMduWifbm2PMbAwNiHcWbAma9TtOPPiI2BgbE0I297tUG2/SjJs4quIQYGxqKMJEHMVx/acrctjN8GXAwMjA0Ys2bZ+UWuWZI6vAUGBsZtGW0jLE/jrgqvHz4lBgbGooxZyyxvup2JkAUVAwNjaUZ+tC3+PPlLxp/FchgGBsaijHz0OAuabdjNAzcGBsZujFkRe9UQdFbEXtZuw8DAWI7Rhs42AW1DNgYGBkZLmq29nimhMTAw9mEkRWz+2zMp4GwIioGBsTbj2rwrX9E4X7hiYGBswPgFlE4D8RXeOGEAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.5.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.5.2" async></script>
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '安迪陈技术日志';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '欢迎回来';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

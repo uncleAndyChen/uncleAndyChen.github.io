@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<!--<script async src="//hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c"></script>-->
+<!-- 统计-->
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var host = window.location.host;
+        var hm = document.createElement("script");
+
+        if (host.indexOf('gitee.io') > 0) { // https://uncleandychen.gitee.io/
+            hm.src = "https://hm.baidu.com/hm.js?0cf4709148b070b8082191d2e456a1a3";
+        } else if (host.indexOf('lovesofttech.com') > 0) { // https://www.lovesofttech.com/
+            hm.src = "https://hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c";
+        } else {
+            hm.src = '';
+        }
+
+        if (hm.src !== '') {
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        }
+    })();
+</script>
+<!-- End Baidu Tongji -->
+
+
+
+<!-- Baidu Push -->
+<!-- 主动推送百度爬虫-->
+<script>
+    (function(){
+        if (window.location.host.indexOf('lovesofttech.com') < 0) {
+            return;
+        }
+
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+<!-- End Baidu Push -->
+
+
+    <meta charset="utf-8">
+    
+    
+    <link rel="canonical" href="https://www.lovesofttech.com/frontend/RNNewsGiveUpUdacity.html">
+    
+    
+    <title>Udacity也弃用React Native了！ | 安迪陈技术日志，架构、感悟、系统分析、团队管理 | 自强不息，厚德载物</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="RN">
+    <meta name="description" content="英文原文：https://engineering.udacity.com/react-native-a-retrospective-from-the-mobile-engineering-team-at-udacity-89975d6a8102">
+<meta name="keywords" content="RN">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Udacity也弃用React Native了！">
+<meta property="og:url" content="https://www.lovesofttech.com/frontend/RNNewsGiveUpUdacity.html">
+<meta property="og:site_name" content="安迪陈技术日志，架构、感悟、系统分析、团队管理">
+<meta property="og:description" content="英文原文：https://engineering.udacity.com/react-native-a-retrospective-from-the-mobile-engineering-team-at-udacity-89975d6a8102">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2020-09-01T02:53:12.932Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Udacity也弃用React Native了！">
+<meta name="twitter:description" content="英文原文：https://engineering.udacity.com/react-native-a-retrospective-from-the-mobile-engineering-team-at-udacity-89975d6a8102">
+    
+        <link rel="alternative" href="/atom.xml" title="安迪陈技术日志，架构、感悟、系统分析、团队管理" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=201912302211">
+    <link rel="stylesheet" href="/css/header.css?v=201912302211">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu">
+  <div class="inner flex-row-vertical">
+    <!--<i class="icon icon-lg icon-close"></i>-->
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off" title="隐藏左侧导航">﹤<i class="icon icon-lg icon-navicon"></i></a>
+    <div class="brand-wrap" style="background-image:url(/img/bannerBackgroundLeft.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/myLogo.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">安迪陈</h5>
+          <a href="mailto:andy@lovesofttech.com" title="andy@lovesofttech.com" class="mail" rel="external nofollow noopener noreferrer" target="_blank">andy@lovesofttech.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articleClassify.html">
+                <i class="icon icon-th-list"></i>
+                文章分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articles.html">
+                <i class="icon icon-th-list articles"></i>
+                文章列表
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/java.html">
+                <i class="icon icon-th-list java"></i>
+                Java
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/database.html">
+                <i class="icon icon-th-list database"></i>
+                MySQL/MyBatis
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/linux.html">
+                <i class="icon icon-th-list linux"></i>
+                CentOS/linux
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/react.html">
+                <i class="icon icon-th-list React"></i>
+                React
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/lnmp.html">
+                <i class="icon icon-th-list LNMP"></i>
+                LNMP
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/git.html">
+                <i class="icon icon-th-list git"></i>
+                git
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/windows.html">
+                <i class="icon icon-th-list windows"></i>
+                windows
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/dailyLives.html">
+                <i class="icon icon-th-list dailyLives"></i>
+                工作 &amp; 生活
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-github"></i>
+                我的 github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://gitee.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link"></i>
+                我的 gitee
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://blog.csdn.net/runAndRun" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link CSDN"></i>
+                我的 CSDN
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/aboutMe.html">
+                <i class="icon icon-address-card"></i>
+                关于我
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+
+        <div class="navbar navbar-custom navbar-fixed-top">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" style="margin-left:10px;" id="menu-toggle" title="显示左侧导航"><i class="icon icon-lg icon-navicon"></i>﹥</a>
+            <ul class="nav navbar-nav navbar-right" id="navMenuTop">
+                <li>
+                    <a href="/">主页</a>
+                </li>
+                
+                    
+                        <li>
+                            <a href="/articleClassify.html" title="本博客的文章分类列表">文章分类</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/articles.html" title="本博客的所有文章列表">文章列表</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/java.html" title="Java 开发，文章目录">Java</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/database.html" title="日常开发中有关 MySQL、MyBatis 的一些经验总结">MySQL/MyBatis</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/linux.html" title="CentOS/linux，文章目录">CentOS/linux</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/react.html" title="React 技术栈（全家桶）学习心得分享，文章目录">React</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/about.html">关于</a>
+                        </li>
+                    
+                
+            </ul>
+        </div>
+
+        <div class="flex-col header-title ellipsis">Udacity也弃用React Native了！</div>
+        
+        <div class="search-wrap" id="search-wrap" style="z-index: 2;">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back" style="width:33px;">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search" style="width:33px;">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare" style="z-index: 3;margin-right: 10px; width:30px;">
+                <i class="icon icon-lg icon-share-alt"></i>
+            </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h2 class="title">Udacity也弃用React Native了！</h2>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-07-08T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2018-07-09
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/RN/">RN</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap" id="index-container">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc" style="z-index: 3;">
+            <h4><i class="fa fa-list-alt"></i>&nbsp;&nbsp;本文目录</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#前端之巅报道"><span class="post-toc-number">1.</span> <span class="post-toc-text">前端之巅报道</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#oschina-报道"><span class="post-toc-number">2.</span> <span class="post-toc-text">oschina 报道</span></a></li></ol>
+        </nav>
+    </aside>
+    
+
+<article id="post-frontend/RNNewsGiveUpUdacity" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Udacity也弃用React Native了！</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018年07月09日 0:00" datetime="2018-07-08T16:00:00.000Z" itemprop="datePublished">2018-07-09</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/RN/">RN</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" style="display:none">
+    阅读量：<span id="busuanzi_value_page_pv"></span>次
+</span>
+
+
+    <span>|</span>
+    <span class="post-count">字数：5.6k</span>
+    <span>|</span>
+    <span class="post-count">阅读时长：大约20分钟</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <ul>
+<li>英文原文：<a href="https://engineering.udacity.com/react-native-a-retrospective-from-the-mobile-engineering-team-at-udacity-89975d6a8102" rel="external nofollow noopener noreferrer" target="_blank">https://engineering.udacity.com/react-native-a-retrospective-from-the-mobile-engineering-team-at-udacity-89975d6a8102</a></li>
+</ul>
+<a id="more"></a>
+<blockquote>
+<p>来源：前端之巅（微信公众号）</p>
+</blockquote>
+<h1 id="前端之巅报道"><a href="#前端之巅报道" class="headerlink" title="前端之巅报道"></a>前端之巅报道</h1><p>不久之前，Airbnb 团队刚刚宣布放弃使用 React Native，才过了不到一个月，在线教育机构Udacity 移动团队最近也宣布从 App 中移除了使用 React Native 开发的最后一批功能。而 6 月中旬，Facebook 宣布将大规模重构 RN，这一系列的事件，让不少正在使用 React Native 的开发者瑟瑟发抖，陷入了恐慌之中。</p>
+<p>在本文章中，Udacity 团队将告诉大家他们使用 React Native 的历程以及放弃他们的原因，也希望给一些开发者一些参考和启发，看自己是否适合使用 React Native。</p>
+<p>以下来自 Udacity 移动团队的自述：<br>Udacity 移动团队<br>Udacity 的移动团队分为 iOS 和 Android 两个团队。<br>团队规模</p>
+<p>在引入 React Native 时：<br>1 个 iOS 开发<br>2 个 Android 开发者<br>1 个项目经理<br>1 个设计师</p>
+<p>现在：<br>4 个 iOS 开发者<br>3 个 Android 开发者<br>1 个项目经理<br>1 个设计师<br>在使用 React Native 的 18 个月中，我们的 iOS 和 Android 团队规模都有所增长，整个团队由一名项目经理来领导。<br>期间，我们还经历了向多设计师和多设计范式转型。<br>开发背景<br>在引入 React Native 时，我们 iOS 团队唯一的开发人员非常乐于使用 React Native，这极大丰富了他之前 Javascript 和 Web 的开发经验。两位 Android 开发人员中的一位对 Javascript 有丰富的经验，而另一个只有很少的 Javascript、React 或 Web 经验。<br>现在，四个 iOS 开发人员中至少有三个非常乐于使用 Javascript 和 React Native。后来加入团队的其他 Android 开发人员也只有很少的 Javascript 或 Web 经验。<br>Udacity 的 App</p>
+<p>用途<br>Udacity 的移动 app 旨在将 Udacity 的学习体验带到用户的移动设备上。它支持身份验证、内容发现、程序注册（在某些情况还支持支付），以及消费各种类型的学习资料。<br>Udacity 的 App 也作为新的实验性功能和旨在提升用户整体学习效果的活动的试验场。</p>
+<p>代码库的大小<br>iOS：97,400 行（.swift、.h、.m）<br>Android：93,000 行（xml、java、kotlin、gradle）<br>Udacity 为什么以及如何采用 RN ？</p>
+<p>为什么要引入它？<br>当时，Udacity 正准备推出全新的移动端专用功能。我们希望在两个平台上快速进行实验和验证，因此跨平台具有很大的吸引力。<br>可以总结为以下几点：</p>
+<p>跨平台解决方案具有更高的可行性<br>大多数（2/3 开发人员）团队成员非常适应 Javascript 和 Web 开发<br>可以提高开发速度<br>来自公司之外其他团队的成功案例</p>
+<p>Udacity 是如何引入的？<br>React Native 的初始特性是在一个单独的 GitHub 代码库中构建的，然后作为 git 子树分别并入 iOS 和 Android 代码库。<br>这样可以进行非常快的原型设计，并且如果有必要，可以将某些功能作为独立产品发布。<br>Udacity 团队设计了很多原型，最终在 React Native 代码库中引入了第二个更大的功能。</p>
+<p>时间线<br>2016 年 8 月：为功能 1 创建 React Native 代码库<br>2016 年 11 月：在 Android 上发布了功能 1<br>2016 年 11 月：开始开发功能 2<br>2016 年 12 月：设计功能 3 原型<br>2017 年 1 月：功能 1 开发结束<br>2017 年 2 月：功能 2 发布<br>2017 年 3 月：功能 3 原型设计结束<br>2017 年 11 月：在 Android 上更新功能 2<br>2017 年 12 月：功能 4 原型作为独立 app 发布。最终由于性能问题取消了对原生的支持<br>2018 年 2 月：在 iOS 上更新功能 2<br>2018 年 4 月：从 Android 中移除功能 1<br>2018 年 6 月：从两个 app 中移除功能 2</p>
+<p>为什么要移除 React Native？<br>原因很简单。因为剩下的唯一一个 React Native 功能已经没有用了，我们不再需要支持它。<br>或许这样问会更有趣：“为什么我们不继续在 React Native 上投入，以便获得新功能？”<br>此时，需要考虑几件事：</p>
+<ol>
+<li>同时需要在两个平台上构建的功能数量越来越少<br>2.Android 特定需求在增加</li>
+<li>对长期维护成本感到沮丧<br>4.Android 团队不愿继续使用 React Native</li>
+</ol>
+<p>用什么来取代 React Native？<br>Udacity 移除的 React Native 功能不再受支持，所以不需要进行任何替换。<br>初次尝试 React Native 给我们带来哪些好处？<br>使用 React Native 进行跨平台构建非常容易<br>可以引入 React 和 Javascript 生态系统中的库和工具<br>能够同时在两个平台上对功能进行原型设计<br>跨职能团队中的单个开发人员能够同时为两个平台构建大部分功能<br>团队对 React Native 的整体理解有所改善</p>
+<p>遇到了哪些问题？<br>在使用 React Native 期间，我们遇到了很多问，主要在于流程、使用场景，React Native 本身的问题。</p>
+<p>设计和体验方面的挑战<br>平台一致的 UI/UX<br>因为要往现有的体验中加入一些新的页面，所以我们希望新的 React Native 代码能够遵循原生平台模式和现有的样式，这意味着我们不一定能为两个平台使用相同的 UI 设计。<br>要在 React Native 中确保每个平台本身的样式并不困难，但确实需要了解每个代码库的设计范式。至少需要对平台以及每个操作系统的自定义小部件进行检查。<br>对于我们来说，通常需要与每个平台的开发人员和设计人员沟通，以便了解需求是什么，否则如果两个平台使用同一个样式，有可能会导致在 Android 平台上的新功能体验与 App 的其他部分截然不同。<br>在更复杂的情况下，需要使用一些额外的平台特定代码来自定义 App 体验。<br>确保回退图标的行为是正确的就是一个例子。由于需要将新的 React Native 功能集成到现有的 app 中，要确保回退图标和后退按钮按的行为是正确的需要对 Android 原生代码和 React Native 代码做出特定的修改。<br>有一次，Android app 的导航结构发生了变化，我们不得不修改 React Native 代码，只是为了要改变原生与 React Native 之间的集成方式。<br>React Native 不需要有自己的 Activity，我们把它们移到 Fragment 中，并放在带有 BottomNavigationView 的屏幕中，然后在它和其他原生 Fragment 之间协调状态。<br>这种类型的变更需要回到各自的代码库，做出更改，更新集成，并确保新的变更不会对 iOS App 产生负面影响。</p>
+<p>设备特定问题<br>无论你要把这个叫作“碎片化”还是“多样化”，我们仍然要面对这样的事实：越来越多的 Android 设备有自己独一无二的配置。<br>很多时候，我们发现布局无法完美匹配不同尺寸的 Android 手机，在最新的 iPhone 或 Pixel 设备上运行流畅的动画在其他国家（在这些国家 Android 使用更为广泛）的低端设备上运行不佳。<br>这些肯定不只是 React Native 的问题，它们是 Android 平台开发常见的问题。但随着平台检查方面的工作量以及需要考虑到的因素数量的增加，我们不得不开始考虑，React Native 到底可以为我们节省多少时间。</p>
+<p>全球性增长<br>在我们使用 React Native 期间，国际化成为 Android 团队的一个焦点。我们的几个国际办事处要求对 App 进行本地化，并减少 apk 大小。<br>React Native 的字符串本地化完全可以实现，尽管确实需要做出一些额外的设置。在我们的例子中，我们需要对代码库做出单独的修改。这增加了本地化的复杂性，因为向其他团队寻求本地化帮助并非理想的方式，同时也会降低 React Native 功能的本地化频率。<br>我们能够在一段时间内减少 apk 大小，但是 React Native 的大小可能会增加，对此我们无能为力。移除最后一个 React Native 功能后，我们的 apk 大小减少了约 10MB。</p>
+<p>集成挑战<br>与原生组件和导航结构的集成<br>根据我们的经验，对于独立的功能，将 React Native 集成到现有应用程序中可能非常简单，但如果要与现有组件紧密集成和交互，则可能会麻烦一些。<br>我们经常需要大量的桥接代码在原生和 React Native 组件之间进行通信。在 React Native 组件与现有导航结构集成的地方，每次发生变更时，都需要进行至少一次的桥接代码更新。</p>
+<p>工具 / 构建问题<br>集成 React Native 需要对每个 App 的构建过程做出变更。我们使用 CircleCI 来构建项目，因此需要对它进行重新配置，以支持额外的 React Native 构建步骤。<br>而在 Android 方面，它并不像我们所预期的那么简单。<br>在进行重新配置后，CircleCI 的构建时间增加了大约 20％。<br>从代码库中移除最后一个 React Native 功能后，我们看到了以下改进：<br>CircleCI 构建时间从 15 分钟减少到 12 分钟<br>发布的 apk 大小从 28.4MB 降至 18.1MB</p>
+<p>Android 团队也经常遇到 Android/Gradle 构建工具与 React Native 的冲突问题。<br>iOS 团队也面临着相当大的挑战。<br>配置构建过程是一个很痛苦的事，因为我们的构建文件结构不是标准的。由于我们使用了单独的代码库，我们在 srcroot/ReactNative 目录中拉取 React Native 代码库，很多现有构建工具假设使用的是默认的 app 结构，即 /ReactNative/ios/…ios。<br>此外，我们使用 cocoapods 进行依赖管理，最初建议用它来管理 React Native 依赖，但后来被弃用。我们的非标准文件结构也给我们带来了麻烦，我们不得不在 Podfile 中做一些令人讨厌的侵入性修改，让它从正确的位置读取配置文件。<br>由于 cocoapods 不再是标准的 React Native 依赖管理方式，因此 Podfile 的更新只能依赖于社区，而这些更新通常不太同步。比如 css/Yoga 已经推出更新，但 Podfile 引用的却是不正确的版本。最后，我们不得不做出一些侵入性的修改，使用 sed 和正则表达式来实现版本检查和安装。<br>iOS 项目的 CI 也是一个痛点。我们现在必须添加一个 npm 依赖层，并确保在安装其他依赖之前它们是最新的。这给我们的构建步骤带来了额外的时间消耗。<br>还有一个问题会导致构建崩溃，比如一个版本的 npm 有package.lock文件，而另一个版本没有，这会导致我们在 React Native 升级过程中安装了不正确的依赖版本。</p>
+<p>来自 React Native 的挑战<br>文档<br>React Native 本身发展得很快，但文档却相对缺乏。特别是我们是第一次使用 React Native，我们发现特定版本的文档多多少少有点不齐全。<br>那个时候，用于将 React Native 与现有项目集成的文档似乎很少，因此，在对 CI 做出构建配置时，这无疑增加了我们的难度。<br>随着 React Native 不断发展，文档和社区得到了改善。如果换到了今天，我们或许会更容易找到一些问题的答案。</p>
+<p>导航<br>我们最初使用的是 NavigationExperimental，它不是最容易使用的导航库。React Navigation 出现后，迅速在社区中流行开来，在 ReactNavigation 的功能得到真正的完善之前，我们已经弃用了 NavigationExperimental。<br>不过，如果不把一些东西强行组合在一起（例如在呈现模态流中推送流），有些事情在 ReactNavigation 中是做不到的。</p>
+<p>性能<br>如前所述，我们也会注意到性能问题。<br>我们能够制作出一些非常漂亮的动画，这些动画在高配置的 iOS 和 Android 设备上看起来很棒，但在一些低配置 Android 设备上表现不佳。<br>进入 app 的 React Native 部分时，加载时间比我们预期的要长，而且它们看起来不像是无缝的过渡。<br>在对功能 4 进行原型设计时，图形渲染性能是一个非常大的问题，我们不得不使用原生体验取代了 React Native。</p>
+<p>滞后于原生平台<br>因为它不是与 iOS 或 Android 一起构建的，所以 React Native 有时会滞后于原生平台。在很大程度上，它依赖社区来提供新的原生功能。<br>其中一个例子就是迫切需要为 iPhone X 提供安全区域支持。我们最终选择在短时间内不使用 SafeArea，因为 React Native 团队很快就会推出该特性。跨平台开发人员在使用 SafeAreaView 开发兼容性 app 时需要特别注意这个特定于平台的特性。<br>有时候，React Native 也会在采用新平台需求方面表现滞后，例如 Android app 被要求在 2018 年 8 月之前采用 API Level 26。而在这方面还有几个未解决的问题。</p>
+<p>突破性的更新<br>React Native 无法向后兼容，这点非常令人沮丧。比如，在 React Native 升级了它的底层 React 库后，PropType 就被弃用了。<br>如果我们不维护自己的分支，很多第三方库就会变得无法使用。</p>
+<p>来自维护方面的挑战<br>有时候，维护 React Native 代码库对我们来说是一个挑战。如前所述，Android 通常需要额外的工作，无论是与现有代码集成还是修复 UI 问题。这导致 iOS 和 Android 使用了不同的 React Native 代码库分支，这样才能让两个平台之间不互相影响。<br>由于使用了不同的分支，开始出现代码分歧，并且用于解决冲突的工作流增加了。结果，对一个平台的更新并不会立即被添加到另一个平台中。<br>React Native 的演化速度也给我们带来了挑战。由于可能会出现突破性变更，因此为了获得新功能或修复 bug 而进行的依赖更新的速度变慢了。<br>另外，有时这会导致摩擦力增加，从而降低了代码的维护速度。由于团队规模小，带宽有限，如果不是简单的、可以快速修复的问题，那么问题就不太可能很快得到解决，因为这可能需要额外的开发工作量。<br>因为引入了 React Native，所以我们并不总能清楚地知道 bug 处于什么级别。它是否存在于两个平台中？还是只在一个平台上出现？如果只在一个平台上出现，是在原生代码中还是在 React Native 代码中？这些问题所带来的复杂性有时候会减慢 QA 过程。<br>当需要修复 React Native 代码库中的问题时，我们现在必须同时考虑 iOS 和 Android，并且可能需要使用 3 个开发栈，而不是 1 个。<br>此外，不是所有人都觉得 React Native 效率很高，能够迅速上手并修复问题的开发人员的数量也减少了。</p>
+<p>我们本该可以做哪些事情？<br>我相信，我们遇到的一些问题是我们的场景所固有的，但是我们其实可以做些不一样的事情来缓解其中的一些问题。</p>
+<p>减少代码分歧<br>我们本可以更好地让 React Native 代码库中的变更与每个平台的 App 保持同步。我相信保持这些更新同步将有助于增强我们的跨平台开发意识。<br>多在设备上进行测试，特别是在 Android 上，可能可以在早期就发现更多的 UI 和性能问题，并在发布之前修复它们。在开发新功能之前解决旧问题，可以减少代码分歧的数量。</p>
+<p>更一致的设计<br>如果从一开始就设计更具体方案可能有助于改善功能的原生外观。比如使用与原生 App 一致的文本和边值，而不是使用新值，并在两个平台上使用它们。</p>
+<p>团队成员需要学习<br>对 React Native 不太熟悉的团队成员可以更努力地尝试融入新的开发栈，这样就会有更多的人能够快速解决问题。<br>适用React Native 的场景？<br>我相信，我们团队中没有人会认为 React Native 一无是处。我当然相信 React Native 有它适合的场景。<br>你是否需要在两个平台上从头开始快速地构建新 app？<br>你是否正在开发一个 App 或功能，要求在不同的平台上具有相同的外观和行为？<br>你的 Javascript 开发人员是不是有多余的时间可用于开发移动应用？<br>如果对这些问题中的任何一个答案“是”，那么 React Native 很可能适合你。<br>特别是如果你有 Javascript 和 React 经验，并且正在寻找一个不需要太多原生代码就能构建的应用程序，那么 React Native 是一个非常有吸引力的选择。这样你就能够马上开始开发，而无需去学习 2 种不同的技术栈。<br>对于新开发的完全跨平台的 app，React Native 也是一个很好的选择。<br>还会再次使用 React Native 吗？</p>
+<p>iOS 和 Android 团队有不同的意见。<br>iOS<br>有可能。iOS 团队通常很乐意使用 React Native，并考虑使用它开发新功能。此外，在产品方面，我们的 PM 对在 iOS 上运行 React Native 比对 Android 更有信心。</p>
+<p>Android<br>不会。理想情况下，Android 团队将来不会继续在 React Native 上投入。我们发现与 React Native 组件集成的过程很麻烦，并且在 Android 设备上的体验达不到预期。<br>此外，还有一种倾向，坚持使用单一的开发栈，而不是在 Android 框架之上添加新的抽象层，或引入可能的错误。<br>我们的印象是，使用 React Native 开发 Android 新功能的速度更快，但长期来看，新功能从早期阶段到能够完美发布需要更长的时间。</p>
+<p>关于使用另一种跨平台解决方案？<br>从团队方面来看，在不久的将来，我们可能不会在跨平台开发上继续投入。iOS 团队可以使用 React Native 构建一些特定于 iOS 的东西，因为他们通常更喜欢这种体验。<br>就个人而言，团队的成员将继续关注 React Native 和 Flutter。随着 React Native 和 Flutter 等解决方案的不断发展，我们也将继续对它们做出评估。<br>我们对 React Native 是否适合我们的团队和路线图有了更好的理解。在进行技术选型时，我们可以利用这些信息做出更加明智的决策。</p>
+<p>我们看到了 React Native 的优点以及局限性。我们能否明确地给出 React Native 是否适合你的定论？<br>不能。</p>
+<p>但是，在评估 React Native 是否可用在你们的项目中时，希望我们的经验可以作为参考。</p>
+<h1 id="oschina-报道"><a href="#oschina-报道" class="headerlink" title="oschina 报道"></a>oschina 报道</h1><blockquote>
+<p>原谅链接：<a href="https://www.oschina.net/news/97790/udacity-moved-all-react-native-code" rel="external nofollow noopener noreferrer" target="_blank">https://www.oschina.net/news/97790/udacity-moved-all-react-native-code</a></p>
+</blockquote>
+<p>在线教育机构 Udacity 宣布放弃使用 React Native。</p>
+<p>上个月我们报导过 Airbnb 决定弃用 React Native 的消息，一瞬间仿佛 RN 变成了危险、不可靠的角色，而最近在 Udacity 的 Media 博客中，Udacity 的移动团队也宣布其已经删除了应用中使用 React Native 编写的所有功能。</p>
+<p>文章回顾了 Udacity 移动工程团队使用 React Native 的经历，包括团队与应用情况、为什么使用 RN、最后又为什么放弃 RN 等。作者表示虽然 React Native 有许多优势，但是他们在开发过程中也遇到了不少困难，包括 UI/UX、性能、向后兼容性与后期维护等问题，这些问题最终导致了开发团队决定放弃使用 React Native，在尝试了 18 个月、做出 4 个功能之后完全将其代码删除。</p>
+<p>作者还表示，删除的功能并没有使用替代方案重新开发，团队决定不再维护这几个功能。而至于将来会不会再用到 React Native，他表示 iOS 和 Android 团队有不同的考量，iOS 方面将来还是有可能使用 RN，但是 Android 上将不会再使用，它的体验和组件集成等问题过于严重。</p>
+<p>尽管如此，作者还是对 React Native 大加赞赏，他认为其确实有适用的场合，无论是需要在两个平台上快速从头开始构建新应用，还是希望不管平台如何，应用的外观/行为都相同，这些情况下使用 React Native 都是不错的选择。特别是如果开发者有 Javascript/React 背景，并且正在准备构建一个不需要太多本机代码的应用程序，那么 React Native 将会是一个非常好的选择，它可以使得开发者不用去学习 iOS 与 Android 这两种不同的技术栈。作者希望开发者在评估 React Native 运用于他们项目的可行性时，自己团队的这些经验能够给到帮助。</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-09-01T02:53:12.932Z" itemprop="dateUpdated">2020年9月1日 10:53</time>
+</span><br>
+
+
+        转载请注明出处：<a href="/frontend/RNNewsGiveUpUdacity.html" target="_blank" rel="external">https://www.lovesofttech.com/frontend/RNNewsGiveUpUdacity.html</a>
+    </div>
+    <footer>
+        <a href="https://www.lovesofttech.com">
+            <img src="/img/myLogo.jpg" alt="安迪陈">
+            安迪陈
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/RN/">RN</a></li></ul>
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/frontend/RNNewsGiveUpUdacity.html&title=《Udacity也弃用React Native了！》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/frontend/RNNewsGiveUpUdacity.html&title=《Udacity也弃用React Native了！》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=
+英文原文：https://engineering.udacity.com/react-native-a-retrospective-from-the-m..." data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/frontend/RNNewsGiveUpUdacity.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Udacity也弃用React Native了！》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/frontend/RNNewsGiveUpUdacity.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/frontend/RNNewsGiveUpUdacity.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/lnmp/discuzX3.4ToInnoDBTable.html" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">discuzX3.4 数据库由阿里云自建 MySQL 转移至 RDS，填坑日志</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/softTest/testDev.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">测试 &amp; 开发</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+    
+    
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="bottom">
+        <p>
+            <span>安迪陈技术日志，架构、感悟、系统分析、团队管理 &copy; 2017 - 2020</span>
+            <span>
+                Power by <a href="https://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>&nbsp;
+                Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank" rel="external nofollow noopener noreferrer">indigo</a>
+            </span>
+            <span>
+                <a href="http://www.beian.miit.gov.cn" target="_blank" rel="external nofollow noopener noreferrer">蜀ICP备17041860号</a>
+            </span>
+            
+            <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            </p><p>
+                <span>
+                    统计始于：2019-03-06
+                </span>
+                <span id="busuanzi_container_site_uv" style="display:none">
+                    访客数：<span id="busuanzi_value_site_uv"></span>
+                </span>
+                <span id="busuanzi_container_site_pv" style="display:none">
+                    访问量：<span id="busuanzi_value_site_pv"></span>
+                </span>
+            
+            
+                <span class="post-count">累计字数：309.2k</span>
+            
+                <span><a href="/general/blogLog.html"><i class="fas fa-pen-alt"></i>&nbsp;博客日志</a></span>
+            </p>
+        <p></p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light" title="回到顶部"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/frontend/RNNewsGiveUpUdacity.html&title=《Udacity也弃用React Native了！》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/frontend/RNNewsGiveUpUdacity.html&title=《Udacity也弃用React Native了！》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=
+英文原文：https://engineering.udacity.com/react-native-a-retrospective-from-the-m..." data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/frontend/RNNewsGiveUpUdacity.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Udacity也弃用React Native了！》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/frontend/RNNewsGiveUpUdacity.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/frontend/RNNewsGiveUpUdacity.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACIElEQVR42u3aQXICMQwEQP7/aVKVWw4sM9YmFez2iYLEbPsgJFmPR7ye3+vV6+SdfOfrvx8tDAyMj2U8L9f1lyXv54+Y7PlyHwwMjAMYeSh89YjJY10f33Vwf/ONGBgYGJePnoTXKGhiYGBg3BRwk6DZlsEYGBgYCSMpYttCN3/QvGC+oRbHwMD4QMb8YuD3Xv/p/QYGBsa/ZDzL1Tb02xbb2sLAwNibkaRudzXg2mhZj25gYGAcwFjbqA2syfHlx4qBgXEyo217ta265JozKacxMDBOYKwVk/cOVSTB9E2Ix8DAOIYx2bQFJylg8jOAgYFxAqNt8U+KzElhXJMwMDC2Y8znNZJzyhPEPFhjYGCcwGhHKNom/lo6WOMxMDAOY+RJXsvIjwYDAwPjuquWbJSXoO2A1yTFxMDA2JUxadO3V5Xt4EVxxBgYGFsz8vQrT+ba9tx8jAwDA2NvRh5AbxuDiC8G8h8DDAyMvRlrm641wu4dBcPAwDiHkReTebt/MT9dSiIxMDDOYeSA/BogL0dbHgYGxmmMtab8pNE/KYCjAQsMDIztGM9ytcg2ucxnJ358ioGBsTWjbd/nyWJ+/dmmnhgYGGcy2ivMtaGxyShGUZFjYGBszWiTuclI2YSHgYGBMWmxtW39HBl9CwYGBkZAatv6a//7pojFwMDYmpEPda017ieXDVFxi4GBsTXjhgIyHpjIQ/ldgR4DA+PDGV9kkvoIxQh40wAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.5.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.5.2" async></script>
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '安迪陈技术日志';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '欢迎回来';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

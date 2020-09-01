@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<!--<script async src="//hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c"></script>-->
+<!-- 统计-->
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var host = window.location.host;
+        var hm = document.createElement("script");
+
+        if (host.indexOf('gitee.io') > 0) { // https://uncleandychen.gitee.io/
+            hm.src = "https://hm.baidu.com/hm.js?0cf4709148b070b8082191d2e456a1a3";
+        } else if (host.indexOf('lovesofttech.com') > 0) { // https://www.lovesofttech.com/
+            hm.src = "https://hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c";
+        } else {
+            hm.src = '';
+        }
+
+        if (hm.src !== '') {
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        }
+    })();
+</script>
+<!-- End Baidu Tongji -->
+
+
+
+<!-- Baidu Push -->
+<!-- 主动推送百度爬虫-->
+<script>
+    (function(){
+        if (window.location.host.indexOf('lovesofttech.com') < 0) {
+            return;
+        }
+
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+<!-- End Baidu Push -->
+
+
+    <meta charset="utf-8">
+    
+    
+    <link rel="canonical" href="https://www.lovesofttech.com/database/centOS7MongoDB.html">
+    
+    
+    <title>CentOS7 下 安装配置 MongoDB | 安迪陈技术日志，架构、感悟、系统分析、团队管理 | 自强不息，厚德载物</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="CentOS,MongoDB">
+    <meta name="description" content="介绍安装、远程连接以及基本操作。">
+<meta name="keywords" content="CentOS,MongoDB">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CentOS7 下 安装配置 MongoDB">
+<meta property="og:url" content="https://www.lovesofttech.com/database/centOS7MongoDB.html">
+<meta property="og:site_name" content="安迪陈技术日志，架构、感悟、系统分析、团队管理">
+<meta property="og:description" content="介绍安装、远程连接以及基本操作。">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2020-09-01T02:53:12.916Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CentOS7 下 安装配置 MongoDB">
+<meta name="twitter:description" content="介绍安装、远程连接以及基本操作。">
+    
+        <link rel="alternative" href="/atom.xml" title="安迪陈技术日志，架构、感悟、系统分析、团队管理" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=201912302211">
+    <link rel="stylesheet" href="/css/header.css?v=201912302211">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu">
+  <div class="inner flex-row-vertical">
+    <!--<i class="icon icon-lg icon-close"></i>-->
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off" title="隐藏左侧导航">﹤<i class="icon icon-lg icon-navicon"></i></a>
+    <div class="brand-wrap" style="background-image:url(/img/bannerBackgroundLeft.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/myLogo.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">安迪陈</h5>
+          <a href="mailto:andy@lovesofttech.com" title="andy@lovesofttech.com" class="mail" rel="external nofollow noopener noreferrer" target="_blank">andy@lovesofttech.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articleClassify.html">
+                <i class="icon icon-th-list"></i>
+                文章分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articles.html">
+                <i class="icon icon-th-list articles"></i>
+                文章列表
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/java.html">
+                <i class="icon icon-th-list java"></i>
+                Java
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/database.html">
+                <i class="icon icon-th-list database"></i>
+                MySQL/MyBatis
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/linux.html">
+                <i class="icon icon-th-list linux"></i>
+                CentOS/linux
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/react.html">
+                <i class="icon icon-th-list React"></i>
+                React
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/lnmp.html">
+                <i class="icon icon-th-list LNMP"></i>
+                LNMP
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/git.html">
+                <i class="icon icon-th-list git"></i>
+                git
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/windows.html">
+                <i class="icon icon-th-list windows"></i>
+                windows
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/dailyLives.html">
+                <i class="icon icon-th-list dailyLives"></i>
+                工作 &amp; 生活
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-github"></i>
+                我的 github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://gitee.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link"></i>
+                我的 gitee
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://blog.csdn.net/runAndRun" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link CSDN"></i>
+                我的 CSDN
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/aboutMe.html">
+                <i class="icon icon-address-card"></i>
+                关于我
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+
+        <div class="navbar navbar-custom navbar-fixed-top">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" style="margin-left:10px;" id="menu-toggle" title="显示左侧导航"><i class="icon icon-lg icon-navicon"></i>﹥</a>
+            <ul class="nav navbar-nav navbar-right" id="navMenuTop">
+                <li>
+                    <a href="/">主页</a>
+                </li>
+                
+                    
+                        <li>
+                            <a href="/articleClassify.html" title="本博客的文章分类列表">文章分类</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/articles.html" title="本博客的所有文章列表">文章列表</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/java.html" title="Java 开发，文章目录">Java</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/database.html" title="日常开发中有关 MySQL、MyBatis 的一些经验总结">MySQL/MyBatis</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/linux.html" title="CentOS/linux，文章目录">CentOS/linux</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/react.html" title="React 技术栈（全家桶）学习心得分享，文章目录">React</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/about.html">关于</a>
+                        </li>
+                    
+                
+            </ul>
+        </div>
+
+        <div class="flex-col header-title ellipsis">CentOS7 下 安装配置 MongoDB</div>
+        
+        <div class="search-wrap" id="search-wrap" style="z-index: 2;">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back" style="width:33px;">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search" style="width:33px;">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare" style="z-index: 3;margin-right: 10px; width:30px;">
+                <i class="icon icon-lg icon-share-alt"></i>
+            </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h2 class="title">CentOS7 下 安装配置 MongoDB</h2>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-10-04T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2017-10-05
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/CentOS/">CentOS</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/CentOS/MongoDB/">MongoDB</a></li></ul></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap" id="index-container">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc" style="z-index: 3;">
+            <h4><i class="fa fa-list-alt"></i>&nbsp;&nbsp;本文目录</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#安装并设置为开机启动"><span class="post-toc-number">1.</span> <span class="post-toc-text">安装并设置为开机启动</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#安装过程，简单记录如下"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">安装过程，简单记录如下</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#实现远程连接"><span class="post-toc-number">2.</span> <span class="post-toc-text">实现远程连接</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#附-firewall常用命令"><span class="post-toc-number">3.</span> <span class="post-toc-text">附 firewall常用命令</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#添加管理员账户"><span class="post-toc-number">4.</span> <span class="post-toc-text">添加管理员账户</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#重启-mongodb-数据库"><span class="post-toc-number">5.</span> <span class="post-toc-text">重启 mongodb 数据库</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#创建数据库"><span class="post-toc-number">6.</span> <span class="post-toc-text">创建数据库</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#常用角色"><span class="post-toc-number">7.</span> <span class="post-toc-text">常用角色</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#IDEA-插件方式连接-MongoDB"><span class="post-toc-number">8.</span> <span class="post-toc-text">IDEA 插件方式连接 MongoDB</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#超时才返回错误信息"><span class="post-toc-number">8.1.</span> <span class="post-toc-text">超时才返回错误信息</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#立即返回错误信息"><span class="post-toc-number">8.2.</span> <span class="post-toc-text">立即返回错误信息</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+    
+
+<article id="post-database/centOS7MongoDB" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">CentOS7 下 安装配置 MongoDB</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017年10月05日 0:00" datetime="2017-10-04T16:00:00.000Z" itemprop="datePublished">2017-10-05</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/CentOS/">CentOS</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/CentOS/MongoDB/">MongoDB</a></li></ul></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" style="display:none">
+    阅读量：<span id="busuanzi_value_page_pv"></span>次
+</span>
+
+
+    <span>|</span>
+    <span class="post-count">字数：2.9k</span>
+    <span>|</span>
+    <span class="post-count">阅读时长：大约15分钟</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>介绍安装、远程连接以及基本操作。<br><a id="more"></a><br>环境：CentOS7-1708<br>MongoDB:3.4.9</p>
+<h1 id="安装并设置为开机启动"><a href="#安装并设置为开机启动" class="headerlink" title="安装并设置为开机启动"></a>安装并设置为开机启动</h1><p><a href="https://docs.mongodb.com/manual/tutorial/install-mongodb-on-red-hat/" rel="external nofollow noopener noreferrer" target="_blank">看官网教程，很详细，按照文档操作即可</a></p>
+<h2 id="安装过程，简单记录如下"><a href="#安装过程，简单记录如下" class="headerlink" title="安装过程，简单记录如下"></a>安装过程，简单记录如下</h2><ol>
+<li><p>添加 yum 源</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">cd /etc/yum.repos.d/</span><br><span class="line">vim /etc/yum.repos.d/mongodb-org-3.4.repo</span><br><span class="line"># 添加如下内容</span><br><span class="line">[mongodb-org-3.4]</span><br><span class="line">name=MongoDB Repository</span><br><span class="line">baseurl=https://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/3.4/x86_64/</span><br><span class="line">gpgcheck=1</span><br><span class="line">enabled=1</span><br><span class="line">gpgkey=https://www.mongodb.org/static/pgp/server-3.4.asc</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>添加 yum 源后，通过 yum 安装</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y mongodb-org</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Disable SELinux by setting the SELINUX setting to disabled in <code>/etc/selinux/config</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/selinux/config</span><br><span class="line"># 将原来的注释掉，添加：</span><br><span class="line">SELINUX=disabled</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>设置为开机启动</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">chkconfig mongod on</span><br><span class="line"># 或者 systemctl enable mongod.service</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>重启，检测是否已经启动</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">[root@192 ~]# service mongod status</span><br><span class="line">Redirecting to /bin/systemctl status mongod.service</span><br><span class="line">● mongod.service - High-performance, schema-free document-oriented database</span><br><span class="line">   Loaded: loaded (/usr/lib/systemd/system/mongod.service; enabled; vendor preset: disabled)</span><br><span class="line">   Active: active (running) since Thu 2017-10-05 21:59:36 HKT; 2min 7s ago</span><br><span class="line">     Docs: https://docs.mongodb.org/manual</span><br><span class="line">  Process: 1436 ExecStartPre=/usr/bin/chmod 0755 /var/run/mongodb (code=exited, status=0/SUCCESS)</span><br><span class="line">  Process: 1426 ExecStartPre=/usr/bin/chown mongod:mongod /var/run/mongodb (code=exited, status=0/SUCCESS)</span><br><span class="line">  Process: 1415 ExecStartPre=/usr/bin/mkdir -p /var/run/mongodb (code=exited, status=0/SUCCESS)</span><br><span class="line"> Main PID: 1702 (mongod)</span><br><span class="line">   CGroup: /system.slice/mongod.service</span><br><span class="line">           └─1702 /usr/bin/mongod -f /etc/mongod.conf</span><br><span class="line"></span><br><span class="line">Oct 05 21:59:35 192.168.1.18 systemd[1]: Starting High-performance, schema-free document-oriented database...</span><br><span class="line">Oct 05 21:59:36 192.168.1.18 systemd[1]: Started High-performance, schema-free document-oriented database.</span><br><span class="line">Oct 05 21:59:47 192.168.1.18 mongod[1443]: about to fork child process, waiting until server is ready for connections.</span><br><span class="line">Oct 05 21:59:47 192.168.1.18 mongod[1443]: forked process: 1702</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看日志</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[root@192 ~]# cd /var/log/mongodb/</span><br><span class="line">[root@192 mongodb]# tail -f mongod.log </span><br><span class="line">2017-10-05T21:59:50.255+0800 I CONTROL  [initandlisten] </span><br><span class="line">2017-10-05T21:59:50.255+0800 I CONTROL  [initandlisten] ** WARNING: /sys/kernel/mm/transparent_hugepage/defrag is &apos;always&apos;.</span><br><span class="line">2017-10-05T21:59:50.255+0800 I CONTROL  [initandlisten] **        We suggest setting it to &apos;never&apos;</span><br><span class="line">2017-10-05T21:59:50.255+0800 I CONTROL  [initandlisten] </span><br><span class="line">2017-10-05T21:59:50.635+0800 I FTDC     [initandlisten] Initializing full-time diagnostic data capture with directory &apos;/var/lib/mongo/diagnostic.data&apos;</span><br><span class="line">2017-10-05T21:59:50.784+0800 I INDEX    [initandlisten] build index on: admin.system.version properties: &#123; v: 2, key: &#123; version: 1 &#125;, name: &quot;incompatible_with_version_32&quot;, ns: &quot;admin.system.version&quot; &#125;</span><br><span class="line">2017-10-05T21:59:50.784+0800 I INDEX    [initandlisten]          building index using bulk method; build may temporarily use up to 500 megabytes of RAM</span><br><span class="line">2017-10-05T21:59:50.788+0800 I INDEX    [initandlisten] build index done.  scanned 0 total records. 0 secs</span><br><span class="line">2017-10-05T21:59:50.789+0800 I COMMAND  [initandlisten] setting featureCompatibilityVersion to 3.4</span><br><span class="line">2017-10-05T21:59:50.790+0800 I NETWORK  [thread1] waiting for connections on port 27017</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>注意事项。</p>
+</li>
+</ol>
+<ul>
+<li>The MongoDB instance stores its data files in <code>/var/lib/mongo</code> and its log files in <code>/var/log/mongodb</code> by default, and runs using the mongod user account. You can specify alternate log and data file directories in <code>/etc/mongod.conf</code>. See systemLog.path and storage.dbPath for additional information.</li>
+<li>If you change the user that runs the MongoDB process, you must modify the access control rights to the <code>/var/lib/mongo</code> and <code>/var/log/mongodb</code> directories to give this user access to these directories.</li>
+</ul>
+<h1 id="实现远程连接"><a href="#实现远程连接" class="headerlink" title="实现远程连接"></a>实现远程连接</h1><ol>
+<li><p>修改配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/mongod.conf</span><br><span class="line"># 注释掉下面这行，备注也有说明。</span><br><span class="line"># bindIp: 127.0.0.1  # Listen to local interface only, comment to listen on all interfaces.</span><br><span class="line"># 将 #security:中的#去掉，并在其下加一行，空两个空格，加上authorization: enabled，如下</span><br><span class="line">security:</span><br><span class="line">  authorization: enabled</span><br><span class="line"># 注意：authorization: enabled中冒号后加一个空格，这是 yaml 语法格式</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>防火墙开放 27017 端口<br>CentOS 7中防火墙是一个非常的强大的功能，在CentOS 6.5中在iptables防火墙中进行了升级了。名字也变了，叫：firewall</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@192 ~]# firewall-cmd --permanent --add-port=27017/tcp</span><br><span class="line">success</span><br><span class="line">[root@192 ~]# firewall-cmd --reload</span><br><span class="line">success</span><br><span class="line">[root@192 ~]# systemctl restart firewalld.service</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>参数含义</p>
+</li>
+</ol>
+<ul>
+<li>firwall-cmd：是Linux提供的操作firewall的一个工具；</li>
+<li>–permanent：表示设置为持久；</li>
+<li>–add-port：标识添加的端口；</li>
+<li>–zone=public：指定的 zone 为 public；上面的参数没用这个，zone 默认为 public</li>
+</ul>
+<p>如果 –zone=dmz 这样设置的话，会在 dmz.xml 文件中新增一条。</p>
+<p>执行上面的命令之后，被修改的配置文件为: <code>/etc/firewalld/zones/public.xml</code><br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">zone</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">short</span>&gt;</span>Public<span class="tag">&lt;/<span class="name">short</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">description</span>&gt;</span>For use in public areas. You do not trust the other computers on networks to not harm your computer. Only selected incoming connections are accepted.<span class="tag">&lt;/<span class="name">description</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">service</span> <span class="attr">name</span>=<span class="string">"ssh"</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">service</span> <span class="attr">name</span>=<span class="string">"dhcpv6-client"</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">port</span> <span class="attr">protocol</span>=<span class="string">"tcp"</span> <span class="attr">port</span>=<span class="string">"27017"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">zone</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>其中最后一行就是新添加进去的。</p>
+<h1 id="附-firewall常用命令"><a href="#附-firewall常用命令" class="headerlink" title="附 firewall常用命令"></a>附 firewall常用命令</h1><table>
+<thead>
+<tr>
+<th>firewall常用命令</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td>service firewalld restart</td>
+<td>重启</td>
+</tr>
+<tr>
+<td></td>
+<td>service firewalld start</td>
+<td>开启</td>
+</tr>
+<tr>
+<td></td>
+<td>service firewalld stop</td>
+<td>关闭</td>
+</tr>
+<tr>
+<td></td>
+<td>systemctl status firewall 或 firewall-cmd –state</td>
+<td>查看firewall服务状态</td>
+</tr>
+<tr>
+<td></td>
+<td>firewall-cmd –list-all</td>
+<td>查看防火墙规则</td>
+</tr>
+<tr>
+<td></td>
+<td>systemctl disable firewalld.service</td>
+<td>禁止firewall开机启动</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>firewall常用命令，测试<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">[root@192 zones]# firewall-cmd --state</span><br><span class="line">running</span><br><span class="line">[root@192 zones]# systemctl status firewalld.service </span><br><span class="line">● firewalld.service - firewalld - dynamic firewall daemon</span><br><span class="line">   Loaded: loaded (/usr/lib/systemd/system/firewalld.service; enabled; vendor preset: enabled)</span><br><span class="line">   Active: active (running) since Thu 2017-10-05 23:49:12 HKT; 13s ago</span><br><span class="line">     Docs: man:firewalld(1)</span><br><span class="line"> Main PID: 4325 (firewalld)</span><br><span class="line">   CGroup: /system.slice/firewalld.service</span><br><span class="line">           └─4325 /usr/bin/python -Es /usr/sbin/firewalld --nofork --nopid</span><br><span class="line"></span><br><span class="line">Oct 05 23:49:13 192.168.1.18 firewalld[4325]: WARNING: COMMAND_FAILED: &apos;/usr/sbin/iptables -w2 -w --table filter --delete FORWARD --destination 192.168.122.0/24 --out-interface virbr0 --match conntrack --ctstate ESTABLISHED,RELATED --jump ACCEPT&apos; failed: iptables: Bad rule (does a matching rule exist in that chain?).</span><br><span class="line">Oct 05 23:49:13 192.168.1.18 firewalld[4325]: WARNING: COMMAND_FAILED: &apos;/usr/sbin/iptables -w2 -w --table filter --delete FORWARD --source 192.168.122.0/24 --in-interface virbr0 --jump ACCEPT&apos; failed: iptables: Bad rule (does a matching rule exist in that chain?).</span><br><span class="line">Oct 05 23:49:13 192.168.1.18 firewalld[4325]: WARNING: COMMAND_FAILED: &apos;/usr/sbin/iptables -w2 -w --table filter --delete FORWARD --in-interface virbr0 --out-interface virbr0 --jump ACCEPT&apos; failed: iptables: Bad rule (does a matching rule exist in that chain?).</span><br><span class="line">Oct 05 23:49:13 192.168.1.18 firewalld[4325]: WARNING: COMMAND_FAILED: &apos;/usr/sbin/iptables -w2 -w --table filter --delete FORWARD --out-interface virbr0 --jump REJECT&apos; failed: iptables: No chain/target/match by that name.</span><br><span class="line">Oct 05 23:49:13 192.168.1.18 firewalld[4325]: WARNING: COMMAND_FAILED: &apos;/usr/sbin/iptables -w2 -w --table filter --delete FORWARD --in-interface virbr0 --jump REJECT&apos; failed: iptables: No chain/target/match by that name.</span><br><span class="line">Oct 05 23:49:13 192.168.1.18 firewalld[4325]: WARNING: COMMAND_FAILED: &apos;/usr/sbin/iptables -w2 -w --table filter --delete INPUT --in-interface virbr0 --protocol udp --destination-port 53 --jump ACCEPT&apos; failed: iptables: Bad rule (does a matching rule exist in that chain?).</span><br><span class="line">Oct 05 23:49:13 192.168.1.18 firewalld[4325]: WARNING: COMMAND_FAILED: &apos;/usr/sbin/iptables -w2 -w --table filter --delete INPUT --in-interface virbr0 --protocol tcp --destination-port 53 --jump ACCEPT&apos; failed: iptables: Bad rule (does a matching rule exist in that chain?).</span><br><span class="line">Oct 05 23:49:13 192.168.1.18 firewalld[4325]: WARNING: COMMAND_FAILED: &apos;/usr/sbin/iptables -w2 -w --table filter --delete OUTPUT --out-interface virbr0 --protocol udp --destination-port 68 --jump ACCEPT&apos; failed: iptables: Bad rule (does a matching rule exist in that chain?).</span><br><span class="line">Oct 05 23:49:13 192.168.1.18 firewalld[4325]: WARNING: COMMAND_FAILED: &apos;/usr/sbin/iptables -w2 -w --table filter --delete INPUT --in-interface virbr0 --protocol udp --destination-port 67 --jump ACCEPT&apos; failed: iptables: Bad rule (does a matching rule exist in that chain?).</span><br><span class="line">Oct 05 23:49:13 192.168.1.18 firewalld[4325]: WARNING: COMMAND_FAILED: &apos;/usr/sbin/iptables -w2 -w --table filter --delete INPUT --in-interface virbr0 --protocol tcp --destination-port 67 --jump ACCEPT&apos; failed: iptables: Bad rule (does a matching rule exist in that chain?).</span><br><span class="line"></span><br><span class="line">[root@192 zones]# firewall-cmd --list-all </span><br><span class="line">public (active)</span><br><span class="line">  target: default</span><br><span class="line">  icmp-block-inversion: no</span><br><span class="line">  interfaces: enp0s3</span><br><span class="line">  sources: </span><br><span class="line">  services: ssh dhcpv6-client</span><br><span class="line">  ports: 27017/tcp</span><br><span class="line">  protocols: </span><br><span class="line">  masquerade: no</span><br><span class="line">  forward-ports: </span><br><span class="line">  source-ports: </span><br><span class="line">  icmp-blocks: </span><br><span class="line">  rich rules:</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h1 id="添加管理员账户"><a href="#添加管理员账户" class="headerlink" title="添加管理员账户"></a>添加管理员账户</h1><p>启动 Mongo shell，并依次执行命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">[root@192 ~]# mongo</span><br><span class="line">MongoDB shell version v3.4.9</span><br><span class="line">connecting to: mongodb://127.0.0.1:27017</span><br><span class="line">MongoDB server version: 3.4.9</span><br><span class="line">Welcome to the MongoDB shell.</span><br><span class="line">For interactive help, type &quot;help&quot;.</span><br><span class="line">For more comprehensive documentation, see</span><br><span class="line">        http://docs.mongodb.org/</span><br><span class="line">Questions? Try the support group</span><br><span class="line">        http://groups.google.com/group/mongodb-user</span><br><span class="line">Server has startup warnings: </span><br><span class="line">2017-10-05T21:59:50.254+0800 I CONTROL  [initandlisten] </span><br><span class="line">2017-10-05T21:59:50.254+0800 I CONTROL  [initandlisten] ** WARNING: Access control is not enabled for the database.</span><br><span class="line">2017-10-05T21:59:50.254+0800 I CONTROL  [initandlisten] **          Read and write access to data and configuration is unrestricted.</span><br><span class="line">2017-10-05T21:59:50.254+0800 I CONTROL  [initandlisten] </span><br><span class="line">2017-10-05T21:59:50.255+0800 I CONTROL  [initandlisten] </span><br><span class="line">2017-10-05T21:59:50.255+0800 I CONTROL  [initandlisten] ** WARNING: /sys/kernel/mm/transparent_hugepage/enabled is &apos;always&apos;.</span><br><span class="line">2017-10-05T21:59:50.255+0800 I CONTROL  [initandlisten] **        We suggest setting it to &apos;never&apos;</span><br><span class="line">2017-10-05T21:59:50.255+0800 I CONTROL  [initandlisten] </span><br><span class="line">2017-10-05T21:59:50.255+0800 I CONTROL  [initandlisten] ** WARNING: /sys/kernel/mm/transparent_hugepage/defrag is &apos;always&apos;.</span><br><span class="line">2017-10-05T21:59:50.255+0800 I CONTROL  [initandlisten] **        We suggest setting it to &apos;never&apos;</span><br><span class="line">2017-10-05T21:59:50.255+0800 I CONTROL  [initandlisten] </span><br><span class="line">&gt; show dbs;</span><br><span class="line">admin  0.000GB</span><br><span class="line">local  0.000GB</span><br><span class="line">&gt; use admin;</span><br><span class="line">switched to db admin</span><br><span class="line">&gt; db.createUser(</span><br><span class="line">  &#123;</span><br><span class="line">    user: &quot;mongoRoot&quot;,</span><br><span class="line">    pwd: &quot;mongoRootPassword&quot;,</span><br><span class="line">    roles: [ &#123; role: &quot;userAdminAnyDatabase&quot;, db: &quot;admin&quot; &#125; ]</span><br><span class="line">  &#125;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">Successfully added user: &#123;</span><br><span class="line">        &quot;user&quot; : &quot;mongoRoot&quot;,</span><br><span class="line">        &quot;roles&quot; : [</span><br><span class="line">                &#123;</span><br><span class="line">                        &quot;role&quot; : &quot;userAdminAnyDatabase&quot;,</span><br><span class="line">                        &quot;db&quot; : &quot;admin&quot;</span><br><span class="line">                &#125;</span><br><span class="line">        ]</span><br><span class="line">&#125;</span><br><span class="line">&gt; exit;</span><br></pre></td></tr></table></figure></p>
+<h1 id="重启-mongodb-数据库"><a href="#重启-mongodb-数据库" class="headerlink" title="重启 mongodb 数据库"></a>重启 mongodb 数据库</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@192 ~]# service mongod restart</span><br><span class="line">Redirecting to /bin/systemctl restart mongod.service</span><br><span class="line">[root@192 ~]#</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>service 是 CentOS 7 以前的命令，新的命令是 systemctl，旧命令还能执行，应该是为了兼容，或者说是照顾 CentOS7 以前的用户。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@192 ~]# systemctl restart mongod.service</span><br><span class="line">[root@192 ~]#</span><br></pre></td></tr></table></figure>
+<p>开启认证之后，再用 mongo 进入 mongo shell，需要先认证才能执行管理命令。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">[root@192 ~]# mongo</span><br><span class="line">MongoDB shell version v3.4.9</span><br><span class="line">connecting to: mongodb://127.0.0.1:27017</span><br><span class="line">MongoDB server version: 3.4.9</span><br><span class="line">&gt; show dbs;</span><br><span class="line">2017-10-06T00:13:40.276+0800 E QUERY    [thread1] Error: listDatabases failed:&#123;</span><br><span class="line">        &quot;ok&quot; : 0,</span><br><span class="line">        &quot;errmsg&quot; : &quot;not authorized on admin to execute command &#123; listDatabases: 1.0 &#125;&quot;,</span><br><span class="line">        &quot;code&quot; : 13,</span><br><span class="line">        &quot;codeName&quot; : &quot;Unauthorized&quot;</span><br><span class="line">&#125; :</span><br><span class="line">_getErrorWithCode@src/mongo/shell/utils.js:25:13</span><br><span class="line">Mongo.prototype.getDBs@src/mongo/shell/mongo.js:62:1</span><br><span class="line">shellHelper.show@src/mongo/shell/utils.js:769:19</span><br><span class="line">shellHelper@src/mongo/shell/utils.js:659:15</span><br><span class="line">@(shellhelp2):1:1</span><br><span class="line">&gt; use admin</span><br><span class="line">switched to db admin</span><br><span class="line">&gt; db.auth(&quot;mongoRoot&quot;, &quot;mongoRootPassword&quot;)</span><br><span class="line">1</span><br><span class="line">&gt; show dbs</span><br><span class="line">admin  0.000GB</span><br><span class="line">local  0.000GB</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure></p>
+<h1 id="创建数据库"><a href="#创建数据库" class="headerlink" title="创建数据库"></a>创建数据库</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">&gt; use myDB</span><br><span class="line">switched to db myDB</span><br><span class="line">&gt; db.createUser(</span><br><span class="line">  &#123;</span><br><span class="line">    user: &quot;myDBRoot&quot;,</span><br><span class="line">    pwd: &quot;myDBRootPassword&quot;,</span><br><span class="line">    roles: [ &#123; role: &quot;dbAdmin&quot;, db: &quot;myDB&quot; &#125; ]</span><br><span class="line">  &#125;</span><br><span class="line">)</span><br><span class="line">Successfully added user: &#123;</span><br><span class="line">        &quot;user&quot; : &quot;myDBRoot&quot;,</span><br><span class="line">        &quot;roles&quot; : [</span><br><span class="line">                &#123;</span><br><span class="line">                        &quot;role&quot; : &quot;dbAdmin&quot;,</span><br><span class="line">                        &quot;db&quot; : &quot;myDB&quot;</span><br><span class="line">                &#125;</span><br><span class="line">        ]</span><br><span class="line">&#125;</span><br><span class="line">&gt; db.auth(&quot;myDBRoot&quot;, &quot;myDBRootPassword&quot;)</span><br><span class="line">1</span><br><span class="line">&gt; db.createCollection(myDBCollection)</span><br><span class="line">2017-10-06T00:43:44.050+0800 E QUERY    [thread1] ReferenceError: myDBCollection is not defined :</span><br><span class="line">@(shell):1:1</span><br><span class="line">&gt; db.createCollection(&quot;myDBCollection&quot;)</span><br><span class="line">&#123; &quot;ok&quot; : 1 &#125;</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+<p>创建超级管理员及普通的用户，修改用户密码。注意一点，帐号是跟着库走的，所以在指定库里授权，必须也在指定库里验证(auth)。</p>
+<h1 id="常用角色"><a href="#常用角色" class="headerlink" title="常用角色"></a>常用角色</h1><table>
+<thead>
+<tr>
+<th>角色</th>
+<th>角色说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Read</td>
+<td>允许用户读取指定数据库。</td>
+</tr>
+<tr>
+<td>readWrite</td>
+<td>允许用户读写指定数据库。</td>
+</tr>
+<tr>
+<td>dbAdmin</td>
+<td>允许用户在指定数据库中执行管理函数，如索引创建、删除，查看统计或访问system.profile。</td>
+</tr>
+<tr>
+<td>userAdmin</td>
+<td>允许用户向system.users集合写入，可以找指定数据库里创建、删除和管理用户。</td>
+</tr>
+<tr>
+<td>clusterAdmin</td>
+<td>只在admin数据库中可用，赋予用户所有分片和复制集相关函数的管理权限。</td>
+</tr>
+<tr>
+<td>readAnyDatabase</td>
+<td>只在admin数据库中可用，赋予用户所有数据库的读权限。</td>
+</tr>
+<tr>
+<td>readWriteAnyDatabase</td>
+<td>只在admin数据库中可用，赋予用户所有数据库的读写权限。</td>
+</tr>
+<tr>
+<td>userAdminAnyDatabase</td>
+<td>只在admin数据库中可用，赋予用户所有数据库的userAdmin权限。</td>
+</tr>
+<tr>
+<td>dbAdminAnyDatabase</td>
+<td>只在admin数据库中可用，赋予用户所有数据库的dbAdmin权限。</td>
+</tr>
+<tr>
+<td>root</td>
+<td>只在admin数据库中可用。超级账号，超级权限。</td>
+</tr>
+</tbody>
+</table>
+<h1 id="IDEA-插件方式连接-MongoDB"><a href="#IDEA-插件方式连接-MongoDB" class="headerlink" title="IDEA 插件方式连接 MongoDB"></a>IDEA 插件方式连接 MongoDB</h1><h2 id="超时才返回错误信息"><a href="#超时才返回错误信息" class="headerlink" title="超时才返回错误信息"></a>超时才返回错误信息</h2><p>认证方式没有选最后一项，即：SCRAM-SHA-1，报错，前面两项都报错，而且需要超时才报错。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">com.mongodb.MongoTimeoutException: Timed out after 30000 ms while waiting for a server that matches ReadPreferenceServerSelector&#123;readPreference=primary&#125;. Client view of cluster state is &#123;type=UNKNOWN, servers=[&#123;address=192.168.1.18:27017, type=UNKNOWN, state=CONNECTING, exception=&#123;com.mongodb.MongoSecurityException: Exception authenticating MongoCredential&#123;mechanism=PLAIN, userName=&apos;myDBRoot&apos;, source=&apos;myDB&apos;, password=&lt;hidden&gt;, mechanismProperties=&#123;&#125;&#125;&#125;, caused by &#123;com.mongodb.MongoCommandException: Command failed with error 2: &apos;Unsupported mechanism PLAIN&apos; on server 192.168.1.18:27017. The full response is &#123; &quot;supportedMechanisms&quot; : [&quot;MONGODB-CR&quot;, &quot;MONGODB-X509&quot;, &quot;SCRAM-SHA-1&quot;], &quot;ok&quot; : 0.0, &quot;errmsg&quot; : &quot;Unsupported mechanism PLAIN&quot;, &quot;code&quot; : 2, &quot;codeName&quot; : &quot;BadValue&quot; &#125;&#125;&#125;]</span><br></pre></td></tr></table></figure></p>
+<h2 id="立即返回错误信息"><a href="#立即返回错误信息" class="headerlink" title="立即返回错误信息"></a>立即返回错误信息</h2><p>认证方式选：SCRAM-SHA-1，如果用户名输入错误，会立即，注意，是立即返回错误信息。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">com.mongodb.MongoCommandException: Command failed with error 13: &apos;not authorized on myDBmyDB to execute command &#123; listCollections: 1, cursor: &#123; batchSize: 0 &#125; &#125;&apos; on server 192.168.1.18:27017. The full response is &#123; &quot;ok&quot; : 0.0, &quot;errmsg&quot; : &quot;not authorized on myDBmyDB to execute command &#123; listCollections: 1, cursor: &#123; batchSize: 0 &#125; &#125;&quot;, &quot;code&quot; : 13, &quot;codeName&quot; : &quot;Unauthorized&quot; &#125;</span><br></pre></td></tr></table></figure></p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-09-01T02:53:12.916Z" itemprop="dateUpdated">2020年9月1日 10:53</time>
+</span><br>
+
+
+        转载请注明出处：<a href="/database/centOS7MongoDB.html" target="_blank" rel="external">https://www.lovesofttech.com/database/centOS7MongoDB.html</a>
+    </div>
+    <footer>
+        <a href="https://www.lovesofttech.com">
+            <img src="/img/myLogo.jpg" alt="安迪陈">
+            安迪陈
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CentOS/">CentOS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MongoDB/">MongoDB</a></li></ul>
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/database/centOS7MongoDB.html&title=《CentOS7 下 安装配置 MongoDB》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/database/centOS7MongoDB.html&title=《CentOS7 下 安装配置 MongoDB》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=介绍安装、远程连接以及基本操作。" data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/database/centOS7MongoDB.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《CentOS7 下 安装配置 MongoDB》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/database/centOS7MongoDB.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/database/centOS7MongoDB.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/general/markdown.html" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">MarkDown 使用经验</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/general/centOS7HexoBlog.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">CentOS 7.5 通过源码自动发布 hexo 博客</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+    
+    
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="bottom">
+        <p>
+            <span>安迪陈技术日志，架构、感悟、系统分析、团队管理 &copy; 2017 - 2020</span>
+            <span>
+                Power by <a href="https://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>&nbsp;
+                Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank" rel="external nofollow noopener noreferrer">indigo</a>
+            </span>
+            <span>
+                <a href="http://www.beian.miit.gov.cn" target="_blank" rel="external nofollow noopener noreferrer">蜀ICP备17041860号</a>
+            </span>
+            
+            <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            </p><p>
+                <span>
+                    统计始于：2019-03-06
+                </span>
+                <span id="busuanzi_container_site_uv" style="display:none">
+                    访客数：<span id="busuanzi_value_site_uv"></span>
+                </span>
+                <span id="busuanzi_container_site_pv" style="display:none">
+                    访问量：<span id="busuanzi_value_site_pv"></span>
+                </span>
+            
+            
+                <span class="post-count">累计字数：309.2k</span>
+            
+                <span><a href="/general/blogLog.html"><i class="fas fa-pen-alt"></i>&nbsp;博客日志</a></span>
+            </p>
+        <p></p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light" title="回到顶部"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/database/centOS7MongoDB.html&title=《CentOS7 下 安装配置 MongoDB》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/database/centOS7MongoDB.html&title=《CentOS7 下 安装配置 MongoDB》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=介绍安装、远程连接以及基本操作。" data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/database/centOS7MongoDB.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《CentOS7 下 安装配置 MongoDB》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/database/centOS7MongoDB.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/database/centOS7MongoDB.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACK0lEQVR42u3ay47CMBBEUf7/p4PECgniVFUbFLevVxHMGJ8sWu7H4yGv47Xenz8/0ff5XGc7T14wYMBYlnEM19nfjH9Y+WT8mvSzwYABYx+GHmQzXgZWzgYDBgwY9YDo8mDAgAFjFqPy7Y0CLgwYMJZi6EHTPYRSRNOvnhNycRgwYCzIyBoD/3n+eX8DBgwYt2cc5sqCo1vIs08FAwaM1gzlWFnEc0Nq9lv2IWDAgLEsY26hTUlxK01TAw8DBowWjHqIrB+r3hCFAQPGboxxcKw/ZyH4ggQDBozWjFKKaKajyp7KQY30FQYMGI0YbohUjuW2FrJRsy+NARgwYDRluAExuw5mA172q4QBA0Y7xjix1FNZvfHphm97ZgQGDBhNGe52sxoA0xqoMGDAaM1w08VsgMwN0Pr1EQYMGPswjL7BpLJ+NqghBW4YMGBswFASWresll063f1hwIDRlaFs4YZU5RVk4fWiBwsDBoymDHdIIrsguuV+/STSACsMGDAWZ7hDDzpAD5SVUTAYMGDsxnBLZnpBLRuzsDuxMGDAaMrI/qGS4mYYIzGGAQNGO8ZhrqzEX09xL140DBgwWjPcIppbmHMbk/rVMxwQgQEDxrKMrExfajHKyaqRxMKAAWMDhpv16sFU4WVJrPQFDBgwNmPoR1EamRXq6YwbDBgwYJgDE8o4hVuGgwEDxs6MLIlVwmulnaC3K2DAgNGbUSmH1Rl6I7MEgAEDxqqMJ0fC/vVoks17AAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.5.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.5.2" async></script>
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '安迪陈技术日志';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '欢迎回来';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

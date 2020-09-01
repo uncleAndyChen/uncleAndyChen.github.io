@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<!--<script async src="//hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c"></script>-->
+<!-- 统计-->
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var host = window.location.host;
+        var hm = document.createElement("script");
+
+        if (host.indexOf('gitee.io') > 0) { // https://uncleandychen.gitee.io/
+            hm.src = "https://hm.baidu.com/hm.js?0cf4709148b070b8082191d2e456a1a3";
+        } else if (host.indexOf('lovesofttech.com') > 0) { // https://www.lovesofttech.com/
+            hm.src = "https://hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c";
+        } else {
+            hm.src = '';
+        }
+
+        if (hm.src !== '') {
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        }
+    })();
+</script>
+<!-- End Baidu Tongji -->
+
+
+
+<!-- Baidu Push -->
+<!-- 主动推送百度爬虫-->
+<script>
+    (function(){
+        if (window.location.host.indexOf('lovesofttech.com') < 0) {
+            return;
+        }
+
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+<!-- End Baidu Push -->
+
+
+    <meta charset="utf-8">
+    
+    
+    <link rel="canonical" href="https://www.lovesofttech.com/linux/centOS7Elasticsearch.html">
+    
+    
+    <title>CentOS 7 配置 ElasticSearch-6.4.1 | 安迪陈技术日志，架构、感悟、系统分析、团队管理 | 自强不息，厚德载物</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="CentOS,ElasticSearch">
+    <meta name="description" content="如题">
+<meta name="keywords" content="CentOS,ElasticSearch">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CentOS 7 配置 ElasticSearch-6.4.1">
+<meta property="og:url" content="https://www.lovesofttech.com/linux/centOS7Elasticsearch.html">
+<meta property="og:site_name" content="安迪陈技术日志，架构、感悟、系统分析、团队管理">
+<meta property="og:description" content="如题">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2020-09-01T02:53:13.019Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CentOS 7 配置 ElasticSearch-6.4.1">
+<meta name="twitter:description" content="如题">
+    
+        <link rel="alternative" href="/atom.xml" title="安迪陈技术日志，架构、感悟、系统分析、团队管理" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=201912302211">
+    <link rel="stylesheet" href="/css/header.css?v=201912302211">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu">
+  <div class="inner flex-row-vertical">
+    <!--<i class="icon icon-lg icon-close"></i>-->
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off" title="隐藏左侧导航">﹤<i class="icon icon-lg icon-navicon"></i></a>
+    <div class="brand-wrap" style="background-image:url(/img/bannerBackgroundLeft.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/myLogo.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">安迪陈</h5>
+          <a href="mailto:andy@lovesofttech.com" title="andy@lovesofttech.com" class="mail" rel="external nofollow noopener noreferrer" target="_blank">andy@lovesofttech.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articleClassify.html">
+                <i class="icon icon-th-list"></i>
+                文章分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articles.html">
+                <i class="icon icon-th-list articles"></i>
+                文章列表
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/java.html">
+                <i class="icon icon-th-list java"></i>
+                Java
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/database.html">
+                <i class="icon icon-th-list database"></i>
+                MySQL/MyBatis
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/linux.html">
+                <i class="icon icon-th-list linux"></i>
+                CentOS/linux
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/react.html">
+                <i class="icon icon-th-list React"></i>
+                React
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/lnmp.html">
+                <i class="icon icon-th-list LNMP"></i>
+                LNMP
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/git.html">
+                <i class="icon icon-th-list git"></i>
+                git
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/windows.html">
+                <i class="icon icon-th-list windows"></i>
+                windows
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/dailyLives.html">
+                <i class="icon icon-th-list dailyLives"></i>
+                工作 &amp; 生活
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-github"></i>
+                我的 github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://gitee.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link"></i>
+                我的 gitee
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://blog.csdn.net/runAndRun" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link CSDN"></i>
+                我的 CSDN
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/aboutMe.html">
+                <i class="icon icon-address-card"></i>
+                关于我
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+
+        <div class="navbar navbar-custom navbar-fixed-top">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" style="margin-left:10px;" id="menu-toggle" title="显示左侧导航"><i class="icon icon-lg icon-navicon"></i>﹥</a>
+            <ul class="nav navbar-nav navbar-right" id="navMenuTop">
+                <li>
+                    <a href="/">主页</a>
+                </li>
+                
+                    
+                        <li>
+                            <a href="/articleClassify.html" title="本博客的文章分类列表">文章分类</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/articles.html" title="本博客的所有文章列表">文章列表</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/java.html" title="Java 开发，文章目录">Java</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/database.html" title="日常开发中有关 MySQL、MyBatis 的一些经验总结">MySQL/MyBatis</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/linux.html" title="CentOS/linux，文章目录">CentOS/linux</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/react.html" title="React 技术栈（全家桶）学习心得分享，文章目录">React</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/about.html">关于</a>
+                        </li>
+                    
+                
+            </ul>
+        </div>
+
+        <div class="flex-col header-title ellipsis">CentOS 7 配置 ElasticSearch-6.4.1</div>
+        
+        <div class="search-wrap" id="search-wrap" style="z-index: 2;">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back" style="width:33px;">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search" style="width:33px;">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare" style="z-index: 3;margin-right: 10px; width:30px;">
+                <i class="icon icon-lg icon-share-alt"></i>
+            </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h2 class="title">CentOS 7 配置 ElasticSearch-6.4.1</h2>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-10-01T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2018-10-02
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/CentOS/">CentOS</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/CentOS/ElasticSearch/">ElasticSearch</a></li></ul></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap" id="index-container">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc" style="z-index: 3;">
+            <h4><i class="fa fa-list-alt"></i>&nbsp;&nbsp;本文目录</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#安装"><span class="post-toc-number">1.</span> <span class="post-toc-text">安装</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#以-utomcat-的身份配置和启动-ElasticSearch"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">以 utomcat 的身份配置和启动 ElasticSearch</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#下载"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">下载</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#安装、配置"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">安装、配置</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#普通启动"><span class="post-toc-number">2.</span> <span class="post-toc-text">普通启动</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#后台启动"><span class="post-toc-number">3.</span> <span class="post-toc-text">后台启动</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#重启"><span class="post-toc-number">4.</span> <span class="post-toc-text">重启</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#启动报错"><span class="post-toc-number">4.1.</span> <span class="post-toc-text">启动报错</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#解决"><span class="post-toc-number">4.2.</span> <span class="post-toc-text">解决</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#设置开机启动"><span class="post-toc-number">5.</span> <span class="post-toc-text">设置开机启动</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#创建脚本文件"><span class="post-toc-number">5.1.</span> <span class="post-toc-text">创建脚本文件</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#设置文件执行权限以及开机启动"><span class="post-toc-number">5.2.</span> <span class="post-toc-text">设置文件执行权限以及开机启动</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Kibana"><span class="post-toc-number">6.</span> <span class="post-toc-text">Kibana</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#下载安装"><span class="post-toc-number">6.1.</span> <span class="post-toc-text">下载安装</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#打开-web-端"><span class="post-toc-number">6.2.</span> <span class="post-toc-text">打开 web 端</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Head-插件"><span class="post-toc-number">7.</span> <span class="post-toc-text">Head 插件</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#修改连接-elasticsearch-服务-url-默认值"><span class="post-toc-number">7.1.</span> <span class="post-toc-text">修改连接 elasticsearch 服务 url 默认值</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#开机启动该插件"><span class="post-toc-number">7.2.</span> <span class="post-toc-text">开机启动该插件</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#经验，踩坑记"><span class="post-toc-number">7.3.</span> <span class="post-toc-text">经验，踩坑记</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#IK-分词器插件"><span class="post-toc-number">8.</span> <span class="post-toc-text">IK 分词器插件</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#自定义词典，这个很重要"><span class="post-toc-number">8.1.</span> <span class="post-toc-text">自定义词典，这个很重要</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#参数：ik-max-word"><span class="post-toc-number">8.2.</span> <span class="post-toc-text">参数：ik_max_word</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#参数：ik-smart"><span class="post-toc-number">8.3.</span> <span class="post-toc-text">参数：ik_smart</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#核心概念"><span class="post-toc-number">9.</span> <span class="post-toc-text">核心概念</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#关于-Type-将会在-7-X-中弃用的原因"><span class="post-toc-number">9.1.</span> <span class="post-toc-text">关于 Type 将会在 7.X 中弃用的原因</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#移除原因，翻译："><span class="post-toc-number">9.1.1.</span> <span class="post-toc-text">移除原因，翻译：</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#创建索引"><span class="post-toc-number">10.</span> <span class="post-toc-text">创建索引</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#查询所有索引列表"><span class="post-toc-number">11.</span> <span class="post-toc-text">查询所有索引列表</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#检测集群是否健康"><span class="post-toc-number">12.</span> <span class="post-toc-text">检测集群是否健康</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#获取集群的节点列表"><span class="post-toc-number">13.</span> <span class="post-toc-text">获取集群的节点列表</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#ElasticSearch-通过-kibana-简单操作"><span class="post-toc-number">14.</span> <span class="post-toc-text">ElasticSearch 通过 kibana 简单操作</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#查询"><span class="post-toc-number">15.</span> <span class="post-toc-text">查询</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#ElasticSearch-默认不允许以-root-身份启动，建议创建一个专门的用户来运行"><span class="post-toc-number">16.</span> <span class="post-toc-text">ElasticSearch 默认不允许以 root 身份启动，建议创建一个专门的用户来运行</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#通过-Kibana-的-Dev-Tools-搜索"><span class="post-toc-number">17.</span> <span class="post-toc-text">通过 Kibana 的 Dev Tools 搜索</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#completion-类型的字段保存问题"><span class="post-toc-number">18.</span> <span class="post-toc-text">completion 类型的字段保存问题</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#todo"><span class="post-toc-number">19.</span> <span class="post-toc-text">todo</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#查看内存、磁盘占用情况"><span class="post-toc-number">20.</span> <span class="post-toc-text">查看内存、磁盘占用情况</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#控制分析器-search-analyzer、analyzer"><span class="post-toc-number">21.</span> <span class="post-toc-text">控制分析器 search_analyzer、analyzer</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#数据类型"><span class="post-toc-number">22.</span> <span class="post-toc-text">数据类型</span></a></li></ol>
+        </nav>
+    </aside>
+    
+
+<article id="post-linux/centOS7Elasticsearch" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">CentOS 7 配置 ElasticSearch-6.4.1</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018年10月02日 0:00" datetime="2018-10-01T16:00:00.000Z" itemprop="datePublished">2018-10-02</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/CentOS/">CentOS</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/CentOS/ElasticSearch/">ElasticSearch</a></li></ul></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" style="display:none">
+    阅读量：<span id="busuanzi_value_page_pv"></span>次
+</span>
+
+
+    <span>|</span>
+    <span class="post-count">字数：6.1k</span>
+    <span>|</span>
+    <span class="post-count">阅读时长：大约29分钟</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>如题<br><a id="more"></a></p>
+<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><h2 id="以-utomcat-的身份配置和启动-ElasticSearch"><a href="#以-utomcat-的身份配置和启动-ElasticSearch" class="headerlink" title="以 utomcat 的身份配置和启动 ElasticSearch"></a>以 utomcat 的身份配置和启动 ElasticSearch</h2><p>建议不要以 root 启动，存在不安全因素。</p>
+<p>以下，以 utomcat 用户操作，最终会以 utomcat 的身份来启动 ElasticSearch。</p>
+<h2 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h2><p><a href="https://www.elastic.co/downloads/elasticsearch" rel="external nofollow noopener noreferrer" target="_blank">下载页面，该页面可下载的是最新版</a><br>以 utomcat 的身份操作<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.4.1.tar.gz</span><br><span class="line">tar -xzvf elasticsearch-6.4.1.tar.gz</span><br><span class="line"></span><br><span class="line">mkdir -p /home/utomcat/apps/es/data</span><br><span class="line">mkdir -p /home/utomcat/apps/es/logs</span><br></pre></td></tr></table></figure></p>
+<h2 id="安装、配置"><a href="#安装、配置" class="headerlink" title="安装、配置"></a>安装、配置</h2><p>以 root 用户操作<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mv /home/utomcat/soft/elasticsearch-6.4.1 /opt/</span><br></pre></td></tr></table></figure></p>
+<p>以 utomcat 操作<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /opt/elasticsearch-6.4.1/</span><br><span class="line">vim config/elasticsearch.yml</span><br></pre></td></tr></table></figure></p>
+<p>增加以下项<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">cluster.name: hjz-es-cluster</span><br><span class="line">node.name: hjz-es</span><br><span class="line">path.data: /home/utomcat/apps/es/data</span><br><span class="line">path.logs: /home/utomcat/apps/es/logs</span><br><span class="line"></span><br><span class="line"># 以下参数，建议在生产环境设置成局域网 IP，不建议在公网上可访问</span><br><span class="line">network.host: 192.168.1.91</span><br><span class="line"></span><br><span class="line"># 以下参数是为了让 head 插件可以远程访问 ElasticSearch。</span><br><span class="line"># 为了安全性，不建议在生产环境设置这两个参数。</span><br><span class="line">http.cors.enabled: true</span><br><span class="line">http.cors.allow-origin: &quot;*&quot;</span><br></pre></td></tr></table></figure></p>
+<h1 id="普通启动"><a href="#普通启动" class="headerlink" title="普通启动"></a>普通启动</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/opt/elasticsearch-6.4.1/bin/elasticsearch</span><br></pre></td></tr></table></figure>
+<h1 id="后台启动"><a href="#后台启动" class="headerlink" title="后台启动"></a>后台启动</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/opt/elasticsearch-6.4.1/bin/elasticsearch -d</span><br></pre></td></tr></table></figure>
+<h1 id="重启"><a href="#重启" class="headerlink" title="重启"></a>重启</h1><ol>
+<li><p>重启之前先用 jps 查看 Elasticsearch 进程号。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@centOS7BasicForTest analysis-ik]# jps</span><br><span class="line">3904 Bootstrap</span><br><span class="line">3969 Bootstrap</span><br><span class="line">1190 jenkins.war</span><br><span class="line">1912 Bootstrap</span><br><span class="line">4745 Jps</span><br><span class="line">1467 Bootstrap</span><br><span class="line">1375 Elasticsearch</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>杀死进程，再重新启动</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@centOS7BasicForTest analysis-ik]# kill -9 1375</span><br><span class="line">[root@centOS7BasicForTest analysis-ik]# /opt/elasticsearch-6.4.1/bin/elasticsearch -d</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="启动报错"><a href="#启动报错" class="headerlink" title="启动报错"></a>启动报错</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ERROR: [2] bootstrap checks failed</span><br><span class="line">[1]: max file descriptors [4096] for elasticsearch process is too low, increase to at least [65536]</span><br><span class="line">[2]: max virtual memory areas vm.max_map_count [65530] is too low, increase to at least [262144]</span><br></pre></td></tr></table></figure>
+<h2 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h2><p>以下以 root 身份操作<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/security/limits.conf</span><br><span class="line"># 添加下面两行，其中 utomcat 是启动 es 的用户名</span><br><span class="line">utomcat soft nofile 65536</span><br><span class="line">utomcat hard nofile 65536</span><br></pre></td></tr></table></figure></p>
+<p>utomcat 账户退出客户端之后，再次登录，ulimit -Hn 查看硬限制，将会看到修改过的数字：65536，之前是 4096<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[utomcat@centOS7BasicForTest ~]$ ulimit -Hn</span><br><span class="line">65536</span><br></pre></td></tr></table></figure></p>
+<p>接着以 root 身份修改 sysctl.conf<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/sysctl.conf</span><br><span class="line"># 添加如下配置</span><br><span class="line">vm.max_map_count=262144</span><br></pre></td></tr></table></figure></p>
+<p>用命令 <code>sysctl -p</code> 使修改生效</p>
+<p>再次启动<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">/opt/elasticsearch-6.4.1/bin/elasticsearch</span><br><span class="line">...</span><br><span class="line">T19:09:42,482][INFO ][o.e.t.TransportService   ] [hjz-es] publish_address &#123;192.168.1.91:9300&#125;, bound_addresses &#123;[::]:9300&#125;</span><br><span class="line">[2018-09-13T19:09:42,490][INFO ][o.e.b.BootstrapChecks    ] [hjz-es] bound or publishing to a non-loopback address, enforcing bootstrap checks</span><br><span class="line">[2018-09-13T19:09:45,528][INFO ][o.e.c.s.MasterService    ] [hjz-es] zen-disco-elected-as-master ([0] nodes joined)[, ], reason: new_master &#123;hjz-es&#125;&#123;wJZDvKN9Q7WuzLjIHF6gXg&#125;&#123;I5y067JPS0iJC2c65UxnrA&#125;&#123;192.168.1.91&#125;&#123;192.168.1.91:9300&#125;&#123;ml.machine_memory=8067002368, xpack.installed=true, ml.max_open_jobs=20, ml.enabled=true&#125;</span><br><span class="line">[2018-09-13T19:09:45,531][INFO ][o.e.c.s.ClusterApplierService] [hjz-es] new_master &#123;hjz-es&#125;&#123;wJZDvKN9Q7WuzLjIHF6gXg&#125;&#123;I5y067JPS0iJC2c65UxnrA&#125;&#123;192.168.1.91&#125;&#123;192.168.1.91:9300&#125;&#123;ml.machine_memory=8067002368, xpack.installed=true, ml.max_open_jobs=20, ml.enabled=true&#125;, reason: apply cluster state (from master [master &#123;hjz-es&#125;&#123;wJZDvKN9Q7WuzLjIHF6gXg&#125;&#123;I5y067JPS0iJC2c65UxnrA&#125;&#123;192.168.1.91&#125;&#123;192.168.1.91:9300&#125;&#123;ml.machine_memory=8067002368, xpack.installed=true, ml.max_open_jobs=20, ml.enabled=true&#125; committed version [1] source [zen-disco-elected-as-master ([0] nodes joined)[, ]]])</span><br><span class="line">[2018-09-13T19:09:45,542][INFO ][o.e.x.s.t.n.SecurityNetty4HttpServerTransport] [hjz-es] publish_address &#123;192.168.1.91:9200&#125;, bound_addresses &#123;[::]:9200&#125;</span><br><span class="line">[2018-09-13T19:09:45,542][INFO ][o.e.n.Node               ] [hjz-es] started</span><br><span class="line">...</span><br></pre></td></tr></table></figure></p>
+<p>访问：192.168.1.91:9200<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;name&quot; : &quot;hjz-es&quot;,</span><br><span class="line">  &quot;cluster_name&quot; : &quot;elasticsearch&quot;,</span><br><span class="line">  &quot;cluster_uuid&quot; : &quot;En8MsMWqRx-KEuL20eqN0A&quot;,</span><br><span class="line">  &quot;version&quot; : &#123;</span><br><span class="line">    &quot;number&quot; : &quot;6.4.1&quot;,</span><br><span class="line">    &quot;build_flavor&quot; : &quot;default&quot;,</span><br><span class="line">    &quot;build_type&quot; : &quot;tar&quot;,</span><br><span class="line">    &quot;build_hash&quot; : &quot;595516e&quot;,</span><br><span class="line">    &quot;build_date&quot; : &quot;2018-08-17T23:18:47.308994Z&quot;,</span><br><span class="line">    &quot;build_snapshot&quot; : false,</span><br><span class="line">    &quot;lucene_version&quot; : &quot;7.4.0&quot;,</span><br><span class="line">    &quot;minimum_wire_compatibility_version&quot; : &quot;5.6.0&quot;,</span><br><span class="line">    &quot;minimum_index_compatibility_version&quot; : &quot;5.0.0&quot;</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;tagline&quot; : &quot;You Know, for Search&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这种启动方式，客户端关闭之后，就会停止，或者 Ctrl+C 也会停止<br>可以通过参数 -d 让 Elasticsearch 在后台运行。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">/opt/elasticsearch-6.4.1/bin/elasticsearch -d</span><br><span class="line"></span><br><span class="line">[utomcat@centOS7BasicForTest bin]$ jps</span><br><span class="line">4673 Jps</span><br><span class="line">1186 jenkins.war</span><br><span class="line">1426 Bootstrap</span><br><span class="line">4597 Elasticsearch</span><br><span class="line">1318 Bootstrap</span><br><span class="line">1400 Bootstrap</span><br><span class="line">1356 Bootstrap</span><br><span class="line">1277 Bootstrap</span><br><span class="line">[utomcat@centOS7BasicForTest bin]$ ps -ef|grep Elasticsearch</span><br><span class="line">utomcat   4597     1 38 19:17 pts/0    00:00:18 /usr/jdk1.8.0_171/bin/java -Xms1g -Xmx1g -XX:+UseConcMarkSweepGC -XX:CMSInitiatingOccupancyFraction=75 -XX:+UseCMSInitiatingOccupancyOnly -XX:+AlwaysPreTouch -Xss1m -Djava.awt.headless=true -Dfile.encoding=UTF-8 -Djna.nosys=true -XX:-OmitStackTraceInFastThrow -Dio.netty.noUnsafe=true -Dio.netty.noKeySetOptimization=true -Dio.netty.recycler.maxCapacityPerThread=0 -Dlog4j.shutdownHookEnabled=false -Dlog4j2.disable.jmx=true -Djava.io.tmpdir=/tmp/elasticsearch.w8x505kO -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=data -XX:ErrorFile=logs/hs_err_pid%p.log -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+PrintTenuringDistribution -XX:+PrintGCApplicationStoppedTime -Xloggc:logs/gc.log -XX:+UseGCLogFileRotation -XX:NumberOfGCLogFiles=32 -XX:GCLogFileSize=64m -Des.path.home=/opt/elasticsearch-6.4.1 -Des.path.conf=/opt/elasticsearch-6.4.1/config -Des.distribution.flavor=default -Des.distribution.type=tar -cp /opt/elasticsearch-6.4.1/lib/* org.elasticsearch.bootstrap.Elasticsearch -d</span><br><span class="line">utomcat   4690  4397  0 19:17 pts/0    00:00:00 grep --color=auto Elasticsearch</span><br><span class="line">[utomcat@centOS7BasicForTest bin]$</span><br></pre></td></tr></table></figure></p>
+<p>启动异常？<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@centOS7BasicForTest analysis-ik]# jps</span><br><span class="line">...</span><br><span class="line">1375 -- process information unavailable</span><br></pre></td></tr></table></figure></p>
+<p>因为以 utomcat 的身份启动，又以 root 的身份 kill，就会这样，过一会儿就好了。</p>
+<h1 id="设置开机启动"><a href="#设置开机启动" class="headerlink" title="设置开机启动"></a>设置开机启动</h1><h2 id="创建脚本文件"><a href="#创建脚本文件" class="headerlink" title="创建脚本文件"></a>创建脚本文件</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/init.d/elasticsearch</span><br></pre></td></tr></table></figure>
+<p>文件内容：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/sh</span><br><span class="line">#chkconfig: 2345 80 05</span><br><span class="line">#description: es</span><br><span class="line"></span><br><span class="line">source /etc/profile</span><br><span class="line"></span><br><span class="line">case $1 in</span><br><span class="line">start)</span><br><span class="line">    #下面的“&lt;&lt;!”是切换用户后，待执行的命令，执行完后使用“!”来进行结束</span><br><span class="line">    su utomcat&lt;&lt;!</span><br><span class="line">    cd /opt/elasticsearch-6.4.1/bin</span><br><span class="line">    ./elasticsearch -d</span><br><span class="line">!</span><br><span class="line">    #上面的“!”与上面的 &quot;!&quot; 对应起来，并且顶格，这是语法</span><br><span class="line">    # 或者，换成这种语法：su - utomcat -lc &quot;sh /opt/elasticsearch-6.4.0/bin/elasticsearch -d&quot;</span><br><span class="line">    echo &quot;elasticsearch startup&quot;</span><br><span class="line">    ;;</span><br><span class="line">stop)</span><br><span class="line">    es_pid=`ps aux|grep elasticsearch | grep -v &apos;grep elasticsearch&apos; | awk &apos;&#123;print $2&#125;&apos;`</span><br><span class="line">    kill -9 $es_pid</span><br><span class="line">    echo &quot;elasticsearch stopped&quot;</span><br><span class="line">    ;;</span><br><span class="line">restart)</span><br><span class="line">    #“grep -v”过滤掉本身的执行命令，获取准确的pid</span><br><span class="line">    es_pid=`ps aux|grep elasticsearch | grep -v &apos;grep elasticsearch&apos; | awk &apos;&#123;print $2&#125;&apos;`</span><br><span class="line">    kill -9 $es_pid</span><br><span class="line">    echo &quot;es stopped&quot;</span><br><span class="line">    su utomcat&lt;&lt;!</span><br><span class="line">    cd /opt/elasticsearch-6.4.1/bin</span><br><span class="line">    ./elasticsearch -d</span><br><span class="line">!</span><br><span class="line">    echo &quot;es startup&quot;</span><br><span class="line">    ;;</span><br><span class="line">*)</span><br><span class="line">    echo &quot;parameter error, usage:(start|stop|restart)&quot;</span><br><span class="line">    ;;</span><br><span class="line">esac</span><br></pre></td></tr></table></figure></p>
+<h2 id="设置文件执行权限以及开机启动"><a href="#设置文件执行权限以及开机启动" class="headerlink" title="设置文件执行权限以及开机启动"></a>设置文件执行权限以及开机启动</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">chmod +x /etc/init.d/elasticsearch</span><br><span class="line">chkconfig --add /etc/init.d/elasticsearch</span><br><span class="line">chkconfig elasticsearch on</span><br></pre></td></tr></table></figure>
+<h1 id="Kibana"><a href="#Kibana" class="headerlink" title="Kibana"></a>Kibana</h1><p><a href="https://www.elastic.co/guide/cn/kibana/current/introduction.html" rel="external nofollow noopener noreferrer" target="_blank">Kibana 用户手册</a><br>Kibana 是一款开源的数据分析和可视化平台，它是 Elastic Stack 成员之一，设计用于和 Elasticsearch 协作。您可以使用 Kibana 对 Elasticsearch 索引中的数据进行搜索、查看、交互操作。您可以很方便的利用图表、表格及地图对数据进行多元化的分析和呈现。<br>Kibana 可以使大数据通俗易懂。它很简单，基于浏览器的界面便于您快速创建和分享动态数据仪表板来追踪 Elasticsearch 的实时数据变化。<br>搭建 Kibana 非常简单。您可以分分钟完成 Kibana 的安装并开始探索 Elasticsearch 的索引数据 — 没有代码、不需要额外的基础设施。</p>
+<h2 id="下载安装"><a href="#下载安装" class="headerlink" title="下载安装"></a>下载安装</h2><p><a href="https://www.elastic.co/downloads/kibana" rel="external nofollow noopener noreferrer" target="_blank">下载页面</a><br>以 utomcat 身份操作<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://artifacts.elastic.co/downloads/kibana/kibana-6.4.1-linux-x86_64.tar.gz</span><br></pre></td></tr></table></figure></p>
+<p>以 root 身份操作<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mv /home/utomcat/soft/kibana-6.4.1-linux-x86_64 /opt/</span><br></pre></td></tr></table></figure></p>
+<p>以 utomcat 身份操作<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">cd /opt/kibana-6.4.1-linux-x86_64/ </span><br><span class="line">vim config/kibana.yml</span><br><span class="line"></span><br><span class="line"># 添加项</span><br><span class="line">server.host: &quot;192.168.1.91&quot;</span><br><span class="line">elasticsearch.url: http://192.168.1.91:9200</span><br></pre></td></tr></table></figure></p>
+<p>在后台启动<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nohup /opt/kibana-6.4.1-linux-x86_64/bin/kibana &amp;</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>关闭 shell 客户端之后，进程会被终止。</p>
+</blockquote>
+<p>查看进程 ID<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">netstat -anltp|grep 5601</span><br><span class="line">ps -ef|grep kibana</span><br><span class="line">ps -ef|grep node</span><br></pre></td></tr></table></figure></p>
+<h2 id="打开-web-端"><a href="#打开-web-端" class="headerlink" title="打开 web 端"></a>打开 web 端</h2><p><a href="http://192.168.1.91:5601" rel="external nofollow noopener noreferrer" target="_blank">http://192.168.1.91:5601</a></p>
+<h1 id="Head-插件"><a href="#Head-插件" class="headerlink" title="Head 插件"></a>Head 插件</h1><p><a href="https://github.com/mobz/elasticsearch-head/" rel="external nofollow noopener noreferrer" target="_blank">official github page</a><br>Running with built in server<br>git clone git://github.com/mobz/elasticsearch-head.git<br>cd elasticsearch-head<br>cnpm install<br>npm start<br>open <a href="http://localhost:9100/" rel="external nofollow noopener noreferrer" target="_blank">http://localhost:9100/</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[utomcat@centOS7BasicForTest elasticsearch-head]$ npm start</span><br><span class="line"></span><br><span class="line">&gt; elasticsearch-head@0.0.0 start /home/utomcat/soft/elasticsearch-head</span><br><span class="line">&gt; grunt server</span><br><span class="line"></span><br><span class="line">(node:5204) ExperimentalWarning: The http2 module is an experimental API.</span><br><span class="line">Running &quot;connect:server&quot; (connect) task</span><br><span class="line">Waiting forever...</span><br><span class="line">Started connect web server on http://localhost:9100</span><br></pre></td></tr></table></figure>
+<p>将 localhost 换成服务器的 IP:192.168.1.91 访问（<a href="http://192.168.1.91:9100）" rel="external nofollow noopener noreferrer" target="_blank">http://192.168.1.91:9100）</a></p>
+<h2 id="修改连接-elasticsearch-服务-url-默认值"><a href="#修改连接-elasticsearch-服务-url-默认值" class="headerlink" title="修改连接 elasticsearch 服务 url 默认值"></a>修改连接 elasticsearch 服务 url 默认值</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vim /home/utomcat/soft/elasticsearch-head/_site/app.js</span><br><span class="line"># 找到：this.base_uri = this.config.base_uri || this.prefs.get(&quot;app-base_uri&quot;) || &quot;http://localhost:9200&quot;，将 localhost 改为服务器 IP</span><br><span class="line">this.base_uri = this.config.base_uri || this.prefs.get(&quot;app-base_uri&quot;) || &quot;http://192.168.1.91:9200&quot;</span><br></pre></td></tr></table></figure>
+<h2 id="开机启动该插件"><a href="#开机启动该插件" class="headerlink" title="开机启动该插件"></a>开机启动该插件</h2><p>开机启动脚本<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/init.d/eshead</span><br><span class="line"></span><br><span class="line"># 内容如下</span><br><span class="line">#!/bin/sh</span><br><span class="line">source /etc/profile</span><br><span class="line"></span><br><span class="line">case $1 in</span><br><span class="line">start)</span><br><span class="line">    sh /home/utomcat/shell/es-head-start.sh;;</span><br><span class="line">stop)</span><br><span class="line">    echo &quot;please manual stop...&quot;;;</span><br><span class="line">*)</span><br><span class="line">    echo &quot;parameter error, usage:(start|stop)&quot;;;</span><br><span class="line">esac</span><br></pre></td></tr></table></figure></p>
+<p>添加启动脚本<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">vim /home/utomcat/shell/es-head-start.sh</span><br><span class="line"># 内容如下</span><br><span class="line">cd /home/utomcat/soft/elasticsearch-head/</span><br><span class="line">nohup npm run start &gt;/home/utomcat/soft/elasticsearch-head/nohup.out 2&gt;&amp;1 &amp;</span><br></pre></td></tr></table></figure></p>
+<p>赋执行权限<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">chmod +x /home/utomcat/shell/es-head-start.sh</span><br><span class="line">chmod +x /etc/init.d/eshead</span><br><span class="line"># 设置开机启动</span><br><span class="line">chkconfig --add /etc/init.d/eshead</span><br><span class="line">chkconfig eshead on</span><br></pre></td></tr></table></figure></p>
+<h2 id="经验，踩坑记"><a href="#经验，踩坑记" class="headerlink" title="经验，踩坑记"></a>经验，踩坑记</h2><p><code>chkconfig --add</code> 报错<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service eshead does not support chkconfig</span><br></pre></td></tr></table></figure></p>
+<p>需要在脚本中添加：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#chkconfig: 2345 80 05</span><br><span class="line">#description: es-head</span><br></pre></td></tr></table></figure></p>
+<p>启动时仍然出错<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[root@centOS7BasicForTest init.d]# systemctl start eshead</span><br><span class="line">Job for eshead.service failed because the control process exited with error code. See &quot;systemctl status eshead.service&quot; and &quot;journalctl -xe&quot; for details.</span><br><span class="line"></span><br><span class="line">[root@centOS7BasicForTest init.d]# journalctl -xe</span><br><span class="line">...</span><br><span class="line">Nov 26 18:14:53 centOS7BasicForTest systemd[1]: Starting SYSV: es-head...</span><br><span class="line">...</span><br><span class="line">Nov 26 18:14:53 centOS7BasicForTest eshead[2235]: /etc/rc.d/init.d/eshead: line 12: syntax error near unexpected token `)&apos;</span><br><span class="line">Nov 26 18:14:53 centOS7BasicForTest eshead[2235]: /etc/rc.d/init.d/eshead: line 12: `*)&apos;</span><br><span class="line">Nov 26 18:14:53 centOS7BasicForTest systemd[1]: eshead.service: control process exited, code=exited status=2</span><br></pre></td></tr></table></figure></p>
+<p>或者通过 <code>systemctl status eshead</code> 也可以查看记得情况<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Nov 26 18:22:49 centOS7BasicForTest systemd[1]: Starting SYSV: es-head...</span><br><span class="line">Nov 26 18:22:49 centOS7BasicForTest eshead[1213]: /etc/rc.d/init.d/eshead: line 10: syntax error near unexpected token `)&apos;</span><br><span class="line">Nov 26 18:22:49 centOS7BasicForTest eshead[1213]: /etc/rc.d/init.d/eshead: line 10: `stop)&apos;</span><br></pre></td></tr></table></figure></p>
+<p>原来是语法错误<br>下面的脚本后少了两个分号，也就是说，在 case 的每一个语句后面，都需要两个分号<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo &quot;please manual stop...&quot;</span><br></pre></td></tr></table></figure></p>
+<p>添加两个分号之后再次执行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@centOS7BasicForTest init.d]# systemctl start eshead</span><br><span class="line">Warning: eshead.service changed on disk. Run &apos;systemctl daemon-reload&apos; to reload units.</span><br><span class="line">[root@centOS7BasicForTest init.d]# systemctl daemon-reload</span><br><span class="line">[root@centOS7BasicForTest init.d]# systemctl start eshead</span><br></pre></td></tr></table></figure></p>
+<h1 id="IK-分词器插件"><a href="#IK-分词器插件" class="headerlink" title="IK 分词器插件"></a>IK 分词器插件</h1><p><a href="https://github.com/medcl/elasticsearch-analysis-ik/releases" rel="external nofollow noopener noreferrer" target="_blank">releases</a><br>wget <a href="https://github.com/medcl/elasticsearch-analysis-ik/releases/download/v6.4.1/elasticsearch-analysis-ik-6.4.1.zip" rel="external nofollow noopener noreferrer" target="_blank">https://github.com/medcl/elasticsearch-analysis-ik/releases/download/v6.4.1/elasticsearch-analysis-ik-6.4.1.zip</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">[utomcat@centOS7BasicForTest soft]$ /opt/elasticsearch-6.4.1/bin/elasticsearch-plugin install /home/utomcat/soft/elasticsearch-analysis-ik-6.4.1.zip</span><br><span class="line">A tool for managing installed elasticsearch plugins</span><br><span class="line"></span><br><span class="line">Commands</span><br><span class="line">--------</span><br><span class="line">list - Lists installed elasticsearch plugins</span><br><span class="line">install - Install a plugin</span><br><span class="line">remove - removes a plugin from Elasticsearch</span><br><span class="line"></span><br><span class="line">Non-option arguments:</span><br><span class="line">command              </span><br><span class="line"></span><br><span class="line">Option         Description        </span><br><span class="line">------         -----------        </span><br><span class="line">-h, --help     show help          </span><br><span class="line">-s, --silent   show minimal output</span><br><span class="line">-v, --verbose  show verbose output</span><br><span class="line">ERROR: Unknown plugin /home/utomcat/soft/elasticsearch-analysis-ik-6.4.1.zip</span><br></pre></td></tr></table></figure>
+<p>可以直接解压至 /opt/elasticsearch-6.4.1/plugins/ik 目录，然后重启 es。</p>
+<p>换在线安装方式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[utomcat@centOS7BasicForTest soft]$ /opt/elasticsearch-6.4.1/bin/elasticsearch-plugin install https://github.com/medcl/elasticsearch-analysis-ik/releases/download/v6.4.1/elasticsearch-analysis-ik-6.4.1.zip</span><br><span class="line">-&gt; Downloading https://github.com/medcl/elasticsearch-analysis-ik/releases/download/v6.4.1/elasticsearch-analysis-ik-6.4.1.zip</span><br><span class="line">[=================================================] 100%   </span><br><span class="line">@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@</span><br><span class="line">@     WARNING: plugin requires additional permissions     @</span><br><span class="line">@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@</span><br><span class="line">* java.net.SocketPermission * connect,resolve</span><br><span class="line">See http://docs.oracle.com/javase/8/docs/technotes/guides/security/permissions.html</span><br><span class="line">for descriptions of what these permissions allow and the associated risks.</span><br><span class="line"></span><br><span class="line">Continue with installation? [y/N]y</span><br><span class="line">-&gt; Installed analysis-ik</span><br></pre></td></tr></table></figure></p>
+<p>5.6.1 的在线安装<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[utomcat@AndyCentOS7Basic ~]$ /opt/elasticsearch-5.6.1/bin/elasticsearch-plugin install https://github.com/medcl/elasticsearch-analysis-ik/releases/download/v5.6.1/elasticsearch-analysis-ik-5.6.1.zip</span><br><span class="line">-&gt; Downloading https://github.com/medcl/elasticsearch-analysis-ik/releases/download/v5.6.1/elasticsearch-analysis-ik-5.6.1.zip</span><br><span class="line">[=================================================] 100%   </span><br><span class="line">-&gt; Installed analysis-ik</span><br></pre></td></tr></table></figure></p>
+<p>查看字典<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">ll /opt/elasticsearch-6.4.1/config/analysis-ik/</span><br><span class="line">-rw-rw---- 1 utomcat gtomcat 5225922 Sep 14 14:59 extra_main.dic</span><br><span class="line">-rw-rw---- 1 utomcat gtomcat   63188 Sep 14 14:59 extra_single_word.dic</span><br><span class="line">-rw-rw---- 1 utomcat gtomcat   63188 Sep 14 14:59 extra_single_word_full.dic</span><br><span class="line">-rw-rw---- 1 utomcat gtomcat   10855 Sep 14 14:59 extra_single_word_low_freq.dic</span><br><span class="line">-rw-rw---- 1 utomcat gtomcat     156 Sep 14 14:59 extra_stopword.dic</span><br><span class="line">-rw-rw---- 1 utomcat gtomcat     625 Sep 14 14:59 IKAnalyzer.cfg.xml</span><br><span class="line">-rw-rw---- 1 utomcat gtomcat 3058510 Sep 14 14:59 main.dic</span><br><span class="line">-rw-rw---- 1 utomcat gtomcat     123 Sep 14 14:59 preposition.dic</span><br><span class="line">-rw-rw---- 1 utomcat gtomcat    1824 Sep 14 14:59 quantifier.dic</span><br><span class="line">-rw-rw---- 1 utomcat gtomcat     164 Sep 14 14:59 stopword.dic</span><br><span class="line">-rw-rw---- 1 utomcat gtomcat     192 Sep 14 14:59 suffix.dic</span><br><span class="line">-rw-rw---- 1 utomcat gtomcat     752 Sep 14 14:59 surname.dic</span><br></pre></td></tr></table></figure></p>
+<h2 id="自定义词典，这个很重要"><a href="#自定义词典，这个很重要" class="headerlink" title="自定义词典，这个很重要"></a>自定义词典，这个很重要</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">cd /opt/elasticsearch-6.4.1/config/analysis-ik/</span><br><span class="line">mkdir custom</span><br><span class="line">vi custom/custom_word.dic</span><br><span class="line"># 根据业务添加自定义词组，在文件中添加词语即可， 每一个词语一行</span><br><span class="line">四中</span><br><span class="line">七中</span><br><span class="line">九中</span><br><span class="line">四系</span><br><span class="line">七系</span><br><span class="line">九系</span><br><span class="line">嘉祥</span><br><span class="line">师大</span><br><span class="line">德瑞</span><br><span class="line">嘉祥系</span><br><span class="line">师大系</span><br><span class="line">德瑞系</span><br><span class="line">成都</span><br><span class="line">锦江</span><br><span class="line">青羊</span><br><span class="line">金牛</span><br><span class="line">武侯</span><br><span class="line">成华</span><br><span class="line">龙泉驿</span><br><span class="line">青白江</span><br><span class="line">新都</span><br><span class="line">温江</span><br><span class="line">双流</span><br><span class="line">郫都</span><br><span class="line">郫县</span><br><span class="line">高新</span><br><span class="line">高新西</span><br><span class="line">天府新</span><br><span class="line">简阳</span><br><span class="line">锦江区</span><br><span class="line">青羊区</span><br><span class="line">金牛区</span><br><span class="line">武侯区</span><br><span class="line">成华区</span><br><span class="line">龙泉驿区</span><br><span class="line">青白江区</span><br><span class="line">新都区</span><br><span class="line">温江区</span><br><span class="line">双流县</span><br><span class="line">郫都区</span><br><span class="line">高新区</span><br><span class="line">高新西区</span><br><span class="line">天府新区</span><br><span class="line">简阳市</span><br></pre></td></tr></table></figure>
+<p>更新配置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">cd /opt/elasticsearch-6.4.1/config/analysis-ik/</span><br><span class="line">vim IKAnalyzer.cfg.xml</span><br><span class="line"></span><br><span class="line">&lt;!DOCTYPE properties SYSTEM &quot;http://java.sun.com/dtd/properties.dtd&quot;&gt;</span><br><span class="line">&lt;properties&gt;</span><br><span class="line">        &lt;comment&gt;IK Analyzer 扩展配置&lt;/comment&gt;</span><br><span class="line">        &lt;!--用户可以在这里配置自己的扩展字典 --&gt;</span><br><span class="line">        &lt;entry key=&quot;ext_dict&quot;&gt;custom/custom_word.dic&lt;/entry&gt;</span><br><span class="line">         &lt;!--用户可以在这里配置自己的扩展停止词字典--&gt;</span><br><span class="line">        &lt;entry key=&quot;ext_stopwords&quot;&gt;&lt;/entry&gt;</span><br><span class="line">        &lt;!--用户可以在这里配置远程扩展字典 --&gt;</span><br><span class="line">        &lt;!-- &lt;entry key=&quot;remote_ext_dict&quot;&gt;words_location&lt;/entry&gt; --&gt;</span><br><span class="line">        &lt;!--用户可以在这里配置远程扩展停止词字典--&gt;</span><br><span class="line">        &lt;!-- &lt;entry key=&quot;remote_ext_stopwords&quot;&gt;words_location&lt;/entry&gt; --&gt;</span><br><span class="line">&lt;/properties&gt;</span><br></pre></td></tr></table></figure></p>
+<p>手动重启，会在日志里看到这样一行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">... [Dict Loading] /opt/elasticsearch-6.4.1/config/analysis-ik/custom/custom_word.dic</span><br></pre></td></tr></table></figure></p>
+<p>说明已经加载自定义分词词组</p>
+<p><a href="https://blog.csdn.net/wulex/article/details/70888749" rel="external nofollow noopener noreferrer" target="_blank">热更新 IK 分词使用方法</a></p>
+<h2 id="参数：ik-max-word"><a href="#参数：ik-max-word" class="headerlink" title="参数：ik_max_word"></a>参数：ik_max_word</h2><p>会将文本做最细粒度的拆分，会根据已有词典，穷尽各种可能的组合。<br><a href="http://192.168.1.91:5601" rel="external nofollow noopener noreferrer" target="_blank">http://192.168.1.91:5601</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br></pre></td><td class="code"><pre><span class="line">GET _analyze?pretty</span><br><span class="line">&#123;</span><br><span class="line">  &quot;analyzer&quot;: &quot;ik_max_word&quot;,</span><br><span class="line">  &quot;text&quot;:&quot;中华人民共和国国歌&quot;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"># 结果</span><br><span class="line">&#123;</span><br><span class="line">  &quot;tokens&quot;: [</span><br><span class="line">    &#123;</span><br><span class="line">      &quot;token&quot;: &quot;中华人民共和国&quot;,</span><br><span class="line">      &quot;start_offset&quot;: 0,</span><br><span class="line">      &quot;end_offset&quot;: 7,</span><br><span class="line">      &quot;type&quot;: &quot;CN_WORD&quot;,</span><br><span class="line">      &quot;position&quot;: 0</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      &quot;token&quot;: &quot;中华人民&quot;,</span><br><span class="line">      &quot;start_offset&quot;: 0,</span><br><span class="line">      &quot;end_offset&quot;: 4,</span><br><span class="line">      &quot;type&quot;: &quot;CN_WORD&quot;,</span><br><span class="line">      &quot;position&quot;: 1</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      &quot;token&quot;: &quot;中华&quot;,</span><br><span class="line">      &quot;start_offset&quot;: 0,</span><br><span class="line">      &quot;end_offset&quot;: 2,</span><br><span class="line">      &quot;type&quot;: &quot;CN_WORD&quot;,</span><br><span class="line">      &quot;position&quot;: 2</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      &quot;token&quot;: &quot;华人&quot;,</span><br><span class="line">      &quot;start_offset&quot;: 1,</span><br><span class="line">      &quot;end_offset&quot;: 3,</span><br><span class="line">      &quot;type&quot;: &quot;CN_WORD&quot;,</span><br><span class="line">      &quot;position&quot;: 3</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      &quot;token&quot;: &quot;人民共和国&quot;,</span><br><span class="line">      &quot;start_offset&quot;: 2,</span><br><span class="line">      &quot;end_offset&quot;: 7,</span><br><span class="line">      &quot;type&quot;: &quot;CN_WORD&quot;,</span><br><span class="line">      &quot;position&quot;: 4</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      &quot;token&quot;: &quot;人民&quot;,</span><br><span class="line">      &quot;start_offset&quot;: 2,</span><br><span class="line">      &quot;end_offset&quot;: 4,</span><br><span class="line">      &quot;type&quot;: &quot;CN_WORD&quot;,</span><br><span class="line">      &quot;position&quot;: 5</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      &quot;token&quot;: &quot;共和国&quot;,</span><br><span class="line">      &quot;start_offset&quot;: 4,</span><br><span class="line">      &quot;end_offset&quot;: 7,</span><br><span class="line">      &quot;type&quot;: &quot;CN_WORD&quot;,</span><br><span class="line">      &quot;position&quot;: 6</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      &quot;token&quot;: &quot;共和&quot;,</span><br><span class="line">      &quot;start_offset&quot;: 4,</span><br><span class="line">      &quot;end_offset&quot;: 6,</span><br><span class="line">      &quot;type&quot;: &quot;CN_WORD&quot;,</span><br><span class="line">      &quot;position&quot;: 7</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      &quot;token&quot;: &quot;国&quot;,</span><br><span class="line">      &quot;start_offset&quot;: 6,</span><br><span class="line">      &quot;end_offset&quot;: 7,</span><br><span class="line">      &quot;type&quot;: &quot;CN_CHAR&quot;,</span><br><span class="line">      &quot;position&quot;: 8</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      &quot;token&quot;: &quot;国歌&quot;,</span><br><span class="line">      &quot;start_offset&quot;: 7,</span><br><span class="line">      &quot;end_offset&quot;: 9,</span><br><span class="line">      &quot;type&quot;: &quot;CN_WORD&quot;,</span><br><span class="line">      &quot;position&quot;: 9</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="参数：ik-smart"><a href="#参数：ik-smart" class="headerlink" title="参数：ik_smart"></a>参数：ik_smart</h2><p>会做最粗粒度的拆分<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">GET _analyze?pretty</span><br><span class="line">&#123;</span><br><span class="line">  &quot;analyzer&quot;: &quot;ik_smart&quot;,</span><br><span class="line">  &quot;text&quot;:&quot;中华人民共和国国歌&quot;</span><br><span class="line">&#125;</span><br><span class="line"># 结果</span><br><span class="line">&#123;</span><br><span class="line">  &quot;tokens&quot;: [</span><br><span class="line">    &#123;</span><br><span class="line">      &quot;token&quot;: &quot;中华人民共和国&quot;,</span><br><span class="line">      &quot;start_offset&quot;: 0,</span><br><span class="line">      &quot;end_offset&quot;: 7,</span><br><span class="line">      &quot;type&quot;: &quot;CN_WORD&quot;,</span><br><span class="line">      &quot;position&quot;: 0</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      &quot;token&quot;: &quot;国歌&quot;,</span><br><span class="line">      &quot;start_offset&quot;: 7,</span><br><span class="line">      &quot;end_offset&quot;: 9,</span><br><span class="line">      &quot;type&quot;: &quot;CN_WORD&quot;,</span><br><span class="line">      &quot;position&quot;: 1</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h1 id="核心概念"><a href="#核心概念" class="headerlink" title="核心概念"></a>核心概念</h1><table>
+<thead>
+<tr>
+<th style="text-align:left">ElasticSearch</th>
+<th style="text-align:left">RDBMS</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">索引（index）</td>
+<td style="text-align:left">数据库（database）</td>
+<td style="text-align:left">索引(index)是ElasticSearch存放具体数据的地方，是一类具有相似特征的文档的集合。ElasticSearch中索引的概念具有不同意思，这里的索引相当于关系数据库中的一个数据库实例。在ElasticSearch中索引还可以作为动词，表示对数据进行索引操作。 </td>
+</tr>
+<tr>
+<td style="text-align:left">类型（type）</td>
+<td style="text-align:left">表（table）</td>
+<td style="text-align:left">在6.0之前的版本，一个ElasticSearch索引中，可以有多个类型；从6.0版本开始，一个ElasticSearch索引中，只有1个类型，警告！Type在6.0.0版本中已经不赞成使用。而且，7.0版本以后就完全抛弃type了。一个类型是索引的一个逻辑上的分类，通常具有一组相同字段的文档组成。ElasticSearch的类型概念相当于关系数据库的数据表。</td>
+</tr>
+<tr>
+<td style="text-align:left">文档（document）</td>
+<td style="text-align:left">行（row）</td>
+<td style="text-align:left">文档是ElasticSearch可被索引的基础逻辑单元，相当于关系数据库中数据表的一行数据。ElasticSearch的文档具有JSON格式，由多个字段组成，字段相当于关系数据库中列的概念。</td>
+</tr>
+<tr>
+<td style="text-align:left">Shard</td>
+<td style="text-align:left"></td>
+<td style="text-align:left">当数据量较大时，索引的存储空间需求超出单个节点磁盘容量的限制，或者出现单个节点处理速度较慢。为了解决这些问题，ElasticSearch将索引中的数据进行切分成多个分片（shard），每个分片存储这个索引的一部分数据，分布在不同节点上。当需要查询索引时，ElasticSearch将查询发送到每个相关分片，之后将查询结果合并，这个过程对ElasticSearch应用来说是透明的，用户感知不到分片的存在。一个索引的分片一定指定，不再修改。</td>
+</tr>
+<tr>
+<td style="text-align:left">分片与备份</td>
+<td style="text-align:left"></td>
+<td style="text-align:left">在ES中，索引会备份成分片，每个分片是独立的lucene索引，可以完成搜索分析存储等工作。 </td>
+</tr>
+<tr>
+<td style="text-align:left">副本</td>
+<td style="text-align:left"></td>
+<td style="text-align:left">其实，分片全称是主分片，简称为分片。主分片是相对于副本来说的，副本是对主分片的一个或多个复制版本（或称拷贝），这些复制版本（拷贝）可以称为复制分片，可以直接称之为副本。当主分片丢失时，集群可以将一个副本升级为新的主分片。</td>
+</tr>
+<tr>
+<td style="text-align:left">Node 与 Cluster</td>
+<td style="text-align:left"></td>
+<td style="text-align:left">Elastic 本质上是一个分布式数据库，允许多台服务器协同工作，每台服务器可以运行多个 Elastic 实例。单个 Elastic 实例称为一个节点（node）。一组节点构成一个集群（cluster）。</td>
+</tr>
+<tr>
+<td style="text-align:left">字段（field）</td>
+<td style="text-align:left">列（column）</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">映射（mapping）</td>
+<td style="text-align:left">表结构（schema）</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">全文索引</td>
+<td style="text-align:left">索引</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">查询DSL</td>
+<td style="text-align:left">SQL</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">GET</td>
+<td style="text-align:left">select</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">PUT/POST</td>
+<td style="text-align:left">update</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">DELETE</td>
+<td style="text-align:left">delete</td>
+<td style="text-align:left"></td>
+</tr>
+</tbody>
+</table>
+<h2 id="关于-Type-将会在-7-X-中弃用的原因"><a href="#关于-Type-将会在-7-X-中弃用的原因" class="headerlink" title="关于 Type 将会在 7.X 中弃用的原因"></a>关于 Type 将会在 7.X 中弃用的原因</h2><p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/removal-of-types.html" rel="external nofollow noopener noreferrer" target="_blank">official document–&gt; Removal of mapping types</a><br>文末有移除 type 的计划，以及每个版本中的用法，很有参考价值：Schedule for removal of mapping types<br>Elasticsearch 6.x</p>
+<ul>
+<li>Indices created in 5.x will continue to function in 6.x as they did in 5.x.</li>
+<li>Indices created in 6.x only allow a single-type per index. Any name can be used for the type, but there can be only one. The preferred type name is _doc, so that index APIs have the same path as they will have in 7.0: PUT {index}/_doc/{id} and POST {index}/_doc</li>
+<li>The _type name can no longer be combined with the _id to form the _uid field. The _uid field has become an alias for the _id field.</li>
+<li>New indices no longer support the old-style of parent/child and should use the join field instead.</li>
+<li>The <em>default</em> mapping type is deprecated. </li>
+</ul>
+<h3 id="移除原因，翻译："><a href="#移除原因，翻译：" class="headerlink" title="移除原因，翻译："></a>移除原因，翻译：</h3><p>你知道的，为了搜索······</p>
+<p>我们一直认为ES中的“index”类似于关系型数据库的“database”，而“type”相当于一个数据表。ES的开发者们认为这是一个糟糕的认识。例如：关系型数据库中两个数据表示是独立的，即使他们里面有相同名称的列也不影响使用，但ES中不是这样的。</p>
+<p>我们都知道elasticsearch是基于Lucene开发的搜索引擎，而ES中不同type下名称相同的filed最终在Lucene中的处理方式是一样的。举个例子，两个不同type下的两个user_name，在ES同一个索引下其实被认为是同一个filed，你必须在两个不同的type中定义相同的filed映射。否则，不同type中的相同字段名称就会在处理中出现冲突的情况，导致Lucene处理效率下降。</p>
+<p>去掉type能够使数据存储在独立的index中，这样即使有相同的字段名称也不会出现冲突，就像ElasticSearch出现的第一句话一样“你知道的，为了搜索····”，去掉type就是为了提高ES处理数据的效率。</p>
+<p>除此之外，在同一个索引的不同type下存储字段数不一样的实体会导致存储中出现稀疏数据，影响Lucene压缩文档的能力，导致ES查询效率的降低。</p>
+<h1 id="创建索引"><a href="#创建索引" class="headerlink" title="创建索引"></a>创建索引</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# curl -XPUT &quot;localhost:9210/test&quot; -d &apos;</span><br><span class="line">&#123;</span><br><span class="line">  &quot;settings&quot;: &#123;</span><br><span class="line">   &quot;analysis&quot;: &#123;</span><br><span class="line">      &quot;analyzer&quot;: &#123;                         #配置分析器</span><br><span class="line">         &quot;csh_analyzer&quot;: &#123;                  #分析器的名字是csh_analyer,这个是系统没有的，我自己定义的一个，可以取一个不和已有的分析器重名的名字</span><br><span class="line">             &quot;type&quot;: &quot;standard&quot;,            #这个分析器的类型是基于系统自带的标准的standard分析器</span><br><span class="line">             &quot;stopwords&quot;: &quot;_english_&quot;       #禁用词，或者说无效词范围定义来自_english_列表</span><br><span class="line">         &#125;</span><br><span class="line">      &#125;</span><br><span class="line">   &#125;,</span><br><span class="line">   index.mapping.single_type: true</span><br><span class="line"> &#125;,</span><br><span class="line"> &quot;mappings&quot;: &#123;</span><br><span class="line">    &quot;user&quot;: &#123;                              #定义test索引下的一个type为user，注意，6.0 及以后，一个索引下只能有一个 type，7.0以后不会有 type</span><br><span class="line">       &quot;properties&quot;: &#123;                     #开始定义这个type的属性值（也可以用fields）</span><br><span class="line">          &quot;first_name&quot;: &#123;                  #字段名为first_name</span><br><span class="line">             &quot;type&quot;: &quot;string&quot;,             #数据类型为string</span><br><span class="line">             &quot;analyzer&quot;: &quot;standard&quot;        #分析器用系统默认的standard</span><br><span class="line">          &#125;,</span><br><span class="line">          &quot;last_name&quot;: &#123;                   #字段名字为last_name</span><br><span class="line">              &quot;type&quot;: &quot;string&quot;,            #字段类型为string</span><br><span class="line">              &quot;analyzer&quot;: &quot;csh_analyzer&quot;   #分析器为自定义的csh_analyzer</span><br><span class="line">          &#125;,</span><br><span class="line">          &quot;job&quot;: &#123;                         #字段名字为job</span><br><span class="line">              &quot;type&quot;: &quot;string&quot;,            #字段类型</span><br><span class="line">              &quot;analyzer&quot;: &quot;csh_analyzer&quot;   #分析器为自定义的csh_analyzer</span><br><span class="line">          &#125;</span><br><span class="line">       &#125;</span><br><span class="line">     &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;&apos;</span><br></pre></td></tr></table></figure>
+<h1 id="查询所有索引列表"><a href="#查询所有索引列表" class="headerlink" title="查询所有索引列表"></a>查询所有索引列表</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[utomcat@hjweb01 esDemo]$ curl localhost:9200/_cat/indices </span><br><span class="line">green open pre-es-index uGcKbpOIT7e0l_TS5ShKsw 3 0 4308 15 4mb 4mb</span><br></pre></td></tr></table></figure>
+<h1 id="检测集群是否健康"><a href="#检测集群是否健康" class="headerlink" title="检测集群是否健康"></a>检测集群是否健康</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[utomcat@hjweb01 esDemo]$ curl localhost:9200/_cat/health</span><br><span class="line">1546583744 06:35:44 hjz-es-cluster green 1 1 3 3 0 0 0 0 - 100.0%</span><br></pre></td></tr></table></figure>
+<h1 id="获取集群的节点列表"><a href="#获取集群的节点列表" class="headerlink" title="获取集群的节点列表"></a>获取集群的节点列表</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[utomcat@hjweb01 esDemo]$ curl localhost:9200/_cat/nodes</span><br><span class="line">127.0.0.1 23 89 3 0.57 0.14 0.09 mdi * hjz-es</span><br></pre></td></tr></table></figure>
+<h1 id="ElasticSearch-通过-kibana-简单操作"><a href="#ElasticSearch-通过-kibana-简单操作" class="headerlink" title="ElasticSearch 通过 kibana 简单操作"></a>ElasticSearch 通过 kibana 简单操作</h1><ol>
+<li><code>GET _cat/indices</code> 列出所有索引 </li>
+<li><code>GET _cat/health</code> 检测集群是否健康</li>
+<li><code>GET _cat/nodes</code> 获取集群的节点列表</li>
+</ol>
+<h1 id="查询"><a href="#查询" class="headerlink" title="查询"></a>查询</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET xunwu/_search</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">GET xunwu/_search</span><br><span class="line">&#123;</span><br><span class="line">  &quot;query&quot;: &#123;</span><br><span class="line">    &quot;match&quot;: &#123;</span><br><span class="line">      &quot;title&quot;: &#123;</span><br><span class="line">        &quot;query&quot;: &quot;富力城&quot;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>结果为空，因为还没有写入数据<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;took&quot;: 1,</span><br><span class="line">  &quot;timed_out&quot;: false,</span><br><span class="line">  &quot;_shards&quot;: &#123;</span><br><span class="line">    &quot;total&quot;: 5,</span><br><span class="line">    &quot;successful&quot;: 5,</span><br><span class="line">    &quot;skipped&quot;: 0,</span><br><span class="line">    &quot;failed&quot;: 0</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;hits&quot;: &#123;</span><br><span class="line">    &quot;total&quot;: 0,</span><br><span class="line">    &quot;max_score&quot;: null,</span><br><span class="line">    &quot;hits&quot;: []</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h1 id="ElasticSearch-默认不允许以-root-身份启动，建议创建一个专门的用户来运行"><a href="#ElasticSearch-默认不允许以-root-身份启动，建议创建一个专门的用户来运行" class="headerlink" title="ElasticSearch 默认不允许以 root 身份启动，建议创建一个专门的用户来运行"></a>ElasticSearch 默认不允许以 root 身份启动，建议创建一个专门的用户来运行</h1><p>以 root 身份启动，会报错<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Exception in thread &quot;main&quot; Java.lang.RuntimeException: don&apos;t run elasticsearch as root.</span><br></pre></td></tr></table></figure></p>
+<p>解决办法，增加启动参数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./elasticsearch -Des.insecure.allow.root=true</span><br></pre></td></tr></table></figure></p>
+<p>或者修改启动文件 ElasticSearch，在 <code>ES_JAVA_OPTS=&quot;${JVM_OPTIONS//\$\{ES_TMPDIR\}/$ES_TMPDIR} $ES_JAVA_OPTS&quot;</code> 前添加一行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ES_JAVA_OPTS=&quot;-Des.insecure.allow.root=true&quot;</span><br></pre></td></tr></table></figure></p>
+<p>如果某个字段内容非常多（比如一篇小说），或者查询业务只需要对该字段进行搜索，返回文档id，然后通过其他途径查看文档原文，则不需要保留_source元字段。可以通过禁用_source元字段，在ElasticSearch 中只存储倒排索引，不保留字段原始值。</p>
+<h1 id="通过-Kibana-的-Dev-Tools-搜索"><a href="#通过-Kibana-的-Dev-Tools-搜索" class="headerlink" title="通过 Kibana 的 Dev Tools 搜索"></a>通过 Kibana 的 Dev Tools 搜索</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">GET hjz-es-index-test/_search</span><br><span class="line">&#123;</span><br><span class="line">  &quot;query&quot;: &#123;</span><br><span class="line">    &quot;term&quot;: &#123;</span><br><span class="line">        &quot;_id&quot;: &quot;20-62&quot;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="completion-类型的字段保存问题"><a href="#completion-类型的字段保存问题" class="headerlink" title="completion 类型的字段保存问题"></a>completion 类型的字段保存问题</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Caused by: java.lang.IllegalArgumentException: unknown field name [customKey], must be one of [input, weight, contexts]</span><br></pre></td></tr></table></figure>
+<p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/search-suggesters-completion.html" rel="external nofollow noopener noreferrer" target="_blank">Completion Suggester</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">The following parameters are supported:</span><br><span class="line">input</span><br><span class="line">The input to store, this can be an array of strings or just a string. This field is mandatory.</span><br><span class="line">weight</span><br><span class="line">A positive integer or a string containing a positive integer, which defines a weight and allows you to rank your suggestions. This field is optional.</span><br></pre></td></tr></table></figure>
+<h1 id="todo"><a href="#todo" class="headerlink" title="todo"></a>todo</h1><p>[x] Completion Suggester 可以被普通搜索吗？<br>可以</p>
+<h1 id="查看内存、磁盘占用情况"><a href="#查看内存、磁盘占用情况" class="headerlink" title="查看内存、磁盘占用情况"></a>查看内存、磁盘占用情况</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">http://192.168.1.91:9200/_cat/nodes?v&amp;h=http,version,jdk,disk.total,disk.used,disk.avail,disk.used_percent,heap.current,heap.percent,heap.max,ram.current,ram.percent,ram.max,master</span><br><span class="line">---</span><br><span class="line">http              version jdk       disk.total disk.used disk.avail disk.used_percent heap.current heap.percent heap.max ram.current ram.percent ram.max master</span><br><span class="line">192.168.1.91:9200 6.4.1   1.8.0_171      9.9gb     8.8gb      1.1gb             88.50      475.1mb           47  990.7mb       7.1gb          95   7.5gb *</span><br></pre></td></tr></table></figure>
+<p>官网参考链接：<a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/cat-nodes.html" rel="external nofollow noopener noreferrer" target="_blank">cat nodes</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">http://192.168.1.91:9200/_cat/allocation?v</span><br><span class="line">shards disk.indices disk.used disk.avail disk.total disk.percent host         ip           node</span><br><span class="line">    13        1.5mb     8.8gb      1.1gb      9.9gb           88 192.168.1.91 192.168.1.91 hjz-es</span><br></pre></td></tr></table></figure>
+<h1 id="控制分析器-search-analyzer、analyzer"><a href="#控制分析器-search-analyzer、analyzer" class="headerlink" title="控制分析器 search_analyzer、analyzer"></a>控制分析器 search_analyzer、analyzer</h1><ul>
+<li>分析器主要有两种情况会被使用，一种是插入文档时，将text类型的字段做分词然后插入倒排索引，第二种就是在查询时，先对要查询的text类型的输入做分词，再去倒排索引搜索</li>
+<li>如果想要让 索引 和 查询 时使用不同的分词器，ElasticSearch也是能支持的，只需要在字段上加上search_analyzer参数</li>
+<li>在索引时，只会去看字段有没有定义analyzer，有定义的话就用定义的，没定义就用ES预设的</li>
+<li>在查询时，会先去看字段有没有定义search_analyzer，如果没有定义，就去看有没有analyzer，再没有定义，才会去使用ES预设的</li>
+</ul>
+<p>数据类型，定义 search_analyzer 为 ik_smart 而 analyzer 为 ik_max_word，这样不至于输入“郫都区”，去匹配“郫”、“都”和“区”，而是直接匹配“郫都区”,这三个字已经添加到自定义分词词库。</p>
+<h1 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h1><p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/mapping-types.html" rel="external nofollow noopener noreferrer" target="_blank">https://www.elastic.co/guide/en/elasticsearch/reference/current/mapping-types.html</a></p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-09-01T02:53:13.019Z" itemprop="dateUpdated">2020年9月1日 10:53</time>
+</span><br>
+
+
+        转载请注明出处：<a href="/linux/centOS7Elasticsearch.html" target="_blank" rel="external">https://www.lovesofttech.com/linux/centOS7Elasticsearch.html</a>
+    </div>
+    <footer>
+        <a href="https://www.lovesofttech.com">
+            <img src="/img/myLogo.jpg" alt="安迪陈">
+            安迪陈
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CentOS/">CentOS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ElasticSearch/">ElasticSearch</a></li></ul>
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/linux/centOS7Elasticsearch.html&title=《CentOS 7 配置 ElasticSearch-6.4.1》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/linux/centOS7Elasticsearch.html&title=《CentOS 7 配置 ElasticSearch-6.4.1》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=如题" data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/linux/centOS7Elasticsearch.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《CentOS 7 配置 ElasticSearch-6.4.1》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/linux/centOS7Elasticsearch.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/linux/centOS7Elasticsearch.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/job/influencePower.html" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">聊聊工程师的影响力</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/general/cloudProduct.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">阿里云，建站产品比较</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+    
+    
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="bottom">
+        <p>
+            <span>安迪陈技术日志，架构、感悟、系统分析、团队管理 &copy; 2017 - 2020</span>
+            <span>
+                Power by <a href="https://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>&nbsp;
+                Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank" rel="external nofollow noopener noreferrer">indigo</a>
+            </span>
+            <span>
+                <a href="http://www.beian.miit.gov.cn" target="_blank" rel="external nofollow noopener noreferrer">蜀ICP备17041860号</a>
+            </span>
+            
+            <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            </p><p>
+                <span>
+                    统计始于：2019-03-06
+                </span>
+                <span id="busuanzi_container_site_uv" style="display:none">
+                    访客数：<span id="busuanzi_value_site_uv"></span>
+                </span>
+                <span id="busuanzi_container_site_pv" style="display:none">
+                    访问量：<span id="busuanzi_value_site_pv"></span>
+                </span>
+            
+            
+                <span class="post-count">累计字数：309.2k</span>
+            
+                <span><a href="/general/blogLog.html"><i class="fas fa-pen-alt"></i>&nbsp;博客日志</a></span>
+            </p>
+        <p></p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light" title="回到顶部"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/linux/centOS7Elasticsearch.html&title=《CentOS 7 配置 ElasticSearch-6.4.1》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/linux/centOS7Elasticsearch.html&title=《CentOS 7 配置 ElasticSearch-6.4.1》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=如题" data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/linux/centOS7Elasticsearch.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《CentOS 7 配置 ElasticSearch-6.4.1》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/linux/centOS7Elasticsearch.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/linux/centOS7Elasticsearch.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACKklEQVR42u3aQZLDIAwF0dz/0p5tNsb9JWeqEM1qyiEMzwsFSXw+eFw3Yz3z+8l65bvvvjxkyJCxLeNajnffE1n57tOHlyhDhowDGCQUrjfEt0WiJd+bDBkyZKwZ/JBX26IMGTJk1JYjSWw6s0OVIUPGOQySxKZL19b8eS4uQ4aMDRm8TPb/f/+kvyFDhoytGFc4eGBN259XY8iQIWM2gwe4t9LRYoJK9iNDhoyhDP4FjukknOtwjLYoQ4aMcQwOIFciyKY5lR9JZciQcQ6DBDsSasnWU2TwgyFDhoxxjNrRLS2TdbaIXqsMGTJGM9JSGt9KrSUZNwNqFUEZMmRsyOifLmshmxfyikmsDBkyBjHeTUHTFciniC1DhoyhjLQo30lT14V+8pvwcCFMhgwZQxlpczGdUyvh1ebIkCFjKqN25Stdgc8pJrEyZMgYzeCJYq1tQMJlv2wnQ4aMExjpcp3yHKeSFydDhoxzGOlhrt9C4LAgSZYhQ8YBjLTQVgvNPEkm//G2yyFDhozDGMVWIi+T4bblw3MZMmQcw4g7n6BgV0ti0+RZhgwZUxlXOPrFOB52Xz4UypAhY1tGGlLTqxjpdY1a+JYhQ8YJjE6QJYe/2kEzvigmQ4aMAxjp9Yt0uzywtlJZGTJkyMBhsXYVtXbJQ4YMGTJ4cCQFMnTBC+zktoUpQ4aM0Qx+LYwj03DMj5syZMg4jZEe4EijkTyvtUVbjUwZMmTsx/gDZN82lIsyUdEAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.5.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.5.2" async></script>
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '安迪陈技术日志';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '欢迎回来';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

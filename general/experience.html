@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<!--<script async src="//hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c"></script>-->
+<!-- 统计-->
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var host = window.location.host;
+        var hm = document.createElement("script");
+
+        if (host.indexOf('gitee.io') > 0) { // https://uncleandychen.gitee.io/
+            hm.src = "https://hm.baidu.com/hm.js?0cf4709148b070b8082191d2e456a1a3";
+        } else if (host.indexOf('lovesofttech.com') > 0) { // https://www.lovesofttech.com/
+            hm.src = "https://hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c";
+        } else {
+            hm.src = '';
+        }
+
+        if (hm.src !== '') {
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        }
+    })();
+</script>
+<!-- End Baidu Tongji -->
+
+
+
+<!-- Baidu Push -->
+<!-- 主动推送百度爬虫-->
+<script>
+    (function(){
+        if (window.location.host.indexOf('lovesofttech.com') < 0) {
+            return;
+        }
+
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+<!-- End Baidu Push -->
+
+
+    <meta charset="utf-8">
+    
+    
+    <link rel="canonical" href="https://www.lovesofttech.com/general/experience.html">
+    
+    
+    <title>日常经验--好记性不如烂文档 | 安迪陈技术日志，架构、感悟、系统分析、团队管理 | 自强不息，厚德载物</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="experience">
+    <meta name="description" content="记下来，方便遇到问题时快速查。  可以节省以后自己查询的时间，也方便别人搜索。 如果不记，下次遇到问题还得再折腾一翻，不划算~~ 利人利已~~">
+<meta name="keywords" content="experience">
+<meta property="og:type" content="article">
+<meta property="og:title" content="日常经验--好记性不如烂文档">
+<meta property="og:url" content="https://www.lovesofttech.com/general/experience.html">
+<meta property="og:site_name" content="安迪陈技术日志，架构、感悟、系统分析、团队管理">
+<meta property="og:description" content="记下来，方便遇到问题时快速查。  可以节省以后自己查询的时间，也方便别人搜索。 如果不记，下次遇到问题还得再折腾一翻，不划算~~ 利人利已~~">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:image" content="https://www.lovesofttech.com/img/general/sqlServerManagementStudioFileEncode01.png">
+<meta property="og:image" content="https://www.lovesofttech.com/img/general/sqlServerManagementStudioFileEncode02.png">
+<meta property="og:image" content="https://www.lovesofttech.com/img/general/sqlServerManagementStudioFileEncode03.png">
+<meta property="og:image" content="https://www.lovesofttech.com/img/general/virtualBoxNetworkConfig.png">
+<meta property="og:updated_time" content="2020-09-01T02:53:12.945Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="日常经验--好记性不如烂文档">
+<meta name="twitter:description" content="记下来，方便遇到问题时快速查。  可以节省以后自己查询的时间，也方便别人搜索。 如果不记，下次遇到问题还得再折腾一翻，不划算~~ 利人利已~~">
+<meta name="twitter:image" content="https://www.lovesofttech.com/img/general/sqlServerManagementStudioFileEncode01.png">
+    
+        <link rel="alternative" href="/atom.xml" title="安迪陈技术日志，架构、感悟、系统分析、团队管理" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=201912302211">
+    <link rel="stylesheet" href="/css/header.css?v=201912302211">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu">
+  <div class="inner flex-row-vertical">
+    <!--<i class="icon icon-lg icon-close"></i>-->
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off" title="隐藏左侧导航">﹤<i class="icon icon-lg icon-navicon"></i></a>
+    <div class="brand-wrap" style="background-image:url(/img/bannerBackgroundLeft.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/myLogo.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">安迪陈</h5>
+          <a href="mailto:andy@lovesofttech.com" title="andy@lovesofttech.com" class="mail" rel="external nofollow noopener noreferrer" target="_blank">andy@lovesofttech.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articleClassify.html">
+                <i class="icon icon-th-list"></i>
+                文章分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articles.html">
+                <i class="icon icon-th-list articles"></i>
+                文章列表
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/java.html">
+                <i class="icon icon-th-list java"></i>
+                Java
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/database.html">
+                <i class="icon icon-th-list database"></i>
+                MySQL/MyBatis
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/linux.html">
+                <i class="icon icon-th-list linux"></i>
+                CentOS/linux
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/react.html">
+                <i class="icon icon-th-list React"></i>
+                React
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/lnmp.html">
+                <i class="icon icon-th-list LNMP"></i>
+                LNMP
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/git.html">
+                <i class="icon icon-th-list git"></i>
+                git
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/windows.html">
+                <i class="icon icon-th-list windows"></i>
+                windows
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/dailyLives.html">
+                <i class="icon icon-th-list dailyLives"></i>
+                工作 &amp; 生活
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-github"></i>
+                我的 github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://gitee.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link"></i>
+                我的 gitee
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://blog.csdn.net/runAndRun" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link CSDN"></i>
+                我的 CSDN
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/aboutMe.html">
+                <i class="icon icon-address-card"></i>
+                关于我
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+
+        <div class="navbar navbar-custom navbar-fixed-top">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" style="margin-left:10px;" id="menu-toggle" title="显示左侧导航"><i class="icon icon-lg icon-navicon"></i>﹥</a>
+            <ul class="nav navbar-nav navbar-right" id="navMenuTop">
+                <li>
+                    <a href="/">主页</a>
+                </li>
+                
+                    
+                        <li>
+                            <a href="/articleClassify.html" title="本博客的文章分类列表">文章分类</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/articles.html" title="本博客的所有文章列表">文章列表</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/java.html" title="Java 开发，文章目录">Java</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/database.html" title="日常开发中有关 MySQL、MyBatis 的一些经验总结">MySQL/MyBatis</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/linux.html" title="CentOS/linux，文章目录">CentOS/linux</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/react.html" title="React 技术栈（全家桶）学习心得分享，文章目录">React</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/about.html">关于</a>
+                        </li>
+                    
+                
+            </ul>
+        </div>
+
+        <div class="flex-col header-title ellipsis">日常经验--好记性不如烂文档</div>
+        
+        <div class="search-wrap" id="search-wrap" style="z-index: 2;">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back" style="width:33px;">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search" style="width:33px;">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare" style="z-index: 3;margin-right: 10px; width:30px;">
+                <i class="icon icon-lg icon-share-alt"></i>
+            </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h2 class="title">日常经验--好记性不如烂文档</h2>
+        <h5 class="subtitle">
+            
+                <time datetime="2019-05-30T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2019-05-31
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/experience/">experience</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap" id="index-container">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc" style="z-index: 3;">
+            <h4><i class="fa fa-list-alt"></i>&nbsp;&nbsp;本文目录</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#在机械硬盘上使用虚拟机和在固态硬盘上使用虚拟机的差别，有吗？大吗？真的吗？"><span class="post-toc-number">1.</span> <span class="post-toc-text">在机械硬盘上使用虚拟机和在固态硬盘上使用虚拟机的差别，有吗？大吗？真的吗？</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#现象"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">现象</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#实践"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">实践</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#不同网段间通信遇到的问题"><span class="post-toc-number">2.</span> <span class="post-toc-text">不同网段间通信遇到的问题</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#解决"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">解决</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#经验"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">经验</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#还原-SQL-Server-数据库"><span class="post-toc-number">3.</span> <span class="post-toc-text">还原 SQL Server 数据库</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#现象-1"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">现象</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#解决-1"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">解决</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#SQL-Server-Management-Studio-保存的-sql-脚本文件编码问题"><span class="post-toc-number">4.</span> <span class="post-toc-text">SQL Server Management Studio 保存的 sql 脚本文件编码问题</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#解决-2"><span class="post-toc-number">4.1.</span> <span class="post-toc-text">解决</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#注意"><span class="post-toc-number">4.2.</span> <span class="post-toc-text">注意</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#virtual-box-win7-虚拟机，方向键、home、delete、退格键不好使"><span class="post-toc-number">5.</span> <span class="post-toc-text">virtual box win7 虚拟机，方向键、home、delete、退格键不好使</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#解决-3"><span class="post-toc-number">5.1.</span> <span class="post-toc-text">解决</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#VirtualBox-虚拟-win7-网卡提示：未识别的网络"><span class="post-toc-number">6.</span> <span class="post-toc-text">VirtualBox 虚拟 win7 网卡提示：未识别的网络</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#现象-2"><span class="post-toc-number">6.1.</span> <span class="post-toc-text">现象</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#解决-4"><span class="post-toc-number">6.2.</span> <span class="post-toc-text">解决</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#尝试"><span class="post-toc-number">6.3.</span> <span class="post-toc-text">尝试</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#结论"><span class="post-toc-number">6.4.</span> <span class="post-toc-text">结论</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#WebStorm-MaxCompute-Studio"><span class="post-toc-number">7.</span> <span class="post-toc-text">WebStorm MaxCompute Studio</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#解决-5"><span class="post-toc-number">7.1.</span> <span class="post-toc-text">解决</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+    
+
+<article id="post-general/experience" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">日常经验--好记性不如烂文档</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2019年05月31日 0:00" datetime="2019-05-30T16:00:00.000Z" itemprop="datePublished">2019-05-31</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/experience/">experience</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" style="display:none">
+    阅读量：<span id="busuanzi_value_page_pv"></span>次
+</span>
+
+
+    <span>|</span>
+    <span class="post-count">字数：2.1k</span>
+    <span>|</span>
+    <span class="post-count">阅读时长：大约7分钟</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>记下来，方便遇到问题时快速查。</p>
+<ul>
+<li>可以节省以后自己查询的时间，也方便别人搜索。</li>
+<li>如果不记，下次遇到问题还得再折腾一翻，不划算~~</li>
+<li>利人利已~~</li>
+</ul>
+<a id="more"></a>
+<h1 id="在机械硬盘上使用虚拟机和在固态硬盘上使用虚拟机的差别，有吗？大吗？真的吗？"><a href="#在机械硬盘上使用虚拟机和在固态硬盘上使用虚拟机的差别，有吗？大吗？真的吗？" class="headerlink" title="在机械硬盘上使用虚拟机和在固态硬盘上使用虚拟机的差别，有吗？大吗？真的吗？"></a>在机械硬盘上使用虚拟机和在固态硬盘上使用虚拟机的差别，有吗？大吗？真的吗？</h1><h2 id="现象"><a href="#现象" class="headerlink" title="现象"></a>现象</h2><ul>
+<li>电脑上有两块硬盘。<ul>
+<li>固态硬盘分了一个区：C，250 G，用于安装系统。</li>
+<li>机械硬盘也只分了一个区：D，是一块比较老的机械硬盘，转速5400。</li>
+</ul>
+</li>
+<li>虚拟机 win7 文件保存在 D 盘，启动时很慢，启动起来了，正常使用的过程中，电脑也变得比平时卡，电脑一直处在动不动就卡的状态，查看系统任务-&gt;系统性能，发现硬盘 D 的 IO 大多数时候接近或达到了100%。</li>
+</ul>
+<h2 id="实践"><a href="#实践" class="headerlink" title="实践"></a>实践</h2><p>于是清理固态硬盘空间，将虚拟机文件移至固态硬盘，再启动，变得非常快了，那速度，杠杠的，而且使用过程中电脑也不卡了，固态硬盘也没有出现 IO 100%的情况。</p>
+<p>我只想说，同样是硬盘，差距咋就这么大捏~~~</p>
+<h1 id="不同网段间通信遇到的问题"><a href="#不同网段间通信遇到的问题" class="headerlink" title="不同网段间通信遇到的问题"></a>不同网段间通信遇到的问题</h1><p>本机网段是：192.168.1<br>需要访问的服务器网段是：192.168.33</p>
+<p>一直可正常访问，有一次过了一个周末，周一上班时，不能访问了，ping 不通，但是上外网正常。</p>
+<p>网管来看了之后，先是把静态 IP 换成动态 IP，获取到的 IP 地址依然在 192.168.1 网段，还是 ping 不通，于是检查机房的交换机，一切正常。</p>
+<h2 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h2><p>最后，重启本机所在的路由器，正常了。</p>
+<h2 id="经验"><a href="#经验" class="headerlink" title="经验"></a>经验</h2><p>遇到类似的问题，包括：</p>
+<ul>
+<li>突然不能上外网。</li>
+<li>某网站突然不能访问了。<ul>
+<li>可能是线路的原因，工作中遇到过这种情况。客户散布在全国各地，偶尔有客户联系我们说访问不了网站了，我们自己测试又是正常的，也是通过重启路由器解决的，有时添加 dns:8.8.8.8 也能解决。<br>先让路由器“冷静”两分钟，一般都能解决。</li>
+</ul>
+</li>
+</ul>
+<h1 id="还原-SQL-Server-数据库"><a href="#还原-SQL-Server-数据库" class="headerlink" title="还原 SQL Server 数据库"></a>还原 SQL Server 数据库</h1><h2 id="现象-1"><a href="#现象-1" class="headerlink" title="现象"></a>现象</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">标题: Microsoft SQL Server Management Studio</span><br><span class="line">------------------------------</span><br><span class="line">还原 对于 服务器“192.168.1.8”失败。  (Microsoft.SqlServer.SmoExtended)</span><br><span class="line">有关帮助信息，请单击: http://go.microsoft.com/fwlink?ProdName=Microsoft+SQL+Server&amp;ProdVer=10.50.1600.1+((KJ_RTM).100402-1539+)&amp;EvtSrc=Microsoft.SqlServer.Management.Smo.ExceptionTemplates.FailedOperationExceptionText&amp;EvtID=还原+Server&amp;LinkId=20476</span><br><span class="line">------------------------------</span><br><span class="line">其他信息:</span><br><span class="line">System.Data.SqlClient.SqlError: RESTORE 无法处理数据库 &apos;devDatabase&apos;，因为它正由此会话使用。建议在执行此操作时使用 master 数据库。 (Microsoft.SqlServer.Smo)</span><br><span class="line">有关帮助信息，请单击: http://go.microsoft.com/fwlink?ProdName=Microsoft+SQL+Server&amp;ProdVer=10.50.1600.1+((KJ_RTM).100402-1539+)&amp;LinkId=20476</span><br></pre></td></tr></table></figure>
+<p>设置登录用户的默认数据库为非 <code>devDatabase</code> 后，错误信息变为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">标题: Microsoft SQL Server Management Studio</span><br><span class="line">------------------------------</span><br><span class="line">还原 对于 服务器“192.168.1.8”失败。  (Microsoft.SqlServer.SmoExtended)</span><br><span class="line">有关帮助信息，请单击: http://go.microsoft.com/fwlink?ProdName=Microsoft+SQL+Server&amp;ProdVer=10.50.1600.1+((KJ_RTM).100402-1539+)&amp;EvtSrc=Microsoft.SqlServer.Management.Smo.ExceptionTemplates.FailedOperationExceptionText&amp;EvtID=还原+Server&amp;LinkId=20476</span><br><span class="line">------------------------------</span><br><span class="line">其他信息:</span><br><span class="line">System.Data.SqlClient.SqlError: 因为数据库正在使用，所以无法获得对数据库的独占访问权。 (Microsoft.SqlServer.Smo)</span><br><span class="line">有关帮助信息，请单击: http://go.microsoft.com/fwlink?ProdName=Microsoft+SQL+Server&amp;ProdVer=10.50.1600.1+((KJ_RTM).100402-1539+)&amp;LinkId=20476</span><br></pre></td></tr></table></figure></p>
+<h2 id="解决-1"><a href="#解决-1" class="headerlink" title="解决"></a>解决</h2><p>设置为单用户之后，还原成功。还原之后，又变成备份之前的多用户模式了。</p>
+<p>设置方式：选中要还原的数据库–&gt;右键–&gt;属性–&gt;选项–&gt;状态–&gt;限制访问，该值从<code>MULTI_USER</code>修改为<code>SINGLE_USER</code>，此时该数据库就会显示为单用户模式。</p>
+<p>还可以用 sql 脚本设置：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">---设置数据库为单用户模式</span><br><span class="line">USE MASTER</span><br><span class="line">ALTER DATABASE devDatabase SET SINGLE_USER WITH ROLLBACK IMMEDIATE</span><br><span class="line"></span><br><span class="line">---设置数据库为多用户模式</span><br><span class="line">USE MASTER</span><br><span class="line">ALTER DATABASE devDatabase SET MULTI_USER WITH ROLLBACK IMMEDIATE</span><br></pre></td></tr></table></figure></p>
+<p>设置为单用户模式的过程，我踩了一个大大的坑，因为我操作的是默认数据库，设置完成之后，再操作就会出错，不给机会恢复数据，重新登录时，会这样提示：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">标题: 连接到服务器</span><br><span class="line">------------------------------</span><br><span class="line">无法连接到 192.168.1.8。</span><br><span class="line">------------------------------</span><br><span class="line">其他信息:</span><br><span class="line">无法打开用户默认数据库。登录失败。</span><br><span class="line">用户 &apos;dbUser&apos; 登录失败。 (Microsoft SQL Server，错误: 4064)</span><br><span class="line">有关帮助信息，请单击: http://go.microsoft.com/fwlink?ProdName=Microsoft+SQL+Server&amp;EvtSrc=MSSQLServer&amp;EvtID=4064&amp;LinkId=20476</span><br></pre></td></tr></table></figure></p>
+<p>遇到这种情况，换一个具备管理权限的用户登录，如果没有，远程到服务器或者直接使用服务器的键盘鼠标显示器，以 windows 身份认证登录 SQL Server Management Studio，将上面提示的用户 <code>dbUser</code> 的默认数据库设置为非 <code>devDatabase</code> 数据库，然后才可以远程登录并恢复数据库。</p>
+<p>当然了，如果能直接操作服务器，怎么玩就看个人喜好了~~</p>
+<p>如果以下几种情况你都满足，那就只有恭喜你了~~</p>
+<ol>
+<li>没有别的具备管理权限的用户登录权限。</li>
+<li>不能远程到服务器。</li>
+<li>不能直接操作服务器。</li>
+<li>或者即使可以操作服务器，却不能有效登录 SQL Server。</li>
+</ol>
+<p>参考：<a href="https://blog.csdn.net/u011127019/article/details/54140595" rel="external nofollow noopener noreferrer" target="_blank">Sql server还原失败(数据库正在使用,无法获得对数据库的独占访问权)</a></p>
+<h1 id="SQL-Server-Management-Studio-保存的-sql-脚本文件编码问题"><a href="#SQL-Server-Management-Studio-保存的-sql-脚本文件编码问题" class="headerlink" title="SQL Server Management Studio 保存的 sql 脚本文件编码问题"></a>SQL Server Management Studio 保存的 sql 脚本文件编码问题</h1><p>SQL Server Management Studio 保存的 sql 脚本文件，编码默认为 gbk2312，而我用的 IDEA 默认为 ugf-8，每次用 IDEA 打开这类脚本文件，会这样提示：<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/general/sqlServerManagementStudioFileEncode01.png" alt="idea 提示：以gbk编码方式打开或者设置项目默认编码为gbk" title>
+                </div>
+                <div class="image-caption">idea 提示：以gbk编码方式打开或者设置项目默认编码为gbk</div>
+            </figure></p>
+<p>中文全部显示为乱码。</p>
+<blockquote>
+<p>请忽略乱码部分。本人临时从一个05年的老项目查数据，表名和字段名竟然全是中文，第一次遇到，汗在不停的往下掉~~</p>
+</blockquote>
+<h2 id="解决-2"><a href="#解决-2" class="headerlink" title="解决"></a>解决</h2><p>文件由原来的默认 gbk2312 编码改为 utf-8。</p>
+<p>在 SQL Server Management Studio 保存的时候，【保存】后面的下拉列表选【编码保存(V)…】，在【编码(E):】下拉列表选择 UTF-8 即可，如果已经是 gbk2312 了，按此方法另存，覆盖现有文件即可。<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/general/sqlServerManagementStudioFileEncode02.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure><br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/general/sqlServerManagementStudioFileEncode03.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure></p>
+<h2 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h2><p>我尝试过用 IDEA 直接以 utf8 的方式打开，然后从 SQL Server Management Studio 编辑器把文件内容 copy 过来，或者用 notepad++ 打开再 copy 过来，保存。然后，用 SQL Server Management Studio 编辑器打开，是乱码。</p>
+<p>用 SQL Server Management Studio 【编码保存(V)…】为 utf-8 格式的文件，则可以兼顾 SQL Server Management Studio 和 IDEA。</p>
+<h1 id="virtual-box-win7-虚拟机，方向键、home、delete、退格键不好使"><a href="#virtual-box-win7-虚拟机，方向键、home、delete、退格键不好使" class="headerlink" title="virtual box win7 虚拟机，方向键、home、delete、退格键不好使"></a>virtual box win7 虚拟机，方向键、home、delete、退格键不好使</h1><p>发生在切换输入法的时候，具体怎么触发的，没有深入研究。</p>
+<p>发生之后，26个字母和数字等均可正常输入，就是方向键、home、delete、退格键不好使。</p>
+<h2 id="解决-3"><a href="#解决-3" class="headerlink" title="解决"></a>解决</h2><p>第一次是重启虚拟机，后来尝试了各种按键组合，无意间发现，按一下窗口键就好了。</p>
+<h1 id="VirtualBox-虚拟-win7-网卡提示：未识别的网络"><a href="#VirtualBox-虚拟-win7-网卡提示：未识别的网络" class="headerlink" title="VirtualBox 虚拟 win7 网卡提示：未识别的网络"></a>VirtualBox 虚拟 win7 网卡提示：未识别的网络</h1><h2 id="现象-2"><a href="#现象-2" class="headerlink" title="现象"></a>现象</h2><p>虚拟机设置成桥接模式，网卡选成与物理网卡一致，一直用得好好的。<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/general/virtualBoxNetworkConfig.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure></p>
+<p>提示不能用之前，把网线从路由器换到了同一个局域网的交换机上，于是出现：未识别的网络。</p>
+<h2 id="解决-4"><a href="#解决-4" class="headerlink" title="解决"></a>解决</h2><p>最终是重启物理主机解决的。</p>
+<h2 id="尝试"><a href="#尝试" class="headerlink" title="尝试"></a>尝试</h2><p>各种修改虚拟机网卡设置，禁用部分网卡，启用之前没用过的，修改物理主机的，与 VirtualBox 相关的网卡IP为与物理主机同一个网段的固定IP，重启虚拟机多次，问题依旧。</p>
+<h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><p>使用 windows 如果遇到百思不得其解的奇葩问题，先重启一下电脑再说。这已经是第二次遇到这种情况了，即：通过常规思路不能解决，重启电脑立即解决。</p>
+<h1 id="WebStorm-MaxCompute-Studio"><a href="#WebStorm-MaxCompute-Studio" class="headerlink" title="WebStorm MaxCompute Studio"></a>WebStorm MaxCompute Studio</h1><p>打开 .sql 脚本文件时，提示：Script must bind a MaxCompute project to comile, Please bind a MaxCompute project in script editor tool bar</p>
+<h2 id="解决-5"><a href="#解决-5" class="headerlink" title="解决"></a>解决</h2><p>我只是打开一个 sql 脚本文件做普通的修改，用不上这个插件。到设置里，找到插件，去掉后面的勾即可。 </p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-09-01T02:53:12.945Z" itemprop="dateUpdated">2020年9月1日 10:53</time>
+</span><br>
+
+
+        转载请注明出处：<a href="/general/experience.html" target="_blank" rel="external">https://www.lovesofttech.com/general/experience.html</a>
+    </div>
+    <footer>
+        <a href="https://www.lovesofttech.com">
+            <img src="/img/myLogo.jpg" alt="安迪陈">
+            安迪陈
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/experience/">experience</a></li></ul>
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/general/experience.html&title=《日常经验--好记性不如烂文档》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/general/experience.html&title=《日常经验--好记性不如烂文档》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=记下来，方便遇到问题时快速查。
+
+可以节省以后自己查询的时间，也方便别人搜索。
+如果不记，下次遇到问题还得再折腾一翻，不划算~~
+利人利已~~
+" data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/general/experience.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《日常经验--好记性不如烂文档》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/general/experience.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/general/experience.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/database/powerDesignerStyle.html" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">PowerDesigner 样式设置，以及样式参考值</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/redis/index.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">redis 文章目录</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+    
+    
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="bottom">
+        <p>
+            <span>安迪陈技术日志，架构、感悟、系统分析、团队管理 &copy; 2017 - 2020</span>
+            <span>
+                Power by <a href="https://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>&nbsp;
+                Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank" rel="external nofollow noopener noreferrer">indigo</a>
+            </span>
+            <span>
+                <a href="http://www.beian.miit.gov.cn" target="_blank" rel="external nofollow noopener noreferrer">蜀ICP备17041860号</a>
+            </span>
+            
+            <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            </p><p>
+                <span>
+                    统计始于：2019-03-06
+                </span>
+                <span id="busuanzi_container_site_uv" style="display:none">
+                    访客数：<span id="busuanzi_value_site_uv"></span>
+                </span>
+                <span id="busuanzi_container_site_pv" style="display:none">
+                    访问量：<span id="busuanzi_value_site_pv"></span>
+                </span>
+            
+            
+                <span class="post-count">累计字数：309.2k</span>
+            
+                <span><a href="/general/blogLog.html"><i class="fas fa-pen-alt"></i>&nbsp;博客日志</a></span>
+            </p>
+        <p></p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light" title="回到顶部"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/general/experience.html&title=《日常经验--好记性不如烂文档》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/general/experience.html&title=《日常经验--好记性不如烂文档》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=记下来，方便遇到问题时快速查。
+
+可以节省以后自己查询的时间，也方便别人搜索。
+如果不记，下次遇到问题还得再折腾一翻，不划算~~
+利人利已~~
+" data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/general/experience.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《日常经验--好记性不如烂文档》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/general/experience.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/general/experience.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACKElEQVR42u3aS2oDMRAFQN//0g5kFQgev9eaBCyVVmYY26pN07/HIz7P7/P7Sf781W/+fDP/7vBgYGB8LON5eRLG9VWufyeHvfpHDAyMcxjXQTYJry0geTO5GwYGBkZLun7/TdDEwMDAuCng5uG1DdkYGBgY14zkim3hmofmG4I1BgbG1ox2MPCfn/9wvoGBgfEhjGd58qFm3p674VYYGBhbM5KWff58VnzOks5iHwQDA+MARtIyu6vgzIM7BgbGOYxZ8tcWt+3gMx9wYmBgnMnIB4rXQbAtVmerHlEtjoGBsR0jH0nOmmJ5ypgHaAwMjNMY6wG3vWJxXQwMjCMZs5Qub9v93VDhzQ0xMDA2YrQjwzaxy5t6bfjGwMA4hzEbHM6GmvnKxSxMY2Bg7M2YrUqs56QJ5obFCwwMjI0Y+Uuzdn+eIK4sf2BgYOzHWFnSattkbamc3AcDA+MERvs37XrErIidBV8MDIy9GbOSsl3UaEcI10EfAwPjHEYdzhZa9uuttGgYgIGBsSkjb+63fzmDJaX1y3YbBgbGdow2yWuTv6RYXR9IYGBg7M14lqcOgnH+NhtIYGBgnMDIT7seMVsvWxphYmBgbM1Yb/HPQnabPr75LgYGxgGMvGWWXCtf/FoJ+nVfEAMD4wDGLIGbTRvrYScGBgbGcjusTRnrYScGBsYBjLx91gbH5M08WYx23DAwMLZjtAXkLOHLMXkZvDTfwMDA+AzGF9FbiYcHPH2DAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.5.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.5.2" async></script>
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '安迪陈技术日志';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '欢迎回来';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<!--<script async src="//hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c"></script>-->
+<!-- 统计-->
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var host = window.location.host;
+        var hm = document.createElement("script");
+
+        if (host.indexOf('gitee.io') > 0) { // https://uncleandychen.gitee.io/
+            hm.src = "https://hm.baidu.com/hm.js?0cf4709148b070b8082191d2e456a1a3";
+        } else if (host.indexOf('lovesofttech.com') > 0) { // https://www.lovesofttech.com/
+            hm.src = "https://hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c";
+        } else {
+            hm.src = '';
+        }
+
+        if (hm.src !== '') {
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        }
+    })();
+</script>
+<!-- End Baidu Tongji -->
+
+
+
+<!-- Baidu Push -->
+<!-- 主动推送百度爬虫-->
+<script>
+    (function(){
+        if (window.location.host.indexOf('lovesofttech.com') < 0) {
+            return;
+        }
+
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+<!-- End Baidu Push -->
+
+
+    <meta charset="utf-8">
+    
+    
+    <link rel="canonical" href="https://www.lovesofttech.com/linux/centOSJIRA.html">
+    
+    
+    <title>在 CentOS7 上安装 JIRA 手记 | 安迪陈技术日志，架构、感悟、系统分析、团队管理 | 自强不息，厚德载物</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="CentOS,jira">
+    <meta name="description" content="如题">
+<meta name="keywords" content="CentOS,jira">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在 CentOS7 上安装 JIRA 手记">
+<meta property="og:url" content="https://www.lovesofttech.com/linux/centOSJIRA.html">
+<meta property="og:site_name" content="安迪陈技术日志，架构、感悟、系统分析、团队管理">
+<meta property="og:description" content="如题">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2020-09-01T02:53:13.034Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="在 CentOS7 上安装 JIRA 手记">
+<meta name="twitter:description" content="如题">
+    
+        <link rel="alternative" href="/atom.xml" title="安迪陈技术日志，架构、感悟、系统分析、团队管理" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=201912302211">
+    <link rel="stylesheet" href="/css/header.css?v=201912302211">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu">
+  <div class="inner flex-row-vertical">
+    <!--<i class="icon icon-lg icon-close"></i>-->
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off" title="隐藏左侧导航">﹤<i class="icon icon-lg icon-navicon"></i></a>
+    <div class="brand-wrap" style="background-image:url(/img/bannerBackgroundLeft.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/myLogo.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">安迪陈</h5>
+          <a href="mailto:andy@lovesofttech.com" title="andy@lovesofttech.com" class="mail" rel="external nofollow noopener noreferrer" target="_blank">andy@lovesofttech.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articleClassify.html">
+                <i class="icon icon-th-list"></i>
+                文章分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articles.html">
+                <i class="icon icon-th-list articles"></i>
+                文章列表
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/java.html">
+                <i class="icon icon-th-list java"></i>
+                Java
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/database.html">
+                <i class="icon icon-th-list database"></i>
+                MySQL/MyBatis
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/linux.html">
+                <i class="icon icon-th-list linux"></i>
+                CentOS/linux
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/react.html">
+                <i class="icon icon-th-list React"></i>
+                React
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/lnmp.html">
+                <i class="icon icon-th-list LNMP"></i>
+                LNMP
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/git.html">
+                <i class="icon icon-th-list git"></i>
+                git
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/windows.html">
+                <i class="icon icon-th-list windows"></i>
+                windows
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/dailyLives.html">
+                <i class="icon icon-th-list dailyLives"></i>
+                工作 &amp; 生活
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-github"></i>
+                我的 github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://gitee.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link"></i>
+                我的 gitee
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://blog.csdn.net/runAndRun" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link CSDN"></i>
+                我的 CSDN
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/aboutMe.html">
+                <i class="icon icon-address-card"></i>
+                关于我
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+
+        <div class="navbar navbar-custom navbar-fixed-top">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" style="margin-left:10px;" id="menu-toggle" title="显示左侧导航"><i class="icon icon-lg icon-navicon"></i>﹥</a>
+            <ul class="nav navbar-nav navbar-right" id="navMenuTop">
+                <li>
+                    <a href="/">主页</a>
+                </li>
+                
+                    
+                        <li>
+                            <a href="/articleClassify.html" title="本博客的文章分类列表">文章分类</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/articles.html" title="本博客的所有文章列表">文章列表</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/java.html" title="Java 开发，文章目录">Java</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/database.html" title="日常开发中有关 MySQL、MyBatis 的一些经验总结">MySQL/MyBatis</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/linux.html" title="CentOS/linux，文章目录">CentOS/linux</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/react.html" title="React 技术栈（全家桶）学习心得分享，文章目录">React</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/about.html">关于</a>
+                        </li>
+                    
+                
+            </ul>
+        </div>
+
+        <div class="flex-col header-title ellipsis">在 CentOS7 上安装 JIRA 手记</div>
+        
+        <div class="search-wrap" id="search-wrap" style="z-index: 2;">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back" style="width:33px;">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search" style="width:33px;">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare" style="z-index: 3;margin-right: 10px; width:30px;">
+                <i class="icon icon-lg icon-share-alt"></i>
+            </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h2 class="title">在 CentOS7 上安装 JIRA 手记</h2>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-01-15T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2018-01-16
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/CentOS/">CentOS</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/CentOS/jira/">jira</a></li></ul></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap" id="index-container">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc" style="z-index: 3;">
+            <h4><i class="fa fa-list-alt"></i>&nbsp;&nbsp;本文目录</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#参考链接"><span class="post-toc-number">1.</span> <span class="post-toc-text">参考链接</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#安装参考"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">安装参考</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#正式安装"><span class="post-toc-number">2.</span> <span class="post-toc-text">正式安装</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#卸载旧版，如果有的话"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">卸载旧版，如果有的话</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#环境准备"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">环境准备</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#安装"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">安装</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#复制破解文件（如果下载不到，请留言）"><span class="post-toc-number">2.4.</span> <span class="post-toc-text">复制破解文件（如果下载不到，请留言）</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#启动-jira"><span class="post-toc-number">2.5.</span> <span class="post-toc-text">启动 jira</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#访问"><span class="post-toc-number">2.6.</span> <span class="post-toc-text">访问</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#常用脚本"><span class="post-toc-number">3.</span> <span class="post-toc-text">常用脚本</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#为-jira-配置域名"><span class="post-toc-number">4.</span> <span class="post-toc-text">为 jira 配置域名</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#局域网设置域名指向"><span class="post-toc-number">5.</span> <span class="post-toc-text">局域网设置域名指向</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#java-net-UnknownHostException-jira-domain-com"><span class="post-toc-number">6.</span> <span class="post-toc-text">java.net.UnknownHostException: jira.domain.com</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#查看-jira-历史版本"><span class="post-toc-number">7.</span> <span class="post-toc-text">查看 jira 历史版本</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#下载特定版本"><span class="post-toc-number">7.1.</span> <span class="post-toc-text">下载特定版本</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#docker"><span class="post-toc-number">8.</span> <span class="post-toc-text">docker</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#破解版本，备份与恢复"><span class="post-toc-number">9.</span> <span class="post-toc-text">破解版本，备份与恢复</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#备份"><span class="post-toc-number">9.1.</span> <span class="post-toc-text">备份</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#恢复"><span class="post-toc-number">9.2.</span> <span class="post-toc-text">恢复</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#修改数据库配置"><span class="post-toc-number">9.2.1.</span> <span class="post-toc-text">修改数据库配置</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#启动用户，默认是-jira"><span class="post-toc-number">9.2.2.</span> <span class="post-toc-text">启动用户，默认是 jira</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#查看-jira-日志"><span class="post-toc-number">10.</span> <span class="post-toc-text">查看 jira 日志</span></a></li></ol>
+        </nav>
+    </aside>
+    
+
+<article id="post-linux/centOSJIRA" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">在 CentOS7 上安装 JIRA 手记</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018年01月16日 0:00" datetime="2018-01-15T16:00:00.000Z" itemprop="datePublished">2018-01-16</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/CentOS/">CentOS</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/CentOS/jira/">jira</a></li></ul></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" style="display:none">
+    阅读量：<span id="busuanzi_value_page_pv"></span>次
+</span>
+
+
+    <span>|</span>
+    <span class="post-count">字数：2.5k</span>
+    <span>|</span>
+    <span class="post-count">阅读时长：大约12分钟</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>如题<br><a id="more"></a></p>
+<p>JIRA Software是 Atlassian公司开发的课题管理工具（项目管理工具）。 通过高度的自定义性，不仅是bug管理工具，还有任务管理，工数管理，进度管理，日程管理等整个项目的管理。统一管理多个项目的进度和任务。 JIRA Software 是整合旧JIRA和旧JIRA Agile的敏捷开发工具。不是敏捷开发方面的熟手也可以很快上手。 JIRA Software 可以很方便的实现团队任务的可视化。 通过操作Scrum板、看板。</p>
+<h1 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h1><ol>
+<li><a href="https://www.atlassian.com/" rel="external nofollow noopener noreferrer" target="_blank">Jira 官方网站</a></li>
+<li><a href="http://blog.csdn.net/jamenew/article/details/54864440" rel="external nofollow noopener noreferrer" target="_blank">基于JIRA的Scrum敏捷开发的项目管理</a></li>
+<li><a href="https://www.cnblogs.com/gongyuhonglou/p/6806925.html" rel="external nofollow noopener noreferrer" target="_blank">JIRA - 使用指南(项目跟踪管理工具)</a></li>
+<li><a href="http://confluence.gjingao.com/pages/viewpage.action?pageId=98544" rel="external nofollow noopener noreferrer" target="_blank">初识Atlassian</a></li>
+<li><a href="https://www.atlassian.com/software/jira/download" rel="external nofollow noopener noreferrer" target="_blank">downloading Jira Software Server</a></li>
+<li><a href="https://confluence.atlassian.com/adminjiraserver075/installing-jira-applications-935390821.html" rel="external nofollow noopener noreferrer" target="_blank">Administering JIRA applications 7.5</a></li>
+<li><a href="http://www.shdsd.com/atlassian/jirasoftware/index.html" rel="external nofollow noopener noreferrer" target="_blank">敏捷团队专用的开发工具</a></li>
+<li><a href="https://my.atlassian.com/product" rel="external nofollow noopener noreferrer" target="_blank">管理 My Atlassian</a></li>
+</ol>
+<h2 id="安装参考"><a href="#安装参考" class="headerlink" title="安装参考"></a>安装参考</h2><ol>
+<li><a href="https://www.ilanni.com/?p=12119" rel="external nofollow noopener noreferrer" target="_blank">烂泥：jira7.3/7.2安装、中文及破解(20170829更新)</a></li>
+</ol>
+<h1 id="正式安装"><a href="#正式安装" class="headerlink" title="正式安装"></a>正式安装</h1><h2 id="卸载旧版，如果有的话"><a href="#卸载旧版，如果有的话" class="headerlink" title="卸载旧版，如果有的话"></a>卸载旧版，如果有的话</h2><p>备份旧版数据，然后删除数据库并重建。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm -rf /var/atlassian/ /opt/atlassian/ /etc/init.d/jira</span><br></pre></td></tr></table></figure></p>
+<h2 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h2><p>jira 的运行是依赖java环境的，也就是说需要安装 jdk，本文安装的是 7.5.2，需要安装 1.8 以上的 jdk 版本<br>除此之外，我们还需要为 jira 创建对应的数据库、用户名和密码，如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">mysql -uroot -p&apos;password&apos;</span><br><span class="line">mysql&gt; create schema if not exists jira default character set utf8mb4;</span><br><span class="line">Query OK, 1 row affected (0.00 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; grant all on jira.* to &apos;jira&apos;@&apos;%&apos; identified by &apos;jiraSoftPWD&apos;;</span><br><span class="line">Query OK, 0 rows affected (0.00 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; FLUSH PRIVILEGES;</span><br><span class="line">Query OK, 0 rows affected (0.00 sec)</span><br></pre></td></tr></table></figure></p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>以下安装过程，一路回车，用默认设置即可。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">[root@192 ~]# chmod 755 atlassian-jira-software-7.5.2-x64.bin </span><br><span class="line">[root@192 ~]# ./atlassian-jira-software-7.5.2-x64.bin </span><br><span class="line">Unpacking JRE ...</span><br><span class="line">Starting Installer ...</span><br><span class="line">Nov 12, 2017 3:07:51 PM java.util.prefs.FileSystemPreferences$2 run</span><br><span class="line">INFO: Created system preferences directory in java.home.</span><br><span class="line"></span><br><span class="line">This will install JIRA Software 7.5.2 on your computer.</span><br><span class="line">OK [o, Enter], Cancel [c]</span><br><span class="line"></span><br><span class="line">Choose the appropriate installation or upgrade option.</span><br><span class="line">Please choose one of the following:</span><br><span class="line">Express Install (use default settings) [1], Custom Install (recommended for advanced users) [2, Enter], Upgrade an existing JIRA installation [3]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Where should JIRA Software be installed?</span><br><span class="line">[/opt/atlassian/jira]</span><br><span class="line"></span><br><span class="line">Default location for JIRA Software data</span><br><span class="line">[/var/atlassian/application-data/jira]</span><br><span class="line"></span><br><span class="line">Configure which ports JIRA Software will use.</span><br><span class="line">JIRA requires two TCP ports that are not being used by any other</span><br><span class="line">applications on this machine. The HTTP port is where you will access JIRA</span><br><span class="line">through your browser. The Control port is used to startup and shutdown JIRA.</span><br><span class="line">Use default ports (HTTP: 8080, Control: 8005) - Recommended [1, Enter], Set custom value for HTTP and Control ports [2]</span><br><span class="line"></span><br><span class="line">JIRA can be run in the background.</span><br><span class="line">You may choose to run JIRA as a service, which means it will start</span><br><span class="line">automatically whenever the computer restarts.</span><br><span class="line">Install JIRA as Service?</span><br><span class="line">Yes [y, Enter], No [n]</span><br><span class="line"></span><br><span class="line">Details on where JIRA Software will be installed and the settings that will be used.</span><br><span class="line">Installation Directory: /opt/atlassian/jira </span><br><span class="line">Home Directory: /var/atlassian/application-data/jira </span><br><span class="line">HTTP Port: 8080 </span><br><span class="line">RMI Port: 8005 </span><br><span class="line">Install as service: Yes </span><br><span class="line">Install [i, Enter], Exit [e]</span><br><span class="line"></span><br><span class="line">Extracting files ...</span><br><span class="line"></span><br><span class="line">Please wait a few moments while JIRA Software is configured.</span><br><span class="line">Installation of JIRA Software 7.5.2 is complete</span><br><span class="line">Start JIRA Software 7.5.2 now?</span><br><span class="line">Yes [y, Enter], No [n]</span><br><span class="line">n</span><br><span class="line">Installation of JIRA Software 7.5.2 is complete</span><br><span class="line">Your installation of JIRA Software 7.5.2 is now ready.</span><br><span class="line">Finishing installation ...</span><br><span class="line">[root@192 ~]#</span><br></pre></td></tr></table></figure></p>
+<h2 id="复制破解文件（如果下载不到，请留言）"><a href="#复制破解文件（如果下载不到，请留言）" class="headerlink" title="复制破解文件（如果下载不到，请留言）"></a>复制破解文件（如果下载不到，请留言）</h2><p>把破解包里面的 atlassian-extras-3.1.2.jar 和 mysql-connector-java-5.1.39-bin.jar 两个文件复制到 /opt/atlassian/jira/atlassian-jira/WEB-INF/lib/目录下。<br>其中 atlassian-extras-3.1.2.jar 是用来替换原来的 atlassian-extras-3.1.2.jar 文件，用作破解 jira 系统的。<br>而 mysql-connector-java-5.1.39-bin.jar 是用来连接 mysql 数据库的驱动软件包。<br>因为我们没有正式的 license，所以需要我们在 jira 官网注册一个账号，然后利用这个账号申请一个可以试用 30 天的 license</p>
+<h2 id="启动-jira"><a href="#启动-jira" class="headerlink" title="启动 jira"></a>启动 jira</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">[root@192 jira]# service jira start</span><br><span class="line"></span><br><span class="line">To run JIRA in the foreground, start the server with start-jira.sh -fg</span><br><span class="line">executing using dedicated user: jira1</span><br><span class="line">                .....</span><br><span class="line">          .... .NMMMD.  ...</span><br><span class="line">        .8MMM.  $MMN,..~MMMO.</span><br><span class="line">        .?MMM.         .MMM?.</span><br><span class="line"></span><br><span class="line">     OMMMMZ.           .,NMMMN~</span><br><span class="line">     .IMMMMMM. .NMMMN. .MMMMMN,</span><br><span class="line">       ,MMMMMM$..3MD..ZMMMMMM.</span><br><span class="line">        =NMMMMMM,. .,MMMMMMD.</span><br><span class="line">         .MMMMMMMM8MMMMMMM,</span><br><span class="line">           .ONMMMMMMMMMMZ.</span><br><span class="line">             ,NMMMMMMM8.</span><br><span class="line">            .:,.$MMMMMMM</span><br><span class="line">          .IMMMM..NMMMMMD.</span><br><span class="line">         .8MMMMM:  :NMMMMN.</span><br><span class="line">         .MMMMMM.   .MMMMM~.</span><br><span class="line">         .MMMMMN    .MMMMM?.</span><br><span class="line"></span><br><span class="line">      Atlassian JIRA</span><br><span class="line">      Version : 7.5.2</span><br><span class="line">                  </span><br><span class="line"></span><br><span class="line">If you encounter issues starting or stopping JIRA, please see the Troubleshooting guide at http://confluence.atlassian.com/display/JIRA/Installation+Troubleshooting+Guide</span><br><span class="line"></span><br><span class="line">Server startup logs are located in /opt/atlassian/jira/logs/catalina.out</span><br><span class="line">Using CATALINA_BASE:   /opt/atlassian/jira</span><br><span class="line">Using CATALINA_HOME:   /opt/atlassian/jira</span><br><span class="line">Using CATALINA_TMPDIR: /opt/atlassian/jira/temp</span><br><span class="line">Using JRE_HOME:        /opt/atlassian/jira/jre/</span><br><span class="line">Using CLASSPATH:       /opt/atlassian/jira/bin/bootstrap.jar:/opt/atlassian/jira/bin/tomcat-juli.jar</span><br><span class="line">Using CATALINA_PID:    /opt/atlassian/jira/work/catalina.pid</span><br><span class="line">Tomcat started.</span><br><span class="line">[root@192 jira]#</span><br></pre></td></tr></table></figure>
+<h2 id="访问"><a href="#访问" class="headerlink" title="访问"></a>访问</h2><p>jira 的 web 服务器用的是 tomcat，其配置文件存放在 /opt/atlassian/jira/conf/server.xml 文件，默认端口是 8080。</p>
+<p>浏览器输入：IP:8080<br>用 chrome 访问，出于安全考虑，强制在 http 后加上了 s，就成了 https:IP:8080这样访问了，于是报错：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">12-Nov-2017 15:20:52.406 INFO [http-nio-8080-exec-2] org.apache.coyote.http11.Http11Processor.service Error parsing HTTP request header</span><br><span class="line"> Note: further occurrences of HTTP header parsing errors will be logged at DEBUG level.</span><br><span class="line"> java.lang.IllegalArgumentException: Invalid character found in method name. HTTP method names must be tokens</span><br><span class="line">        at org.apache.coyote.http11.Http11InputBuffer.parseRequestLine(Http11InputBuffer.java:462)</span><br><span class="line">        at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:667)</span><br><span class="line">        at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:66)</span><br><span class="line">        at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:802)</span><br><span class="line">        at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1410)</span><br><span class="line">        at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)</span><br><span class="line">        at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)</span><br><span class="line">        at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)</span><br><span class="line">        at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)</span><br><span class="line">        at java.lang.Thread.run(Thread.java:745)</span><br></pre></td></tr></table></figure></p>
+<p>换一个不加 s 的浏览器访问就 OK 了。   </p>
+<h1 id="常用脚本"><a href="#常用脚本" class="headerlink" title="常用脚本"></a>常用脚本</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd /opt/atlassian/jira/logs/</span><br><span class="line">&gt; /opt/atlassian/jira/logs/catalina.out</span><br><span class="line">tail -f /opt/atlassian/jira/logs/catalina.out</span><br></pre></td></tr></table></figure>
+<h1 id="为-jira-配置域名"><a href="#为-jira-配置域名" class="headerlink" title="为 jira 配置域名"></a>为 jira 配置域名</h1><p>用 nginx 反向代理达到访问 jira (用的 tomcat 作为 web 服务器) 的默认端口应用程序时，域名不加端口 8080，对外就象是使用默认的 80 端口一样<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /usr/local/nginx/vhosts</span><br><span class="line">vim jira.conf</span><br></pre></td></tr></table></figure></p>
+<p>内容如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">        listen       80;</span><br><span class="line">        server_name  jira.domain.com;</span><br><span class="line">        charset      utf-8;</span><br><span class="line">        access_log   /opt/atlassian/jira/logs/jira.domain.com.access.log;</span><br><span class="line">        error_log    /opt/atlassian/jira/logs/jira.domain.com.error.log;</span><br><span class="line"></span><br><span class="line">        location / &#123;</span><br><span class="line">            proxy_pass        http://localhost:8080;</span><br><span class="line">            proxy_set_header  Host              $host;</span><br><span class="line">            proxy_set_header  X-Real-IP         $remote_addr;</span><br><span class="line">            proxy_set_header  X-Forwarded-For   $proxy_add_x_forwarded_for;</span><br><span class="line">        &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure></p>
+<p>使配置生效<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/local/nginx/sbin/nginx -s reload</span><br></pre></td></tr></table></figure></p>
+<h1 id="局域网设置域名指向"><a href="#局域网设置域名指向" class="headerlink" title="局域网设置域名指向"></a>局域网设置域名指向</h1><p>设置从 hosts 设置的域名访问时，如果是二级域名，用 chrome/firefox/edge 访问时，会强制用 https 访问，改成一级域名可避免这个问题。</p>
+<h1 id="java-net-UnknownHostException-jira-domain-com"><a href="#java-net-UnknownHostException-jira-domain-com" class="headerlink" title="java.net.UnknownHostException: jira.domain.com"></a>java.net.UnknownHostException: jira.domain.com</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">java.net.UnknownHostException: ybdjira.com</span><br><span class="line">        at java.net.InetAddress.getAllByName0(InetAddress.java:1280)</span><br><span class="line">        at java.net.InetAddress.getAllByName(InetAddress.java:1192)</span><br><span class="line">        at java.net.InetAddress.getAllByName(InetAddress.java:1126)</span><br><span class="line">        at org.apache.http.impl.conn.SystemDefaultDnsResolver.resolve(SystemDefaultDnsResolver.java:45)</span><br><span class="line">        at org.apache.http.impl.conn.DefaultHttpClientConnectionOperator.connect(DefaultHttpClientConnectionOperator.java:112)</span><br><span class="line">        at org.apache.http.impl.conn.PoolingHttpClientConnectionManager.connect(PoolingHttpClientConnectionManager.java:359)</span><br><span class="line">        at org.apache.http.impl.execchain.MainClientExec.establishRoute(MainClientExec.java:381)</span><br><span class="line">        at org.apache.http.impl.execchain.MainClientExec.execute(MainClientExec.java:237)</span><br><span class="line">        at org.apache.http.impl.execchain.ProtocolExec.execute(ProtocolExec.java:185)</span><br><span class="line">        at org.apache.http.impl.execchain.RetryExec.execute(RetryExec.java:89)</span><br><span class="line">        at org.apache.http.impl.execchain.RedirectExec.execute(RedirectExec.java:111)</span><br><span class="line">        at org.apache.http.impl.client.InternalHttpClient.doExecute(InternalHttpClient.java:185)</span><br><span class="line">        at org.apache.http.impl.client.CloseableHttpClient.execute(CloseableHttpClient.java:83)</span><br><span class="line">        at org.apache.http.impl.client.CloseableHttpClient.execute(CloseableHttpClient.java:108)</span><br><span class="line">        at org.apache.http.impl.client.CloseableHttpClient.execute(CloseableHttpClient.java:56)</span><br><span class="line">        at com.atlassian.gadgets.renderer.internal.http.HttpClientFetcher.fetch(HttpClientFetcher.java:87)</span><br><span class="line">        at org.apache.shindig.gadgets.http.ContentFetcherFactory.fetch(ContentFetcherFactory.java:50)</span><br><span class="line">        at com.atlassian.gadgets.renderer.internal.http.TrustedAppContentFetcherFactory.fetch(TrustedAppContentFetcherFactory.java:44)</span><br><span class="line">        at org.apache.shindig.gadgets.servlet.MakeRequestHandler.fetch(MakeRequestHandler.java:84)</span><br><span class="line">        at org.apache.shindig.gadgets.servlet.MakeRequestServlet.doGet(MakeRequestServlet.java:55)</span><br><span class="line">        at com.atlassian.gadgets.shindig.servlet.XsrfMakeRequestServlet.doGet(XsrfMakeRequestServlet.java:24)</span><br><span class="line">        at org.apache.shindig.gadgets.servlet.MakeRequestServlet.doPost(MakeRequestServlet.java:65)</span><br><span class="line">        at com.atlassian.gadgets.shindig.servlet.XsrfMakeRequestServlet.doPost(XsrfMakeRequestServlet.java:37)</span><br><span class="line">        at javax.servlet.http.HttpServlet.service(HttpServlet.java:648)</span><br><span class="line">        at javax.servlet.http.HttpServlet.service(HttpServlet.java:729)</span><br><span class="line">        at com.atlassian.plugin.servlet.DelegatingPluginServlet.service(DelegatingPluginServlet.java:37)</span><br><span class="line">        at javax.servlet.http.HttpServlet.service(HttpServlet.java:729)</span><br><span class="line">        at com.atlassian.plugin.servlet.ServletModuleContainerServlet.service(ServletModuleContainerServlet.java:45)</span><br><span class="line">        at javax.servlet.http.HttpServlet.service(HttpServlet.java:729)</span><br><span class="line">        ... 57 filtered</span><br><span class="line">        at org.apache.shindig.auth.AuthenticationServletFilter.callChain(AuthenticationServletFilter.java:123)</span><br><span class="line">        at org.apache.shindig.auth.AuthenticationServletFilter.doFilter(AuthenticationServletFilter.java:86)</span><br><span class="line">        ... 3 filtered</span><br><span class="line">        at com.atlassian.web.servlet.plugin.request.RedirectInterceptingFilter.doFilter(RedirectInterceptingFilter.java:21)</span><br><span class="line">        ... 58 filtered</span><br><span class="line">        at com.atlassian.jira.security.JiraSecurityFilter.lambda$doFilter$0(JiraSecurityFilter.java:66)</span><br><span class="line">        ... 1 filtered</span><br><span class="line">        at com.atlassian.jira.security.JiraSecurityFilter.doFilter(JiraSecurityFilter.java:64)</span><br><span class="line">        ... 36 filtered</span><br><span class="line">        at com.atlassian.jira.servermetrics.CorrelationIdPopulatorFilter.doFilter(CorrelationIdPopulatorFilter.java:30)</span><br><span class="line">        ... 10 filtered</span><br><span class="line">        at com.atlassian.web.servlet.plugin.request.RedirectInterceptingFilter.doFilter(RedirectInterceptingFilter.java:21)</span><br><span class="line">        ... 4 filtered</span><br><span class="line">        at com.atlassian.web.servlet.plugin.LocationCleanerFilter.doFilter(LocationCleanerFilter.java:36)</span><br><span class="line">        ... 26 filtered</span><br><span class="line">        at com.atlassian.jira.servermetrics.MetricsCollectorFilter.doFilter(MetricsCollectorFilter.java:25)</span><br><span class="line">        ... 23 filtered</span><br><span class="line">        at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)</span><br><span class="line">        at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)</span><br><span class="line">        at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)</span><br><span class="line">        at java.lang.Thread.run(Thread.java:745)</span><br></pre></td></tr></table></figure>
+<p>解决：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/hosts</span><br><span class="line">#添加：</span><br><span class="line">127.0.0.1 jira.domain.com</span><br></pre></td></tr></table></figure></p>
+<p>或者（也许是并且，因为部署在局域网内，外部无法访问。系统有监控需要通过这个基本 URL 来访问），在系统设置页面，将基本 URL 改成：<a href="http://localhost:8080" rel="external nofollow noopener noreferrer" target="_blank">http://localhost:8080</a><br>是在把基本 URL 改成：    <a href="http://localhost:8080" rel="external nofollow noopener noreferrer" target="_blank">http://localhost:8080</a> 之前抛的错。</p>
+<h1 id="查看-jira-历史版本"><a href="#查看-jira-历史版本" class="headerlink" title="查看 jira 历史版本"></a>查看 jira 历史版本</h1><p><a href="https://marketplace.atlassian.com/apps/1213607/jira-software/version-history" rel="external nofollow noopener noreferrer" target="_blank">Jira Software</a></p>
+<h2 id="下载特定版本"><a href="#下载特定版本" class="headerlink" title="下载特定版本"></a>下载特定版本</h2><p>将下面的链接的版本号改成上面列出的某一个即可，比如要下载 7.9.2<br>linux 版本：<br><a href="https://www.atlassian.com/software/jira/downloads/binary/atlassian-jira-software-7.9.2-x64.bin" rel="external nofollow noopener noreferrer" target="_blank">https://www.atlassian.com/software/jira/downloads/binary/atlassian-jira-software-7.9.2-x64.bin</a></p>
+<p>windows 版本：<br><a href="https://www.atlassian.com/software/jira/downloads/binary/atlassian-jira-software-7.9.2-x64.exe" rel="external nofollow noopener noreferrer" target="_blank">https://www.atlassian.com/software/jira/downloads/binary/atlassian-jira-software-7.9.2-x64.exe</a></p>
+<h1 id="docker"><a href="#docker" class="headerlink" title="docker"></a>docker</h1><p><a href="https://github.com/blacklabelops/jira" rel="external nofollow noopener noreferrer" target="_blank">Dockerized Atlassian Jira</a></p>
+<h1 id="破解版本，备份与恢复"><a href="#破解版本，备份与恢复" class="headerlink" title="破解版本，备份与恢复"></a>破解版本，备份与恢复</h1><h2 id="备份"><a href="#备份" class="headerlink" title="备份"></a>备份</h2><ol>
+<li><p>备份安装文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rm -rf /opt/atlassian/jira/logs/*</span><br><span class="line">tar -czvf jira.tar.gz /var/atlassian/ /opt/atlassian/ /etc/init.d/jira</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>备份数据库</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqldump --default-character-set=utf8mb4 -uroot -p&apos;password&apos; jira &gt; /root/jiraBack.sql</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="恢复"><a href="#恢复" class="headerlink" title="恢复"></a>恢复</h2><p>假设目标服务器没有安装过 jira。</p>
+<ol>
+<li>下载相同版本并在目标服务器上安装，目的是让安装程序把 jira 服务以及运行用户创建好，之后的事情，只是简单的替换已经破解过的安装文件和数据库而已。</li>
+<li><p>删除刚刚安装的文件。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm -rf /var/atlassian/ /opt/atlassian/ /etc/init.d/jira</span><br></pre></td></tr></table></figure>
+</li>
+<li></li>
+<li><p>将备份的 jira 安装文件 copy 至根目录 /，然后解压</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -xzvf jira.tar.gz</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>恢复备份的数据库</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">mysql -uroot -p&apos;password&apos;</span><br><span class="line">mysql&gt; use jira;</span><br><span class="line">Database changed</span><br><span class="line">mysql&gt; set names utf8mb4;</span><br><span class="line">Query OK, 0 rows affected (0.00 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; source /root/jiraBack.sql</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="修改数据库配置"><a href="#修改数据库配置" class="headerlink" title="修改数据库配置"></a>修改数据库配置</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /var/atlassian/application-data/jira/dbconfig.xml</span><br></pre></td></tr></table></figure>
+<h3 id="启动用户，默认是-jira"><a href="#启动用户，默认是-jira" class="headerlink" title="启动用户，默认是 jira"></a>启动用户，默认是 jira</h3><p>第一次安装，会创建 jira 的启动用户，用户名就是 jira<br>如果安装过第二次，那么，会再创建一个用户 jira1<br>所以，如果备份的是第二次安装的版本，那么，恢复之后，启动，会提示 jira1 这个用户不存在<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@AndyCentOS7Basic init.d]# service jira start</span><br><span class="line"></span><br><span class="line">To run JIRA in the foreground, start the server with start-jira.sh -fg</span><br><span class="line">executing using dedicated user: jira1</span><br><span class="line">runuser: user jira1 does not exist</span><br></pre></td></tr></table></figure></p>
+<p>解决办法就是，安装两次，第二安装完毕再进行恢复操作。</p>
+<h1 id="查看-jira-日志"><a href="#查看-jira-日志" class="headerlink" title="查看 jira 日志"></a>查看 jira 日志</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tail -f /opt/atlassian/jira/logs/catalina.out</span><br></pre></td></tr></table></figure>
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-09-01T02:53:13.034Z" itemprop="dateUpdated">2020年9月1日 10:53</time>
+</span><br>
+
+
+        转载请注明出处：<a href="/linux/centOSJIRA.html" target="_blank" rel="external">https://www.lovesofttech.com/linux/centOSJIRA.html</a>
+    </div>
+    <footer>
+        <a href="https://www.lovesofttech.com">
+            <img src="/img/myLogo.jpg" alt="安迪陈">
+            安迪陈
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CentOS/">CentOS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jira/">jira</a></li></ul>
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/linux/centOSJIRA.html&title=《在 CentOS7 上安装 JIRA 手记》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/linux/centOSJIRA.html&title=《在 CentOS7 上安装 JIRA 手记》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=如题" data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/linux/centOSJIRA.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《在 CentOS7 上安装 JIRA 手记》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/linux/centOSJIRA.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/linux/centOSJIRA.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/lnmp/centOS7Nginx.html" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">CentOS7 安装 Nginx 并设置开机自启动</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/database/mysqldump.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">mysqldump 用法及示例</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+    
+    
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="bottom">
+        <p>
+            <span>安迪陈技术日志，架构、感悟、系统分析、团队管理 &copy; 2017 - 2020</span>
+            <span>
+                Power by <a href="https://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>&nbsp;
+                Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank" rel="external nofollow noopener noreferrer">indigo</a>
+            </span>
+            <span>
+                <a href="http://www.beian.miit.gov.cn" target="_blank" rel="external nofollow noopener noreferrer">蜀ICP备17041860号</a>
+            </span>
+            
+            <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            </p><p>
+                <span>
+                    统计始于：2019-03-06
+                </span>
+                <span id="busuanzi_container_site_uv" style="display:none">
+                    访客数：<span id="busuanzi_value_site_uv"></span>
+                </span>
+                <span id="busuanzi_container_site_pv" style="display:none">
+                    访问量：<span id="busuanzi_value_site_pv"></span>
+                </span>
+            
+            
+                <span class="post-count">累计字数：309.2k</span>
+            
+                <span><a href="/general/blogLog.html"><i class="fas fa-pen-alt"></i>&nbsp;博客日志</a></span>
+            </p>
+        <p></p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light" title="回到顶部"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/linux/centOSJIRA.html&title=《在 CentOS7 上安装 JIRA 手记》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/linux/centOSJIRA.html&title=《在 CentOS7 上安装 JIRA 手记》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=如题" data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/linux/centOSJIRA.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《在 CentOS7 上安装 JIRA 手记》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/linux/centOSJIRA.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/linux/centOSJIRA.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACJUlEQVR42u3aQXLDMAgF0N7/0ukFYucDbWaMnlad1Jb0vGBA6OcnHq/bcfVkPnPv3fLAwMB4LCPZYvLf6ipXW0/WfbMiBgbGAYwkFN4/kwTN+9/zD4SBgYGRMO5/uQ+a92AMDAyMOaMHSFK9rwZcDAyMBzLy6f4j7ftqLY6BgfFARu/4/jt//0t/AwMD41GMV3FMDv0ns32YBwMDYzWj14DML0ZUW5WT/WBgYJzA6JWRk/Catz+jZBEDA+NgRq9+TMJu0mwotFExMDCWMqrXI3phcYKMUk8MDIzVjPm25uljXvR+KHcxMDCOYfQKyF7boNcGuFwLAwNjKSMJjj1qctA2aTO8yXAxMDAOZhSSs9YW8+bB5ZwYGBhHMnoJ3Kg7UWxwfihfMTAwFjHyF6rP5KXvvEjGwMDYzciXz8NftZHZbFheFbEYGBhLGXkTsde2zINp7y0MDIzdjORIa3LElpfK1asehe+BgYGxiJFf9uoF6KTZkKSMhSsXGBgYSxnVg7B8i/kzeZF82eXAwMBYyqgmedWQXS1Tq2wMDIxzGPO0L595Qrq8OYKBgbGO8SqO/JDur4JsObfFwMBYx5hP3Stie03NPKBjYGDsY1RbjHmxmuOrnwwDA+NMRh74qlcuqpczegdwGBgYGPOss7dKgYqBgYERp2jVdmavrB31NzAwMB7LSIrYagKXf45oo/cJIgYGxmrGZFvVgDv5KPPmKAYGxgMZv1OV2xm40giJAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.5.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.5.2" async></script>
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '安迪陈技术日志';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '欢迎回来';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

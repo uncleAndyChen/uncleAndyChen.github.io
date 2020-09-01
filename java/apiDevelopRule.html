@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<!--<script async src="//hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c"></script>-->
+<!-- 统计-->
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var host = window.location.host;
+        var hm = document.createElement("script");
+
+        if (host.indexOf('gitee.io') > 0) { // https://uncleandychen.gitee.io/
+            hm.src = "https://hm.baidu.com/hm.js?0cf4709148b070b8082191d2e456a1a3";
+        } else if (host.indexOf('lovesofttech.com') > 0) { // https://www.lovesofttech.com/
+            hm.src = "https://hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c";
+        } else {
+            hm.src = '';
+        }
+
+        if (hm.src !== '') {
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        }
+    })();
+</script>
+<!-- End Baidu Tongji -->
+
+
+
+<!-- Baidu Push -->
+<!-- 主动推送百度爬虫-->
+<script>
+    (function(){
+        if (window.location.host.indexOf('lovesofttech.com') < 0) {
+            return;
+        }
+
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+<!-- End Baidu Push -->
+
+
+    <meta charset="utf-8">
+    
+    
+    <link rel="canonical" href="https://www.lovesofttech.com/java/apiDevelopRule.html">
+    
+    
+    <title>CRM 项目，api 部分的开发规则，仅供参考 | 安迪陈技术日志，架构、感悟、系统分析、团队管理 | 自强不息，厚德载物</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="java,team,开发规范">
+    <meta name="description" content="还是16年年底，开发 CRM 时设计的 api 开发规范。 配置有一点繁琐。 配置好后，就可以专注于业务逻辑。 适合中型团队多人协作。 小团队不建议这么操作。   该规范大量用到反射、接口、多态、工厂模式，新人不太容易理解。 小团队可以没有接口和反射，但是可以有、并且建议合理使用多态和工厂模式。">
+<meta name="keywords" content="java,team,开发规范">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CRM 项目，api 部分的开发规则，仅供参考">
+<meta property="og:url" content="https://www.lovesofttech.com/java/apiDevelopRule.html">
+<meta property="og:site_name" content="安迪陈技术日志，架构、感悟、系统分析、团队管理">
+<meta property="og:description" content="还是16年年底，开发 CRM 时设计的 api 开发规范。 配置有一点繁琐。 配置好后，就可以专注于业务逻辑。 适合中型团队多人协作。 小团队不建议这么操作。   该规范大量用到反射、接口、多态、工厂模式，新人不太容易理解。 小团队可以没有接口和反射，但是可以有、并且建议合理使用多态和工厂模式。">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2020-09-01T02:53:12.972Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CRM 项目，api 部分的开发规则，仅供参考">
+<meta name="twitter:description" content="还是16年年底，开发 CRM 时设计的 api 开发规范。 配置有一点繁琐。 配置好后，就可以专注于业务逻辑。 适合中型团队多人协作。 小团队不建议这么操作。   该规范大量用到反射、接口、多态、工厂模式，新人不太容易理解。 小团队可以没有接口和反射，但是可以有、并且建议合理使用多态和工厂模式。">
+    
+        <link rel="alternative" href="/atom.xml" title="安迪陈技术日志，架构、感悟、系统分析、团队管理" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=201912302211">
+    <link rel="stylesheet" href="/css/header.css?v=201912302211">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu">
+  <div class="inner flex-row-vertical">
+    <!--<i class="icon icon-lg icon-close"></i>-->
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off" title="隐藏左侧导航">﹤<i class="icon icon-lg icon-navicon"></i></a>
+    <div class="brand-wrap" style="background-image:url(/img/bannerBackgroundLeft.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/myLogo.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">安迪陈</h5>
+          <a href="mailto:andy@lovesofttech.com" title="andy@lovesofttech.com" class="mail" rel="external nofollow noopener noreferrer" target="_blank">andy@lovesofttech.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articleClassify.html">
+                <i class="icon icon-th-list"></i>
+                文章分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articles.html">
+                <i class="icon icon-th-list articles"></i>
+                文章列表
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/java.html">
+                <i class="icon icon-th-list java"></i>
+                Java
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/database.html">
+                <i class="icon icon-th-list database"></i>
+                MySQL/MyBatis
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/linux.html">
+                <i class="icon icon-th-list linux"></i>
+                CentOS/linux
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/react.html">
+                <i class="icon icon-th-list React"></i>
+                React
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/lnmp.html">
+                <i class="icon icon-th-list LNMP"></i>
+                LNMP
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/git.html">
+                <i class="icon icon-th-list git"></i>
+                git
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/windows.html">
+                <i class="icon icon-th-list windows"></i>
+                windows
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/dailyLives.html">
+                <i class="icon icon-th-list dailyLives"></i>
+                工作 &amp; 生活
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-github"></i>
+                我的 github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://gitee.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link"></i>
+                我的 gitee
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://blog.csdn.net/runAndRun" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link CSDN"></i>
+                我的 CSDN
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/aboutMe.html">
+                <i class="icon icon-address-card"></i>
+                关于我
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+
+        <div class="navbar navbar-custom navbar-fixed-top">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" style="margin-left:10px;" id="menu-toggle" title="显示左侧导航"><i class="icon icon-lg icon-navicon"></i>﹥</a>
+            <ul class="nav navbar-nav navbar-right" id="navMenuTop">
+                <li>
+                    <a href="/">主页</a>
+                </li>
+                
+                    
+                        <li>
+                            <a href="/articleClassify.html" title="本博客的文章分类列表">文章分类</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/articles.html" title="本博客的所有文章列表">文章列表</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/java.html" title="Java 开发，文章目录">Java</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/database.html" title="日常开发中有关 MySQL、MyBatis 的一些经验总结">MySQL/MyBatis</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/linux.html" title="CentOS/linux，文章目录">CentOS/linux</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/react.html" title="React 技术栈（全家桶）学习心得分享，文章目录">React</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/about.html">关于</a>
+                        </li>
+                    
+                
+            </ul>
+        </div>
+
+        <div class="flex-col header-title ellipsis">CRM 项目，api 部分的开发规则，仅供参考</div>
+        
+        <div class="search-wrap" id="search-wrap" style="z-index: 2;">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back" style="width:33px;">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search" style="width:33px;">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare" style="z-index: 3;margin-right: 10px; width:30px;">
+                <i class="icon icon-lg icon-share-alt"></i>
+            </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h2 class="title">CRM 项目，api 部分的开发规则，仅供参考</h2>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-04-13T00:57:16.000Z" itemprop="datePublished" class="page-time">
+  2017-04-13
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/开发规范/">开发规范</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/开发规范/team/">team</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/开发规范/team/java/">java</a></li></ul></li></ul></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap" id="index-container">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc" style="z-index: 3;">
+            <h4><i class="fa fa-list-alt"></i>&nbsp;&nbsp;本文目录</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#一-api开发总则"><span class="post-toc-number">1.</span> <span class="post-toc-text">一. api开发总则</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#二-类、接口命名规范"><span class="post-toc-number">2.</span> <span class="post-toc-text">二. 类、接口命名规范</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#三-开发步骤"><span class="post-toc-number">3.</span> <span class="post-toc-text">三. 开发步骤</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#四-Handler-xml-配置文件规则"><span class="post-toc-number">4.</span> <span class="post-toc-text">四. Handler xml 配置文件规则</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#以-ShopConfigService-为例，先看实际例子。"><span class="post-toc-number">4.1.</span> <span class="post-toc-text">以 ShopConfigService 为例，先看实际例子。</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Handler-配置文件中-key-命名规则"><span class="post-toc-number">4.2.</span> <span class="post-toc-text">Handler 配置文件中 key 命名规则</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Handler-配置文件中-value-配置"><span class="post-toc-number">4.3.</span> <span class="post-toc-text">Handler 配置文件中 value 配置</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#对-key-的处理，从而得到对应的-Handler，再进一步就可以找到对应-Handler-的接口了-。"><span class="post-toc-number">4.4.</span> <span class="post-toc-text">对 key 的处理，从而得到对应的 Handler，再进一步就可以找到对应 Handler 的接口了 。</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#五-返回数据类型"><span class="post-toc-number">5.</span> <span class="post-toc-text">五. 返回数据类型</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#六-入参"><span class="post-toc-number">6.</span> <span class="post-toc-text">六. 入参</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#七-mapper扩展"><span class="post-toc-number">7.</span> <span class="post-toc-text">七. mapper扩展</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#八-数据库交互方式"><span class="post-toc-number">8.</span> <span class="post-toc-text">八. 数据库交互方式</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#九-分页查询示例："><span class="post-toc-number">9.</span> <span class="post-toc-text">九. 分页查询示例：</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#十-以下为php端调用参数示例"><span class="post-toc-number">10.</span> <span class="post-toc-text">十. 以下为php端调用参数示例</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#错误列表"><span class="post-toc-number">11.</span> <span class="post-toc-text">错误列表</span></a></li></ol>
+        </nav>
+    </aside>
+    
+
+<article id="post-java/apiDevelopRule" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">CRM 项目，api 部分的开发规则，仅供参考</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017年04月13日 8:57" datetime="2017-04-13T00:57:16.000Z" itemprop="datePublished">2017-04-13</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/开发规范/">开发规范</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/开发规范/team/">team</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/开发规范/team/java/">java</a></li></ul></li></ul></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" style="display:none">
+    阅读量：<span id="busuanzi_value_page_pv"></span>次
+</span>
+
+
+    <span>|</span>
+    <span class="post-count">字数：3.2k</span>
+    <span>|</span>
+    <span class="post-count">阅读时长：大约14分钟</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <ul>
+<li>还是16年年底，开发 CRM 时设计的 api 开发规范。<ul>
+<li>配置有一点繁琐。</li>
+<li>配置好后，就可以专注于业务逻辑。</li>
+<li>适合中型团队多人协作。</li>
+<li>小团队不建议这么操作。</li>
+</ul>
+</li>
+<li>该规范大量用到反射、接口、多态、工厂模式，新人不太容易理解。</li>
+<li>小团队可以没有接口和反射，但是可以有、并且建议合理使用多态和工厂模式。</li>
+</ul>
+<a id="more"></a>
+<h1 id="一-api开发总则"><a href="#一-api开发总则" class="headerlink" title="一. api开发总则"></a>一. api开发总则</h1><ol>
+<li>遵循单一职责原则，一个类只做一件（类）事。</li>
+<li>数据库表与业务类是 1:N 的关系。</li>
+<li>简单业务表建议只有一个业务类，复杂业务表，建议有多个业务类。</li>
+</ol>
+<h1 id="二-类、接口命名规范"><a href="#二-类、接口命名规范" class="headerlink" title="二. 类、接口命名规范"></a>二. 类、接口命名规范</h1><p>根据业务规则，首字母大写，如，针对表:crmSysApp，业务命名：SysAppService，接口、实现类、抽象类，都是在这个命名的基础上进一步命名的，规则如下。</p>
+<ol>
+<li>接口，在前面加 I，如：ISysAppService。</li>
+<li>抽象类（非必须），在前面A，如：ASysAppService。</li>
+<li>实现类，在后面加Impl，如：SysAppServiceImpl，需要加@Service注解。</li>
+<li>处理类，在后面加Handler，如：SysAppServiceHandler。</li>
+<li>处理类仅仅是业务实现类供消费方（client）进行消费的桥梁，不处理具体的业务。声明业务处理对象，必须也只能用接口来声明，如：ISysAppService sysAppService，且加上@Autowired注解。 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ShopServiceHandler</span> <span class="keyword">extends</span> <span class="title">AapiHandler</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    IShopService shopService;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> List&lt;ShopInfoView&gt; <span class="title">getShopInfoView</span><span class="params">(RequestParametersView requestParametersView)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> shopService.getShopInfoView(requestParametersView);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h1 id="三-开发步骤"><a href="#三-开发步骤" class="headerlink" title="三. 开发步骤"></a>三. 开发步骤</h1><ol>
+<li>接口。在com.maile360.crm.service.facade.api下，创建interface，参考：ISysAppService；抽象类为非必须，如果有需要，在同样的目录下创建即可。参数，统一为：RequestParametersView requestParametersView。</li>
+<li>实现类。在com.maile360.crm.service.impl.api下，创建实现类，参考：SysAppServiceImpl</li>
+<li>处理类。在com.maile360.crm.service.facade.handler下，创建处理类，参考：SysAppServiceHandler。处理类须 extends AapiHandler。</li>
+<li>处理类配置。<ol>
+<li>是一个 xml 文件：提供 api 调用时的 apiMethod 值, 作用是关联 apiMethod 与接口名。</li>
+<li>在 restful 模块的资源文件夹下，handlers 子目录下，添加对应的配置 xml 文件，文件名保持与处理类同名（便于维护和查找），如：SysAppServiceHandler.xml。</li>
+<li>在该文件配置具体的 apiMethod（调用参数）与对应接口名。apiMethod 命名规则，需要继续往下看，看完第四项再回过头来操作。</li>
+<li>好处：维护人员方便查找对应处理方法，并且 api 会自动由配置对应到接口，而接口会有具体的实现，接口到实现类的调用，由 spring boot 启动时根据 serviceConfig.xml 配置自动装载。具体调用哪个方法，则用到了 java 的反射。</li>
+</ol>
+</li>
+<li><p>配置处理类列表。修改 restful 模块的资源文件夹下的配置文件：serviceConfig.xml，把上面的 handler 配置到列表中。spring boot 启动时根据 serviceConfig.xml 配置自动装载各个 handler。</p>
+<ol>
+<li><p>这里的配置，除了让 spring boot 启动时自动装载 handler 类，还有一个重要的目的是让系统根据请求的 apiMethod 自动匹配到 handler 类，然后 handler 类根据其配置的方法名自动去调用业务接口。如：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">entry</span> <span class="attr">key</span>=<span class="string">"crm.shop_config.get.shop.config.view"</span> <span class="attr">value</span>=<span class="string">"getShopConfigView"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><em>配置处理类列表 key 命名规则：</em> crm_ + 下面第四项针对 apiMethod 命名规则中的 Y + 下划线 + 版本号。</p>
+<ol>
+<li>如：crm_sys_sms_template_1.0，其中 Y = sys_sms_template, 版本号 = 1.0</li>
+<li>处理类的 key 只用下划线分隔。</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<h1 id="四-Handler-xml-配置文件规则"><a href="#四-Handler-xml-配置文件规则" class="headerlink" title="四. Handler xml 配置文件规则"></a>四. Handler xml 配置文件规则</h1><p>总则：一个 Service 对应一个 Handler，一个 Handler 对应一个 xml 配置文件，存放到模块 restful 下，resources/handlers 目录，命名规则：XServiceHandler.xml，其中 X 为对应Service的名字，如：ShopConfigServiceHandler.xml</p>
+<ol>
+<li>为了讲解 xml 配置文件的 key 和 value 命名规则，需要先了解与配置文件相关的接口和处理类。</li>
+<li>所有处理类，即 Handler 都要继承的抽象类：AApiHandler。抽象类中定义了 Map 类型的变量 methods。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">AApiHandler</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> Map&lt;String, String&gt; methods;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setMethods</span><span class="params">(Map&lt;String, String&gt; methods)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.methods = methods;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="以-ShopConfigService-为例，先看实际例子。"><a href="#以-ShopConfigService-为例，先看实际例子。" class="headerlink" title="以 ShopConfigService 为例，先看实际例子。"></a>以 ShopConfigService 为例，先看实际例子。</h2><ol>
+<li><p>接口定义 IShopConfigService.java</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.maile360.crm.service.facade.api;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> crm.model.view.RequestParametersView;</span><br><span class="line"><span class="keyword">import</span> crm.model.view.out.ShopConfigView;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">IShopConfigService</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">addOrUpdate</span><span class="params">(RequestParametersView requestParametersView)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function">ShopConfigView <span class="title">getShopConfigView</span><span class="params">(RequestParametersView requestParametersView)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>处理类实例 ShopConfigServiceHandler.java</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.maile360.crm.service.facade.handler;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line"><span class="keyword">import</span> com.maile360.crm.service.facade.api.IShopConfigService;</span><br><span class="line"><span class="keyword">import</span> com.maile360.crm.service.facade.base.AApiHandler;</span><br><span class="line"><span class="keyword">import</span> crm.model.view.RequestParametersView;</span><br><span class="line"><span class="keyword">import</span> crm.model.view.out.ShopConfigView;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ShopConfigServiceHandler</span> <span class="keyword">extends</span> <span class="title">AApiHandler</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    IShopConfigService shopConfigService;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">addOrUpdate</span><span class="params">(RequestParametersView requestParametersView)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> shopConfigService.addOrUpdate(requestParametersView);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> ShopConfigView <span class="title">getShopConfigView</span><span class="params">(RequestParametersView requestParametersView)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> shopConfigService.getShopConfigView(requestParametersView);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Handler 配置: ShopConfigServiceHandler.xml。其中 property 属性中的 methods 就是来自抽象类 AApiHandler 的 Map 类型的变量，这里的配置，spring boot 自动装载时会自动初始化。</p>
+ <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns</span>=<span class="string">"http://www.springframework.org/schema/beans"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">default-autowire</span>=<span class="string">"byName"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">name</span>=<span class="string">"shopConfigServiceHandler"</span> <span class="attr">class</span>=<span class="string">"com.maile360.crm.service.facade.handler.ShopConfigServiceHandler"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"methods"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">map</span>&gt;</span> </span><br><span class="line">               <span class="tag">&lt;<span class="name">entry</span> <span class="attr">key</span>=<span class="string">"crm.shop_config.add.or.update"</span> <span class="attr">value</span>=<span class="string">"addOrUpdate"</span>/&gt;</span></span><br><span class="line">               <span class="tag">&lt;<span class="name">entry</span> <span class="attr">key</span>=<span class="string">"crm.shop_config.get.shop.config.view"</span> <span class="attr">value</span>=<span class="string">"getShopConfigView"</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">map</span>&gt;</span> </span><br><span class="line">        <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>该处理类配置，在 serviceConfig.xml 文件中的配置如下：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">	<span class="attr">xmlns</span>=<span class="string">"http://www.springframework.org/schema/beans"</span></span></span><br><span class="line"><span class="tag">	<span class="attr">xsi:schemaLocation</span>=<span class="string">"http://www.springframework.org/schema/beans</span></span></span><br><span class="line"><span class="tag"><span class="string">       http://www.springframework.org/schema/beans/spring-beans.xsd"</span></span></span><br><span class="line"><span class="tag">	<span class="attr">default-autowire</span>=<span class="string">"byName"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">import</span> <span class="attr">resource</span>=<span class="string">"classpath:handlers/*.xml"</span> /&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">import</span> <span class="attr">resource</span>=<span class="string">"classpath:dbSource.xml"</span> /&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">bean</span> <span class="attr">name</span>=<span class="string">"restApiService"</span> <span class="attr">class</span>=<span class="string">"com.maile360.crm.service.impl.base.RestApiServiceImpl"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"handlers"</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">map</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">entry</span> <span class="attr">key</span>=<span class="string">"crm_shop_config_1.0"</span> <span class="attr">value-ref</span>=<span class="string">"shopConfigServiceHandler"</span> /&gt;</span></span><br><span class="line">			<span class="tag">&lt;/<span class="name">map</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>其实，就是初始化 com.maile360.crm.service.impl.base.RestApiServiceImpl 的 handlers（Map 类型）</p>
+<h2 id="Handler-配置文件中-key-命名规则"><a href="#Handler-配置文件中-key-命名规则" class="headerlink" title="Handler 配置文件中 key 命名规则"></a>Handler 配置文件中 key 命名规则</h2><ol>
+<li>分三部分，这里分别用大写的 X，Y，Z 来表示，用英文的点”.”来连接，得到：X.Y.Z，其中每一部分的英语字母全部用小写。</li>
+<li>X 为前缀，固定:crm， 即 X = crm</li>
+<li>Y 为服务名，英语字母加下划线，可以参考业务对应的表名，如上面的例子，Y = shop_config</li>
+<li>Z 为具体的业务方法名标志，最好能通过命名看出意义来，中间以”.”隔开，不限制长度，如上面的例子，Z = get.shop.config.view</li>
+<li>将上面的 X，Y，Z，用英文的点”.”来连接，就得到 apiMethod = crm.shop_config.get.shop.config.view</li>
+</ol>
+<h2 id="Handler-配置文件中-value-配置"><a href="#Handler-配置文件中-value-配置" class="headerlink" title="Handler 配置文件中 value 配置"></a>Handler 配置文件中 value 配置</h2><p>这里的 value 跟接口名对应，建议将 key 中 Z 部分的”.”去掉，再将除第一个单词之外的单词首字母大写，到得接口名。如：get.shop.config.view –&gt; getShopConfigView</p>
+<h2 id="对-key-的处理，从而得到对应的-Handler，再进一步就可以找到对应-Handler-的接口了-。"><a href="#对-key-的处理，从而得到对应的-Handler，再进一步就可以找到对应-Handler-的接口了-。" class="headerlink" title="对 key 的处理，从而得到对应的 Handler，再进一步就可以找到对应 Handler 的接口了 。"></a>对 key 的处理，从而得到对应的 Handler，再进一步就可以找到对应 Handler 的接口了 。</h2><p>这里说接口，其实不恰当，其实是 Handler 普通方法调用了接口而已。不过，可以理解为接口，因为 Handler 仅仅是中转调用，自身并不处理业务逻辑。</p>
+<ol>
+<li><p>crm.shop_config.get.shop.config.view 调用下面的方法之后，requestParametersView.apiServiceName = crm.shop_config</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">setRequestApiServiceName</span><span class="params">(RequestParametersView requestParametersView)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> endIndex = StringHelper.getCharacterPosition(requestParametersView.apiMethod, <span class="string">"."</span>, <span class="number">2</span>);<span class="comment">// getCharacterPosition -&gt; 获取字符串中第N次出现的字符位置 没有出现N次，则返回-1</span></span><br><span class="line">    AssertUtils.isTrue(endIndex &gt; <span class="number">0</span>, ExceptionCodeEnum.notExistsService);</span><br><span class="line">    requestParametersView.apiServiceName = requestParametersView.apiMethod.substring(<span class="number">0</span>, endIndex);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>然后，通过 apiServiceName 和版本号，就可以找到匹配的处理类 Handler 了。接着上面的，应该得到：crm_shop_config_1.0</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> String <span class="title">generateServerKey</span><span class="params">(String apiServiceName, VersionEnum version)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> apiServiceName.replace(<span class="string">"."</span>, <span class="string">"_"</span>) + <span class="string">"_"</span> + version.getVersion();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h1 id="五-返回数据类型"><a href="#五-返回数据类型" class="headerlink" title="五. 返回数据类型"></a>五. 返回数据类型</h1><ol>
+<li>不建议返回类型为Map。在返回类型是确定的情况下，比如是一个int型的数字，或者某个确定的pojo以及某个pojo的列表，则直接返回这个确定的类型。</li>
+<li>如果返回的数据直接是数据库表的记录，则返回对应的实体即可。</li>
+<li>如果返回的数据需要加工整合，则在 com.maile360.crm.view.out 下，创建对应的view类，类名须以View结束。如：ShopInfoView，字段属性为private，需要setter和getter。</li>
+<li>如果返回的数据除了基本类型，还包含实体，即定义在com.maile360.crm.dal.entity下的pojo（非Example类），而crm.view项目下又无法引用这部分pojo，那么，这种情况下，需要在com.maile360.crm.dal.view包下增加返回view的pojo。参考：OrderSmsOptionByTradeView、TopTmcMessageQueueView</li>
+<li>如果需要返回多个结果集，定义一个pojo来组装，参考上面。</li>
+</ol>
+<h1 id="六-入参"><a href="#六-入参" class="headerlink" title="六. 入参"></a>六. 入参</h1><ol>
+<li>不建议使用Map当作mapper的参数类型。入参多于两个，建议添加pojo来接收。如果在程序内部，也建议通过pojo来组装查询参数。</li>
+<li><p>如果入参只有一个，比如仅为id，则可以这样获取：</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> id = (<span class="keyword">int</span>)requestParametersView.objApiParas.get(<span class="string">"id"</span>);</span><br><span class="line"><span class="comment">//如果客户端传的是string类型，则上面的转换会报错：java.lang.ClassCastException: java.lang.String cannot be cast to java.lang.Integer</span></span><br><span class="line"><span class="comment">//改为：</span></span><br><span class="line"><span class="keyword">int</span> id = Integer.parseInt(requestParametersView.objApiParas.get(<span class="string">"id"</span>).toString());</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>添加pojo来接收参数时的规则：类名须以View结束。如：ShopSearchConditionView。放在 com.maile360.crm.view.in 包下，字段属性建议直接设置为public，这样，就只需要设置setter而不需要getter。入参接收需在自己的实现类定义和初始化：</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ShopSearchConditionView shopSearchConditionView = JSONHelper.json2Object(requestParametersView.apiParas, ShopSearchConditionView<span class="class">.<span class="keyword">class</span>)</span>;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h1 id="七-mapper扩展"><a href="#七-mapper扩展" class="headerlink" title="七. mapper扩展"></a>七. mapper扩展</h1><ol>
+<li>在com.maile360.crm.dal.ext下，创建相应的mapper，扩展自己需要的业务方法。不要继续com.maile360.crm.dal.mapper下的类，会引起装配冲突。</li>
+<li>com.maile360.crm.dal.mapper、com.maile360.crm.dal.entity，这两个包下的文件，禁止修改。这两个包下的文件是自动生成的，随时可能会被替换。</li>
+</ol>
+<h1 id="八-数据库交互方式"><a href="#八-数据库交互方式" class="headerlink" title="八. 数据库交互方式"></a>八. 数据库交互方式</h1><p>以下三种方式均可，对于比较简单的crud，推荐基于注解的方式（下面的前两种方式），对于比较复杂的sql，建议使用更加灵活的xml配置方式。</p>
+<ol>
+<li><p>注解方式一，参考：com.maile360.crm.dal.ext.ShopMapperExt.getShopInfoViewByAnnotated</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ShopSqlProviderExt</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getShopInfoViewByAnnotated</span><span class="params">(ShopSearchConditionView shopSearchConditionView)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        SQL sql = <span class="keyword">new</span> SQL();</span><br><span class="line"></span><br><span class="line">        sql.SELECT(<span class="string">"a.appID, a.appName, a.appCode, sp.shopName, sp.sellerNickname, sp.secretKey"</span>);</span><br><span class="line">        sql.FROM(<span class="string">"crmSysApp a"</span>);</span><br><span class="line">        sql.INNER_JOIN(<span class="string">"crmShop sp on a.appID=sp.appID"</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (shopSearchConditionView.shopName.length() &gt; <span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            shopSearchConditionView.shopName = <span class="string">"%"</span> + shopSearchConditionView.shopName + <span class="string">"%"</span>;</span><br><span class="line">            sql.WHERE(<span class="string">"sp.shopName like #&#123;shopName,jdbcType=VARCHAR&#125;"</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (shopSearchConditionView.sellerNickname.length() &gt; <span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            sql.WHERE(<span class="string">"sp.sellerNickname = #&#123;sellerNickname,jdbcType=VARCHAR&#125;"</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (shopSearchConditionView.shopID &gt; <span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            sql.WHERE(<span class="string">"sp.shopID = #&#123;shopID,jdbcType=INTEGER&#125;"</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (shopSearchConditionView.appID &gt; <span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            sql.WHERE(<span class="string">"sp.appID = #&#123;appID,jdbcType=INTEGER&#125;"</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (shopSearchConditionView.secretKey.length() &gt; <span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            sql.OR();</span><br><span class="line">            sql.WHERE(<span class="string">"sp.secretKey = #&#123;secretKey,jdbcType=VARCHAR&#125;"</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        sql.ORDER_BY(<span class="string">"sp.shopID"</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> sql.toString();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>注解方式二，参考：com.maile360.crm.dal.ext.ShopOrderSmsConfigSqlProviderExt</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ShopOrderSmsConfigSqlProviderExt</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getShopOrderSmsConfigInfo</span><span class="params">(Map&lt;String, Integer&gt; map)</span><span class="comment">//入参已不推荐使用map，上面已写</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        String sql = <span class="string">"select sost.orderSTID, sost.iconNameClose, sost.iconNameOpen, sost.smsTypeName, soss.isSwitchOn \n"</span> +</span><br><span class="line">                <span class="string">"from crmSysOrderSmsType sost \n"</span> +</span><br><span class="line">                <span class="string">"left join crmShopOrderSmsConfig soss on sost.orderSTID = soss.orderSTID and soss.shopID = #&#123;shopID,jdbcType=INTEGER&#125;\n"</span> +</span><br><span class="line">                <span class="string">"where sost.orderSTStatus = #&#123;orderSTStatus,jdbcType=INTEGER&#125;\n"</span> +</span><br><span class="line">                <span class="string">"order by sost.orderByIndex;"</span>;</span><br><span class="line">        <span class="keyword">return</span> sql;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getFilterConditionView</span><span class="params">(Map&lt;String, Integer&gt; map)</span><span class="comment">//入参已不推荐使用map，上面已写</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        String sql = <span class="string">"select fc.filterPID, fc.filterEIDs, fc.isAll, fc.filterValueOne, fc.filterValueTwo, fp.propertyName, fp.dataTypeID\n"</span> +</span><br><span class="line">                <span class="string">"from crmFilterCondition fc\n"</span> +</span><br><span class="line">                <span class="string">"inner join crmSysFilterProperty fp on fc.filterPID = fp.filterPID\n"</span> +</span><br><span class="line">                <span class="string">"where fc.shopID = #&#123;shopID,jdbcType=INTEGER&#125; and fc.FCStatus = 1 "</span> +</span><br><span class="line">                <span class="string">"and fc.bizType = #&#123;bizType,jdbcType=INTEGER&#125; "</span> +</span><br><span class="line">                <span class="string">"and fc.bizTypeID = #&#123;bizTypeID,jdbcType=INTEGER&#125;;\n"</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> sql;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>方式三：基于xml配置方式（与注解方式等效），参考：com.maile360.crm.dal.ext.ShopMapperExt.getShopInfoView</p>
+ <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">mapper</span> <span class="meta-keyword">PUBLIC</span> <span class="meta-string">"-//mybatis.org//DTD Mapper 3.0//EN"</span> <span class="meta-string">"http://mybatis.org/dtd/mybatis-3-mapper.dtd"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">mapper</span> <span class="attr">namespace</span>=<span class="string">"com.maile360.crm.dal.ext.ShopMapperExt"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"getShopInfoView"</span> <span class="attr">parameterType</span>=<span class="string">"com.maile360.crm.view.in.ShopSearchConditionView"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">resultType</span>=<span class="string">"com.maile360.crm.view.out.ShopInfoView"</span>&gt;</span></span><br><span class="line">        select</span><br><span class="line">        a.appID, a.appName, a.appCode, sp.shopName, sp.sellerNickname, sp.secretKey</span><br><span class="line">        from crmSysApp a</span><br><span class="line">        inner join crmShop sp on a.appID=sp.appID</span><br><span class="line">        where 1=1</span><br><span class="line">        <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"shopName != null and shopName != ''"</span>&gt;</span></span><br><span class="line">            and sp.shopName like CONCAT(CONCAT('%', #&#123;shopName, jdbcType=VARCHAR&#125;),'%')</span><br><span class="line">        <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"sellerNickname != null and sellerNickname != ''"</span>&gt;</span></span><br><span class="line">            and sp.sellerNickname = #&#123;sellerNickname,jdbcType=VARCHAR&#125;</span><br><span class="line">        <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"shopID &gt; 0"</span>&gt;</span></span><br><span class="line">            and sp.shopID = #&#123;shopID,jdbcType=INTEGER&#125;</span><br><span class="line">        <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"appID &gt; 0"</span>&gt;</span></span><br><span class="line">            and sp.appID = #&#123;appID,jdbcType=INTEGER&#125;</span><br><span class="line">        <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"sellerNickname != null and sellerNickname != ''"</span>&gt;</span></span><br><span class="line">            or sp.secretKey = #&#123;secretKey,jdbcType=VARCHAR&#125;</span><br><span class="line">        <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">        order by sp.shopID</span><br><span class="line">    <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mapper</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h1 id="九-分页查询示例："><a href="#九-分页查询示例：" class="headerlink" title="九. 分页查询示例："></a>九. <em>分页查询示例：</em></h1>   <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> ResponsePagingView&lt;SysApp&gt; <span class="title">getAppInfoAll</span><span class="params">(RequestParametersView requestParametersView)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    PageHelper.startPage(requestParametersView.pagingInfo.pageNum, requestParametersView.pagingInfo.pageSize);</span><br><span class="line">    List&lt;SysApp&gt; sysAppList = sysAppMapper.selectByExample(<span class="keyword">null</span>);</span><br><span class="line"></span><br><span class="line">    ResponsePagingView responsePagingView = <span class="keyword">new</span> ResponsePagingView();</span><br><span class="line">    responsePagingView.resultList = sysAppList;</span><br><span class="line">    responsePagingView.totalRecord = ((Page&lt;?&gt;) sysAppList).getTotal();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> responsePagingView;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="十-以下为php端调用参数示例"><a href="#十-以下为php端调用参数示例" class="headerlink" title="十. 以下为php端调用参数示例"></a>十. 以下为php端调用参数示例</h1>   <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">getAppAll</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Doo::loadClass(<span class="string">'ApiClient'</span>);</span><br><span class="line">    $c = <span class="keyword">new</span> ApiClient();</span><br><span class="line"></span><br><span class="line">    $request = <span class="keyword">array</span>();</span><br><span class="line">    $request[<span class="string">'apiParas'</span>] = <span class="keyword">array</span>(</span><br><span class="line">        <span class="string">"id"</span> =&gt; <span class="number">3</span>,</span><br><span class="line">        <span class="string">"pagingInfo"</span> =&gt; <span class="keyword">array</span>(</span><br><span class="line">            <span class="string">"pageNum"</span> =&gt; <span class="number">3</span>,</span><br><span class="line">            <span class="string">"pageSize"</span> =&gt; <span class="number">10</span></span><br><span class="line">        )</span><br><span class="line">    );</span><br><span class="line">    $request[<span class="string">'apiMethod'</span>] = <span class="string">"crm.app.get.all"</span>;</span><br><span class="line">    $request[<span class="string">'secretKey'</span>] = <span class="keyword">$this</span>-&gt;secret_key;</span><br><span class="line">    $request[<span class="string">'shopID'</span>] = <span class="keyword">$this</span>-&gt;shop_id;</span><br><span class="line"></span><br><span class="line">    $resp = $c-&gt;execute($request);</span><br><span class="line">    print_r($resp);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="错误列表"><a href="#错误列表" class="headerlink" title="错误列表"></a>错误列表</h1><ol>
+<li>实现类需要添加注解：@Service，否则不能自动扫描并注入，启动应用时会报错：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Field specifyMobileSentBatchSchedulesService in com.maile360.crm.service.facade.handler.SpecifyMobileSentBatchSchedulesServiceHandler required a bean of type &apos;com.maile360.crm.service.facade.api.ISpecifyMobileSentBatchSchedulesService&apos; that could not be found.</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-09-01T02:53:12.972Z" itemprop="dateUpdated">2020年9月1日 10:53</time>
+</span><br>
+
+
+        转载请注明出处：<a href="/java/apiDevelopRule.html" target="_blank" rel="external">https://www.lovesofttech.com/java/apiDevelopRule.html</a>
+    </div>
+    <footer>
+        <a href="https://www.lovesofttech.com">
+            <img src="/img/myLogo.jpg" alt="安迪陈">
+            安迪陈
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/team/">team</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/开发规范/">开发规范</a></li></ul>
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/java/apiDevelopRule.html&title=《CRM 项目，api 部分的开发规则，仅供参考》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/java/apiDevelopRule.html&title=《CRM 项目，api 部分的开发规则，仅供参考》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=
+还是16年年底，开发 CRM 时设计的 api 开发规范。
+配置有一点繁琐。
+配置好后，就可以专注于业务逻辑。
+适合中型团队多人协作。
+小团队不建议这么..." data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/java/apiDevelopRule.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《CRM 项目，api 部分的开发规则，仅供参考》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/java/apiDevelopRule.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/java/apiDevelopRule.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/job/teamExperience.html" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">团队在开发中应该遵循的一些规则，以及部分经验总结</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/linux/rcLocal.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">CentOS 系统下设置自己安装的程序开机自动启动</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+    
+    
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="bottom">
+        <p>
+            <span>安迪陈技术日志，架构、感悟、系统分析、团队管理 &copy; 2017 - 2020</span>
+            <span>
+                Power by <a href="https://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>&nbsp;
+                Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank" rel="external nofollow noopener noreferrer">indigo</a>
+            </span>
+            <span>
+                <a href="http://www.beian.miit.gov.cn" target="_blank" rel="external nofollow noopener noreferrer">蜀ICP备17041860号</a>
+            </span>
+            
+            <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            </p><p>
+                <span>
+                    统计始于：2019-03-06
+                </span>
+                <span id="busuanzi_container_site_uv" style="display:none">
+                    访客数：<span id="busuanzi_value_site_uv"></span>
+                </span>
+                <span id="busuanzi_container_site_pv" style="display:none">
+                    访问量：<span id="busuanzi_value_site_pv"></span>
+                </span>
+            
+            
+                <span class="post-count">累计字数：309.2k</span>
+            
+                <span><a href="/general/blogLog.html"><i class="fas fa-pen-alt"></i>&nbsp;博客日志</a></span>
+            </p>
+        <p></p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light" title="回到顶部"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/java/apiDevelopRule.html&title=《CRM 项目，api 部分的开发规则，仅供参考》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/java/apiDevelopRule.html&title=《CRM 项目，api 部分的开发规则，仅供参考》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=
+还是16年年底，开发 CRM 时设计的 api 开发规范。
+配置有一点繁琐。
+配置好后，就可以专注于业务逻辑。
+适合中型团队多人协作。
+小团队不建议这么..." data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/java/apiDevelopRule.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《CRM 项目，api 部分的开发规则，仅供参考》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/java/apiDevelopRule.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/java/apiDevelopRule.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACHElEQVR42u3a22oDMQwFwP7/T6fQp0Jpco61Caw9fiq5eD0uKJLlr694PH5G8pnfo525/W49MDAwbst4PB0JI//839efM5K1YWBgnMNoQ2ESHJ8/+D/22nZgYGBgJIA8cCczYGBgYEwCbpve5WH0o78bGBgYN2TkgbItL9v08e21OAYGxg0Za8f3n/n7jf0NDAyMmzAe5ciTv8kBXL0qDAyMrRlJW3HtoD+/tLGWkhZTY2BgbMHIy9Rk6kmpmW/Qi/8JBgbGYYxJ8tcWq2vzY2BgnMlIHrZW+ubhdTGgY2BgbMdYu7a1FmTbZmdRSGNgYBzAuOrBc9jiVTMMDIwDGPOJ8kO6ZOY27GJgYOzNaNsD7RWKeTqYbx8GBsaujLXEbrL0dneL3w0MDIzDGJOD+/zK12VtVAwMjAMYeQMyX9BVxXB0OQwDA+MARl6+LlbGZSCutxIDA+MYxvxa6tohfh70F4tYDAyMmzPWDvrzz+cHZ5OGKAYGxt6M/Gv5u+0S2zbAi+M2DAyMTRltqZmUoPM2Z7HRGBgYWzPag/tkoZeVoHGbAQMDY2/GPKROLme0YRoDA+NMxgXR+ukreeo5Ce4YGBgnMNZK0wQwSf7yjcDAwDiH0TYXW160lEHQx8DAwGgvhOWlbJIyRrktBgYGxjgdbJsH7YEdBgbGCYykiG2P7NswPSpuMTAwtmZc1RiYpH3JZs03AgMD44aMb22CqHY3Uow6AAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.5.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.5.2" async></script>
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '安迪陈技术日志';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '欢迎回来';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

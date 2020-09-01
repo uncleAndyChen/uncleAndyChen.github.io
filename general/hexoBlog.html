@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<!--<script async src="//hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c"></script>-->
+<!-- 统计-->
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var host = window.location.host;
+        var hm = document.createElement("script");
+
+        if (host.indexOf('gitee.io') > 0) { // https://uncleandychen.gitee.io/
+            hm.src = "https://hm.baidu.com/hm.js?0cf4709148b070b8082191d2e456a1a3";
+        } else if (host.indexOf('lovesofttech.com') > 0) { // https://www.lovesofttech.com/
+            hm.src = "https://hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c";
+        } else {
+            hm.src = '';
+        }
+
+        if (hm.src !== '') {
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        }
+    })();
+</script>
+<!-- End Baidu Tongji -->
+
+
+
+<!-- Baidu Push -->
+<!-- 主动推送百度爬虫-->
+<script>
+    (function(){
+        if (window.location.host.indexOf('lovesofttech.com') < 0) {
+            return;
+        }
+
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+<!-- End Baidu Push -->
+
+
+    <meta charset="utf-8">
+    
+    
+    <link rel="canonical" href="https://www.lovesofttech.com/general/hexoBlog.html">
+    
+    
+    <title>Hexo + gitee 免费个人博客搭建 | 安迪陈技术日志，架构、感悟、系统分析、团队管理 | 自强不息，厚德载物</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="hexo">
+    <meta name="description" content="本文介绍 hexo 博客的安装部署、常用命令、经验，以及可能会用上的参考链接，总之，参照本文，你就可以自己搭建免费的个人博客了。">
+<meta name="keywords" content="hexo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo + gitee 免费个人博客搭建">
+<meta property="og:url" content="https://www.lovesofttech.com/general/hexoBlog.html">
+<meta property="og:site_name" content="安迪陈技术日志，架构、感悟、系统分析、团队管理">
+<meta property="og:description" content="本文介绍 hexo 博客的安装部署、常用命令、经验，以及可能会用上的参考链接，总之，参照本文，你就可以自己搭建免费的个人博客了。">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2020-09-01T02:53:12.947Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hexo + gitee 免费个人博客搭建">
+<meta name="twitter:description" content="本文介绍 hexo 博客的安装部署、常用命令、经验，以及可能会用上的参考链接，总之，参照本文，你就可以自己搭建免费的个人博客了。">
+    
+        <link rel="alternative" href="/atom.xml" title="安迪陈技术日志，架构、感悟、系统分析、团队管理" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=201912302211">
+    <link rel="stylesheet" href="/css/header.css?v=201912302211">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu">
+  <div class="inner flex-row-vertical">
+    <!--<i class="icon icon-lg icon-close"></i>-->
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off" title="隐藏左侧导航">﹤<i class="icon icon-lg icon-navicon"></i></a>
+    <div class="brand-wrap" style="background-image:url(/img/bannerBackgroundLeft.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/myLogo.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">安迪陈</h5>
+          <a href="mailto:andy@lovesofttech.com" title="andy@lovesofttech.com" class="mail" rel="external nofollow noopener noreferrer" target="_blank">andy@lovesofttech.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articleClassify.html">
+                <i class="icon icon-th-list"></i>
+                文章分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articles.html">
+                <i class="icon icon-th-list articles"></i>
+                文章列表
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/java.html">
+                <i class="icon icon-th-list java"></i>
+                Java
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/database.html">
+                <i class="icon icon-th-list database"></i>
+                MySQL/MyBatis
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/linux.html">
+                <i class="icon icon-th-list linux"></i>
+                CentOS/linux
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/react.html">
+                <i class="icon icon-th-list React"></i>
+                React
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/lnmp.html">
+                <i class="icon icon-th-list LNMP"></i>
+                LNMP
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/git.html">
+                <i class="icon icon-th-list git"></i>
+                git
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/windows.html">
+                <i class="icon icon-th-list windows"></i>
+                windows
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/dailyLives.html">
+                <i class="icon icon-th-list dailyLives"></i>
+                工作 &amp; 生活
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-github"></i>
+                我的 github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://gitee.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link"></i>
+                我的 gitee
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://blog.csdn.net/runAndRun" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link CSDN"></i>
+                我的 CSDN
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/aboutMe.html">
+                <i class="icon icon-address-card"></i>
+                关于我
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+
+        <div class="navbar navbar-custom navbar-fixed-top">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" style="margin-left:10px;" id="menu-toggle" title="显示左侧导航"><i class="icon icon-lg icon-navicon"></i>﹥</a>
+            <ul class="nav navbar-nav navbar-right" id="navMenuTop">
+                <li>
+                    <a href="/">主页</a>
+                </li>
+                
+                    
+                        <li>
+                            <a href="/articleClassify.html" title="本博客的文章分类列表">文章分类</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/articles.html" title="本博客的所有文章列表">文章列表</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/java.html" title="Java 开发，文章目录">Java</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/database.html" title="日常开发中有关 MySQL、MyBatis 的一些经验总结">MySQL/MyBatis</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/linux.html" title="CentOS/linux，文章目录">CentOS/linux</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/react.html" title="React 技术栈（全家桶）学习心得分享，文章目录">React</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/about.html">关于</a>
+                        </li>
+                    
+                
+            </ul>
+        </div>
+
+        <div class="flex-col header-title ellipsis">Hexo + gitee 免费个人博客搭建</div>
+        
+        <div class="search-wrap" id="search-wrap" style="z-index: 2;">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back" style="width:33px;">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search" style="width:33px;">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare" style="z-index: 3;margin-right: 10px; width:30px;">
+                <i class="icon icon-lg icon-share-alt"></i>
+            </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h2 class="title">Hexo + gitee 免费个人博客搭建</h2>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-04-14T00:43:12.000Z" itemprop="datePublished" class="page-time">
+  2017-04-14
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/hexo/">hexo</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap" id="index-container">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc" style="z-index: 3;">
+            <h4><i class="fa fa-list-alt"></i>&nbsp;&nbsp;本文目录</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#环境准备"><span class="post-toc-number">1.</span> <span class="post-toc-text">环境准备</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#node"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">node</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#cnpm"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">cnpm</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#安装-hexo"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">安装 hexo</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#参考官网-hexo-教程初始化一个-demo"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">参考官网 hexo 教程初始化一个 demo</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#hexo-常用命令"><span class="post-toc-number">1.5.</span> <span class="post-toc-text">hexo 常用命令</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#主题依赖及相关设置"><span class="post-toc-number">2.</span> <span class="post-toc-text">主题依赖及相关设置</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#主题用到的依赖安装"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">主题用到的依赖安装</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#开启【标签】页"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">开启【标签】页</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#开启【分类】页"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">开启【分类】页</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#设置"><span class="post-toc-number">2.4.</span> <span class="post-toc-text">设置</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#利用-gitee-pages-制作静态网站"><span class="post-toc-number">3.</span> <span class="post-toc-text">利用 gitee pages 制作静态网站</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#遇到的问题"><span class="post-toc-number">4.</span> <span class="post-toc-text">遇到的问题</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Local-hexo-not-found"><span class="post-toc-number">4.1.</span> <span class="post-toc-text">Local hexo not found</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#经验"><span class="post-toc-number">5.</span> <span class="post-toc-text">经验</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#主题左则邮箱设置"><span class="post-toc-number">5.1.</span> <span class="post-toc-text">主题左则邮箱设置</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#评论系统"><span class="post-toc-number">5.2.</span> <span class="post-toc-text">评论系统</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#统计"><span class="post-toc-number">5.3.</span> <span class="post-toc-text">统计</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#推广"><span class="post-toc-number">5.4.</span> <span class="post-toc-text">推广</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#hexo-seo-设置"><span class="post-toc-number">5.4.1.</span> <span class="post-toc-text">hexo seo 设置</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#显示摘要"><span class="post-toc-number">5.5.</span> <span class="post-toc-text">显示摘要</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#参考"><span class="post-toc-number">6.</span> <span class="post-toc-text">参考</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Hexo-gitee-免费个人博客搭建教程"><span class="post-toc-number">6.1.</span> <span class="post-toc-text">Hexo + gitee 免费个人博客搭建教程</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Node-js-安装配置"><span class="post-toc-number">6.2.</span> <span class="post-toc-text">Node.js 安装配置</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#接入评论系统，可能会用到的链接"><span class="post-toc-number">6.3.</span> <span class="post-toc-text">接入评论系统，可能会用到的链接</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#支持数学公式"><span class="post-toc-number">6.4.</span> <span class="post-toc-text">支持数学公式</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+    
+
+<article id="post-general/hexoBlog" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Hexo + gitee 免费个人博客搭建</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017年04月14日 8:43" datetime="2017-04-14T00:43:12.000Z" itemprop="datePublished">2017-04-14</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/hexo/">hexo</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" style="display:none">
+    阅读量：<span id="busuanzi_value_page_pv"></span>次
+</span>
+
+
+    <span>|</span>
+    <span class="post-count">字数：1.1k</span>
+    <span>|</span>
+    <span class="post-count">阅读时长：大约4分钟</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>本文介绍 hexo 博客的安装部署、常用命令、经验，以及可能会用上的参考链接，总之，参照本文，你就可以自己搭建免费的个人博客了。<br><a id="more"></a></p>
+<h1 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h1><h2 id="node"><a href="#node" class="headerlink" title="node"></a>node</h2><p><a href="https://nodejs.org/en/download/" rel="external nofollow noopener noreferrer" target="_blank">点击进入 Node.js 下载页面</a>，建议下载长期维护版本，可以少踩坑。</p>
+<h2 id="cnpm"><a href="#cnpm" class="headerlink" title="cnpm"></a>cnpm</h2><ul>
+<li><a href="http://npm.taobao.org/" rel="external nofollow noopener noreferrer" target="_blank">淘宝 NPM 镜像官网</a></li>
+<li>推荐直接用以个命令安装使用，安装之后，以后的命令就可以将需要用到 npm 的地方直接用 cnpm 代替了，下载依赖的速度会快很多。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g cnpm --registry=https://registry.npm.taobao.org</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="安装-hexo"><a href="#安装-hexo" class="headerlink" title="安装 hexo"></a>安装 hexo</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cnpm i hexo-cli -g</span><br></pre></td></tr></table></figure>
+<h2 id="参考官网-hexo-教程初始化一个-demo"><a href="#参考官网-hexo-教程初始化一个-demo" class="headerlink" title="参考官网 hexo 教程初始化一个 demo"></a>参考官网 hexo 教程初始化一个 demo</h2><p><a href="https://hexo.io/zh-cn/docs/commands.html" rel="external nofollow noopener noreferrer" target="_blank">官方文档</a></p>
+<h2 id="hexo-常用命令"><a href="#hexo-常用命令" class="headerlink" title="hexo 常用命令"></a>hexo 常用命令</h2><p>进入项目所在目录</p>
+<ol>
+<li><p>用 hexo 命令之前，需要先下载依赖</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cnpm i</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>编译</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo g</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>启动本地服务，用于查看博客效果</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo s</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>部署</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo d</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>清除缓存文件 (db.json) 和已生成的静态文件 (public)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h1 id="主题依赖及相关设置"><a href="#主题依赖及相关设置" class="headerlink" title="主题依赖及相关设置"></a>主题依赖及相关设置</h1><h2 id="主题用到的依赖安装"><a href="#主题用到的依赖安装" class="headerlink" title="主题用到的依赖安装"></a>主题用到的依赖安装</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-renderer-less --save</span><br><span class="line">npm install hexo-generator-feed --save</span><br><span class="line">npm install hexo-generator-json-content --save</span><br><span class="line">npm install hexo-helper-qrcode --save</span><br><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
+<h2 id="开启【标签】页"><a href="#开启【标签】页" class="headerlink" title="开启【标签】页"></a>开启【标签】页</h2><p>对应左侧菜单【标签】，如果不设置，点击会提示无法找到页面<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new page tags</span><br></pre></td></tr></table></figure></p>
+<p>修改 根目录/source/tags/index.md 的元数据<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">layout: tags</span><br><span class="line">comments: false</span><br><span class="line">---</span><br></pre></td></tr></table></figure></p>
+<h2 id="开启【分类】页"><a href="#开启【分类】页" class="headerlink" title="开启【分类】页"></a>开启【分类】页</h2><p>对应左侧菜单【分类】，如果不设置，点击会提示无法找到页面<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new page categories</span><br></pre></td></tr></table></figure></p>
+<p>修改 根目录/source/categories/index.md 的元数据<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">layout: categories</span><br><span class="line">comments: false</span><br><span class="line">---</span><br></pre></td></tr></table></figure></p>
+<h2 id="设置"><a href="#设置" class="headerlink" title="设置"></a>设置</h2><ol>
+<li>博客全局设置，参见根目录下的文件：_config.yml</li>
+<li>主题设置，参见：themes/_config.yml</li>
+</ol>
+<h1 id="利用-gitee-pages-制作静态网站"><a href="#利用-gitee-pages-制作静态网站" class="headerlink" title="利用 gitee pages 制作静态网站"></a>利用 gitee pages 制作静态网站</h1><p>只需要将静态文件上传至目录 thems/source/ 即可。该目录下的文件会被当成静态资源文件直接上传，上传之后可直接访问。</p>
+<h1 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h1><h2 id="Local-hexo-not-found"><a href="#Local-hexo-not-found" class="headerlink" title="Local hexo not found"></a>Local hexo not found</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">C:\workspace\elsafly&gt;hexo g</span><br><span class="line">ERROR Local hexo not found in C:\workspace\elsafly</span><br><span class="line">ERROR Try running: &apos;npm install hexo --save&apos;</span><br></pre></td></tr></table></figure>
+<p>删除目录 node_modules，重新下载依赖<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cnpm i</span><br></pre></td></tr></table></figure></p>
+<h1 id="经验"><a href="#经验" class="headerlink" title="经验"></a>经验</h1><h2 id="主题左则邮箱设置"><a href="#主题左则邮箱设置" class="headerlink" title="主题左则邮箱设置"></a>主题左则邮箱设置</h2><p>主题模板设置：themes/_config.yml -&gt; email 项，如果空着，即不设置的话，左则菜单【主页】这两个字前面会有一个换行，所以，建议设置一下。</p>
+<h2 id="评论系统"><a href="#评论系统" class="headerlink" title="评论系统"></a>评论系统</h2><p>开通之后，很久都没人评价，然后自己度娘了一下几篇博文，没有搜索到，自己又没有做推广，所以我后来都关闭了。</p>
+<h2 id="统计"><a href="#统计" class="headerlink" title="统计"></a>统计</h2><p>一开始没加任何统计，在 2019年3月6日，添加了不蒜子的访问统计。</p>
+<h2 id="推广"><a href="#推广" class="headerlink" title="推广"></a>推广</h2><p>可结合自己的域名来做博客推广。</p>
+<h3 id="hexo-seo-设置"><a href="#hexo-seo-设置" class="headerlink" title="hexo seo 设置"></a>hexo seo 设置</h3><p><a href="https://hexo.io/zh-cn/docs/configuration.html" rel="external nofollow noopener noreferrer" target="_blank">参考</a><br>根目录文件：_config.yml<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">title: your title</span><br><span class="line">subtitle: your subtitle</span><br><span class="line">description: your description</span><br><span class="line">keywords: your keywords # 该项没有默认配置，官网的配置文档也没有提到，实际上，这是需要的，不设置的话，在站长工具里查出来的值是 undefined，不利于网站被各大搜索引擎收录。</span><br><span class="line">author: your name</span><br><span class="line">email: your email</span><br><span class="line">url: your site url</span><br></pre></td></tr></table></figure></p>
+<h2 id="显示摘要"><a href="#显示摘要" class="headerlink" title="显示摘要"></a>显示摘要</h2><p>在文章内容添加一行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- more --&gt;</span><br></pre></td></tr></table></figure></p>
+<p>在该行前面的即为摘要，后面的内容，需要点击【阅读更多】进入文章页面才能看到。</p>
+<p>如果不添加 more，要视配置文件的 excerpt_render 项（在 themes 下，主题目录下的 _config.yml 文件中定义的）</p>
+<pre><code>- 在 excerpt_render 为 false 的情况下，则会根据配置项 excerpt_length 的值，会在主页截取前面的字符当成摘要，这种效果不是很好，不建议。
+- 在 excerpt_render 为 true 的情况下，会在主页直接渲染整篇文章，也不推荐。
+</code></pre><p>我的做法是，excerpt_render 设置为 true，每篇文章都添加 <code>&lt;!-- more --&gt;</code>，如果实在觉得标题就已经够清楚，不用再写摘要，那就写成这样（大笑的表情）：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">如题</span><br><span class="line">&lt;!-- more --&gt;</span><br></pre></td></tr></table></figure></p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><h2 id="Hexo-gitee-免费个人博客搭建教程"><a href="#Hexo-gitee-免费个人博客搭建教程" class="headerlink" title="Hexo + gitee 免费个人博客搭建教程"></a>Hexo + gitee 免费个人博客搭建教程</h2><ol>
+<li><a href="http://weixin.niurenqushi.com/article/2017-01-23/4750045.html" rel="external nofollow noopener noreferrer" target="_blank">参考链接</a></li>
+<li><a href="https://github.com/yscoder/hexo-theme-indigo/wiki" rel="external nofollow noopener noreferrer" target="_blank">推荐一个主题的文档</a></li>
+<li><a href="https://github.com/yscoder/hexo-theme-indigo/wiki/%E5%AE%89%E8%A3%85" rel="external nofollow noopener noreferrer" target="_blank">主题安装</a></li>
+<li><a href="https://github.com/yscoder/hexo-theme-indigo/wiki/%E9%85%8D%E7%BD%AE" rel="external nofollow noopener noreferrer" target="_blank">主题配置</a></li>
+</ol>
+<h2 id="Node-js-安装配置"><a href="#Node-js-安装配置" class="headerlink" title="Node.js 安装配置"></a>Node.js 安装配置</h2><ol>
+<li><a href="http://www.runoob.com/nodejs/nodejs-install-setup.html" rel="external nofollow noopener noreferrer" target="_blank">安装教程</a></li>
+<li><a href="https://nodejs.org/en/download/" rel="external nofollow noopener noreferrer" target="_blank">Node.js安装包及源码下载地址</a></li>
+<li><a href="http://www.jianshu.com/p/a20c2cfac77b" rel="external nofollow noopener noreferrer" target="_blank">Hexo 命令行</a></li>
+<li><a href="https://segmentfault.com/a/1190000002632530" rel="external nofollow noopener noreferrer" target="_blank">Hexo 命令行</a></li>
+</ol>
+<h2 id="接入评论系统，可能会用到的链接"><a href="#接入评论系统，可能会用到的链接" class="headerlink" title="接入评论系统，可能会用到的链接"></a>接入评论系统，可能会用到的链接</h2><ol>
+<li><a href="http://changyan.kuaizhan.com/static/help/" rel="external nofollow noopener noreferrer" target="_blank">畅言</a></li>
+<li><a href="http://changyan.kuaizhan.com/" rel="external nofollow noopener noreferrer" target="_blank">畅言 index</a></li>
+<li><a href="http://www.lichanglin.cn/%E5%9C%A8Hexo%E4%B8%AD%E4%BD%BF%E7%94%A8%E7%95%85%E8%A8%80%E8%AF%84%E8%AE%BA%E7%B3%BB%E7%BB%9F/" rel="external nofollow noopener noreferrer" target="_blank">在Hexo中使用畅言评论系统</a></li>
+<li><a href="http://www.lichanglin.cn/%E5%9C%A8hexo%E4%B8%AD%E6%B7%BB%E5%8A%A0%E7%95%85%E8%A8%80%60%E7%83%AD%E8%AF%84%E6%96%87%E7%AB%A0%60%E8%BE%B9%E6%A0%8F/" rel="external nofollow noopener noreferrer" target="_blank">在hexo中添加畅言<code>热评文章</code>边栏 </a></li>
+</ol>
+<h2 id="支持数学公式"><a href="#支持数学公式" class="headerlink" title="支持数学公式"></a>支持数学公式</h2><p><a href="https://www.jianshu.com/p/7ab21c7f0674" rel="external nofollow noopener noreferrer" target="_blank">在Hexo中渲染MathJax数学公式</a></p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-09-01T02:53:12.947Z" itemprop="dateUpdated">2020年9月1日 10:53</time>
+</span><br>
+
+
+        转载请注明出处：<a href="/general/hexoBlog.html" target="_blank" rel="external">https://www.lovesofttech.com/general/hexoBlog.html</a>
+    </div>
+    <footer>
+        <a href="https://www.lovesofttech.com">
+            <img src="/img/myLogo.jpg" alt="安迪陈">
+            安迪陈
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo/">hexo</a></li></ul>
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/general/hexoBlog.html&title=《Hexo + gitee 免费个人博客搭建》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/general/hexoBlog.html&title=《Hexo + gitee 免费个人博客搭建》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=本文介绍 hexo 博客的安装部署、常用命令、经验，以及可能会用上的参考链接，总之，参照本文，你就可以自己搭建免费的个人博客了。" data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/general/hexoBlog.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Hexo + gitee 免费个人博客搭建》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/general/hexoBlog.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/general/hexoBlog.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/git/gitBasicUsage.html" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">git 在工作中的基本用法</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/job/teamExperience.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">团队在开发中应该遵循的一些规则，以及部分经验总结</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+    
+    
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="bottom">
+        <p>
+            <span>安迪陈技术日志，架构、感悟、系统分析、团队管理 &copy; 2017 - 2020</span>
+            <span>
+                Power by <a href="https://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>&nbsp;
+                Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank" rel="external nofollow noopener noreferrer">indigo</a>
+            </span>
+            <span>
+                <a href="http://www.beian.miit.gov.cn" target="_blank" rel="external nofollow noopener noreferrer">蜀ICP备17041860号</a>
+            </span>
+            
+            <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            </p><p>
+                <span>
+                    统计始于：2019-03-06
+                </span>
+                <span id="busuanzi_container_site_uv" style="display:none">
+                    访客数：<span id="busuanzi_value_site_uv"></span>
+                </span>
+                <span id="busuanzi_container_site_pv" style="display:none">
+                    访问量：<span id="busuanzi_value_site_pv"></span>
+                </span>
+            
+            
+                <span class="post-count">累计字数：309.2k</span>
+            
+                <span><a href="/general/blogLog.html"><i class="fas fa-pen-alt"></i>&nbsp;博客日志</a></span>
+            </p>
+        <p></p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light" title="回到顶部"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/general/hexoBlog.html&title=《Hexo + gitee 免费个人博客搭建》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/general/hexoBlog.html&title=《Hexo + gitee 免费个人博客搭建》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=本文介绍 hexo 博客的安装部署、常用命令、经验，以及可能会用上的参考链接，总之，参照本文，你就可以自己搭建免费的个人博客了。" data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/general/hexoBlog.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Hexo + gitee 免费个人博客搭建》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/general/hexoBlog.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/general/hexoBlog.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACKklEQVR42u3azW4CMQxFYd7/padSV0h0hnPtgDrOyQoBzeRj4fonjwdex+96fv38zut3rvd5Xdc7L1syZMi4LeO4XGffuealSL7nKVWGDBkbMNIgW3sw4Z3t/ObMMmTIkNEIvqv2lCFDhoyUkVaUtfJYhgwZMtIilqR0pIlW+9tltbgMGTJuyKgNBr7z+uPzDRkyZPx7xhEusg9/InkHnUqGDBmjGataXWly2fnPEGS4MmTIGM3gVyj64ZW03q5/OBkyZOzA4B+TkWTngldtUCpDhozZjHTEWEsZO3+L2DJkyNiA0Qmd5HC1hJLw0NRChgwZgxj8EGnLnhfGtR1kyJAxm8Hb9BzcZ9RCswwZMvZh1MJi3LhvjC3fXLaQIUPGOEZtoJi+k45C4+JZhgwZGzDSjdIGGbl+wRPNP54rQ4aMjRmdKxdBm6y9vwwZMmYzagUkvzzRSQfTslmGDBmzGbVrE2kC1ylc0c8qQ4aM0Yy0yEwftioF5OFehgwZkxjpodOBZXrBggR0NN+QIUPGUAZP/tKwSKj809PcVoYMGUMZvOHVGUPy9hxv/D1qfTsZMmTckHGEKy1EeYJIQjAqYmXIkDGOkQ4y02Pxllk6GJAhQ8ZuDF6spq2xzs+UnkGGDBk7MNIhZS0Qd4pYVMrKkCFjewa5PNFp8beeIkOGDBlhwsevU6T7y5AhY2dGrYjlx+ItOdKMkyFDxm6MtQH0EyG1386TIUPGbRk/yRkd8x6fIOcAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.5.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.5.2" async></script>
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '安迪陈技术日志';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '欢迎回来';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

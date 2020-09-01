@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<!--<script async src="//hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c"></script>-->
+<!-- 统计-->
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var host = window.location.host;
+        var hm = document.createElement("script");
+
+        if (host.indexOf('gitee.io') > 0) { // https://uncleandychen.gitee.io/
+            hm.src = "https://hm.baidu.com/hm.js?0cf4709148b070b8082191d2e456a1a3";
+        } else if (host.indexOf('lovesofttech.com') > 0) { // https://www.lovesofttech.com/
+            hm.src = "https://hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c";
+        } else {
+            hm.src = '';
+        }
+
+        if (hm.src !== '') {
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        }
+    })();
+</script>
+<!-- End Baidu Tongji -->
+
+
+
+<!-- Baidu Push -->
+<!-- 主动推送百度爬虫-->
+<script>
+    (function(){
+        if (window.location.host.indexOf('lovesofttech.com') < 0) {
+            return;
+        }
+
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+<!-- End Baidu Push -->
+
+
+    <meta charset="utf-8">
+    
+    
+    <link rel="canonical" href="https://www.lovesofttech.com/mybatis/MBGExtend.html">
+    
+    
+    <title>MyBatis Generator（MBG），写扩展类，以适应 MySQL 大小写敏感配置的各种情况、适应分表时动态替换表名 | 安迪陈技术日志，架构、感悟、系统分析、团队管理 | 自强不息，厚德载物</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="java,MyBatis">
+    <meta name="description" content="如题">
+<meta name="keywords" content="java,MyBatis">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MyBatis Generator（MBG），写扩展类，以适应 MySQL 大小写敏感配置的各种情况、适应分表时动态替换表名">
+<meta property="og:url" content="https://www.lovesofttech.com/mybatis/MBGExtend.html">
+<meta property="og:site_name" content="安迪陈技术日志，架构、感悟、系统分析、团队管理">
+<meta property="og:description" content="如题">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2020-09-01T02:53:13.068Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="MyBatis Generator（MBG），写扩展类，以适应 MySQL 大小写敏感配置的各种情况、适应分表时动态替换表名">
+<meta name="twitter:description" content="如题">
+    
+        <link rel="alternative" href="/atom.xml" title="安迪陈技术日志，架构、感悟、系统分析、团队管理" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=201912302211">
+    <link rel="stylesheet" href="/css/header.css?v=201912302211">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu">
+  <div class="inner flex-row-vertical">
+    <!--<i class="icon icon-lg icon-close"></i>-->
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off" title="隐藏左侧导航">﹤<i class="icon icon-lg icon-navicon"></i></a>
+    <div class="brand-wrap" style="background-image:url(/img/bannerBackgroundLeft.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/myLogo.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">安迪陈</h5>
+          <a href="mailto:andy@lovesofttech.com" title="andy@lovesofttech.com" class="mail" rel="external nofollow noopener noreferrer" target="_blank">andy@lovesofttech.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articleClassify.html">
+                <i class="icon icon-th-list"></i>
+                文章分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articles.html">
+                <i class="icon icon-th-list articles"></i>
+                文章列表
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/java.html">
+                <i class="icon icon-th-list java"></i>
+                Java
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/database.html">
+                <i class="icon icon-th-list database"></i>
+                MySQL/MyBatis
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/linux.html">
+                <i class="icon icon-th-list linux"></i>
+                CentOS/linux
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/react.html">
+                <i class="icon icon-th-list React"></i>
+                React
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/lnmp.html">
+                <i class="icon icon-th-list LNMP"></i>
+                LNMP
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/git.html">
+                <i class="icon icon-th-list git"></i>
+                git
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/windows.html">
+                <i class="icon icon-th-list windows"></i>
+                windows
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/dailyLives.html">
+                <i class="icon icon-th-list dailyLives"></i>
+                工作 &amp; 生活
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-github"></i>
+                我的 github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://gitee.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link"></i>
+                我的 gitee
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://blog.csdn.net/runAndRun" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link CSDN"></i>
+                我的 CSDN
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/aboutMe.html">
+                <i class="icon icon-address-card"></i>
+                关于我
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+
+        <div class="navbar navbar-custom navbar-fixed-top">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" style="margin-left:10px;" id="menu-toggle" title="显示左侧导航"><i class="icon icon-lg icon-navicon"></i>﹥</a>
+            <ul class="nav navbar-nav navbar-right" id="navMenuTop">
+                <li>
+                    <a href="/">主页</a>
+                </li>
+                
+                    
+                        <li>
+                            <a href="/articleClassify.html" title="本博客的文章分类列表">文章分类</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/articles.html" title="本博客的所有文章列表">文章列表</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/java.html" title="Java 开发，文章目录">Java</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/database.html" title="日常开发中有关 MySQL、MyBatis 的一些经验总结">MySQL/MyBatis</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/linux.html" title="CentOS/linux，文章目录">CentOS/linux</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/react.html" title="React 技术栈（全家桶）学习心得分享，文章目录">React</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/about.html">关于</a>
+                        </li>
+                    
+                
+            </ul>
+        </div>
+
+        <div class="flex-col header-title ellipsis">MyBatis Generator（MBG），写扩展类，以适应 MySQL 大小写敏感配置的各种情况、适应分表时动态替换表名</div>
+        
+        <div class="search-wrap" id="search-wrap" style="z-index: 2;">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back" style="width:33px;">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search" style="width:33px;">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare" style="z-index: 3;margin-right: 10px; width:30px;">
+                <i class="icon icon-lg icon-share-alt"></i>
+            </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h2 class="title">MyBatis Generator（MBG），写扩展类，以适应 MySQL 大小写敏感配置的各种情况、适应分表时动态替换表名</h2>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-12-10T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2018-12-11
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/MyBatis/">MyBatis</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/MyBatis/java/">java</a></li></ul></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap" id="index-container">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc" style="z-index: 3;">
+            <h4><i class="fa fa-list-alt"></i>&nbsp;&nbsp;本文目录</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#本文对应的完整项目"><span class="post-toc-number">1.</span> <span class="post-toc-text">本文对应的完整项目</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#关于该项目"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">关于该项目</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#本扩展的作用"><span class="post-toc-number">2.</span> <span class="post-toc-text">本扩展的作用</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#解决两个问题"><span class="post-toc-number">3.</span> <span class="post-toc-text">解决两个问题</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#自己扩展的好处"><span class="post-toc-number">4.</span> <span class="post-toc-text">自己扩展的好处</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#使用自己的扩展类"><span class="post-toc-number">5.</span> <span class="post-toc-text">使用自己的扩展类</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#两种运行方式"><span class="post-toc-number">6.</span> <span class="post-toc-text">两种运行方式</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#以程序方式运行"><span class="post-toc-number">6.1.</span> <span class="post-toc-text">以程序方式运行</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#cmd窗口运行jar文件"><span class="post-toc-number">6.2.</span> <span class="post-toc-text">cmd窗口运行jar文件</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#原理"><span class="post-toc-number">7.</span> <span class="post-toc-text">原理</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#MySQL-数据库驱动版本与数据库版本问题"><span class="post-toc-number">8.</span> <span class="post-toc-text">MySQL 数据库驱动版本与数据库版本问题</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#解决"><span class="post-toc-number">8.1.</span> <span class="post-toc-text">解决</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+    
+
+<article id="post-mybatis/MBGExtend" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">MyBatis Generator（MBG），写扩展类，以适应 MySQL 大小写敏感配置的各种情况、适应分表时动态替换表名</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018年12月11日 0:00" datetime="2018-12-10T16:00:00.000Z" itemprop="datePublished">2018-12-11</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/MyBatis/">MyBatis</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/MyBatis/java/">java</a></li></ul></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" style="display:none">
+    阅读量：<span id="busuanzi_value_page_pv"></span>次
+</span>
+
+
+    <span>|</span>
+    <span class="post-count">字数：2k</span>
+    <span>|</span>
+    <span class="post-count">阅读时长：大约7分钟</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>如题<br><a id="more"></a><br><a href="https://github.com/uncleAndyChen/mybatis-generator" rel="external nofollow noopener noreferrer" target="_blank">https://github.com/uncleAndyChen/mybatis-generator</a></p>
+<p><strong>如果表名采用驼峰式命名（不推荐驼峰式命名，推荐下划线命名），运行本工程生成表配置内容，要求 MySQL 的配置项：<code>lower_case_table_names</code> 为0或者2</strong>的情况下创建的数据表，否则，生成的表配置内容的表名，全是小写的，并非驼峰式命名法。表配置内容生成好之后，重新生成 mapper 时，数据库配置项：<code>lower_case_table_names</code> 的值，对生成结果没有影响。<br>有关 MySQL 命名规范，请参考：<a href="/mybatis/mysqlNaming.html">有关 MySQL 命名规范，用驼峰命名法与下划线命名法的取舍</a>，请关注这篇文章提到的 mapUnderscoreToCamelCase 配置项。</p>
+<h2 id="本文对应的完整项目"><a href="#本文对应的完整项目" class="headerlink" title="本文对应的完整项目"></a>本文对应的完整项目</h2><ul>
+<li>github: <a href="https://github.com/uncleAndyChen/mybatis-generator" rel="external nofollow noopener noreferrer" target="_blank">https://github.com/uncleAndyChen/mybatis-generator</a></li>
+<li>gitee:  <a href="https://gitee.com/uncleAndyChen/mybatis-generator" rel="external nofollow noopener noreferrer" target="_blank">https://gitee.com/uncleAndyChen/mybatis-generator</a><blockquote>
+<p>进入以上项目路径可查看更详细的介绍。</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="关于该项目"><a href="#关于该项目" class="headerlink" title="关于该项目"></a>关于该项目</h3><p>本项目最初想要解决数据库表名、字段名的命名法与 java 的类、属性命名法不一致带来的一系列问题。</p>
+<blockquote>
+<p>当然，本项目的 MBG 扩展类还做了一些其他事情，比如方便分表时做表名替换，更详细的，请参考: <a href="https://github.com/uncleAndyChen/mybatis-generator/tree/master/mybatis-generator-enhance" rel="external nofollow noopener noreferrer" target="_blank">MBG 扩展类 module</a></p>
+</blockquote>
+<p>曾尝试将数据库表名、字段名也采用驼峰命名法。</p>
+<p>现在已经改成：</p>
+<ul>
+<li>数据库表名、字段名保持下划线命名法。</li>
+<li>针对自定义 SQL 查询结果，对应的自定义 POJO 保持驼峰命名法，查询数据库的 SQL 语句保留原生下划线，并且不用写 resultMap。</li>
+<li>做到了 Java 规范与 MySQL 命名规范不一致的完美兼顾。</li>
+</ul>
+<p>已添加查询示例，不过仅仅是查询示例，没有考虑到项目架构的合理性。实际项目不会在 web 层直接调用 dal 层，实际项目会有业务层和接口层。</p>
+<h2 id="本扩展的作用"><a href="#本扩展的作用" class="headerlink" title="本扩展的作用"></a>本扩展的作用</h2><ol>
+<li>生成的*Mapper.xml文件中的脚本，表名取MBG所需配置文件中配置的值（工程中的配置文件是：generatorConfig.xml），而不是从数据库读取到的值。<ul>
+<li>如果数据库表名采用下划线命名法，请忽略这个作用。</li>
+<li>数据库表名、字段名命名法：<ul>
+<li><strong>之前</strong>本人推荐采用驼峰命名法。<ul>
+<li>想要保持统一的命名规则。</li>
+<li>不知道通过配置的方式<strong>兼顾两种命名法</strong>，即数据库表名、字段名在采用下划线命名法的情况下，通过 MBG 生成的对应每一个表的 POJO 采用驼峰命名法，查询数据时不需要考虑 MBG 生成的 xml 映射文件中的 <code>resultMap</code>，如 parent_id 与 parentId 的映射。</li>
+</ul>
+</li>
+<li><strong>现在推荐下划线命名法</strong>。<ul>
+<li>这是为了避免因 windows 与  linux 以及云数据库的大小写敏感不一致，从而带来不必要的麻烦。</li>
+<li>同时也是考虑到绝大多数同行的习惯。</li>
+<li>最主要的，是解决了之前不知道的<strong>兼顾两种命名法</strong>的办法（好象有一点拗口~~）</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>给表名添加MySQL“边界”，用 `（左上角数字键1左边、Tab键上边、Esc键下边的键）引起来。目的是分表时进行表名替换，把每张个表的表名当作一个整体，避免表名补充部分替换。</li>
+</ol>
+<h2 id="解决两个问题"><a href="#解决两个问题" class="headerlink" title="解决两个问题"></a>解决两个问题</h2><ol>
+<li>适应lower_case_table_names的三种配置值。</li>
+<li>利用MyBatis插件，根据业务规则，对表名进行动态替换。</li>
+</ol>
+<p>注：项目根目录下有更详细的介绍，点击以下链接查看：</p>
+<ul>
+<li>github: <a href="https://github.com/uncleAndyChen/mybatis-generator" rel="external nofollow noopener noreferrer" target="_blank">https://github.com/uncleAndyChen/mybatis-generator</a></li>
+<li>gitee:  <a href="https://gitee.com/uncleAndyChen/mybatis-generator" rel="external nofollow noopener noreferrer" target="_blank">https://gitee.com/uncleAndyChen/mybatis-generator</a></li>
+</ul>
+<h2 id="自己扩展的好处"><a href="#自己扩展的好处" class="headerlink" title="自己扩展的好处"></a>自己扩展的好处</h2><ol>
+<li>比起直接修改MBG源代码，这种方式对MBG无代码侵入，方便将来升级MBG。</li>
+<li>符合面向对象设计的【开闭原则】，即通过增加代码来为软件添加新功能，而不是直接修改原有代码。这一点，MBG做得非常好，除了可以非常方便的扩展之外，还可以写各种插件以实现自己的业务需要。</li>
+</ol>
+<h2 id="使用自己的扩展类"><a href="#使用自己的扩展类" class="headerlink" title="使用自己的扩展类"></a>使用自己的扩展类</h2><p>在配置文件generatorConfig.xml的context节点，配置runtime值，指向自己的扩展类，需要带包名，如本例：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">context</span> <span class="attr">id</span>=<span class="string">"Mysql"</span> <span class="attr">targetRuntime</span>=<span class="string">"mybatis.generator.enhance.IntrospectedTableEnhanceImpl"</span> <span class="attr">defaultModelType</span>=<span class="string">"flat"</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>扩展类的代码很简单，只有十几行<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.mybatis.generator.codegen.mybatis3.IntrospectedTableMyBatis3Impl;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">IntrospectedTableEnhanceImpl</span> <span class="keyword">extends</span> <span class="title">IntrospectedTableMyBatis3Impl</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getFullyQualifiedTableNameAtRuntime</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> getTableNameFromConfigFile();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getAliasedFullyQualifiedTableNameAtRuntime</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> getTableNameFromConfigFile();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> String <span class="title">getTableNameFromConfigFile</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        String tableName = <span class="keyword">this</span>.getTableConfiguration().getTableName();</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"`"</span> + tableName + <span class="string">"`"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="两种运行方式"><a href="#两种运行方式" class="headerlink" title="两种运行方式"></a>两种运行方式</h2><h3 id="以程序方式运行"><a href="#以程序方式运行" class="headerlink" title="以程序方式运行"></a>以程序方式运行</h3><p>仿照官方的<code>org.mybatis.generator.api.ShellRunner</code>，写一段代码，以程序的方式运行。本工程的代码如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GeneratorEnhanceRun</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            List&lt;String&gt; warnings = <span class="keyword">new</span> ArrayList&lt;String&gt;();</span><br><span class="line">            <span class="comment">/**</span></span><br><span class="line"><span class="comment">             * 初始化配置解析器</span></span><br><span class="line"><span class="comment">             */</span></span><br><span class="line">            ConfigurationParser cp = <span class="keyword">new</span> ConfigurationParser(warnings);</span><br><span class="line"></span><br><span class="line">            <span class="comment">/**</span></span><br><span class="line"><span class="comment">             * 获取配置文件信息</span></span><br><span class="line"><span class="comment">             */</span></span><br><span class="line">            FileInputStream fileInputStream = <span class="keyword">new</span> FileInputStream(ConfigProperties.getValue(<span class="string">"configFile"</span>));</span><br><span class="line"></span><br><span class="line">            <span class="comment">/**</span></span><br><span class="line"><span class="comment">             * 调用配置解析器创建配置对象</span></span><br><span class="line"><span class="comment">             */</span></span><br><span class="line">            Configuration config = cp.parseConfiguration(fileInputStream);</span><br><span class="line">            <span class="comment">/**</span></span><br><span class="line"><span class="comment">             * shellcallback接口主要用来处理文件的创建和合并，传入overwrite参数；默认的shellcallback是不支持文件合并的；</span></span><br><span class="line"><span class="comment">             */</span></span><br><span class="line">            DefaultShellCallback callback = <span class="keyword">new</span> DefaultShellCallback(<span class="keyword">true</span>);</span><br><span class="line">            <span class="comment">/**</span></span><br><span class="line"><span class="comment">             * 创建一个MyBatisGenerator对象。MyBatisGenerator类是真正用来执行生成动作的类</span></span><br><span class="line"><span class="comment">             */</span></span><br><span class="line">            MyBatisGenerator myBatisGenerator = <span class="keyword">new</span> MyBatisGenerator(config, callback, warnings);</span><br><span class="line">            <span class="comment">/**</span></span><br><span class="line"><span class="comment">             * 用System.out打印执行过程</span></span><br><span class="line"><span class="comment">             */</span></span><br><span class="line">            ProgressCallback progressCallback = <span class="keyword">new</span> VerboseProgressCallback();</span><br><span class="line"></span><br><span class="line">            <span class="comment">/**</span></span><br><span class="line"><span class="comment">             *  执行生成操作</span></span><br><span class="line"><span class="comment">             */</span></span><br><span class="line">            myBatisGenerator.generate(progressCallback);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>本工程，直接运行<code>GeneratorEnhanceRun</code>下的<code>main</code>方法，在运行之前需要先修改<code>resources</code>目录下的配置文件<code>application.properties</code>，将MBG运行需要的配置文件路径配置对。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">configFile=C:/workspace/mybatis-generator/generatorConfig.xml</span><br></pre></td></tr></table></figure></p>
+<h3 id="cmd窗口运行jar文件"><a href="#cmd窗口运行jar文件" class="headerlink" title="cmd窗口运行jar文件"></a>cmd窗口运行jar文件</h3><ul>
+<li>下MBG的jar包，<a href="https://github.com/mybatis/generator/releases" rel="external nofollow noopener noreferrer" target="_blank">传送门</a>，解压，找到<code>mybatis-generator-1.3.7.jar</code>备用。</li>
+<li>将本模块生成jar文件，生成的jar文件名<code>mybatis-generator-enhance.jar</code>。</li>
+<li>将两个jar文件以及配置文件放到model与dal项目所在的目录下，在 cmd 窗口执行：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -Dfile.encoding=UTF-8 -cp mybatis-generator-1.3.7.jar;mybatis-generator-enhance.jar org.mybatis.generator.api.ShellRunner -configfile generatorConfig.xml -overwrite</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<blockquote>
+<p>这里通过 -cp 指定需要用到的所有jar包，用分号隔开，这样在运行的时候才能找到相应的类。</p>
+</blockquote>
+<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>简单的说，就是自己的实现类<code>IntrospectedTableEnhanceImpl</code>继承自MBG的一个具体实现类，重写获取表名的方法。</p>
+<p>IntrospectedTable是MBG提供的一个比较基础的扩展类，相当于可以重新定义一个runtime。如果要通过继承IntrospectedTable完成扩展，需要自己来实现生成XML和Java代码的所有代码，也可以直接继承IntrospectedTableMyBatis3Impl，重写自己需要的业务逻辑，本模块就是直接继承自该类。</p>
+<p>要扩展自己的业务逻辑，建议先仔细阅读IntrospectedTableMyBatis3Impl和IntrospectedTableMyBatis3SimpleImpl，这两个类用得多一些。</p>
+<p>在MBG中，提供了几种默认的IntrospectedTable的实现，其实在context上设置的runtime对应的就是不同的IntrospectedTable的实现，下面是几种runtime和对应的实现类：</p>
+<ul>
+<li>MyBatis3 (default)：org.mybatis.generator.codegen.mybatis3.IntrospectedTableMyBatis3Impl</li>
+<li>MyBatis3Simple：org.mybatis.generator.codegen.mybatis3.IntrospectedTableMyBatis3SimpleImpl</li>
+<li>Ibatis2Java2：org.mybatis.generator.codegen.ibatis2.IntrospectedTableIbatis2Java2Impl</li>
+<li>Ibatis2Java5：org.mybatis.generator.codegen.ibatis2.IntrospectedTableIbatis2Java5Impl</li>
+</ul>
+<h2 id="MySQL-数据库驱动版本与数据库版本问题"><a href="#MySQL-数据库驱动版本与数据库版本问题" class="headerlink" title="MySQL 数据库驱动版本与数据库版本问题"></a>MySQL 数据库驱动版本与数据库版本问题</h2><p>用高版本的数据库驱动<code>mysql-connector-java 8.0.13</code>连接低版本数据库<code>MySQL 5.7.23</code>，会有以下问题：</p>
+<ol>
+<li><p>报错</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Cannot obtain primary key information from the database, generated objects may be incomplete</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>生成的 mapper 缺少以下接口：</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">deleteByPrimaryKey</span><br><span class="line">selectByPrimaryKey</span><br><span class="line">updateByPrimaryKeySelective</span><br><span class="line">updateByPrimaryKey</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h3><p>数据库驱动与数据库版本匹配即可，作者在以下两个版本（5.x与8.x）测试通过：</p>
+<ol>
+<li>数据库驱动<code>mysql-connector-java 8.0.13</code>连接数据库<code>MySQL 8.0.11</code>，对应<code>driverClassName: com.mysql.cj.jdbc.Driver</code></li>
+<li>数据库驱动<code>mysql-connector-java 5.1.29</code>连接数据库<code>MySQL 5.7.23</code>，对应<code>driverClassName: com.mysql.jdbc.Driver</code></li>
+</ol>
+<p>本工程的数据库驱动版本，使用的是当前最新的<code>mysql-connector-java 8.0.13</code>，仅支持连接高版本MySQL 8.x。</p>
+<p>如果要在<code>MySQL 5.7.x</code>下运行，只需要修改以下两个地方（注意是5.7.x，其它5.x版本没测试）：</p>
+<ol>
+<li>修改pom.xml中<code>mysql-connector.version</code>，改为低版本<code>5.1.39</code>。</li>
+<li>本项目的执行，依赖根目录下的<code>generatorConfig.xml</code>文件，将其中<code>driverClass</code>，由<code>com.mysql.cj.jdbc.Driver</code>改为<code>com.mysql.jdbc.Driver</code>。</li>
+</ol>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-09-01T02:53:13.068Z" itemprop="dateUpdated">2020年9月1日 10:53</time>
+</span><br>
+
+
+        转载请注明出处：<a href="/mybatis/MBGExtend.html" target="_blank" rel="external">https://www.lovesofttech.com/mybatis/MBGExtend.html</a>
+    </div>
+    <footer>
+        <a href="https://www.lovesofttech.com">
+            <img src="/img/myLogo.jpg" alt="安迪陈">
+            安迪陈
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MyBatis/">MyBatis</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/mybatis/MBGExtend.html&title=《MyBatis Generator（MBG），写扩展类，以适应 MySQL 大小写敏感配置的各种情况、适应分表时动态替换表名》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/mybatis/MBGExtend.html&title=《MyBatis Generator（MBG），写扩展类，以适应 MySQL 大小写敏感配置的各种情况、适应分表时动态替换表名》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=如题" data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/mybatis/MBGExtend.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《MyBatis Generator（MBG），写扩展类，以适应 MySQL 大小写敏感配置的各种情况、适应分表时动态替换表名》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/mybatis/MBGExtend.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/mybatis/MBGExtend.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/linux/centOS7ElasticsearchNew.html" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">CentOS 7 配置 ElasticSearch-6.5.4</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/mybatis/index.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">MyBatis，文章目录</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+    
+    
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="bottom">
+        <p>
+            <span>安迪陈技术日志，架构、感悟、系统分析、团队管理 &copy; 2017 - 2020</span>
+            <span>
+                Power by <a href="https://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>&nbsp;
+                Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank" rel="external nofollow noopener noreferrer">indigo</a>
+            </span>
+            <span>
+                <a href="http://www.beian.miit.gov.cn" target="_blank" rel="external nofollow noopener noreferrer">蜀ICP备17041860号</a>
+            </span>
+            
+            <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            </p><p>
+                <span>
+                    统计始于：2019-03-06
+                </span>
+                <span id="busuanzi_container_site_uv" style="display:none">
+                    访客数：<span id="busuanzi_value_site_uv"></span>
+                </span>
+                <span id="busuanzi_container_site_pv" style="display:none">
+                    访问量：<span id="busuanzi_value_site_pv"></span>
+                </span>
+            
+            
+                <span class="post-count">累计字数：309.2k</span>
+            
+                <span><a href="/general/blogLog.html"><i class="fas fa-pen-alt"></i>&nbsp;博客日志</a></span>
+            </p>
+        <p></p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light" title="回到顶部"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/mybatis/MBGExtend.html&title=《MyBatis Generator（MBG），写扩展类，以适应 MySQL 大小写敏感配置的各种情况、适应分表时动态替换表名》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/mybatis/MBGExtend.html&title=《MyBatis Generator（MBG），写扩展类，以适应 MySQL 大小写敏感配置的各种情况、适应分表时动态替换表名》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=如题" data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/mybatis/MBGExtend.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《MyBatis Generator（MBG），写扩展类，以适应 MySQL 大小写敏感配置的各种情况、适应分表时动态替换表名》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/mybatis/MBGExtend.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/mybatis/MBGExtend.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACJElEQVR42u3ay46DMBBE0fz/TzPbjEagW2UYifb1KkIm4bDouB+fD17H5Trb8339+jvPrty8ZMiQ8VpG+ojk3r97OPV6/ylVhgwZGzDOItj1Z76/exHkt2TIkCGDMA6wCKl7ZTJkyJBx/ehddsmTWBkyZMhIk1iS0PIDH09ub87FZciQ8UIGD5r///mR/oYMGTJexTjClR77eGPyWFgyZMiYzeABLi2ckXR0JeDKkCFjHwYPhSutgu6MF5T2ZMiQsQ0jHQJLH/fe0bFfV2TIkLE9o2sbkPBN0l30bTJkyBjN6I5oKy3PtJDHw7EMGTJmM3jhjI9NdINfS6MVMmTIGM3oSCQ4di3PLvWVIUPGDgxyROMHOBKsV973aSCWIUPGOEZX6O9Kb2mYDsAyZMgYzehu4z9Zxv6wnSBDhow9Gc81GruyXYCRIUPGUAZpJa4kn12rMg3BMmTI2IdxV0DkA2e8tRkPW8iQIWMQoyuT8f38+hGuIImVIUPGyxncygNfN1SRFuPQ/4YMGTLGMXizsEtNV8IxymtlyJAxmtGljjwp7ZqXZNRDhgwZsxld0pgeIoPiPj5WBvVCGTJkvJyxEubSoEmanV3hT4YMGTsweJBNhy26sMtfkwwZMnZjrNevunJe+g+AxixkyJAhA4fX9AS6RJUhQ4YMnGo+kQYHc7gyZMgYzeDNAB5206DJ75UhQ8ZujLsObSQod6W0dBxWhgwZgxg/9JNqmGgleQIAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.5.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.5.2" async></script>
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '安迪陈技术日志';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '欢迎回来';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

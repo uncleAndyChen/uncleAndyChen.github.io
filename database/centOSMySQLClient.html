@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<!--<script async src="//hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c"></script>-->
+<!-- 统计-->
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var host = window.location.host;
+        var hm = document.createElement("script");
+
+        if (host.indexOf('gitee.io') > 0) { // https://uncleandychen.gitee.io/
+            hm.src = "https://hm.baidu.com/hm.js?0cf4709148b070b8082191d2e456a1a3";
+        } else if (host.indexOf('lovesofttech.com') > 0) { // https://www.lovesofttech.com/
+            hm.src = "https://hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c";
+        } else {
+            hm.src = '';
+        }
+
+        if (hm.src !== '') {
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        }
+    })();
+</script>
+<!-- End Baidu Tongji -->
+
+
+
+<!-- Baidu Push -->
+<!-- 主动推送百度爬虫-->
+<script>
+    (function(){
+        if (window.location.host.indexOf('lovesofttech.com') < 0) {
+            return;
+        }
+
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+<!-- End Baidu Push -->
+
+
+    <meta charset="utf-8">
+    
+    
+    <link rel="canonical" href="https://www.lovesofttech.com/database/centOSMySQLClient.html">
+    
+    
+    <title>在 centOS 6.5 上安装 MySQL 客户端 | 安迪陈技术日志，架构、感悟、系统分析、团队管理 | 自强不息，厚德载物</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="MySQL,CentOS">
+    <meta name="description" content="在一台新的 centOS 6.5 服务器上，想要运行 MySQL 客户端，却被告之无法识别。本文介绍如何只安装 MySQL 客户端。">
+<meta name="keywords" content="MySQL,CentOS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在 centOS 6.5 上安装 MySQL 客户端">
+<meta property="og:url" content="https://www.lovesofttech.com/database/centOSMySQLClient.html">
+<meta property="og:site_name" content="安迪陈技术日志，架构、感悟、系统分析、团队管理">
+<meta property="og:description" content="在一台新的 centOS 6.5 服务器上，想要运行 MySQL 客户端，却被告之无法识别。本文介绍如何只安装 MySQL 客户端。">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2020-09-01T02:53:12.917Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="在 centOS 6.5 上安装 MySQL 客户端">
+<meta name="twitter:description" content="在一台新的 centOS 6.5 服务器上，想要运行 MySQL 客户端，却被告之无法识别。本文介绍如何只安装 MySQL 客户端。">
+    
+        <link rel="alternative" href="/atom.xml" title="安迪陈技术日志，架构、感悟、系统分析、团队管理" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=201912302211">
+    <link rel="stylesheet" href="/css/header.css?v=201912302211">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu">
+  <div class="inner flex-row-vertical">
+    <!--<i class="icon icon-lg icon-close"></i>-->
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off" title="隐藏左侧导航">﹤<i class="icon icon-lg icon-navicon"></i></a>
+    <div class="brand-wrap" style="background-image:url(/img/bannerBackgroundLeft.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/myLogo.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">安迪陈</h5>
+          <a href="mailto:andy@lovesofttech.com" title="andy@lovesofttech.com" class="mail" rel="external nofollow noopener noreferrer" target="_blank">andy@lovesofttech.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articleClassify.html">
+                <i class="icon icon-th-list"></i>
+                文章分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articles.html">
+                <i class="icon icon-th-list articles"></i>
+                文章列表
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/java.html">
+                <i class="icon icon-th-list java"></i>
+                Java
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/database.html">
+                <i class="icon icon-th-list database"></i>
+                MySQL/MyBatis
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/linux.html">
+                <i class="icon icon-th-list linux"></i>
+                CentOS/linux
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/react.html">
+                <i class="icon icon-th-list React"></i>
+                React
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/lnmp.html">
+                <i class="icon icon-th-list LNMP"></i>
+                LNMP
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/git.html">
+                <i class="icon icon-th-list git"></i>
+                git
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/windows.html">
+                <i class="icon icon-th-list windows"></i>
+                windows
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/dailyLives.html">
+                <i class="icon icon-th-list dailyLives"></i>
+                工作 &amp; 生活
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-github"></i>
+                我的 github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://gitee.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link"></i>
+                我的 gitee
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://blog.csdn.net/runAndRun" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link CSDN"></i>
+                我的 CSDN
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/aboutMe.html">
+                <i class="icon icon-address-card"></i>
+                关于我
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+
+        <div class="navbar navbar-custom navbar-fixed-top">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" style="margin-left:10px;" id="menu-toggle" title="显示左侧导航"><i class="icon icon-lg icon-navicon"></i>﹥</a>
+            <ul class="nav navbar-nav navbar-right" id="navMenuTop">
+                <li>
+                    <a href="/">主页</a>
+                </li>
+                
+                    
+                        <li>
+                            <a href="/articleClassify.html" title="本博客的文章分类列表">文章分类</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/articles.html" title="本博客的所有文章列表">文章列表</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/java.html" title="Java 开发，文章目录">Java</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/database.html" title="日常开发中有关 MySQL、MyBatis 的一些经验总结">MySQL/MyBatis</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/linux.html" title="CentOS/linux，文章目录">CentOS/linux</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/react.html" title="React 技术栈（全家桶）学习心得分享，文章目录">React</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/about.html">关于</a>
+                        </li>
+                    
+                
+            </ul>
+        </div>
+
+        <div class="flex-col header-title ellipsis">在 centOS 6.5 上安装 MySQL 客户端</div>
+        
+        <div class="search-wrap" id="search-wrap" style="z-index: 2;">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back" style="width:33px;">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search" style="width:33px;">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare" style="z-index: 3;margin-right: 10px; width:30px;">
+                <i class="icon icon-lg icon-share-alt"></i>
+            </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h2 class="title">在 centOS 6.5 上安装 MySQL 客户端</h2>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-07-04T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2017-07-05
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/MySQL/">MySQL</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/MySQL/CentOS/">CentOS</a></li></ul></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap" id="index-container">
+    
+
+<article id="post-database/centOSMySQLClient" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">在 centOS 6.5 上安装 MySQL 客户端</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017年07月05日 0:00" datetime="2017-07-04T16:00:00.000Z" itemprop="datePublished">2017-07-05</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/MySQL/">MySQL</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/MySQL/CentOS/">CentOS</a></li></ul></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" style="display:none">
+    阅读量：<span id="busuanzi_value_page_pv"></span>次
+</span>
+
+
+    <span>|</span>
+    <span class="post-count">字数：3.9k</span>
+    <span>|</span>
+    <span class="post-count">阅读时长：大约23分钟</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>在一台新的 centOS 6.5 服务器上，想要运行 MySQL 客户端，却被告之无法识别。<br>本文介绍如何只安装 MySQL 客户端。<br><a id="more"></a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># mysql</span><br><span class="line">-bash: mysql: command not found</span><br></pre></td></tr></table></figure></p>
+<p>检查是否已经安装 mysql<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br></pre></td><td class="code"><pre><span class="line"># find / -name mysql</span><br><span class="line">/usr/lib64/mysql</span><br><span class="line">/usr/share/mysql</span><br><span class="line">[root@jstukte7a334ry mysql]# cd /usr/lib64/mysql/</span><br><span class="line">[root@jstukte7a334ry mysql]# ll</span><br><span class="line">total 3108</span><br><span class="line">lrwxrwxrwx. 1 root root      26 Aug 14  2014 libmysqlclient_r.so.16 -&gt; libmysqlclient_r.so.16.0.0</span><br><span class="line">-rwxr-xr-x. 1 root root 1595240 Feb 13  2014 libmysqlclient_r.so.16.0.0</span><br><span class="line">lrwxrwxrwx. 1 root root      24 Aug 14  2014 libmysqlclient.so.16 -&gt; libmysqlclient.so.16.0.0</span><br><span class="line">-rwxr-xr-x. 1 root root 1584680 Feb 13  2014 libmysqlclient.so.16.0.0</span><br><span class="line">[root@jstukte7a334ry mysql]# cd /usr/share/mysql/</span><br><span class="line">[root@jstukte7a334ry mysql]# ll</span><br><span class="line">total 96</span><br><span class="line">drwxr-xr-x. 2 root root 4096 Aug 14  2014 charsets</span><br><span class="line">drwxr-xr-x. 2 root root 4096 Aug 14  2014 czech</span><br><span class="line">drwxr-xr-x. 2 root root 4096 Aug 14  2014 danish</span><br><span class="line">drwxr-xr-x. 2 root root 4096 Aug 14  2014 dutch</span><br><span class="line">drwxr-xr-x. 2 root root 4096 Aug 14  2014 english</span><br><span class="line">drwxr-xr-x. 2 root root 4096 Aug 14  2014 estonian</span><br><span class="line">drwxr-xr-x. 2 root root 4096 Aug 14  2014 french</span><br><span class="line">drwxr-xr-x. 2 root root 4096 Aug 14  2014 german</span><br><span class="line">drwxr-xr-x. 2 root root 4096 Aug 14  2014 greek</span><br><span class="line">drwxr-xr-x. 2 root root 4096 Aug 14  2014 hungarian</span><br><span class="line">drwxr-xr-x. 2 root root 4096 Aug 14  2014 italian</span><br><span class="line">drwxr-xr-x. 2 root root 4096 Aug 14  2014 japanese</span><br><span class="line">drwxr-xr-x. 2 root root 4096 Aug 14  2014 korean</span><br><span class="line">drwxr-xr-x. 2 root root 4096 Aug 14  2014 norwegian</span><br><span class="line">drwxr-xr-x. 2 root root 4096 Aug 14  2014 norwegian-ny</span><br><span class="line">drwxr-xr-x. 2 root root 4096 Aug 14  2014 polish</span><br><span class="line">drwxr-xr-x. 2 root root 4096 Aug 14  2014 portuguese</span><br><span class="line">drwxr-xr-x. 2 root root 4096 Aug 14  2014 romanian</span><br><span class="line">drwxr-xr-x. 2 root root 4096 Aug 14  2014 russian</span><br><span class="line">drwxr-xr-x. 2 root root 4096 Aug 14  2014 serbian</span><br><span class="line">drwxr-xr-x. 2 root root 4096 Aug 14  2014 slovak</span><br><span class="line">drwxr-xr-x. 2 root root 4096 Aug 14  2014 spanish</span><br><span class="line">drwxr-xr-x. 2 root root 4096 Aug 14  2014 swedish</span><br><span class="line">drwxr-xr-x. 2 root root 4096 Aug 14  2014 ukrainian</span><br><span class="line">[root@jstukte7a334ry mysql]# service mysqld status</span><br><span class="line">mysqld: unrecognized service</span><br><span class="line">[root@jstukte7a334ry mysql]# service mysql status </span><br><span class="line">mysql: unrecognized service</span><br><span class="line">[root@jstukte7a334ry mysql]# cd /etc/init.d/</span><br><span class="line">[root@jstukte7a334ry init.d]# ll</span><br><span class="line">total 256</span><br><span class="line">-rwxr-xr-x. 1 root root  1288 Nov 23  2013 abrt-ccpp</span><br><span class="line">-rwxr-xr-x. 1 root root  1628 Nov 23  2013 abrtd</span><br><span class="line">-rwxr-xr-x. 1 root root  1642 Nov 23  2013 abrt-oops</span><br><span class="line">-rwxr-xr-x. 1 root root  1725 Aug 19  2010 acpid</span><br><span class="line">-rwxr-xr-x  1 root root  2265 Jun 28  2016 aegis</span><br><span class="line">-r-xr-xr-x  1 root root  3726 Jun  2  2015 agentwatch</span><br><span class="line">-rwxrwxrwx  1 root root  3864 Jul  5  2016 ali_auditd_srv</span><br><span class="line">-rwxr-xr-x. 1 root root  2062 Jan 30  2012 atd</span><br><span class="line">-rwxr-xr-x. 1 root root  3378 May 28  2014 auditd</span><br><span class="line">-r-xr-xr-x. 1 root root  1340 Nov 24  2013 blk-availability</span><br><span class="line">-rwxr-xr-x. 1 root root 11355 Aug 13  2013 cpuspeed</span><br><span class="line">-rwxr-xr-x. 1 root root  2826 Nov 23  2013 crond</span><br><span class="line">-rw-r--r--. 1 root root 19175 Jul 10  2014 functions</span><br><span class="line">-rwxr-xr-x. 1 root root  1801 Jul 20  2011 haldaemon</span><br><span class="line">-rwxr-xr-x. 1 root root  5866 Oct 10  2013 halt</span><br><span class="line">-rwxr-xr-x. 1 root root 10804 Nov 23  2013 ip6tables</span><br><span class="line">-rwxr-xr-x. 1 root root 10688 Nov 23  2013 iptables</span><br><span class="line">-rwxr-xr-x. 1 root root  1938 May  5  2014 irqbalance</span><br><span class="line">-rwxr-xr-x. 1 root root 18133 Nov 23  2013 kdump</span><br><span class="line">-rwxr-xr-x. 1 root root   652 Oct 10  2013 killall</span><br><span class="line">-r-xr-xr-x. 1 root root  2134 Nov 24  2013 lvm2-lvmetad</span><br><span class="line">-r-xr-xr-x. 1 root root  2665 Nov 24  2013 lvm2-monitor</span><br><span class="line">-rwxr-xr-x. 1 root root  2571 Apr  7  2014 mdmonitor</span><br><span class="line">-rwxr-xr-x. 1 root root  2200 Sep 14  2012 messagebus</span><br><span class="line">-rwxr-xr-x. 1 root root  2989 Oct 10  2013 netconsole</span><br><span class="line">-rwxr-xr-x. 1 root root  5428 Oct 10  2013 netfs</span><br><span class="line">-rwxr-xr-x. 1 root root  6334 Oct 10  2013 network</span><br><span class="line">-rwxr-xr-x  1 root root  2515 Jan 28  2015 nscd</span><br><span class="line">-rwxr-xr-x  1 root root  1923 Dec 20  2014 ntpd</span><br><span class="line">-rwxr-xr-x  1 root root  2043 Dec 20  2014 ntpdate</span><br><span class="line">-rwxrwxrwx  1 root root  1459 Mar 10 20:35 openvpnsrv</span><br><span class="line">-rwxr-xr-x. 1 root root  3912 Feb 20  2014 postfix</span><br><span class="line">-rwxr-xr-x. 1 root root  1556 Jul 17  2012 psacct</span><br><span class="line">-rwxr-xr-x. 1 root root  2034 Mar  5  2014 quota_nld</span><br><span class="line">-rwxr-xr-x. 1 root root  1513 Sep 17  2013 rdisc</span><br><span class="line">-rwxr-xr-x. 1 root root  1822 Nov 23  2013 restorecond</span><br><span class="line">-rwxr-xr-x. 1 root root  1808 Dec 18  2011 rngd</span><br><span class="line">-rwxr-xr-x. 1 root root  2011 Aug 15  2013 rsyslog</span><br><span class="line">-rwxr-xr-x. 1 root root  1698 Nov 23  2013 sandbox</span><br><span class="line">-rwxr-xr-x. 1 root root  2056 Nov 20  2012 saslauthd</span><br><span class="line">-rwxr-xr-x. 1 root root   647 Oct 10  2013 single</span><br><span class="line">-rwxr-xr-x. 1 root root  3002 Feb 22  2013 smartd</span><br><span class="line">-rwxr-xr-x. 1 root root  4534 Nov 23  2013 sshd</span><br><span class="line">-rwxr-xr-x. 1 root root  2276 Feb 12  2014 svnserve</span><br><span class="line">-rwxr-xr-x  1 root root  1144 Oct 16  2014 sysstat</span><br><span class="line">-rwxr-xr-x. 1 root root  2294 Nov 23  2013 udev-post</span><br><span class="line">[root@jstukte7a334ry init.d]# ll mysql*</span><br><span class="line">ls: cannot access mysql*: No such file or directory</span><br></pre></td></tr></table></figure></p>
+<p>通过以上检查，服务列表没有mysql，相关的目录下也没有mysql可执行程序，确保系统没有安装 mysql，那么，安装之。</p>
+<p>下载最新的 <a href="https://dev.mysql.com/downloads/mysql/" rel="external nofollow noopener noreferrer" target="_blank">MySQL Community Server</a></p>
+<p>centos 要选 <code>Red Hat Enterprise Linux / Oracle Linux</code>，然后，要选 el6 的版本。linux 版本号中 EL 代表 enterprise linux<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">What does el5, el6, and el7 mean?</span><br><span class="line">EL is short for Red Hat Enterprise Linux (EL).</span><br><span class="line">EL5 is the download for Red Hat 5.x, CentOS 5.x, CloudLinux 5.x.</span><br><span class="line">EL6 is the download for Red Hat 6.x, CentOS 6.x, and CloudLinux 6.x.</span><br><span class="line">EL7 is the download for Red Hat 7.x, CentOS 7.x, and CloudLinux 7.x.</span><br><span class="line"></span><br><span class="line">The UNIXy Varnish Plugins run on all the above platforms.</span><br></pre></td></tr></table></figure></p>
+<p>我下载的最新版本是：<code>mysql-5.7.18-1.el6.x86_64.rpm-bundle.tar</code><br>下载后，解压：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -xvf mysql-5.7.18-1.el6.x86_64.rpm-bundle.tar</span><br></pre></td></tr></table></figure></p>
+<p>得到以下文件列表：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"># ll</span><br><span class="line">total 918984</span><br><span class="line">-rw-r--r-- 1 root root  470507520 Mar 20 18:52 mysql-5.7.18-1.el6.x86_64.rpm-bundle.tar</span><br><span class="line">-rw-r--r-- 1 7155 31415  23618836 Mar 20 17:40 mysql-community-client-5.7.18-1.el6.x86_64.rpm</span><br><span class="line">-rw-r--r-- 1 7155 31415    335496 Mar 20 17:40 mysql-community-common-5.7.18-1.el6.x86_64.rpm</span><br><span class="line">-rw-r--r-- 1 7155 31415   3747352 Mar 20 17:40 mysql-community-devel-5.7.18-1.el6.x86_64.rpm</span><br><span class="line">-rw-r--r-- 1 7155 31415  39086508 Mar 20 17:40 mysql-community-embedded-5.7.18-1.el6.x86_64.rpm</span><br><span class="line">-rw-r--r-- 1 7155 31415 135869292 Mar 20 17:40 mysql-community-embedded-devel-5.7.18-1.el6.x86_64.rpm</span><br><span class="line">-rw-r--r-- 1 7155 31415   2177064 Mar 20 17:40 mysql-community-libs-5.7.18-1.el6.x86_64.rpm</span><br><span class="line">-rw-r--r-- 1 7155 31415   1723180 Mar 20 17:40 mysql-community-libs-compat-5.7.18-1.el6.x86_64.rpm</span><br><span class="line">-rw-r--r-- 1 7155 31415 159060212 Mar 20 17:41 mysql-community-server-5.7.18-1.el6.x86_64.rpm</span><br><span class="line">-rw-r--r-- 1 7155 31415 104881084 Mar 20 17:41 mysql-community-test-5.7.18-1.el6.x86_64.rpm</span><br></pre></td></tr></table></figure></p>
+<p>安装client 需要先安装 libs<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># rpm -ivh mysql-community-client-5.7.18-1.el6.x86_64.rpm</span><br><span class="line">warning: mysql-community-client-5.7.18-1.el6.x86_64.rpm: Header V3 DSA/SHA1 Signature, key ID 5072e1f5: NOKEY</span><br><span class="line">error: Failed dependencies:</span><br><span class="line">        mysql-community-libs(x86-64) &gt;= 5.7.9 is needed by mysql-community-client-5.7.18-1.el6.x86_64</span><br></pre></td></tr></table></figure></p>
+<p>而安装 libs 需要先安装 common<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># rpm -ivh mysql-community-libs-5.7.18-1.el6.x86_64.rpm </span><br><span class="line">warning: mysql-community-libs-5.7.18-1.el6.x86_64.rpm: Header V3 DSA/SHA1 Signature, key ID 5072e1f5: NOKEY</span><br><span class="line">error: Failed dependencies:</span><br><span class="line">        mysql-community-common(x86-64) &gt;= 5.7.9 is needed by mysql-community-libs-5.7.18-1.el6.x86_64</span><br></pre></td></tr></table></figure></p>
+<p>所以，最先被安装的，应该是 common<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"># rpm -ivh mysql-community-common-5.7.18-1.el6.x86_64.rpm</span><br><span class="line">warning: mysql-community-common-5.7.18-1.el6.x86_64.rpm: Header V3 DSA/SHA1 Signature, key ID 5072e1f5: NOKEY</span><br><span class="line">Preparing...                ########################################### [100%]</span><br><span class="line">        file /usr/share/mysql/czech/errmsg.sys from install of mysql-community-common-5.7.18-1.el6.x86_64 conflicts with file from package mysql-libs-5.1.73-3.el6_5.x86_64</span><br><span class="line">        file /usr/share/mysql/danish/errmsg.sys from install of mysql-community-common-5.7.18-1.el6.x86_64 conflicts with file from package mysql-libs-5.1.73-3.el6_5.x86_64</span><br><span class="line">        file /usr/share/mysql/dutch/errmsg.sys from install of mysql-community-common-5.7.18-1.el6.x86_64 conflicts with file from package mysql-libs-5.1.73-3.el6_5.x86_64</span><br><span class="line">        file /usr/share/mysql/english/errmsg.sys from install of mysql-community-common-5.7.18-1.el6.x86_64 conflicts with file from package mysql-libs-5.1.73-3.el6_5.x86_64</span><br><span class="line">        file /usr/share/mysql/estonian/errmsg.sys from install of mysql-community-common-5.7.18-1.el6.x86_64 conflicts with file from package mysql-libs-5.1.73-3.el6_5.x86_64</span><br><span class="line">        file /usr/share/mysql/french/errmsg.sys from install of mysql-community-common-5.7.18-1.el6.x86_64 conflicts with file from package mysql-libs-5.1.73-3.el6_5.x86_64</span><br><span class="line">        file /usr/share/mysql/german/errmsg.sys from install of mysql-community-common-5.7.18-1.el6.x86_64 conflicts with file from package mysql-libs-5.1.73-3.el6_5.x86_64</span><br><span class="line">        file /usr/share/mysql/greek/errmsg.sys from install of mysql-community-common-5.7.18-1.el6.x86_64 conflicts with file from package mysql-libs-5.1.73-3.el6_5.x86_64</span><br><span class="line">        file /usr/share/mysql/hungarian/errmsg.sys from install of mysql-community-common-5.7.18-1.el6.x86_64 conflicts with file from package mysql-libs-5.1.73-3.el6_5.x86_64</span><br><span class="line">        file /usr/share/mysql/italian/errmsg.sys from install of mysql-community-common-5.7.18-1.el6.x86_64 conflicts with file from package mysql-libs-5.1.73-3.el6_5.x86_64</span><br><span class="line">        file /usr/share/mysql/japanese/errmsg.sys from install of mysql-community-common-5.7.18-1.el6.x86_64 conflicts with file from package mysql-libs-5.1.73-3.el6_5.x86_64</span><br><span class="line">        file /usr/share/mysql/korean/errmsg.sys from install of mysql-community-common-5.7.18-1.el6.x86_64 conflicts with file from package mysql-libs-5.1.73-3.el6_5.x86_64</span><br><span class="line">        file /usr/share/mysql/norwegian-ny/errmsg.sys from install of mysql-community-common-5.7.18-1.el6.x86_64 conflicts with file from package mysql-libs-5.1.73-3.el6_5.x86_64</span><br><span class="line">        file /usr/share/mysql/norwegian/errmsg.sys from install of mysql-community-common-5.7.18-1.el6.x86_64 conflicts with file from package mysql-libs-5.1.73-3.el6_5.x86_64</span><br><span class="line">        file /usr/share/mysql/polish/errmsg.sys from install of mysql-community-common-5.7.18-1.el6.x86_64 conflicts with file from package mysql-libs-5.1.73-3.el6_5.x86_64</span><br><span class="line">        file /usr/share/mysql/portuguese/errmsg.sys from install of mysql-community-common-5.7.18-1.el6.x86_64 conflicts with file from package mysql-libs-5.1.73-3.el6_5.x86_64</span><br><span class="line">        file /usr/share/mysql/romanian/errmsg.sys from install of mysql-community-common-5.7.18-1.el6.x86_64 conflicts with file from package mysql-libs-5.1.73-3.el6_5.x86_64</span><br><span class="line">        file /usr/share/mysql/russian/errmsg.sys from install of mysql-community-common-5.7.18-1.el6.x86_64 conflicts with file from package mysql-libs-5.1.73-3.el6_5.x86_64</span><br><span class="line">        file /usr/share/mysql/serbian/errmsg.sys from install of mysql-community-common-5.7.18-1.el6.x86_64 conflicts with file from package mysql-libs-5.1.73-3.el6_5.x86_64</span><br><span class="line">        file /usr/share/mysql/slovak/errmsg.sys from install of mysql-community-common-5.7.18-1.el6.x86_64 conflicts with file from package mysql-libs-5.1.73-3.el6_5.x86_64</span><br><span class="line">        file /usr/share/mysql/spanish/errmsg.sys from install of mysql-community-common-5.7.18-1.el6.x86_64 conflicts with file from package mysql-libs-5.1.73-3.el6_5.x86_64</span><br><span class="line">        file /usr/share/mysql/swedish/errmsg.sys from install of mysql-community-common-5.7.18-1.el6.x86_64 conflicts with file from package mysql-libs-5.1.73-3.el6_5.x86_64</span><br><span class="line">        file /usr/share/mysql/ukrainian/errmsg.sys from install of mysql-community-common-5.7.18-1.el6.x86_64 conflicts with file from package mysql-libs-5.1.73-3.el6_5.x86_64</span><br><span class="line">        file /usr/share/mysql/charsets/Index.xml from install of mysql-community-common-5.7.18-1.el6.x86_64 conflicts with file from package mysql-libs-5.1.73-3.el6_5.x86_64</span><br><span class="line">        file /usr/share/mysql/charsets/armscii8.xml from install of mysql-community-common-5.7.18-1.el6.x86_64 conflicts with file from package mysql-libs-5.1.73-3.el6_5.x86_64</span><br><span class="line">        file /usr/share/mysql/charsets/ascii.xml from install of mysql-community-common-5.7.18-1.el6.x86_64 conflicts with file from package mysql-libs-5.1.73-3.el6_5.x86_64</span><br><span class="line">        file /usr/share/mysql/charsets/cp1250.xml from install of mysql-community-common-5.7.18-1.el6.x86_64 conflicts with file from package mysql-libs-5.1.73-3.el6_5.x86_64</span><br><span class="line">        file /usr/share/mysql/charsets/cp1256.xml from install of mysql-community-common-5.7.18-1.el6.x86_64 conflicts with file from package mysql-libs-5.1.73-3.el6_5.x86_64</span><br><span class="line">        file /usr/share/mysql/charsets/cp1257.xml from install of mysql-community-common-5.7.18-1.el6.x86_64 conflicts with file from package mysql-libs-5.1.73-3.el6_5.x86_64</span><br><span class="line">        file /usr/share/mysql/charsets/cp850.xml from install of mysql-community-common-5.7.18-1.el6.x86_64 conflicts with file from package mysql-libs-5.1.73-3.el6_5.x86_64</span><br><span class="line">        file /usr/share/mysql/charsets/cp852.xml from install of mysql-community-common-5.7.18-1.el6.x86_64 conflicts with file from package mysql-libs-5.1.73-3.el6_5.x86_64</span><br><span class="line">        file /usr/share/mysql/charsets/cp866.xml from install of mysql-community-common-5.7.18-1.el6.x86_64 conflicts with file from package mysql-libs-5.1.73-3.el6_5.x86_64</span><br><span class="line">        file /usr/share/mysql/charsets/dec8.xml from install of mysql-community-common-5.7.18-1.el6.x86_64 conflicts with file from package mysql-libs-5.1.73-3.el6_5.x86_64</span><br><span class="line">        file /usr/share/mysql/charsets/geostd8.xml from install of mysql-community-common-5.7.18-1.el6.x86_64 conflicts with file from package mysql-libs-5.1.73-3.el6_5.x86_64</span><br><span class="line">        file /usr/share/mysql/charsets/greek.xml from install of mysql-community-common-5.7.18-1.el6.x86_64 conflicts with file from package mysql-libs-5.1.73-3.el6_5.x86_64</span><br><span class="line">        file /usr/share/mysql/charsets/hebrew.xml from install of mysql-community-common-5.7.18-1.el6.x86_64 conflicts with file from package mysql-libs-5.1.73-3.el6_5.x86_64</span><br><span class="line">        file /usr/share/mysql/charsets/hp8.xml from install of mysql-community-common-5.7.18-1.el6.x86_64 conflicts with file from package mysql-libs-5.1.73-3.el6_5.x86_64</span><br><span class="line">        file /usr/share/mysql/charsets/keybcs2.xml from install of mysql-community-common-5.7.18-1.el6.x86_64 conflicts with file from package mysql-libs-5.1.73-3.el6_5.x86_64</span><br><span class="line">        file /usr/share/mysql/charsets/koi8r.xml from install of mysql-community-common-5.7.18-1.el6.x86_64 conflicts with file from package mysql-libs-5.1.73-3.el6_5.x86_64</span><br><span class="line">        file /usr/share/mysql/charsets/koi8u.xml from install of mysql-community-common-5.7.18-1.el6.x86_64 conflicts with file from package mysql-libs-5.1.73-3.el6_5.x86_64</span><br><span class="line">        file /usr/share/mysql/charsets/latin1.xml from install of mysql-community-common-5.7.18-1.el6.x86_64 conflicts with file from package mysql-libs-5.1.73-3.el6_5.x86_64</span><br><span class="line">        file /usr/share/mysql/charsets/latin2.xml from install of mysql-community-common-5.7.18-1.el6.x86_64 conflicts with file from package mysql-libs-5.1.73-3.el6_5.x86_64</span><br><span class="line">        file /usr/share/mysql/charsets/latin5.xml from install of mysql-community-common-5.7.18-1.el6.x86_64 conflicts with file from package mysql-libs-5.1.73-3.el6_5.x86_64</span><br><span class="line">        file /usr/share/mysql/charsets/latin7.xml from install of mysql-community-common-5.7.18-1.el6.x86_64 conflicts with file from package mysql-libs-5.1.73-3.el6_5.x86_64</span><br><span class="line">        file /usr/share/mysql/charsets/macce.xml from install of mysql-community-common-5.7.18-1.el6.x86_64 conflicts with file from package mysql-libs-5.1.73-3.el6_5.x86_64</span><br><span class="line">        file /usr/share/mysql/charsets/macroman.xml from install of mysql-community-common-5.7.18-1.el6.x86_64 conflicts with file from package mysql-libs-5.1.73-3.el6_5.x86_64</span><br><span class="line">        file /usr/share/mysql/charsets/swe7.xml from install of mysql-community-common-5.7.18-1.el6.x86_64 conflicts with file from package mysql-libs-5.1.73-3.el6_5.x86_64</span><br></pre></td></tr></table></figure></p>
+<p>安装过程中，提示与 centos6.5 自带的旧版本冲突。 解决：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br></pre></td><td class="code"><pre><span class="line"># yum -y remove mysql-libs-5.1.73*</span><br><span class="line">Loaded plugins: security</span><br><span class="line">Setting up Remove Process</span><br><span class="line">Resolving Dependencies</span><br><span class="line">--&gt; Running transaction check</span><br><span class="line">---&gt; Package mysql-libs.x86_64 0:5.1.73-3.el6_5 will be erased</span><br><span class="line">--&gt; Processing Dependency: libmysqlclient.so.16()(64bit) for package: 2:postfix-2.6.6-6.el6_5.x86_64</span><br><span class="line">--&gt; Processing Dependency: libmysqlclient.so.16(libmysqlclient_16)(64bit) for package: 2:postfix-2.6.6-6.el6_5.x86_64</span><br><span class="line">--&gt; Processing Dependency: mysql-libs for package: 2:postfix-2.6.6-6.el6_5.x86_64</span><br><span class="line">--&gt; Running transaction check</span><br><span class="line">---&gt; Package postfix.x86_64 2:2.6.6-6.el6_5 will be erased</span><br><span class="line">--&gt; Processing Dependency: /usr/sbin/sendmail for package: redhat-lsb-core-4.0-7.el6.centos.x86_64</span><br><span class="line">--&gt; Processing Dependency: /usr/sbin/sendmail for package: cronie-1.4.4-12.el6.x86_64</span><br><span class="line">--&gt; Running transaction check</span><br><span class="line">---&gt; Package cronie.x86_64 0:1.4.4-12.el6 will be erased</span><br><span class="line">--&gt; Processing Dependency: cronie = 1.4.4-12.el6 for package: cronie-anacron-1.4.4-12.el6.x86_64</span><br><span class="line">---&gt; Package redhat-lsb-core.x86_64 0:4.0-7.el6.centos will be erased</span><br><span class="line">--&gt; Running transaction check</span><br><span class="line">---&gt; Package cronie-anacron.x86_64 0:1.4.4-12.el6 will be erased</span><br><span class="line">--&gt; Processing Dependency: /etc/cron.d for package: crontabs-1.10-33.el6.noarch</span><br><span class="line">--&gt; Processing Dependency: /etc/cron.d for package: sysstat-9.0.4-27.el6.x86_64</span><br><span class="line">--&gt; Restarting Dependency Resolution with new changes.</span><br><span class="line">--&gt; Running transaction check</span><br><span class="line">---&gt; Package crontabs.noarch 0:1.10-33.el6 will be erased</span><br><span class="line">---&gt; Package sysstat.x86_64 0:9.0.4-27.el6 will be erased</span><br><span class="line">--&gt; Finished Dependency Resolution</span><br><span class="line">base                                                                                                        | 3.7 kB     00:00     </span><br><span class="line">epel                                                                                                        | 4.3 kB     00:00     </span><br><span class="line">epel/primary_db                                                                                             | 5.9 MB     00:05     </span><br><span class="line">extras                                                                                                      | 3.4 kB     00:00     </span><br><span class="line">updates                                                                                                     | 3.4 kB     00:00     </span><br><span class="line"></span><br><span class="line">Dependencies Resolved</span><br><span class="line"></span><br><span class="line">===================================================================================================================================</span><br><span class="line"> Package                   Arch             Version                       Repository                                          Size</span><br><span class="line">===================================================================================================================================</span><br><span class="line">Removing:</span><br><span class="line"> mysql-libs                x86_64           5.1.73-3.el6_5                @updates                                           4.0 M</span><br><span class="line">Removing for dependencies:</span><br><span class="line"> cronie                    x86_64           1.4.4-12.el6                  @anaconda-CentOS-201311291202.x86_64/6.5           174 k</span><br><span class="line"> cronie-anacron            x86_64           1.4.4-12.el6                  @anaconda-CentOS-201311291202.x86_64/6.5            43 k</span><br><span class="line"> crontabs                  noarch           1.10-33.el6                   @anaconda-CentOS-201311291202.x86_64/6.5           2.4 k</span><br><span class="line"> postfix                   x86_64           2:2.6.6-6.el6_5               @updates                                           9.7 M</span><br><span class="line"> redhat-lsb-core           x86_64           4.0-7.el6.centos              @anaconda-CentOS-201311291202.x86_64/6.5            22 k</span><br><span class="line"> sysstat                   x86_64           9.0.4-27.el6                  @base                                              825 k</span><br><span class="line"></span><br><span class="line">Transaction Summary</span><br><span class="line">===================================================================================================================================</span><br><span class="line">Remove        7 Package(s)</span><br><span class="line"></span><br><span class="line">Installed size: 15 M</span><br><span class="line">Downloading Packages:</span><br><span class="line">Running rpm_check_debug</span><br><span class="line">Running Transaction Test</span><br><span class="line">Transaction Test Succeeded</span><br><span class="line">Running Transaction</span><br><span class="line">  Erasing    : redhat-lsb-core-4.0-7.el6.centos.x86_64                                                                         1/7 </span><br><span class="line">  Erasing    : sysstat-9.0.4-27.el6.x86_64                                                                                     2/7 </span><br><span class="line">/var/tmp/rpm-tmp.WcRV33: line 1: lsb_release: command not found</span><br><span class="line">  Erasing    : cronie-1.4.4-12.el6.x86_64                                                                                      3/7 </span><br><span class="line">  Erasing    : cronie-anacron-1.4.4-12.el6.x86_64                                                                              4/7 </span><br><span class="line">  Erasing    : crontabs-1.10-33.el6.noarch                                                                                     5/7 </span><br><span class="line">  Erasing    : 2:postfix-2.6.6-6.el6_5.x86_64                                                                                  6/7 </span><br><span class="line">  Erasing    : mysql-libs-5.1.73-3.el6_5.x86_64                                                                                7/7 </span><br><span class="line">  Verifying  : cronie-anacron-1.4.4-12.el6.x86_64                                                                              1/7 </span><br><span class="line">  Verifying  : mysql-libs-5.1.73-3.el6_5.x86_64                                                                                2/7 </span><br><span class="line">  Verifying  : redhat-lsb-core-4.0-7.el6.centos.x86_64                                                                         3/7 </span><br><span class="line">  Verifying  : sysstat-9.0.4-27.el6.x86_64                                                                                     4/7 </span><br><span class="line">  Verifying  : crontabs-1.10-33.el6.noarch                                                                                     5/7 </span><br><span class="line">  Verifying  : cronie-1.4.4-12.el6.x86_64                                                                                      6/7 </span><br><span class="line">  Verifying  : 2:postfix-2.6.6-6.el6_5.x86_64                                                                                  7/7 </span><br><span class="line"></span><br><span class="line">Removed:</span><br><span class="line">  mysql-libs.x86_64 0:5.1.73-3.el6_5                                                                                               </span><br><span class="line"></span><br><span class="line">Dependency Removed:</span><br><span class="line">  cronie.x86_64 0:1.4.4-12.el6            cronie-anacron.x86_64 0:1.4.4-12.el6               crontabs.noarch 0:1.10-33.el6         </span><br><span class="line">  postfix.x86_64 2:2.6.6-6.el6_5          redhat-lsb-core.x86_64 0:4.0-7.el6.centos          sysstat.x86_64 0:9.0.4-27.el6         </span><br><span class="line"></span><br><span class="line">Complete!</span><br></pre></td></tr></table></figure></p>
+<p>再次安装<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># rpm -ivh mysql-community-common-5.7.18-1.el6.x86_64.rpm</span><br><span class="line">warning: mysql-community-common-5.7.18-1.el6.x86_64.rpm: Header V3 DSA/SHA1 Signature, key ID 5072e1f5: NOKEY</span><br><span class="line">Preparing...                ########################################### [100%]</span><br><span class="line">   1:mysql-community-common ########################################### [100%]</span><br></pre></td></tr></table></figure></p>
+<p>然后是 libs<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># rpm -ivh mysql-community-libs-5.7.18-1.el6.x86_64.rpm </span><br><span class="line">warning: mysql-community-libs-5.7.18-1.el6.x86_64.rpm: Header V3 DSA/SHA1 Signature, key ID 5072e1f5: NOKEY</span><br><span class="line">Preparing...                ########################################### [100%]</span><br><span class="line">   1:mysql-community-libs   ########################################### [100%]</span><br></pre></td></tr></table></figure></p>
+<p>最后是 client<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># rpm -ivh mysql-community-client-5.7.18-1.el6.x86_64.rpm </span><br><span class="line">warning: mysql-community-client-5.7.18-1.el6.x86_64.rpm: Header V3 DSA/SHA1 Signature, key ID 5072e1f5: NOKEY</span><br><span class="line">Preparing...                ########################################### [100%]</span><br><span class="line">   1:mysql-community-client ########################################### [100%]</span><br></pre></td></tr></table></figure></p>
+<p>再次查找 mysql<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># find / -name mysql</span><br><span class="line">/usr/lib64/mysql</span><br><span class="line">/usr/share/mysql</span><br><span class="line">/usr/bin/mysql</span><br></pre></td></tr></table></figure></p>
+<p>多了一个目录：/usr/bin/mysql<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># cd /usr/bin/mysql</span><br><span class="line">-bash: cd: /usr/bin/mysql: Not a directory</span><br></pre></td></tr></table></figure></p>
+<p>哈哈，这不是一个目录，这就是刚刚安装好的 mysql client<br>检查是否安装成功<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># mysql</span><br><span class="line">ERROR 2002 (HY000): Can&apos;t connect to local MySQL server through socket &apos;/var/lib/mysql/mysql.sock&apos; (2)</span><br></pre></td></tr></table></figure></p>
+<p>看到上面的提示，说明 mysql 客户端已经安装成功了的。</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-09-01T02:53:12.917Z" itemprop="dateUpdated">2020年9月1日 10:53</time>
+</span><br>
+
+
+        转载请注明出处：<a href="/database/centOSMySQLClient.html" target="_blank" rel="external">https://www.lovesofttech.com/database/centOSMySQLClient.html</a>
+    </div>
+    <footer>
+        <a href="https://www.lovesofttech.com">
+            <img src="/img/myLogo.jpg" alt="安迪陈">
+            安迪陈
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CentOS/">CentOS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL/">MySQL</a></li></ul>
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/database/centOSMySQLClient.html&title=《在 centOS 6.5 上安装 MySQL 客户端》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/database/centOSMySQLClient.html&title=《在 centOS 6.5 上安装 MySQL 客户端》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=在一台新的 centOS 6.5 服务器上，想要运行 MySQL 客户端，却被告之无法识别。本文介绍如何只安装 MySQL 客户端。" data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/database/centOSMySQLClient.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《在 centOS 6.5 上安装 MySQL 客户端》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/database/centOSMySQLClient.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/database/centOSMySQLClient.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/linux/linuxMem.html" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">查看 linux 进程内存占用情况</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/linux/centOSJava.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">在 CentOS 上安装配置 Java 运行环境</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+    
+    
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="bottom">
+        <p>
+            <span>安迪陈技术日志，架构、感悟、系统分析、团队管理 &copy; 2017 - 2020</span>
+            <span>
+                Power by <a href="https://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>&nbsp;
+                Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank" rel="external nofollow noopener noreferrer">indigo</a>
+            </span>
+            <span>
+                <a href="http://www.beian.miit.gov.cn" target="_blank" rel="external nofollow noopener noreferrer">蜀ICP备17041860号</a>
+            </span>
+            
+            <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            </p><p>
+                <span>
+                    统计始于：2019-03-06
+                </span>
+                <span id="busuanzi_container_site_uv" style="display:none">
+                    访客数：<span id="busuanzi_value_site_uv"></span>
+                </span>
+                <span id="busuanzi_container_site_pv" style="display:none">
+                    访问量：<span id="busuanzi_value_site_pv"></span>
+                </span>
+            
+            
+                <span class="post-count">累计字数：309.2k</span>
+            
+                <span><a href="/general/blogLog.html"><i class="fas fa-pen-alt"></i>&nbsp;博客日志</a></span>
+            </p>
+        <p></p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light" title="回到顶部"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/database/centOSMySQLClient.html&title=《在 centOS 6.5 上安装 MySQL 客户端》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/database/centOSMySQLClient.html&title=《在 centOS 6.5 上安装 MySQL 客户端》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=在一台新的 centOS 6.5 服务器上，想要运行 MySQL 客户端，却被告之无法识别。本文介绍如何只安装 MySQL 客户端。" data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/database/centOSMySQLClient.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《在 centOS 6.5 上安装 MySQL 客户端》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/database/centOSMySQLClient.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/database/centOSMySQLClient.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACP0lEQVR42u3aQW7DMAwF0dz/0u62QGx1PqmmlTReBYFi+7UARYp8vfB1vV3fv39a+bRmvPJp/YRLhgwZyzKu4TVeM35R8tv3O5Dn3jxRhgwZBzCeHj8OrGkYJb/iwVqGDBkyxkEwTfJQ0ATPkiFDhoz0diRc8vv/wb4hQ4aMpRi8TCWFaFr6psWzDBkyTmPwU/fPf/6V/oYMGTKWYlzhVWtApuEyfisZMmRszeABLk3L+FhGLeDKkCHjNMaspLAWWMnL8QaqDBkydmXUDrDSV+fNA94kuNk3ZMiQsSkjHZhIE7W0Fcr3BxkyZJzAIGGOl6akYTlrIOzm1FCGDBkHMHjy1ylx0+M8VBLLkCHjAEatMVCb7OClLPlz3HRiZciQsR2DLyVJYa39GR+okU6sDBkytmPMbQa0jvVxg7MIkCFDxhaMdGyUrwl6FO2GgQwZMvZm1JqXaaCs4Vv/ExkyZCzO4Af6PAXkAbczliFDhowTGCTw1cLx+HCtsyf80N+QIUPGdozag2tH/LXWZhzEZciQsSmjU7KSgNgphscbwE2GK0OGjAMYnUP/TtpXSyVlyJBxGiMl8SM5EkZrR3Io0suQIWNxRr+5SKjpFVNlyJCxNaN2a54U9lsC6fiFDBkydmX0h1D5ffpNAhkyZJzMSMca0peetQM8PkuGDBkyQAIXNx1xSYyoMmTIkFFqQ6YN0XSAY3LAlSFDxr9nkCI2HRdLgyZPGWXIkHEaIx1xGIfLzgAZL5hb/Q0ZMmSsxPgCD68suhx/QewAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.5.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.5.2" async></script>
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '安迪陈技术日志';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '欢迎回来';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

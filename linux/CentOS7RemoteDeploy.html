@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<!--<script async src="//hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c"></script>-->
+<!-- 统计-->
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var host = window.location.host;
+        var hm = document.createElement("script");
+
+        if (host.indexOf('gitee.io') > 0) { // https://uncleandychen.gitee.io/
+            hm.src = "https://hm.baidu.com/hm.js?0cf4709148b070b8082191d2e456a1a3";
+        } else if (host.indexOf('lovesofttech.com') > 0) { // https://www.lovesofttech.com/
+            hm.src = "https://hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c";
+        } else {
+            hm.src = '';
+        }
+
+        if (hm.src !== '') {
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        }
+    })();
+</script>
+<!-- End Baidu Tongji -->
+
+
+
+<!-- Baidu Push -->
+<!-- 主动推送百度爬虫-->
+<script>
+    (function(){
+        if (window.location.host.indexOf('lovesofttech.com') < 0) {
+            return;
+        }
+
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+<!-- End Baidu Push -->
+
+
+    <meta charset="utf-8">
+    
+    
+    <link rel="canonical" href="https://www.lovesofttech.com/linux/CentOS7RemoteDeploy.html">
+    
+    
+    <title>CentOS7，一键远程部署 spring boot 项目和 react 项目 | 安迪陈技术日志，架构、感悟、系统分析、团队管理 | 自强不息，厚德载物</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="CentOS,scp,ssh">
+    <meta name="description" content="两种场景：  服务器不能上外网。 服务器可以上外网。">
+<meta name="keywords" content="CentOS,scp,ssh">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CentOS7，一键远程部署 spring boot 项目和 react 项目">
+<meta property="og:url" content="https://www.lovesofttech.com/linux/CentOS7RemoteDeploy.html">
+<meta property="og:site_name" content="安迪陈技术日志，架构、感悟、系统分析、团队管理">
+<meta property="og:description" content="两种场景：  服务器不能上外网。 服务器可以上外网。">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2020-09-01T02:53:13.016Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CentOS7，一键远程部署 spring boot 项目和 react 项目">
+<meta name="twitter:description" content="两种场景：  服务器不能上外网。 服务器可以上外网。">
+    
+        <link rel="alternative" href="/atom.xml" title="安迪陈技术日志，架构、感悟、系统分析、团队管理" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=201912302211">
+    <link rel="stylesheet" href="/css/header.css?v=201912302211">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu">
+  <div class="inner flex-row-vertical">
+    <!--<i class="icon icon-lg icon-close"></i>-->
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off" title="隐藏左侧导航">﹤<i class="icon icon-lg icon-navicon"></i></a>
+    <div class="brand-wrap" style="background-image:url(/img/bannerBackgroundLeft.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/myLogo.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">安迪陈</h5>
+          <a href="mailto:andy@lovesofttech.com" title="andy@lovesofttech.com" class="mail" rel="external nofollow noopener noreferrer" target="_blank">andy@lovesofttech.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articleClassify.html">
+                <i class="icon icon-th-list"></i>
+                文章分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articles.html">
+                <i class="icon icon-th-list articles"></i>
+                文章列表
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/java.html">
+                <i class="icon icon-th-list java"></i>
+                Java
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/database.html">
+                <i class="icon icon-th-list database"></i>
+                MySQL/MyBatis
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/linux.html">
+                <i class="icon icon-th-list linux"></i>
+                CentOS/linux
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/react.html">
+                <i class="icon icon-th-list React"></i>
+                React
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/lnmp.html">
+                <i class="icon icon-th-list LNMP"></i>
+                LNMP
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/git.html">
+                <i class="icon icon-th-list git"></i>
+                git
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/windows.html">
+                <i class="icon icon-th-list windows"></i>
+                windows
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/dailyLives.html">
+                <i class="icon icon-th-list dailyLives"></i>
+                工作 &amp; 生活
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-github"></i>
+                我的 github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://gitee.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link"></i>
+                我的 gitee
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://blog.csdn.net/runAndRun" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link CSDN"></i>
+                我的 CSDN
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/aboutMe.html">
+                <i class="icon icon-address-card"></i>
+                关于我
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+
+        <div class="navbar navbar-custom navbar-fixed-top">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" style="margin-left:10px;" id="menu-toggle" title="显示左侧导航"><i class="icon icon-lg icon-navicon"></i>﹥</a>
+            <ul class="nav navbar-nav navbar-right" id="navMenuTop">
+                <li>
+                    <a href="/">主页</a>
+                </li>
+                
+                    
+                        <li>
+                            <a href="/articleClassify.html" title="本博客的文章分类列表">文章分类</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/articles.html" title="本博客的所有文章列表">文章列表</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/java.html" title="Java 开发，文章目录">Java</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/database.html" title="日常开发中有关 MySQL、MyBatis 的一些经验总结">MySQL/MyBatis</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/linux.html" title="CentOS/linux，文章目录">CentOS/linux</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/react.html" title="React 技术栈（全家桶）学习心得分享，文章目录">React</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/about.html">关于</a>
+                        </li>
+                    
+                
+            </ul>
+        </div>
+
+        <div class="flex-col header-title ellipsis">CentOS7，一键远程部署 spring boot 项目和 react 项目</div>
+        
+        <div class="search-wrap" id="search-wrap" style="z-index: 2;">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back" style="width:33px;">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search" style="width:33px;">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare" style="z-index: 3;margin-right: 10px; width:30px;">
+                <i class="icon icon-lg icon-share-alt"></i>
+            </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h2 class="title">CentOS7，一键远程部署 spring boot 项目和 react 项目</h2>
+        <h5 class="subtitle">
+            
+                <time datetime="2019-09-04T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2019-09-05
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/CentOS/">CentOS</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/CentOS/scp/">scp</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/CentOS/scp/ssh/">ssh</a></li></ul></li></ul></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap" id="index-container">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc" style="z-index: 3;">
+            <h4><i class="fa fa-list-alt"></i>&nbsp;&nbsp;本文目录</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#场景一，服务器不能上外网"><span class="post-toc-number">1.</span> <span class="post-toc-text">场景一，服务器不能上外网</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#需求"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">需求</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#前置知识"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">前置知识</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#方案，用-shell-脚本搞定一切"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">方案，用 shell 脚本搞定一切</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#场景二，服务器可以上外网"><span class="post-toc-number">2.</span> <span class="post-toc-text">场景二，服务器可以上外网</span></a></li></ol>
+        </nav>
+    </aside>
+    
+
+<article id="post-linux/CentOS7RemoteDeploy" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">CentOS7，一键远程部署 spring boot 项目和 react 项目</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2019年09月05日 0:00" datetime="2019-09-04T16:00:00.000Z" itemprop="datePublished">2019-09-05</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/CentOS/">CentOS</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/CentOS/scp/">scp</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/CentOS/scp/ssh/">ssh</a></li></ul></li></ul></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" style="display:none">
+    阅读量：<span id="busuanzi_value_page_pv"></span>次
+</span>
+
+
+    <span>|</span>
+    <span class="post-count">字数：874</span>
+    <span>|</span>
+    <span class="post-count">阅读时长：大约3分钟</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>两种场景：</p>
+<ol>
+<li>服务器不能上外网。</li>
+<li>服务器可以上外网。</li>
+</ol>
+<a id="more"></a>
+<h1 id="场景一，服务器不能上外网"><a href="#场景一，服务器不能上外网" class="headerlink" title="场景一，服务器不能上外网"></a>场景一，服务器不能上外网</h1><h2 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h2><ul>
+<li>需要在一台不能上外网的 CentOS7 服务器 A 上部署前后端分离的项目，采用 spring boot + react，需要在有代码更新之后，可以一键部署最新版本。</li>
+<li>服务器 A 限制上外网，是基于业务和安全方面的考虑。</li>
+<li>那么问题来了，这台服务器不能上外网，意味着不能下载依赖，无论是 spring boot 项目还是 react 项目，都需要下载依赖才能编译的。</li>
+</ul>
+<h2 id="前置知识"><a href="#前置知识" class="headerlink" title="前置知识"></a>前置知识</h2><ul>
+<li><a href="/linux/centOS7ScpAndRemoteSsh">CentOS7，使用 scp 命令, ssh 连接方式，免密码传输文件到远程服务器，免密执行远程服务器上的 shell 脚本</a></li>
+</ul>
+<h2 id="方案，用-shell-脚本搞定一切"><a href="#方案，用-shell-脚本搞定一切" class="headerlink" title="方案，用 shell 脚本搞定一切"></a>方案，用 shell 脚本搞定一切</h2><ul>
+<li>需要一台可以上外网的 CentOS7 服务器（可以是虚拟机）B，这台服务器可以访问服务器 A。</li>
+<li>当需要部署新版时，执行服务器 B 上的部署脚本，执行一次即可，相当于一键部署，可极大的节约部署时间成本。</li>
+</ul>
+<p>以下是具体步骤：</p>
+<ul>
+<li>项目代码托管可以采用 gitee.com、github.com、coding.net 等，也可以自己搭建，可参考：<a href="/git/centOS7GitAsServer">CentOS 7.5 借助 Gitolite 管理 Git 项目</a>。</li>
+<li>在服务器 B 上配置无密码获取代码，如果是自己搭建 git server，这可以通过前置知识介绍的，用 SSH 公钥建立信任关系达到，如果用第三方比如 gitee.com，也是可以利用公钥或私钥来达到目的。</li>
+<li>服务器 B 上的 shell 部署脚本，功能是：<ul>
+<li>获取最新代码。</li>
+<li>编译。</li>
+<li>通过前置知识介绍的 scp 无密传输文件的方式，将编译好的文件上传到服务器 A 的固定目录，如：~/upload。<ul>
+<li>针对 spring boot 项目，需要上传 boot 项目的 jar/war 包。</li>
+<li>针对前端项目，则把编译好的文件（我用的是 Ant Design Pro，编译文件存放在 dist 目录）打包再上传，假如打包后的文件名是：<code>UI.tar.gz</code>。</li>
+</ul>
+</li>
+<li>通过前置知识介绍的 ssh 执行远程服务器上脚本的方式，执行服务器 A 上的部署脚本。</li>
+</ul>
+</li>
+<li>服务器 A 上的部署脚本功能如下：<ul>
+<li>针对 spring boot 项目，这里以 tomcat 运行的方式为例：<ul>
+<li>停止 tomcat。如果该 tomcat 部署的是后台任务，停止 tomcat 之前先停止后台任务，延时 10 来秒（可自己定义）之后再停止 tomcat。</li>
+<li>删除 app 目录下的所有文件，解压新的 war 包到 app 目录，恢复配置文件至 <code>app 目录/WEB-INF/classes/</code>。配置文件是单独存放的。</li>
+<li>启动 tomcat。</li>
+</ul>
+</li>
+<li>针对前端 react 项目，因为是静态网页文件，所以可以简单粗暴的作如下两步操作：<ul>
+<li>删除 app 目录下的所有文件。</li>
+<li>解压新版本 tar 包 <code>UI.tar.gz</code>（从服务器 B 上传）至 app 目录下。</li>
+<li>由于前端是静态网页，使用 nginx 部署，不需要重启，客户端重新访问的时候会自动更新。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="场景二，服务器可以上外网"><a href="#场景二，服务器可以上外网" class="headerlink" title="场景二，服务器可以上外网"></a>场景二，服务器可以上外网</h1><p>当然，可以上外网也可以采用方案一的方式，只不过，可以把方案一中的服务器 A 和服务器 B 合二为一。</p>
+<p>这里介绍另外一种方式，借助强大的 jenkins 来实现，参考：<a href="/linux/centOS7JenkinsAutoDeploy.html">CentOS 7.5 jenkins + Maven + Git + Tomcat 一键发布</a></p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-09-01T02:53:13.016Z" itemprop="dateUpdated">2020年9月1日 10:53</time>
+</span><br>
+
+
+        转载请注明出处：<a href="/linux/CentOS7RemoteDeploy.html" target="_blank" rel="external">https://www.lovesofttech.com/linux/CentOS7RemoteDeploy.html</a>
+    </div>
+    <footer>
+        <a href="https://www.lovesofttech.com">
+            <img src="/img/myLogo.jpg" alt="安迪陈">
+            安迪陈
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CentOS/">CentOS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/scp/">scp</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ssh/">ssh</a></li></ul>
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/linux/CentOS7RemoteDeploy.html&title=《CentOS7，一键远程部署 spring boot 项目和 react 项目》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/linux/CentOS7RemoteDeploy.html&title=《CentOS7，一键远程部署 spring boot 项目和 react 项目》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=两种场景：
+
+服务器不能上外网。
+服务器可以上外网。
+" data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/linux/CentOS7RemoteDeploy.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《CentOS7，一键远程部署 spring boot 项目和 react 项目》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/linux/CentOS7RemoteDeploy.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/linux/CentOS7RemoteDeploy.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/git/syncBetweenTwoGitServer.html" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">在两个 git server 之间同步项目的代码</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/linux/centOS7ScpAndRemoteSsh.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">CentOS7，使用 scp 命令, ssh 连接方式，免密码传输文件到远程服务器，免密执行远程服务器上的 shell 脚本</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+    
+    
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="bottom">
+        <p>
+            <span>安迪陈技术日志，架构、感悟、系统分析、团队管理 &copy; 2017 - 2020</span>
+            <span>
+                Power by <a href="https://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>&nbsp;
+                Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank" rel="external nofollow noopener noreferrer">indigo</a>
+            </span>
+            <span>
+                <a href="http://www.beian.miit.gov.cn" target="_blank" rel="external nofollow noopener noreferrer">蜀ICP备17041860号</a>
+            </span>
+            
+            <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            </p><p>
+                <span>
+                    统计始于：2019-03-06
+                </span>
+                <span id="busuanzi_container_site_uv" style="display:none">
+                    访客数：<span id="busuanzi_value_site_uv"></span>
+                </span>
+                <span id="busuanzi_container_site_pv" style="display:none">
+                    访问量：<span id="busuanzi_value_site_pv"></span>
+                </span>
+            
+            
+                <span class="post-count">累计字数：309.2k</span>
+            
+                <span><a href="/general/blogLog.html"><i class="fas fa-pen-alt"></i>&nbsp;博客日志</a></span>
+            </p>
+        <p></p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light" title="回到顶部"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/linux/CentOS7RemoteDeploy.html&title=《CentOS7，一键远程部署 spring boot 项目和 react 项目》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/linux/CentOS7RemoteDeploy.html&title=《CentOS7，一键远程部署 spring boot 项目和 react 项目》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=两种场景：
+
+服务器不能上外网。
+服务器可以上外网。
+" data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/linux/CentOS7RemoteDeploy.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《CentOS7，一键远程部署 spring boot 项目和 react 项目》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/linux/CentOS7RemoteDeploy.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/linux/CentOS7RemoteDeploy.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACJUlEQVR42u3ay27DIBAF0Pz/T6frqrJzZ4ZUMhyvosQFDgvKPF6v+HnfPsn7ve8XPxgYGI9lJEv8O3R1Kfn492NeUjEwMA5gXJ1gvXeqh2m+fZffY2BgYFwcoFeH7/1C72fHwMDAmDCSRVQB97NgYGBgVIPYJDTtJenyNNyCWBwDA+OBjDzr/v+fv1LfwMDAeBTjXXyS61r1MO2t5NdoGBgYWzMmJcxq4DpJq0WhLAYGxqaMPGjMA9f5RTMfHwMD4wRGrwDZK15WmyqqRzYGBsaujLyI2CsVTJaeF0cxMDBOZvSS+L30XC8NN9o5DAyMRzGqlcFeDTFp7cpbLqK+NgwMjO0YkwtilA4bjBMFsRgYGIcxelOuatrItzWqhWJgYDycUQ1Qe4xkKR9qF/MLIgYGxmMZ1QN33maRt3zl72BgYOzNmLSCTYqXq1oxMDAwzmFUr3fVoZOr5KoxMTAw9mP0UmCTJF21FBFtCgYGxtaMJFysXgEnR21eyPyQO8TAwNiO0Zu+1/7Vg0XXUwwMjGMY1UNwMvGyyBsDA+MARp76r2Kqh2yvCIqBgbE34118CrvS28vJpRADA2NTRnXKVcfx5Ko62j4MDIzHMpJDtvprXlqo/lreaQwMjI0Yq0LTb/8H+FCDxcDAwFia4VvVIIuBgYGRpMCqba+90umHuTAwMA5g9MLUSYPFJHy9bGDFwMDYlLGq3Jgfo9WQuPdXGBgYWzB+ACF7J81906qNAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.5.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.5.2" async></script>
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '安迪陈技术日志';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '欢迎回来';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

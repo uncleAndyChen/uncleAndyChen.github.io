@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<!--<script async src="//hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c"></script>-->
+<!-- 统计-->
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var host = window.location.host;
+        var hm = document.createElement("script");
+
+        if (host.indexOf('gitee.io') > 0) { // https://uncleandychen.gitee.io/
+            hm.src = "https://hm.baidu.com/hm.js?0cf4709148b070b8082191d2e456a1a3";
+        } else if (host.indexOf('lovesofttech.com') > 0) { // https://www.lovesofttech.com/
+            hm.src = "https://hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c";
+        } else {
+            hm.src = '';
+        }
+
+        if (hm.src !== '') {
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        }
+    })();
+</script>
+<!-- End Baidu Tongji -->
+
+
+
+<!-- Baidu Push -->
+<!-- 主动推送百度爬虫-->
+<script>
+    (function(){
+        if (window.location.host.indexOf('lovesofttech.com') < 0) {
+            return;
+        }
+
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+<!-- End Baidu Push -->
+
+
+    <meta charset="utf-8">
+    
+    
+    <link rel="canonical" href="https://www.lovesofttech.com/lnmp/nginxLoadBalancingAndProxy.html">
+    
+    
+    <title>Nginx 反向代理、负载均衡 | 安迪陈技术日志，架构、感悟、系统分析、团队管理 | 自强不息，厚德载物</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="windows,nginx">
+    <meta name="description" content="如题">
+<meta name="keywords" content="windows,nginx">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Nginx 反向代理、负载均衡">
+<meta property="og:url" content="https://www.lovesofttech.com/lnmp/nginxLoadBalancingAndProxy.html">
+<meta property="og:site_name" content="安迪陈技术日志，架构、感悟、系统分析、团队管理">
+<meta property="og:description" content="如题">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2020-09-01T02:53:13.059Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Nginx 反向代理、负载均衡">
+<meta name="twitter:description" content="如题">
+    
+        <link rel="alternative" href="/atom.xml" title="安迪陈技术日志，架构、感悟、系统分析、团队管理" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=201912302211">
+    <link rel="stylesheet" href="/css/header.css?v=201912302211">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu">
+  <div class="inner flex-row-vertical">
+    <!--<i class="icon icon-lg icon-close"></i>-->
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off" title="隐藏左侧导航">﹤<i class="icon icon-lg icon-navicon"></i></a>
+    <div class="brand-wrap" style="background-image:url(/img/bannerBackgroundLeft.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/myLogo.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">安迪陈</h5>
+          <a href="mailto:andy@lovesofttech.com" title="andy@lovesofttech.com" class="mail" rel="external nofollow noopener noreferrer" target="_blank">andy@lovesofttech.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articleClassify.html">
+                <i class="icon icon-th-list"></i>
+                文章分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articles.html">
+                <i class="icon icon-th-list articles"></i>
+                文章列表
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/java.html">
+                <i class="icon icon-th-list java"></i>
+                Java
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/database.html">
+                <i class="icon icon-th-list database"></i>
+                MySQL/MyBatis
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/linux.html">
+                <i class="icon icon-th-list linux"></i>
+                CentOS/linux
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/react.html">
+                <i class="icon icon-th-list React"></i>
+                React
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/lnmp.html">
+                <i class="icon icon-th-list LNMP"></i>
+                LNMP
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/git.html">
+                <i class="icon icon-th-list git"></i>
+                git
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/windows.html">
+                <i class="icon icon-th-list windows"></i>
+                windows
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/dailyLives.html">
+                <i class="icon icon-th-list dailyLives"></i>
+                工作 &amp; 生活
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-github"></i>
+                我的 github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://gitee.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link"></i>
+                我的 gitee
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://blog.csdn.net/runAndRun" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link CSDN"></i>
+                我的 CSDN
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/aboutMe.html">
+                <i class="icon icon-address-card"></i>
+                关于我
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+
+        <div class="navbar navbar-custom navbar-fixed-top">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" style="margin-left:10px;" id="menu-toggle" title="显示左侧导航"><i class="icon icon-lg icon-navicon"></i>﹥</a>
+            <ul class="nav navbar-nav navbar-right" id="navMenuTop">
+                <li>
+                    <a href="/">主页</a>
+                </li>
+                
+                    
+                        <li>
+                            <a href="/articleClassify.html" title="本博客的文章分类列表">文章分类</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/articles.html" title="本博客的所有文章列表">文章列表</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/java.html" title="Java 开发，文章目录">Java</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/database.html" title="日常开发中有关 MySQL、MyBatis 的一些经验总结">MySQL/MyBatis</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/linux.html" title="CentOS/linux，文章目录">CentOS/linux</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/react.html" title="React 技术栈（全家桶）学习心得分享，文章目录">React</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/about.html">关于</a>
+                        </li>
+                    
+                
+            </ul>
+        </div>
+
+        <div class="flex-col header-title ellipsis">Nginx 反向代理、负载均衡</div>
+        
+        <div class="search-wrap" id="search-wrap" style="z-index: 2;">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back" style="width:33px;">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search" style="width:33px;">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare" style="z-index: 3;margin-right: 10px; width:30px;">
+                <i class="icon icon-lg icon-share-alt"></i>
+            </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h2 class="title">Nginx 反向代理、负载均衡</h2>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-07-13T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2017-07-14
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/windows/">windows</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/windows/nginx/">nginx</a></li></ul></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap" id="index-container">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc" style="z-index: 3;">
+            <h4><i class="fa fa-list-alt"></i>&nbsp;&nbsp;本文目录</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#反向代理"><span class="post-toc-number">1.</span> <span class="post-toc-text">反向代理</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#负载均衡"><span class="post-toc-number">2.</span> <span class="post-toc-text">负载均衡</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#轮循（默认）"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">轮循（默认）</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#IP-Hash"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">IP Hash</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#weight：默认为1，将请求平均分配给每台server。"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">weight：默认为1，将请求平均分配给每台server。</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#max-fails"><span class="post-toc-number">2.4.</span> <span class="post-toc-text">max_fails</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#fail-timeout"><span class="post-toc-number">2.5.</span> <span class="post-toc-text">fail_timeout</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#backup"><span class="post-toc-number">2.6.</span> <span class="post-toc-text">backup</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#down"><span class="post-toc-number">2.7.</span> <span class="post-toc-text">down</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#max-conns"><span class="post-toc-number">2.8.</span> <span class="post-toc-text">max_conns</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#resolve"><span class="post-toc-number">2.9.</span> <span class="post-toc-text">resolve</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#开发环境可正常使用的配置示例"><span class="post-toc-number">3.</span> <span class="post-toc-text">开发环境可正常使用的配置示例</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#负载均衡配置"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">负载均衡配置</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#web-页面访问"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">web 页面访问</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#“嵌入”其它站点"><span class="post-toc-number">3.3.</span> <span class="post-toc-text">“嵌入”其它站点</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+    
+
+<article id="post-lnmp/nginxLoadBalancingAndProxy" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Nginx 反向代理、负载均衡</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017年07月14日 0:00" datetime="2017-07-13T16:00:00.000Z" itemprop="datePublished">2017-07-14</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/windows/">windows</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/windows/nginx/">nginx</a></li></ul></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" style="display:none">
+    阅读量：<span id="busuanzi_value_page_pv"></span>次
+</span>
+
+
+    <span>|</span>
+    <span class="post-count">字数：2.3k</span>
+    <span>|</span>
+    <span class="post-count">阅读时长：大约9分钟</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>如题<br><a id="more"></a></p>
+<p>本文的配置同样适用于 CentOS6.5（好象是废话哈，Nginx 是跨平台的）</p>
+<h1 id="反向代理"><a href="#反向代理" class="headerlink" title="反向代理"></a>反向代理</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">location / &#123;</span><br><span class="line">    #设置主机头和客户端真实地址，以便服务器获取客户端真实IP</span><br><span class="line">    proxy_set_header Host $host;</span><br><span class="line">    proxy_set_header X-Real-IP $remote_addr;</span><br><span class="line">    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;</span><br><span class="line">    #禁用缓存</span><br><span class="line">    proxy_buffering off;</span><br><span class="line">    #设置反向代理的地址</span><br><span class="line">    proxy_pass http://192.168.1.1;       </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>配置示例<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen       80;</span><br><span class="line">    server_name  mysite.com;</span><br><span class="line">    charset utf-8;</span><br><span class="line">    access_log  logs/mysite.com.access.log;</span><br><span class="line">    error_log   logs/mysite.com.error.log;</span><br><span class="line">    root D:/dev.workspace/php/mysite/web/;</span><br><span class="line">    index index.php;</span><br><span class="line">    </span><br><span class="line">    location ~ \.php$ &#123;</span><br><span class="line">        fastcgi_pass   127.0.0.1:9000;</span><br><span class="line">        fastcgi_index  index.php;</span><br><span class="line">        fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;</span><br><span class="line">        include        fastcgi_params;</span><br><span class="line">        fastcgi_read_timeout  1d; #xdebug调试时长</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    # 下面的配置需要根据你用的 php 框架灵活变更</span><br><span class="line">    # 我们的框架只有 index.php 一个 php 为后缀的文件，其它都是 html 为后缀的文件</span><br><span class="line">    # 我们的项目采用了 mvc 框架，配置路由来访问相关页面，url 没有文件后缀。</span><br><span class="line">    # 所以，必须这样配置，否则除了访问 index.php 之外，会报 404 错误。 </span><br><span class="line">    location / &#123;</span><br><span class="line">        if (!-e $request_filename) &#123;</span><br><span class="line">            rewrite  ^(.*)$  /index.php  last;</span><br><span class="line">            break;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    #下面是两个反向代理。通过路由 crm  和 rate 作为反向代理标志与 mysite 主站点整合到一起。让用户感觉不到是在访问多个站点。</span><br><span class="line">    #crm 为 java 开发的 web 应用站点，Session 是通过读取 Memcache 的关键信息，做了模拟登陆实现与主站统一用户信息的，实际上 session 是单独管理的。应该有更好的解决方案。 </span><br><span class="line">    #生产环境可以把 IP 地址换成域名</span><br><span class="line">    location ^~ /crm &#123;</span><br><span class="line">        proxy_pass http://127.0.0.1:8180/crm; # 直接在 IDEA 运行，需要设置 server.context-path: /crm，部署到 tomcat 则需要将应用目录命名为 crm</span><br><span class="line">        proxy_redirect  http://127.0.0.1:8180/crm/ http://mysite.com/crm/; </span><br><span class="line">        proxy_set_header Host $host;</span><br><span class="line">        proxy_set_header X-Real-IP $remote_addr;</span><br><span class="line">        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    #rate 为另外一个 php 应用站点。</span><br><span class="line">    #都是 php 站点，可通过 Memcached 管理 session，轻松达到在多个站点之间共享 session 的目的。</span><br><span class="line">    location ^~ /rate &#123;</span><br><span class="line">        proxy_pass   http://p.rate.com;</span><br><span class="line">        proxy_redirect  http://p.rate.com/ http://mysite.com/rate/; </span><br><span class="line">        proxy_set_header X-Real-IP $remote_addr;</span><br><span class="line">        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>示例2：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">#负载均衡配置，这里可以添加多个server，weight为权重，如果添加多个，注意分布式session的处理</span><br><span class="line">upstream backend &#123;</span><br><span class="line">        server localhost:8080 weight=1;</span><br><span class="line">&#125;</span><br><span class="line">server &#123;</span><br><span class="line">    listen 80;</span><br><span class="line">    server_name  mysite.me;</span><br><span class="line">    location / &#123;</span><br><span class="line">        proxy_pass http://backend;   #来自jsp请求交给tomcat处理</span><br><span class="line">        proxy_redirect off;</span><br><span class="line">        proxy_set_header Host $host;    #后端的Web服务器可以通过X-Forwarded-For&gt;获取用户真实IP</span><br><span class="line">        proxy_set_header X-Real-IP $remote_addr;</span><br><span class="line">        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;</span><br><span class="line">        client_max_body_size 10m;   #允许客户端请求的最大单文件字节数</span><br><span class="line">        client_body_buffer_size 128k; #缓冲区代理缓冲用户端请求的最大字节数</span><br><span class="line">        proxy_connect_timeout 90;   #nginx跟后端服务器连接超时时间(代理连接超时)</span><br><span class="line">        proxy_read_timeout 90;      #连接成功后，后端服务器响应时间(代理接收超时)</span><br><span class="line">        proxy_buffer_size 4k;       #设置代理服务器（nginx）保存用户头信息的缓冲区大小</span><br><span class="line">        proxy_buffers 6 32k;        #proxy_buffers缓冲区，网页平均在32k以下的话&gt;，这样设置</span><br><span class="line">        proxy_busy_buffers_size 64k; #高负荷下缓冲大小（proxy_buffers*2）</span><br><span class="line">        proxy_temp_file_write_size 64k; #设定缓存文件夹大小，大于这个值，将从upstream服务器传</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h1 id="负载均衡"><a href="#负载均衡" class="headerlink" title="负载均衡"></a>负载均衡</h1><p>内置负载策略</p>
+<h2 id="轮循（默认）"><a href="#轮循（默认）" class="headerlink" title="轮循（默认）"></a>轮循（默认）</h2><p>Nginx根据请求次数，将每个请求均匀分配到每台服务器。可以通过其它参数来控制分配比例，后面有详细描述。</p>
+<h2 id="IP-Hash"><a href="#IP-Hash" class="headerlink" title="IP Hash"></a>IP Hash</h2><p>绑定处理请求的服务器。第一次请求时，根据该客户端的IP算出一个HASH值，将请求分配到集群中的某一台服务器上。后面该客户端的所有请求，都将通过HASH算法，找到之前处理这台客户端请求的服务器，然后将请求交给它来处理。<br>在配置上，与默认策略的区别在于，在 upstream 配置的第一行是否有：ip_hash;</p>
+<p>nginx 的 upstream默认是以轮询的方式实现负载均衡，这种方式中，每个请求按时间顺序逐一分配到不同的后端服务器，如果后端服务器down掉，能自动剔除。另外一种方式是ip_hash：每个请求按访问ip的hash结果分配，这样每个访客固定访问一个后端服务器，可以解决session的问题。<br>示例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">upstream webs &#123;</span><br><span class="line">    #ip_hash; #加上这一行，则为 IP Hash 模式</span><br><span class="line">    server 192.168.0.101;</span><br><span class="line">    server 192.168.0.102;</span><br><span class="line">    server example.com;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">server &#123;</span><br><span class="line">    listen 80;</span><br><span class="line"></span><br><span class="line">    location / &#123;</span><br><span class="line">        proxy_pass http://webs;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>解释：</p>
+<ol>
+<li>proxy_pass <a href="http://webs：表示将所有请求转发到" rel="external nofollow noopener noreferrer" target="_blank">http://webs：表示将所有请求转发到</a> webs 服务器组中配置的某一台服务器上。</li>
+<li>upstream 模块：配置反向代理服务器组，Nginx 会根据配置，将请求分发给组里的某一台服务器。webs 是服务器组的名称。</li>
+<li>upstream 模块下的 server 指令：配置处理请求的服务器 IP 或域名，端口可选，不配置默认使用 80 端口。通过上面的配置，Nginx 默认将请求依次分配给101，102来处理。</li>
+</ol>
+<p>可以通过修改下面这些参数来改变默认的分配策略：</p>
+<h2 id="weight：默认为1，将请求平均分配给每台server。"><a href="#weight：默认为1，将请求平均分配给每台server。" class="headerlink" title="weight：默认为1，将请求平均分配给每台server。"></a>weight：默认为1，将请求平均分配给每台server。</h2><p>下面的配置，表示6次请求中，192.168.0.100 分配3次，192.168.0.101 分配2次，192.168.0.102 分配1次<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">upstream tomcats &#123;</span><br><span class="line">    server 192.168.0.100 weight=3;  # 3/6次</span><br><span class="line">    server 192.168.0.101 weight=2;  # 2/6次</span><br><span class="line">    server 192.168.0.102 weight=1;  # 1/6次</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="max-fails"><a href="#max-fails" class="headerlink" title="max_fails"></a>max_fails</h2><p>默认为1。某台Server允许请求失败的次数，超过最大次数后，在fail_timeout时间内，新的请求将不会分配给这台机器。如果设置为0，Nginx会将这台Server置为永久无效状态，然后将请求发给定义了proxy_next_upstream, fastcgi_next_upstream, uwsgi_next_upstream, scgi_next_upstream, and memcached_next_upstream指令来处理这次错误的请求。</p>
+<h2 id="fail-timeout"><a href="#fail-timeout" class="headerlink" title="fail_timeout"></a>fail_timeout</h2><p>默认为10秒。某台Server达到max_fails次失败请求后，在fail_timeout期间内，nginx会认为这台Server暂时不可用，不会将请求分配给它。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">upstream tomcats &#123;</span><br><span class="line">    server 192.168.0.100:8080 weight=2 max_fails=3 fail_timeout=15;</span><br><span class="line">    server 192.168.0.101:8080 weight=3;</span><br><span class="line">    server 192.168.0.102:8080 weight=1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>192.168.0.100这台机器，如果有3次请求失败，nginx 在15秒内，不会将新的请求分配给它。</p>
+<h2 id="backup"><a href="#backup" class="headerlink" title="backup"></a>backup</h2><p>备份机，所有服务器挂了之后才会生效<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">upstream tomcats &#123;</span><br><span class="line">    server 192.168.0.100:8080 weight=2 max_fails=3 fail_timeout=15;</span><br><span class="line">    server 192.168.0.101:8080 weight=3;</span><br><span class="line"></span><br><span class="line">    server 192.168.0.102:8080 backup;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在 192.168.0.100 和 192.168.0.101 都挂了之前，192.168.0.102 为不可用状态，不会将请求分配给它。只有当 192.168.0.100 和 192.168.0.101 都挂了，192.168.0.102 才会被启用。</p>
+<h2 id="down"><a href="#down" class="headerlink" title="down"></a>down</h2><p>标识某一台server不可用。个人理解，应该是用于临时配置，等服务器确认可用了之后再去掉 down 标志。否则，如果一直不启用，干脆不要配置这台服务器好了。</p>
+<h2 id="max-conns"><a href="#max-conns" class="headerlink" title="max_conns"></a>max_conns</h2><p>限制分配给某台Server处理的最大连接数量，超过这个数量，将不会分配新的连接给它。默认为0，表示不限制。注意：1.5.9之后的版本才有这个配置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">upstream tomcats &#123;</span><br><span class="line">    server 192.168.0.100:8080 max_conns=1000;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>表示最多给100这台Server分配1000个请求，如果这台Server正在处理1000个请求，nginx将不会分配新的请求给到它。假如有一个请求处理完了，还剩下999个请求在处理，这时nginx也会将新的请求分配给它。</p>
+<h2 id="resolve"><a href="#resolve" class="headerlink" title="resolve"></a>resolve</h2><p>将server指令配置的域名，指定域名解析服务器。需要在http模块下配置resolver指令，指定域名解析服务</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">http &#123;</span><br><span class="line">    resolver 10.0.0.1;</span><br><span class="line"></span><br><span class="line">    upstream u &#123;</span><br><span class="line">        zone ...;</span><br><span class="line">        ...</span><br><span class="line">        server example.com resolve;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>表示example.com域名，由10.0.0.1服务器来负责解析。<br>upstream模块server指令的其它参数和详细配置说明。请参考<a href="http://nginx.org/en/docs/http/ngx_http_upstream_module.html" rel="external nofollow noopener noreferrer" target="_blank">官方文档：Module ngx_http_upstream_module</a></p>
+<h1 id="开发环境可正常使用的配置示例"><a href="#开发环境可正常使用的配置示例" class="headerlink" title="开发环境可正常使用的配置示例"></a>开发环境可正常使用的配置示例</h1><h2 id="负载均衡配置"><a href="#负载均衡配置" class="headerlink" title="负载均衡配置"></a>负载均衡配置</h2><p>注意，本示例的监听端口 81 如果改为 80 端口，则在“嵌入”其它站点时，负载均衡 p.weblb.com 不能被正确的反向代理。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">upstream crm-webs &#123;</span><br><span class="line">    ip_hash;</span><br><span class="line">    server p.javaweb.com:8180 weight=5 max_fails=1 fail_timeout=180;</span><br><span class="line">    #server p.javaweb.com:18081 weight=1 max_fails=1 fail_timeout=180;</span><br><span class="line">    #server p.javaweb.com:18082 backup;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">server &#123;</span><br><span class="line">        access_log   logs/crm.web.access.log;</span><br><span class="line">        error_log    logs/crm.web.error.log;</span><br><span class="line">        listen       81;</span><br><span class="line">        server_name  p.weblb.com;#可选配置</span><br><span class="line"></span><br><span class="line">        location / &#123;</span><br><span class="line">            proxy_pass http://crm-webs;</span><br><span class="line">            proxy_set_header  Host                  $host;</span><br><span class="line">            proxy_set_header  X-Real-IP             $remote_addr;</span><br><span class="line">            proxy_set_header  X-Forwarded-For       $proxy_add_x_forwarded_for;</span><br><span class="line">        &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="web-页面访问"><a href="#web-页面访问" class="headerlink" title="web 页面访问"></a>web 页面访问</h2><p><a href="http://p.weblb.com:81" rel="external nofollow noopener noreferrer" target="_blank">http://p.weblb.com:81</a><br>如果 listen 配置为 80 端口，则不用在域名后面带端口号。直接访问：<a href="http://p.weblb.com" rel="external nofollow noopener noreferrer" target="_blank">http://p.weblb.com</a></p>
+<h2 id="“嵌入”其它站点"><a href="#“嵌入”其它站点" class="headerlink" title="“嵌入”其它站点"></a>“嵌入”其它站点</h2><p>如果这个应用站点需要“嵌入”其它站点，让访问者感觉不到这是两个站点，可以使用反向代理，这样配置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen       80;</span><br><span class="line">    server_name  tb.qn.com;</span><br><span class="line">    charset utf-8;</span><br><span class="line">    access_log  logs/tb.qn.com.access.log;</span><br><span class="line">    error_log   logs/tb.qn.com.error.log;</span><br><span class="line">    root D:/dev.workspace/php/tb.qn/trunk/web/;</span><br><span class="line">    index index.php;</span><br><span class="line">    </span><br><span class="line">    location ~ \.php$ &#123;</span><br><span class="line">        fastcgi_pass   127.0.0.1:9000;</span><br><span class="line">        fastcgi_index  index.php;</span><br><span class="line">        fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;</span><br><span class="line">        include        fastcgi_params;</span><br><span class="line">        fastcgi_read_timeout  1d; #xdebug调试时长</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    location / &#123;</span><br><span class="line">        if (!-e $request_filename) &#123;</span><br><span class="line">            rewrite  ^(.*)$  /index.php  last;</span><br><span class="line">            break;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    location ^~ /crm &#123;</span><br><span class="line">        proxy_pass http://p.javaweb.com:81/crm;</span><br><span class="line">        proxy_redirect  http://p.javaweb.com:81/crm/ http://tb.qn.com/crm/; </span><br><span class="line">        </span><br><span class="line">        proxy_set_header Host $host;</span><br><span class="line">        proxy_set_header X-Real-IP $remote_addr;</span><br><span class="line">        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>其中 p.javaweb.com、p.weblb.com，均在 hosts 指向本地 IP<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1 tb.qn.com</span><br><span class="line">127.0.0.1 p.weblb.com</span><br></pre></td></tr></table></figure></p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-09-01T02:53:13.059Z" itemprop="dateUpdated">2020年9月1日 10:53</time>
+</span><br>
+
+
+        转载请注明出处：<a href="/lnmp/nginxLoadBalancingAndProxy.html" target="_blank" rel="external">https://www.lovesofttech.com/lnmp/nginxLoadBalancingAndProxy.html</a>
+    </div>
+    <footer>
+        <a href="https://www.lovesofttech.com">
+            <img src="/img/myLogo.jpg" alt="安迪陈">
+            安迪陈
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nginx/">nginx</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/windows/">windows</a></li></ul>
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/lnmp/nginxLoadBalancingAndProxy.html&title=《Nginx 反向代理、负载均衡》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/lnmp/nginxLoadBalancingAndProxy.html&title=《Nginx 反向代理、负载均衡》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=如题" data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/lnmp/nginxLoadBalancingAndProxy.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Nginx 反向代理、负载均衡》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/lnmp/nginxLoadBalancingAndProxy.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/lnmp/nginxLoadBalancingAndProxy.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/linux/centOSChkconfig.html" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">CentOS下开机启动查看管理命令:chkconfig 用法</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/linux/secureCRTLineWrap.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">secureCRT 显示不换行且完全显示</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+    
+    
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="bottom">
+        <p>
+            <span>安迪陈技术日志，架构、感悟、系统分析、团队管理 &copy; 2017 - 2020</span>
+            <span>
+                Power by <a href="https://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>&nbsp;
+                Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank" rel="external nofollow noopener noreferrer">indigo</a>
+            </span>
+            <span>
+                <a href="http://www.beian.miit.gov.cn" target="_blank" rel="external nofollow noopener noreferrer">蜀ICP备17041860号</a>
+            </span>
+            
+            <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            </p><p>
+                <span>
+                    统计始于：2019-03-06
+                </span>
+                <span id="busuanzi_container_site_uv" style="display:none">
+                    访客数：<span id="busuanzi_value_site_uv"></span>
+                </span>
+                <span id="busuanzi_container_site_pv" style="display:none">
+                    访问量：<span id="busuanzi_value_site_pv"></span>
+                </span>
+            
+            
+                <span class="post-count">累计字数：309.2k</span>
+            
+                <span><a href="/general/blogLog.html"><i class="fas fa-pen-alt"></i>&nbsp;博客日志</a></span>
+            </p>
+        <p></p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light" title="回到顶部"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/lnmp/nginxLoadBalancingAndProxy.html&title=《Nginx 反向代理、负载均衡》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/lnmp/nginxLoadBalancingAndProxy.html&title=《Nginx 反向代理、负载均衡》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=如题" data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/lnmp/nginxLoadBalancingAndProxy.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Nginx 反向代理、负载均衡》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/lnmp/nginxLoadBalancingAndProxy.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/lnmp/nginxLoadBalancingAndProxy.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACoUlEQVR42u3awW7DIBAE0Pz/T6fXSlWcGRYsV3o+WU2CeT4And3XK77ev67rv3+6v/60vd984eHh4Q2m/vf69J18nE8TXRs/nzMeHh7eaV4y3DUmmUqy5Uw2CTw8PLwn85IFut0YkvHx8PDw/i9vckRODtCP2Pfw8PDwLnntsp5kp0mI0L6sg1kLHh4eXszLq0jPuT9S38PDw8MbV9XbYli+cE/GL0bDw8PDO8Brj8jn4te1lq/om3h4eHi38JLCfxsEtMt9Wzb7+BLx8PDwtvLaMDSPCdoodm/5rcin8fDw8Aa85Hia3+efrr2UqBEBDw8P7wAvab1qG7OSo/Pxeh0eHh7e7aRJaNtOvd1CitYrPDw8vAO8SSvAhtLUUiBSb2x4eHh4W3nXw83bodqDexvgfnk6Hh4e3jFevormC/o82N1QisPDw8O7kdc+YK18tdZ8kB/T8fDw8E7z1upHefF+Ugxba8zCw8PDu4eXH5TXItok5M2LXl9+i4eHh3eAN3/AJDJYay9oNy08PDy8vbw5Iy+Pta1a7WZT7Ht4eHh4m3jtMr3WkrXWvJUfypusAg8PD2+FN98S2qBhHny0OQMeHh7eXl5Oakv77UTzBoViS8PDw8M7wMsj18mBONkG8ih58YXi4eHhbeXlEW2Ln0S6bXNY1DSAh4eHdwuvDU+T5T4PJtY2GDw8PLx7eMk/+ZN4dx7XrrVn4eHh4e3lvcurXcTbCbVxxpdP8fDw8A7w2km01LUIOB+tKIDh4eHhbeXN49ekQJXHuJPyGB4eHt6dvLXD7px9/FCOh4eH9xhefjiejDlpZcDDw8N7Pq9dvnc1dfUlPzw8PLw9vHkQkGwV7RyuvxmVvvDw8PAO8CbLej50XvRqX/2GCw8PDy/l/QDbmrtgFZB8WwAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.5.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.5.2" async></script>
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '安迪陈技术日志';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '欢迎回来';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

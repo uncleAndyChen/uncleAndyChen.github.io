@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<!--<script async src="//hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c"></script>-->
+<!-- 统计-->
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var host = window.location.host;
+        var hm = document.createElement("script");
+
+        if (host.indexOf('gitee.io') > 0) { // https://uncleandychen.gitee.io/
+            hm.src = "https://hm.baidu.com/hm.js?0cf4709148b070b8082191d2e456a1a3";
+        } else if (host.indexOf('lovesofttech.com') > 0) { // https://www.lovesofttech.com/
+            hm.src = "https://hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c";
+        } else {
+            hm.src = '';
+        }
+
+        if (hm.src !== '') {
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        }
+    })();
+</script>
+<!-- End Baidu Tongji -->
+
+
+
+<!-- Baidu Push -->
+<!-- 主动推送百度爬虫-->
+<script>
+    (function(){
+        if (window.location.host.indexOf('lovesofttech.com') < 0) {
+            return;
+        }
+
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+<!-- End Baidu Push -->
+
+
+    <meta charset="utf-8">
+    
+    
+    <link rel="canonical" href="https://www.lovesofttech.com/softTest/testDev.html">
+    
+    
+    <title>测试 &amp; 开发 | 安迪陈技术日志，架构、感悟、系统分析、团队管理 | 自强不息，厚德载物</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="soft test">
+    <meta name="description" content="如题">
+<meta name="keywords" content="soft test">
+<meta property="og:type" content="article">
+<meta property="og:title" content="测试 &amp; 开发">
+<meta property="og:url" content="https://www.lovesofttech.com/softTest/testDev.html">
+<meta property="og:site_name" content="安迪陈技术日志，架构、感悟、系统分析、团队管理">
+<meta property="og:description" content="如题">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2020-09-01T02:53:13.099Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="测试 &amp; 开发">
+<meta name="twitter:description" content="如题">
+    
+        <link rel="alternative" href="/atom.xml" title="安迪陈技术日志，架构、感悟、系统分析、团队管理" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=201912302211">
+    <link rel="stylesheet" href="/css/header.css?v=201912302211">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu">
+  <div class="inner flex-row-vertical">
+    <!--<i class="icon icon-lg icon-close"></i>-->
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off" title="隐藏左侧导航">﹤<i class="icon icon-lg icon-navicon"></i></a>
+    <div class="brand-wrap" style="background-image:url(/img/bannerBackgroundLeft.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/myLogo.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">安迪陈</h5>
+          <a href="mailto:andy@lovesofttech.com" title="andy@lovesofttech.com" class="mail" rel="external nofollow noopener noreferrer" target="_blank">andy@lovesofttech.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articleClassify.html">
+                <i class="icon icon-th-list"></i>
+                文章分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articles.html">
+                <i class="icon icon-th-list articles"></i>
+                文章列表
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/java.html">
+                <i class="icon icon-th-list java"></i>
+                Java
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/database.html">
+                <i class="icon icon-th-list database"></i>
+                MySQL/MyBatis
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/linux.html">
+                <i class="icon icon-th-list linux"></i>
+                CentOS/linux
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/react.html">
+                <i class="icon icon-th-list React"></i>
+                React
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/lnmp.html">
+                <i class="icon icon-th-list LNMP"></i>
+                LNMP
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/git.html">
+                <i class="icon icon-th-list git"></i>
+                git
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/windows.html">
+                <i class="icon icon-th-list windows"></i>
+                windows
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/dailyLives.html">
+                <i class="icon icon-th-list dailyLives"></i>
+                工作 &amp; 生活
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-github"></i>
+                我的 github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://gitee.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link"></i>
+                我的 gitee
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://blog.csdn.net/runAndRun" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link CSDN"></i>
+                我的 CSDN
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/aboutMe.html">
+                <i class="icon icon-address-card"></i>
+                关于我
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+
+        <div class="navbar navbar-custom navbar-fixed-top">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" style="margin-left:10px;" id="menu-toggle" title="显示左侧导航"><i class="icon icon-lg icon-navicon"></i>﹥</a>
+            <ul class="nav navbar-nav navbar-right" id="navMenuTop">
+                <li>
+                    <a href="/">主页</a>
+                </li>
+                
+                    
+                        <li>
+                            <a href="/articleClassify.html" title="本博客的文章分类列表">文章分类</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/articles.html" title="本博客的所有文章列表">文章列表</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/java.html" title="Java 开发，文章目录">Java</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/database.html" title="日常开发中有关 MySQL、MyBatis 的一些经验总结">MySQL/MyBatis</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/linux.html" title="CentOS/linux，文章目录">CentOS/linux</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/react.html" title="React 技术栈（全家桶）学习心得分享，文章目录">React</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/about.html">关于</a>
+                        </li>
+                    
+                
+            </ul>
+        </div>
+
+        <div class="flex-col header-title ellipsis">测试 &amp; 开发</div>
+        
+        <div class="search-wrap" id="search-wrap" style="z-index: 2;">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back" style="width:33px;">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search" style="width:33px;">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare" style="z-index: 3;margin-right: 10px; width:30px;">
+                <i class="icon icon-lg icon-share-alt"></i>
+            </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h2 class="title">测试 &amp; 开发</h2>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-07-07T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2018-07-08
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/soft-test/">soft test</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap" id="index-container">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc" style="z-index: 3;">
+            <h4><i class="fa fa-list-alt"></i>&nbsp;&nbsp;本文目录</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#开发要不要自己做测试？怎么做？"><span class="post-toc-number">1.</span> <span class="post-toc-text">开发要不要自己做测试？怎么做？</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#开发人员自己做测试会遇到哪些问题"><span class="post-toc-number">2.</span> <span class="post-toc-text">开发人员自己做测试会遇到哪些问题</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#人性角度引发的问题"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">人性角度引发的问题</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#思维惯性的问题"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">思维惯性的问题</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#被测试环境和测试执行环境的复杂性问题"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">被测试环境和测试执行环境的复杂性问题</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#测试数据准备的问题"><span class="post-toc-number">2.4.</span> <span class="post-toc-text">测试数据准备的问题</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#测试执行与-CI-CD-集成问题"><span class="post-toc-number">2.5.</span> <span class="post-toc-text">测试执行与 CI/CD 集成问题</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#失败测试用例归属问题"><span class="post-toc-number">2.6.</span> <span class="post-toc-text">失败测试用例归属问题</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#工程效能团队赋能开发人员进行高效率高质量的测试"><span class="post-toc-number">3.</span> <span class="post-toc-text">工程效能团队赋能开发人员进行高效率高质量的测试</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#测试执行服务（Test-Execution-Service）"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">测试执行服务（Test Execution Service）</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#测试数据服务（Test-Data-Service）"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">测试数据服务（Test Data Service）</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#测试执行环境服务（Test-Bed-Service）"><span class="post-toc-number">3.3.</span> <span class="post-toc-text">测试执行环境服务（Test Bed Service）</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#构建工程效率工具链仓库（Engineering-Productivity-Tools-Store）"><span class="post-toc-number">3.4.</span> <span class="post-toc-text">构建工程效率工具链仓库（Engineering Productivity Tools Store）</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#测试既服务（TaaS，Test-as-a-Service）的全局架构"><span class="post-toc-number">3.5.</span> <span class="post-toc-text">测试既服务（TaaS，Test as a Service）的全局架构</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#参考"><span class="post-toc-number">4.</span> <span class="post-toc-text">参考</span></a></li></ol>
+        </nav>
+    </aside>
+    
+
+<article id="post-softTest/testDev" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">测试 & 开发</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018年07月08日 0:00" datetime="2018-07-07T16:00:00.000Z" itemprop="datePublished">2018-07-08</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/soft-test/">soft test</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" style="display:none">
+    阅读量：<span id="busuanzi_value_page_pv"></span>次
+</span>
+
+
+    <span>|</span>
+    <span class="post-count">字数：3.7k</span>
+    <span>|</span>
+    <span class="post-count">阅读时长：大约12分钟</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>如题<br><a id="more"></a></p>
+<h1 id="开发要不要自己做测试？怎么做？"><a href="#开发要不要自己做测试？怎么做？" class="headerlink" title="开发要不要自己做测试？怎么做？"></a>开发要不要自己做测试？怎么做？</h1><blockquote>
+<p>开发人员如何能够胜任测试？工程效能团队如何赋能开发人员，帮助开发人员高效地完成高质量测试？</p>
+</blockquote>
+<p>现在包括 Google、Facebook 和 eBay 等一线互联网巨头公司都在逐渐推行“没有专职测试，测试工作由开发人员完成”的全新模式，原本专职的业务功能测试团队的规模逐渐缩小，有些甚至已经完全没有了，而原本的测试开发团队逐渐在向工程效能（Engineering Productivity）团队转型。这些互联网巨头之所以能够很好地落地这种全新的模式，是因为他们都较好地解决了这个模式的两个最大的难题：</p>
+<ol>
+<li>开发人员如何能够胜任测试？</li>
+<li>工程效能团队如何赋能开发人员，帮助开发人员高效地完成高质量测试？</li>
+</ol>
+<p>本文会围绕这两个问题来展开讨论。</p>
+<p>首先让我们一起看一下开发人员自己做测试都会遇到哪些问题和阻碍。</p>
+<h1 id="开发人员自己做测试会遇到哪些问题"><a href="#开发人员自己做测试会遇到哪些问题" class="headerlink" title="开发人员自己做测试会遇到哪些问题"></a>开发人员自己做测试会遇到哪些问题</h1><h2 id="人性角度引发的问题"><a href="#人性角度引发的问题" class="headerlink" title="人性角度引发的问题"></a>人性角度引发的问题</h2><p>首先从人性的角度来看，开发人员通常是属于“创造性思维”，自己开发的代码就像是亲儿子一样，怎么看都觉得实现很棒；而测试人员则属于“破坏性思维”，测试人员的职责就是要尽可能多的找到潜在的缺陷，而且专职的测试人员通常已经在以往的测试实践中积累了大量典型的容易出错的模式，所以测试人员比起开发人员，往往更能客观且全面做好充分的测试。</p>
+<h2 id="思维惯性的问题"><a href="#思维惯性的问题" class="headerlink" title="思维惯性的问题"></a>思维惯性的问题</h2><p>刚才是从人性角度上来讲的，如果从技术层面来看，由开发人员自己测试，会存在严重的“思维惯性”，通常开发人员在设计和开发过程中没有考虑到的分支和处理逻辑，在自己做测试的时候同样不会考虑到。比如对于一个函数，其中有一个 String 类型的输入参数，如果开发人员在做功能实现的时候压根没有考虑到 String 存在 Null 值得可能性，那么代码的实现里面也不会对 Null 值做处理，连带结果就是测试的时候就更不会设计 Null 值得测试数据，这样的“一条龙”缺失就会给代码的质量留下了缺陷隐患。更糟糕的是，对于这种情况，即便启用了代码覆盖率指标去衡量测试完整程度，也不能有效暴露这类问题，因为处理 Null 值得代码压根没有写，又何来代码覆盖率一说呐。</p>
+<h2 id="被测试环境和测试执行环境的复杂性问题"><a href="#被测试环境和测试执行环境的复杂性问题" class="headerlink" title="被测试环境和测试执行环境的复杂性问题"></a>被测试环境和测试执行环境的复杂性问题</h2><p>有专职测试的时候，测试工作是专职测试人员完成的，专职测试人员通常会负责搭建被测试环境以及管理测试执行环境。被测试环境好理解，就是 System Under Test（SUT）。而测试执行环境是指用于执行测试用例的机器，比如对于 Web 的 GUI 测试，最简单的测试执行环境就是你本地机器上的浏览器。但是对于大型互联网企业，测试执行环境远远要比你想象的更复杂。通常都是一些大型的测试执行集群，甚至是内部的测试执行私有云，比如用 Selenium Grid 搭建的 GUI 测试执行环境，往往这样的集群都会有成百上千台机器，再比如用 Appium+Selenium Grid 搭建的移动设备测试集群，也往往会有上千台设备。现在没有了专职的测试人员，那就需要开发人员自己去管理、维护和搭建这些测试基础架构，这样做其实是得不偿失的，工作量本身并没有减少，只是换了一批人来做同样的事情，而且开发的精力往往更应该花在构建新的业务功能上，而不是用在维护测试基础设施。</p>
+<h2 id="测试数据准备的问题"><a href="#测试数据准备的问题" class="headerlink" title="测试数据准备的问题"></a>测试数据准备的问题</h2><p>测试数据准备是测试过程中必不可少的关键步骤，有专职测试的时候，是由测试人员来准备测试数据的，一方面测试人员往往比开发人员在全局层面上更了解被测系统，所以对于测试数据的设计与生成也会更高效，另一方面测试人员在以往的测试过程中已经积累了很多测试数据生成的方法和小工具。现在这些都需要开发人员自己来完成了，无疑进一步加大了开发人员的工作量，而且开发人员往往对跨模块，跨系统的测试数据准备缺乏系统性的理解，往往为了生成一条非自己业务领域的数据而花费大量的学习成本。举个例子，假设现在“买家模块”的开发人员需要测试“商品买入”的操作，那么就需要事先准备好“可以被卖的商品”，这就意味着“买家模块”的开发人员需要明确知道“卖家模块”和“商品模块”的细节，才能生成“可以被卖的商品”。这类问题在目前主流的微服务架构面前会更严重，原因是为了产生一条测试数据，可能会需要依次调用很多个服务。</p>
+<h2 id="测试执行与-CI-CD-集成问题"><a href="#测试执行与-CI-CD-集成问题" class="headerlink" title="测试执行与 CI/CD 集成问题"></a>测试执行与 CI/CD 集成问题</h2><p>对于不同的业务开发团队，各个阶段采用的自动化测试框架可能都不同，比如有些会使用基于 Java 的 Selenium，也有些会使用基于 JavaScript 的 Nightwatch 等，有专职测试的时候，各种不同的测试框架与 CI/CD 的集成，都是由各个业务团队的测试人员和 CI/CD 的人员一起完成的，现在没有了专职测试，这部分工作就需要开发人员自己和 CI/CD 人员一起完成，这就要求开发人员不仅需要非常熟悉自动化测试框架的细节（很多时候为了更好地和 CI/CD 集成，会对开源测试框架或者是自研测试框架做二次开发，比如改进 retry 机制，增加覆盖率统计等等），还必须了解 CI/CD 的流水线设计以及脚本设计，然后再将需要支持的自动化测试框架的运行命令行和需要暴露的参数（测试用例 Git 路径、测试执行环境、测试报告路径等等）写进 CI/CD 的脚本。这些工作在很大程度上分散了开发的精力，对于提高开发自身效率是非常不利的。</p>
+<h2 id="失败测试用例归属问题"><a href="#失败测试用例归属问题" class="headerlink" title="失败测试用例归属问题"></a>失败测试用例归属问题</h2><p>有专职测试的时候，开发人员往往只关注自己修改部分相关的测试用例，模块或者服务的全回归测试中如果有失败的测试用例，通常是由测试人员跟进去分析具体原因，并协调解决然后才能发布上线。但是现在开发人员负责所有测试，他就必须关注全局的测试。举个实际的例子来看，比如“用户登录”服务的开发工程师修复了一个缺陷，然后本地自测通过后递交了代码，然后很不幸，在 CI/CD 的流水线上全回归测试却发现有部分用例失败了，虽然这些失败的用例和这次的代码修改没有任何关系，但是为了保证自己的修改能够顺利上线（CI/CD 的流水线要求只有全回归测试 100% 通过才可以上线），他必须挨个去分析失败的测试用例然后自己去找到对应的人去协调解决，这显然是非常不合理和不敏捷的做法。</p>
+<p>归根结底，这些问题的本质都会直接影响开发人员本质工作的进度和效率，那么我们应该如何解决或者在一定程度上缓解这些问题呢？这就是接下来要讨论的问题，工程效能团队如何赋能开发人员，帮助开发人员高效地完成高质量的测试。</p>
+<h1 id="工程效能团队赋能开发人员进行高效率高质量的测试"><a href="#工程效能团队赋能开发人员进行高效率高质量的测试" class="headerlink" title="工程效能团队赋能开发人员进行高效率高质量的测试"></a>工程效能团队赋能开发人员进行高效率高质量的测试</h1><p>赋能的基本思路是能够让开发人员更专注于测试本身，而从那些辅助测试的工作（比如搭建测试执行环境、CI/CD 集成等）上解放出来，这些辅助测试的工作由“工程效能”服务或者相关支持工具链来统一解决。这个思想和和目前非常流行的 Service Mesh 的设计思想不谋而合，Service Mesh 也是可以让服务的开发人员可以把所有的精力集中在业务功能的实现上，而不需要去关心服务间通信的基础设施，像类似于服务的注册与发现，熔断机制等都会统一由 Service Mesh 以对业务应用透明的方式来实现。这些“工程效能”服务或者相关支持工具链通常都会由原本从测试开发转型过来的工程效能团队来设计和开发。那么我们接下来看一下可以提供哪些“工程效能”服务或者相关支持工具链，并且能以什么样的方式来解决或缓解上面提到的开发自己测试带来的问题。</p>
+<h2 id="测试执行服务（Test-Execution-Service）"><a href="#测试执行服务（Test-Execution-Service）" class="headerlink" title="测试执行服务（Test Execution Service）"></a>测试执行服务（Test Execution Service）</h2><p>CI/CD 各个阶段所有的测试执行发起都通过测试执行服务（TES，Test Execution Service），TES 通过统一的 Web Service 接口与 CI/CD 以解耦的方式进行集成。无论是 CI/CD 流水线，还是开发人员执行测试，都通过 TES 来发起，唯一的区别是开发人员一般使用 TES 的 UI 界面发起测试，而 CI/CD 是直接在流水线脚本里面调用 TES 的 Restful API 发起测试。测试执行服务的输入参数也很简单直观，通常只包括测试框架名字、测试用例集版本号、测试用例路径、 测试报告获取方式、同步 / 异步执行开关等。一旦调用 TES 发起测试，后续如何调用 Jenkins job、如何打包下载 test jar、如何找到适合的测试执行环境、如何发起测试以及如何收集测试报告等都对使用者完全透明。可以想象，现在，开发人员在和 CI/CD 集成以及执行测试的时候，已经可以完全不需要去关心执行测试的命令行、发起测试的 Jenkins job 以及配置、测试的具体执行环境、测试报告获取等信息。这将大大提高开发人员自己执行测试的效率和便利程度。</p>
+<h2 id="测试数据服务（Test-Data-Service）"><a href="#测试数据服务（Test-Data-Service）" class="headerlink" title="测试数据服务（Test Data Service）"></a>测试数据服务（Test Data Service）</h2><p>前面提到过，跨模块，跨系统的测试数据准备对于开发自己做测试是个挑战，尤其是现在大量采用微服务架构，这个问题就会更突出。测试数据服务（TDS，Test Data Service）将会以 Web Service 接口的形式为所有类型的测试提供一致的测试数据准备入口。无论开发是要做 API 测试，还是 GUI 测试，或者是性能测试，都可以通过调用 TDS 的 Web Service 或者 UI 来准备各种组合类型和量级的测试数据。TDS 本身还是个开发平台，任何开发人员都可以通过脚手架代码来贡献新的数据类型支持，并且 TDS 平台本身借助自己的 Core Service 和内建数据库具有元数据管理能力，能够提供诸如测试数据数量以及质量的管理。下图展示了典型的 TDS 架构设计简图供参考。</p>
+<h2 id="测试执行环境服务（Test-Bed-Service）"><a href="#测试执行环境服务（Test-Bed-Service）" class="headerlink" title="测试执行环境服务（Test Bed Service）"></a>测试执行环境服务（Test Bed Service）</h2><p>正如前面提到的，测试执行环境对于大型企业来说是很庞大复杂的，为了方便开发人员使用测试执行环境，或者说为了使测试执行环境对于开发人员透明，就需要引入测试执行环境服务（TBS，Test Bed Service）。TBS 的主要职责是负责管理、创建，扩容 / 收缩测试执行集群。一个常见的测试执行环境架构如下图所示，TBS 会根据等待执行的测试用例的排队情况，动态决策测试执行集群的节点数量和类型，通常会使用 Docker 和 Kubernetes 来实现 TBS 的 Gird 管理。</p>
+<h2 id="构建工程效率工具链仓库（Engineering-Productivity-Tools-Store）"><a href="#构建工程效率工具链仓库（Engineering-Productivity-Tools-Store）" class="headerlink" title="构建工程效率工具链仓库（Engineering Productivity Tools Store）"></a>构建工程效率工具链仓库（Engineering Productivity Tools Store）</h2><p>类似于 App Store 的概念，可以把各种测试小工具以及提高效率的工具集统一在 Engineering Productivity Tools Store 里面集中版本化管理。比如文章开头我们提到过开发自己做测试的时候存在思维盲区，对于像 String 这样的参数可能遗漏 Null 值得用例，我们就可以开发一个小工具对被测函数的输入参数类型基于边界值自动生成边界测试用例，比如 String 类型的参数一定会生成 Null，SQL 注入攻击字符串，非英文字符，超长的字符串等，这样就可以系统性地避免开发的盲区。诸如此类的工具还有很多，以后有机会再和大家一一分享。</p>
+<h2 id="测试既服务（TaaS，Test-as-a-Service）的全局架构"><a href="#测试既服务（TaaS，Test-as-a-Service）的全局架构" class="headerlink" title="测试既服务（TaaS，Test as a Service）的全局架构"></a>测试既服务（TaaS，Test as a Service）的全局架构</h2><p>除了以上的内容，其实还有诸如测试报告服务（TRS，Test Report Service）、全局测试配置服务（GRS，Global Registry Service）和用于 API 测试解耦的 Mock 服务（Unified Mock Service），由于篇幅无法一一展开。需要强调是的是，这里谈到的很多服务已经在某些企业内部有了落地实践，并取得了很好地效果。</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p>摘录自：<a href="https://mp.weixin.qq.com/s?__biz=MzIzNjUxMzk2NQ==&amp;mid=2247489501&amp;idx=2&amp;sn=fb233a9dcedbecb385cc828f2117b657&amp;chksm=e8d7e81fdfa061098b6d4ec40d6a8aa63395b25af681fcf0faf9f2519bfeed053dc4a80bb124&amp;scene=27#wechat_redirect" rel="external nofollow noopener noreferrer" target="_blank">开发要不要自己做测试？怎么做？</a></p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-09-01T02:53:13.099Z" itemprop="dateUpdated">2020年9月1日 10:53</time>
+</span><br>
+
+
+        转载请注明出处：<a href="/softTest/testDev.html" target="_blank" rel="external">https://www.lovesofttech.com/softTest/testDev.html</a>
+    </div>
+    <footer>
+        <a href="https://www.lovesofttech.com">
+            <img src="/img/myLogo.jpg" alt="安迪陈">
+            安迪陈
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/soft-test/">soft test</a></li></ul>
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/softTest/testDev.html&title=《测试 & 开发》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/softTest/testDev.html&title=《测试 & 开发》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=如题" data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/softTest/testDev.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《测试 & 开发》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/softTest/testDev.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/softTest/testDev.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/frontend/RNNewsGiveUpUdacity.html" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">Udacity也弃用React Native了！</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/frontend/RNNewsGiveUp.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">React Native 已死？被Airbnb抛弃之后，Udacity也弃用了</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+    
+    
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="bottom">
+        <p>
+            <span>安迪陈技术日志，架构、感悟、系统分析、团队管理 &copy; 2017 - 2020</span>
+            <span>
+                Power by <a href="https://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>&nbsp;
+                Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank" rel="external nofollow noopener noreferrer">indigo</a>
+            </span>
+            <span>
+                <a href="http://www.beian.miit.gov.cn" target="_blank" rel="external nofollow noopener noreferrer">蜀ICP备17041860号</a>
+            </span>
+            
+            <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            </p><p>
+                <span>
+                    统计始于：2019-03-06
+                </span>
+                <span id="busuanzi_container_site_uv" style="display:none">
+                    访客数：<span id="busuanzi_value_site_uv"></span>
+                </span>
+                <span id="busuanzi_container_site_pv" style="display:none">
+                    访问量：<span id="busuanzi_value_site_pv"></span>
+                </span>
+            
+            
+                <span class="post-count">累计字数：309.2k</span>
+            
+                <span><a href="/general/blogLog.html"><i class="fas fa-pen-alt"></i>&nbsp;博客日志</a></span>
+            </p>
+        <p></p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light" title="回到顶部"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/softTest/testDev.html&title=《测试 & 开发》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/softTest/testDev.html&title=《测试 & 开发》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=如题" data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/softTest/testDev.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《测试 & 开发》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/softTest/testDev.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/softTest/testDev.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACKUlEQVR42u3aMXLDMAwEQP//00rrRsodqGRG1LLyeCySqwImAH4+8Ti+xvc317/PZz5b5eaBgYHxWMZxORJGsnAy/zXs7FkMDIz3MJJQmD+VzNnyflkdAwMDIyDlQfP6KQwMDIx7A+5sW7MDKAYGBkZ7RLv3lwnstlwcAwPjgYxZ+f5/Pv9JfwMDA+NRjKMceaBsw+WxMDAwMPZmzBqQ7VNtE3S2HwwMjDcwkpCabDFPOJMSXlF0w8DA2JrRXpJor1nkZbU2xGNgYLyHkWyrPQjm8+QNzuEJFwMD4+GMWdtydkBsX03OxsDAeAMjTyzXN5S/iOTA+mnfNwYGxgMZdyWi7fJ5m6HOxTEwMDZlJME0L+LnrYU2HA9bmBgYGA9ntMe7NkDn4XLlkIqBgbE3ow24eUI7vNpVvkQMDIw3MGbls9loy3ZFWwIDA+NljCSAtuE4D6ZJAe600IaBgbEpYxY02xQ0P1zmafMSBgMD44GM5LpDe4xLSmazNsPpihgYGK9kzILgrJ3Ztg2KgIuBgbE1YzZdPttKIL7hfwMDA+OxjJUkdmXT7R5Ob45gYGBsxzjKMWsMtLW9ZJ5fbrdhYGBsxFifepbE/kX7AQMDY2/GStCchey8eVC8bwwMjBcw1oto19/fm8RiYGBgtEe0lTbnelMBAwMDI08m8yLddThOdlL0NzAwMDZitJuYNTKTYJ2nvhgYGO9hzFLHdplZqF05pGJgYGzB+AEaRnRyOm0sBQAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.5.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.5.2" async></script>
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '安迪陈技术日志';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '欢迎回来';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

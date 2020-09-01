@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<!--<script async src="//hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c"></script>-->
+<!-- 统计-->
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var host = window.location.host;
+        var hm = document.createElement("script");
+
+        if (host.indexOf('gitee.io') > 0) { // https://uncleandychen.gitee.io/
+            hm.src = "https://hm.baidu.com/hm.js?0cf4709148b070b8082191d2e456a1a3";
+        } else if (host.indexOf('lovesofttech.com') > 0) { // https://www.lovesofttech.com/
+            hm.src = "https://hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c";
+        } else {
+            hm.src = '';
+        }
+
+        if (hm.src !== '') {
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        }
+    })();
+</script>
+<!-- End Baidu Tongji -->
+
+
+
+<!-- Baidu Push -->
+<!-- 主动推送百度爬虫-->
+<script>
+    (function(){
+        if (window.location.host.indexOf('lovesofttech.com') < 0) {
+            return;
+        }
+
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+<!-- End Baidu Push -->
+
+
+    <meta charset="utf-8">
+    
+    
+    <link rel="canonical" href="https://www.lovesofttech.com/react/eslintConfig.html">
+    
+    
+    <title>WebStorm + React 项目，配置 ESLint | 安迪陈技术日志，架构、感悟、系统分析、团队管理 | 自强不息，厚德载物</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="react,ESLint">
+    <meta name="description" content="如题">
+<meta name="keywords" content="react,ESLint">
+<meta property="og:type" content="article">
+<meta property="og:title" content="WebStorm + React 项目，配置 ESLint">
+<meta property="og:url" content="https://www.lovesofttech.com/react/eslintConfig.html">
+<meta property="og:site_name" content="安迪陈技术日志，架构、感悟、系统分析、团队管理">
+<meta property="og:description" content="如题">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:image" content="https://www.lovesofttech.com/img/react/reactProjectConfigESLint04.png">
+<meta property="og:image" content="https://www.lovesofttech.com/img/react/reactProjectConfigESLint05.png">
+<meta property="og:image" content="https://www.lovesofttech.com/img/react/reactProjectConfigESLint06.png">
+<meta property="og:image" content="https://www.lovesofttech.com/img/react/reactProjectConfigESLint.png">
+<meta property="og:image" content="https://www.lovesofttech.com/img/react/reactProjectConfigESLint02.png">
+<meta property="og:image" content="https://www.lovesofttech.com/img/react/reactProjectConfigESLint03.png">
+<meta property="og:updated_time" content="2020-09-01T02:53:13.083Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="WebStorm + React 项目，配置 ESLint">
+<meta name="twitter:description" content="如题">
+<meta name="twitter:image" content="https://www.lovesofttech.com/img/react/reactProjectConfigESLint04.png">
+    
+        <link rel="alternative" href="/atom.xml" title="安迪陈技术日志，架构、感悟、系统分析、团队管理" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=201912302211">
+    <link rel="stylesheet" href="/css/header.css?v=201912302211">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu">
+  <div class="inner flex-row-vertical">
+    <!--<i class="icon icon-lg icon-close"></i>-->
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off" title="隐藏左侧导航">﹤<i class="icon icon-lg icon-navicon"></i></a>
+    <div class="brand-wrap" style="background-image:url(/img/bannerBackgroundLeft.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/myLogo.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">安迪陈</h5>
+          <a href="mailto:andy@lovesofttech.com" title="andy@lovesofttech.com" class="mail" rel="external nofollow noopener noreferrer" target="_blank">andy@lovesofttech.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articleClassify.html">
+                <i class="icon icon-th-list"></i>
+                文章分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articles.html">
+                <i class="icon icon-th-list articles"></i>
+                文章列表
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/java.html">
+                <i class="icon icon-th-list java"></i>
+                Java
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/database.html">
+                <i class="icon icon-th-list database"></i>
+                MySQL/MyBatis
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/linux.html">
+                <i class="icon icon-th-list linux"></i>
+                CentOS/linux
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/react.html">
+                <i class="icon icon-th-list React"></i>
+                React
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/lnmp.html">
+                <i class="icon icon-th-list LNMP"></i>
+                LNMP
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/git.html">
+                <i class="icon icon-th-list git"></i>
+                git
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/windows.html">
+                <i class="icon icon-th-list windows"></i>
+                windows
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/dailyLives.html">
+                <i class="icon icon-th-list dailyLives"></i>
+                工作 &amp; 生活
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-github"></i>
+                我的 github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://gitee.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link"></i>
+                我的 gitee
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://blog.csdn.net/runAndRun" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link CSDN"></i>
+                我的 CSDN
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/aboutMe.html">
+                <i class="icon icon-address-card"></i>
+                关于我
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+
+        <div class="navbar navbar-custom navbar-fixed-top">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" style="margin-left:10px;" id="menu-toggle" title="显示左侧导航"><i class="icon icon-lg icon-navicon"></i>﹥</a>
+            <ul class="nav navbar-nav navbar-right" id="navMenuTop">
+                <li>
+                    <a href="/">主页</a>
+                </li>
+                
+                    
+                        <li>
+                            <a href="/articleClassify.html" title="本博客的文章分类列表">文章分类</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/articles.html" title="本博客的所有文章列表">文章列表</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/java.html" title="Java 开发，文章目录">Java</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/database.html" title="日常开发中有关 MySQL、MyBatis 的一些经验总结">MySQL/MyBatis</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/linux.html" title="CentOS/linux，文章目录">CentOS/linux</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/react.html" title="React 技术栈（全家桶）学习心得分享，文章目录">React</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/about.html">关于</a>
+                        </li>
+                    
+                
+            </ul>
+        </div>
+
+        <div class="flex-col header-title ellipsis">WebStorm + React 项目，配置 ESLint</div>
+        
+        <div class="search-wrap" id="search-wrap" style="z-index: 2;">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back" style="width:33px;">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search" style="width:33px;">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare" style="z-index: 3;margin-right: 10px; width:30px;">
+                <i class="icon icon-lg icon-share-alt"></i>
+            </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h2 class="title">WebStorm + React 项目，配置 ESLint</h2>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-11-24T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2018-11-25
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/react/">react</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/react/ESLint/">ESLint</a></li></ul></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap" id="index-container">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc" style="z-index: 3;">
+            <h4><i class="fa fa-list-alt"></i>&nbsp;&nbsp;本文目录</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#ESLint-简介"><span class="post-toc-number">1.</span> <span class="post-toc-text">ESLint 简介</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#ESLint-哲学"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">ESLint 哲学</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#先看一下代码优化效果"><span class="post-toc-number">2.</span> <span class="post-toc-text">先看一下代码优化效果</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#使用-ESLint-带来的好处"><span class="post-toc-number">3.</span> <span class="post-toc-text">使用 ESLint 带来的好处</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#统一代码风格，减少review成本和低级错误的出现"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">统一代码风格，减少review成本和低级错误的出现</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#支持ES6"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">支持ES6</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#丰富的插件"><span class="post-toc-number">3.3.</span> <span class="post-toc-text">丰富的插件</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#配置并在项目中使用"><span class="post-toc-number">4.</span> <span class="post-toc-text">配置并在项目中使用</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#使用命令生成配置文件-eslintrc-yml"><span class="post-toc-number">4.1.</span> <span class="post-toc-text">使用命令生成配置文件 .eslintrc.yml</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#实践"><span class="post-toc-number">5.</span> <span class="post-toc-text">实践</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#WebStorm-提示-Error-No-ESLint-configuration-found"><span class="post-toc-number">5.1.</span> <span class="post-toc-text">WebStorm 提示 Error: No ESLint configuration found.</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#ESLint-是否全局安装，决定-WebStorm-如何配置"><span class="post-toc-number">5.2.</span> <span class="post-toc-text">ESLint 是否全局安装，决定 WebStorm 如何配置</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#eslint-plugin-react-依赖"><span class="post-toc-number">5.3.</span> <span class="post-toc-text">eslint-plugin-react 依赖</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#switch-缩进配置"><span class="post-toc-number">5.4.</span> <span class="post-toc-text">switch 缩进配置</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#让webpack在打包文件之前，对除第三方外的js文件用eslint进行检查。"><span class="post-toc-number">5.5.</span> <span class="post-toc-text">让webpack在打包文件之前，对除第三方外的js文件用eslint进行检查。</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#添加插件"><span class="post-toc-number">5.6.</span> <span class="post-toc-text">添加插件</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#rules-配置说明"><span class="post-toc-number">6.</span> <span class="post-toc-text">rules 配置说明</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#配置第三方规则-airbnb"><span class="post-toc-number">7.</span> <span class="post-toc-text">配置第三方规则 airbnb</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#实际操作"><span class="post-toc-number">7.1.</span> <span class="post-toc-text">实际操作</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#安装依赖"><span class="post-toc-number">7.1.1.</span> <span class="post-toc-text">安装依赖</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#修改官方扩展为-airbnb"><span class="post-toc-number">7.1.2.</span> <span class="post-toc-text">修改官方扩展为 airbnb</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#扩展阅读"><span class="post-toc-number">7.2.</span> <span class="post-toc-text">扩展阅读</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#参考"><span class="post-toc-number">8.</span> <span class="post-toc-text">参考</span></a></li></ol>
+        </nav>
+    </aside>
+    
+
+<article id="post-react/eslintConfig" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">WebStorm + React 项目，配置 ESLint</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018年11月25日 0:00" datetime="2018-11-24T16:00:00.000Z" itemprop="datePublished">2018-11-25</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/react/">react</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/react/ESLint/">ESLint</a></li></ul></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" style="display:none">
+    阅读量：<span id="busuanzi_value_page_pv"></span>次
+</span>
+
+
+    <span>|</span>
+    <span class="post-count">字数：3k</span>
+    <span>|</span>
+    <span class="post-count">阅读时长：大约11分钟</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>如题<br><a id="more"></a></p>
+<h1 id="ESLint-简介"><a href="#ESLint-简介" class="headerlink" title="ESLint 简介"></a>ESLint 简介</h1><p><a href="https://eslint.org/" rel="external nofollow noopener noreferrer" target="_blank">ESLint</a>是一个开源的JavaScript代码检查工具，其作者是大名鼎鼎的“红宝书”《JavaScript高级程序设计》作者 <a href="https://humanwhocodes.com/" rel="external nofollow noopener noreferrer" target="_blank">Nicholas C. Zakas</a>。Nicholas C. Zakas 在他的多部著作中都有涉及到JavaScript的代码风格问题，而eslint正是用来统一JavaScript代码风格的工具。</p>
+<p>代码检查是一种静态的分析，常用于寻找有问题的模式或者代码，并且不依赖于具体的编码风格。对大多数编程语言来说都会有代码检查，一般来说编译程序会内置检查工具。</p>
+<p>JavaScript 是一个动态的弱类型语言，在开发中比较容易出错。因为没有编译程序，为了寻找 JavaScript 代码错误通常需要在执行过程中不断调试。像 ESLint 这样的可以让程序员在编码的过程中发现问题而不是在执行的过程中。</p>
+<p>ESLint 的初衷是为了让程序员可以创建自己的检测规则。ESLint 的所有规则都被设计成可插入的。ESLint 的默认规则与其他的插件并没有什么区别，规则本身和测试可以依赖于同样的模式。为了便于人们使用，ESLint 内置了一些规则，当然，你可以在使用过程中自定义规则。</p>
+<p>ESLint 使用 Node.js 编写，这样既可以有一个快速的运行环境的同时也便于安装。</p>
+<h2 id="ESLint-哲学"><a href="#ESLint-哲学" class="headerlink" title="ESLint 哲学"></a>ESLint 哲学</h2><p>所有都是可拔插的</p>
+<ul>
+<li>内置规则和自定义规则共用一套规则 API</li>
+<li>内置的格式化方法和自定义的格式化方法共用一套格式化 API</li>
+<li>额外的规则和格式化方法能够在运行时指定</li>
+<li>规则和对应的格式化方法并不强制捆绑使用</li>
+</ul>
+<p>每条规则:</p>
+<ul>
+<li>各自独立</li>
+<li>可以开启或关闭（没有什么可以被认为“太重要所以不能关闭”）</li>
+<li>可以将结果设置成警告或者错误</li>
+</ul>
+<p>另外:</p>
+<ul>
+<li>ESLint 并不推荐任何编码风格，规则是自由的</li>
+<li>所有内置规则都是泛化的</li>
+</ul>
+<p>项目:</p>
+<ul>
+<li>通过丰富文档减少沟通成本</li>
+<li>尽可能的简单透明</li>
+<li>相信测试的重要性</li>
+</ul>
+<h1 id="先看一下代码优化效果"><a href="#先看一下代码优化效果" class="headerlink" title="先看一下代码优化效果"></a>先看一下代码优化效果</h1><p>请点开图片看大图<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://www.lovesofttech.com/img/react/reactProjectConfigESLint04.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure><br>按照以上提示，<code>Alt+Enter</code> 之后，会弹出以下窗口：<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://www.lovesofttech.com/img/react/reactProjectConfigESLint05.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure><br>选择 <code>Fix Current file</code>，之后，优化的代码差异如下：<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://www.lovesofttech.com/img/react/reactProjectConfigESLint06.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure></p>
+<h1 id="使用-ESLint-带来的好处"><a href="#使用-ESLint-带来的好处" class="headerlink" title="使用 ESLint 带来的好处"></a>使用 ESLint 带来的好处</h1><h2 id="统一代码风格，减少review成本和低级错误的出现"><a href="#统一代码风格，减少review成本和低级错误的出现" class="headerlink" title="统一代码风格，减少review成本和低级错误的出现"></a>统一代码风格，减少review成本和低级错误的出现</h2><p>eslint可以配置在开发环境中，帮助我们找出项目中不符合规则的代码并给出提示。在我们的开发环境中，开发者每次修改代码，都会先用eslint检查代码，再进行babel和react的编译，一旦eslint发现error级别的错误，那么报错文件不会进行后续的编译。这样可以让eslint随时提醒开发者代码是否符合规范，从而减少了我们花费在review代码风格上的时间，降低了低级bug的出现。</p>
+<h2 id="支持ES6"><a href="#支持ES6" class="headerlink" title="支持ES6"></a>支持ES6</h2><p>同类型的代码检查工具还有jslint和jshint，和它们相比，eslint对ES6语法支持更好，可以通过eslint在团队内快速统一ES6的语法，精简产品代码，提高开发效率。</p>
+<h2 id="丰富的插件"><a href="#丰富的插件" class="headerlink" title="丰富的插件"></a>丰富的插件</h2><p>eslint除了上面说的支持ES6语法之外，还支持各种插件，可以让我们添加自己需要的语法规则。比如项目引入了react，那么最好使用<a href="https://github.com/evcohen/eslint-plugin-jsx-a11y" rel="external nofollow noopener noreferrer" target="_blank">eslint-plugin-jsx-a11y</a>和<a href="https://github.com/yannickcr/eslint-plugin-react" rel="external nofollow noopener noreferrer" target="_blank">eslint-plugin-react</a> 这两个插件来检查代码，使基于react的代码更符合规范。</p>
+<h1 id="配置并在项目中使用"><a href="#配置并在项目中使用" class="headerlink" title="配置并在项目中使用"></a>配置并在项目中使用</h1><ul>
+<li>添加 <a href="https://github.com/eslint/eslint" rel="external nofollow noopener noreferrer" target="_blank">eslint</a> 依赖。全局或者仅在项目安装 <code>ESLint</code>（二选一），并运行 <code>eslint --init</code><ul>
+<li>仅在项目安装，执行 <code>npm i eslint --save-dev</code>，<strong>如果是开源项目，推荐这种方式</strong>。</li>
+<li>全局安装 <code>npm i eslint -g</code></li>
+</ul>
+</li>
+<li>项目如果用的是 webpack，则加入对应的插件 <a href="https://github.com/webpack-contrib/eslint-loader" rel="external nofollow noopener noreferrer" target="_blank">eslint-loader</a></li>
+<li>在项目根目录下创建配置文件 <code>.eslintrc.*</code>，<strong>参考：<a href="http://eslint.cn/docs/user-guide/configuring" rel="external nofollow noopener noreferrer" target="_blank">Configuring ESLint</a></strong>（该文对如何配置写得非常详细）。</li>
+</ul>
+<h2 id="使用命令生成配置文件-eslintrc-yml"><a href="#使用命令生成配置文件-eslintrc-yml" class="headerlink" title="使用命令生成配置文件 .eslintrc.yml"></a>使用命令生成配置文件 .eslintrc.yml</h2><p>在 cmd 窗口，进入项目根目录，执行 <code>eslint --init</code>。如果用 WebStorm 打开的项目，直接在 <code>Terminal</code> 窗口执行命令即可（默认路径就是项目根目录）。<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://www.lovesofttech.com/img/react/reactProjectConfigESLint.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure><br>通过以上操作，最终在项目根目录下生成文件 <code>.eslintrc.yml</code>，内容如下：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">env:</span></span><br><span class="line">  <span class="attr">browser:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">commonjs:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">es6:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">extends:</span> <span class="string">'eslint:recommended'</span></span><br><span class="line"><span class="attr">parserOptions:</span></span><br><span class="line">  <span class="attr">ecmaFeatures:</span></span><br><span class="line">    <span class="attr">jsx:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">ecmaVersion:</span> <span class="number">2018</span></span><br><span class="line">  <span class="attr">sourceType:</span> <span class="string">module</span></span><br><span class="line"><span class="attr">plugins:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">react</span></span><br><span class="line"><span class="attr">rules:</span></span><br><span class="line">  <span class="comment"># 缩进风格：这里设置的是用4个空格缩进。</span></span><br><span class="line">  <span class="comment"># 至于要用几个空格来缩进，需要根据团队的编码规范来。</span></span><br><span class="line">  <span class="comment"># 如果是研究别人的开源项目，建议根据开源项目的实际情况来设置。</span></span><br><span class="line">  <span class="attr">indent:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">error</span></span><br><span class="line">    <span class="bullet">-</span> <span class="number">4</span></span><br><span class="line">  <span class="attr">linebreak-style:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">error</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">windows</span></span><br><span class="line">  <span class="attr">quotes:</span>  <span class="comment"># 引号：设置成双引号</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">error</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">double</span></span><br><span class="line">  <span class="attr">semi:</span>   <span class="comment"># 分号：语句末尾需要有分号</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">error</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">always</span></span><br></pre></td></tr></table></figure></p>
+<p>这里有一份配置文件的详细解说，<a href="https://www.lovesofttech.com/react/eslintConfigExample/">点击前往</a>。 </p>
+<h1 id="实践"><a href="#实践" class="headerlink" title="实践"></a>实践</h1><h2 id="WebStorm-提示-Error-No-ESLint-configuration-found"><a href="#WebStorm-提示-Error-No-ESLint-configuration-found" class="headerlink" title="WebStorm 提示 Error: No ESLint configuration found."></a>WebStorm 提示 <code>Error: No ESLint configuration found.</code></h2><ul>
+<li>需要配合 ESLint 的配置文件，如果不想配置，可以临时在 WebStorm 中将 ESLint 禁用掉。<code>Ctrl+Alt+s -&gt; Languages &amp; Frameworks -&gt; Code Quality Tools -&gt; ESLint -&gt; Enable</code>，将 <code>Enable</code> 前面的复选框设置为非勾选状态。</li>
+<li>参考上面，添加配置文件。</li>
+</ul>
+<h2 id="ESLint-是否全局安装，决定-WebStorm-如何配置"><a href="#ESLint-是否全局安装，决定-WebStorm-如何配置" class="headerlink" title="ESLint 是否全局安装，决定 WebStorm 如何配置"></a>ESLint 是否全局安装，决定 <code>WebStorm</code> 如何配置</h2><ul>
+<li>如果 <code>ESLint</code> 是配置到 <code>package.json</code>，即仅项目下安装，而不是全局安装，则 <code>Configuration file</code>，勾选 <code>Automatic search</code> 即可。</li>
+<li>如果 <code>ESLint</code> 是全局安装，则要指定配置文件，勾选 <code>Configuration file:</code> 并在其后指定配置文件。<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://www.lovesofttech.com/img/react/reactProjectConfigESLint02.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+</li>
+</ul>
+<h2 id="eslint-plugin-react-依赖"><a href="#eslint-plugin-react-依赖" class="headerlink" title="eslint-plugin-react 依赖"></a><code>eslint-plugin-react</code> 依赖</h2><p>在执行 <code>eslint --init</code> 初始化配置文件的时候，如果选择了要使用 react，则需要安装依赖 <code>eslint-plugin-react</code>，否则会提示： <code>Error: Failed to load plugin react: Cannot find module &#39;eslint-plugin-react&#39;</code>。</p>
+<p>解决此类问题，最基本的原则是，缺什么依赖，就安装什么依赖。只是要注意区分，是全局安装还是仅项目安装。</p>
+<p><code>eslint-plugin-react</code> 是否全局安装，与 <code>ESLint</code> 是否全局安装相关：</p>
+<ul>
+<li>如果 <code>ESLint</code> 是全局安装的，<code>eslint-plugin-react</code> 也要全局安装，安装命令： <code>cnpm install eslint-plugin-react -g</code>。</li>
+<li>同理，如果 <code>ESLint</code> 只是在项目下安装，安装命令： <code>cnpm install eslint-plugin-react --save-dev</code>。</li>
+</ul>
+<p>关于  <code>ESLint</code> 与 <code>eslint-plugin-react</code> 的搭配安装，<a href="https://www.npmjs.com/package/eslint-plugin-react" rel="external nofollow noopener noreferrer" target="_blank">官方文档</a>是这样描述的：If you installed ESLint globally, you have to install React plugin globally too. Otherwise, install it locally.</p>
+<h2 id="switch-缩进配置"><a href="#switch-缩进配置" class="headerlink" title="switch 缩进配置"></a>switch 缩进配置</h2><p>如下，配置缩进为两个空格，没有配置 SwitchCase 的情况下，switch 语句会报缩进不对。<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">rules:</span></span><br><span class="line">  <span class="attr">indent:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">error</span></span><br><span class="line">    <span class="bullet">-</span> <span class="number">2</span></span><br></pre></td></tr></table></figure></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://www.lovesofttech.com/img/react/reactProjectConfigESLint03.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>解决：在配置文件里设置 switch case 的缩进，如下：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">rules:</span></span><br><span class="line">  <span class="attr">indent:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">error</span></span><br><span class="line">    <span class="bullet">-</span> <span class="number">2</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">SwitchCase:</span> <span class="number">1</span></span><br></pre></td></tr></table></figure></p>
+<p>json 格式配置如下：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">'rules': &#123;</span><br><span class="line">  <span class="comment">// other config</span></span><br><span class="line">  'indent': ['error', 2, &#123;'SwitchCase': 1&#125;],</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="让webpack在打包文件之前，对除第三方外的js文件用eslint进行检查。"><a href="#让webpack在打包文件之前，对除第三方外的js文件用eslint进行检查。" class="headerlink" title="让webpack在打包文件之前，对除第三方外的js文件用eslint进行检查。"></a>让webpack在打包文件之前，对除第三方外的js文件用eslint进行检查。</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">preLoaders: [</span><br><span class="line">    &#123;</span><br><span class="line">        test: /\.js$/,  // 检测所有的js文件</span><br><span class="line">        loader: &quot;eslint-loader&quot;, // 使用eslint插件</span><br><span class="line">        exclude: [   // 排除第三方文件</span><br><span class="line">            /node_modules/,</span><br><span class="line">            /app\/lib/</span><br><span class="line">        ]</span><br><span class="line">    &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p>完成上述配置后，webpack在构建时就能自动对js代码用eslint进行检查了。</p>
+<p>注：由于webpack在默认配置下遇到error并不会抛出错误终止代码打包，需要在webpack命令上添加bail参数让webpack抛出错误：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">webpack --bail --progress --colors --config webpack.config.js</span><br></pre></td></tr></table></figure></p>
+<h2 id="添加插件"><a href="#添加插件" class="headerlink" title="添加插件"></a>添加插件</h2><p>如果需要react和jsx的语法检查，可以引入eslint-plugin-jsx-a11y和eslint-plugin-react这两个插件并在.eslintrc文件中添加入plugins的配置：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">"plugins": [</span><br><span class="line">    "react",</span><br><span class="line">    <span class="string">"jsx-a11y"</span></span><br><span class="line">]</span><br></pre></td></tr></table></figure></p>
+<p>规则格式是<code>&lt;插件名称&gt;/&lt;规则名称&gt;: &lt;告警级别&gt;</code>：<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"rules"</span>: &#123;</span><br><span class="line">        <span class="attr">"react/jsx-uses-react"</span>: <span class="string">"error"</span>,</span><br><span class="line">        <span class="attr">"jsx-a11y/no-static-element-interactions"</span>: <span class="string">"warn"</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h1 id="rules-配置说明"><a href="#rules-配置说明" class="headerlink" title="rules 配置说明"></a>rules 配置说明</h1><p>以下配置仅列举一部分，详细说明请参考：<a href="/react/eslintConfigExample">ESLint 配置文件 .eslintrc 示例及说明</a><br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">'rules': &#123;</span><br><span class="line">    <span class="comment">// no-var</span></span><br><span class="line">    'no-var': 'error',</span><br><span class="line">    <span class="comment">// 要求或禁止 var 声明中的初始化</span></span><br><span class="line">    'init-declarations': 2,</span><br><span class="line">    <span class="comment">// 强制使用单引号</span></span><br><span class="line">    'quotes': ['error', 'single'],</span><br><span class="line">    <span class="comment">// 要求或禁止使用分号而不是 ASI</span></span><br><span class="line">    'semi': ['error', 'never'],</span><br><span class="line">    <span class="comment">// 禁止不必要的分号</span></span><br><span class="line">    'no-extra-semi': 'error',</span><br><span class="line">    <span class="comment">// 强制使用一致的换行风格</span></span><br><span class="line">    'linebreak-style': ['error', 'unix'],</span><br><span class="line">    <span class="comment">// 空格2个</span></span><br><span class="line">    'indent': ['error', 2, &#123;'SwitchCase': 1&#125;],</span><br><span class="line">    <span class="comment">// 指定数组的元素之间要以空格隔开(,后面)， never参数：[ 之前和 ] 之后不能带空格，always参数：[ 之前和 ] 之后必须带空格</span></span><br><span class="line">    'array-bracket-spacing': [2, 'never'],</span><br><span class="line">    <span class="comment">// 在块级作用域外访问块内定义的变量是否报错提示</span></span><br><span class="line">    'block-scoped-var': 0,</span><br><span class="line">    <span class="comment">// if while function 后面的&#123;必须与if在同一行，java风格。</span></span><br><span class="line">    'brace-style': [2, '1tbs', &#123;'allowSingleLine': true&#125;],</span><br><span class="line">    <span class="comment">// 双峰驼命名格式</span></span><br><span class="line">    'camelcase': 2,</span><br><span class="line">    <span class="comment">// 数组和对象键值对最后一个逗号， never参数：不能带末尾的逗号, always参数：必须带末尾的逗号， </span></span><br><span class="line">    'comma-dangle': [2, 'never'],</span><br><span class="line">    <span class="comment">// 控制逗号前后的空格</span></span><br><span class="line">    'comma-spacing': [2, &#123;'before': false, 'after': true&#125;],</span><br><span class="line">    <span class="comment">// 控制逗号在行尾出现还是在行首出现</span></span><br><span class="line">    'comma-style': [2, 'last'],</span><br><span class="line">    <span class="comment">// 圈复杂度</span></span><br><span class="line">    'complexity': [2, 9],</span><br><span class="line">    <span class="comment">// 以方括号取对象属性时，[ 后面和 ] 前面是否需要空格, 可选参数 never, always</span></span><br><span class="line">    'computed-property-spacing': [2, 'never'],</span><br><span class="line">    <span class="comment">// 关闭 强制方法必须返回值，TypeScript强类型，不配置</span></span><br><span class="line">    <span class="comment">// 'consistent-return': 0</span></span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure></p>
+<p>规则格式是<code>&lt;规则名称&gt;: &lt;告警级别&gt;</code>，告警级别分为三种:</p>
+<ol>
+<li>“0”表示忽略问题，等同于”off”;</li>
+<li>“1”表示给出警告，等同于”warn”;</li>
+<li>“2”表示直接报错，等同于”error”。</li>
+</ol>
+<h1 id="配置第三方规则-airbnb"><a href="#配置第三方规则-airbnb" class="headerlink" title="配置第三方规则 airbnb"></a>配置第三方规则 airbnb</h1><p>除了支持插件外，eslint还支持通过扩展来快速的引入开源的JavaScript代码规则，减少了我们选择规则的时间，例如eslint官方推荐的规则：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">extends: &apos;eslint:recommended&apos;</span><br></pre></td></tr></table></figure></p>
+<p>这里安装前端圈内很流行的 airbnb，参考：<a href="https://github.com/airbnb/javascript/tree/master/packages/eslint-config-airbnb" rel="external nofollow noopener noreferrer" target="_blank">eslint-config-airbnb</a>。</p>
+<p>前提是要先引入 airbnb 的插件。airbnb 的规则不仅包含了官方推荐的大部分规则，还加入了jsx、react和import的相关规则，能帮助我们一键完成react应用的代码规则配置。</p>
+<p>如果扩展引入的有些规则不符合所在团队的开发习惯，可在.eslintrc的rules中用自己的配置覆盖掉扩展中的默认值。</p>
+<p>引入扩展的目的是减少我们挑选规则的时间，但这些规则不一定切合团队和项目的具体情况。如果一味地让团队去遵守别人制定的规则，很可能造成对现存代码的大范围修改，反而降低了开发效率。因此，建议先依据团队现有的良好的风格挑选出最符合现有开发习惯的规则，保证已有的好习惯不被破坏的基础上，再添加一些希望在团队中推广的规则。</p>
+<h2 id="实际操作"><a href="#实际操作" class="headerlink" title="实际操作"></a>实际操作</h2><h3 id="安装依赖"><a href="#安装依赖" class="headerlink" title="安装依赖"></a>安装依赖</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">C:\workspace\react\react-full-stack-learning&gt;npx install-peerdeps --dev eslint-config-airbnb</span><br><span class="line">npx: installed 82 in 48.041s</span><br><span class="line">install-peerdeps v1.9.0</span><br><span class="line">Installing peerdeps for eslint-config-airbnb@latest.</span><br><span class="line">npm install eslint-config-airbnb@17.1.0 eslint@^5.3.0 eslint-plugin-import@^2.14.0 eslint-plugin-jsx-a11y@^6.1.1 eslint-plugin-react@^7.11.0 --save-dev</span><br></pre></td></tr></table></figure>
+<p>实际运行的时候，报错：<code>Unhandled rejection RangeError: Maximum call stack size exceededill install loadIdealTree</code>，换成 cnpm 安装会成功，可能因为其它依赖都是用 cnpm 安装的缘故吧。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cnpm install eslint-config-airbnb@17.1.0 eslint@^5.3.0 eslint-plugin-import@^2.14.0 eslint-plugin-jsx-a11y@^6.1.1 eslint-plugin-react@^7.11.0 --save-dev</span><br></pre></td></tr></table></figure></p>
+<p>或者，运行以下命令，查看依赖，然后在 package.json 文件配置好，再用命令 <code>cnpm i</code> 安装依赖。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">npm info &quot;eslint-config-airbnb@latest&quot; peerDependencies</span><br><span class="line">&#123; </span><br><span class="line">  eslint: &apos;^4.19.1 || ^5.3.0&apos;,</span><br><span class="line">  &apos;eslint-plugin-import&apos;: &apos;^2.14.0&apos;,</span><br><span class="line">  &apos;eslint-plugin-jsx-a11y&apos;: &apos;^6.1.1&apos;,</span><br><span class="line">  &apos;eslint-plugin-react&apos;: &apos;^7.11.0&apos; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="修改官方扩展为-airbnb"><a href="#修改官方扩展为-airbnb" class="headerlink" title="修改官方扩展为 airbnb"></a>修改官方扩展为 airbnb</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">extends: airbnb</span><br></pre></td></tr></table></figure>
+<h2 id="扩展阅读"><a href="#扩展阅读" class="headerlink" title="扩展阅读"></a>扩展阅读</h2><p><a href="https://github.com/JasonBoy/javascript/tree/master/react" rel="external nofollow noopener noreferrer" target="_blank">Airbnb React/JSX 编码规范</a></p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
+<li><a href="https://github.com/AlloyTeam/eslint-config-alloy/blob/master/react.js" rel="external nofollow noopener noreferrer" target="_blank">ESLint 标准规则</a></li>
+<li><a href="https://github.com/AlloyTeam/eslint-config-alloy/blob/master/index.js" rel="external nofollow noopener noreferrer" target="_blank">eslint-plugin-react 规则</a></li>
+<li><a href="http://eslint.cn/docs/user-guide/configuring" rel="external nofollow noopener noreferrer" target="_blank">Configuring ESLint</a></li>
+<li><a href="http://eslint.cn/docs/user-guide/getting-started" rel="external nofollow noopener noreferrer" target="_blank">Getting Started with ESLint</a></li>
+<li><a href="https://cn.eslint.org/docs/about/" rel="external nofollow noopener noreferrer" target="_blank">ESLint 中文网站</a></li>
+<li><a href="https://yq.aliyun.com/articles/66559" rel="external nofollow noopener noreferrer" target="_blank">eslint使用心得</a></li>
+<li><a href="https://www.cnblogs.com/Hsong/p/9023341.html" rel="external nofollow noopener noreferrer" target="_blank">eslint 常用配置</a></li>
+</ul>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-09-01T02:53:13.083Z" itemprop="dateUpdated">2020年9月1日 10:53</time>
+</span><br>
+
+
+        转载请注明出处：<a href="/react/eslintConfig.html" target="_blank" rel="external">https://www.lovesofttech.com/react/eslintConfig.html</a>
+    </div>
+    <footer>
+        <a href="https://www.lovesofttech.com">
+            <img src="/img/myLogo.jpg" alt="安迪陈">
+            安迪陈
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ESLint/">ESLint</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/react/">react</a></li></ul>
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/react/eslintConfig.html&title=《WebStorm + React 项目，配置 ESLint》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/react/eslintConfig.html&title=《WebStorm + React 项目，配置 ESLint》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=如题" data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/react/eslintConfig.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《WebStorm + React 项目，配置 ESLint》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/react/eslintConfig.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/react/eslintConfig.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/react/examplesTodomvcGetVisibleTodos.html" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">redux 官方示例 todomvc 中的 todoList 过滤事件解析</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/react/js.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">React 技术栈学习，js 知识点</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+    
+    
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="bottom">
+        <p>
+            <span>安迪陈技术日志，架构、感悟、系统分析、团队管理 &copy; 2017 - 2020</span>
+            <span>
+                Power by <a href="https://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>&nbsp;
+                Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank" rel="external nofollow noopener noreferrer">indigo</a>
+            </span>
+            <span>
+                <a href="http://www.beian.miit.gov.cn" target="_blank" rel="external nofollow noopener noreferrer">蜀ICP备17041860号</a>
+            </span>
+            
+            <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            </p><p>
+                <span>
+                    统计始于：2019-03-06
+                </span>
+                <span id="busuanzi_container_site_uv" style="display:none">
+                    访客数：<span id="busuanzi_value_site_uv"></span>
+                </span>
+                <span id="busuanzi_container_site_pv" style="display:none">
+                    访问量：<span id="busuanzi_value_site_pv"></span>
+                </span>
+            
+            
+                <span class="post-count">累计字数：309.2k</span>
+            
+                <span><a href="/general/blogLog.html"><i class="fas fa-pen-alt"></i>&nbsp;博客日志</a></span>
+            </p>
+        <p></p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light" title="回到顶部"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/react/eslintConfig.html&title=《WebStorm + React 项目，配置 ESLint》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/react/eslintConfig.html&title=《WebStorm + React 项目，配置 ESLint》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=如题" data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/react/eslintConfig.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《WebStorm + React 项目，配置 ESLint》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/react/eslintConfig.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/react/eslintConfig.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACLklEQVR42u3aQW7DMAwEwPz/0+mlt8DNLmUXsDw+FWggaxSAIUW+XvHzDp7Pz+crf77ldcWDgYFxW0ayueS/s7ccYfK9YWBgPIeRhMK/N5cEzaPQ3B4QBgYGRhIEjzaxFDTL48PAwMBIttUG3zwBxcDAwJgVsS1+tv7ltTgGBsYNGbPr+//5+5L+BgYGxq0Y7/I5NxFc38/vahgYGFszVhqQ662FokANGhIYGBhPYMyStlmwTlarh8wwMDA2ZbSXa22ymDQV1g8RAwPjmYy8KM1TvbyITcbL6rwVAwPjtoyVLKtNEFdI9aFgYGBsxMgDbrJocTW2kDgu/W5gYGDckDG71m+L3tma9TUcBgbG1owkvWsD6Kz0PYGNgYGxHSNPvJJgNwvK7RujMQsMDIyNGLPrrVmDs60920PEwMDYlXFWmdpezM2u1b4MW2BgYGzKmJWg7WjXbEZiKVhjYGBsxEhaArPwlx/ECUNmGBgYWzNWruavKFCTJsSXzgYGBsbWjPXm4mzwq93u4a4wMDAewCiSsNGV3Hpx+yW6YmBgPICRvGxl5Ovvz+dJZPG7gYGBsQXjXT7nlr5toI++BwwMjO0Ys+ZiOwTWbiX/fI3BwMC4LSMfp8ivxtpxsbx4xsDAeDKjbS62Yfqs9YeNAQwMjMczZmNkSSJYHB8GBgZG3Axok8WVYdmlgIuBgXFDRlLE5pf1bRiNNoqBgfFgxizvWhkamwXrE0prDAyM+zF+AFPnnTs+m/qyAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.5.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.5.2" async></script>
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '安迪陈技术日志';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '欢迎回来';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

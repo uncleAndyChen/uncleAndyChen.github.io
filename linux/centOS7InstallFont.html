@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<!--<script async src="//hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c"></script>-->
+<!-- 统计-->
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var host = window.location.host;
+        var hm = document.createElement("script");
+
+        if (host.indexOf('gitee.io') > 0) { // https://uncleandychen.gitee.io/
+            hm.src = "https://hm.baidu.com/hm.js?0cf4709148b070b8082191d2e456a1a3";
+        } else if (host.indexOf('lovesofttech.com') > 0) { // https://www.lovesofttech.com/
+            hm.src = "https://hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c";
+        } else {
+            hm.src = '';
+        }
+
+        if (hm.src !== '') {
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        }
+    })();
+</script>
+<!-- End Baidu Tongji -->
+
+
+
+<!-- Baidu Push -->
+<!-- 主动推送百度爬虫-->
+<script>
+    (function(){
+        if (window.location.host.indexOf('lovesofttech.com') < 0) {
+            return;
+        }
+
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+<!-- End Baidu Push -->
+
+
+    <meta charset="utf-8">
+    
+    
+    <link rel="canonical" href="https://www.lovesofttech.com/linux/centOS7InstallFont.html">
+    
+    
+    <title>CentOS7 安装中文字体 Arial | 安迪陈技术日志，架构、感悟、系统分析、团队管理 | 自强不息，厚德载物</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="CentOS,font">
+    <meta name="description" content="现象：在用 POI 志出 excel 的代码里，用到了 font，设置的字体是 Arial，在 windows 下测试没问题，但发布到 CentOS7，导出时报错。 解决：在 CentOS 服务器上安装字体即可。">
+<meta name="keywords" content="CentOS,font">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CentOS7 安装中文字体 Arial">
+<meta property="og:url" content="https://www.lovesofttech.com/linux/centOS7InstallFont.html">
+<meta property="og:site_name" content="安迪陈技术日志，架构、感悟、系统分析、团队管理">
+<meta property="og:description" content="现象：在用 POI 志出 excel 的代码里，用到了 font，设置的字体是 Arial，在 windows 下测试没问题，但发布到 CentOS7，导出时报错。 解决：在 CentOS 服务器上安装字体即可。">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2020-09-01T02:53:13.022Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CentOS7 安装中文字体 Arial">
+<meta name="twitter:description" content="现象：在用 POI 志出 excel 的代码里，用到了 font，设置的字体是 Arial，在 windows 下测试没问题，但发布到 CentOS7，导出时报错。 解决：在 CentOS 服务器上安装字体即可。">
+    
+        <link rel="alternative" href="/atom.xml" title="安迪陈技术日志，架构、感悟、系统分析、团队管理" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=201912302211">
+    <link rel="stylesheet" href="/css/header.css?v=201912302211">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu">
+  <div class="inner flex-row-vertical">
+    <!--<i class="icon icon-lg icon-close"></i>-->
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off" title="隐藏左侧导航">﹤<i class="icon icon-lg icon-navicon"></i></a>
+    <div class="brand-wrap" style="background-image:url(/img/bannerBackgroundLeft.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/myLogo.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">安迪陈</h5>
+          <a href="mailto:andy@lovesofttech.com" title="andy@lovesofttech.com" class="mail" rel="external nofollow noopener noreferrer" target="_blank">andy@lovesofttech.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articleClassify.html">
+                <i class="icon icon-th-list"></i>
+                文章分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articles.html">
+                <i class="icon icon-th-list articles"></i>
+                文章列表
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/java.html">
+                <i class="icon icon-th-list java"></i>
+                Java
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/database.html">
+                <i class="icon icon-th-list database"></i>
+                MySQL/MyBatis
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/linux.html">
+                <i class="icon icon-th-list linux"></i>
+                CentOS/linux
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/react.html">
+                <i class="icon icon-th-list React"></i>
+                React
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/lnmp.html">
+                <i class="icon icon-th-list LNMP"></i>
+                LNMP
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/git.html">
+                <i class="icon icon-th-list git"></i>
+                git
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/windows.html">
+                <i class="icon icon-th-list windows"></i>
+                windows
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/dailyLives.html">
+                <i class="icon icon-th-list dailyLives"></i>
+                工作 &amp; 生活
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-github"></i>
+                我的 github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://gitee.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link"></i>
+                我的 gitee
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://blog.csdn.net/runAndRun" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link CSDN"></i>
+                我的 CSDN
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/aboutMe.html">
+                <i class="icon icon-address-card"></i>
+                关于我
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+
+        <div class="navbar navbar-custom navbar-fixed-top">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" style="margin-left:10px;" id="menu-toggle" title="显示左侧导航"><i class="icon icon-lg icon-navicon"></i>﹥</a>
+            <ul class="nav navbar-nav navbar-right" id="navMenuTop">
+                <li>
+                    <a href="/">主页</a>
+                </li>
+                
+                    
+                        <li>
+                            <a href="/articleClassify.html" title="本博客的文章分类列表">文章分类</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/articles.html" title="本博客的所有文章列表">文章列表</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/java.html" title="Java 开发，文章目录">Java</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/database.html" title="日常开发中有关 MySQL、MyBatis 的一些经验总结">MySQL/MyBatis</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/linux.html" title="CentOS/linux，文章目录">CentOS/linux</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/react.html" title="React 技术栈（全家桶）学习心得分享，文章目录">React</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/about.html">关于</a>
+                        </li>
+                    
+                
+            </ul>
+        </div>
+
+        <div class="flex-col header-title ellipsis">CentOS7 安装中文字体 Arial</div>
+        
+        <div class="search-wrap" id="search-wrap" style="z-index: 2;">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back" style="width:33px;">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search" style="width:33px;">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare" style="z-index: 3;margin-right: 10px; width:30px;">
+                <i class="icon icon-lg icon-share-alt"></i>
+            </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h2 class="title">CentOS7 安装中文字体 Arial</h2>
+        <h5 class="subtitle">
+            
+                <time datetime="2019-08-15T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2019-08-16
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/CentOS/">CentOS</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/CentOS/font/">font</a></li></ul></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap" id="index-container">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc" style="z-index: 3;">
+            <h4><i class="fa fa-list-alt"></i>&nbsp;&nbsp;本文目录</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#报错信息"><span class="post-toc-number">1.</span> <span class="post-toc-text">报错信息</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#解决"><span class="post-toc-number">2.</span> <span class="post-toc-text">解决</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#后记"><span class="post-toc-number">3.</span> <span class="post-toc-text">后记</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#离线安装包下载"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">离线安装包下载</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+    
+
+<article id="post-linux/centOS7InstallFont" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">CentOS7 安装中文字体 Arial</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2019年08月16日 0:00" datetime="2019-08-15T16:00:00.000Z" itemprop="datePublished">2019-08-16</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/CentOS/">CentOS</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/CentOS/font/">font</a></li></ul></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" style="display:none">
+    阅读量：<span id="busuanzi_value_page_pv"></span>次
+</span>
+
+
+    <span>|</span>
+    <span class="post-count">字数：685</span>
+    <span>|</span>
+    <span class="post-count">阅读时长：大约3分钟</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <ul>
+<li>现象：在用 POI 志出 excel 的代码里，用到了 font，设置的字体是 Arial，在 windows 下测试没问题，但发布到 CentOS7，导出时报错。</li>
+<li>解决：在 CentOS 服务器上安装字体即可。</li>
+</ul>
+<a id="more"></a>
+<h1 id="报错信息"><a href="#报错信息" class="headerlink" title="报错信息"></a>报错信息</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">java.lang.InternalError: java.lang.reflect.InvocationTargetException</span><br><span class="line">        at sun.font.FontManagerFactory$1.run(FontManagerFactory.java:86) ~[?:?]</span><br><span class="line">        at java.security.AccessController.doPrivileged(Native Method) ~[?:?]</span><br><span class="line">        at sun.font.FontManagerFactory.getInstance(FontManagerFactory.java:74) ~[?:?]</span><br><span class="line">        at java.awt.Font.getFont2D(Font.java:497) ~[?:?]</span><br><span class="line">        at java.awt.Font.canDisplayUpTo(Font.java:2246) ~[?:?]</span><br><span class="line">        at java.awt.font.TextLayout.singleFont(TextLayout.java:469) ~[?:?]</span><br><span class="line">        at java.awt.font.TextLayout.&lt;init&gt;(TextLayout.java:530) ~[?:?]</span><br><span class="line">        at org.apache.poi.ss.util.SheetUtil.getDefaultCharWidth(SheetUtil.java:273) ~[poi-4.1.0.jar:4.1.0]</span><br><span class="line">        at org.apache.poi.ss.util.SheetUtil.getColumnWidth(SheetUtil.java:248) ~[poi-4.1.0.jar:4.1.0]</span><br><span class="line">        at org.apache.poi.ss.util.SheetUtil.getColumnWidth(SheetUtil.java:233) ~[poi-4.1.0.jar:4.1.0]</span><br><span class="line">        at org.apache.poi.hssf.usermodel.HSSFSheet.autoSizeColumn(HSSFSheet.java:2215) ~[poi-4.1.0.jar:4.1.0]</span><br><span class="line">        at org.apache.poi.hssf.usermodel.HSSFSheet.autoSizeColumn(HSSFSheet.java:2197) ~[poi-4.1.0.jar:4.1.0]</span><br><span class="line">        at mis.api.common.excel.ExcelExportUtils.fillSheet(ExcelExportUtils.java:200) ~[mis-api-common-excel-1.0.0.jar:?]</span><br></pre></td></tr></table></figure>
+<p>报错的代码是：<code>sheet.autoSizeColumn(i);</code></p>
+<p>设置字体的方法是：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> HSSFCellStyle <span class="title">getStyleHeader</span><span class="params">(HSSFWorkbook wb)</span> </span>&#123;</span><br><span class="line">    HSSFCellStyle style = wb.createCellStyle();</span><br><span class="line">    HSSFFont font = wb.createFont();</span><br><span class="line">    font.setFontName(HSSFFont.FONT_ARIAL);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//将字体颜色设为白色</span></span><br><span class="line">    font.setColor(IndexedColors.WHITE.index);</span><br><span class="line">    font.setFontHeight((<span class="keyword">short</span>)<span class="number">220</span>);</span><br><span class="line">    font.setBold(<span class="keyword">true</span>);</span><br><span class="line"></span><br><span class="line">    style.setFont(font);</span><br><span class="line">    style.setAlignment(HorizontalAlignment.CENTER);</span><br><span class="line">    style.setVerticalAlignment(VerticalAlignment.CENTER);</span><br><span class="line">    <span class="comment">//style.setWrapText(true);//设置自动换行</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 背景色</span></span><br><span class="line">    style.setFillPattern(FillPatternType.SOLID_FOREGROUND);</span><br><span class="line">    style.setFillForegroundColor(IndexedColors.GREY_80_PERCENT.index);</span><br><span class="line">    <span class="comment">//style.setFillBackgroundColor(IndexedColors.YELLOW.index);</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 设置边框</span></span><br><span class="line">    setStyleBorder(style);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> style;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h1 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h1><ul>
+<li><p>需要先安装 fontconfig</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y install fontconfig</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>接着操作：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /usr/share/fonts/arial</span><br><span class="line">cd /usr/share/fonts/arial </span><br><span class="line"># 上传字体文件，字体文件在 C:\Windows\Fonts\Arial 目录下，将所有文件上传至 /usr/share/fonts/arial</span><br><span class="line">chmod -R 755 /usr/share/fonts/arial # 能省吗？配置新服务器时留意。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>为刚加入的字体设置缓存使之有效</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cd /usr/share/font/arial</span><br><span class="line">mkfontscale</span><br><span class="line">mkfontdir</span><br><span class="line">fc-cache -fv</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>重启 tomcat，再导出，就 ok 了。</p>
+<blockquote>
+<p>不重启，不知道是否也可以。配置新服务器时留意。</p>
+</blockquote>
+</li>
+</ul>
+<h1 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h1><p>曾尝试在一台不能上外网的服务器上离线安装相关依赖，但最终失败。</p>
+<p>把相关依赖都下载了之后，最终的安装顺序如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">rpm -ivh fontpackages-filesystem-1.44-8.el7.noarch.rpm</span><br><span class="line">rpm -ivh dejavu-fonts-common-2.33-6.el7.noarch.rpm</span><br><span class="line">rpm -ivh dejavu-sans-fonts-2.33-6.el7.noarch.rpm</span><br><span class="line">rpm -ivh fontconfig-2.13.0-4.3.el7.x86_64.rpm</span><br></pre></td></tr></table></figure></p>
+<p>在执行 mkfontscale 命令时，提示无此命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# mkfontscale</span><br><span class="line">mkfontscale: error while loading shared libraries: libfontenc.so.1: cannot open shared object file: No such file or directory</span><br><span class="line">[root@localhost ~]#</span><br></pre></td></tr></table></figure></p>
+<p>用以下命令查找，发现找不到。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find / -name mkfontscale</span><br></pre></td></tr></table></figure></p>
+<p>于是在 yum 安装成功的电脑上把文件 copy 到相应位置，执行时，又报依赖问题，所以，离线安装失败。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# mkfontscale</span><br><span class="line">mkfontscale: error while loading shared libraries: libfontenc.so.1: cannot open shared object file: No such file or directory</span><br></pre></td></tr></table></figure></p>
+<h2 id="离线安装包下载"><a href="#离线安装包下载" class="headerlink" title="离线安装包下载"></a>离线安装包下载</h2><p><a href="http://rpmfind.net/" rel="external nofollow noopener noreferrer" target="_blank">rpm 包下载网站 -&gt; rpmfind</a></p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-09-01T02:53:13.022Z" itemprop="dateUpdated">2020年9月1日 10:53</time>
+</span><br>
+
+
+        转载请注明出处：<a href="/linux/centOS7InstallFont.html" target="_blank" rel="external">https://www.lovesofttech.com/linux/centOS7InstallFont.html</a>
+    </div>
+    <footer>
+        <a href="https://www.lovesofttech.com">
+            <img src="/img/myLogo.jpg" alt="安迪陈">
+            安迪陈
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CentOS/">CentOS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/font/">font</a></li></ul>
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/linux/centOS7InstallFont.html&title=《CentOS7 安装中文字体 Arial》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/linux/centOS7InstallFont.html&title=《CentOS7 安装中文字体 Arial》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=
+现象：在用 POI 志出 excel 的代码里，用到了 font，设置的字体是 Arial，在 windows 下测试没问题，但发布到 CentOS7，..." data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/linux/centOS7InstallFont.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《CentOS7 安装中文字体 Arial》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/linux/centOS7InstallFont.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/linux/centOS7InstallFont.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/frontend/experience.html" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">前端开发--好记性不如“烂文档”</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/windows/batchRenameFile.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">批处理文件遍历所有子目录批量移除文件名和目录名中特殊字符</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+    
+    
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="bottom">
+        <p>
+            <span>安迪陈技术日志，架构、感悟、系统分析、团队管理 &copy; 2017 - 2020</span>
+            <span>
+                Power by <a href="https://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>&nbsp;
+                Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank" rel="external nofollow noopener noreferrer">indigo</a>
+            </span>
+            <span>
+                <a href="http://www.beian.miit.gov.cn" target="_blank" rel="external nofollow noopener noreferrer">蜀ICP备17041860号</a>
+            </span>
+            
+            <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            </p><p>
+                <span>
+                    统计始于：2019-03-06
+                </span>
+                <span id="busuanzi_container_site_uv" style="display:none">
+                    访客数：<span id="busuanzi_value_site_uv"></span>
+                </span>
+                <span id="busuanzi_container_site_pv" style="display:none">
+                    访问量：<span id="busuanzi_value_site_pv"></span>
+                </span>
+            
+            
+                <span class="post-count">累计字数：309.2k</span>
+            
+                <span><a href="/general/blogLog.html"><i class="fas fa-pen-alt"></i>&nbsp;博客日志</a></span>
+            </p>
+        <p></p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light" title="回到顶部"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/linux/centOS7InstallFont.html&title=《CentOS7 安装中文字体 Arial》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/linux/centOS7InstallFont.html&title=《CentOS7 安装中文字体 Arial》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=
+现象：在用 POI 志出 excel 的代码里，用到了 font，设置的字体是 Arial，在 windows 下测试没问题，但发布到 CentOS7，..." data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/linux/centOS7InstallFont.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《CentOS7 安装中文字体 Arial》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/linux/centOS7InstallFont.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/linux/centOS7InstallFont.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACKklEQVR42u3aQW6EMAwF0Ln/panU7Qj4dmZGwnmsKloILwvXjv16xdfxf73fSe6//83Zm8/e+bELAwPjsYzj8jpbrPcp1WeTb8PAwNiH0QuFCT5/Ntmy0/sYGBgYQXpXXX4lrcTAwMDoJW35ByUJIgYGBkaviL2+n6R91xv0o1ocAwPjgYxqY+CXP3+xv4GBgfEQxlG8knCZtwfyd958FQYGxmhGUlLm93vFZ14q34RjDAyMjRlV5EqpmRS95ck1DAyMEYw8tPVGx3rtgXzTMTAwZjOSsFg99M+Db77uTdmMgYExmtFLEHuNxmrimLc/MTAw9mGsjD70lk9SzN7xHwYGxiRGoUG4XCt/r52JgYExm1EtJqvL9wYveukpBgbGbMZK2penkvkRXm8TMTAwZjOqhetKUzNvkVbBGBgYUxl5oOwF1l5ToTy+hoGBsQEjXzgPrD1MMw3FwMAYzVg5PktCbT7y9bEWBQYGxgaM6wI1GeHqBeI8Zbz5HgwMjHGMlXI0OXSrpoPJNhX+V2BgYAxi9I7p8yJzvcF581sMDIzRjF4o7DUs82er62JgYMxmHMWrcEDfyt964x0YGBizGStH+fkhXVL65mthYGDsyaiOU/RaktVhr/KzGBgYGzCqg1x5Y6Ac3YubhYGBgZGPTawUrnlj9ebUEAMDA6M3DBEnoL3UEwMDYx/G+lDXyjFcsmWFTiwGBsY4xgcKyOJ78rSvOsyBgYExjvEHvQTRP78FLwUAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.5.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.5.2" async></script>
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '安迪陈技术日志';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '欢迎回来';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

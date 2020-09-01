@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<!--<script async src="//hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c"></script>-->
+<!-- 统计-->
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var host = window.location.host;
+        var hm = document.createElement("script");
+
+        if (host.indexOf('gitee.io') > 0) { // https://uncleandychen.gitee.io/
+            hm.src = "https://hm.baidu.com/hm.js?0cf4709148b070b8082191d2e456a1a3";
+        } else if (host.indexOf('lovesofttech.com') > 0) { // https://www.lovesofttech.com/
+            hm.src = "https://hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c";
+        } else {
+            hm.src = '';
+        }
+
+        if (hm.src !== '') {
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        }
+    })();
+</script>
+<!-- End Baidu Tongji -->
+
+
+
+<!-- Baidu Push -->
+<!-- 主动推送百度爬虫-->
+<script>
+    (function(){
+        if (window.location.host.indexOf('lovesofttech.com') < 0) {
+            return;
+        }
+
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+<!-- End Baidu Push -->
+
+
+    <meta charset="utf-8">
+    
+    
+    <link rel="canonical" href="https://www.lovesofttech.com/java/codeSpecificationAdditional.html">
+    
+    
+    <title>java 开发，适用于团队的代码规范及某些约定 | 安迪陈技术日志，架构、感悟、系统分析、团队管理 | 自强不息，厚德载物</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="java,team,代码规约">
+    <meta name="description" content="包含 api 开发原则、代码风格、mapper 扩展等。">
+<meta name="keywords" content="java,team,代码规约">
+<meta property="og:type" content="article">
+<meta property="og:title" content="java 开发，适用于团队的代码规范及某些约定">
+<meta property="og:url" content="https://www.lovesofttech.com/java/codeSpecificationAdditional.html">
+<meta property="og:site_name" content="安迪陈技术日志，架构、感悟、系统分析、团队管理">
+<meta property="og:description" content="包含 api 开发原则、代码风格、mapper 扩展等。">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2020-09-01T02:53:12.974Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="java 开发，适用于团队的代码规范及某些约定">
+<meta name="twitter:description" content="包含 api 开发原则、代码风格、mapper 扩展等。">
+    
+        <link rel="alternative" href="/atom.xml" title="安迪陈技术日志，架构、感悟、系统分析、团队管理" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=201912302211">
+    <link rel="stylesheet" href="/css/header.css?v=201912302211">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu">
+  <div class="inner flex-row-vertical">
+    <!--<i class="icon icon-lg icon-close"></i>-->
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off" title="隐藏左侧导航">﹤<i class="icon icon-lg icon-navicon"></i></a>
+    <div class="brand-wrap" style="background-image:url(/img/bannerBackgroundLeft.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/myLogo.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">安迪陈</h5>
+          <a href="mailto:andy@lovesofttech.com" title="andy@lovesofttech.com" class="mail" rel="external nofollow noopener noreferrer" target="_blank">andy@lovesofttech.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articleClassify.html">
+                <i class="icon icon-th-list"></i>
+                文章分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articles.html">
+                <i class="icon icon-th-list articles"></i>
+                文章列表
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/java.html">
+                <i class="icon icon-th-list java"></i>
+                Java
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/database.html">
+                <i class="icon icon-th-list database"></i>
+                MySQL/MyBatis
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/linux.html">
+                <i class="icon icon-th-list linux"></i>
+                CentOS/linux
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/react.html">
+                <i class="icon icon-th-list React"></i>
+                React
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/lnmp.html">
+                <i class="icon icon-th-list LNMP"></i>
+                LNMP
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/git.html">
+                <i class="icon icon-th-list git"></i>
+                git
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/windows.html">
+                <i class="icon icon-th-list windows"></i>
+                windows
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/dailyLives.html">
+                <i class="icon icon-th-list dailyLives"></i>
+                工作 &amp; 生活
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-github"></i>
+                我的 github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://gitee.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link"></i>
+                我的 gitee
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://blog.csdn.net/runAndRun" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link CSDN"></i>
+                我的 CSDN
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/aboutMe.html">
+                <i class="icon icon-address-card"></i>
+                关于我
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+
+        <div class="navbar navbar-custom navbar-fixed-top">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" style="margin-left:10px;" id="menu-toggle" title="显示左侧导航"><i class="icon icon-lg icon-navicon"></i>﹥</a>
+            <ul class="nav navbar-nav navbar-right" id="navMenuTop">
+                <li>
+                    <a href="/">主页</a>
+                </li>
+                
+                    
+                        <li>
+                            <a href="/articleClassify.html" title="本博客的文章分类列表">文章分类</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/articles.html" title="本博客的所有文章列表">文章列表</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/java.html" title="Java 开发，文章目录">Java</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/database.html" title="日常开发中有关 MySQL、MyBatis 的一些经验总结">MySQL/MyBatis</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/linux.html" title="CentOS/linux，文章目录">CentOS/linux</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/react.html" title="React 技术栈（全家桶）学习心得分享，文章目录">React</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/about.html">关于</a>
+                        </li>
+                    
+                
+            </ul>
+        </div>
+
+        <div class="flex-col header-title ellipsis">java 开发，适用于团队的代码规范及某些约定</div>
+        
+        <div class="search-wrap" id="search-wrap" style="z-index: 2;">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back" style="width:33px;">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search" style="width:33px;">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare" style="z-index: 3;margin-right: 10px; width:30px;">
+                <i class="icon icon-lg icon-share-alt"></i>
+            </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h2 class="title">java 开发，适用于团队的代码规范及某些约定</h2>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-05-21T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2018-05-22
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/java/">java</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/java/team/">team</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/java/team/代码规约/">代码规约</a></li></ul></li></ul></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap" id="index-container">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc" style="z-index: 3;">
+            <h4><i class="fa fa-list-alt"></i>&nbsp;&nbsp;本文目录</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#api-开发总则"><span class="post-toc-number">1.</span> <span class="post-toc-text">api 开发总则</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#扩展阅读：面各对象设计的七大原则："><span class="post-toc-number">1.1.</span> <span class="post-toc-text">扩展阅读：面各对象设计的七大原则：</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#修改代码规范"><span class="post-toc-number">2.</span> <span class="post-toc-text">修改代码规范</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#代码风格，最基本的原则"><span class="post-toc-number">3.</span> <span class="post-toc-text">代码风格，最基本的原则</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#悟出的命名规则"><span class="post-toc-number">4.</span> <span class="post-toc-text">悟出的命名规则</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#枚举定义注意事项"><span class="post-toc-number">5.</span> <span class="post-toc-text">枚举定义注意事项</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#字段与枚举"><span class="post-toc-number">6.</span> <span class="post-toc-text">字段与枚举</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#mapper-扩展"><span class="post-toc-number">7.</span> <span class="post-toc-text">mapper 扩展</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#MyBatis-sql-脚本"><span class="post-toc-number">8.</span> <span class="post-toc-text">MyBatis sql 脚本</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#表结构修改流程"><span class="post-toc-number">9.</span> <span class="post-toc-text">表结构修改流程</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#针对某字段的枚举命名规范"><span class="post-toc-number">10.</span> <span class="post-toc-text">针对某字段的枚举命名规范</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#js-代码提交"><span class="post-toc-number">10.1.</span> <span class="post-toc-text">js 代码提交</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#新加配置项"><span class="post-toc-number">11.</span> <span class="post-toc-text">新加配置项</span></a></li></ol>
+        </nav>
+    </aside>
+    
+
+<article id="post-java/codeSpecificationAdditional" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">java 开发，适用于团队的代码规范及某些约定</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018年05月22日 0:00" datetime="2018-05-21T16:00:00.000Z" itemprop="datePublished">2018-05-22</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/java/">java</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/java/team/">team</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/java/team/代码规约/">代码规约</a></li></ul></li></ul></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" style="display:none">
+    阅读量：<span id="busuanzi_value_page_pv"></span>次
+</span>
+
+
+    <span>|</span>
+    <span class="post-count">字数：1.5k</span>
+    <span>|</span>
+    <span class="post-count">阅读时长：大约6分钟</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>包含 api 开发原则、代码风格、mapper 扩展等。<br><a id="more"></a></p>
+<h1 id="api-开发总则"><a href="#api-开发总则" class="headerlink" title="api 开发总则"></a>api 开发总则</h1><ol>
+<li>遵循单一职责原则，一个类只做一件（类）事。</li>
+<li>数据库表与业务类是 1:N 的关系。</li>
+<li>简单业务表建议只有一个业务类，复杂业务表，建议有多个业务类。</li>
+</ol>
+<h2 id="扩展阅读：面各对象设计的七大原则："><a href="#扩展阅读：面各对象设计的七大原则：" class="headerlink" title="扩展阅读：面各对象设计的七大原则："></a>扩展阅读：面各对象设计的七大原则：</h2><p><a href="https://www.cnblogs.com/snowbook/p/5163980.html" rel="external nofollow noopener noreferrer" target="_blank">面向对象设计的七大原则</a></p>
+<ol>
+<li>单一职责原则(Single Responsibility Principle, SRP)</li>
+<li>开闭原则(Open-Closed Principle, OCP)</li>
+<li>里氏代换原则(Liskov Substitution Principle, LSP)</li>
+<li>依赖倒转原则(Dependence  Inversion Principle, DIP)</li>
+<li>接口隔离原则(Interface Segregation Principle, ISP)</li>
+<li>合成复用原则(Composite Reuse Principle, CRP)</li>
+<li>迪米特法则(Law of Demeter, LoD)</li>
+</ol>
+<h1 id="修改代码规范"><a href="#修改代码规范" class="headerlink" title="修改代码规范"></a>修改代码规范</h1><ol>
+<li>不要影响以前代码的行为，不小心会带来新 bug。</li>
+<li>随着新需求的引进，以前的代码可能已经不适用，要适当的重构。</li>
+<li>不确定的，要及时与项目负责人沟通。</li>
+<li>涉及到公共模板的修改，一般需要与项目负责人沟通之后才能修改，至少要让项目负责人知晓这件事。</li>
+</ol>
+<h1 id="代码风格，最基本的原则"><a href="#代码风格，最基本的原则" class="headerlink" title="代码风格，最基本的原则"></a>代码风格，最基本的原则</h1><ol>
+<li>与现在代码保持一致。</li>
+<li>见名知义。</li>
+<li>代码自解释。</li>
+<li>对于不符合代码规约的，要在适当的时机重构。</li>
+<li>为了代码的可读性和可维护性，牺牲实现功能的速度、牺牲运行性能也是有必要的，如果项目上线在即，可优先满足项目进度，但一定要及时重构。</li>
+</ol>
+<h1 id="悟出的命名规则"><a href="#悟出的命名规则" class="headerlink" title="悟出的命名规则"></a>悟出的命名规则</h1><ol>
+<li><code>biz.dal.service</code> 下的类，一定是表名（首字母大写）+ DalService</li>
+<li><code>biz.dal.mapper.extend</code> 下的类，一定是表名（首字母大写）+ MapperExt</li>
+<li><code>biz\dal\mapper\xml\extend</code> 下的 xml 文件名，一定跟 <code>biz.dal.mapper.extend</code> 下对应的 mapper 命名保持一致。</li>
+<li><code>biz.service</code> 下的类，一定是表名（首字母大写） + Service</li>
+<li><code>biz.model.view</code> 下的类，一定是以 View 结尾，前面部分根据业务来命名，以见名知义为准。<br>其余类似。</li>
+</ol>
+<h1 id="枚举定义注意事项"><a href="#枚举定义注意事项" class="headerlink" title="枚举定义注意事项"></a>枚举定义注意事项</h1><p>项目习惯定义，枚举包含 index 和 name 两个属性。</p>
+<ol>
+<li>index 是不能重复的。</li>
+<li>index 一般的步进值为10，这样，方便在需要的时候往中间插入新枚举。</li>
+<li>name 一般为中文，可以表述枚举项的含义和作用。</li>
+<li>枚举的 index 由前往后递增。</li>
+</ol>
+<h1 id="字段与枚举"><a href="#字段与枚举" class="headerlink" title="字段与枚举"></a>字段与枚举</h1><p>带 flag 的字段，枚举用 YesOrNoEnum<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 成功 Or 失败</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> YesOrNoEnum &#123;</span><br><span class="line">    no(<span class="number">0</span>, <span class="string">"否"</span>),</span><br><span class="line">    yes(<span class="number">1</span>, <span class="string">"是"</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> index;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line"></span><br><span class="line">    YesOrNoEnum(<span class="keyword">int</span> index, String name) &#123;</span><br><span class="line">        <span class="keyword">this</span>.index = index;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getIndex</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> index;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setIndex</span><span class="params">(<span class="keyword">int</span> index)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.index = index;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> YesOrNoEnum <span class="title">getEnumByIndex</span><span class="params">(<span class="keyword">int</span> index)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (YesOrNoEnum result : YesOrNoEnum.values()) &#123;</span><br><span class="line">            <span class="keyword">if</span> (index == result.index) &#123;</span><br><span class="line">                <span class="keyword">return</span> result;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> YesOrNoEnum <span class="title">getEnumByName</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (YesOrNoEnum result : YesOrNoEnum.values()) &#123;</span><br><span class="line">            <span class="keyword">if</span> (result.getName().equals(name)) &#123;</span><br><span class="line">                <span class="keyword">return</span> result;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">getNameByIndex</span><span class="params">(<span class="keyword">int</span> index)</span> </span>&#123;</span><br><span class="line">        YesOrNoEnum enumItem = YesOrNoEnum.getEnumByIndex(index);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (enumItem != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> enumItem.getName();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="string">""</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h1 id="mapper-扩展"><a href="#mapper-扩展" class="headerlink" title="mapper 扩展"></a>mapper 扩展</h1><p><a href="https://github.com/uncleAndyChen/mybatis-generator" rel="external nofollow noopener noreferrer" target="_blank">MGG 项目在 github 上的地址</a>，有详细说明。<br>详细说明在本博客有副本：<a href="/mybatis/MBGExtend">MyBatis Generator（MBG），写扩展类，以适应 MySQL 大小写敏感配置的各种情况、适应分表时动态替换表名</a></p>
+<ol>
+<li>用 MBG 生成的代码对应目录下的文件，禁止修改，因为 MBG 更新之后，会把修改的代码覆盖掉。</li>
+<li>如何添加自定义的扩展 mapper 方法？参见下面两个目录下的文件，一个为 mapper 扩展，一个为对应的 xml 文件。<ul>
+<li>biz.dal\src\main\java\biz\dal\mapper\extend</li>
+<li>biz.dal\src\main\java\biz\dal\mapper\xml\extend</li>
+</ul>
+</li>
+<li>需要注意 MBG 版本，有针对 5.x 和的 8.x的。</li>
+</ol>
+<h1 id="MyBatis-sql-脚本"><a href="#MyBatis-sql-脚本" class="headerlink" title="MyBatis sql 脚本"></a>MyBatis sql 脚本</h1><p>sql 脚本里用到的表名，一定要用键盘横排【1 和 ！】键盘左边键的“单引号”引起来，用的是【`】，而不是平常用的真正的单引号【’】。<br>目的：分表用。</p>
+<h1 id="表结构修改流程"><a href="#表结构修改流程" class="headerlink" title="表结构修改流程"></a>表结构修改流程</h1><ol>
+<li>修改 PowerDesigner 文档，同时将修改同步至目录 C:\workspace\source\doc\sqlScripts 下对应的文件。</li>
+<li>sql 脚本提交之后，通过执行修改后的表脚本，将修改同步至数据库。</li>
+<li>用 MBG 工具重新生成 mapper 相关文件，提交更新。</li>
+<li><em>提交更新时，在备注里写上需要执行的表脚本。</em></li>
+<li>在项目管理工具对应的任务或者 bug 修改状态为【完成】时，直接提供需要执行的脚本，或者指定需要执行的文件。<blockquote>
+<p>一定要注意，PowerDesigner 与 C:\workspace\source\doc\sqlScripts 下对应的脚本文件，还有数据库，三者一定是一致的。</p>
+</blockquote>
+</li>
+</ol>
+<h1 id="针对某字段的枚举命名规范"><a href="#针对某字段的枚举命名规范" class="headerlink" title="针对某字段的枚举命名规范"></a>针对某字段的枚举命名规范</h1><ol>
+<li>总则：见名知义、类命名规范。</li>
+<li>如果字段名已经能够做到见名知义，则字段名首字母大写之后，直接在其后添加 Enum。</li>
+<li>如果字段名在多张表出现（当然，要尽量避免这种情况，可以适当添加前缀来避免），或者字段名不具备见名知义的特点，则可以是：表名+字段名 + enum，如果表名太长，可以酌情适当修改。</li>
+</ol>
+<h2 id="js-代码提交"><a href="#js-代码提交" class="headerlink" title="js 代码提交"></a>js 代码提交</h2><ol>
+<li>如果有影响页面的 js 代码提交，需要在 html 文件引用的地方，修改 v 的值，最好修改成当前时间，如：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;/static/wx/css/style.css&quot; th:href=&quot;@&#123;/wx/css/style.css&#125; + &apos;?v=201803011459&apos;&quot;/&gt;</span><br><span class="line">&lt;script src=&quot;/static/public/js/apg.common.js&quot; th:src=&quot;@&#123;/public/js/apg.common.js&#125; + &apos;?v=201803030932&apos;&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;script type=&quot;text/javascript&quot; src=&quot;/static/wx/js/cashDesk.js&quot; th:src=&quot;@&#123;/wx/js/cashDesk.js&#125; + &apos;?v=201803011459&apos;&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;script type=&quot;text/javascript&quot; src=&quot;/static/wx/js/wxPay.js&quot; th:src=&quot;@&#123;/wx/js/wxPay.js&#125; + &apos;?v=201803011459&apos;&quot;&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<blockquote>
+<p>本条规范适用于非react项目</p>
+</blockquote>
+<h1 id="新加配置项"><a href="#新加配置项" class="headerlink" title="新加配置项"></a>新加配置项</h1><p>放 newly 后面。目的：部署的时候，将 newly 后面的全部添加到线上，然后再将 newly 移至最后。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># newly</span><br></pre></td></tr></table></figure></p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-09-01T02:53:12.974Z" itemprop="dateUpdated">2020年9月1日 10:53</time>
+</span><br>
+
+
+        转载请注明出处：<a href="/java/codeSpecificationAdditional.html" target="_blank" rel="external">https://www.lovesofttech.com/java/codeSpecificationAdditional.html</a>
+    </div>
+    <footer>
+        <a href="https://www.lovesofttech.com">
+            <img src="/img/myLogo.jpg" alt="安迪陈">
+            安迪陈
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/team/">team</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/代码规约/">代码规约</a></li></ul>
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/java/codeSpecificationAdditional.html&title=《java 开发，适用于团队的代码规范及某些约定》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/java/codeSpecificationAdditional.html&title=《java 开发，适用于团队的代码规范及某些约定》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=包含 api 开发原则、代码风格、mapper 扩展等。" data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/java/codeSpecificationAdditional.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《java 开发，适用于团队的代码规范及某些约定》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/java/codeSpecificationAdditional.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/java/codeSpecificationAdditional.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/git/githubUpdateProjectLanguage.html" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">修改 github 项目的程序语言</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/java/springBootIntegrationUEditor.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">springBoot 集成百度富文本框 UEditor，多模块方式</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+    
+    
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="bottom">
+        <p>
+            <span>安迪陈技术日志，架构、感悟、系统分析、团队管理 &copy; 2017 - 2020</span>
+            <span>
+                Power by <a href="https://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>&nbsp;
+                Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank" rel="external nofollow noopener noreferrer">indigo</a>
+            </span>
+            <span>
+                <a href="http://www.beian.miit.gov.cn" target="_blank" rel="external nofollow noopener noreferrer">蜀ICP备17041860号</a>
+            </span>
+            
+            <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            </p><p>
+                <span>
+                    统计始于：2019-03-06
+                </span>
+                <span id="busuanzi_container_site_uv" style="display:none">
+                    访客数：<span id="busuanzi_value_site_uv"></span>
+                </span>
+                <span id="busuanzi_container_site_pv" style="display:none">
+                    访问量：<span id="busuanzi_value_site_pv"></span>
+                </span>
+            
+            
+                <span class="post-count">累计字数：309.2k</span>
+            
+                <span><a href="/general/blogLog.html"><i class="fas fa-pen-alt"></i>&nbsp;博客日志</a></span>
+            </p>
+        <p></p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light" title="回到顶部"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/java/codeSpecificationAdditional.html&title=《java 开发，适用于团队的代码规范及某些约定》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/java/codeSpecificationAdditional.html&title=《java 开发，适用于团队的代码规范及某些约定》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=包含 api 开发原则、代码风格、mapper 扩展等。" data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/java/codeSpecificationAdditional.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《java 开发，适用于团队的代码规范及某些约定》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/java/codeSpecificationAdditional.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/java/codeSpecificationAdditional.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACt0lEQVR42u3aQW7DMAwEwPz/0ynQUwrU8ZIU2xxGp8CIHY0KmOpSj0c8nt/j9fPrlavrV5+v7rr6zvsnHBh4eHh4ralfjWTq79k5tbpY7+eMh4eHt83Li0Fvcsn1/HeTOePh4eF9Ai8vCUmBSV7rvQ06Hh4e3mfyqlvwSaiBh4eH95m8ZLqTQDZZoN7yHcta8PDw8GJerwH2v5/X+3t4eHh4ra569aU86dr35nPzfDw8PLwFXq/JlB8mmIQOp1pueHh4eGd5+aN74UIOywF5Qw4PDw9vgzfJMCbBbu+gQHVTjoeHh/c3vPdfrRaA6jKVjwVUCwMeHh7eIV4O67FvspA8NYmPKUR1DA8PD6/Fm4Sw+c9UF66Hv+zv4eHh4R3lJX2ifGvbCxSqIW+1LYeHh4e3x8tftc1GVFwwqge8bsoJHh4e3gKvt3XuNasmYUe1ROHh4eFt8PJJzEPYXlTRO4jwI2vBw8PDW+Dlm+NeIFs4IHUowMXDw8Pb41UBk8MH+XZ5Hivj4eHh7fGSIDVpbiVXek2sfJP9yxU8PDy8BV71dT+ZdB4H522zSWiCh4eH1+PlLflnMKrLkQOqeDw8PLw9XjUerVKrxw6qAXEUguDh4eEt8Kqjehyqt3yT7T4eHh7eNi9p7ecNrSQUzltZk0KFh4eHt8Gbb44nsUK1zOQHv/Dw8PD+ktdrOE1e+tViU4iG8fDw8BZ4eZNpEi7kd83zkpu78PDw8Ma8Z3HkkUG+NHn8sRJG4OHh4bVi3Ek9OXVsK1+aXtyMh4eHd5aX/3A1UKhu3KsFIPoz4OHh4a3xqm2qU9vf/JnNAoaHh4f3r7zqRKtFJd9S5+EyHh4e3ufwkibWZMmqbbPL63h4eHhrvF4YkWy784XotbhuohA8PDy8BV7vn/w8Pshjhd7iljF4eHh4fd4XuxZK316AwzUAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.5.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.5.2" async></script>
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '安迪陈技术日志';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '欢迎回来';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

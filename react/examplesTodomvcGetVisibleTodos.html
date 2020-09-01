@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<!--<script async src="//hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c"></script>-->
+<!-- 统计-->
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var host = window.location.host;
+        var hm = document.createElement("script");
+
+        if (host.indexOf('gitee.io') > 0) { // https://uncleandychen.gitee.io/
+            hm.src = "https://hm.baidu.com/hm.js?0cf4709148b070b8082191d2e456a1a3";
+        } else if (host.indexOf('lovesofttech.com') > 0) { // https://www.lovesofttech.com/
+            hm.src = "https://hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c";
+        } else {
+            hm.src = '';
+        }
+
+        if (hm.src !== '') {
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        }
+    })();
+</script>
+<!-- End Baidu Tongji -->
+
+
+
+<!-- Baidu Push -->
+<!-- 主动推送百度爬虫-->
+<script>
+    (function(){
+        if (window.location.host.indexOf('lovesofttech.com') < 0) {
+            return;
+        }
+
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+<!-- End Baidu Push -->
+
+
+    <meta charset="utf-8">
+    
+    
+    <link rel="canonical" href="https://www.lovesofttech.com/react/examplesTodomvcGetVisibleTodos.html">
+    
+    
+    <title>redux 官方示例 todomvc 中的 todoList 过滤事件解析 | 安迪陈技术日志，架构、感悟、系统分析、团队管理 | 自强不息，厚德载物</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="react,redux">
+    <meta name="description" content="如题">
+<meta name="keywords" content="react,redux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="redux 官方示例 todomvc 中的 todoList 过滤事件解析">
+<meta property="og:url" content="https://www.lovesofttech.com/react/examplesTodomvcGetVisibleTodos.html">
+<meta property="og:site_name" content="安迪陈技术日志，架构、感悟、系统分析、团队管理">
+<meta property="og:description" content="如题">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2020-09-01T02:53:13.085Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="redux 官方示例 todomvc 中的 todoList 过滤事件解析">
+<meta name="twitter:description" content="如题">
+    
+        <link rel="alternative" href="/atom.xml" title="安迪陈技术日志，架构、感悟、系统分析、团队管理" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=201912302211">
+    <link rel="stylesheet" href="/css/header.css?v=201912302211">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu">
+  <div class="inner flex-row-vertical">
+    <!--<i class="icon icon-lg icon-close"></i>-->
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off" title="隐藏左侧导航">﹤<i class="icon icon-lg icon-navicon"></i></a>
+    <div class="brand-wrap" style="background-image:url(/img/bannerBackgroundLeft.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/myLogo.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">安迪陈</h5>
+          <a href="mailto:andy@lovesofttech.com" title="andy@lovesofttech.com" class="mail" rel="external nofollow noopener noreferrer" target="_blank">andy@lovesofttech.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articleClassify.html">
+                <i class="icon icon-th-list"></i>
+                文章分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articles.html">
+                <i class="icon icon-th-list articles"></i>
+                文章列表
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/java.html">
+                <i class="icon icon-th-list java"></i>
+                Java
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/database.html">
+                <i class="icon icon-th-list database"></i>
+                MySQL/MyBatis
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/linux.html">
+                <i class="icon icon-th-list linux"></i>
+                CentOS/linux
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/react.html">
+                <i class="icon icon-th-list React"></i>
+                React
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/lnmp.html">
+                <i class="icon icon-th-list LNMP"></i>
+                LNMP
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/git.html">
+                <i class="icon icon-th-list git"></i>
+                git
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/windows.html">
+                <i class="icon icon-th-list windows"></i>
+                windows
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/dailyLives.html">
+                <i class="icon icon-th-list dailyLives"></i>
+                工作 &amp; 生活
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-github"></i>
+                我的 github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://gitee.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link"></i>
+                我的 gitee
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://blog.csdn.net/runAndRun" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link CSDN"></i>
+                我的 CSDN
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/aboutMe.html">
+                <i class="icon icon-address-card"></i>
+                关于我
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+
+        <div class="navbar navbar-custom navbar-fixed-top">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" style="margin-left:10px;" id="menu-toggle" title="显示左侧导航"><i class="icon icon-lg icon-navicon"></i>﹥</a>
+            <ul class="nav navbar-nav navbar-right" id="navMenuTop">
+                <li>
+                    <a href="/">主页</a>
+                </li>
+                
+                    
+                        <li>
+                            <a href="/articleClassify.html" title="本博客的文章分类列表">文章分类</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/articles.html" title="本博客的所有文章列表">文章列表</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/java.html" title="Java 开发，文章目录">Java</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/database.html" title="日常开发中有关 MySQL、MyBatis 的一些经验总结">MySQL/MyBatis</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/linux.html" title="CentOS/linux，文章目录">CentOS/linux</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/react.html" title="React 技术栈（全家桶）学习心得分享，文章目录">React</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/about.html">关于</a>
+                        </li>
+                    
+                
+            </ul>
+        </div>
+
+        <div class="flex-col header-title ellipsis">redux 官方示例 todomvc 中的 todoList 过滤事件解析</div>
+        
+        <div class="search-wrap" id="search-wrap" style="z-index: 2;">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back" style="width:33px;">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search" style="width:33px;">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare" style="z-index: 3;margin-right: 10px; width:30px;">
+                <i class="icon icon-lg icon-share-alt"></i>
+            </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h2 class="title">redux 官方示例 todomvc 中的 todoList 过滤事件解析</h2>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-11-24T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2018-11-25
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/react/">react</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/react/redux/">redux</a></li></ul></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap" id="index-container">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc" style="z-index: 3;">
+            <h4><i class="fa fa-list-alt"></i>&nbsp;&nbsp;本文目录</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#理解代码逻辑"><span class="post-toc-number">1.</span> <span class="post-toc-text">理解代码逻辑</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#createSelectorg"><span class="post-toc-number">2.</span> <span class="post-toc-text">createSelectorg</span></a></li></ol>
+        </nav>
+    </aside>
+    
+
+<article id="post-react/examplesTodomvcGetVisibleTodos" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">redux 官方示例 todomvc 中的 todoList 过滤事件解析</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018年11月25日 0:00" datetime="2018-11-24T16:00:00.000Z" itemprop="datePublished">2018-11-25</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/react/">react</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/react/redux/">redux</a></li></ul></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" style="display:none">
+    阅读量：<span id="busuanzi_value_page_pv"></span>次
+</span>
+
+
+    <span>|</span>
+    <span class="post-count">字数：1.4k</span>
+    <span>|</span>
+    <span class="post-count">阅读时长：大约6分钟</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>如题<br><a id="more"></a></p>
+<p><a href="https://github.com/reduxjs/redux/tree/master/examples/todomvc" rel="external nofollow noopener noreferrer" target="_blank">官方 todomvc 示例源码</a></p>
+<p>如果已经安装 Git for Windows 客户端工具（<a href="https://git-scm.com/downloads" rel="external nofollow noopener noreferrer" target="_blank">传送门</a>），在工作文件夹下，右键 -&gt; Git Bash Here，依次执行下面的代码，查看运行效果，运行之后，可以修改源代码，如果编译通过，页面会自动刷新。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/reduxjs/redux.git</span><br><span class="line">cd redux/examples/todomvc/</span><br><span class="line">cnpm i</span><br><span class="line">npm start</span><br></pre></td></tr></table></figure></p>
+<h1 id="理解代码逻辑"><a href="#理解代码逻辑" class="headerlink" title="理解代码逻辑"></a>理解代码逻辑</h1><p>点击【All】、【Active】、【Completed】，页面做了哪些操作？在哪里调用了重新获取 todoList 并更新到页面上的呢？<br>点击以上三个链接的时候，FilterLink 组件做的事情，仅仅是把自身数据 state.visibilityFilter 的值改成点击链接的 props.filter。<br>FilterLink 的 props 有一个成员，叫：filter，它是在哪儿赋值的呢？<br>看下面的代码（<code>src/components/Footer.js</code>）<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ul</span> <span class="attr">className</span>=<span class="string">"filters"</span>&gt;</span></span><br><span class="line">  &#123;Object.keys(FILTER_TITLES).map(filter =&gt;</span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span> <span class="attr">key</span>=<span class="string">&#123;filter&#125;</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">FilterLink</span> <span class="attr">filter</span>=<span class="string">&#123;filter&#125;</span>&gt;</span></span><br><span class="line">        &#123;FILTER_TITLES[filter]&#125;</span><br><span class="line">      <span class="tag">&lt;/<span class="name">FilterLink</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  )&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>从以上代码可知，是通过数组 FILTER_TITLES 的 key 来初始化过滤链接（全部、待办、完成）的。<br>再看一下数组 FILTER_TITLES 的定义：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">const FILTER_TITLES = &#123;</span><br><span class="line">  [SHOW_ALL]: &apos;All&apos;,</span><br><span class="line">  [SHOW_ACTIVE]: &apos;Active&apos;,</span><br><span class="line">  [SHOW_COMPLETED]: &apos;Completed&apos;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>上面的代码，SHOW_ALL、SHOW_ACTIVE、SHOW_COMPLETED 是常量，定义在 <code>src/constants/TodoFilters.js</code><br>代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">export const SHOW_ALL = &apos;show_all&apos;</span><br><span class="line">export const SHOW_COMPLETED = &apos;show_completed&apos;</span><br><span class="line">export const SHOW_ACTIVE = &apos;show_active&apos;</span><br></pre></td></tr></table></figure></p>
+<p>通过 WebStorm 的调试窗口（<a href="./JetBrainsIDESupport.md">在 WebStorm 调试 react 项目的方法，传送门</a>），可以看到，数组 FILTER_TITLES，实际的值是：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;show_all&quot;: &quot;All&quot;,</span><br><span class="line">  &quot;show_active&quot;: &quot;Active&quot;,</span><br><span class="line">  &quot;show_completed&quot;: &quot;Completed&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>看到这里，就知道了下面的代码中，传给 FilterLink 组件的 props 成员 filter 的值，其实就是数组 FILTER_TITLES 的 key，即：show_all、show_active、show_completed。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ul</span> <span class="attr">className</span>=<span class="string">"filters"</span>&gt;</span></span><br><span class="line">  &#123;Object.keys(FILTER_TITLES).map(filter =&gt;</span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span> <span class="attr">key</span>=<span class="string">&#123;filter&#125;</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">FilterLink</span> <span class="attr">filter</span>=<span class="string">&#123;filter&#125;</span>&gt;</span></span><br><span class="line">        &#123;FILTER_TITLES[filter]&#125;</span><br><span class="line">      <span class="tag">&lt;/<span class="name">FilterLink</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  )&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>在界面上，页面末尾那三个链接【All】、【Active】、【Completed】，就是三个 FilterLink 组件，通过上面的分析，这三个组件的 props.filter 分别是 show_all、show_active、show_completed。<br>FilterLink 组件，又用了一个UI组件 Link，在 Link 组件中，执行的点击事件是： <code>onClick={() =&gt; setFilter()}</code>。<br>setFilter 函数是在容器组件 FilterLink 的 mapDispatchToProps 中定义的：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">const mapDispatchToProps = (dispatch, ownProps) =&gt; (&#123;</span><br><span class="line">  setFilter: () =&gt; &#123;</span><br><span class="line">    dispatch(setVisibilityFilter(ownProps.filter))</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>它要做的事，只是向 store 发出一个 dispatch，那么，最终执行者在哪儿呢？<br>回答这个问题，需要了解 redux 原理。</p>
+<ul>
+<li>redux 的 store 由函数 createStore 返回，该函数的第一个参数是 reducers，是包含了各个模块的 reducer。  </li>
+<li>而 reducers，在这个例子中，是用 redux 提供的 combineReducers() 函数来整合得到的一个集合（更准确的说，是一个数组），这样，store 就可以根据各个模块的 reducer key 来统一管理各个模块的 state 以及 actions（模块的行为，体现在自己模块的 reducer 中定义的各个函数）。    </li>
+<li>对于 combineReducers()，官方是这样描述的：combineReducers() 所做的只是生成一个函数，这个函数来调用你的一系列 reducer，每个 reducer 根据它们的 key 来筛选出 state 中的一部分数据并处理，然后这个生成的函数再将所有 reducer 的结果合并成一个大的对象。</li>
+</ul>
+<p>了解了这个原理之后，回到刚才的问题，Link 组件的点击事件，最终的行为，是 reducer（文件 <code>src/reducers/visibilityFilter.js</code> 定义的函数） visibilityFilter，其定义如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">const visibilityFilter = (state = SHOW_ALL, action) =&gt; &#123;</span><br><span class="line">  switch (action.type) &#123;</span><br><span class="line">    case SET_VISIBILITY_FILTER:</span><br><span class="line">      return action.filter</span><br><span class="line">    default:</span><br><span class="line">      return state</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>该方法的默认行为是返回 SHOW_ALL（常量），即返回字符串 <code>show_all</code>，点击某一个链接时，返回的是 action 传过来的 filter。那这个 action 又是在哪儿定义的呢？<br>从源代码中可以看出，派发的 dispatch 是：<code>dispatch(setVisibilityFilter(ownProps.filter))</code>。<br>再看上下文，不难发现，该 action 是在 <code>src/actions/index.js</code> 下定义的，setVisibilityFilter 的定义如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export const setVisibilityFilter = filter =&gt; (&#123; type: types.SET_VISIBILITY_FILTER, filter &#125;);</span><br></pre></td></tr></table></figure></p>
+<p>分析到这里，问题来了，visibilityFilter 接收到这个 action 并执行之后，直接返回的是 action.filter，接下来又发生了什么？<br>先看一下 rcux 文档关于 reducer 的描述（<a href="https://cn.redux.js.org/docs/basics/Reducers.html" rel="external nofollow noopener noreferrer" target="_blank">传送门</a>）：  </p>
+<ol>
+<li>reducers 指定了应用状态的变化如何响应 actions 并发送到 store 的，记住 actions 只是描述了有事情发生了这一事实，并没有描述应用如何更新 state。</li>
+<li>reducer 就是一个纯函数，接收旧的 state 和 action，返回新的 state。</li>
+<li>注意每个 reducer 只负责管理全局 state 中它负责的一部分。每个 reducer 的 state 参数都不同，分别对应它管理的那部分 state 数据。</li>
+</ol>
+<p>再回到 visibilityFilter，执行之后，返回的 filter 其实是会更新到 visibilityFilter 这个 reducer 负责的 state。<br>通过浏览器的 Redux DevTools 插件，我们很容易看到，在 state 树上，有两个对象，key 分别为：todos 和 visibilityFilter。</p>
+<p>接下来，因为 state 发生了变化，这会导致页面重新渲染，而页面渲染的时候，todoList 会根据 visibilityFilter 的值进行过滤，从而实现了三个链接应该有的功能。<br>相关代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">import &#123; createSelector &#125; from &apos;reselect&apos;</span><br><span class="line">import &#123; SHOW_ALL, SHOW_COMPLETED, SHOW_ACTIVE &#125; from &apos;../constants/TodoFilters&apos;</span><br><span class="line"></span><br><span class="line">const getVisibilityFilter = state =&gt; state.visibilityFilter</span><br><span class="line">const getTodos = state =&gt; state.todos</span><br><span class="line"></span><br><span class="line">export const getVisibleTodos = createSelector(</span><br><span class="line">  [getVisibilityFilter, getTodos],</span><br><span class="line">  (visibilityFilter, todos) =&gt; &#123;</span><br><span class="line">    switch (visibilityFilter) &#123;</span><br><span class="line">      case SHOW_ALL:</span><br><span class="line">        return todos</span><br><span class="line">      case SHOW_COMPLETED:</span><br><span class="line">        return todos.filter(t =&gt; t.completed)</span><br><span class="line">      case SHOW_ACTIVE:</span><br><span class="line">        return todos.filter(t =&gt; !t.completed)</span><br><span class="line">      default:</span><br><span class="line">        throw new Error(&apos;Unknown filter: &apos; + visibilityFilter)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">export const getCompletedTodoCount = createSelector(</span><br><span class="line">  [getTodos],</span><br><span class="line">  todos =&gt; (</span><br><span class="line">    todos.reduce((count, todo) =&gt;</span><br><span class="line">      todo.completed ? count + 1 : count,</span><br><span class="line">      0</span><br><span class="line">    )</span><br><span class="line">  )</span><br><span class="line">)</span><br></pre></td></tr></table></figure></p>
+<h1 id="createSelectorg"><a href="#createSelectorg" class="headerlink" title="createSelectorg"></a>createSelectorg</h1><p>上面的代码，用到了 createSelectorg 来优化性能，有关 createSelectorg 方法，这里不做分析，请参考：  </p>
+<ul>
+<li>《深入浅出React和Redux》P122，【5.3 用reselect 提高数据获取性能】章节。</li>
+<li><a href="https://www.jianshu.com/p/6e38c66366cd" rel="external nofollow noopener noreferrer" target="_blank">翻译|Redux的中间件-Reselect</a></li>
+<li><a href="https://www.tangshuang.net/3839.html" rel="external nofollow noopener noreferrer" target="_blank">模拟代码帮助理解reselect的createSelector函数</a></li>
+</ul>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-09-01T02:53:13.085Z" itemprop="dateUpdated">2020年9月1日 10:53</time>
+</span><br>
+
+
+        转载请注明出处：<a href="/react/examplesTodomvcGetVisibleTodos.html" target="_blank" rel="external">https://www.lovesofttech.com/react/examplesTodomvcGetVisibleTodos.html</a>
+    </div>
+    <footer>
+        <a href="https://www.lovesofttech.com">
+            <img src="/img/myLogo.jpg" alt="安迪陈">
+            安迪陈
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/react/">react</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/redux/">redux</a></li></ul>
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/react/examplesTodomvcGetVisibleTodos.html&title=《redux 官方示例 todomvc 中的 todoList 过滤事件解析》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/react/examplesTodomvcGetVisibleTodos.html&title=《redux 官方示例 todomvc 中的 todoList 过滤事件解析》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=如题" data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/react/examplesTodomvcGetVisibleTodos.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《redux 官方示例 todomvc 中的 todoList 过滤事件解析》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/react/examplesTodomvcGetVisibleTodos.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/react/examplesTodomvcGetVisibleTodos.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/react/eslintConfigExample.html" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">ESLint 配置文件 .eslintrc 示例及说明</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/react/eslintConfig.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">WebStorm + React 项目，配置 ESLint</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+    
+    
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="bottom">
+        <p>
+            <span>安迪陈技术日志，架构、感悟、系统分析、团队管理 &copy; 2017 - 2020</span>
+            <span>
+                Power by <a href="https://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>&nbsp;
+                Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank" rel="external nofollow noopener noreferrer">indigo</a>
+            </span>
+            <span>
+                <a href="http://www.beian.miit.gov.cn" target="_blank" rel="external nofollow noopener noreferrer">蜀ICP备17041860号</a>
+            </span>
+            
+            <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            </p><p>
+                <span>
+                    统计始于：2019-03-06
+                </span>
+                <span id="busuanzi_container_site_uv" style="display:none">
+                    访客数：<span id="busuanzi_value_site_uv"></span>
+                </span>
+                <span id="busuanzi_container_site_pv" style="display:none">
+                    访问量：<span id="busuanzi_value_site_pv"></span>
+                </span>
+            
+            
+                <span class="post-count">累计字数：309.2k</span>
+            
+                <span><a href="/general/blogLog.html"><i class="fas fa-pen-alt"></i>&nbsp;博客日志</a></span>
+            </p>
+        <p></p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light" title="回到顶部"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/react/examplesTodomvcGetVisibleTodos.html&title=《redux 官方示例 todomvc 中的 todoList 过滤事件解析》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/react/examplesTodomvcGetVisibleTodos.html&title=《redux 官方示例 todomvc 中的 todoList 过滤事件解析》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=如题" data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/react/examplesTodomvcGetVisibleTodos.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《redux 官方示例 todomvc 中的 todoList 过滤事件解析》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/react/examplesTodomvcGetVisibleTodos.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/react/examplesTodomvcGetVisibleTodos.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACwElEQVR42u3awW4qMQwF0P7/T1Pprboo4dqOKU86s0JoxOTMIjHX/vqKr8e/K7nn53X+hceTK//NaxceHh5ea+nnh52XW136HJ+sGQ8PD2+bdz4Mzo/Pv8l55zUk9+Ph4eF9Aq+5NQcvpXonHh4e3v/Cy6OKPJhIYgg8PDy8z+Tlf/57S+wV3MkTr2UteHh4eJ2KN2qAfcLnxf4eHh4e3qCrPmlBVQOO3mjCi6fj4eHhLfDOpe1kiukMqI5n9YJgPDw8vA3eZKQpj1+r8W41FH5afOPh4eEt8PI/+fkxkB88vQOpfEjg4eHhXeXNY4jzg6vjBdU2W+G/Ah4eHt5VXm/ReZuqGklMXvHTYhoPDw/vEq8XBPQCiHx4Ky/uC4EFHh4e3lVesqxJJJE3tKorKc+L4eHh4S3zko04H6iatNBGbDw8PLxlXi9O7RXf+XhBXojj4eHhbfOSTT/flJPNvTp2kL/0X56Lh4eHt8CrltH5QqsFd/59tdDHw8PDu8urtvx7hfLkMKgeVHh4eHjv4VVj0+p4Vh7ylptb57Xh4eHhLfCqG/SkSdbc3IMQOYoe8PDw8C7xJoNT1cig1/qasPHw8PD2eMnnpLE0n2Kovo4XZwEeHh7eAm9StuYHQ680vzXChYeHh7fNy8vi3oJ6IUUekbw4GPDw8PCu8vKb8vbVJLCoBs2FthkeHh7emJcXrJMQthfXXqDi4eHhrfEmPaPexp0HDdXRq3L9joeHhxfzHsWr0LZvhQv5U6IiHg8PD2+BNzlP8iPh1oExH27Aw8PDu8VLDoO8lZUEtdsRBh4eHt57eHmDP/kmHwjIX+WoAYaHh4f3p7w8hpgHvtVW2YuUGg8PD+/tvGRoYNL06jXGojACDw8Pb4GXhBHVPDj5hfyeZtmNh4eHt8DrNcCqwUQv8K0OE1zr7+Hh4eH9fv83xsvaTyY8fwgAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.5.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.5.2" async></script>
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '安迪陈技术日志';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '欢迎回来';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<!--<script async src="//hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c"></script>-->
+<!-- 统计-->
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var host = window.location.host;
+        var hm = document.createElement("script");
+
+        if (host.indexOf('gitee.io') > 0) { // https://uncleandychen.gitee.io/
+            hm.src = "https://hm.baidu.com/hm.js?0cf4709148b070b8082191d2e456a1a3";
+        } else if (host.indexOf('lovesofttech.com') > 0) { // https://www.lovesofttech.com/
+            hm.src = "https://hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c";
+        } else {
+            hm.src = '';
+        }
+
+        if (hm.src !== '') {
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        }
+    })();
+</script>
+<!-- End Baidu Tongji -->
+
+
+
+<!-- Baidu Push -->
+<!-- 主动推送百度爬虫-->
+<script>
+    (function(){
+        if (window.location.host.indexOf('lovesofttech.com') < 0) {
+            return;
+        }
+
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+<!-- End Baidu Push -->
+
+
+    <meta charset="utf-8">
+    
+    
+    <link rel="canonical" href="https://www.lovesofttech.com/general/centOSSvnProjectManage.html">
+    
+    
+    <title>svn 在 CentOS6 安装以及项目管理 | 安迪陈技术日志，架构、感悟、系统分析、团队管理 | 自强不息，厚德载物</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="CentOS,svn">
+    <meta name="description" content="现在更多的公司已经转向 git 了，不过，svn 也是相当强大的，配置使用方面，比 git 要简单和容易上手一些。 强烈推荐使用 git，更强大更受欢迎，使用也越来越广泛。 关于 git 的使用，可以参考本博客的 git 系列文章。">
+<meta name="keywords" content="CentOS,svn">
+<meta property="og:type" content="article">
+<meta property="og:title" content="svn 在 CentOS6 安装以及项目管理">
+<meta property="og:url" content="https://www.lovesofttech.com/general/centOSSvnProjectManage.html">
+<meta property="og:site_name" content="安迪陈技术日志，架构、感悟、系统分析、团队管理">
+<meta property="og:description" content="现在更多的公司已经转向 git 了，不过，svn 也是相当强大的，配置使用方面，比 git 要简单和容易上手一些。 强烈推荐使用 git，更强大更受欢迎，使用也越来越广泛。 关于 git 的使用，可以参考本博客的 git 系列文章。">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2020-09-01T02:53:12.944Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="svn 在 CentOS6 安装以及项目管理">
+<meta name="twitter:description" content="现在更多的公司已经转向 git 了，不过，svn 也是相当强大的，配置使用方面，比 git 要简单和容易上手一些。 强烈推荐使用 git，更强大更受欢迎，使用也越来越广泛。 关于 git 的使用，可以参考本博客的 git 系列文章。">
+    
+        <link rel="alternative" href="/atom.xml" title="安迪陈技术日志，架构、感悟、系统分析、团队管理" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=201912302211">
+    <link rel="stylesheet" href="/css/header.css?v=201912302211">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu">
+  <div class="inner flex-row-vertical">
+    <!--<i class="icon icon-lg icon-close"></i>-->
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off" title="隐藏左侧导航">﹤<i class="icon icon-lg icon-navicon"></i></a>
+    <div class="brand-wrap" style="background-image:url(/img/bannerBackgroundLeft.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/myLogo.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">安迪陈</h5>
+          <a href="mailto:andy@lovesofttech.com" title="andy@lovesofttech.com" class="mail" rel="external nofollow noopener noreferrer" target="_blank">andy@lovesofttech.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articleClassify.html">
+                <i class="icon icon-th-list"></i>
+                文章分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articles.html">
+                <i class="icon icon-th-list articles"></i>
+                文章列表
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/java.html">
+                <i class="icon icon-th-list java"></i>
+                Java
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/database.html">
+                <i class="icon icon-th-list database"></i>
+                MySQL/MyBatis
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/linux.html">
+                <i class="icon icon-th-list linux"></i>
+                CentOS/linux
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/react.html">
+                <i class="icon icon-th-list React"></i>
+                React
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/lnmp.html">
+                <i class="icon icon-th-list LNMP"></i>
+                LNMP
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/git.html">
+                <i class="icon icon-th-list git"></i>
+                git
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/windows.html">
+                <i class="icon icon-th-list windows"></i>
+                windows
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/dailyLives.html">
+                <i class="icon icon-th-list dailyLives"></i>
+                工作 &amp; 生活
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-github"></i>
+                我的 github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://gitee.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link"></i>
+                我的 gitee
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://blog.csdn.net/runAndRun" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link CSDN"></i>
+                我的 CSDN
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/aboutMe.html">
+                <i class="icon icon-address-card"></i>
+                关于我
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+
+        <div class="navbar navbar-custom navbar-fixed-top">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" style="margin-left:10px;" id="menu-toggle" title="显示左侧导航"><i class="icon icon-lg icon-navicon"></i>﹥</a>
+            <ul class="nav navbar-nav navbar-right" id="navMenuTop">
+                <li>
+                    <a href="/">主页</a>
+                </li>
+                
+                    
+                        <li>
+                            <a href="/articleClassify.html" title="本博客的文章分类列表">文章分类</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/articles.html" title="本博客的所有文章列表">文章列表</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/java.html" title="Java 开发，文章目录">Java</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/database.html" title="日常开发中有关 MySQL、MyBatis 的一些经验总结">MySQL/MyBatis</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/linux.html" title="CentOS/linux，文章目录">CentOS/linux</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/react.html" title="React 技术栈（全家桶）学习心得分享，文章目录">React</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/about.html">关于</a>
+                        </li>
+                    
+                
+            </ul>
+        </div>
+
+        <div class="flex-col header-title ellipsis">svn 在 CentOS6 安装以及项目管理</div>
+        
+        <div class="search-wrap" id="search-wrap" style="z-index: 2;">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back" style="width:33px;">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search" style="width:33px;">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare" style="z-index: 3;margin-right: 10px; width:30px;">
+                <i class="icon icon-lg icon-share-alt"></i>
+            </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h2 class="title">svn 在 CentOS6 安装以及项目管理</h2>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-09-24T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2017-09-25
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/CentOS/">CentOS</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/CentOS/svn/">svn</a></li></ul></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap" id="index-container">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc" style="z-index: 3;">
+            <h4><i class="fa fa-list-alt"></i>&nbsp;&nbsp;本文目录</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#安装"><span class="post-toc-number">1.</span> <span class="post-toc-text">安装</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#打开-svn-服务"><span class="post-toc-number">2.</span> <span class="post-toc-text">打开 svn 服务</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#结束-svn-服务进程"><span class="post-toc-number">3.</span> <span class="post-toc-text">结束 svn 服务进程</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#centOS-开机自动启动SVN服务的方法"><span class="post-toc-number">4.</span> <span class="post-toc-text">centOS 开机自动启动SVN服务的方法</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#多项目管理"><span class="post-toc-number">5.</span> <span class="post-toc-text">多项目管理</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#用户及密码配置以及权限设置"><span class="post-toc-number">5.1.</span> <span class="post-toc-text">用户及密码配置以及权限设置</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#用户及密码设置"><span class="post-toc-number">5.2.</span> <span class="post-toc-text">用户及密码设置</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#组设置及项目的权限配置"><span class="post-toc-number">5.3.</span> <span class="post-toc-text">组设置及项目的权限配置</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+    
+
+<article id="post-general/centOSSvnProjectManage" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">svn 在 CentOS6 安装以及项目管理</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017年09月25日 0:00" datetime="2017-09-24T16:00:00.000Z" itemprop="datePublished">2017-09-25</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/CentOS/">CentOS</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/CentOS/svn/">svn</a></li></ul></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" style="display:none">
+    阅读量：<span id="busuanzi_value_page_pv"></span>次
+</span>
+
+
+    <span>|</span>
+    <span class="post-count">字数：477</span>
+    <span>|</span>
+    <span class="post-count">阅读时长：大约2分钟</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <ul>
+<li>现在更多的公司已经转向 git 了，不过，svn 也是相当强大的，配置使用方面，比 git 要简单和容易上手一些。</li>
+<li>强烈推荐使用 git，更强大更受欢迎，使用也越来越广泛。</li>
+<li>关于 git 的使用，可以参考本博客的 <a href="/git/index">git 系列文章</a>。</li>
+</ul>
+<a id="more"></a>
+<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><ol>
+<li><p>检查是否已安装</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpm -qa subversion</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>卸载旧版本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum remove subversion</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install subversion</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>检查是否安装成功</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">svnserve --version</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>创建 svn 代码存放目录 /opt/svn</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /opt/svn</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h1 id="打开-svn-服务"><a href="#打开-svn-服务" class="headerlink" title="打开 svn 服务"></a>打开 svn 服务</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">svnserve -d -r /opt/svn</span><br></pre></td></tr></table></figure>
+<p>也可指定 svnserve 的目录执行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/bin/svnserve -d -r /opt/svn</span><br></pre></td></tr></table></figure></p>
+<p>checkout 项目路径：svn://[服务器 ip 或域名]/[项目名]，如：svn://192.168.1.123/projectName</p>
+<h1 id="结束-svn-服务进程"><a href="#结束-svn-服务进程" class="headerlink" title="结束 svn 服务进程"></a>结束 svn 服务进程</h1><p>killall svnserve</p>
+<h1 id="centOS-开机自动启动SVN服务的方法"><a href="#centOS-开机自动启动SVN服务的方法" class="headerlink" title="centOS 开机自动启动SVN服务的方法"></a>centOS 开机自动启动SVN服务的方法</h1><p>1、编辑rc.local文件<br>vi /etc/rc.d/rc.local<br>2、加入如下启动命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#/usr/bin/svnserve -d -r /opt/svn</span><br><span class="line">svnserve -d -r /opt/svn</span><br></pre></td></tr></table></figure></p>
+<h1 id="多项目管理"><a href="#多项目管理" class="headerlink" title="多项目管理"></a>多项目管理</h1><p>创建一个项目，并编辑项目的配置文件，将认证信息和权限信息指向 svn 根目录下的两个公共文件。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">svnadmin create /opt/svn/crm.api</span><br><span class="line">vi /opt/svn/crm.api/conf/svnserve.conf</span><br></pre></td></tr></table></figure></p>
+<p>改成如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[general]</span><br><span class="line">anon-access = none</span><br><span class="line">auth-access = write</span><br><span class="line">password-db = /opt/svn/passwd</span><br><span class="line">authz-db = /opt/svn/authz</span><br><span class="line">realm = crm.api</span><br></pre></td></tr></table></figure></p>
+<h2 id="用户及密码配置以及权限设置"><a href="#用户及密码配置以及权限设置" class="headerlink" title="用户及密码配置以及权限设置"></a>用户及密码配置以及权限设置</h2><h2 id="用户及密码设置"><a href="#用户及密码设置" class="headerlink" title="用户及密码设置"></a>用户及密码设置</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /opt/svn/passwd</span><br></pre></td></tr></table></figure>
+<p>按如如下格式添加/设置用户名及用户密码，等号后面即是密码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[users]</span><br><span class="line">adminAndy = adminAndy</span><br><span class="line">adminJack = adminJack</span><br><span class="line">devTom = devTom</span><br><span class="line">devJerry = devJerry</span><br><span class="line">testerRose = testerRose</span><br><span class="line">testerElsa = testerElsa</span><br></pre></td></tr></table></figure></p>
+<h2 id="组设置及项目的权限配置"><a href="#组设置及项目的权限配置" class="headerlink" title="组设置及项目的权限配置"></a>组设置及项目的权限配置</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /opt/svn/authz</span><br></pre></td></tr></table></figure>
+<p>改成<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[groups]</span><br><span class="line">admin = adminAndy,adminJack</span><br><span class="line">dev = devTom,devJerry</span><br><span class="line">tester = testerRose,testerElsa</span><br><span class="line"></span><br><span class="line">[crm.api:/]</span><br><span class="line">@dev = rw</span><br><span class="line">@admin = rw</span><br><span class="line">@tester = r</span><br></pre></td></tr></table></figure></p>
+<p>配置说明：</p>
+<ol>
+<li>[groups] 为组的配置，一个组可以有多个用户</li>
+<li>[crm.api:/] 项目访问权限设置，r 代表可读，w 代表可写， @dev 代表 dev 这个组。多个项目就有多个这样的配置，冒号前面就是项目名。</li>
+</ol>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-09-01T02:53:12.944Z" itemprop="dateUpdated">2020年9月1日 10:53</time>
+</span><br>
+
+
+        转载请注明出处：<a href="/general/centOSSvnProjectManage.html" target="_blank" rel="external">https://www.lovesofttech.com/general/centOSSvnProjectManage.html</a>
+    </div>
+    <footer>
+        <a href="https://www.lovesofttech.com">
+            <img src="/img/myLogo.jpg" alt="安迪陈">
+            安迪陈
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CentOS/">CentOS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/svn/">svn</a></li></ul>
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/general/centOSSvnProjectManage.html&title=《svn 在 CentOS6 安装以及项目管理》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/general/centOSSvnProjectManage.html&title=《svn 在 CentOS6 安装以及项目管理》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=
+现在更多的公司已经转向 git 了，不过，svn 也是相当强大的，配置使用方面，比 git 要简单和容易上手一些。
+强烈推荐使用 git，更强大更受欢迎..." data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/general/centOSSvnProjectManage.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《svn 在 CentOS6 安装以及项目管理》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/general/centOSSvnProjectManage.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/general/centOSSvnProjectManage.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/mybatis/experience.html" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">MyBatis 普通知识点记录</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/java/jdkHelperDocument.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Java 特定版本的帮助文档下载方法</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+    
+    
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="bottom">
+        <p>
+            <span>安迪陈技术日志，架构、感悟、系统分析、团队管理 &copy; 2017 - 2020</span>
+            <span>
+                Power by <a href="https://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>&nbsp;
+                Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank" rel="external nofollow noopener noreferrer">indigo</a>
+            </span>
+            <span>
+                <a href="http://www.beian.miit.gov.cn" target="_blank" rel="external nofollow noopener noreferrer">蜀ICP备17041860号</a>
+            </span>
+            
+            <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            </p><p>
+                <span>
+                    统计始于：2019-03-06
+                </span>
+                <span id="busuanzi_container_site_uv" style="display:none">
+                    访客数：<span id="busuanzi_value_site_uv"></span>
+                </span>
+                <span id="busuanzi_container_site_pv" style="display:none">
+                    访问量：<span id="busuanzi_value_site_pv"></span>
+                </span>
+            
+            
+                <span class="post-count">累计字数：309.2k</span>
+            
+                <span><a href="/general/blogLog.html"><i class="fas fa-pen-alt"></i>&nbsp;博客日志</a></span>
+            </p>
+        <p></p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light" title="回到顶部"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/general/centOSSvnProjectManage.html&title=《svn 在 CentOS6 安装以及项目管理》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/general/centOSSvnProjectManage.html&title=《svn 在 CentOS6 安装以及项目管理》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=
+现在更多的公司已经转向 git 了，不过，svn 也是相当强大的，配置使用方面，比 git 要简单和容易上手一些。
+强烈推荐使用 git，更强大更受欢迎..." data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/general/centOSSvnProjectManage.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《svn 在 CentOS6 安装以及项目管理》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/general/centOSSvnProjectManage.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/general/centOSSvnProjectManage.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACsklEQVR42u3aO3IjMQwFQN//0t7UW7bH7wGkSkFPpJLmg2bAgQB8fMTH55fj6zfP53+/dnYkT1wdeHh4eIvQn2/9/fvnJUjYz+fMlgwPDw/vNbw8lN9u1C5Tcufk8x8WPDw8vDfgPV+bvzbyFDm/Fg8PD+89eXlinQCeF+iN3nt4eHh4o1Q4D/Q54W43/aQ4cqDWgoeHhxfz8qT2fT5f6e/h4eHhrbvqm+T4+TWwWb4iWjw8PLwLvDZdzhPlZH+eweo48fDw8I7y8lGq/Vbe3i0fO/j1KXh4eHjXeLO/+nnCvRnPaptn9ewDHh4eXslrt/K2VDFbgnaYIOrv4eHh4R3ibdr5ealik2of6Nrh4eHhXeO1f/5nYwf5IuZLVtRa8PDw8Na8szfaF17bokb0Kx4eHt4FXlJs3QTRjh08lzCGfwDw8PDwXsjLf92k4HnanQ8u4OHh4d3gbVLktuX/GR+zRP+Hc/Dw8PAu89pATwFmheBi3AoPDw/vKC8Pbt/KSpLs5Il5aRgPDw/vHm9WLMhLFXmJ9lRz7oeSBB4eHt413h+nxiHO0uW80FAk6Hh4eHgXeG1jqR2lasOdhY6Hh4f3Gl4+0jQrOuxLwLPxgv8aYHh4eHgv57V9pTZNbwu7xbLi4eHhXeDNigVtEXaWsrfF4jY2PDw8vA1vs1nPRrUODFHltRY8PDy8l/Dacu3s/NmS1Q05PDw8vGu8ttXUptQHsvvyKXh4eHg3eJ/l0RZ2Z42r2ajrH288PDw8vEO8e42uG6XbY00vPDw8vDWvHRhtk+PZoOqsFFIn1nh4eHgLXl3DKJPg/Fn71hceHh7ee/L2za1jW//zQuPh4eG9Da8dO5il5s/nRK8TPDw8vGu8/Za9CSsPvR7twsPDw7vA2ww2JcvRItsXzIEDDw8PL+X9A8EysCUdSZpKAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.5.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.5.2" async></script>
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '安迪陈技术日志';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '欢迎回来';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

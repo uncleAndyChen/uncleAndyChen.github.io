@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<!--<script async src="//hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c"></script>-->
+<!-- 统计-->
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var host = window.location.host;
+        var hm = document.createElement("script");
+
+        if (host.indexOf('gitee.io') > 0) { // https://uncleandychen.gitee.io/
+            hm.src = "https://hm.baidu.com/hm.js?0cf4709148b070b8082191d2e456a1a3";
+        } else if (host.indexOf('lovesofttech.com') > 0) { // https://www.lovesofttech.com/
+            hm.src = "https://hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c";
+        } else {
+            hm.src = '';
+        }
+
+        if (hm.src !== '') {
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        }
+    })();
+</script>
+<!-- End Baidu Tongji -->
+
+
+
+<!-- Baidu Push -->
+<!-- 主动推送百度爬虫-->
+<script>
+    (function(){
+        if (window.location.host.indexOf('lovesofttech.com') < 0) {
+            return;
+        }
+
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+<!-- End Baidu Push -->
+
+
+    <meta charset="utf-8">
+    
+    
+    <link rel="canonical" href="https://www.lovesofttech.com/java/experience.html">
+    
+    
+    <title>java 开发中的一些小经验 | 安迪陈技术日志，架构、感悟、系统分析、团队管理 | 自强不息，厚德载物</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="java,experience">
+    <meta name="description" content="java 开发中的小经验，零散的知识点。">
+<meta name="keywords" content="java,experience">
+<meta property="og:type" content="article">
+<meta property="og:title" content="java 开发中的一些小经验">
+<meta property="og:url" content="https://www.lovesofttech.com/java/experience.html">
+<meta property="og:site_name" content="安迪陈技术日志，架构、感悟、系统分析、团队管理">
+<meta property="og:description" content="java 开发中的小经验，零散的知识点。">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:image" content="https://www.lovesofttech.com/img/idea/uncheckedOrigin.png">
+<meta property="og:image" content="https://www.lovesofttech.com/img/idea/unchecked.png">
+<meta property="og:image" content="https://www.lovesofttech.com/img/idea/uncheckedSolution.png">
+<meta property="og:image" content="https://www.lovesofttech.com/img/idea/uncheckedSolutionResult.png">
+<meta property="og:image" content="https://www.lovesofttech.com/img/idea/ideaCopyWarning.png">
+<meta property="og:updated_time" content="2020-09-01T02:53:12.979Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="java 开发中的一些小经验">
+<meta name="twitter:description" content="java 开发中的小经验，零散的知识点。">
+<meta name="twitter:image" content="https://www.lovesofttech.com/img/idea/uncheckedOrigin.png">
+    
+        <link rel="alternative" href="/atom.xml" title="安迪陈技术日志，架构、感悟、系统分析、团队管理" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=201912302211">
+    <link rel="stylesheet" href="/css/header.css?v=201912302211">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu">
+  <div class="inner flex-row-vertical">
+    <!--<i class="icon icon-lg icon-close"></i>-->
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off" title="隐藏左侧导航">﹤<i class="icon icon-lg icon-navicon"></i></a>
+    <div class="brand-wrap" style="background-image:url(/img/bannerBackgroundLeft.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/myLogo.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">安迪陈</h5>
+          <a href="mailto:andy@lovesofttech.com" title="andy@lovesofttech.com" class="mail" rel="external nofollow noopener noreferrer" target="_blank">andy@lovesofttech.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articleClassify.html">
+                <i class="icon icon-th-list"></i>
+                文章分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articles.html">
+                <i class="icon icon-th-list articles"></i>
+                文章列表
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/java.html">
+                <i class="icon icon-th-list java"></i>
+                Java
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/database.html">
+                <i class="icon icon-th-list database"></i>
+                MySQL/MyBatis
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/linux.html">
+                <i class="icon icon-th-list linux"></i>
+                CentOS/linux
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/react.html">
+                <i class="icon icon-th-list React"></i>
+                React
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/lnmp.html">
+                <i class="icon icon-th-list LNMP"></i>
+                LNMP
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/git.html">
+                <i class="icon icon-th-list git"></i>
+                git
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/windows.html">
+                <i class="icon icon-th-list windows"></i>
+                windows
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/dailyLives.html">
+                <i class="icon icon-th-list dailyLives"></i>
+                工作 &amp; 生活
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-github"></i>
+                我的 github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://gitee.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link"></i>
+                我的 gitee
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://blog.csdn.net/runAndRun" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link CSDN"></i>
+                我的 CSDN
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/aboutMe.html">
+                <i class="icon icon-address-card"></i>
+                关于我
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+
+        <div class="navbar navbar-custom navbar-fixed-top">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" style="margin-left:10px;" id="menu-toggle" title="显示左侧导航"><i class="icon icon-lg icon-navicon"></i>﹥</a>
+            <ul class="nav navbar-nav navbar-right" id="navMenuTop">
+                <li>
+                    <a href="/">主页</a>
+                </li>
+                
+                    
+                        <li>
+                            <a href="/articleClassify.html" title="本博客的文章分类列表">文章分类</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/articles.html" title="本博客的所有文章列表">文章列表</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/java.html" title="Java 开发，文章目录">Java</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/database.html" title="日常开发中有关 MySQL、MyBatis 的一些经验总结">MySQL/MyBatis</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/linux.html" title="CentOS/linux，文章目录">CentOS/linux</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/react.html" title="React 技术栈（全家桶）学习心得分享，文章目录">React</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/about.html">关于</a>
+                        </li>
+                    
+                
+            </ul>
+        </div>
+
+        <div class="flex-col header-title ellipsis">java 开发中的一些小经验</div>
+        
+        <div class="search-wrap" id="search-wrap" style="z-index: 2;">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back" style="width:33px;">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search" style="width:33px;">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare" style="z-index: 3;margin-right: 10px; width:30px;">
+                <i class="icon icon-lg icon-share-alt"></i>
+            </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h2 class="title">java 开发中的一些小经验</h2>
+        <h5 class="subtitle">
+            
+                <time datetime="2019-06-22T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2019-06-23
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/java/">java</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/java/experience/">experience</a></li></ul></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap" id="index-container">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc" style="z-index: 3;">
+            <h4><i class="fa fa-list-alt"></i>&nbsp;&nbsp;本文目录</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#IDEA-提示-Unchecked-call-to-‘XXXX’-as-a-member-of-raw-type-‘XXXX’-more…-Ctrl-F1"><span class="post-toc-number">1.</span> <span class="post-toc-text">IDEA 提示: Unchecked call to ‘XXXX’ as a member of raw type ‘XXXX’ more… (Ctrl+F1)</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#复制警告信息"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">复制警告信息</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#SpringBoot-查询时间数据，数据库和返回数据比实际存储的相差8小时"><span class="post-toc-number">2.</span> <span class="post-toc-text">SpringBoot 查询时间数据，数据库和返回数据比实际存储的相差8小时</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#spring-boot-项目，-RestController-返回系统时间，比实际时间多8小时"><span class="post-toc-number">3.</span> <span class="post-toc-text">spring boot 项目，@RestController 返回系统时间，比实际时间多8小时</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#解决"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">解决</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#maven-跳过单元测试"><span class="post-toc-number">4.</span> <span class="post-toc-text">maven 跳过单元测试</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#install"><span class="post-toc-number">4.1.</span> <span class="post-toc-text">install</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#package"><span class="post-toc-number">4.2.</span> <span class="post-toc-text">package</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Maven-引入本地-jar-包依赖"><span class="post-toc-number">5.</span> <span class="post-toc-text">Maven 引入本地 jar 包依赖</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#api-不支持-301-跳转"><span class="post-toc-number">6.</span> <span class="post-toc-text">api 不支持 301 跳转</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#spring-boot-PathVariable-传递带小数点的参数"><span class="post-toc-number">7.</span> <span class="post-toc-text">spring boot @PathVariable 传递带小数点的参数</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#解决通过-uri-传递参数不受以上规则影响"><span class="post-toc-number">7.1.</span> <span class="post-toc-text">解决通过 uri 传递参数不受以上规则影响</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Application-failed-to-start-with-classpath"><span class="post-toc-number">8.</span> <span class="post-toc-text">Application failed to start with classpath</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#依赖不能正常下载"><span class="post-toc-number">9.</span> <span class="post-toc-text">依赖不能正常下载</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#An-enum-switch-case-label-must-be-the-unqualified-name-of-an-enumeration-constant"><span class="post-toc-number">10.</span> <span class="post-toc-text">An enum switch case label must be the unqualified name of an enumeration constant</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Generating-equals-hashCode-…"><span class="post-toc-number">11.</span> <span class="post-toc-text">Generating equals/hashCode …</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#解决-1"><span class="post-toc-number">11.1.</span> <span class="post-toc-text">解决</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#参考"><span class="post-toc-number">11.2.</span> <span class="post-toc-text">参考</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Information-java-有关详细信息-请使用-Xlint-unchecked-重新编译。"><span class="post-toc-number">12.</span> <span class="post-toc-text">Information:java: 有关详细信息, 请使用 -Xlint:unchecked 重新编译。</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#spring-boot-项目打包成-war-包发布到-tomcat-窗口，启动时，项目未被加载"><span class="post-toc-number">13.</span> <span class="post-toc-text">spring boot 项目打包成 war 包发布到 tomcat 窗口，启动时，项目未被加载</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#jackson-注解"><span class="post-toc-number">14.</span> <span class="post-toc-text">jackson 注解</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Cannot-call-sendError-after-the-response-has-been-committed"><span class="post-toc-number">15.</span> <span class="post-toc-text">Cannot call sendError() after the response has been committed</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#invalid-source-release-11"><span class="post-toc-number">16.</span> <span class="post-toc-text">invalid source release: 11</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#‘packaging’-with-value-‘jar’-is-invalid-Aggregator-projects-require-‘pom’-as-packaging"><span class="post-toc-number">17.</span> <span class="post-toc-text">‘packaging’ with value ‘jar’ is invalid. Aggregator projects require ‘pom’ as packaging.</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#mvn-compile-时遇到该错误：编码-GBK-的不可映射字符-0xBB"><span class="post-toc-number">18.</span> <span class="post-toc-text">mvn compile 时遇到该错误：编码 GBK 的不可映射字符 (0xBB)</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#mvn-compile-时报错：编码-UTF-8-的不可映射字符-0xB6"><span class="post-toc-number">19.</span> <span class="post-toc-text">mvn compile 时报错：编码 UTF-8 的不可映射字符 (0xB6)</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#程序包com-sun-xml-internal-messaging-saaj-util不存在"><span class="post-toc-number">20.</span> <span class="post-toc-text">程序包com.sun.xml.internal.messaging.saaj.util不存在</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#解决-2"><span class="post-toc-number">20.1.</span> <span class="post-toc-text">解决</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#spring-boot-不需要连接数据库配置"><span class="post-toc-number">21.</span> <span class="post-toc-text">spring boot 不需要连接数据库配置</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Caused-by-java-lang-NoClassDefFoundError-javax-servlet-ServletContext"><span class="post-toc-number">22.</span> <span class="post-toc-text">Caused by: java.lang.NoClassDefFoundError: javax/servlet/ServletContext</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#查看thymeleaf默认配置项"><span class="post-toc-number">23.</span> <span class="post-toc-text">查看thymeleaf默认配置项</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#关于-POJO-属性的访问范围修饰符"><span class="post-toc-number">24.</span> <span class="post-toc-text">关于 POJO 属性的访问范围修饰符</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#关于使用-Map-类型作为参数或者返回值的经验"><span class="post-toc-number">25.</span> <span class="post-toc-text">关于使用 Map 类型作为参数或者返回值的经验</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#线上环境，-properties-配置中文信息时的注意事项"><span class="post-toc-number">26.</span> <span class="post-toc-text">线上环境，.properties 配置中文信息时的注意事项</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#调用-api-自定义错误信息"><span class="post-toc-number">27.</span> <span class="post-toc-text">调用 api 自定义错误信息</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Diamond-types-are-not-supported-at-this-language-level"><span class="post-toc-number">28.</span> <span class="post-toc-text">Diamond types are not supported at this language level</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#java-lang-String-cannot-be-cast-to-org-springframework-mail-javamail-JavaMailSender"><span class="post-toc-number">29.</span> <span class="post-toc-text">java.lang.String cannot be cast to org.springframework.mail.javamail.JavaMailSender</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#spring-boot-执行-jar-报错"><span class="post-toc-number">30.</span> <span class="post-toc-text">spring boot 执行 jar 报错</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#spring-配置报错：cvc-complex-type-2-1-Element-‘mvc-annotation-driven’-must-have-no-character-or-element-information-item-children-because-the-type’s-content-type-is-empty"><span class="post-toc-number">31.</span> <span class="post-toc-text">spring 配置报错：cvc-complex-type.2.1: Element ‘mvc:annotation-driven’ must have no character or element information item [children], because the type’s content type is empty.</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#java-把-gbk-格式的文件，转为-UTF8"><span class="post-toc-number">32.</span> <span class="post-toc-text">java 把 gbk 格式的文件，转为 UTF8</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#view-enumeration-是否要全部放到一个-module-管理？"><span class="post-toc-number">33.</span> <span class="post-toc-text">view, enumeration 是否要全部放到一个 module 管理？</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Jackson-Unrecognized-field-not-marked-as-ignorable"><span class="post-toc-number">34.</span> <span class="post-toc-text">Jackson Unrecognized field, not marked as ignorable</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Invalid-bound-statement-not-found-express-dal-mapper-original-GwCpInfoMapper-selectByPrimaryKey"><span class="post-toc-number">35.</span> <span class="post-toc-text">Invalid bound statement (not found): express.dal.mapper.original.GwCpInfoMapper.selectByPrimaryKey</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#maven-项目，依赖三方-jar-包，打包项目时自动包含"><span class="post-toc-number">36.</span> <span class="post-toc-text">maven 项目，依赖三方 jar 包，打包项目时自动包含</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#idea每次编译设置工程的默认jdk版本1-5问题"><span class="post-toc-number">37.</span> <span class="post-toc-text">idea每次编译设置工程的默认jdk版本1.5问题</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#如果-maven-依赖不能下载，试一下，mvn-compile，看看会不会报错，因为有可能是-maven-配置文件有错。"><span class="post-toc-number">38.</span> <span class="post-toc-text">如果 maven 依赖不能下载，试一下，mvn compile，看看会不会报错，因为有可能是 maven 配置文件有错。</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#tomcat-下，一个应用程序，发布成两个虚拟目录，该应用配置了-druid-防火墙，会冲突"><span class="post-toc-number">39.</span> <span class="post-toc-text">tomcat 下，一个应用程序，发布成两个虚拟目录，该应用配置了 druid 防火墙，会冲突</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#extend-Mapper-can-39-t-load-Instantiation-of-bean-failed-nested-exception-is-java-lang-ExceptionInInitializerError"><span class="post-toc-number">40.</span> <span class="post-toc-text">extend Mapper can&#39;t load: Instantiation of bean failed; nested exception is java.lang.ExceptionInInitializerError</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#获取-xml-配置文件里定义的-bean-信息"><span class="post-toc-number">41.</span> <span class="post-toc-text">获取 xml 配置文件里定义的 bean 信息</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#json-lib-json-lib-jar-2-4-依赖，在-IDEA-的依赖项里面，显示红色下划线，当然，引用其中的类是有问题的。"><span class="post-toc-number">42.</span> <span class="post-toc-text">json-lib:json-lib:jar:2.4 依赖，在 IDEA 的依赖项里面，显示红色下划线，当然，引用其中的类是有问题的。</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#现象"><span class="post-toc-number">42.1.</span> <span class="post-toc-text">现象</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#解决方案"><span class="post-toc-number">42.2.</span> <span class="post-toc-text">解决方案</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#利用反射，实现读取-pojo-field-与对应值"><span class="post-toc-number">43.</span> <span class="post-toc-text">利用反射，实现读取 pojo field 与对应值</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#类似-isLogin-用-int-类型的数据，如果用-bool-类型数据，用-idea-生成的-getter-会跟变量名一致，容易混淆。"><span class="post-toc-number">44.</span> <span class="post-toc-text">类似 isLogin 用 int 类型的数据，如果用 bool 类型数据，用 idea 生成的 getter 会跟变量名一致，容易混淆。</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#运行-mvn-spring-boot-run-之后，再次运行，或者运行-spring-boot-的入口程序，端口会冲突"><span class="post-toc-number">45.</span> <span class="post-toc-text">运行 mvn spring-boot:run 之后，再次运行，或者运行 spring boot 的入口程序，端口会冲突</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#用-jackson-将数组类型的数据转换成-string-会报错。"><span class="post-toc-number">46.</span> <span class="post-toc-text">用 jackson 将数组类型的数据转换成 string 会报错。</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#The-server-time-zone-value-39-�й���׼ʱ��-39-is-unrecognized-or-represents-more-than-one-time-zone"><span class="post-toc-number">47.</span> <span class="post-toc-text">The server time zone value &#39;�й���׼ʱ��&#39; is unrecognized or represents more than one time zone</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#JAVA对象通过jackson转成json格式，属性名首字母变成小写的解决方法"><span class="post-toc-number">48.</span> <span class="post-toc-text">JAVA对象通过jackson转成json格式，属性名首字母变成小写的解决方法</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#package-com-sun-xml-internal-messaging-saaj-util-does-not-exist"><span class="post-toc-number">49.</span> <span class="post-toc-text">package com.sun.xml.internal.messaging.saaj.util does not exist</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#多模板项目，服务器上进入-web-工程-mvn-编译找不到-model"><span class="post-toc-number">50.</span> <span class="post-toc-text">多模板项目，服务器上进入 web 工程 mvn 编译找不到 model</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Spring-Boot-Application-in-default-package"><span class="post-toc-number">51.</span> <span class="post-toc-text">Spring Boot Application in default package</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Not-registered-via-EnableConfigurationProperties-or-marked-as-Spring-component"><span class="post-toc-number">52.</span> <span class="post-toc-text">Not registered via @EnableConfigurationProperties or marked as Spring component</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#but-snakeyaml-was-not-found-on-the-classpath"><span class="post-toc-number">53.</span> <span class="post-toc-text">but snakeyaml was not found on the classpath</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Loading-class-com-mysql-jdbc-Driver’-This-is-deprecated"><span class="post-toc-number">54.</span> <span class="post-toc-text">Loading class `com.mysql.jdbc.Driver’. This is deprecated</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Cannot-obtain-primary-key-information-from-the-database"><span class="post-toc-number">55.</span> <span class="post-toc-text">Cannot obtain primary key information from the database</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#pom-xml-的groupId与artifactId，不能有两个相同的"><span class="post-toc-number">56.</span> <span class="post-toc-text">pom.xml 的groupId与artifactId，不能有两个相同的</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Maven项目下HttpServletRequest-或-HttpServletResponse需引用的依赖包"><span class="post-toc-number">57.</span> <span class="post-toc-text">Maven项目下HttpServletRequest 或 HttpServletResponse需引用的依赖包</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#改变自动扫描的包"><span class="post-toc-number">58.</span> <span class="post-toc-text">改变自动扫描的包</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#spring-boot-以-jar-启动"><span class="post-toc-number">59.</span> <span class="post-toc-text">spring boot 以 jar 启动</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#注解-SuppressWarnings-“rawtypes”-“unchecked”"><span class="post-toc-number">60.</span> <span class="post-toc-text">注解 @SuppressWarnings({ “rawtypes”, “unchecked” })</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#PropertiesLoaderUtils-loadAllProperties-“common-properties”"><span class="post-toc-number">61.</span> <span class="post-toc-text">PropertiesLoaderUtils.loadAllProperties(“common.properties”);</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#jackson解析时间"><span class="post-toc-number">62.</span> <span class="post-toc-text">jackson解析时间</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#package-org-jetbrains-annotations-does-not-exist"><span class="post-toc-number">63.</span> <span class="post-toc-text">package org.jetbrains.annotations does not exist</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#原因"><span class="post-toc-number">63.1.</span> <span class="post-toc-text">原因</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#解决-3"><span class="post-toc-number">63.2.</span> <span class="post-toc-text">解决</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#java-lang-IllegalArgumentException-The-maximum-column-width-for-an-individual-cell-is-255-characters"><span class="post-toc-number">64.</span> <span class="post-toc-text">java.lang.IllegalArgumentException: The maximum column width for an individual cell is 255 characters.</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#解决-4"><span class="post-toc-number">64.1.</span> <span class="post-toc-text">解决</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#java-生成多级目录"><span class="post-toc-number">65.</span> <span class="post-toc-text">java 生成多级目录</span></a></li></ol>
+        </nav>
+    </aside>
+    
+
+<article id="post-java/experience" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">java 开发中的一些小经验</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2019年06月23日 0:00" datetime="2019-06-22T16:00:00.000Z" itemprop="datePublished">2019-06-23</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/java/">java</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/java/experience/">experience</a></li></ul></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" style="display:none">
+    阅读量：<span id="busuanzi_value_page_pv"></span>次
+</span>
+
+
+    <span>|</span>
+    <span class="post-count">字数：11.4k</span>
+    <span>|</span>
+    <span class="post-count">阅读时长：大约54分钟</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>java 开发中的小经验，零散的知识点。<br><a id="more"></a></p>
+<h1 id="IDEA-提示-Unchecked-call-to-‘XXXX’-as-a-member-of-raw-type-‘XXXX’-more…-Ctrl-F1"><a href="#IDEA-提示-Unchecked-call-to-‘XXXX’-as-a-member-of-raw-type-‘XXXX’-more…-Ctrl-F1" class="headerlink" title="IDEA 提示: Unchecked call to ‘XXXX’ as a member of raw type ‘XXXX’ more… (Ctrl+F1)"></a>IDEA 提示: Unchecked call to ‘XXXX’ as a member of raw type ‘XXXX’ more… (Ctrl+F1)</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Unchecked call to &apos;ApiResponse(T)&apos; as a member of raw type &apos;mis.api.common.model.response.ApiResponse&apos;</span><br></pre></td></tr></table></figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/idea/uncheckedOrigin.png" alt="警告信息" title>
+                </div>
+                <div class="image-caption">警告信息</div>
+            </figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/idea/unchecked.png" alt="警告的全部信息" title>
+                </div>
+                <div class="image-caption">警告的全部信息</div>
+            </figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/idea/uncheckedSolution.png" alt="加上类型好可，尖括号里添加上泛型对应的类名" title>
+                </div>
+                <div class="image-caption">加上类型好可，尖括号里添加上泛型对应的类名</div>
+            </figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/idea/uncheckedSolutionResult.png" alt="不过，尖括号里的类名可以省略" title>
+                </div>
+                <div class="image-caption">不过，尖括号里的类名可以省略</div>
+            </figure>
+<h2 id="复制警告信息"><a href="#复制警告信息" class="headerlink" title="复制警告信息"></a>复制警告信息</h2><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/idea/ideaCopyWarning.png" alt="复制警告信息" title>
+                </div>
+                <div class="image-caption">复制警告信息</div>
+            </figure>
+<h1 id="SpringBoot-查询时间数据，数据库和返回数据比实际存储的相差8小时"><a href="#SpringBoot-查询时间数据，数据库和返回数据比实际存储的相差8小时" class="headerlink" title="SpringBoot 查询时间数据，数据库和返回数据比实际存储的相差8小时"></a>SpringBoot 查询时间数据，数据库和返回数据比实际存储的相差8小时</h1><p>我遇到的情况：通过 spring security 查询用户时间数据（MySQL 数据库，字段类型为：datetime），返回的数据比实际存储在数据里的多8小时。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">UserDetailsService.loadUserByUsername(username);</span><br></pre></td></tr></table></figure></p>
+<p>serverTimezone=GMT，改为：<code>serverTimezone=GMT%2b8</code>，其中 <code>%2b</code> 为 + 号</p>
+<p>如果还没加参数 serverTimezone，则添加上。</p>
+<h1 id="spring-boot-项目，-RestController-返回系统时间，比实际时间多8小时"><a href="#spring-boot-项目，-RestController-返回系统时间，比实际时间多8小时" class="headerlink" title="spring boot 项目，@RestController 返回系统时间，比实际时间多8小时"></a>spring boot 项目，@RestController 返回系统时间，比实际时间多8小时</h1><p>如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;timestamp&quot;: &quot;2019-06-23T14:48:55.093+0000&quot;, # 这里比实际的系统时间少了8小时</span><br><span class="line">    &quot;status&quot;: 500,</span><br><span class="line">    &quot;error&quot;: &quot;Internal Server Error&quot;,</span><br><span class="line">    &quot;message&quot;: &quot;账号不存在&quot;,</span><br><span class="line">    // some other code</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>原因：spring 转 json 的默认实现 jackson 中会根据时区去转换时间，而 jackson 的默认时区跟国内是相差8小时的。</p>
+<ul>
+<li>相差8小时实测：<ul>
+<li>比数据库多8小时</li>
+<li>比通过 spring boot 取到的系统时间时间少8小时</li>
+</ul>
+</li>
+</ul>
+<h2 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h2><p>设置时区<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#application.properties文件配置</span><br><span class="line">spring.jackson.time-zone=GMT+8</span><br><span class="line"> </span><br><span class="line">#application.yml文件配置</span><br><span class="line">spring:</span><br><span class="line">    jackson:</span><br><span class="line">        time-zone: GMT+8</span><br></pre></td></tr></table></figure></p>
+<h1 id="maven-跳过单元测试"><a href="#maven-跳过单元测试" class="headerlink" title="maven 跳过单元测试"></a>maven 跳过单元测试</h1><p>在使用 <code>mvn package</code> 进行编译、打包时，Maven会执行 <code>src/test/java</code> 中的 JUnit 测试用例，有时为了跳过测试，会使用参数 <code>-DskipTests</code> 和 <code>-Dmaven.test.skip=true</code>，这两个参数的主要区别是：</p>
+<ol>
+<li><code>-DskipTests</code>，不执行测试用例，但编译测试用例类生成相应的class文件至target/test-classes下。</li>
+<li><code>-Dmaven.test.skip=true</code>，不执行测试用例，也不编译测试用例类。</li>
+</ol>
+<h2 id="install"><a href="#install" class="headerlink" title="install"></a>install</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn install -Dmaven.test.skip=true</span><br></pre></td></tr></table></figure>
+<h2 id="package"><a href="#package" class="headerlink" title="package"></a>package</h2><p>同理，打包时也可以跳过<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn clean package -Dmaven.test.skip=true -f directory\pom.xml</span><br></pre></td></tr></table></figure></p>
+<h1 id="Maven-引入本地-jar-包依赖"><a href="#Maven-引入本地-jar-包依赖" class="headerlink" title="Maven 引入本地 jar 包依赖"></a>Maven 引入本地 jar 包依赖</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;com.aliyun.mns&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;aliyun-sdk-mns&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;1.1.8&lt;/version&gt;</span><br><span class="line">    &lt;scope&gt;system&lt;/scope&gt;</span><br><span class="line">    &lt;systemPath&gt;$&#123;project.basedir&#125;/src/main/resources/lib/aliyun-sdk-mns-1.1.8.jar&lt;/systemPath&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+<h1 id="api-不支持-301-跳转"><a href="#api-不支持-301-跳转" class="headerlink" title="api 不支持 301 跳转"></a>api 不支持 301 跳转</h1><p>设置了 301 或 302 跳转的域名，不支持 api 调用。</p>
+<h1 id="spring-boot-PathVariable-传递带小数点的参数"><a href="#spring-boot-PathVariable-传递带小数点的参数" class="headerlink" title="spring boot @PathVariable 传递带小数点的参数"></a>spring boot @PathVariable 传递带小数点的参数</h1><p>spring boot 项目，RequestMapping 路由中，在最后一个斜杠后的部分，小数点后面的部分会被忽略掉。<br>这种处理方式带来的好处：可以做伪静态，将网站的链接都写成 .html，但是实际上，我们的路由可以没有 .html 后缀，这样爬虫在爬网站的时候会当成静态？（没研究是不是这样）<br>带来的坏处：在通过 uri 传递参数的时候，如果有小数点，其后面的部分会被丢掉，导致程序获取到的参数不正确。不过，这种需求是可以解决的。</p>
+<h2 id="解决通过-uri-传递参数不受以上规则影响"><a href="#解决通过-uri-传递参数不受以上规则影响" class="headerlink" title="解决通过 uri 传递参数不受以上规则影响"></a>解决通过 uri 传递参数不受以上规则影响</h2><p>其实很简单，就是在路由配置上，在最后加上一个反斜杠就行了，这样，如果输入 url 访问的时候，没有反斜杠，会被当成不存在，这样一来，url 中的参数信息不会被截取。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TController</span> </span>&#123;</span><br><span class="line">    <span class="meta">@RequestMapping</span>(<span class="string">"variable/&#123;username&#125;/&#123;password&#125;/"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">hello</span><span class="params">(@PathVariable String username, @PathVariable String password)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"username:"</span> + username + <span class="string">"&lt;br&gt;"</span> + <span class="string">"password:"</span> + password;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>访问<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://localhost:83/variable/andy/fkd.242j8.fdsja&amp;*f7/</span><br></pre></td></tr></table></figure></p>
+<p>将会在页面上输出：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">userName:andy</span><br><span class="line">passWord:fkd.242j8.fdsja&amp;*f7</span><br></pre></td></tr></table></figure></p>
+<p>如果访问<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://localhost:83/variable/andy/fkd.242j8.fdsja&amp;*f7</span><br></pre></td></tr></table></figure></p>
+<p>将会得到错误提示，如果网站配置了 404 页面，则会跳转至 404 页面。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Whitelabel Error Page</span><br><span class="line">This application has no explicit mapping for /error, so you are seeing this as a fallback.</span><br><span class="line"></span><br><span class="line">Tue Aug 07 08:40:16 CST 2018</span><br><span class="line">There was an unexpected error (type=Not Found, status=404).</span><br><span class="line">No message available</span><br></pre></td></tr></table></figure></p>
+<h1 id="Application-failed-to-start-with-classpath"><a href="#Application-failed-to-start-with-classpath" class="headerlink" title="Application failed to start with classpath"></a>Application failed to start with classpath</h1><p>这个错误，通常是因为 application.yml 配置有误导致，用排除法解决，就是删除某一顶配置，再启动，如果问题依旧，再删除一项，直到可以正常启动，那么，能正常启动之前删除的配置项，一定是有问题的，修改好了，再恢复之前的配置，如此反复测试，就能找到所有配置有误的地方。</p>
+<p>通常，在接手一个旧项目，将期改造，或者用一个开源项目的时候会遇到这种问题。</p>
+<h1 id="依赖不能正常下载"><a href="#依赖不能正常下载" class="headerlink" title="依赖不能正常下载"></a>依赖不能正常下载</h1><p>到项目根目录，执行 <code>mvn compile</code>，看报错信息就能知道原因了。<br>比如我遇到的一次，是 pom.xml 文件在删除 parent 节点的时候，将内部节点 groupId 和 version 一并删除了，就遇到了这个问题。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">[INFO] Scanning for projects...</span><br><span class="line">[ERROR] [ERROR] Some problems were encountered while processing the POMs:</span><br><span class="line">[FATAL] &apos;groupId&apos; is missing. @ line 4, column 109</span><br><span class="line">[FATAL] &apos;version&apos; is missing. @ line 4, column 109</span><br><span class="line"> @</span><br><span class="line">[ERROR] The build could not read 1 project -&gt; [Help 1]</span><br><span class="line">[ERROR]</span><br><span class="line">[ERROR]   The project [unknown-group-id]:apg.common.es:[unknown-version] (C:\workspace\source\apg.common\apg.common.es\pom.xml) has 2 errors</span><br><span class="line">[ERROR]     &apos;groupId&apos; is missing. @ line 4, column 109</span><br><span class="line">[ERROR]     &apos;version&apos; is missing. @ line 4, column 109</span><br><span class="line">[ERROR]</span><br><span class="line">[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.</span><br><span class="line">[ERROR] Re-run Maven using the -X switch to enable full debug logging.</span><br><span class="line">[ERROR]</span><br><span class="line">[ERROR] For more information about the errors and possible solutions, please read the following articles:</span><br><span class="line">[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/ProjectBuildingException</span><br></pre></td></tr></table></figure></p>
+<h1 id="An-enum-switch-case-label-must-be-the-unqualified-name-of-an-enumeration-constant"><a href="#An-enum-switch-case-label-must-be-the-unqualified-name-of-an-enumeration-constant" class="headerlink" title="An enum switch case label must be the unqualified name of an enumeration constant"></a>An enum switch case label must be the unqualified name of an enumeration constant</h1><p>解决：switch case语句case后的枚举常量不带枚举类型</p>
+<h1 id="Generating-equals-hashCode-…"><a href="#Generating-equals-hashCode-…" class="headerlink" title="Generating equals/hashCode …"></a>Generating equals/hashCode …</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Warning:(5, 1) java: Generating equals/hashCode implementation but without a call to superclass, even though this class does not extend java.lang.Object. If this is intentional, add &apos;@EqualsAndHashCode(callSuper=false)&apos; to your type.</span><br></pre></td></tr></table></figure>
+<p>大致意思是默认子类的equals和hashCode方法，不会包含或者考虑基类的属性。</p>
+<h2 id="解决-1"><a href="#解决-1" class="headerlink" title="解决"></a>解决</h2><p>加上注解@EqualsAndHashCode(callSuper=true) ，警告消失。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://blog.csdn.net/feinifi/article/details/85275280" rel="external nofollow noopener noreferrer" target="_blank">lombok注解@Data使用在继承类上时出现警告</a></p>
+<h1 id="Information-java-有关详细信息-请使用-Xlint-unchecked-重新编译。"><a href="#Information-java-有关详细信息-请使用-Xlint-unchecked-重新编译。" class="headerlink" title="Information:java: 有关详细信息, 请使用 -Xlint:unchecked 重新编译。"></a>Information:java: 有关详细信息, 请使用 -Xlint:unchecked 重新编译。</h1><p>在方法前加注解<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@SuppressWarnings(&quot;unchecked&quot;)</span><br></pre></td></tr></table></figure></p>
+<h1 id="spring-boot-项目打包成-war-包发布到-tomcat-窗口，启动时，项目未被加载"><a href="#spring-boot-项目打包成-war-包发布到-tomcat-窗口，启动时，项目未被加载" class="headerlink" title="spring boot 项目打包成 war 包发布到 tomcat 窗口，启动时，项目未被加载"></a>spring boot 项目打包成 war 包发布到 tomcat 窗口，启动时，项目未被加载</h1><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Connector</span> <span class="attr">port</span>=<span class="string">"8089"</span> <span class="attr">protocol</span>=<span class="string">"HTTP/1.1"</span></span></span><br><span class="line"><span class="tag">               <span class="attr">connectionTimeout</span>=<span class="string">"20000"</span></span></span><br><span class="line"><span class="tag">               <span class="attr">redirectPort</span>=<span class="string">"8443"</span> /&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 在 &lt;/Host&gt; 前面加上下面一行 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">Context</span> <span class="attr">path</span>=<span class="string">""</span> <span class="attr">docBase</span>=<span class="string">"/home/utomcat/apps/mis-backend"</span> <span class="attr">debug</span>=<span class="string">"0"</span> <span class="attr">reloadable</span>=<span class="string">"false"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+<p>单加上上面的，启动时，spring boot 并未被加载，因为我只是改了 pom.xml，加了 <code>&lt;packaging&gt;war&lt;/packaging&gt;</code>，<br>还需要修改启动类。还需要 extends SpringBootServletInitializer</p>
+<p><a href="https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#howto-create-a-deployable-war-file" rel="external nofollow noopener noreferrer" target="_blank">参考 -&gt; spring boot build as war</a></p>
+<h1 id="jackson-注解"><a href="#jackson-注解" class="headerlink" title="jackson 注解"></a>jackson 注解</h1><p>我们在进行数据返回的时候肯定是有些属性不希望前端可以获取到，或者是某些数据为空的时候前端要求不必进行回传，那么这时候我们就可以进行属性的隐藏。</p>
+<ul>
+<li>@JsonIgnore：使用在某个属性上，这样在序列化和反序列化的时候都会忽略这个属性，最直接的效果就是返回的JSON属性是没有这个属性的，一般作用于密码这系列的属性。</li>
+<li>@JsonInclude：使用在某个属性上，配合它的属性Value=JsonInclude.Include.NON_NULL，表示的是如果这个属性的属性值为空那么在返回前端的时候不可见。</li>
+<li>@JsonProperty：使用在某个属性上，这个注解有两个作用，第一是修改返回JSON数据的时候key值为value指定值，第二个作用是配合属性access=JsonProperty.Access.WRITE_ONLY表示属性只可以进行序列化而不能进行反序列化，直观效果就是返回的数据没有该属性。</li>
+<li>@JsonIgnoreProperties：作用在类声明处，它和@JsonIgnore注解的区别就是可以对多个属性作用，直接在value属性后面使用大括号逗号隔开即可，它的ignoreUnknow属性为true表示忽略未定义的属性。</li>
+</ul>
+<p>日期：<br>我们直接使用日期出来的格式必然不是我们想要的，那么我们可以使用注解：@JsonFormat配合上属性pattern标志事件格式，timezone是时区，local是区域。在这里必须强调的是这是把日期格式化为String，一般应用在后台向前端传递数据，如果是前端的String格式需要解析为日期格式我们可以使用@DateTimeFormat即可。<br><code>@JsonFormat(timezone=&quot;GMT+8&quot;, pattern=&quot;yyy-MM-dd HH:mm:ss&quot;)</code></p>
+<p>排序：<br>有时候为了规范好看我们也需要让属性按照一定顺序进行排列，这时候我们就使用@JsonPropertyOrder这个注解，它的属性alphabetic默认值是false，我们设置为true即可。</p>
+<p>以下二者同时用，JsonIgnore 没有生效，返回的 JSON 还是会包含属性。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@JsonIgnore</span><br><span class="line">@JsonProperty(&quot;毕业院校&quot;)</span><br></pre></td></tr></table></figure></p>
+<p>换成：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@JsonProperty(value=&quot;毕业院校&quot;, access=JsonProperty.Access.WRITE_ONLY)</span><br></pre></td></tr></table></figure></p>
+<p>同样，JsonIgnoreProperties 与 JsonProperty 同时使用时，前者不会生效。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@JsonIgnoreProperties(value = &#123;&quot;nameSpellAcronym&quot;, &quot;sexTxt&quot;&#125;)</span><br><span class="line">...</span><br><span class="line">    @JsonProperty(value=&quot;性别&quot;)</span><br><span class="line">    private String sexTxt;</span><br></pre></td></tr></table></figure></p>
+<p>关于后端对实体类数据进行格式化输出的方法及使用@JsonSerialize和@JsonFormat<br><a href="https://www.cnblogs.com/mollie-x/p/10514356.html" rel="external nofollow noopener noreferrer" target="_blank">https://www.cnblogs.com/mollie-x/p/10514356.html</a></p>
+<p>关于JSON反序列化与序列化名称问题的一点小经验<br><a href="https://www.cnblogs.com/yrml/p/9122955.html" rel="external nofollow noopener noreferrer" target="_blank">https://www.cnblogs.com/yrml/p/9122955.html</a></p>
+<ul>
+<li>@JsonProperty 这个注解提供了序列化和反序列化过程中该java属性所对应的名称</li>
+<li>@JsonAlias 这个注解只只在反序列化时起作用，指定该java属性可以接受的更多名称</li>
+</ul>
+<h1 id="Cannot-call-sendError-after-the-response-has-been-committed"><a href="#Cannot-call-sendError-after-the-response-has-been-committed" class="headerlink" title="Cannot call sendError() after the response has been committed"></a>Cannot call sendError() after the response has been committed</h1><p>导出 excel 时报错：<br> // 因为在前端请求时，还会有返回，所以，这里如果 close，会导致再次返回时报错：java.lang.IllegalStateException: Cannot call sendError() after the response has been committed<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">22:23:50,843 &lt;org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver&gt;  WARN [http-nio-89-exec-4]: Failure while trying to resolve exception [org.springframework.web.HttpMediaTypeNotAcceptableException]</span><br><span class="line">java.lang.IllegalStateException: Cannot call sendError() after the response has been committed</span><br><span class="line">	at org.apache.catalina.connector.ResponseFacade.sendError(ResponseFacade.java:472) ~[tomcat-embed-core-9.0.21.jar:9.0.21]</span><br><span class="line">	at javax.servlet.http.HttpServletResponseWrapper.sendError(HttpServletResponseWrapper.java:129) ~[tomcat-embed-core-9.0.21.jar:9.0.21]</span><br><span class="line">	at javax.servlet.http.HttpServletResponseWrapper.sendError(HttpServletResponseWrapper.java:129) ~[tomcat-embed-core-9.0.21.jar:9.0.21]</span><br><span class="line">	at org.springframework.security.web.util.OnCommittedResponseWrapper.sendError(OnCommittedResponseWrapper.java:109) ~[spring-security-web-5.1.5.RELEASE.jar:5.1.5.RELEASE]</span><br><span class="line">	at javax.servlet.http.HttpServletResponseWrapper.sendError(HttpServletResponseWrapper.java:129) ~[tomcat-embed-core-9.0.21.jar:9.0.21]</span><br><span class="line">	at com.alibaba.druid.support.http.WebStatFilter$StatHttpServletResponseWrapper.sendError(WebStatFilter.java:343) ~[druid-1.1.16.jar:1.1.16]</span><br><span class="line">	at org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver.handleHttpMediaTypeNotAcceptable(DefaultHandlerExceptionResolver.java:304) ~[spring-webmvc-5.1.8.RELEASE.jar:5.1.8.RELEASE]</span><br><span class="line">	at org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver.doResolveException(DefaultHandlerExceptionResolver.java:181) [spring-webmvc-5.1.8.RELEASE.jar:5.1.8.RELEASE]</span><br><span class="line">	at org.springframework.web.servlet.handler.AbstractHandlerExceptionResolver.resolveException(AbstractHandlerExceptionResolver.java:140) [spring-webmvc-5.1.8.RELEASE.jar:5.1.8.RELEASE]</span><br><span class="line">	at org.springframework.web.servlet.handler.HandlerExceptionResolverComposite.resolveException(HandlerExceptionResolverComposite.java:79) [spring-webmvc-5.1.8.RELEASE.jar:5.1.8.RELEASE]</span><br><span class="line">	at org.springframework.web.servlet.DispatcherServlet.processHandlerException(DispatcherServlet.java:1298) [spring-webmvc-5.1.8.RELEASE.jar:5.1.8.RELEASE]</span><br><span class="line">	at org.springframework.web.servlet.DispatcherServlet.processDispatchResult(DispatcherServlet.java:1110) [spring-webmvc-5.1.8.RELEASE.jar:5.1.8.RELEASE]</span><br><span class="line">	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1056) [spring-webmvc-5.1.8.RELEASE.jar:5.1.8.RELEASE]</span><br><span class="line">	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:942) [spring-webmvc-5.1.8.RELEASE.jar:5.1.8.RELEASE]</span><br><span class="line">	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1005) [spring-webmvc-5.1.8.RELEASE.jar:5.1.8.RELEASE]</span><br><span class="line">	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:908) [spring-webmvc-5.1.8.RELEASE.jar:5.1.8.RELEASE]</span><br><span class="line">	at javax.servlet.http.HttpServlet.service(HttpServlet.java:660) [tomcat-embed-core-9.0.21.jar:9.0.21]</span><br><span class="line">	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:882) [spring-webmvc-5.1.8.RELEASE.jar:5.1.8.RELEASE]</span><br><span class="line">	at javax.servlet.http.HttpServlet.service(HttpServlet.java:741) [tomcat-embed-core-9.0.21.jar:9.0.21]</span><br><span class="line">	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231) [tomcat-embed-core-9.0.21.jar:9.0.21]</span><br><span class="line">	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) [tomcat-embed-core-9.0.21.jar:9.0.21]</span><br><span class="line">	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53) [tomcat-embed-websocket-9.0.21.jar:9.0.21]</span><br><span class="line">	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) [tomcat-embed-core-9.0.21.jar:9.0.21]</span><br><span class="line">	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) [tomcat-embed-core-9.0.21.jar:9.0.21]</span><br><span class="line">	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:103) [spring-web-5.1.8.RELEASE.jar:5.1.8.RELEASE]</span><br><span class="line">	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) [tomcat-embed-core-9.0.21.jar:9.0.21]</span><br><span class="line">	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) [tomcat-embed-core-9.0.21.jar:9.0.21]</span><br><span class="line">	at com.alibaba.druid.support.http.WebStatFilter.doFilter(WebStatFilter.java:124) [druid-1.1.16.jar:1.1.16]</span><br><span class="line">	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) [tomcat-embed-core-9.0.21.jar:9.0.21]</span><br><span class="line">	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) [tomcat-embed-core-9.0.21.jar:9.0.21]</span><br><span class="line">	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:320) [spring-security-web-5.1.5.RELEASE.jar:5.1.5.RELEASE]</span><br><span class="line">	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.invoke(FilterSecurityInterceptor.java:127) [spring-security-web-5.1.5.RELEASE.jar:5.1.5.RELEASE]</span><br><span class="line">	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.doFilter(FilterSecurityInterceptor.java:91) [spring-security-web-5.1.5.RELEASE.jar:5.1.5.RELEASE]</span><br><span class="line">	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334) [spring-security-web-5.1.5.RELEASE.jar:5.1.5.RELEASE]</span><br><span class="line">	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:119) [spring-security-web-5.1.5.RELEASE.jar:5.1.5.RELEASE]</span><br><span class="line">	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334) [spring-security-web-5.1.5.RELEASE.jar:5.1.5.RELEASE]</span><br><span class="line">	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:137) [spring-security-web-5.1.5.RELEASE.jar:5.1.5.RELEASE]</span><br><span class="line">	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334) [spring-security-web-5.1.5.RELEASE.jar:5.1.5.RELEASE]</span><br><span class="line">	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:111) [spring-security-web-5.1.5.RELEASE.jar:5.1.5.RELEASE]</span><br><span class="line">	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334) [spring-security-web-5.1.5.RELEASE.jar:5.1.5.RELEASE]</span><br><span class="line">	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:170) [spring-security-web-5.1.5.RELEASE.jar:5.1.5.RELEASE]</span><br><span class="line">	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334) [spring-security-web-5.1.5.RELEASE.jar:5.1.5.RELEASE]</span><br><span class="line">	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63) [spring-security-web-5.1.5.RELEASE.jar:5.1.5.RELEASE]</span><br><span class="line">	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334) [spring-security-web-5.1.5.RELEASE.jar:5.1.5.RELEASE]</span><br><span class="line">	at mis.api.common.jwt.JwtAuthorizationTokenFilter.doFilterInternal(JwtAuthorizationTokenFilter.java:63) [classes/:?]</span><br><span class="line">	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:109) [spring-web-5.1.8.RELEASE.jar:5.1.8.RELEASE]</span><br></pre></td></tr></table></figure></p>
+<p>从提示错误的字面意思判断“Cannotcall sendError() after the response has been committed”，“当response被提交后不能调用sendError()”。</p>
+<p>出现这个错误，应该是多次response导致的，可以这么理解，http server发送response后就关闭了socket，这个时候再次发送response给http client就会出现这个问题。<br>因为 excel 导出，在 return 之前已经 response 处理过流了</p>
+<h1 id="invalid-source-release-11"><a href="#invalid-source-release-11" class="headerlink" title="invalid source release: 11"></a>invalid source release: 11</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Information:java: Errors occurred while compiling module &apos;mis-config-common&apos;</span><br><span class="line">Information:javac 1.8.0_161 was used to compile java sources</span><br><span class="line">Information:7/25/2019 3:32 PM - Compilation completed with 1 error and 0 warnings in 6 s 247 ms</span><br><span class="line">Error:java: invalid source release: 11</span><br></pre></td></tr></table></figure>
+<ul>
+<li>IDEA 的配置路径：Project Structure -&gt; Project -&gt; Project SDK 和 Project language level，把这两项都设置为11就对了。</li>
+<li>我重新 import 了项目，而 idea 的这两项配置，默认为1.8，而我在每个项目的 pom.xml 配置指定成11了，所以会报这个错。</li>
+</ul>
+<h1 id="‘packaging’-with-value-‘jar’-is-invalid-Aggregator-projects-require-‘pom’-as-packaging"><a href="#‘packaging’-with-value-‘jar’-is-invalid-Aggregator-projects-require-‘pom’-as-packaging" class="headerlink" title="‘packaging’ with value ‘jar’ is invalid. Aggregator projects require ‘pom’ as packaging."></a>‘packaging’ with value ‘jar’ is invalid. Aggregator projects require ‘pom’ as packaging.</h1><p>项目是多模块方式，如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;project xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot;</span><br><span class="line">         xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><br><span class="line">         xsi:schemaLocation=&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd&quot;&gt;</span><br><span class="line">    &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;</span><br><span class="line"></span><br><span class="line">    &lt;groupId&gt;com.csist&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;mis-config&lt;/artifactId&gt;</span><br><span class="line">    &lt;packaging&gt;pom&lt;/packaging&gt;</span><br><span class="line">    &lt;version&gt;1.0.0&lt;/version&gt;</span><br><span class="line"></span><br><span class="line">    &lt;modules&gt;</span><br><span class="line">        &lt;module&gt;mis-config-common&lt;/module&gt;</span><br><span class="line">    &lt;/modules&gt;</span><br><span class="line"></span><br><span class="line">&lt;/project&gt;</span><br></pre></td></tr></table></figure></p>
+<p>之前没有 <code>&lt;packaging&gt;pom&lt;/packaging&gt;</code> 这一项，加上就好了。没有的话，默认是 jar。</p>
+<h1 id="mvn-compile-时遇到该错误：编码-GBK-的不可映射字符-0xBB"><a href="#mvn-compile-时遇到该错误：编码-GBK-的不可映射字符-0xBB" class="headerlink" title="mvn compile 时遇到该错误：编码 GBK 的不可映射字符 (0xBB)"></a>mvn compile 时遇到该错误：编码 GBK 的不可映射字符 (0xBB)</h1><p>解决这个问题的思路： 在maven的编译插件中声明正确的字符集编码编码——编译使用的字符集编码与代码文件使用的字符集编码一致！！<br>这个是由于代码使用的UTF-8，而maven编译的时候使用的GBK的缘故。 可以通过修改项目的pom文件，可以告诉maven这个项目使用UTF-8编码来编译。在项目的pom.xml文件中，<code>&lt;properties&gt;</code> 节点添加下面的配置：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;project.build.sourceEncoding&gt;UTF-8&lt;/project.build.sourceEncoding&gt;</span><br><span class="line">&lt;project.reporting.outputEncoding&gt;UTF-8&lt;/project.reporting.outputEncoding&gt;</span><br></pre></td></tr></table></figure></p>
+<h1 id="mvn-compile-时报错：编码-UTF-8-的不可映射字符-0xB6"><a href="#mvn-compile-时报错：编码-UTF-8-的不可映射字符-0xB6" class="headerlink" title="mvn compile 时报错：编码 UTF-8 的不可映射字符 (0xB6)"></a>mvn compile 时报错：编码 UTF-8 的不可映射字符 (0xB6)</h1><p>原因是，支持的 jdk 版本只到 1.8，而 windows 环境变量中设置的版本为 11，切换到 1.8 就好了。修改环境变量之后，记得要把 idea 全部项目关闭，再重新打开新的环境变量才会生效。 </p>
+<p>或者，在 pom.xml 中指定编译版本也可以。推荐这种方式。</p>
+<h1 id="程序包com-sun-xml-internal-messaging-saaj-util不存在"><a href="#程序包com-sun-xml-internal-messaging-saaj-util不存在" class="headerlink" title="程序包com.sun.xml.internal.messaging.saaj.util不存在"></a>程序包com.sun.xml.internal.messaging.saaj.util不存在</h1><p>一个老项目，用到 <code>com.sun.xml.internal.messaging.saaj.util</code>。</p>
+<h2 id="解决-2"><a href="#解决-2" class="headerlink" title="解决"></a>解决</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&lt;build&gt;</span><br><span class="line">        &lt;plugins&gt;</span><br><span class="line">            &lt;plugin&gt;</span><br><span class="line">                &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">                &lt;artifactId&gt;spring-boot-maven-plugin&lt;/artifactId&gt;</span><br><span class="line">            &lt;/plugin&gt;</span><br><span class="line">            &lt;plugin&gt;</span><br><span class="line">                &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;</span><br><span class="line">                &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;</span><br><span class="line">                &lt;configuration&gt;</span><br><span class="line">                    &lt;source&gt;$&#123;java.version&#125;&lt;/source&gt;</span><br><span class="line">                    &lt;target&gt;$&#123;java.version&#125;&lt;/target&gt;</span><br><span class="line">                    &lt;compilerArguments&gt;</span><br><span class="line">                        &lt;bootclasspath&gt;$&#123;java.home&#125;/jre/lib/rt.jar&lt;/bootclasspath&gt;</span><br><span class="line">                    &lt;/compilerArguments&gt;</span><br><span class="line">                &lt;/configuration&gt;</span><br><span class="line">            &lt;/plugin&gt;</span><br><span class="line">        &lt;/plugins&gt;</span><br><span class="line">    &lt;/build&gt;</span><br></pre></td></tr></table></figure>
+<p>其中，java.version 需要定义，java.home 不用。另外，IDEA 需要配置一个相应版本（这里是 1.8）的目录才行。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;properties&gt;</span><br><span class="line">    &lt;java.version&gt;1.8&lt;/java.version&gt;</span><br><span class="line">&lt;/properties&gt;</span><br></pre></td></tr></table></figure></p>
+<h1 id="spring-boot-不需要连接数据库配置"><a href="#spring-boot-不需要连接数据库配置" class="headerlink" title="spring boot 不需要连接数据库配置"></a>spring boot 不需要连接数据库配置</h1><p>spring boot 项目，默认需要注册数据库驱动，但是如果项目不需要数据库支持，在不配置数据库连接信息的情况下，就会报这个错。</p>
+<p>解决办法，在@SpringBootApplication注解后面排除数据库自动配置：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span>(exclude=&#123;DataSourceAutoConfiguration<span class="class">.<span class="keyword">class</span>,<span class="title">HibernateJpaAutoConfiguration</span>.<span class="title">class</span>&#125;)</span></span><br></pre></td></tr></table></figure></p>
+<p>如果不加括号里的配置，会报错：<br><code>Cannot determine embedded database driver class for database type NONE</code></p>
+<h1 id="Caused-by-java-lang-NoClassDefFoundError-javax-servlet-ServletContext"><a href="#Caused-by-java-lang-NoClassDefFoundError-javax-servlet-ServletContext" class="headerlink" title="Caused by: java.lang.NoClassDefFoundError: javax/servlet/ServletContext"></a>Caused by: java.lang.NoClassDefFoundError: javax/servlet/ServletContext</h1><p>上面的错误，是因为我设置了spring-boot编译类型为war，同时设置了tomcat项之后用 IDEA 直接启动 spring-boot，导致内置的tomcat不可用导致的。<br> <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-tomcat<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">scope</span>&gt;</span>provided<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>其实，把这一项删掉，既不影响在 IDEA 及 Eclipse里调试和运行，也不影响发布到tomcat 容器中运行。</p>
+<h1 id="查看thymeleaf默认配置项"><a href="#查看thymeleaf默认配置项" class="headerlink" title="查看thymeleaf默认配置项"></a>查看thymeleaf默认配置项</h1><p>在项目中添加下面的引用，按住Ctrl加鼠标查看代码<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.boot.autoconfigure.thymeleaf.ThymeleafProperties;</span><br></pre></td></tr></table></figure></p>
+<h1 id="关于-POJO-属性的访问范围修饰符"><a href="#关于-POJO-属性的访问范围修饰符" class="headerlink" title="关于 POJO 属性的访问范围修饰符"></a>关于 POJO 属性的访问范围修饰符</h1><p>一开始有部分 POJO 的属性直接用了 public，这样的好处是赋值与取值的代码相对简单。如果需要通过程序赋值，比如通过 MyBatis 查询数据，输出为某 POJO 类型的列表，或者在调用 api 时传入的 JSON 格式。<br>为了达到程序自动赋值，必须有 setter。这没有问题，只让 IDE 生成 setter 代码就好了，这样还是能让取值代码简洁而“优雅”。这种思想可在 C# 有很好的体现，C# 的 setter 与 getter 就感觉是真的很优雅，C# 不需要定义属性变量，直接定义 getter 与 setter 并且是一个名称，就象在 java 的 POJO 是定义了一个 public 的属性一样。看起来就象是这样：<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">public class RateErrView &#123;</span><br><span class="line">    public TopResponse Response &#123; get; set; &#125;</span><br><span class="line">    public long BizID &#123; get; set; &#125;</span><br><span class="line">    public string SessionKey &#123; get; set; &#125;</span><br><span class="line">    public string TID &#123; get; set; &#125;</span><br><span class="line">    public string OID &#123; get; set; &#125;</span><br><span class="line">    public string From &#123;get;set;&#125;</span><br><span class="line">    public string Para &#123;get;set;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>但是，问题来了，并不是所有团队成员都明白这个原理，经常出现有因队成员忘记加 setter 的，直到发现数据没有被正确赋值才知道，甚至是，之前添加的属性没问题，只是新加的属性没有被正确赋值，这往往发生在经验尚不足的新同事身上。<br>再后来，发现有些地方的代码还依赖于 getter，如果能明确哪些 POJO 需要，哪些不需要，也好说，把需要的加上就行了，但是，这个判断并不是每个团队成员都清楚，而且好多这种依赖是随着系统的演进而发生的。</p>
+<p>所以，为了避免以上问题，最好的办法就是，不要用 public 的属性，所有属性都是 private 的，而且必须添加  setter 与 getter 代码，让这个规定成为一个不可以破坏的默认约定，这能让项目负责人减少很多不必要的麻烦。</p>
+<p>所以，关于 POJO 属性的访问修饰符，规定如下：</p>
+<ul>
+<li>之前用 public 的保留，新加的一律用 private，private 的属性均需要添加 setter 和 getter。</li>
+<li>这样能避免某些地方需要 setter 的应用场景不能按预期实现功能，否则可能要到数据异常或者出错时才能发现。</li>
+</ul>
+<p>推荐使用 lombok，这样就不需要自己维护 setter 和 getter 了，非常省事儿，配合 IDEA 的 lombok 插件，省心，用上了就离不开了。 </p>
+<h1 id="关于使用-Map-类型作为参数或者返回值的经验"><a href="#关于使用-Map-类型作为参数或者返回值的经验" class="headerlink" title="关于使用 Map 类型作为参数或者返回值的经验"></a>关于使用 Map 类型作为参数或者返回值的经验</h1><p>一开始可以给出一个规则，让团队成员根据规则掌握什么情况能用 Map，什么情况不能用 Map，但是，事与愿违，并不是每个团队成员都能时时刻刻记住和领悟这个规定，总是有人违反规定写出一些不合格的代码。<br>考虑到，使用 Map 带来的好处要远远小于使用它带来的坏处，何不干脆规定，所有人都不能用它作为参数和返回值呢？</p>
+<h1 id="线上环境，-properties-配置中文信息时的注意事项"><a href="#线上环境，-properties-配置中文信息时的注意事项" class="headerlink" title="线上环境，.properties 配置中文信息时的注意事项"></a>线上环境，.properties 配置中文信息时的注意事项</h1><ol>
+<li>直接通过终端，执行 vi 直接编辑，粘贴中文，再次 vi 或者 cat 看到的是中文信息，那程序读到的将会是乱码。</li>
+<li>应该在 idea 里编辑好，可以单独新加一个文件，把线上的内容复制下来，修改带有中文信息的配置，然后上传，覆盖线上的文件。这样操作之后，vi 或者 cat 看到的将会是\u开头的字符，这样程序读出来的才是正常的。</li>
+<li>作为经验教训，建议在配置文件里尽量不要用中文信息。</li>
+</ol>
+<h1 id="调用-api-自定义错误信息"><a href="#调用-api-自定义错误信息" class="headerlink" title="调用 api 自定义错误信息"></a>调用 api 自定义错误信息</h1><p>实践：返回类型继承 RestApiView<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//返回 RestApiView 的子类</span></span><br><span class="line">SyncShopView syncShopView = <span class="keyword">new</span> SyncShopView();</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (syncShopAuthView.getSellerID() == <span class="number">0L</span>) &#123;</span><br><span class="line">    syncShopView.setSuccessOrFail(SuccessOrFailEnum.fail);</span><br><span class="line">    syncShopView.setExceptionCodeEnum(ExceptionCodeEnum.notAssignSellerID);</span><br><span class="line">    syncShopView.setMessage(<span class="string">"同步CRM商家信息：无法获取SellerID，请检查参数的正确性和完整性！"</span>);</span><br><span class="line">    <span class="keyword">return</span> syncShopView;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//直接返回 RestApiView</span></span><br><span class="line">RestApiView restApiView = <span class="keyword">new</span> RestApiView();</span><br><span class="line">SyncRateAuthView syncRateAuthView = JsonHelper.json2Object(requestParametersView.apiParas, SyncRateAuthView<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (syncRateAuthView.getSellerID() == <span class="number">0L</span>) &#123;</span><br><span class="line">    restApiView.setSuccessOrFail(SuccessOrFailEnum.fail);</span><br><span class="line">    restApiView.setExceptionCodeEnum(ExceptionCodeEnum.notAssignSellerID);</span><br><span class="line">    restApiView.setMessage(<span class="string">"同步Rate商家信息：无法获取SellerID，请检查参数的正确性和完整性！"</span>);</span><br><span class="line">    <span class="keyword">return</span> restApiView;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h1 id="Diamond-types-are-not-supported-at-this-language-level"><a href="#Diamond-types-are-not-supported-at-this-language-level" class="headerlink" title="Diamond types are not supported at this language level"></a>Diamond types are not supported at this language level</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Map&lt;String, Object&gt; paraMapForInit = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br></pre></td></tr></table></figure>
+<p>解决办法：</p>
+<ol>
+<li>中规中矩的把 new HashMap&lt;&gt;() 写成 new HasMap&lt;String, Object&gt;();</li>
+<li>添加 spring-boot 插件。在 pom.xml 添加下面的内容。<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">project.build.sourceEncoding</span>&gt;</span>UTF-8<span class="tag">&lt;/<span class="name">project.build.sourceEncoding</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">project.reporting.outputEncoding</span>&gt;</span>UTF-8<span class="tag">&lt;/<span class="name">project.reporting.outputEncoding</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">java.version</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">java.version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.maven.plugins<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-compiler-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">source</span>&gt;</span>$&#123;java.version&#125;<span class="tag">&lt;/<span class="name">source</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">target</span>&gt;</span>$&#123;java.version&#125;<span class="tag">&lt;/<span class="name">target</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>添加之后，IDEA 给的建议是：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Explicit type argument Integer can be replaced with &lt;&gt; less... (Ctrl+F1) </span><br><span class="line">This inspection reports all new expressions with type arguments which can be replaced with diamond type &lt;&gt;</span><br><span class="line">Such &lt;&gt; syntax is not supported under Java 1.6 or earlier JVMs.</span><br></pre></td></tr></table></figure></p>
+<p>这个时候，这样定义即可：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Map&lt;String, Object&gt; paraMapForInit = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br></pre></td></tr></table></figure></p>
+<h1 id="java-lang-String-cannot-be-cast-to-org-springframework-mail-javamail-JavaMailSender"><a href="#java-lang-String-cannot-be-cast-to-org-springframework-mail-javamail-JavaMailSender" class="headerlink" title="java.lang.String cannot be cast to org.springframework.mail.javamail.JavaMailSender"></a>java.lang.String cannot be cast to org.springframework.mail.javamail.JavaMailSender</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.crm.common.application;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.BeansException;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.ApplicationContext;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.ApplicationContextAware;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Configuration;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> AndyChen</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span>: 解决在静态方法内不能调用非静态Mapper实例的问题</span></span><br><span class="line"><span class="comment"> * 用法：</span></span><br><span class="line"><span class="comment"> * static MapperName mapperName;</span></span><br><span class="line"><span class="comment"> * if (null == mapperName) &#123;</span></span><br><span class="line"><span class="comment"> *  mapperName = (MapperName)BeanTools.getBean(MapperName.class);</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2017-01-11</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BeanTools</span> <span class="keyword">implements</span> <span class="title">ApplicationContextAware</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> ApplicationContext applicationContext;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setApplicationContext</span><span class="params">(ApplicationContext applicationContext)</span> <span class="keyword">throws</span> BeansException </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.applicationContext = applicationContext;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@SuppressWarnings</span>(&#123;<span class="string">"unchecked"</span>, <span class="string">"rawtypes"</span>&#125;)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Object <span class="title">getBean</span><span class="params">(Class classname)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> applicationContext.getBean(classname);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">""</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>一定要加上：&lt;context:component-scan base-package=”com.crm.common.application”/&gt;<br>否则，下面的代码<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> JavaMailSender javaMailSender = (JavaMailSender) BeanTools.getBean(JavaMailSender<span class="class">.<span class="keyword">class</span>)</span>;</span><br></pre></td></tr></table></figure></p>
+<p>会报这样的错：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java.lang.String cannot be cast to org.springframework.mail.javamail.JavaMailSender</span><br></pre></td></tr></table></figure></p>
+<h1 id="spring-boot-执行-jar-报错"><a href="#spring-boot-执行-jar-报错" class="headerlink" title="spring boot 执行 jar 报错"></a>spring boot 执行 jar 报错</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[utomcat@192 webapps]$ java -jar web.jar </span><br><span class="line">no main manifest attribute, in web.jar</span><br><span class="line"># 我一种方式，还是不行。</span><br><span class="line">java -cp doman.web.Application</span><br></pre></td></tr></table></figure>
+<p>之前的打包方式，是在 idea 的 Artifacts 里引入了一个 web 项目，然后 Build Artifacts …</p>
+<p>现在，换一种方式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mvn package</span><br><span class="line"># 直接运行下面的脚本即可，会自动找到 spring boot 的启动类</span><br><span class="line">java -jar web.jar</span><br></pre></td></tr></table></figure></p>
+<p>OK 了。</p>
+<h1 id="spring-配置报错：cvc-complex-type-2-1-Element-‘mvc-annotation-driven’-must-have-no-character-or-element-information-item-children-because-the-type’s-content-type-is-empty"><a href="#spring-配置报错：cvc-complex-type-2-1-Element-‘mvc-annotation-driven’-must-have-no-character-or-element-information-item-children-because-the-type’s-content-type-is-empty" class="headerlink" title="spring 配置报错：cvc-complex-type.2.1: Element ‘mvc:annotation-driven’ must have no character or element information item [children], because the type’s content type is empty."></a>spring 配置报错：cvc-complex-type.2.1: Element ‘mvc:annotation-driven’ must have no character or element information item [children], because the type’s content type is empty.</h1><p>在一个比较老的项目里，配置报错：Element mvc:message-converters is not allowed here，没管，直接运行项目，得到：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Caused by: org.xml.sax.SAXParseException; lineNumber: 81; columnNumber: 29; cvc-complex-type.2.1: Element &apos;mvc:annotation-driven&apos; must have no character or element information item [children], because the type&apos;s content type is empty.</span><br></pre></td></tr></table></figure></p>
+<p>网上一查资料，原来是 Spring 3.1 及以上才支持这种配置方式，这里我用的是 spring 4.3.2，但是 dispatcher-servlet.xml 配置文件里的版本却停留在3.0，如下：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">"http://www.springframework.org/schema/beans"</span></span></span><br><span class="line"><span class="tag">	<span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span> </span></span><br><span class="line"><span class="tag">	<span class="attr">xmlns:mvc</span>=<span class="string">"http://www.springframework.org/schema/mvc"</span></span></span><br><span class="line"><span class="tag">	<span class="attr">xmlns:p</span>=<span class="string">"http://www.springframework.org/schema/p"</span> </span></span><br><span class="line"><span class="tag">	<span class="attr">xmlns:context</span>=<span class="string">"http://www.springframework.org/schema/context"</span></span></span><br><span class="line"><span class="tag">	<span class="attr">xsi:schemaLocation</span>=<span class="string">"http://www.springframework.org/schema/beans</span></span></span><br><span class="line"><span class="tag"><span class="string">	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd</span></span></span><br><span class="line"><span class="tag"><span class="string">	http://www.springframework.org/schema/context </span></span></span><br><span class="line"><span class="tag"><span class="string">	http://www.springframework.org/schema/context/spring-context-3.0.xsd</span></span></span><br><span class="line"><span class="tag"><span class="string">	http://www.springframework.org/schema/mvc </span></span></span><br><span class="line"><span class="tag"><span class="string">	http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd</span></span></span><br><span class="line"><span class="tag"><span class="string">	http://www.springframework.org/schema/context </span></span></span><br><span class="line"><span class="tag"><span class="string">	http://www.springframework.org/schema/context/spring-context-3.0.xsd"</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>改成，不加版本号的即可解决问题：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">"http://www.springframework.org/schema/beans"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns:mvc</span>=<span class="string">"http://www.springframework.org/schema/mvc"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns:p</span>=<span class="string">"http://www.springframework.org/schema/p"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns:context</span>=<span class="string">"http://www.springframework.org/schema/context"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://www.springframework.org/schema/beans</span></span></span><br><span class="line"><span class="tag"><span class="string">	http://www.springframework.org/schema/beans/spring-beans.xsd</span></span></span><br><span class="line"><span class="tag"><span class="string">	http://www.springframework.org/schema/mvc</span></span></span><br><span class="line"><span class="tag"><span class="string">	http://www.springframework.org/schema/mvc/spring-mvc.xsd</span></span></span><br><span class="line"><span class="tag"><span class="string">	http://www.springframework.org/schema/context</span></span></span><br><span class="line"><span class="tag"><span class="string">	http://www.springframework.org/schema/context/spring-context.xsd"</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h1 id="java-把-gbk-格式的文件，转为-UTF8"><a href="#java-把-gbk-格式的文件，转为-UTF8" class="headerlink" title="java 把 gbk 格式的文件，转为 UTF8"></a>java 把 gbk 格式的文件，转为 UTF8</h1><p><a href="https://github.com/downgoon/gbk2utf8" rel="external nofollow noopener noreferrer" target="_blank">https://github.com/downgoon/gbk2utf8</a><br>直接提供了工具，下载先来，一条命令全搞定。<code>java -jar gbk2utf8-0.0.1-SNAPSHOT-all.jar $src-gbk-path $dst-utf8-path</code><br>而且关键是，如果源目录中既有GBK，又有UTF-8，很多工具最终笼统的对每个文件都 <code>GBK -&gt; UTF-8</code>，会导致原本就是UTF-8，被误做GBK转码，最后出来的反而是乱码的，这个工具首先识别了源文件是否是GBK，只有是GBK的才转，不是GBK的直接跳过。</p>
+<h1 id="view-enumeration-是否要全部放到一个-module-管理？"><a href="#view-enumeration-是否要全部放到一个-module-管理？" class="headerlink" title="view, enumeration 是否要全部放到一个 module 管理？"></a>view, enumeration 是否要全部放到一个 module 管理？</h1><p>以 view 为例。<br>如果放到公共的 view module，这样虽然方便添加和查找，但是如此一来，会增加项目耦合，本来只需要引用一个 module 即可，但是因为这个项目依赖于 view 对应的 module，不得不两个 module 一起引用。<br>建议：如果 view 并不具有公共性，仅与某个 module 相关，则直接放到此 module，这样其它项目依赖此 module 时，仅依赖这一个 module 即可。<br>后续：如果某个 view 变得被多个项目依赖，可以考虑将其提取到公共的、专门的 view module。</p>
+<h1 id="Jackson-Unrecognized-field-not-marked-as-ignorable"><a href="#Jackson-Unrecognized-field-not-marked-as-ignorable" class="headerlink" title="Jackson Unrecognized field, not marked as ignorable"></a>Jackson Unrecognized field, not marked as ignorable</h1><p>Jackson是一个可以轻松的将Java对象转换成json对象和xml文档，同样也可以将json、xml转换成Java对象的框架。非常方便，同时也很高效。<br>最近在使用时，将前台传递的JSON 串转成Java实体对象时，出现了Unrecognized field, not marked as ignorable 错误。该错误的意思是说，不能够识别的字段没有标示为可忽略。出现该问题的原因就是JSON中包含了目标Java对象没有的属性。</p>
+<p>解决方法有如下几种：<br>格式化输入内容，保证传入的JSON串不包含目标对象的没有的属性。<br><code>@JsonIgnoreProperties(ignoreUnknown = true)</code> 在目标对象的类级别上加上该注解，并配置<code>ignoreUnknown = true</code>，则Jackson在反序列化的时候，会忽略该目标对象不存在的属性。<br>全局DeserializationFeature配置<br><code>objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES,false);</code> 配置该objectMapper在反序列化时，忽略目标对象没有的属性。凡是使用该objectMapper反序列化时，都会拥有该特性。</p>
+<h1 id="Invalid-bound-statement-not-found-express-dal-mapper-original-GwCpInfoMapper-selectByPrimaryKey"><a href="#Invalid-bound-statement-not-found-express-dal-mapper-original-GwCpInfoMapper-selectByPrimaryKey" class="headerlink" title="Invalid bound statement (not found): express.dal.mapper.original.GwCpInfoMapper.selectByPrimaryKey"></a>Invalid bound statement (not found): express.dal.mapper.original.GwCpInfoMapper.selectByPrimaryKey</h1><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">resources</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">resource</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">directory</span>&gt;</span>src/main/java<span class="tag">&lt;/<span class="name">directory</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">includes</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">include</span>&gt;</span>**/*.xml<span class="tag">&lt;/<span class="name">include</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">includes</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">filtering</span>&gt;</span>false<span class="tag">&lt;/<span class="name">filtering</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">resource</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">resources</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h1 id="maven-项目，依赖三方-jar-包，打包项目时自动包含"><a href="#maven-项目，依赖三方-jar-包，打包项目时自动包含" class="headerlink" title="maven 项目，依赖三方 jar 包，打包项目时自动包含"></a>maven 项目，依赖三方 jar 包，打包项目时自动包含</h1><p>以下配置，仅开发环境可用，打包时并不能打到 war 和 生意人 lib 目录<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>jd<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>open-api-sdk<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">scope</span>&gt;</span>system<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">systemPath</span>&gt;</span>$&#123;project.basedir&#125;/sdkLib/open-api-sdk-2.0.jar<span class="tag">&lt;/<span class="name">systemPath</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>最终还是需要 mvn install 到本地仓库<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn install:install-file -Dfile=open-api-sdk-2.0.jar -DgroupId=jd -DartifactId=open-api-sdk -Dversion=2.0 -Dpackaging=jar</span><br></pre></td></tr></table></figure></p>
+<p>依赖近成这样：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>jd<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>open-api-sdk<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h1 id="idea每次编译设置工程的默认jdk版本1-5问题"><a href="#idea每次编译设置工程的默认jdk版本1-5问题" class="headerlink" title="idea每次编译设置工程的默认jdk版本1.5问题"></a>idea每次编译设置工程的默认jdk版本1.5问题</h1><p>出现这样的原因应该是Maven插件的默认配置有问题。解决方法是在”pom.xml”里加入如下代码：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">maven.compiler.source</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">maven.compiler.source</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">maven.compiler.target</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">maven.compiler.target</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h1 id="如果-maven-依赖不能下载，试一下，mvn-compile，看看会不会报错，因为有可能是-maven-配置文件有错。"><a href="#如果-maven-依赖不能下载，试一下，mvn-compile，看看会不会报错，因为有可能是-maven-配置文件有错。" class="headerlink" title="如果 maven 依赖不能下载，试一下，mvn compile，看看会不会报错，因为有可能是 maven 配置文件有错。"></a>如果 maven 依赖不能下载，试一下，mvn compile，看看会不会报错，因为有可能是 maven 配置文件有错。</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[ERROR] Error executing Maven.</span><br><span class="line">[ERROR] 1 problem was encountered while building the effective settings</span><br><span class="line">[FATAL] Non-parseable settings C:\Users\andy\.m2\settings.xml: end tag name &lt;/mirrors&gt; must match start tag name &lt;settings&gt; from line 46 (position: TEXT seen ...&lt;/mirror&gt;\n      --&gt;\n &lt;/mirrors&gt;... @173:12)  @ C:\Users</span><br><span class="line">\andy\.m2\settings.xml, line 173, column 12</span><br></pre></td></tr></table></figure>
+<p>maven 配置文件时的 <mirrorof>*</mirrorof> 会导致  pom.xml 文件里配置的 repository 不生效，解决办法就是，在 setting.xml 的 mirrorOf 配置里排除，如下：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mirror</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">id</span>&gt;</span>nexus-aliyun<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">mirrorOf</span>&gt;</span>*,!spring-milestones<span class="tag">&lt;/<span class="name">mirrorOf</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>Nexus aliyun<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">url</span>&gt;</span>http://maven.aliyun.com/nexus/content/groups/public<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mirror</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h1 id="tomcat-下，一个应用程序，发布成两个虚拟目录，该应用配置了-druid-防火墙，会冲突"><a href="#tomcat-下，一个应用程序，发布成两个虚拟目录，该应用配置了-druid-防火墙，会冲突" class="headerlink" title="tomcat 下，一个应用程序，发布成两个虚拟目录，该应用配置了 druid 防火墙，会冲突"></a>tomcat 下，一个应用程序，发布成两个虚拟目录，该应用配置了 druid 防火墙，会冲突</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Caused by: javax.management.InstanceAlreadyExistsException: com.alibaba.druid.wall:name=wall-filter,type=WallFilter</span><br><span class="line">...</span><br><span class="line">Caused by: org.springframework.jmx.export.UnableToRegisterMBeanException: Unable to register MBean [com.alibaba.druid.wall.WallFilter@72ae610b] with key &apos;wall-filter&apos;; nested exception is javax.management.InstanceAlreadyExistsException: com.alibaba.druid.wall:name=wall-filter,type=WallFilter</span><br></pre></td></tr></table></figure>
+<p>解决办法：<br>将配置文件中的这些配置的 ID 改得不一样即可：<br>WallConfig、WallFilter、StatFilter、DruidDataSource</p>
+<h1 id="extend-Mapper-can-39-t-load-Instantiation-of-bean-failed-nested-exception-is-java-lang-ExceptionInInitializerError"><a href="#extend-Mapper-can-39-t-load-Instantiation-of-bean-failed-nested-exception-is-java-lang-ExceptionInInitializerError" class="headerlink" title="extend Mapper can&#39;t load: Instantiation of bean failed; nested exception is java.lang.ExceptionInInitializerError"></a><code>extend Mapper can&#39;t load: Instantiation of bean failed; nested exception is java.lang.ExceptionInInitializerError</code></h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">22:02:03,660 &lt;org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext&gt;  WARN [restartedMain]: Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name &apos;expressHDalServiceImpl&apos; defined in file [C:\workspace\java\shard-test\public.biz\biz.dal\target\classes\biz\dal\shard\service\impl\ExpressHDalServiceImpl.class]: Instantiation of bean failed; nested exception is java.lang.ExceptionInInitializerError</span><br><span class="line">22:02:03,669 &lt;com.alibaba.druid.pool.DruidDataSource&gt;  INFO [restartedMain]: &#123;dataSource-1&#125; closed</span><br><span class="line">22:02:03,671 &lt;org.apache.catalina.core.StandardService&gt;  INFO [restartedMain]: Stopping service [Tomcat]</span><br><span class="line">22:02:03,700 &lt;org.springframework.boot.autoconfigure.logging.AutoConfigurationReportLoggingInitializer&gt;  INFO [restartedMain]: </span><br><span class="line"></span><br><span class="line">Error starting ApplicationContext. To display the auto-configuration report re-run your application with &apos;debug&apos; enabled.</span><br><span class="line">22:02:03,711 &lt;org.springframework.boot.SpringApplication&gt; ERROR [restartedMain]: Application startup failed</span><br><span class="line">org.springframework.beans.factory.BeanCreationException: Error creating bean with name &apos;expressHDalServiceImpl&apos; defined in file [C:\workspace\java\shard-test\public.biz\biz.dal\target\classes\biz\dal\shard\service\impl\ExpressHDalServiceImpl.class]: Instantiation of bean failed; nested exception is java.lang.ExceptionInInitializerError</span><br><span class="line">	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateBean(AbstractAutowireCapableBeanFactory.java:1155) ~[spring-beans-4.3.13.RELEASE.jar:4.3.13.RELEASE]</span><br><span class="line">	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1099) ~[spring-beans-4.3.13.RELEASE.jar:4.3.13.RELEASE]</span><br><span class="line">	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:513) ~[spring-beans-4.3.13.RELEASE.jar:4.3.13.RELEASE]</span><br><span class="line">	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:483) ~[spring-beans-4.3.13.RELEASE.jar:4.3.13.RELEASE]</span><br><span class="line">	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:306) ~[spring-beans-4.3.13.RELEASE.jar:4.3.13.RELEASE]</span><br><span class="line">	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230) ~[spring-beans-4.3.13.RELEASE.jar:4.3.13.RELEASE]</span><br><span class="line">	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:302) ~[spring-beans-4.3.13.RELEASE.jar:4.3.13.RELEASE]</span><br><span class="line">	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:197) ~[spring-beans-4.3.13.RELEASE.jar:4.3.13.RELEASE]</span><br><span class="line">	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:761) ~[spring-beans-4.3.13.RELEASE.jar:4.3.13.RELEASE]</span><br><span class="line">	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:867) ~[spring-context-4.3.13.RELEASE.jar:4.3.13.RELEASE]</span><br><span class="line">	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:543) ~[spring-context-4.3.13.RELEASE.jar:4.3.13.RELEASE]</span><br><span class="line">	at org.springframework.boot.context.embedded.EmbeddedWebApplicationContext.refresh(EmbeddedWebApplicationContext.java:122) ~[spring-boot-1.5.9.RELEASE.jar:1.5.9.RELEASE]</span><br><span class="line">	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:693) [spring-boot-1.5.9.RELEASE.jar:1.5.9.RELEASE]</span><br><span class="line">	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:360) [spring-boot-1.5.9.RELEASE.jar:1.5.9.RELEASE]</span><br><span class="line">	at org.springframework.boot.SpringApplication.run(SpringApplication.java:303) [spring-boot-1.5.9.RELEASE.jar:1.5.9.RELEASE]</span><br><span class="line">	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1118) [spring-boot-1.5.9.RELEASE.jar:1.5.9.RELEASE]</span><br><span class="line">	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1107) [spring-boot-1.5.9.RELEASE.jar:1.5.9.RELEASE]</span><br><span class="line">	at boot.alibaba.BootAlibaba.main(BootAlibaba.java:23) [classes/:?]</span><br><span class="line">	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:1.8.0_121]</span><br><span class="line">	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[?:1.8.0_121]</span><br><span class="line">	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:1.8.0_121]</span><br><span class="line">	at java.lang.reflect.Method.invoke(Method.java:498) ~[?:1.8.0_121]</span><br><span class="line">	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49) [spring-boot-devtools-1.5.9.RELEASE.jar:1.5.9.RELEASE]</span><br><span class="line">Caused by: java.lang.ExceptionInInitializerError</span><br><span class="line">	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method) ~[?:1.8.0_121]</span><br><span class="line">	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62) ~[?:1.8.0_121]</span><br><span class="line">	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45) ~[?:1.8.0_121]</span><br><span class="line">	at java.lang.reflect.Constructor.newInstance(Constructor.java:423) ~[?:1.8.0_121]</span><br></pre></td></tr></table></figure>
+<p>这种情况，需要检查 mapper 里的类型是否正确。如下面的：parameterType, type。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;resultMap id=&quot;BaseResultMap&quot; type=&quot;X&quot;&gt; </span><br><span class="line">&lt;select id=&quot;selectEcodes&quot; parameterType=&quot;Y&quot; resultMap=&quot;BaseResultMap&quot;&gt;</span><br></pre></td></tr></table></figure></p>
+<p>本次遇到的问题，是在用 IDEA 修改包名进行重构的过程中，把 X 和 Y 的 package 路径给去掉了。<br>导致 spring boot 项目启动报错。<br>这种错，很难一下子定位到，因为在改 package name 之前一直是运行正常的。<br>为了排查这个错，将项目 copy 一份，去掉报错的 mapper 之外的所有 mapper，然后去掉里的配置，即 xml 内容，只保留一份从 用 MGB 生成的代码里 copy 过来的简单的，结果启动正常，然后添加一个原有的，结果报错，再仔细看 xml 内容，才发现是类名之前没有加 package 路径，加上就可以了。</p>
+<h1 id="获取-xml-配置文件里定义的-bean-信息"><a href="#获取-xml-配置文件里定义的-bean-信息" class="headerlink" title="获取 xml 配置文件里定义的 bean 信息"></a>获取 xml 配置文件里定义的 bean 信息</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ApplicationContext context = new ClassPathXmlApplicationContext(&quot;applicationContext.xml&quot;);  </span><br><span class="line">BaseDAO dao = (BaseDAO) context.getBean(&quot;sqlBaseDAO&quot;, BaseDAOImpl.class);</span><br></pre></td></tr></table></figure>
+<h1 id="json-lib-json-lib-jar-2-4-依赖，在-IDEA-的依赖项里面，显示红色下划线，当然，引用其中的类是有问题的。"><a href="#json-lib-json-lib-jar-2-4-依赖，在-IDEA-的依赖项里面，显示红色下划线，当然，引用其中的类是有问题的。" class="headerlink" title="json-lib:json-lib:jar:2.4 依赖，在 IDEA 的依赖项里面，显示红色下划线，当然，引用其中的类是有问题的。"></a><code>json-lib:json-lib:jar:2.4</code> 依赖，在 IDEA 的依赖项里面，显示红色下划线，当然，引用其中的类是有问题的。</h1><h2 id="现象"><a href="#现象" class="headerlink" title="现象"></a>现象</h2><p>2.4 版本的依赖引用格式，是在 <a href="http://mvnrepository.com/artifact/net.sf.json-lib/json-lib/2.4" rel="external nofollow noopener noreferrer" target="_blank">http://mvnrepository.com/artifact/net.sf.json-lib/json-lib/2.4</a> 找到的，如下：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- https://mvnrepository.com/artifact/net.sf.json-lib/json-lib --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>net.sf.json-lib<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>json-lib<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.4<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<ol>
+<li>maven 项目，IDEA。pom.xml 文件里显示正常，但引用 <code>net.sf.json</code> 下定义的类时显示红色，即找不到依赖。刷新 maven 依赖，依赖项 json-lib-2.4 显示红色下红线。进入本地 maven 依赖库的下载目录查看，发现下载的是 json-lib-2.4-jdk15.jar，并非预期中的 json-lib-2.4.jar。</li>
+<li>另外，在一个旧的，非 maven 项目里，引用的是 <code>json-lib-2.4.jar</code>，引用 <code>net.sf.json</code> 下定义的类，正常。</li>
+</ol>
+<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><p>度娘了一下，原来通过 Maven 引用时，需要添加 <code>&lt;classifier&gt;jdk15&lt;/classifier&gt;</code>，这应该是 maven 仓库只有基于 jdk1.5 的版本。完整的引用：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>net.sf.json-lib<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>json-lib<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.4<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">classifier</span>&gt;</span>jdk15<span class="tag">&lt;/<span class="name">classifier</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h1 id="利用反射，实现读取-pojo-field-与对应值"><a href="#利用反射，实现读取-pojo-field-与对应值" class="headerlink" title="利用反射，实现读取 pojo field 与对应值"></a>利用反射，实现读取 pojo field 与对应值</h1><p>以下代码，假设 pojo 的字段均为普通数据类型，即都可以 toString() 显示正确值。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Class reClass = Class.forName(<span class="string">"domain.pojoClass"</span>);</span><br><span class="line">Field fieldList[] = reClass.getDeclaredFields();</span><br><span class="line">String result;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (Field field : fieldList) &#123;</span><br><span class="line">    System.out.println(<span class="string">"ke="</span> + field.getName() + <span class="string">", value="</span> + field.get(outerParameters).toString());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h1 id="类似-isLogin-用-int-类型的数据，如果用-bool-类型数据，用-idea-生成的-getter-会跟变量名一致，容易混淆。"><a href="#类似-isLogin-用-int-类型的数据，如果用-bool-类型数据，用-idea-生成的-getter-会跟变量名一致，容易混淆。" class="headerlink" title="类似 isLogin 用 int 类型的数据，如果用 bool 类型数据，用 idea 生成的 getter 会跟变量名一致，容易混淆。"></a>类似 isLogin 用 int 类型的数据，如果用 bool 类型数据，用 idea 生成的 getter 会跟变量名一致，容易混淆。</h1><p>如：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">VerificationRequest</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">boolean</span> isLogin;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isLogin</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> isLogin;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setLogin</span><span class="params">(<span class="keyword">boolean</span> login)</span> </span>&#123;</span><br><span class="line">        isLogin = login;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>用 int 则清晰自然：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">VerificationRequest</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> isLogin;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getIsLogin</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> isLogin;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setIsLogin</span><span class="params">(<span class="keyword">int</span> isLogin)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.isLogin = isLogin;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>比较时这样用：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (verificationCode.getIsLogin() == YesOrNoEnum.yes.getIndex()) &#123;</span><br><span class="line">   <span class="comment">//some code</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>附 YesOrNoEnum 代码<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> YesOrNoEnum &#123;</span><br><span class="line">    no(<span class="number">0</span>, <span class="string">"否"</span>),</span><br><span class="line">    yes(<span class="number">1</span>, <span class="string">"是"</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> index;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line"></span><br><span class="line">    YesOrNoEnum(<span class="keyword">int</span> index, String name) &#123;</span><br><span class="line">        <span class="keyword">this</span>.index = index;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getIndex</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> index;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setIndex</span><span class="params">(<span class="keyword">int</span> index)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.index = index;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> YesOrNoEnum <span class="title">getEnumByIndex</span><span class="params">(<span class="keyword">int</span> index)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (YesOrNoEnum result : YesOrNoEnum.values()) &#123;</span><br><span class="line">            <span class="keyword">if</span> (index == result.index) &#123;</span><br><span class="line">                <span class="keyword">return</span> result;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h1 id="运行-mvn-spring-boot-run-之后，再次运行，或者运行-spring-boot-的入口程序，端口会冲突"><a href="#运行-mvn-spring-boot-run-之后，再次运行，或者运行-spring-boot-的入口程序，端口会冲突" class="headerlink" title="运行 mvn spring-boot:run 之后，再次运行，或者运行 spring boot 的入口程序，端口会冲突"></a>运行 mvn spring-boot:run 之后，再次运行，或者运行 spring boot 的入口程序，端口会冲突</h1><p>解决：<br>taskkill /f /t /im java.exe</p>
+<h1 id="用-jackson-将数组类型的数据转换成-string-会报错。"><a href="#用-jackson-将数组类型的数据转换成-string-会报错。" class="headerlink" title="用 jackson 将数组类型的数据转换成 string 会报错。"></a>用 jackson 将数组类型的数据转换成 string 会报错。</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">08:33:26,505 &lt;apg.biz.dal.mapper.original.MemberMapper.selectByExample&gt; DEBUG [http-nio-83-exec-2]: &lt;==      Total: 0</span><br><span class="line">com.fasterxml.jackson.databind.exc.MismatchedInputException: Cannot deserialize instance of `java.lang.String` out of START_ARRAY token</span><br><span class="line"> at [Source: (String)&quot;&#123;&quot;openid&quot;:&quot;omqgp1i32V3SRMNXDgt_fopdWIHA&quot;,&quot;nickname&quot;:&quot;Andy chen&quot;,&quot;sex&quot;:1,&quot;language&quot;:&quot;zh_CN&quot;,&quot;city&quot;:&quot;成都&quot;,&quot;province&quot;:&quot;四川&quot;,&quot;country&quot;:&quot;中国&quot;,&quot;headimgurl&quot;:&quot;http:\/\/thirdwx.qlogo.cn\/mmopen\/vi_32\/8Djic7qt2ic0SU1a7Wdvibr26QHEibBtVbnScE7p2j3MFFqFJHYfrcZNFGl6qIsmPrgiaX8BwLlOicj2PztDPcAhQDmQ\/132&quot;,&quot;privilege&quot;:[],&quot;unionid&quot;:&quot;obd3QwduPRnX0J5e-zHh8kHWg93A&quot;&#125;&quot;; line: 1, column: 302] (through reference chain: com.github.wxpay.sdk.response.WxGetUserInfoResponse[&quot;privilege&quot;])</span><br></pre></td></tr></table></figure>
+<p>修改 pojo 对应的属性，修改为正确的 List 类型即可。</p>
+<h1 id="The-server-time-zone-value-39-�й���׼ʱ��-39-is-unrecognized-or-represents-more-than-one-time-zone"><a href="#The-server-time-zone-value-39-�й���׼ʱ��-39-is-unrecognized-or-represents-more-than-one-time-zone" class="headerlink" title="The server time zone value &#39;�й���׼ʱ��&#39; is unrecognized or represents more than one time zone"></a><code>The server time zone value &#39;�й���׼ʱ��&#39; is unrecognized or represents more than one time zone</code></h1><p>在项目代码-数据库连接URL后，加上 （注意大小写必须一致）<code>?serverTimezone=UTC</code></p>
+<h1 id="JAVA对象通过jackson转成json格式，属性名首字母变成小写的解决方法"><a href="#JAVA对象通过jackson转成json格式，属性名首字母变成小写的解决方法" class="headerlink" title="JAVA对象通过jackson转成json格式，属性名首字母变成小写的解决方法"></a>JAVA对象通过jackson转成json格式，属性名首字母变成小写的解决方法</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@JsonProperty //不加此注解的话，返回的字段属性会变成：wxofficialAccount</span><br><span class="line">private String WXOfficialAccount;</span><br></pre></td></tr></table></figure>
+<h1 id="package-com-sun-xml-internal-messaging-saaj-util-does-not-exist"><a href="#package-com-sun-xml-internal-messaging-saaj-util-does-not-exist" class="headerlink" title="package com.sun.xml.internal.messaging.saaj.util does not exist"></a><code>package com.sun.xml.internal.messaging.saaj.util does not exist</code></h1><p>项目里引用的是 jdk 自带的，位于：<code>C:\dev\Java\jdk1.8.0_161\jre\lib\rt.jar!\com\sun\xml\internal\messaging\saaj\util\Base64.class</code><br>在服务器上通过 maven 编译的时候，提示找不到。<br>解决办法：<br>添加 Maven 依赖<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;com.sun.xml.messaging.saaj&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;saaj-impl&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;1.4.0&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure></p>
+<h1 id="多模板项目，服务器上进入-web-工程-mvn-编译找不到-model"><a href="#多模板项目，服务器上进入-web-工程-mvn-编译找不到-model" class="headerlink" title="多模板项目，服务器上进入 web 工程 mvn 编译找不到 model"></a>多模板项目，服务器上进入 web 工程 mvn 编译找不到 model</h1><p>解决：到根目录编译</p>
+<h1 id="Spring-Boot-Application-in-default-package"><a href="#Spring-Boot-Application-in-default-package" class="headerlink" title="Spring Boot Application in default package"></a>Spring Boot Application in default package</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Spring Boot Application in default package less… (Ctrl+F1)</span><br><span class="line">Inspection info: Checks Spring Boot Application Setup.</span><br><span class="line">@SpringBootApplication used in default package</span><br><span class="line">Redundant @ComponentScan declaration</span><br><span class="line">Redundant @EnableAutoConfiguration declaration</span><br><span class="line">New in 2018.2</span><br></pre></td></tr></table></figure>
+<p>是因为把main 函数直接放在了java 目录之下，当放在java目录下的 package目录；</p>
+<p>另外官方给出的解决方案是：<br>@springbootApplication 注解失效的情况下，推荐使用@CompentScan 和@EnableAutoConfiguration进行代替；</p>
+<h1 id="Not-registered-via-EnableConfigurationProperties-or-marked-as-Spring-component"><a href="#Not-registered-via-EnableConfigurationProperties-or-marked-as-Spring-component" class="headerlink" title="Not registered via @EnableConfigurationProperties or marked as Spring component"></a>Not registered via @EnableConfigurationProperties or marked as Spring component</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Not registered via @EnableConfigurationProperties or marked as Spring component less... (Ctrl+F1) </span><br><span class="line">Inspection info: Verifies @ConfigurationProperties setup. New in 2018.3</span><br></pre></td></tr></table></figure>
+<p>解决：添加注解 @Component</p>
+<h1 id="but-snakeyaml-was-not-found-on-the-classpath"><a href="#but-snakeyaml-was-not-found-on-the-classpath" class="headerlink" title="but snakeyaml was not found on the classpath"></a>but snakeyaml was not found on the classpath</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Caused by: java.lang.IllegalStateException: Attempted to load applicationConfig: [classpath:/application.yml] but snakeyaml was not found on the classpath</span><br></pre></td></tr></table></figure>
+<p>解决：添加如下依赖即可<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h1 id="Loading-class-com-mysql-jdbc-Driver’-This-is-deprecated"><a href="#Loading-class-com-mysql-jdbc-Driver’-This-is-deprecated" class="headerlink" title="Loading class `com.mysql.jdbc.Driver’. This is deprecated"></a>Loading class `com.mysql.jdbc.Driver’. This is deprecated</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">database:</span><br><span class="line">  host: 192.168.1.88</span><br><span class="line">  username: admin</span><br><span class="line">  password: 123!@#321AbC</span><br><span class="line">  schemaName: mbg</span><br><span class="line">  keepPrefix: crm</span><br><span class="line">  tableNamePrefixCount: 3</span><br><span class="line">  keepPrefixTableList:</span><br><span class="line">    - erpTrade</span><br><span class="line">    - erpShopConfig</span><br></pre></td></tr></table></figure>
+<p>报错信息：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Loading class `com.mysql.jdbc.Driver&apos;. This is deprecated. The new driver class is `com.mysql.cj.jdbc.Driver&apos;. The driver is automatically registered via the SPI and manual loading of the driver class is generally unnecessary.</span><br></pre></td></tr></table></figure></p>
+<p>将<code>com.mysql.jdbc.Driver</code>改为<code>com.mysql.cj.jdbc.Driver</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">com.mysql.cj.exceptions.InvalidConnectionAttributeException: The server time zone value &apos;ÖÐ¹ú±ê×¼Ê±¼ä&apos; is unrecognized or represents more than one time zone. You must configure either the server or JDBC driver (via the serverTimezone configuration property) to use a more specifc time zone value if you want to utilize time zone support.</span><br><span class="line">	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)</span><br><span class="line">	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)</span><br><span class="line">	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)</span><br><span class="line">	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)</span><br></pre></td></tr></table></figure>
+<p>在连接字符串后面加参数serverTimezone=GMT&amp;<br>由于数据库和系统时区差异所造成的，在jdbc连接的url后面加上serverTimezone=GMT即可解决问题，如果需要使用gmt+8时区，需要写成GMT%2B8，否则会被解析为空。再一个解决办法就是使用低版本的MySQL jdbc驱动，5.1.28不会存在时区的问题。</p>
+<p>或者<br>在<code>[mysqld]</code>节点在节点下面加上下面这句话<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">default-time-zone=&apos;+08:00&apos;</span><br></pre></td></tr></table></figure></p>
+<h1 id="Cannot-obtain-primary-key-information-from-the-database"><a href="#Cannot-obtain-primary-key-information-from-the-database" class="headerlink" title="Cannot obtain primary key information from the database"></a>Cannot obtain primary key information from the database</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Cannot obtain primary key information from the database, generated objects may be incomplete</span><br></pre></td></tr></table></figure>
+<p><a href="https://blog.csdn.net/jpf254/article/details/79571396" rel="external nofollow noopener noreferrer" target="_blank">https://blog.csdn.net/jpf254/article/details/79571396</a></p>
+<h1 id="pom-xml-的groupId与artifactId，不能有两个相同的"><a href="#pom-xml-的groupId与artifactId，不能有两个相同的" class="headerlink" title="pom.xml 的groupId与artifactId，不能有两个相同的"></a>pom.xml 的groupId与artifactId，不能有两个相同的</h1><p>否则，在子项目中，依赖会异常<br>只要改其中一项即可</p>
+<h1 id="Maven项目下HttpServletRequest-或-HttpServletResponse需引用的依赖包"><a href="#Maven项目下HttpServletRequest-或-HttpServletResponse需引用的依赖包" class="headerlink" title="Maven项目下HttpServletRequest 或 HttpServletResponse需引用的依赖包"></a>Maven项目下HttpServletRequest 或 HttpServletResponse需引用的依赖包</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- https://mvnrepository.com/artifact/org.glassfish/javax.servlet --&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.glassfish&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;javax.servlet&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;3.1.1&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+<h1 id="改变自动扫描的包"><a href="#改变自动扫描的包" class="headerlink" title="改变自动扫描的包"></a>改变自动扫描的包</h1><p><code>@ComponentScan(basePackages = {&quot;org.test1&quot;,&quot;org.test2&quot;})</code><br>在启动类中添加了该注解之后，即可扫描org.test2不同包下的注解类了，这里需要注意的是：在修改了自动扫描的包的情况下，默认的自动扫描与启动类同包以及子包下的注解类就不生效了，如果还想要自动扫描与启动类同包以及子包下的注解类的话，就需要手动加上，这里就加上了org.test1</p>
+<h1 id="spring-boot-以-jar-启动"><a href="#spring-boot-以-jar-启动" class="headerlink" title="spring boot 以 jar 启动"></a>spring boot 以 jar 启动</h1><p>参考官网<a href="https://docs.spring.io/spring-boot/docs/2.1.1.RELEASE/reference/htmlsingle/#getting-started-first-application-run" rel="external nofollow noopener noreferrer" target="_blank">getting-started-first-application-run</a></p>
+<ol>
+<li><p>添加插件<br>官网是这样描述的：To create an executable jar, we need to add the spring-boot-maven-plugin to our pom.xml. To do so, insert the following lines just below the dependencies section:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;build&gt;</span><br><span class="line">	&lt;plugins&gt;</span><br><span class="line">		&lt;plugin&gt;</span><br><span class="line">			&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">			&lt;artifactId&gt;spring-boot-maven-plugin&lt;/artifactId&gt;</span><br><span class="line">		&lt;/plugin&gt;</span><br><span class="line">	&lt;/plugins&gt;</span><br><span class="line">&lt;/build&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>保存 pom.xml 文件之后，执行打包命令：<code>mvn clean package -Dmaven.test.skip=true</code>，如果需要执行单元测试，则直接 <code>mvn package</code> </p>
+</li>
+<li>将 jar 包上传至服务器，同时把生产环境的配置文件（比如 application.yml）修改好之后放到与 jar 文件相同的目录，运行：<code>java -jar my-project-0.0.1.jar</code>，不需要的时候 Ctrl+c 就退出，如果需要一直运行，可设置成开机启动。</li>
+</ol>
+<h1 id="注解-SuppressWarnings-“rawtypes”-“unchecked”"><a href="#注解-SuppressWarnings-“rawtypes”-“unchecked”" class="headerlink" title="注解 @SuppressWarnings({ “rawtypes”, “unchecked” })"></a>注解 @SuppressWarnings({ “rawtypes”, “unchecked” })</h1><p>java.lang.SuppressWarnings是J2SE 5.0中标准的Annotation之一。可以标注在类、字段、方法、参数、构造方法，以及局部变量上。作用：告诉编译器忽略指定的警告，不用在编译完成后出现警告信息。</p>
+<h1 id="PropertiesLoaderUtils-loadAllProperties-“common-properties”"><a href="#PropertiesLoaderUtils-loadAllProperties-“common-properties”" class="headerlink" title="PropertiesLoaderUtils.loadAllProperties(“common.properties”);"></a>PropertiesLoaderUtils.loadAllProperties(“common.properties”);</h1><p>通过 <code>PropertiesLoaderUtils.loadAllProperties</code> 加载配置文件，配置文件 <code>common.properties</code>，需要放到启动项目的 <code>resources</code> 目录下，否则项目上线到生产环境，将同名文件放到 <code>/WEB-INF/classes/</code> 目录下，达不到覆盖的目的。<br>todo: 研究一下读取文件的目录顺序</p>
+<h1 id="jackson解析时间"><a href="#jackson解析时间" class="headerlink" title="jackson解析时间"></a>jackson解析时间</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">com.fasterxml.jackson.databind.exc.InvalidFormatException: Cannot deserialize value of type `java.util.Date` from String &quot;2019-06-29 17:25&quot;: not a valid representation (error: Failed to parse Date value &apos;2019-06-29 17:25&apos;: Cannot parse date &quot;2019-06-29 17:25&quot;: while it seems to fit format &apos;yyyy-MM-dd&apos;T&apos;HH:mm:ss.SSSZ&apos;, parsing fails (leniency? null))</span><br><span class="line"> at [Source: (String)&quot;&#123;&quot;pagingView&quot;:&#123;&quot;pageSize&quot;:10,&quot;currentPage&quot;:1&#125;,&quot;createdAtBegin&quot;:&quot;2019-06-29 17:25&quot;,&quot;createdAtEnd&quot;:&quot;2019-07-06 17:25&quot;&#125;&quot;; line: 1, column: 64] (through reference chain: mis.api.biz.model.request.StudentQueryRequest[&quot;createdAtBegin&quot;])</span><br></pre></td></tr></table></figure>
+<p>将日期转换成时间戳再传递</p>
+<p>自定义jackson解析时间格式yyy-MM-dd HH:mm:ss<br><a href="https://my.oschina.net/xpx/blog/1924695" rel="external nofollow noopener noreferrer" target="_blank">https://my.oschina.net/xpx/blog/1924695</a></p>
+<p>SpringBoot中后台无法接受前台日期字符串 yyyy-MM-dd HH:mm:ss<br><a href="https://my.oschina.net/u/3694704/blog/2243415" rel="external nofollow noopener noreferrer" target="_blank">https://my.oschina.net/u/3694704/blog/2243415</a></p>
+<h1 id="package-org-jetbrains-annotations-does-not-exist"><a href="#package-org-jetbrains-annotations-does-not-exist" class="headerlink" title="package org.jetbrains.annotations does not exist"></a><code>package org.jetbrains.annotations does not exist</code></h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ERROR] COMPILATION ERROR : </span><br><span class="line">[INFO] -------------------------------------------------------------</span><br><span class="line">[ERROR] ...SysLogUserOperationService.java:[21,33] package org.jetbrains.annotations does not exist</span><br><span class="line">[ERROR] ...SysLogUserOperationService.java:[28,63] cannot find symbol</span><br></pre></td></tr></table></figure>
+<h2 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h2><p>代码里用了 <code>jetbrains.annotations.NotNull</code> 注解，虽然在 IDEA 下直接运行没问题，但到了服务器上就会报上面的错误。</p>
+<h2 id="解决-3"><a href="#解决-3" class="headerlink" title="解决"></a>解决</h2><p>要么引入依赖，要么删除NotNull注解。  </p>
+<h1 id="java-lang-IllegalArgumentException-The-maximum-column-width-for-an-individual-cell-is-255-characters"><a href="#java-lang-IllegalArgumentException-The-maximum-column-width-for-an-individual-cell-is-255-characters" class="headerlink" title="java.lang.IllegalArgumentException: The maximum column width for an individual cell is 255 characters."></a><code>java.lang.IllegalArgumentException: The maximum column width for an individual cell is 255 characters.</code></h1><p>该异常发生在用 POI 库导出 excel 的过程中，根据内容动态设置 excel 列的宽度 <code>sheet.autoSizeColumn(i)</code>，内容较多时，宽度会超出 excel 的最大限制。</p>
+<p>原代码如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; cnFields.length; i++) &#123;</span><br><span class="line">    sheet.autoSizeColumn(i);</span><br><span class="line">    <span class="comment">// 解决自动设置列宽时，内容含中文时，列宽依然不足，所以，要再加宽一点。</span></span><br><span class="line">    <span class="keyword">int</span> width = sheet.getColumnWidth(i) * <span class="number">12</span> / <span class="number">10</span>;</span><br><span class="line">    sheet.setColumnWidth(i, width);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="解决-4"><a href="#解决-4" class="headerlink" title="解决"></a>解决</h2><p>其实，excel 的宽度，设置为60就已经挺宽的了，所以，即使内容较多，也不建议把表格宽度值设置得太大，修后的代码，表格宽度最大60，如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; cnFields.length; i++) &#123;</span><br><span class="line">    sheet.autoSizeColumn(i);</span><br><span class="line">    <span class="comment">// 解决自动设置列宽时，内容含中文时，列宽依然不足，所以，要再加宽一点。</span></span><br><span class="line">    <span class="keyword">int</span> width = sheet.getColumnWidth(i) * <span class="number">12</span> / <span class="number">10</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// java.lang.IllegalArgumentException: The maximum column width for an individual cell is 255 characters.</span></span><br><span class="line">    <span class="keyword">int</span> maxExcelRowWidth = <span class="number">60</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (width &gt; maxExcelRowWidth * <span class="number">256</span>) &#123;</span><br><span class="line">        width = maxExcelRowWidth * <span class="number">256</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    sheet.setColumnWidth(i, width);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h1 id="java-生成多级目录"><a href="#java-生成多级目录" class="headerlink" title="java 生成多级目录"></a>java 生成多级目录</h1><p>file.mkdir() 在创建多级目录时会报错，只支持在存在的目录下创建一级子目录。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">File file = <span class="keyword">new</span> File(filePath);</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (!file.exists() || !file.isDirectory()) &#123;</span><br><span class="line">    <span class="keyword">if</span> (!file.mkdirs()) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> Exception(<span class="string">"创建文件夹失败，请联系管理员"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-09-01T02:53:12.979Z" itemprop="dateUpdated">2020年9月1日 10:53</time>
+</span><br>
+
+
+        转载请注明出处：<a href="/java/experience.html" target="_blank" rel="external">https://www.lovesofttech.com/java/experience.html</a>
+    </div>
+    <footer>
+        <a href="https://www.lovesofttech.com">
+            <img src="/img/myLogo.jpg" alt="安迪陈">
+            安迪陈
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/experience/">experience</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/java/experience.html&title=《java 开发中的一些小经验》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/java/experience.html&title=《java 开发中的一些小经验》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=java 开发中的小经验，零散的知识点。" data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/java/experience.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《java 开发中的一些小经验》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/java/experience.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/java/experience.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/windows/batchRenameFile.html" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">批处理文件遍历所有子目录批量移除文件名和目录名中特殊字符</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/linux/experience.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">linux 工作中的一些小经验</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+    
+    
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="bottom">
+        <p>
+            <span>安迪陈技术日志，架构、感悟、系统分析、团队管理 &copy; 2017 - 2020</span>
+            <span>
+                Power by <a href="https://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>&nbsp;
+                Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank" rel="external nofollow noopener noreferrer">indigo</a>
+            </span>
+            <span>
+                <a href="http://www.beian.miit.gov.cn" target="_blank" rel="external nofollow noopener noreferrer">蜀ICP备17041860号</a>
+            </span>
+            
+            <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            </p><p>
+                <span>
+                    统计始于：2019-03-06
+                </span>
+                <span id="busuanzi_container_site_uv" style="display:none">
+                    访客数：<span id="busuanzi_value_site_uv"></span>
+                </span>
+                <span id="busuanzi_container_site_pv" style="display:none">
+                    访问量：<span id="busuanzi_value_site_pv"></span>
+                </span>
+            
+            
+                <span class="post-count">累计字数：309.2k</span>
+            
+                <span><a href="/general/blogLog.html"><i class="fas fa-pen-alt"></i>&nbsp;博客日志</a></span>
+            </p>
+        <p></p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light" title="回到顶部"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/java/experience.html&title=《java 开发中的一些小经验》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/java/experience.html&title=《java 开发中的一些小经验》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=java 开发中的小经验，零散的知识点。" data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/java/experience.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《java 开发中的一些小经验》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/java/experience.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/java/experience.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACJUlEQVR42u3aQW7DMAwF0dz/0s62gWFlvugUMDlaFUkq63lBkBRfL7yO01p/+/c359+f/+vqk5uXDBkyHss4loscdH2I9T5Xv+FnkyFDxhzGVQTb25ocvR6sZciQIWO9HYdxEnmuDBkyZPCAWy+AeSopQ4YMGWmqx1tmHJAWzzJkyJjG4EHz///+yf2GDBkyHsU4wsWDb3oxeRSWDBkyejN4gEtTNIKvBFwZMmTMZPBN09BJ0k3egEPtNhkyZDRipGlcStpLHNMBDhkyZExgkOZaaWALvwj+lI9vZciQ0ZqBikN8VUCCY3rEdfooQ4aMCYw0gK7fRJr2paMbX6pwGTJktGbspX17bX1UlKatQBkyZIxh8ECcXiHsjW4EPBkyZLRm3NX0r7fS+LUlqsJlyJDRjvG7MdZSc78yMyJDhox2jL2rRN5KS4vV0qiHDBky2jHISBYPvmkr7a62nQwZMnoz+JgFB5NbRR7QOVuGDBm9GXc9rNLir6SbMmTImMOofMIDcX3/L3muDBkyWjP4qAQvd9OrUN5okyFDhgye3vEGHC+Y+RlkyJAxgXHXNUBa0PJxDbSnDBkyWjP2wlw6SLEX1smriWEyZMh4LCMtROup4WYOy4tYGTJkNGWk0xnpeAQfIyvV4jJkyJCxBHBqGspREJchQ4aMcJwibe1VLiRkyJAxh5FeBvAikw94lZp3MmTIaM3gpSO/+EzTvr3EVIYMGQMYb3VS2xnZNwACAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.5.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.5.2" async></script>
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '安迪陈技术日志';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '欢迎回来';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

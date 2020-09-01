@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<!--<script async src="//hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c"></script>-->
+<!-- 统计-->
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var host = window.location.host;
+        var hm = document.createElement("script");
+
+        if (host.indexOf('gitee.io') > 0) { // https://uncleandychen.gitee.io/
+            hm.src = "https://hm.baidu.com/hm.js?0cf4709148b070b8082191d2e456a1a3";
+        } else if (host.indexOf('lovesofttech.com') > 0) { // https://www.lovesofttech.com/
+            hm.src = "https://hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c";
+        } else {
+            hm.src = '';
+        }
+
+        if (hm.src !== '') {
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        }
+    })();
+</script>
+<!-- End Baidu Tongji -->
+
+
+
+<!-- Baidu Push -->
+<!-- 主动推送百度爬虫-->
+<script>
+    (function(){
+        if (window.location.host.indexOf('lovesofttech.com') < 0) {
+            return;
+        }
+
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+<!-- End Baidu Push -->
+
+
+    <meta charset="utf-8">
+    
+    
+    <link rel="canonical" href="https://www.lovesofttech.com/linux/centOSRPMManage.html">
+    
+    
+    <title>CentOS 下 RPM 软件包的安装及卸载 | 安迪陈技术日志，架构、感悟、系统分析、团队管理 | 自强不息，厚德载物</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="CentOS,rpm">
+    <meta name="description" content="如题">
+<meta name="keywords" content="CentOS,rpm">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CentOS 下 RPM 软件包的安装及卸载">
+<meta property="og:url" content="https://www.lovesofttech.com/linux/centOSRPMManage.html">
+<meta property="og:site_name" content="安迪陈技术日志，架构、感悟、系统分析、团队管理">
+<meta property="og:description" content="如题">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2020-09-01T02:53:13.036Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CentOS 下 RPM 软件包的安装及卸载">
+<meta name="twitter:description" content="如题">
+    
+        <link rel="alternative" href="/atom.xml" title="安迪陈技术日志，架构、感悟、系统分析、团队管理" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=201912302211">
+    <link rel="stylesheet" href="/css/header.css?v=201912302211">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu">
+  <div class="inner flex-row-vertical">
+    <!--<i class="icon icon-lg icon-close"></i>-->
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off" title="隐藏左侧导航">﹤<i class="icon icon-lg icon-navicon"></i></a>
+    <div class="brand-wrap" style="background-image:url(/img/bannerBackgroundLeft.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/myLogo.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">安迪陈</h5>
+          <a href="mailto:andy@lovesofttech.com" title="andy@lovesofttech.com" class="mail" rel="external nofollow noopener noreferrer" target="_blank">andy@lovesofttech.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articleClassify.html">
+                <i class="icon icon-th-list"></i>
+                文章分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articles.html">
+                <i class="icon icon-th-list articles"></i>
+                文章列表
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/java.html">
+                <i class="icon icon-th-list java"></i>
+                Java
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/database.html">
+                <i class="icon icon-th-list database"></i>
+                MySQL/MyBatis
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/linux.html">
+                <i class="icon icon-th-list linux"></i>
+                CentOS/linux
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/react.html">
+                <i class="icon icon-th-list React"></i>
+                React
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/lnmp.html">
+                <i class="icon icon-th-list LNMP"></i>
+                LNMP
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/git.html">
+                <i class="icon icon-th-list git"></i>
+                git
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/windows.html">
+                <i class="icon icon-th-list windows"></i>
+                windows
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/dailyLives.html">
+                <i class="icon icon-th-list dailyLives"></i>
+                工作 &amp; 生活
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-github"></i>
+                我的 github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://gitee.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link"></i>
+                我的 gitee
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://blog.csdn.net/runAndRun" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link CSDN"></i>
+                我的 CSDN
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/aboutMe.html">
+                <i class="icon icon-address-card"></i>
+                关于我
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+
+        <div class="navbar navbar-custom navbar-fixed-top">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" style="margin-left:10px;" id="menu-toggle" title="显示左侧导航"><i class="icon icon-lg icon-navicon"></i>﹥</a>
+            <ul class="nav navbar-nav navbar-right" id="navMenuTop">
+                <li>
+                    <a href="/">主页</a>
+                </li>
+                
+                    
+                        <li>
+                            <a href="/articleClassify.html" title="本博客的文章分类列表">文章分类</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/articles.html" title="本博客的所有文章列表">文章列表</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/java.html" title="Java 开发，文章目录">Java</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/database.html" title="日常开发中有关 MySQL、MyBatis 的一些经验总结">MySQL/MyBatis</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/linux.html" title="CentOS/linux，文章目录">CentOS/linux</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/react.html" title="React 技术栈（全家桶）学习心得分享，文章目录">React</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/about.html">关于</a>
+                        </li>
+                    
+                
+            </ul>
+        </div>
+
+        <div class="flex-col header-title ellipsis">CentOS 下 RPM 软件包的安装及卸载</div>
+        
+        <div class="search-wrap" id="search-wrap" style="z-index: 2;">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back" style="width:33px;">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search" style="width:33px;">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare" style="z-index: 3;margin-right: 10px; width:30px;">
+                <i class="icon icon-lg icon-share-alt"></i>
+            </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h2 class="title">CentOS 下 RPM 软件包的安装及卸载</h2>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-07-03T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2017-07-04
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/CentOS/">CentOS</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/CentOS/rpm/">rpm</a></li></ul></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap" id="index-container">
+    
+
+<article id="post-linux/centOSRPMManage" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">CentOS 下 RPM 软件包的安装及卸载</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017年07月04日 0:00" datetime="2017-07-03T16:00:00.000Z" itemprop="datePublished">2017-07-04</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/CentOS/">CentOS</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/CentOS/rpm/">rpm</a></li></ul></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" style="display:none">
+    阅读量：<span id="busuanzi_value_page_pv"></span>次
+</span>
+
+
+    <span>|</span>
+    <span class="post-count">字数：1.8k</span>
+    <span>|</span>
+    <span class="post-count">阅读时长：大约6分钟</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>如题<br><a id="more"></a></p>
+<p>RPM 安装操作<br>rpm -i 需要安装的包文件名</p>
+<p>RPM 查询操作<br>rpm -q</p>
+<p>附加查询命令：<br>a 查询所有已经安装的包<br>i 显示安装包的信息；<br>l 显示安装包中的所有文件被安装到哪些目录下<br>s 显示安装版中的所有文件状态及被安装到哪些目录下<br>p 查询的是安装包的信息<br>f 查询的是已安装的某文件信息</p>
+<p>举例如下：<br>rpm -qa | grep tomcat4 查看 tomcat4 是否被安装；<br>rpm -qip example.rpm 查看 example.rpm 安装包的信息；<br>rpm -qif /bin/df 查看/bin/df 文件所在安装包的信息；<br>rpm -qlf /bin/df 查看/bin/df 文件所在安装包中的各个文件分别被安装到哪个目录下；</p>
+<p>RPM 卸载操作<br>rpm -e 需要卸载的安装包</p>
+<p>RPM 升级操作<br>rpm -U 需要升级的包</p>
+<p>RPM 验证操作<br>rpm -V 需要验证的包</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br></pre></td><td class="code"><pre><span class="line">rpm 常用命令</span><br><span class="line">1.安装一个包 </span><br><span class="line"># rpm -ivh </span><br><span class="line"></span><br><span class="line">2.升级一个包 </span><br><span class="line"># rpm -Uvh </span><br><span class="line"></span><br><span class="line">3.卸载一个包 </span><br><span class="line"># rpm -e </span><br><span class="line"></span><br><span class="line">4.安装参数 </span><br><span class="line">--force 即使覆盖属于其它包的文件也强迫安装 </span><br><span class="line">--nodeps 如果该RPM包的安装依赖其它包，即使其它包没装，也强迫安装。 </span><br><span class="line"></span><br><span class="line">5.查询一个包是否被安装 </span><br><span class="line"># rpm -q &lt; rpm package name&gt; </span><br><span class="line"></span><br><span class="line">6.得到被安装的包的信息 </span><br><span class="line"># rpm -qi &lt; rpm package name&gt; </span><br><span class="line"></span><br><span class="line">7.列出该包中有哪些文件 </span><br><span class="line"># rpm -ql &lt; rpm package name&gt; </span><br><span class="line"></span><br><span class="line">8.列出服务器上的一个文件属于哪一个RPM包 </span><br><span class="line">#rpm -qf </span><br><span class="line"></span><br><span class="line">9.可综合好几个参数一起用 </span><br><span class="line"># rpm -qil &lt; rpm package name&gt; </span><br><span class="line"></span><br><span class="line">10.列出所有被安装的rpm package </span><br><span class="line"># rpm -qa </span><br><span class="line"></span><br><span class="line">11.列出一个未被安装进系统的RPM包文件中包含有哪些文件？ </span><br><span class="line"># rpm -qilp &lt; rpm package name&gt;</span><br><span class="line"></span><br><span class="line">详细选项： </span><br><span class="line"></span><br><span class="line">-h (or --hash) 安装时输出hash记号 (``#&apos;&apos;) </span><br><span class="line">--test 只对安装进行测试，并不实际安装。 </span><br><span class="line">--percent 以百分比的形式输出安装的进度。 </span><br><span class="line">--excludedocs 不安装软件包中的文档文件 </span><br><span class="line">--includedocs 安装文档 </span><br><span class="line">--replacepkgs 强制重新安装已经安装的软件包 </span><br><span class="line">--replacefiles 替换属于其它软件包的文件 </span><br><span class="line">--force 忽略软件包及文件的冲突 </span><br><span class="line">--noscripts 不运行预安装和后安装脚本 </span><br><span class="line">--prefix 将软件包安装到由 指定的路径下 </span><br><span class="line">--ignorearch 不校验软件包的结构 </span><br><span class="line">--ignoreos 不检查软件包运行的操作系统 </span><br><span class="line">--nodeps 不检查依赖性关系 </span><br><span class="line">--ftpproxy 用 作为 FTP代理 </span><br><span class="line">--ftpport 指定FTP的端口号为 </span><br><span class="line"></span><br><span class="line">通用选项 </span><br><span class="line"></span><br><span class="line">-v 显示附加信息 </span><br><span class="line">-vv 显示调试信息 </span><br><span class="line">--root 让RPM将指定的路径做为&quot;根目录&quot;，这样预安装程序和后安 </span><br><span class="line">装程序都会安装到这个目录下 </span><br><span class="line">--rcfile 设置rpmrc文件为 </span><br><span class="line">--dbpath 设置RPM 资料库存所在的路径为 </span><br><span class="line"></span><br><span class="line">二、删除 </span><br><span class="line"></span><br><span class="line">命令格式： </span><br><span class="line"></span><br><span class="line">rpm -e ( or --erase) options pkg1 ... pkgN </span><br><span class="line"></span><br><span class="line">参数 </span><br><span class="line"></span><br><span class="line">pkg1 ... pkgN ：要删除的软件包 </span><br><span class="line"></span><br><span class="line">详细选项 </span><br><span class="line"></span><br><span class="line">--test 只执行删除的测试 </span><br><span class="line">--noscripts 不运行预安装和后安装脚本程序 </span><br><span class="line">--nodeps 不检查依赖性 </span><br><span class="line"></span><br><span class="line">通用选项 </span><br><span class="line"></span><br><span class="line">-vv 显示调试信息 </span><br><span class="line">--root 让RPM将指定的路径做为&quot;根目录&quot;，这样预安装程序和后安装 </span><br><span class="line">程序都会安装到这个目录下 </span><br><span class="line">--rcfile 设置rpmrc文件为 </span><br><span class="line">--dbpath 设置RPM 资料库存所在的路径为 </span><br><span class="line"></span><br><span class="line">三、升级 </span><br><span class="line"></span><br><span class="line">命令格式 </span><br><span class="line"></span><br><span class="line">rpm -U ( or --upgrade) options file1.rpm ... fileN.rpm </span><br><span class="line"></span><br><span class="line">参数 </span><br><span class="line"></span><br><span class="line">file1.rpm ... fileN.rpm 软件包的名字 </span><br><span class="line"></span><br><span class="line">详细选项 </span><br><span class="line"></span><br><span class="line">-h (or --hash) 安装时输出hash记号 (``#&apos;&apos;) </span><br><span class="line">--oldpackage 允许&quot;升级&quot;到一个老版本 </span><br><span class="line">--test 只进行升级测试 </span><br><span class="line">--excludedocs 不安装软件包中的文档文件 </span><br><span class="line">--includedocs 安装文档 </span><br><span class="line">--replacepkgs 强制重新安装已经安装的软件包 </span><br><span class="line">--replacefiles 替换属于其它软件包的文件 </span><br><span class="line">--force 忽略软件包及文件的冲突 </span><br><span class="line">--percent 以百分比的形式输出安装的进度。 </span><br><span class="line">--noscripts 不运行预安装和后安装脚本 </span><br><span class="line">--prefix 将软件包安装到由 指定的路径下 </span><br><span class="line">--ignorearch 不校验软件包的结构 </span><br><span class="line">--ignoreos 不检查软件包运行的操作系统 </span><br><span class="line">--nodeps 不检查依赖性关系 </span><br><span class="line">--ftpproxy 用 作为 FTP代理 </span><br><span class="line">--ftpport 指定FTP的端口号为 </span><br><span class="line"></span><br><span class="line">通用选项 </span><br><span class="line"></span><br><span class="line">-v 显示附加信息 </span><br><span class="line">-vv 显示调试信息 </span><br><span class="line">--root 让RPM将指定的路径做为&quot;根目录&quot;，这样预安装程序和后安装程序都会安装到这个目录下 </span><br><span class="line">--rcfile 设置rpmrc文件为 </span><br><span class="line">--dbpath 设置RPM 资料库存所在的路径为 </span><br><span class="line"></span><br><span class="line">四、查询 </span><br><span class="line"></span><br><span class="line">命令格式： </span><br><span class="line"></span><br><span class="line">rpm -q ( or --query) options </span><br><span class="line"></span><br><span class="line">参数： </span><br><span class="line"></span><br><span class="line">pkg1 ... pkgN ：查询已安装的软件包 </span><br><span class="line"></span><br><span class="line">详细选项 </span><br><span class="line"></span><br><span class="line">-p (or ``-&apos;&apos;) 查询软件包的文件 </span><br><span class="line">-f 查询属于哪个软件包 </span><br><span class="line">-a 查询所有安装的软件包 </span><br><span class="line">--whatprovides 查询提供了 功能的软件包 </span><br><span class="line">-g 查询属于 组的软件包 </span><br><span class="line">--whatrequires 查询所有需要 功能的软件包 </span><br><span class="line"></span><br><span class="line">信息选项 </span><br><span class="line"></span><br><span class="line">显示软件包的全部标识 </span><br><span class="line">-i 显示软件包的概要信息 </span><br><span class="line">-l 显示软件包中的文件列表 </span><br><span class="line">-c 显示配置文件列表 </span><br><span class="line">-d 显示文档文件列表 </span><br><span class="line">-s 显示软件包中文件列表并显示每个文件的状态 </span><br><span class="line">--scripts 显示安装、卸载、校验脚本 </span><br><span class="line">--queryformat (or --qf) 以用户指定的方式显示查询信息 </span><br><span class="line">--dump 显示每个文件的所有已校验信息 </span><br><span class="line">--provides 显示软件包提供的功能 </span><br><span class="line">--requires (or -R) 显示软件包所需的功能 </span><br><span class="line"></span><br><span class="line">通用选项 </span><br><span class="line"></span><br><span class="line">-v 显示附加信息 </span><br><span class="line">-vv 显示调试信息 </span><br><span class="line">--root 让RPM将指定的路径做为&quot;根目录&quot;，这样预安装程序和后安装程序都会安装到这个目录下 </span><br><span class="line">--rcfile 设置rpmrc文件为 </span><br><span class="line">--dbpath 设置RPM 资料库存所在的路径为 </span><br><span class="line"></span><br><span class="line">五、校验已安装的软件包 </span><br><span class="line"></span><br><span class="line">命令格式： </span><br><span class="line"></span><br><span class="line">rpm -V ( or --verify, or -y) options </span><br><span class="line"></span><br><span class="line">参数 </span><br><span class="line"></span><br><span class="line">pkg1 ... pkgN 将要校验的软件包名 </span><br><span class="line"></span><br><span class="line">软件包选项 </span><br><span class="line"></span><br><span class="line">-p Verify against package file </span><br><span class="line">-f 校验所属的软件包 </span><br><span class="line">-a Verify 校验所有的软件包 </span><br><span class="line">-g 校验所有属于组 的软件包 </span><br><span class="line"></span><br><span class="line">详细选项 </span><br><span class="line"></span><br><span class="line">--noscripts 不运行校验脚本 </span><br><span class="line">--nodeps 不校验依赖性 </span><br><span class="line">--nofiles 不校验文件属性 </span><br><span class="line"></span><br><span class="line">通用选项 </span><br><span class="line"></span><br><span class="line">-v 显示附加信息 </span><br><span class="line">-vv 显示调试信息 </span><br><span class="line">--root 让RPM将指定的路径做为&quot;根目录&quot;，这样预安装程序和后安装程序都会安装到这个目录下 </span><br><span class="line">--rcfile 设置rpmrc文件为 </span><br><span class="line">--dbpath 设置RPM 资料库存所在的路径为 </span><br><span class="line"></span><br><span class="line">六、校验软件包中的文件 </span><br><span class="line"></span><br><span class="line">语法： </span><br><span class="line"></span><br><span class="line">rpm -K ( or --checksig) options file1.rpm ... fileN.rpm </span><br><span class="line"></span><br><span class="line">参数： </span><br><span class="line"></span><br><span class="line">file1.rpm ... fileN.rpm 软件包的文件名 </span><br><span class="line"></span><br><span class="line">Checksig--详细选项 </span><br><span class="line"></span><br><span class="line">--nopgp 不校验PGP签名 </span><br><span class="line"></span><br><span class="line">通用选项 </span><br><span class="line"></span><br><span class="line">-v 显示附加信息 </span><br><span class="line">-vv 显示调试信息 </span><br><span class="line">--rcfile 设置rpmrc文件为 </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">七、其它RPM选项 </span><br><span class="line"></span><br><span class="line">--rebuilddb 重建RPM资料库 </span><br><span class="line">--initdb 创建一个新的RPM资料库 </span><br><span class="line">--quiet 尽可能的减少输出 </span><br><span class="line">--help 显示帮助文件 </span><br><span class="line">--version 显示RPM的当前版本</span><br></pre></td></tr></table></figure>
+<p>telnet用法 测试端口号，注意 IP 与 端口之间需要用空格分开<br>telnet IP 端口</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-09-01T02:53:13.036Z" itemprop="dateUpdated">2020年9月1日 10:53</time>
+</span><br>
+
+
+        转载请注明出处：<a href="/linux/centOSRPMManage.html" target="_blank" rel="external">https://www.lovesofttech.com/linux/centOSRPMManage.html</a>
+    </div>
+    <footer>
+        <a href="https://www.lovesofttech.com">
+            <img src="/img/myLogo.jpg" alt="安迪陈">
+            安迪陈
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CentOS/">CentOS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rpm/">rpm</a></li></ul>
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/linux/centOSRPMManage.html&title=《CentOS 下 RPM 软件包的安装及卸载》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/linux/centOSRPMManage.html&title=《CentOS 下 RPM 软件包的安装及卸载》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=如题" data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/linux/centOSRPMManage.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《CentOS 下 RPM 软件包的安装及卸载》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/linux/centOSRPMManage.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/linux/centOSRPMManage.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/linux/centOSJava.html" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">在 CentOS 上安装配置 Java 运行环境</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/linux/centOSVersion.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">如何查看已安装的 CentOS 版本信息</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+    
+    
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="bottom">
+        <p>
+            <span>安迪陈技术日志，架构、感悟、系统分析、团队管理 &copy; 2017 - 2020</span>
+            <span>
+                Power by <a href="https://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>&nbsp;
+                Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank" rel="external nofollow noopener noreferrer">indigo</a>
+            </span>
+            <span>
+                <a href="http://www.beian.miit.gov.cn" target="_blank" rel="external nofollow noopener noreferrer">蜀ICP备17041860号</a>
+            </span>
+            
+            <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            </p><p>
+                <span>
+                    统计始于：2019-03-06
+                </span>
+                <span id="busuanzi_container_site_uv" style="display:none">
+                    访客数：<span id="busuanzi_value_site_uv"></span>
+                </span>
+                <span id="busuanzi_container_site_pv" style="display:none">
+                    访问量：<span id="busuanzi_value_site_pv"></span>
+                </span>
+            
+            
+                <span class="post-count">累计字数：309.2k</span>
+            
+                <span><a href="/general/blogLog.html"><i class="fas fa-pen-alt"></i>&nbsp;博客日志</a></span>
+            </p>
+        <p></p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light" title="回到顶部"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/linux/centOSRPMManage.html&title=《CentOS 下 RPM 软件包的安装及卸载》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/linux/centOSRPMManage.html&title=《CentOS 下 RPM 软件包的安装及卸载》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=如题" data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/linux/centOSRPMManage.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《CentOS 下 RPM 软件包的安装及卸载》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/linux/centOSRPMManage.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/linux/centOSRPMManage.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACJklEQVR42u3ay44CIRAFUP//p51kto54L3RPIhxWJrY2h0WlHjwe8Xr+rvG3r2v823dPjt+1tDAwML6W8Ryu162Mt7XyzBj2bm8YGBjnMJJXFn/65lfJt+1xYGBgYIxJbYJ4R+DGwMDASLY+Tu+SQ8HAwMBIGG24TNpw+UaT4H5ZLY6BgfGFjHYw8J+fb5xvYGBgfAnjWa42cVwpUItdYWBgbM1IUrdkxHh3mhi9BQMDY1NG3j6b20qb5E2WyhgYGMcw2iuqeYica7TlR4+BgbE3owXkpPbSWNvgi4pYDAyMjRjtKHHukkQ7hmwvbWBgYJzDWEkK5w5lrmzGwMA4jZGHv2RDY3b+D+3/Y2Bg7MpYmnwuBOtrS1kMDIwTGEnJ2haubfK3dO0DAwPjYEZSxOaBeK7FNm7bRWeJgYGxHWOloM0varTNuw/hGAMD4wDG3DAyv5HVttjySx4YGBgnMPIAmiSReTKXNPjqMhgDA+MARlu4zpW1bZFcJJEYGBibMu648rWeDrZjTgwMjBMYeWKXfNsOMteHBxgYGHsz1sNlsvIQnw8Y/vgVBgbGpoz1DeV5Wl4A1weBgYGxNSNflyVwU7lcXgZjYGDsykiC7Fy5W5/WwgU1DAyMExhtkL1qnHlZ0MfAwMAIStO5UjZvq30IxBgYGBhTr18fWBbNOAwMjAMY+bWJdqiZp5L5QbwNuBgYGJsyVgrIfOTZtv7bJzEwMDZl/AD9DCLgLi31OQAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.5.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.5.2" async></script>
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '安迪陈技术日志';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '欢迎回来';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

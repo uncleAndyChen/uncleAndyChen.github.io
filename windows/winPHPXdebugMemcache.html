@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<!--<script async src="//hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c"></script>-->
+<!-- 统计-->
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var host = window.location.host;
+        var hm = document.createElement("script");
+
+        if (host.indexOf('gitee.io') > 0) { // https://uncleandychen.gitee.io/
+            hm.src = "https://hm.baidu.com/hm.js?0cf4709148b070b8082191d2e456a1a3";
+        } else if (host.indexOf('lovesofttech.com') > 0) { // https://www.lovesofttech.com/
+            hm.src = "https://hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c";
+        } else {
+            hm.src = '';
+        }
+
+        if (hm.src !== '') {
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        }
+    })();
+</script>
+<!-- End Baidu Tongji -->
+
+
+
+<!-- Baidu Push -->
+<!-- 主动推送百度爬虫-->
+<script>
+    (function(){
+        if (window.location.host.indexOf('lovesofttech.com') < 0) {
+            return;
+        }
+
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+<!-- End Baidu Push -->
+
+
+    <meta charset="utf-8">
+    
+    
+    <link rel="canonical" href="https://www.lovesofttech.com/windows/winPHPXdebugMemcache.html">
+    
+    
+    <title>windows7 + nginx + php + xdebug（搭配 PhpStorm 调试） + memcache | 安迪陈技术日志，架构、感悟、系统分析、团队管理 | 自强不息，厚德载物</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="windows,nginx,php,xdebug,memcache">
+    <meta name="description" content="如题">
+<meta name="keywords" content="windows,nginx,php,xdebug,memcache">
+<meta property="og:type" content="article">
+<meta property="og:title" content="windows7 + nginx + php + xdebug（搭配 PhpStorm 调试） + memcache">
+<meta property="og:url" content="https://www.lovesofttech.com/windows/winPHPXdebugMemcache.html">
+<meta property="og:site_name" content="安迪陈技术日志，架构、感悟、系统分析、团队管理">
+<meta property="og:description" content="如题">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:image" content="https://www.lovesofttech.com/img/phpInfoXdebug.jpg">
+<meta property="og:image" content="https://www.lovesofttech.com/img/phpInfoXdebugZendEngine.jpg">
+<meta property="og:image" content="https://www.lovesofttech.com/img/phpInfoMemcache.jpg">
+<meta property="og:image" content="https://www.lovesofttech.com/img/phpStormXdebugConfig.jpg">
+<meta property="og:image" content="https://www.lovesofttech.com/img/phpDebugStepAddSite.jpg">
+<meta property="og:image" content="https://www.lovesofttech.com/img/phpDebugStepOne.jpg">
+<meta property="og:image" content="https://www.lovesofttech.com/img/phpDebugStepTwo.jpg">
+<meta property="og:image" content="https://www.lovesofttech.com/img/phpDebugStepThree.jpg">
+<meta property="og:updated_time" content="2020-09-01T02:53:13.120Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="windows7 + nginx + php + xdebug（搭配 PhpStorm 调试） + memcache">
+<meta name="twitter:description" content="如题">
+<meta name="twitter:image" content="https://www.lovesofttech.com/img/phpInfoXdebug.jpg">
+    
+        <link rel="alternative" href="/atom.xml" title="安迪陈技术日志，架构、感悟、系统分析、团队管理" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=201912302211">
+    <link rel="stylesheet" href="/css/header.css?v=201912302211">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu">
+  <div class="inner flex-row-vertical">
+    <!--<i class="icon icon-lg icon-close"></i>-->
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off" title="隐藏左侧导航">﹤<i class="icon icon-lg icon-navicon"></i></a>
+    <div class="brand-wrap" style="background-image:url(/img/bannerBackgroundLeft.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/myLogo.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">安迪陈</h5>
+          <a href="mailto:andy@lovesofttech.com" title="andy@lovesofttech.com" class="mail" rel="external nofollow noopener noreferrer" target="_blank">andy@lovesofttech.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articleClassify.html">
+                <i class="icon icon-th-list"></i>
+                文章分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articles.html">
+                <i class="icon icon-th-list articles"></i>
+                文章列表
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/java.html">
+                <i class="icon icon-th-list java"></i>
+                Java
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/database.html">
+                <i class="icon icon-th-list database"></i>
+                MySQL/MyBatis
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/linux.html">
+                <i class="icon icon-th-list linux"></i>
+                CentOS/linux
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/react.html">
+                <i class="icon icon-th-list React"></i>
+                React
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/lnmp.html">
+                <i class="icon icon-th-list LNMP"></i>
+                LNMP
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/git.html">
+                <i class="icon icon-th-list git"></i>
+                git
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/windows.html">
+                <i class="icon icon-th-list windows"></i>
+                windows
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/dailyLives.html">
+                <i class="icon icon-th-list dailyLives"></i>
+                工作 &amp; 生活
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-github"></i>
+                我的 github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://gitee.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link"></i>
+                我的 gitee
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://blog.csdn.net/runAndRun" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link CSDN"></i>
+                我的 CSDN
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/aboutMe.html">
+                <i class="icon icon-address-card"></i>
+                关于我
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+
+        <div class="navbar navbar-custom navbar-fixed-top">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" style="margin-left:10px;" id="menu-toggle" title="显示左侧导航"><i class="icon icon-lg icon-navicon"></i>﹥</a>
+            <ul class="nav navbar-nav navbar-right" id="navMenuTop">
+                <li>
+                    <a href="/">主页</a>
+                </li>
+                
+                    
+                        <li>
+                            <a href="/articleClassify.html" title="本博客的文章分类列表">文章分类</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/articles.html" title="本博客的所有文章列表">文章列表</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/java.html" title="Java 开发，文章目录">Java</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/database.html" title="日常开发中有关 MySQL、MyBatis 的一些经验总结">MySQL/MyBatis</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/linux.html" title="CentOS/linux，文章目录">CentOS/linux</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/react.html" title="React 技术栈（全家桶）学习心得分享，文章目录">React</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/about.html">关于</a>
+                        </li>
+                    
+                
+            </ul>
+        </div>
+
+        <div class="flex-col header-title ellipsis">windows7 + nginx + php + xdebug（搭配 PhpStorm 调试） + memcache</div>
+        
+        <div class="search-wrap" id="search-wrap" style="z-index: 2;">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back" style="width:33px;">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search" style="width:33px;">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare" style="z-index: 3;margin-right: 10px; width:30px;">
+                <i class="icon icon-lg icon-share-alt"></i>
+            </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h2 class="title">windows7 + nginx + php + xdebug（搭配 PhpStorm 调试） + memcache</h2>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-05-09T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2017-05-10
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/windows/">windows</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/windows/nginx/">nginx</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/windows/nginx/php/">php</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/windows/nginx/php/xdebug/">xdebug</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/windows/nginx/php/xdebug/memcache/">memcache</a></li></ul></li></ul></li></ul></li></ul></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap" id="index-container">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc" style="z-index: 3;">
+            <h4><i class="fa fa-list-alt"></i>&nbsp;&nbsp;本文目录</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#前言"><span class="post-toc-number">1.</span> <span class="post-toc-text">前言</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#xdebug"><span class="post-toc-number">2.</span> <span class="post-toc-text">xdebug</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#不废话了，下面是干货。"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">不废话了，下面是干货。</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#memcache"><span class="post-toc-number">3.</span> <span class="post-toc-text">memcache</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#php-memcache-扩展下载地址"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">php_memcache 扩展下载地址</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#PhpStorm-配置-xdebug-端口"><span class="post-toc-number">4.</span> <span class="post-toc-text">PhpStorm 配置 xdebug 端口</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#xdebug-调试信息配置"><span class="post-toc-number">5.</span> <span class="post-toc-text">xdebug 调试信息配置</span></a></li></ol>
+        </nav>
+    </aside>
+    
+
+<article id="post-windows/winPHPXdebugMemcache" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">windows7 + nginx + php + xdebug（搭配 PhpStorm 调试） + memcache</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017年05月10日 0:00" datetime="2017-05-09T16:00:00.000Z" itemprop="datePublished">2017-05-10</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/windows/">windows</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/windows/nginx/">nginx</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/windows/nginx/php/">php</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/windows/nginx/php/xdebug/">xdebug</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/windows/nginx/php/xdebug/memcache/">memcache</a></li></ul></li></ul></li></ul></li></ul></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" style="display:none">
+    阅读量：<span id="busuanzi_value_page_pv"></span>次
+</span>
+
+
+    <span>|</span>
+    <span class="post-count">字数：1.3k</span>
+    <span>|</span>
+    <span class="post-count">阅读时长：大约5分钟</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>如题<br><a id="more"></a></p>
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>之前介绍了跟本篇文章相关的、在 windows 下开发 php 的两个前提条件，即：</p>
+<ol>
+<li><a href="/windows/winInstallNginxAsService">把 nginx 安装为 Windows 的一个服务</a></li>
+<li><a href="/windows/winNginxSupportPhp">在 windows 下配置 nginx 支持 php</a></li>
+</ol>
+<p>接下来介绍 php 开发中比较常用的另外两个元素的配置（姑且叫做元素吧）：xdebug 和 memcache。<br>有的童鞋可能会问了，php 的开发怎么能少得了 MySql 呢？php 与 MySql 可是绝配呀！当然不能少了 MySql，它的安装和配置，网上一大把，请自行度娘。</p>
+<h1 id="xdebug"><a href="#xdebug" class="headerlink" title="xdebug"></a>xdebug</h1><ol>
+<li>php 的调试工具，笔者用这几款 IDE： netBeans、Zend Studio、eclipse、PhpStorm，同时测试了 xdebug 和 Zend Debugger，表现最好的是 PhpStorm + xdebug，这个不一定适用于你，这个结果取决于我当时的操作和相关软件的版本，不过，笔者强烈推荐使用 PhpStorm 作为开发 php 的 IDE，而用 xdebug 来调试。</li>
+<li>至于 PhpStorm 是商业软件，普通老百姓不愿意花钱买、公司也不愿意掏钱买正版的问题，笔者的经验告诉我，只要你想用，一定是有办法的，包括我现在正在用的 IntelliJ IDEA、曾经用过的 PyCharm、还有 C# 插件 ReSharper，这些都是一个产品系列，同一产品系列，我试过的还有 WebStorm、DataGrip （这两款 IDE 在 IntelliJ IDEA、PhpStorm、PyCharm 中有集成），这些 IDE 都非常优秀，绝对值得一试，况且都是有办法免费用的哈，不过，如果你不差钱，还是希望你支持正版、支持 jetbrains.com。</li>
+<li>php 的调试功能其实不是很强大，跟 C#/Java 的调试功能比起来，那就是小学生跟大学生的差别，不过，这跟语言的特点有很大关系，毕竟 php 人家是解释型的动态语言，它自有它自己的优势（php 是世界上最好的编程语言，没有之一 ^_^，嗯…，真的吗？）。</li>
+<li>言归正传，php 在调试过程中经常中断或者说崩溃（表现就是调试断点还在，但变量值没有了），不过，有总比没有强，在排查问题的时候还是能帮上大忙，而且能比传统使用 print_r($obj) 或者 var_dump($obj) 的方式来”调试“来排查问题，效率高出 N 多倍。</li>
+</ol>
+<h2 id="不废话了，下面是干货。"><a href="#不废话了，下面是干货。" class="headerlink" title="不废话了，下面是干货。"></a>不废话了，下面是干货。</h2><ol>
+<li><a href="https://xdebug.org/files/" rel="external nofollow noopener noreferrer" target="_blank">hph xdebug 下载地址</a>，注意，需要下载跟 php 对应的 xdebug 版本，比如 nts 版本 和 ts 版本，还有 php 的版本号，比如我电脑上用的是 php-5.4.45-nts-Win32-VC9-x86，我下载的是 php_xdebug-2.4.1-5.4-vc9-nts.dll。</li>
+<li>把下载到的 php_xdebug-2.4.1-5.4-vc9-nts.dll 移到 php 下的 ext 目录，如我的是： <code>C:/dev/dev.services/php-5.4.45-nts-Win32-VC9-x86/ext/</code></li>
+<li>修改 php.ini，添加 [xdebug] 配置节点<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">[xdebug]</span><br><span class="line">;竟然要用32位版本才能正常加载</span><br><span class="line">;原来php就用的是32位版本，汗~~~</span><br><span class="line">;5.4.45只有32位可供下载</span><br><span class="line">zend_extension=&quot;C:/dev/dev.services/php-5.4.45-nts-Win32-VC9-x86/ext/php_xdebug-2.4.1-5.4-vc9-nts.dll&quot;</span><br><span class="line">;开启远程调试 </span><br><span class="line">xdebug.remote_enable=1</span><br><span class="line">xdebug.profiler_enable=1</span><br><span class="line">;xdebug.profiler_enable=off</span><br><span class="line">xdebug.profiler_enable_trigger=off</span><br><span class="line">xdebug.profiler_output_name=cachegrind.out.%t.%p</span><br><span class="line">xdebug.profiler_output_dir=&quot;tmp&quot;</span><br><span class="line">xdebug.show_local_vars=0</span><br><span class="line">xdebug.remote_connect_back=1</span><br><span class="line"></span><br><span class="line">;开启自动跟踪</span><br><span class="line">xdebug.auto_trace=1</span><br><span class="line">;开启异常跟踪</span><br><span class="line">xdebug.show_exception_trace=1</span><br><span class="line">;开启异常跟踪</span><br><span class="line">xdebug.remote_autostart=1</span><br><span class="line">;收集变量</span><br><span class="line">xdebug.collect_vars=1</span><br><span class="line">;收集参数</span><br><span class="line">xdebug.collect_params=1</span><br><span class="line">;trace输出路径</span><br><span class="line">xdebug.trace_output_dir=&quot;tmp/xdebug&quot;</span><br><span class="line">;以下三个分别是主机、端口、句柄</span><br><span class="line">xdebug.remote_host=&quot;localhost&quot;</span><br><span class="line">;注意，这里的端口不能跟 php-cgi 冲突，php-cgi 默认为 9000</span><br><span class="line">xdebug.remote_port=9001</span><br><span class="line">xdebug.remote_handler=&quot;dbgp&quot;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h1 id="memcache"><a href="#memcache" class="headerlink" title="memcache"></a>memcache</h1><h2 id="php-memcache-扩展下载地址"><a href="#php-memcache-扩展下载地址" class="headerlink" title="php_memcache 扩展下载地址"></a>php_memcache 扩展下载地址</h2><ul>
+<li><a href="http://pecl.php.net/package/memcache/3.0.8/windows" rel="external nofollow noopener noreferrer" target="_blank">windows 版本，5.3-5.6</a></li>
+<li><a href="http://pecl.php.net/package/memcache" rel="external nofollow noopener noreferrer" target="_blank">linux 版本</a></li>
+</ul>
+<ol>
+<li>在 windows 下将 memcache 配置成服务并设置为开机启动。</li>
+<li>下载扩展 php_memcache.dll（注意要下载与 php 版本对应的文件）放到 php 的 ext 目录。</li>
+<li>修改 php.ini，添加下面的配置内容<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">extension=php_memcache.dll</span><br><span class="line"></span><br><span class="line">[Memcache]</span><br><span class="line">memcache.allow_failover = 1</span><br><span class="line">memcache.max_failover_attempts=20</span><br><span class="line">memcache.chunk_size =8192</span><br><span class="line">memcache.default_port = 11211</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>在 [Session]节点下添加如下内容<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">session.save_handler = memcache</span><br><span class="line">session.save_path = tcp://localhost:11211</span><br></pre></td></tr></table></figure></p>
+<p>将 session.save_handler = files 删除或注释掉</p>
+<ol>
+<li><p>重新运行 php-cgi</p>
+<ul>
+<li><p>停止</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">taskkill /F /IM php-cgi.exe &gt; nul</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>启动<br>运行<a href="/windows/winNginxSupportPhp">在 windows 下配置 nginx 支持 php</a> 中提到的批处理文件，或者简单粗暴的执行如下命令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#请注意需要将路径替换成你自己的。</span></span><br><span class="line"><span class="built_in">cd</span> C:\dev\dev.services\php-5.4.45-nts-Win32-VC9-x86</span><br><span class="line">php-cgi.exe -b 127.0.0.1:9000 -c C:\dev\dev.services\php-5.4.45-nts-Win32-VC9-x86\php.ini</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>在现在的 php 站点中添加一个文件 phpInfo.php，文件内容： </p>
+ <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">    phpinfo();</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p> 访问这个页面，检查配置是否生效。配置成功，将会看到下面的信息。</p>
+</li>
+</ol>
+<p>如果 php_memcache 扩展的版本与 php 不一致，在执行<code>php-cgi.exe -b 127.0.0.1:9000 -c C:\dev\dev.services\php-5.4.45-nts-Win32-VC9-x86\php.ini</code>，会得到类似下面的错误：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">PHP Startup: memcache: Unable to initialize module</span><br><span class="line">Module compiled with module API=20090626</span><br><span class="line">PHP    compiled with module API=20100525</span><br><span class="line">These options need to match</span><br></pre></td></tr></table></figure></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/phpInfoXdebug.jpg" alt="php-配置信息-xdebug" title>
+                </div>
+                <div class="image-caption">php-配置信息-xdebug</div>
+            </figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/phpInfoXdebugZendEngine.jpg" alt="php-配置信息-xdebug-zend" title>
+                </div>
+                <div class="image-caption">php-配置信息-xdebug-zend</div>
+            </figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/phpInfoMemcache.jpg" alt="php-配置信息-Memcache" title>
+                </div>
+                <div class="image-caption">php-配置信息-Memcache</div>
+            </figure>
+<h1 id="PhpStorm-配置-xdebug-端口"><a href="#PhpStorm-配置-xdebug-端口" class="headerlink" title="PhpStorm 配置 xdebug 端口"></a>PhpStorm 配置 xdebug 端口</h1><p>PhpStorm 的默认值是 9000，要改为 9001，跟 php.ini 配置文件里配置的要一致。<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/phpStormXdebugConfig.jpg" alt="PhpStorm 配置 xdebug 端口" title>
+                </div>
+                <div class="image-caption">PhpStorm 配置 xdebug 端口</div>
+            </figure></p>
+<h1 id="xdebug-调试信息配置"><a href="#xdebug-调试信息配置" class="headerlink" title="xdebug 调试信息配置"></a>xdebug 调试信息配置</h1><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/phpDebugStepAddSite.jpg" alt="debug-配置-编辑" title>
+                </div>
+                <div class="image-caption">debug-配置-编辑</div>
+            </figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/phpDebugStepOne.jpg" alt="debug-配置-添加站点" title>
+                </div>
+                <div class="image-caption">debug-配置-添加站点</div>
+            </figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/phpDebugStepTwo.jpg" alt="debug-配置-进入调试服务窗口-添加xdebug服务。注意：host 一定要跟实际在 Apache 中配置的一样" title>
+                </div>
+                <div class="image-caption">debug-配置-进入调试服务窗口-添加xdebug服务。注意：host 一定要跟实际在 Apache 中配置的一样</div>
+            </figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/phpDebugStepThree.jpg" alt="debug-配置-如果要停止调试，点这里" title>
+                </div>
+                <div class="image-caption">debug-配置-如果要停止调试，点这里</div>
+            </figure>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-09-01T02:53:13.120Z" itemprop="dateUpdated">2020年9月1日 10:53</time>
+</span><br>
+
+
+        转载请注明出处：<a href="/windows/winPHPXdebugMemcache.html" target="_blank" rel="external">https://www.lovesofttech.com/windows/winPHPXdebugMemcache.html</a>
+    </div>
+    <footer>
+        <a href="https://www.lovesofttech.com">
+            <img src="/img/myLogo.jpg" alt="安迪陈">
+            安迪陈
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/memcache/">memcache</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nginx/">nginx</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/php/">php</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/windows/">windows</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/xdebug/">xdebug</a></li></ul>
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/windows/winPHPXdebugMemcache.html&title=《windows7 + nginx + php + xdebug（搭配 PhpStorm 调试） + memcache》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/windows/winPHPXdebugMemcache.html&title=《windows7 + nginx + php + xdebug（搭配 PhpStorm 调试） + memcache》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=如题" data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/windows/winPHPXdebugMemcache.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《windows7 + nginx + php + xdebug（搭配 PhpStorm 调试） + memcache》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/windows/winPHPXdebugMemcache.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/windows/winPHPXdebugMemcache.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/linux/secureCRTConnect.html" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">解决 SecureCRT 超时自动断开</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/windows/winInstallMemcachedAsService.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">在 Windows 将 Memcached 安装为服务</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+    
+    
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="bottom">
+        <p>
+            <span>安迪陈技术日志，架构、感悟、系统分析、团队管理 &copy; 2017 - 2020</span>
+            <span>
+                Power by <a href="https://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>&nbsp;
+                Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank" rel="external nofollow noopener noreferrer">indigo</a>
+            </span>
+            <span>
+                <a href="http://www.beian.miit.gov.cn" target="_blank" rel="external nofollow noopener noreferrer">蜀ICP备17041860号</a>
+            </span>
+            
+            <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            </p><p>
+                <span>
+                    统计始于：2019-03-06
+                </span>
+                <span id="busuanzi_container_site_uv" style="display:none">
+                    访客数：<span id="busuanzi_value_site_uv"></span>
+                </span>
+                <span id="busuanzi_container_site_pv" style="display:none">
+                    访问量：<span id="busuanzi_value_site_pv"></span>
+                </span>
+            
+            
+                <span class="post-count">累计字数：309.2k</span>
+            
+                <span><a href="/general/blogLog.html"><i class="fas fa-pen-alt"></i>&nbsp;博客日志</a></span>
+            </p>
+        <p></p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light" title="回到顶部"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/windows/winPHPXdebugMemcache.html&title=《windows7 + nginx + php + xdebug（搭配 PhpStorm 调试） + memcache》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/windows/winPHPXdebugMemcache.html&title=《windows7 + nginx + php + xdebug（搭配 PhpStorm 调试） + memcache》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=如题" data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/windows/winPHPXdebugMemcache.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《windows7 + nginx + php + xdebug（搭配 PhpStorm 调试） + memcache》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/windows/winPHPXdebugMemcache.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/windows/winPHPXdebugMemcache.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACKUlEQVR42u3aQW7DMAwEwPz/0+61QGtlSbpBLY9PQaBEGh8IkuLrFT/Ht+fn92fr12vOVq7Xjx4MDIzbMo7lk2yQb5+8jrN9z86GgYHxHEYeNHvr14D161vvhYGBgTEhJaGzl1ZiYGBg9ArRXtBcJ6AYGBgY1SK2Fzrz//xQLY6BgXFDRt51//znP7nfwMDAuBXjKD69q8de4Vo4FQYGxtaMPMBNrjbPdikUqMlVKAYGxtaMaq613nJScFZ3GaWMGBgYN2ckpWwe/pIA3StuL2i6YWBg/HtGtey8avArb+pFLw4DA2NrRrUdloS/HJOH3WgNBgbGpoz8WJPAOh8pe/NvGBgYD2D0at9JM64XXt8EXAwMjE0Z1SSvGgpzarWRF93EYmBgbMSo/l1vCGwS3AtjFhgYGJsy8iHRfCysWsRWr04xMDCew7i2lZYfKB87izAYGBhbM3pXlTn7qqGxcpjGwMDYiJFvML8q+IukEwMD4wmMaoNs0srPU8ZqQMfAwHgOo7dZNdWrBvfRsAUGBsbWjHlTbD7+Vf4eAwPjMYz8c28IbJI+RkUsBgbGdoyj+OT43hGb16UYGBhbMybtsLzT1RvISH5bxmBgYNyWkY+uVlv580uCwqAYBgbGAxiT4nZeBl9wOYGBgYERZ5fVIYnLqBgYGBhxali92uyVtb/8FgMD4wGM6qB8nrRdddA3rwADA2NrRnXEIRmzSA6Xv468CYiBgbEd4wsWA8YEBTjm0QAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.5.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.5.2" async></script>
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '安迪陈技术日志';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '欢迎回来';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

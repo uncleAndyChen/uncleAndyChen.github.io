@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<!--<script async src="//hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c"></script>-->
+<!-- 统计-->
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var host = window.location.host;
+        var hm = document.createElement("script");
+
+        if (host.indexOf('gitee.io') > 0) { // https://uncleandychen.gitee.io/
+            hm.src = "https://hm.baidu.com/hm.js?0cf4709148b070b8082191d2e456a1a3";
+        } else if (host.indexOf('lovesofttech.com') > 0) { // https://www.lovesofttech.com/
+            hm.src = "https://hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c";
+        } else {
+            hm.src = '';
+        }
+
+        if (hm.src !== '') {
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        }
+    })();
+</script>
+<!-- End Baidu Tongji -->
+
+
+
+<!-- Baidu Push -->
+<!-- 主动推送百度爬虫-->
+<script>
+    (function(){
+        if (window.location.host.indexOf('lovesofttech.com') < 0) {
+            return;
+        }
+
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+<!-- End Baidu Push -->
+
+
+    <meta charset="utf-8">
+    
+    
+    <link rel="canonical" href="https://www.lovesofttech.com/java/aboutSpring.html">
+    
+    
+    <title>关于 Spring Boot，以及学习 Spring Boot 的一个 Demo | 安迪陈技术日志，架构、感悟、系统分析、团队管理 | 自强不息，厚德载物</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="java,spring">
+    <meta name="description" content="如题">
+<meta name="keywords" content="java,spring">
+<meta property="og:type" content="article">
+<meta property="og:title" content="关于 Spring Boot，以及学习 Spring Boot 的一个 Demo">
+<meta property="og:url" content="https://www.lovesofttech.com/java/aboutSpring.html">
+<meta property="og:site_name" content="安迪陈技术日志，架构、感悟、系统分析、团队管理">
+<meta property="og:description" content="如题">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:image" content="https://www.lovesofttech.com/img/springNewStarterProject.jpg">
+<meta property="og:image" content="https://www.lovesofttech.com/img/stsNewStarterProject.jpg">
+<meta property="og:image" content="https://www.lovesofttech.com/img/startSpringIONewStarterProjectFirst.jpg">
+<meta property="og:image" content="https://www.lovesofttech.com/img/startSpringIONewStarterProjectSecond.jpg">
+<meta property="og:updated_time" content="2020-09-01T02:53:12.971Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="关于 Spring Boot，以及学习 Spring Boot 的一个 Demo">
+<meta name="twitter:description" content="如题">
+<meta name="twitter:image" content="https://www.lovesofttech.com/img/springNewStarterProject.jpg">
+    
+        <link rel="alternative" href="/atom.xml" title="安迪陈技术日志，架构、感悟、系统分析、团队管理" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=201912302211">
+    <link rel="stylesheet" href="/css/header.css?v=201912302211">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu">
+  <div class="inner flex-row-vertical">
+    <!--<i class="icon icon-lg icon-close"></i>-->
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off" title="隐藏左侧导航">﹤<i class="icon icon-lg icon-navicon"></i></a>
+    <div class="brand-wrap" style="background-image:url(/img/bannerBackgroundLeft.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/myLogo.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">安迪陈</h5>
+          <a href="mailto:andy@lovesofttech.com" title="andy@lovesofttech.com" class="mail" rel="external nofollow noopener noreferrer" target="_blank">andy@lovesofttech.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articleClassify.html">
+                <i class="icon icon-th-list"></i>
+                文章分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articles.html">
+                <i class="icon icon-th-list articles"></i>
+                文章列表
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/java.html">
+                <i class="icon icon-th-list java"></i>
+                Java
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/database.html">
+                <i class="icon icon-th-list database"></i>
+                MySQL/MyBatis
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/linux.html">
+                <i class="icon icon-th-list linux"></i>
+                CentOS/linux
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/react.html">
+                <i class="icon icon-th-list React"></i>
+                React
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/lnmp.html">
+                <i class="icon icon-th-list LNMP"></i>
+                LNMP
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/git.html">
+                <i class="icon icon-th-list git"></i>
+                git
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/windows.html">
+                <i class="icon icon-th-list windows"></i>
+                windows
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/dailyLives.html">
+                <i class="icon icon-th-list dailyLives"></i>
+                工作 &amp; 生活
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-github"></i>
+                我的 github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://gitee.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link"></i>
+                我的 gitee
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://blog.csdn.net/runAndRun" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link CSDN"></i>
+                我的 CSDN
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/aboutMe.html">
+                <i class="icon icon-address-card"></i>
+                关于我
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+
+        <div class="navbar navbar-custom navbar-fixed-top">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" style="margin-left:10px;" id="menu-toggle" title="显示左侧导航"><i class="icon icon-lg icon-navicon"></i>﹥</a>
+            <ul class="nav navbar-nav navbar-right" id="navMenuTop">
+                <li>
+                    <a href="/">主页</a>
+                </li>
+                
+                    
+                        <li>
+                            <a href="/articleClassify.html" title="本博客的文章分类列表">文章分类</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/articles.html" title="本博客的所有文章列表">文章列表</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/java.html" title="Java 开发，文章目录">Java</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/database.html" title="日常开发中有关 MySQL、MyBatis 的一些经验总结">MySQL/MyBatis</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/linux.html" title="CentOS/linux，文章目录">CentOS/linux</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/react.html" title="React 技术栈（全家桶）学习心得分享，文章目录">React</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/about.html">关于</a>
+                        </li>
+                    
+                
+            </ul>
+        </div>
+
+        <div class="flex-col header-title ellipsis">关于 Spring Boot，以及学习 Spring Boot 的一个 Demo</div>
+        
+        <div class="search-wrap" id="search-wrap" style="z-index: 2;">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back" style="width:33px;">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search" style="width:33px;">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare" style="z-index: 3;margin-right: 10px; width:30px;">
+                <i class="icon icon-lg icon-share-alt"></i>
+            </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h2 class="title">关于 Spring Boot，以及学习 Spring Boot 的一个 Demo</h2>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-03-09T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2017-03-10
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/spring/">spring</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/spring/java/">java</a></li></ul></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap" id="index-container">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc" style="z-index: 3;">
+            <h4><i class="fa fa-list-alt"></i>&nbsp;&nbsp;本文目录</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#先来一个-helo-world，找点成就感"><span class="post-toc-number">1.</span> <span class="post-toc-text">先来一个 helo world，找点成就感</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#官方demo，spring-petclinic"><span class="post-toc-number">2.</span> <span class="post-toc-text">官方demo，spring-petclinic</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#我的修改版本，更贴近实际项目"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">我的修改版本，更贴近实际项目</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#创建-spring-starter-初始化项目的三种方式"><span class="post-toc-number">3.</span> <span class="post-toc-text">创建 spring starter 初始化项目的三种方式</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#通过-IntelliJ-IDEA-创建"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">通过 IntelliJ IDEA 创建</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#通过-Eclipse-创建"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">通过 Eclipse 创建</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#通过官网创建"><span class="post-toc-number">3.3.</span> <span class="post-toc-text">通过官网创建</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#关于-spring-boot-的一些“废话”"><span class="post-toc-number">4.</span> <span class="post-toc-text">关于 spring boot 的一些“废话”</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#restful，微服务架构"><span class="post-toc-number">5.</span> <span class="post-toc-text">restful，微服务架构</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#URIs-URLs-and-URNs"><span class="post-toc-number">6.</span> <span class="post-toc-text">URIs, URLs, and URNs</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Swagger"><span class="post-toc-number">7.</span> <span class="post-toc-text">Swagger</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#端点-Spring-Boot-Actuator"><span class="post-toc-number">8.</span> <span class="post-toc-text">端点 Spring Boot Actuator</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#spring-boot-admin"><span class="post-toc-number">9.</span> <span class="post-toc-text">spring boot admin</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Json-view"><span class="post-toc-number">10.</span> <span class="post-toc-text">Json view</span></a></li></ol>
+        </nav>
+    </aside>
+    
+
+<article id="post-java/aboutSpring" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">关于 Spring Boot，以及学习 Spring Boot 的一个 Demo</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017年03月10日 0:00" datetime="2017-03-09T16:00:00.000Z" itemprop="datePublished">2017-03-10</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/spring/">spring</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/spring/java/">java</a></li></ul></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" style="display:none">
+    阅读量：<span id="busuanzi_value_page_pv"></span>次
+</span>
+
+
+    <span>|</span>
+    <span class="post-count">字数：1.9k</span>
+    <span>|</span>
+    <span class="post-count">阅读时长：大约7分钟</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>如题<br><a id="more"></a></p>
+<h1 id="先来一个-helo-world，找点成就感"><a href="#先来一个-helo-world，找点成就感" class="headerlink" title="先来一个 helo world，找点成就感"></a>先来一个 helo world，找点成就感</h1><p>这个建议直接官网查看<a href="http://projects.spring.io/spring-boot/#quick-start" rel="external nofollow noopener noreferrer" target="_blank">Quick Start</a>，这里就不啰嗦了。</p>
+<h1 id="官方demo，spring-petclinic"><a href="#官方demo，spring-petclinic" class="headerlink" title="官方demo，spring-petclinic"></a><a href="https://github.com/spring-projects/spring-petclinic" rel="external nofollow noopener noreferrer" target="_blank">官方demo，spring-petclinic</a></h1><ul>
+<li>技术点<ul>
+<li>Actuator</li>
+<li>thymeleaf</li>
+<li>data-jpa</li>
+<li>webjars</li>
+<li>wro</li>
+</ul>
+</li>
+</ul>
+<h2 id="我的修改版本，更贴近实际项目"><a href="#我的修改版本，更贴近实际项目" class="headerlink" title="我的修改版本，更贴近实际项目"></a><a href="https://gitee.com/uncleAndyChen/spring-petclinic" rel="external nofollow noopener noreferrer" target="_blank">我的修改版本，更贴近实际项目</a></h2><p><a href="/java/spring-petclinic">spring 官方例子-&gt;宠物医院，数据库改成 MySQL，数据库连接池改成 druid</a></p>
+<h1 id="创建-spring-starter-初始化项目的三种方式"><a href="#创建-spring-starter-初始化项目的三种方式" class="headerlink" title="创建 spring starter 初始化项目的三种方式"></a>创建 spring starter 初始化项目的三种方式</h1><h2 id="通过-IntelliJ-IDEA-创建"><a href="#通过-IntelliJ-IDEA-创建" class="headerlink" title="通过 IntelliJ IDEA 创建"></a>通过 <a href="http://www.jetbrains.com/idea/" rel="external nofollow noopener noreferrer" target="_blank">IntelliJ IDEA</a> 创建</h2><p>如果你不是 Eclipse 的铁粉，强烈推荐使用 <a href="http://www.jetbrains.com/idea/" rel="external nofollow noopener noreferrer" target="_blank">IntelliJ IDEA</a> 作为 Java IDE，至于如何免费激活，请度娘，或者联系我，当然，不差钱的童鞋，建议支持正版。</p>
+<p>切入正题，按照下面的步骤操作：<br>File-&gt;New-Project…-&gt;Spring Initializer-&gt;选jdk版本，建议选1.8，其余保持默认-&gt;Next，根据实际情况修改，作为练习的话，保持默认即可-&gt;Next，如下图，可看到左边有菜单，选择其中某项之后，右边会有相关依赖项可选。<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/springNewStarterProject.jpg" alt="IDEA创建spring starter项目" title>
+                </div>
+                <div class="image-caption">IDEA创建spring starter项目</div>
+            </figure></p>
+<h2 id="通过-Eclipse-创建"><a href="#通过-Eclipse-创建" class="headerlink" title="通过 Eclipse 创建"></a>通过 <a href="https://www.eclipse.org/downloads/" rel="external nofollow noopener noreferrer" target="_blank">Eclipse</a> 创建</h2><p>强烈推荐喜欢 Eclipse 的童鞋直接下载 <a href="https://spring.io/tools/sts" rel="external nofollow noopener noreferrer" target="_blank">Spring Tool Suite</a>，这是一个基于 Eclipse 的 spring 定制 IDE。<br>作为演示，直接用的 <a href="https://spring.io/tools/sts" rel="external nofollow noopener noreferrer" target="_blank">Spring Tool Suite</a>。按照下面的步骤操作：<br>File-&gt;New Spring Starter Poject-&gt;根据实际情况修改，作为练习的话，保持默认即可-&gt;Next<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/stsNewStarterProject.jpg" alt="STS创建spring starter项目" title>
+                </div>
+                <div class="image-caption">STS创建spring starter项目</div>
+            </figure></p>
+<h2 id="通过官网创建"><a href="#通过官网创建" class="headerlink" title="通过官网创建"></a>通过<a href="http://start.spring.io/" rel="external nofollow noopener noreferrer" target="_blank">官网</a>创建</h2><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/startSpringIONewStarterProjectFirst.jpg" alt="官网创建spring starter项目，可通过搜索依赖项来添加依赖，建议点开 Switch to the full version" title>
+                </div>
+                <div class="image-caption">官网创建spring starter项目，可通过搜索依赖项来添加依赖，建议点开 Switch to the full version</div>
+            </figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/startSpringIONewStarterProjectSecond.jpg" alt="官网创建spring starter项目，点 Switch to the full version 之后，可直接点选" title>
+                </div>
+                <div class="image-caption">官网创建spring starter项目，点 Switch to the full version 之后，可直接点选</div>
+            </figure>
+<h1 id="关于-spring-boot-的一些“废话”"><a href="#关于-spring-boot-的一些“废话”" class="headerlink" title="关于 spring boot 的一些“废话”"></a>关于 spring boot 的一些“废话”</h1><ul>
+<li>需要做 Web 页面，如果纠结该选哪个模板引擎，那么，我的建议是：如果你没有特别熟悉的，同时公司也没有特别要求的话，选 <a href="http://www.thymeleaf.org/" rel="external nofollow noopener noreferrer" target="_blank">Thymeleaf</a>。Spring 官方对 Thymeleaf 有很好的支持，而且一直在更新。这个模板引擎在美工或前端开发时，可以直接以 Html 的方式查看效果而不需要 Java 容器，即便代码包含后端数据元素也不影响，更多介绍，请度娘。Thymeleaf， 你值得拥有…^_^</li>
+<li>Spring Boot 的诞生，是为了解决这样的问题：在之前的 web 项目开发中，spring 框架大量使用。但随着项目“体积”的增大，各个方面的配置文件充斥着整个项目，造成项目的开发、管理和维护成为一件头痛的事。</li>
+<li>Spring Boot 充分利用了 JavaConfig 的配置模式以及“约定优于配置”的理念，能够极大的简化基于 Spring  MVC 的 Web 应用和 REST 服务开发。Spring4 倡导微服务架构.</li>
+<li>为了简化依赖图，Spring Boot 的功能是模块化的，通过导入 Spring Boot 所谓的“starter”模块，可以将许多的依赖添加到工程之中。为了更容易地管理依赖版本和使用默认配置，框架提供了一个 parent POM，工程可以继承它。</li>
+<li>Spring Boot 内建了一些聚合模块，通常称为“启动者”。这些启动模块中是一些类库的已知的、良好的、具备互操作性的版本的组合，这些类库能够为应用程序提供某些方面的功能。Spring Boot 能够通过应用程序的配置对这些类库的进行设置，这也为整个开发周期中带来了约定胜于配置的便利性。</li>
+<li>作为一个微服务框架，Spring Boot 的很大一部分价值在于它能够无缝地为基于 Maven 和 Gradle 的项目提供各种构建工具。通过使用 Spring Boot 插件，就能够利用该框架的能力，将项目打包为一个轻量级的、可运行的部署包，而除此之外几乎不需要进行任何额外的配置。</li>
+<li>我们可以很快地重写 Spring Boot 的默认配置。默认情况下，应用的配置可以使用 Java 属性文件来进行定义，这个文件名为 application.properties 并且位于应用的 classpath 根目录下。不过，一种更好的方式是使用 YAML 配置，它提供了结构化以及嵌套的配置。在应用的运行时类路径之中包含 <a href="https://bitbucket.org/asomov/snakeyaml/wiki/Documentation" rel="external nofollow noopener noreferrer" target="_blank">snakeyaml</a> 之后，你的工程就可以在 application.yml 文件中直接定义配置了。</li>
+</ul>
+<h1 id="restful，微服务架构"><a href="#restful，微服务架构" class="headerlink" title="restful，微服务架构"></a>restful，微服务架构</h1><ul>
+<li>在企业级基础设施领域，微服务是一种越来越流行的应用架构，因为它能够实现快速开发、更小的代码库、企业级集成以及模块化部署。</li>
+<li>URI（统一资源定位符），每一个资源的地址或独一无二的识别符。</li>
+<li>资源：网络上的一个实体，或者说是网络上的一个具体信息。它可以是一段文本、一张图片、一首歌曲、一种服务，总之就是一个具体的实在。你可以用一个URI来访问。</li>
+<li>资源”是一种信息实体，它可以有多种外在表现形式。我们把”资源”具体呈现出来的形式，叫做它的”表现层”（Representation）。</li>
+<li>REST（英文：Representational State Transfer，简称REST），满足这些约束条件和原则的应用程序或设计就是 RESTful。</li>
+<li>RESTful：一种软件架构风格，设计风格而不是标准，只是提供了一组设计原则和约束条件。它主要用于客户端和服务器交互类的软件。基于这个风格设计的软件可以更简洁，更有层次，更易于实现缓存等机制。</li>
+<li>使用各种技术栈实现 Restful api</li>
+<li>REST 并不是一种具体的技术，也不是一种具体的规范，REST 是一种内涵非常丰富的架构风格。</li>
+<li>在 Fielding 的这篇名为 Architectural Styles and the Design of Network-based Software Architectures 的博士论文（中文版名为《架构风格与基于网络的软件架构设计》）中，提出了一整套基于网络的软件（即所谓的“分布式应用”）的设计方法，值得所有分布式应用的开发者仔细阅读、深入体会。</li>
+</ul>
+<h1 id="URIs-URLs-and-URNs"><a href="#URIs-URLs-and-URNs" class="headerlink" title="URIs, URLs, and URNs"></a>URIs, URLs, and URNs</h1><ul>
+<li>首先，URI，是uniform resource identifier，统一资源标识符，用来唯一的标识一个资源。而 URL 是 uniform resource locator，统一资源定位器，它是一种具体的 URI，即 URL 可以用来标识一个资源，而且还指明了如何 locate 这个资源。而 URN，uniform resource name，统一资源命名，是通过名字来标识资源，比如 mailto:<a href="mailto:java-net@java.sun.com" rel="external nofollow noopener noreferrer" target="_blank">java-net@java.sun.com</a>。也就是说，URI 是以一种抽象的，高层次概念定义统一资源标识，而 URL 和 URN 则是具体的资源标识的方式。URL 和 URN都是一种 URI。</li>
+</ul>
+<h1 id="Swagger"><a href="#Swagger" class="headerlink" title="Swagger"></a><a href="http://swagger.io/" rel="external nofollow noopener noreferrer" target="_blank">Swagger</a></h1><ul>
+<li>一款RESTFUL接口的文档在线自动生成+功能测试功能软件。</li>
+<li>是一个规范和完整的框架，用于生成、描述、调用和可视化 RESTful 风格的 Web 服务。总体目标是使客户端和文件系统作为服务器以同样的速度来更新。文件的方法，参数和模型紧密集成到服务器端的代码，允许API来始终保持同步。Swagger 让部署管理和使用功能强大的API从未如此简单。</li>
+</ul>
+<h1 id="端点-Spring-Boot-Actuator"><a href="#端点-Spring-Boot-Actuator" class="headerlink" title="端点 Spring Boot Actuator"></a>端点 Spring Boot Actuator</h1><ul>
+<li><a href="http://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/" rel="external nofollow noopener noreferrer" target="_blank">Spring Boot Reference Guide</a></li>
+<li>spring boot 监控</li>
+<li>/health</li>
+<li>/env</li>
+<li>/beans</li>
+<li>/dump</li>
+<li>/info</li>
+<li>/metrics</li>
+<li>/mappings</li>
+<li>/trace</li>
+</ul>
+<h1 id="spring-boot-admin"><a href="#spring-boot-admin" class="headerlink" title="spring boot admin"></a>spring boot admin</h1><ul>
+<li><a href="https://github.com/codecentric/spring-boot-admin" rel="external nofollow noopener noreferrer" target="_blank">https://github.com/codecentric/spring-boot-admin</a></li>
+</ul>
+<h1 id="Json-view"><a href="#Json-view" class="headerlink" title="Json view"></a>Json view</h1><p>安装这个插件之后，在浏览器中查看 Json 数据将更加方便，推荐使用。<br><a href="https://jsonview.com/" rel="external nofollow noopener noreferrer" target="_blank">https://jsonview.com/</a><br><a href="https://addons.mozilla.org/en-US/firefox/addon/jsonview/" rel="external nofollow noopener noreferrer" target="_blank">https://addons.mozilla.org/en-US/firefox/addon/jsonview/</a></p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-09-01T02:53:12.971Z" itemprop="dateUpdated">2020年9月1日 10:53</time>
+</span><br>
+
+
+        转载请注明出处：<a href="/java/aboutSpring.html" target="_blank" rel="external">https://www.lovesofttech.com/java/aboutSpring.html</a>
+    </div>
+    <footer>
+        <a href="https://www.lovesofttech.com">
+            <img src="/img/myLogo.jpg" alt="安迪陈">
+            安迪陈
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/spring/">spring</a></li></ul>
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/java/aboutSpring.html&title=《关于 Spring Boot，以及学习 Spring Boot 的一个 Demo》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/java/aboutSpring.html&title=《关于 Spring Boot，以及学习 Spring Boot 的一个 Demo》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=如题" data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/java/aboutSpring.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《关于 Spring Boot，以及学习 Spring Boot 的一个 Demo》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/java/aboutSpring.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/java/aboutSpring.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/linux/rcLocal.html" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">CentOS 系统下设置自己安装的程序开机自动启动</h4>
+      </a>
+    </div>
+  
+
+  
+</nav>
+
+
+    
+    
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="bottom">
+        <p>
+            <span>安迪陈技术日志，架构、感悟、系统分析、团队管理 &copy; 2017 - 2020</span>
+            <span>
+                Power by <a href="https://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>&nbsp;
+                Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank" rel="external nofollow noopener noreferrer">indigo</a>
+            </span>
+            <span>
+                <a href="http://www.beian.miit.gov.cn" target="_blank" rel="external nofollow noopener noreferrer">蜀ICP备17041860号</a>
+            </span>
+            
+            <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            </p><p>
+                <span>
+                    统计始于：2019-03-06
+                </span>
+                <span id="busuanzi_container_site_uv" style="display:none">
+                    访客数：<span id="busuanzi_value_site_uv"></span>
+                </span>
+                <span id="busuanzi_container_site_pv" style="display:none">
+                    访问量：<span id="busuanzi_value_site_pv"></span>
+                </span>
+            
+            
+                <span class="post-count">累计字数：309.2k</span>
+            
+                <span><a href="/general/blogLog.html"><i class="fas fa-pen-alt"></i>&nbsp;博客日志</a></span>
+            </p>
+        <p></p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light" title="回到顶部"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/java/aboutSpring.html&title=《关于 Spring Boot，以及学习 Spring Boot 的一个 Demo》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/java/aboutSpring.html&title=《关于 Spring Boot，以及学习 Spring Boot 的一个 Demo》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=如题" data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/java/aboutSpring.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《关于 Spring Boot，以及学习 Spring Boot 的一个 Demo》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/java/aboutSpring.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/java/aboutSpring.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACJklEQVR42u3aMY7DMAwF0dz/0t42TeT5pL2AqFG1yCaynguCFPn54HV9re9PyDfJzrXfxkuGDBnbMq7lShnpU35h+NlkyJBxDoOEQh6IyZ5rJD+bDBkyZPz6zvqTddBcg2XIkCGjz1inaCSh7CegMmTIOJPRKTJJIK7t+UotLkOGjA0Ztev7//n7lf6GDBkytmJc4SLFZydcXqUlQ4aM2Qwe4EjJmg5SpM2Dm/PIkCHjGEYtvAZhEZe7vAkhQ4aM2QxeOpIrtrRVwPe8ed0yZMg4gIG+2h4FqyHRy5UhQ8YBDHIUHmr5VR15FgruMmTIOIbx7EBYJ+CmSaQMGTLOYdRGr2o79NuiKDWUIUPGIAYvYnlwrJW4tQRRhgwZJzDSsVE+MEGu/jsFc9zClCFDxraMWmOg1iTgoTYetpAhQ8ZQRno1FmyEd+bDZAFGhgwZxzCeuobrJ5rx/jJkyBjKSENeZ8CCl7i85SlDhozZjE4DIB2MIG0AnlAGN3wyZMgYweAH7VyNpQVqUEjLkCHjMAa5euOPqZWppEWKqmEZMmQMYqRNRz6o+hTv5rkyZMgYyrjClZadbzQ747crQ4aMzRm1rWv/TQMr+W0MkyFDxraMtMXIg2w/ZMfXbTJkyBjNSANlOpDxVPp4U4vLkCFDRqPN2XkKosqQIUNGGEYJ8uGGhAwZMg5gpIfovIJir3WdmMqQIWM0g5eOnUZCmkTyZFSGDBmjGX+Ht7wqYNvqbAAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.5.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.5.2" async></script>
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '安迪陈技术日志';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '欢迎回来';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

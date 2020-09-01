@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<!--<script async src="//hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c"></script>-->
+<!-- 统计-->
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var host = window.location.host;
+        var hm = document.createElement("script");
+
+        if (host.indexOf('gitee.io') > 0) { // https://uncleandychen.gitee.io/
+            hm.src = "https://hm.baidu.com/hm.js?0cf4709148b070b8082191d2e456a1a3";
+        } else if (host.indexOf('lovesofttech.com') > 0) { // https://www.lovesofttech.com/
+            hm.src = "https://hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c";
+        } else {
+            hm.src = '';
+        }
+
+        if (hm.src !== '') {
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        }
+    })();
+</script>
+<!-- End Baidu Tongji -->
+
+
+
+<!-- Baidu Push -->
+<!-- 主动推送百度爬虫-->
+<script>
+    (function(){
+        if (window.location.host.indexOf('lovesofttech.com') < 0) {
+            return;
+        }
+
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+<!-- End Baidu Push -->
+
+
+    <meta charset="utf-8">
+    
+    
+    <link rel="canonical" href="https://www.lovesofttech.com/cpp/win10OpencvAndOpencvContribMake.html">
+    
+    
+    <title>windows10 64位+vs2017+CMake 编译 opencv-4.0.1 和 opencv_contrib-4.0.1 | 安迪陈技术日志，架构、感悟、系统分析、团队管理 | 自强不息，厚德载物</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="cpp,opencv">
+    <meta name="description" content="本文介绍操作过程。如果不想麻烦，可以用编译好的版本，可以省去诸多麻烦。百度网盘下载，提取码：3wv2。csdn 备用下载链接：https://download.csdn.net/download/runandrun/11038165">
+<meta name="keywords" content="cpp,opencv">
+<meta property="og:type" content="article">
+<meta property="og:title" content="windows10 64位+vs2017+CMake 编译 opencv-4.0.1 和 opencv_contrib-4.0.1">
+<meta property="og:url" content="https://www.lovesofttech.com/cpp/win10OpencvAndOpencvContribMake.html">
+<meta property="og:site_name" content="安迪陈技术日志，架构、感悟、系统分析、团队管理">
+<meta property="og:description" content="本文介绍操作过程。如果不想麻烦，可以用编译好的版本，可以省去诸多麻烦。百度网盘下载，提取码：3wv2。csdn 备用下载链接：https://download.csdn.net/download/runandrun/11038165">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:image" content="https://www.lovesofttech.com/img/cpp/opencv01.png">
+<meta property="og:image" content="https://www.lovesofttech.com/img/cpp/opencvMake02.png">
+<meta property="og:image" content="https://www.lovesofttech.com/img/cpp/opencvMake01.png">
+<meta property="og:image" content="https://www.lovesofttech.com/img/cpp/opencv12.png">
+<meta property="og:image" content="https://www.lovesofttech.com/img/cpp/opencv02.png">
+<meta property="og:image" content="https://www.lovesofttech.com/img/cpp/opencv03.png">
+<meta property="og:image" content="https://www.lovesofttech.com/img/cpp/opencv10.png">
+<meta property="og:image" content="https://www.lovesofttech.com/img/cpp/opencv04.png">
+<meta property="og:image" content="https://www.lovesofttech.com/img/cpp/vs2017-property-manager.png">
+<meta property="og:image" content="https://www.lovesofttech.com/img/cpp/opencv05.png">
+<meta property="og:image" content="https://www.lovesofttech.com/img/cpp/opencv13.png">
+<meta property="og:image" content="https://www.lovesofttech.com/img/cpp/opencv06.png">
+<meta property="og:image" content="https://www.lovesofttech.com/img/cpp/opencv07.png">
+<meta property="og:image" content="https://www.lovesofttech.com/img/cpp/opencv08.png">
+<meta property="og:image" content="https://www.lovesofttech.com/img/cpp/opencv09.png">
+<meta property="og:image" content="https://www.lovesofttech.com/img/cpp/opencv14.png">
+<meta property="og:image" content="https://www.lovesofttech.com/img/cpp/opencv11.png">
+<meta property="og:image" content="https://www.lovesofttech.com/img/cpp/opencv05.png">
+<meta property="og:image" content="https://www.lovesofttech.com/img/cpp/opencv15.png">
+<meta property="og:image" content="https://www.lovesofttech.com/img/cpp/opencv16.png">
+<meta property="og:updated_time" content="2020-09-01T02:53:12.907Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="windows10 64位+vs2017+CMake 编译 opencv-4.0.1 和 opencv_contrib-4.0.1">
+<meta name="twitter:description" content="本文介绍操作过程。如果不想麻烦，可以用编译好的版本，可以省去诸多麻烦。百度网盘下载，提取码：3wv2。csdn 备用下载链接：https://download.csdn.net/download/runandrun/11038165">
+<meta name="twitter:image" content="https://www.lovesofttech.com/img/cpp/opencv01.png">
+    
+        <link rel="alternative" href="/atom.xml" title="安迪陈技术日志，架构、感悟、系统分析、团队管理" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=201912302211">
+    <link rel="stylesheet" href="/css/header.css?v=201912302211">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu">
+  <div class="inner flex-row-vertical">
+    <!--<i class="icon icon-lg icon-close"></i>-->
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off" title="隐藏左侧导航">﹤<i class="icon icon-lg icon-navicon"></i></a>
+    <div class="brand-wrap" style="background-image:url(/img/bannerBackgroundLeft.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/myLogo.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">安迪陈</h5>
+          <a href="mailto:andy@lovesofttech.com" title="andy@lovesofttech.com" class="mail" rel="external nofollow noopener noreferrer" target="_blank">andy@lovesofttech.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articleClassify.html">
+                <i class="icon icon-th-list"></i>
+                文章分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articles.html">
+                <i class="icon icon-th-list articles"></i>
+                文章列表
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/java.html">
+                <i class="icon icon-th-list java"></i>
+                Java
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/database.html">
+                <i class="icon icon-th-list database"></i>
+                MySQL/MyBatis
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/linux.html">
+                <i class="icon icon-th-list linux"></i>
+                CentOS/linux
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/react.html">
+                <i class="icon icon-th-list React"></i>
+                React
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/lnmp.html">
+                <i class="icon icon-th-list LNMP"></i>
+                LNMP
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/git.html">
+                <i class="icon icon-th-list git"></i>
+                git
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/windows.html">
+                <i class="icon icon-th-list windows"></i>
+                windows
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/dailyLives.html">
+                <i class="icon icon-th-list dailyLives"></i>
+                工作 &amp; 生活
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-github"></i>
+                我的 github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://gitee.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link"></i>
+                我的 gitee
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://blog.csdn.net/runAndRun" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link CSDN"></i>
+                我的 CSDN
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/aboutMe.html">
+                <i class="icon icon-address-card"></i>
+                关于我
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+
+        <div class="navbar navbar-custom navbar-fixed-top">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" style="margin-left:10px;" id="menu-toggle" title="显示左侧导航"><i class="icon icon-lg icon-navicon"></i>﹥</a>
+            <ul class="nav navbar-nav navbar-right" id="navMenuTop">
+                <li>
+                    <a href="/">主页</a>
+                </li>
+                
+                    
+                        <li>
+                            <a href="/articleClassify.html" title="本博客的文章分类列表">文章分类</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/articles.html" title="本博客的所有文章列表">文章列表</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/java.html" title="Java 开发，文章目录">Java</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/database.html" title="日常开发中有关 MySQL、MyBatis 的一些经验总结">MySQL/MyBatis</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/linux.html" title="CentOS/linux，文章目录">CentOS/linux</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/react.html" title="React 技术栈（全家桶）学习心得分享，文章目录">React</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/about.html">关于</a>
+                        </li>
+                    
+                
+            </ul>
+        </div>
+
+        <div class="flex-col header-title ellipsis">windows10 64位+vs2017+CMake 编译 opencv-4.0.1 和 opencv_contrib-4.0.1</div>
+        
+        <div class="search-wrap" id="search-wrap" style="z-index: 2;">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back" style="width:33px;">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search" style="width:33px;">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare" style="z-index: 3;margin-right: 10px; width:30px;">
+                <i class="icon icon-lg icon-share-alt"></i>
+            </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h2 class="title">windows10 64位+vs2017+CMake 编译 opencv-4.0.1 和 opencv_contrib-4.0.1</h2>
+        <h5 class="subtitle">
+            
+                <time datetime="2019-03-18T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2019-03-19
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/opencv/">opencv</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/opencv/cpp/">cpp</a></li></ul></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap" id="index-container">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc" style="z-index: 3;">
+            <h4><i class="fa fa-list-alt"></i>&nbsp;&nbsp;本文目录</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#下载-vs2017"><span class="post-toc-number">1.</span> <span class="post-toc-text">下载 vs2017</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#下载-opencv-和-opencv-contrib"><span class="post-toc-number">2.</span> <span class="post-toc-text">下载 opencv 和 opencv_contrib</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#下载我准备的三个文件，保证你喜欢"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">下载我准备的三个文件，保证你喜欢</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#下载-CMake"><span class="post-toc-number">3.</span> <span class="post-toc-text">下载 CMake</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#java-和-python-环境"><span class="post-toc-number">4.</span> <span class="post-toc-text">java 和 python 环境</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#CMake-编译"><span class="post-toc-number">5.</span> <span class="post-toc-text">CMake 编译</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#踩的坑"><span class="post-toc-number">5.1.</span> <span class="post-toc-text">踩的坑</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#vs2017-编译"><span class="post-toc-number">6.</span> <span class="post-toc-text">vs2017 编译</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#配置-vs2017-环境"><span class="post-toc-number">7.</span> <span class="post-toc-text">配置 vs2017 环境</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#测试"><span class="post-toc-number">8.</span> <span class="post-toc-text">测试</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#后记"><span class="post-toc-number">9.</span> <span class="post-toc-text">后记</span></a></li></ol>
+        </nav>
+    </aside>
+    
+
+<article id="post-cpp/win10OpencvAndOpencvContribMake" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">windows10 64位+vs2017+CMake 编译 opencv-4.0.1 和 opencv_contrib-4.0.1</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2019年03月19日 0:00" datetime="2019-03-18T16:00:00.000Z" itemprop="datePublished">2019-03-19</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/opencv/">opencv</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/opencv/cpp/">cpp</a></li></ul></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" style="display:none">
+    阅读量：<span id="busuanzi_value_page_pv"></span>次
+</span>
+
+
+    <span>|</span>
+    <span class="post-count">字数：1.9k</span>
+    <span>|</span>
+    <span class="post-count">阅读时长：大约7分钟</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>本文介绍操作过程。<br>如果不想麻烦，可以用编译好的版本，可以省去诸多麻烦。<a href="https://pan.baidu.com/s/1mA994cJn__KfphCG2O3Y5A" rel="external nofollow noopener noreferrer" target="_blank">百度网盘下载</a>，提取码：<code>3wv2</code>。<br>csdn 备用下载链接：<a href="https://download.csdn.net/download/runandrun/11038165" rel="external nofollow noopener noreferrer" target="_blank">https://download.csdn.net/download/runandrun/11038165</a><br><a id="more"></a></p>
+<h1 id="下载-vs2017"><a href="#下载-vs2017" class="headerlink" title="下载 vs2017"></a>下载 vs2017</h1><p><a href="https://visualstudio.microsoft.com/zh-hans/vs/enterprise/" rel="external nofollow noopener noreferrer" target="_blank">vs2017 下载页面，含 for mac 版</a><br>下载之后，只有1.22M，是在线安装版本，如果只是做 openCV 相关开发，建议安装内容：</p>
+<ol>
+<li>勾选大红框的两个复选框。</li>
+<li>如果要自己编译 OpenCV，再额外勾选win10SDK。<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/cpp/opencv01.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+</li>
+</ol>
+<h1 id="下载-opencv-和-opencv-contrib"><a href="#下载-opencv-和-opencv-contrib" class="headerlink" title="下载 opencv 和 opencv_contrib"></a>下载 opencv 和 opencv_contrib</h1><ul>
+<li>opencv 从官网下载即可，windows 环境，下载 Win pack 包，是一个自解压包，包括源码和编译之后的文件。<br><a href="https://opencv.org/releases.html" rel="external nofollow noopener noreferrer" target="_blank">openCV官网下载页面</a></li>
+<li>opencv_contrib，官网没有编译版本，需要自己编译。记得下载的版本要和 openvc 完全一致。<br><a href="https://github.com/opencv/opencv_contrib/releases" rel="external nofollow noopener noreferrer" target="_blank">opencv_contrib github 下载页面</a></li>
+</ul>
+<h2 id="下载我准备的三个文件，保证你喜欢"><a href="#下载我准备的三个文件，保证你喜欢" class="headerlink" title="下载我准备的三个文件，保证你喜欢"></a>下载我准备的三个文件，保证你喜欢</h2><p>由于国内网络原因，从 github 下载非常慢， 我上午10点多开始，直到中午吃了个午饭回来还没有下载完。</p>
+<p><a href="https://pan.baidu.com/s/1mA994cJn__KfphCG2O3Y5A" rel="external nofollow noopener noreferrer" target="_blank">百度网盘下载</a>，提取码：<code>3wv2</code></p>
+<p>下载解压后会得到三个文件：</p>
+<ol>
+<li><code>opencv+opencv_contrib-4.0.1+win10-x64+vs2017-build.zip</code>：我编译好的版本，理论上应该可以直接用，如果想要自己折腾，同时你的下载速度跟我一样，下面两个文件会帮到你。</li>
+<li><code>opencv_contrib-4.0.1.zip</code></li>
+<li><code>cache.rar</code>：用 CMake 编译的时候，会有很多文件下载不下来，可能要反复下载才行，这个文件就是编译时需要的文件，解压后替换 openCV 源码目录下的 <code>.cache</code> 目录，然后重新 Configure。</li>
+</ol>
+<h1 id="下载-CMake"><a href="#下载-CMake" class="headerlink" title="下载 CMake"></a>下载 CMake</h1><ul>
+<li><a href="https://cmake.org/download/" rel="external nofollow noopener noreferrer" target="_blank">官方下载页面</a></li>
+<li><a href="https://github.com/Kitware/CMake/releases/download/v3.14.0/cmake-3.14.0-win64-x64.zip" rel="external nofollow noopener noreferrer" target="_blank">建议下载解压版本，下载解压之后直接能用</a></li>
+</ul>
+<h1 id="java-和-python-环境"><a href="#java-和-python-环境" class="headerlink" title="java 和 python 环境"></a>java 和 python 环境</h1><p>opencv 是支持 java 和 python 的，编译的时候会找相关的运行环境，我电脑上都配置了的。如果不配置不知道是什么情况，也许会跳过，如果只用 c++ 的话，跳过就跳过吧。</p>
+<h1 id="CMake-编译"><a href="#CMake-编译" class="headerlink" title="CMake 编译"></a>CMake 编译</h1><p>打开解压目录下的 <code>bin/cmake-gui.exe</code></p>
+<ol>
+<li><code>Where is the source code</code> 选择 opencv-4.0.1 的源码目录。</li>
+<li><code>Where to build the binaries</code> 设置编译后的文件存放目录。</li>
+<li>点击 <code>Configure</code>，通常由于网络问题，会有很多错，建议下载我的catch文件：<a href="https://pan.baidu.com/s/1mA994cJn__KfphCG2O3Y5A" rel="external nofollow noopener noreferrer" target="_blank">百度网盘下载</a>，提取码：<code>3wv2</code><ul>
+<li>第一次点击需要设置 vs 版本。</li>
+</ul>
+</li>
+<li>完全没有错之后，设置三项：<ul>
+<li>找到<code>BUILD_opencv_world</code>项，打上勾。</li>
+<li>找到<code>OPENCV_EXTRA_MODULES_PATH</code>项，设置为<code>opencv_contrib</code>目录下的<code>modules</code>文件夹。</li>
+<li>找到<code>OPENCV_ENABLE_NONFREE</code>项，打上勾。</li>
+</ul>
+</li>
+<li>设置好后再次点击<code>configure</code>按钮，然后点击<code>generate</code>按钮。<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/cpp/opencvMake02.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+</li>
+</ol>
+<h2 id="踩的坑"><a href="#踩的坑" class="headerlink" title="踩的坑"></a>踩的坑</h2><ul>
+<li>提示：<code>Error in configuration process, project files may be invalid</code>。</li>
+<li>是因为把 <code>Where is the source code</code> 设置成 <code>opencv_contrib</code> 的源码目录了，其实是要选 <code>opencv</code> 的源码目录。当时编译的是 <code>opencv_contrib3.1.0</code>。<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/cpp/opencvMake01.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+</li>
+</ul>
+<h1 id="vs2017-编译"><a href="#vs2017-编译" class="headerlink" title="vs2017 编译"></a>vs2017 编译</h1><p>准备好10G以上的硬盘空间。</p>
+<ol>
+<li>CMake 成功编译完成之后，会在输出目录（在 <code>Where to build the binaries</code> 设置）生成 visual studio 工程，直接在该目录打开解决方案：<code>OpenCV.sln</code>（当然是用vs2017打开）。</li>
+<li>在 <code>Solution Explorer</code>窗口，解决方案右键-&gt;<code>Build Solution</code>。这个过程很慢，如果报错，那是因为 CMake 编译的时候有错，需要仔细查看，通过不断的<code>Configure</code>，把错误排除之后再重新<code>Generate</code>直到成功就行了。出现错误，通常是因为有文件没有下载下来导致。<br> <img src="/img/cpp/opencv12.png" alt></li>
+<li>然后，选择菜单 <code>Build-&gt;Batch Build...</code>。<br> <img src="/img/cpp/opencv02.png" alt></li>
+<li>勾选两个 INSTALL 项目-&gt;Build。<br> <img src="/img/cpp/opencv03.png" alt></li>
+<li>编译完成，会生成一个 <code>install</code> 目录，这个目录下的文件就是我们需要的库文件。可以把这个目录 copy 到某处并重新命名为 <code>opencv4.0.1</code> 以备用。</li>
+</ol>
+<h1 id="配置-vs2017-环境"><a href="#配置-vs2017-环境" class="headerlink" title="配置 vs2017 环境"></a>配置 vs2017 环境</h1><p>随便建一个项目，最好建一个空项目。一图胜千言，下面仅用截图来说明<code>opencv</code>项目需要配置的项，就不详细写了，如果不明白，可以在网上找一下相关文章，挺多的。</p>
+<p>需要注意的是，vs2017配置好之后，需要重启vs2017才生效。</p>
+<p>我编译之后的目录是：<code>C:\study\openCV\opencvv4.0.1_build\install</code>，我直接用的，下面的截图的目录就是这个，你需要替换成你自己的目录。</p>
+<ol>
+<li><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/cpp/opencv10.png" alt="默认是x86，如果在 64 位操作系统下开发（应该都64位了吧，还有在32位操作系统下做开发的吗？），建议修改为x64，本文编译和配置都只针对x64" title>
+                </div>
+                <div class="image-caption">默认是x86，如果在 64 位操作系统下开发（应该都64位了吧，还有在32位操作系统下做开发的吗？），建议修改为x64，本文编译和配置都只针对x64</div>
+            </figure></li>
+<li><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/cpp/opencv04.png" alt="创建一个空项目" title>
+                </div>
+                <div class="image-caption">创建一个空项目</div>
+            </figure></li>
+<li><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/cpp/vs2017-property-manager.png" alt="显示属性管理窗口" title>
+                </div>
+                <div class="image-caption">显示属性管理窗口</div>
+            </figure></li>
+<li><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/cpp/opencv05.png" alt="修改默认配置属性，Property Manager -> 展开项目 -> Debug | x64 -> Microsoftt.Cpp.x64.user -> 右键 -> Properties" title>
+                </div>
+                <div class="image-caption">修改默认配置属性，Property Manager -> 展开项目 -> Debug | x64 -> Microsoftt.Cpp.x64.user -> 右键 -> Properties</div>
+            </figure></li>
+<li><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/cpp/opencv13.png" alt="配置 OpenCV 的包含目录，点击 Edit... 打开编辑配置窗口" title>
+                </div>
+                <div class="image-caption">配置 OpenCV 的包含目录，点击 Edit... 打开编辑配置窗口</div>
+            </figure></li>
+<li><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/cpp/opencv06.png" alt="要配置 include 目录本身，和该目录下的所有子目录，OpenCV4.x 的 include 下只有一个子目录，如图，而 OpenCV3.x 有两个，请根据实际情况配置。" title>
+                </div>
+                <div class="image-caption">要配置 include 目录本身，和该目录下的所有子目录，OpenCV4.x 的 include 下只有一个子目录，如图，而 OpenCV3.x 有两个，请根据实际情况配置。</div>
+            </figure></li>
+<li><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/cpp/opencv07.png" alt="配置 OpenCV 库目录，同样的，打开编辑配置窗口操作" title>
+                </div>
+                <div class="image-caption">配置 OpenCV 库目录，同样的，打开编辑配置窗口操作</div>
+            </figure></li>
+<li><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/cpp/opencv08.png" alt="复制文件名到这里，一行一个。这两个文件位于：CMake编译输出目录下/install/x64/vc15/lib。如果是 OpenCV3.x，则不能把 opencv_world345.lib 和 opencv_world345d.lib 同时加入，项目运行时会报错，只加带d的那个文件名，其中345是版本号。" title>
+                </div>
+                <div class="image-caption">复制文件名到这里，一行一个。这两个文件位于：CMake编译输出目录下/install/x64/vc15/lib。如果是 OpenCV3.x，则不能把 opencv_world345.lib 和 opencv_world345d.lib 同时加入，项目运行时会报错，只加带d的那个文件名，其中345是版本号。</div>
+            </figure></li>
+<li><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/cpp/opencv09.png" alt="操作系统环境变量，path 添加配置项" title>
+                </div>
+                <div class="image-caption">操作系统环境变量，path 添加配置项</div>
+            </figure>
+</li>
+</ol>
+<blockquote>
+<p>友情提示：看到这里，如果按照上面的步骤操作的，该重启 vs2017 了，重启之后配置才会生效。</p>
+</blockquote>
+<h1 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h1><p>在刚才建的项目下，添加一个 cpp 文件，内容如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;opencv2/opencv.hpp&gt;</span><br><span class="line">#include &lt;iostream&gt;</span><br><span class="line"></span><br><span class="line">using namespace cv;</span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">int main(int argc, char** argv)</span><br><span class="line">&#123;</span><br><span class="line">	Mat src = imread(&quot;C:/workspace/c++/images/img01.jpg&quot;);</span><br><span class="line">	imshow(&quot;opencv demo&quot;, src);</span><br><span class="line">	waitKey(0);</span><br><span class="line">	destroyAllWindows();</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>其中 src 要指向你本地目录的一张图片。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/cpp/opencv14.png" alt="创建新项目时，默认是x86，会提示有错，改成x64即可" title>
+                </div>
+                <div class="image-caption">创建新项目时，默认是x86，会提示有错，改成x64即可</div>
+            </figure>
+<p>改成x64正常编译之后运行，如果图片正常打开，恭喜你，配置正常，可以安心撸代码了。<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/cpp/opencv11.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure></p>
+<h1 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h1><ul>
+<li>2019-04-12<br>新创建一个项目，找不到库引用。也就是说之前的配置没有生效。按照之前的操作，打开配置信息（位于 <code>Property Manager -&gt; 展开项目 -&gt; Debug | x64 -&gt; Microsoftt.Cpp.x64.user -&gt; 右键 -&gt; Properties</code>），原来配置的信息都在。<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/cpp/opencv05.png" alt="单独配置该项目" title>
+                </div>
+                <div class="image-caption">单独配置该项目</div>
+            </figure>
+</li>
+</ul>
+<p>但是打开项目属性：Solution Explorer -&gt; 在项目名下点击右键 -&gt; Properties，发现相关配置信息都没有。于是在这里重新配置一遍，具体操作与之前的配置一样。如此操作之后，库引用就正常了。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/cpp/opencv15.png" alt="单独配置该项目" title>
+                </div>
+                <div class="image-caption">单独配置该项目</div>
+            </figure>
+<p>后来我才发现，其实是我疏忽了一点，新创建的项目（解决方案），默认是 x86 的，而我之前配置的是 x64，这两种编译模式需要分别配置，x86 的还没有配置过，所以在 x86 模式下，库引用是找不到的。</p>
+<p>所以，新创建的项目（解决方案），需要首先把编译模式选成 x64，改完之后，如果代码显示依然为红色（我用了 ReSharper 插件），重新打开工程即可。</p>
+<blockquote>
+<p>当然，如果你在 32 位操作系统下做开发，操持默认就好，只是记得要针对 x86 做配置（位于 <code>Property Manager -&gt; 展开项目 -&gt; Debug | Win32 -&gt; Microsoft.Cpp.Win32.user</code>）。</p>
+</blockquote>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/cpp/opencv16.png" alt="项目编译模式，默认为 x86，如果没有针对 x86 做 OpenCV 的配置，代码会报错，提示找不到引用（包含）文件" title>
+                </div>
+                <div class="image-caption">项目编译模式，默认为 x86，如果没有针对 x86 做 OpenCV 的配置，代码会报错，提示找不到引用（包含）文件</div>
+            </figure>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-09-01T02:53:12.907Z" itemprop="dateUpdated">2020年9月1日 10:53</time>
+</span><br>
+
+
+        转载请注明出处：<a href="/cpp/win10OpencvAndOpencvContribMake.html" target="_blank" rel="external">https://www.lovesofttech.com/cpp/win10OpencvAndOpencvContribMake.html</a>
+    </div>
+    <footer>
+        <a href="https://www.lovesofttech.com">
+            <img src="/img/myLogo.jpg" alt="安迪陈">
+            安迪陈
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/cpp/">cpp</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/opencv/">opencv</a></li></ul>
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/cpp/win10OpencvAndOpencvContribMake.html&title=《windows10 64位+vs2017+CMake 编译 opencv-4.0.1 和 opencv_contrib-4.0.1》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/cpp/win10OpencvAndOpencvContribMake.html&title=《windows10 64位+vs2017+CMake 编译 opencv-4.0.1 和 opencv_contrib-4.0.1》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=本文介绍操作过程。如果不想麻烦，可以用编译好的版本，可以省去诸多麻烦。百度网盘下载，提取码：3wv2。csdn 备用下载链接：https://downlo..." data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/cpp/win10OpencvAndOpencvContribMake.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《windows10 64位+vs2017+CMake 编译 opencv-4.0.1 和 opencv_contrib-4.0.1》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/cpp/win10OpencvAndOpencvContribMake.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/cpp/win10OpencvAndOpencvContribMake.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/cpp/index.html" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">c++ 文章目录</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/mac/macPort.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">MacOS 端口占用情况，其中 netstat 命令与 CentOS 略有出入</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+    
+    
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="bottom">
+        <p>
+            <span>安迪陈技术日志，架构、感悟、系统分析、团队管理 &copy; 2017 - 2020</span>
+            <span>
+                Power by <a href="https://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>&nbsp;
+                Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank" rel="external nofollow noopener noreferrer">indigo</a>
+            </span>
+            <span>
+                <a href="http://www.beian.miit.gov.cn" target="_blank" rel="external nofollow noopener noreferrer">蜀ICP备17041860号</a>
+            </span>
+            
+            <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            </p><p>
+                <span>
+                    统计始于：2019-03-06
+                </span>
+                <span id="busuanzi_container_site_uv" style="display:none">
+                    访客数：<span id="busuanzi_value_site_uv"></span>
+                </span>
+                <span id="busuanzi_container_site_pv" style="display:none">
+                    访问量：<span id="busuanzi_value_site_pv"></span>
+                </span>
+            
+            
+                <span class="post-count">累计字数：309.2k</span>
+            
+                <span><a href="/general/blogLog.html"><i class="fas fa-pen-alt"></i>&nbsp;博客日志</a></span>
+            </p>
+        <p></p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light" title="回到顶部"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/cpp/win10OpencvAndOpencvContribMake.html&title=《windows10 64位+vs2017+CMake 编译 opencv-4.0.1 和 opencv_contrib-4.0.1》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/cpp/win10OpencvAndOpencvContribMake.html&title=《windows10 64位+vs2017+CMake 编译 opencv-4.0.1 和 opencv_contrib-4.0.1》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=本文介绍操作过程。如果不想麻烦，可以用编译好的版本，可以省去诸多麻烦。百度网盘下载，提取码：3wv2。csdn 备用下载链接：https://downlo..." data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/cpp/win10OpencvAndOpencvContribMake.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《windows10 64位+vs2017+CMake 编译 opencv-4.0.1 和 opencv_contrib-4.0.1》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/cpp/win10OpencvAndOpencvContribMake.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/cpp/win10OpencvAndOpencvContribMake.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACrUlEQVR42u3aQW7CQAwFUO5/abqtVAjf9hil0ssKoYTMm8XY2H484uv55srv//3933uSt1y/cXTh4eHhHVr69VJyRg67fjbZiBdbgIeHh7fGe3eiVj9fL6IacqpBAg8PD++evGtY/uI8XcbDw8P777xqmSAJCcmzeHh4eHfj5SXUXuGgupW9gi8eHh7ed3h5F+k+n1f6e3h4eHjjrnreDEsaY/PUubxaPDw8vAVefuD2Bq0mhd28qPFhnXh4eHgLvGoWOimwJr/TC0hR8o2Hh4c35uVHea+MW8XMBxeakQoPDw9vzLt+rFdcmGCSRPztfwU8PDy8o7zqYT0pChxr8897d3h4eHjL7Oo4VH6497bg2Jbh4eHhtXiTRHYSKpI0/UB7DA8PD2+Nl5RZTyXcvYGtajHiRQMMDw8Pb4HXS2QT2KmBgHJIw8PDw1vgVanP+Oq1/KubWNhoPDw8vEO8/FA+WyxIfi0POeU6NB4eHt6Ylx/618dxfnDPSxXNBhgeHh7eId6krFBd3KRtVl0hHh4e3jd5yQuqh3t1O5KnPvwZwMPDw1vmJW2w6pGdDx9UxwXKQ1d4eHh4C7xqcTY/6HtXdUOjuIeHh4e3xjuVZOfliR7pwwAWHh4e3gIvb2jlS0zKB3k5OAlazTYYHh4e3hovb9v3lrg3ZICHh4e3zasOCsxLEuUjvngnHh4e3nd4OTUPBr3Qkre+CoEBDw8Pb8ybNKWisadiIy0vi0Sbi4eHh7fAy69eq2zS+M+3r4zBw8PDG/OSYFAt1CbDB9WybzMw4OHh4a3xThUpkmVNAky+WXh4eHj34fWCR16wuD76y+k1Hh4e3g14OWYyXpAHmKgYgYeHh7fAyxPfJL2epMu9wPD2XXh4eHgLvOZI0yBFPhVCDvf38PDw8D7zfgCkIZxxf46RZwAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.5.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.5.2" async></script>
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '安迪陈技术日志';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '欢迎回来';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

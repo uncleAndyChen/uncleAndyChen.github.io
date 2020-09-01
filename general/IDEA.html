@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<!--<script async src="//hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c"></script>-->
+<!-- 统计-->
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var host = window.location.host;
+        var hm = document.createElement("script");
+
+        if (host.indexOf('gitee.io') > 0) { // https://uncleandychen.gitee.io/
+            hm.src = "https://hm.baidu.com/hm.js?0cf4709148b070b8082191d2e456a1a3";
+        } else if (host.indexOf('lovesofttech.com') > 0) { // https://www.lovesofttech.com/
+            hm.src = "https://hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c";
+        } else {
+            hm.src = '';
+        }
+
+        if (hm.src !== '') {
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        }
+    })();
+</script>
+<!-- End Baidu Tongji -->
+
+
+
+<!-- Baidu Push -->
+<!-- 主动推送百度爬虫-->
+<script>
+    (function(){
+        if (window.location.host.indexOf('lovesofttech.com') < 0) {
+            return;
+        }
+
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+<!-- End Baidu Push -->
+
+
+    <meta charset="utf-8">
+    
+    
+    <link rel="canonical" href="https://www.lovesofttech.com/general/IDEA.html">
+    
+    
+    <title>IntelliJ IDEA，使用心得汇总 | 安迪陈技术日志，架构、感悟、系统分析、团队管理 | 自强不息，厚德载物</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="experience,IDEA">
+    <meta name="description" content="好记性不如烂笔头，其实有好多使用心得，之前一直没有整理，导致好多都忘了，慢慢追加到这里。">
+<meta name="keywords" content="experience,IDEA">
+<meta property="og:type" content="article">
+<meta property="og:title" content="IntelliJ IDEA，使用心得汇总">
+<meta property="og:url" content="https://www.lovesofttech.com/general/IDEA.html">
+<meta property="og:site_name" content="安迪陈技术日志，架构、感悟、系统分析、团队管理">
+<meta property="og:description" content="好记性不如烂笔头，其实有好多使用心得，之前一直没有整理，导致好多都忘了，慢慢追加到这里。">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:image" content="https://www.lovesofttech.com/img/idea/ideaDefaultSettings.png">
+<meta property="og:image" content="https://www.lovesofttech.com/img/idea/ideaDefaultSettingsMaven.png">
+<meta property="og:image" content="https://www.lovesofttech.com/img/idea/ideaDefaultSettingsMavenCustom.png">
+<meta property="og:image" content="https://www.lovesofttech.com/img/idea/ideaDefaultProjectStructure.png">
+<meta property="og:image" content="https://www.lovesofttech.com/img/idea/ideaDefaultProjectStructureConfig.png">
+<meta property="og:image" content="https://www.lovesofttech.com/img/idea/ideaFileEncodingsDefault.png">
+<meta property="og:image" content="https://www.lovesofttech.com/img/idea/ideaFileEncodingsProject.jpg">
+<meta property="og:image" content="https://www.lovesofttech.com/img/idea/ideaAppearance.png">
+<meta property="og:image" content="https://www.lovesofttech.com/img/idea/ideaFont.png">
+<meta property="og:image" content="https://www.lovesofttech.com/img/idea/IDEAPerformCode.png">
+<meta property="og:image" content="https://www.lovesofttech.com/img/idea/IDEADebugJavaScript.png">
+<meta property="og:image" content="https://www.lovesofttech.com/img/idea/ideaMarkDirectoryAs.png">
+<meta property="og:image" content="https://www.lovesofttech.com/img/idea/ideaInspectionsSearch.png">
+<meta property="og:image" content="https://www.lovesofttech.com/img/idea/ideaInspections.png">
+<meta property="og:image" content="https://www.lovesofttech.com/img/idea/ideaRegistryForAutomakeAllowWhenAppRuning.png">
+<meta property="og:image" content="https://www.lovesofttech.com/img/idea/ideaMavenProjectsNeedToImportChanges.jpg">
+<meta property="og:image" content="https://www.lovesofttech.com/img/idea/ideaMoveModuleToGroup.png">
+<meta property="og:image" content="https://www.lovesofttech.com/img/idea/ideaMoveModuleToGroupResult.png">
+<meta property="og:image" content="https://www.lovesofttech.com/img/idea/idea-modules-construct.png">
+<meta property="og:image" content="https://www.lovesofttech.com/img/idea/tomcatConfig01.png">
+<meta property="og:image" content="https://www.lovesofttech.com/img/idea/tomcatConfig02.png">
+<meta property="og:image" content="https://www.lovesofttech.com/img/idea/tomcatConfig03.png">
+<meta property="og:image" content="https://www.lovesofttech.com/img/idea/ideaAddGeneralTomcatDebugOption.png">
+<meta property="og:image" content="https://www.lovesofttech.com/img/idea/ideaTomcatDebugOption.jpg">
+<meta property="og:image" content="https://www.lovesofttech.com/img/idea/IDEAShortcutKeyF8.png">
+<meta property="og:image" content="https://www.lovesofttech.com/img/idea/IDEAShortcutKeyCtrlShiftF.png">
+<meta property="og:image" content="https://www.lovesofttech.com/img/idea/uncheckedOrigin.png">
+<meta property="og:image" content="https://www.lovesofttech.com/img/idea/unchecked.png">
+<meta property="og:image" content="https://www.lovesofttech.com/img/idea/ideaCopyWarning.png">
+<meta property="og:updated_time" content="2020-09-01T02:53:12.939Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="IntelliJ IDEA，使用心得汇总">
+<meta name="twitter:description" content="好记性不如烂笔头，其实有好多使用心得，之前一直没有整理，导致好多都忘了，慢慢追加到这里。">
+<meta name="twitter:image" content="https://www.lovesofttech.com/img/idea/ideaDefaultSettings.png">
+    
+        <link rel="alternative" href="/atom.xml" title="安迪陈技术日志，架构、感悟、系统分析、团队管理" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=201912302211">
+    <link rel="stylesheet" href="/css/header.css?v=201912302211">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu">
+  <div class="inner flex-row-vertical">
+    <!--<i class="icon icon-lg icon-close"></i>-->
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off" title="隐藏左侧导航">﹤<i class="icon icon-lg icon-navicon"></i></a>
+    <div class="brand-wrap" style="background-image:url(/img/bannerBackgroundLeft.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/myLogo.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">安迪陈</h5>
+          <a href="mailto:andy@lovesofttech.com" title="andy@lovesofttech.com" class="mail" rel="external nofollow noopener noreferrer" target="_blank">andy@lovesofttech.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articleClassify.html">
+                <i class="icon icon-th-list"></i>
+                文章分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articles.html">
+                <i class="icon icon-th-list articles"></i>
+                文章列表
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/java.html">
+                <i class="icon icon-th-list java"></i>
+                Java
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/database.html">
+                <i class="icon icon-th-list database"></i>
+                MySQL/MyBatis
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/linux.html">
+                <i class="icon icon-th-list linux"></i>
+                CentOS/linux
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/react.html">
+                <i class="icon icon-th-list React"></i>
+                React
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/lnmp.html">
+                <i class="icon icon-th-list LNMP"></i>
+                LNMP
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/git.html">
+                <i class="icon icon-th-list git"></i>
+                git
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/windows.html">
+                <i class="icon icon-th-list windows"></i>
+                windows
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/dailyLives.html">
+                <i class="icon icon-th-list dailyLives"></i>
+                工作 &amp; 生活
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-github"></i>
+                我的 github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://gitee.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link"></i>
+                我的 gitee
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://blog.csdn.net/runAndRun" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link CSDN"></i>
+                我的 CSDN
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/aboutMe.html">
+                <i class="icon icon-address-card"></i>
+                关于我
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+
+        <div class="navbar navbar-custom navbar-fixed-top">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" style="margin-left:10px;" id="menu-toggle" title="显示左侧导航"><i class="icon icon-lg icon-navicon"></i>﹥</a>
+            <ul class="nav navbar-nav navbar-right" id="navMenuTop">
+                <li>
+                    <a href="/">主页</a>
+                </li>
+                
+                    
+                        <li>
+                            <a href="/articleClassify.html" title="本博客的文章分类列表">文章分类</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/articles.html" title="本博客的所有文章列表">文章列表</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/java.html" title="Java 开发，文章目录">Java</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/database.html" title="日常开发中有关 MySQL、MyBatis 的一些经验总结">MySQL/MyBatis</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/linux.html" title="CentOS/linux，文章目录">CentOS/linux</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/react.html" title="React 技术栈（全家桶）学习心得分享，文章目录">React</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/about.html">关于</a>
+                        </li>
+                    
+                
+            </ul>
+        </div>
+
+        <div class="flex-col header-title ellipsis">IntelliJ IDEA，使用心得汇总</div>
+        
+        <div class="search-wrap" id="search-wrap" style="z-index: 2;">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back" style="width:33px;">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search" style="width:33px;">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare" style="z-index: 3;margin-right: 10px; width:30px;">
+                <i class="icon icon-lg icon-share-alt"></i>
+            </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h2 class="title">IntelliJ IDEA，使用心得汇总</h2>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-08-09T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2017-08-10
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/IDEA/">IDEA</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/IDEA/experience/">experience</a></li></ul></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap" id="index-container">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc" style="z-index: 3;">
+            <h4><i class="fa fa-list-alt"></i>&nbsp;&nbsp;本文目录</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#idea-设置"><span class="post-toc-number">1.</span> <span class="post-toc-text">idea 设置</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#默认设置"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">默认设置</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#默认项目配置"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">默认项目配置</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#默认编码设置"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">默认编码设置</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#项目编码设置"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">项目编码设置</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#其它"><span class="post-toc-number">1.5.</span> <span class="post-toc-text">其它</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#IDEA-本身（非编码区）字体设置"><span class="post-toc-number">2.</span> <span class="post-toc-text">IDEA 本身（非编码区）字体设置</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#IDEA-编码区字体设置"><span class="post-toc-number">3.</span> <span class="post-toc-text">IDEA 编码区字体设置</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#IntelliJ-IDEA，代码行宽度超出限制时设置自动换行"><span class="post-toc-number">4.</span> <span class="post-toc-text">IntelliJ IDEA，代码行宽度超出限制时设置自动换行</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#sql-文件自动换行问题"><span class="post-toc-number">5.</span> <span class="post-toc-text">.sql 文件自动换行问题</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Performing-Code-Analysis…"><span class="post-toc-number">6.</span> <span class="post-toc-text">Performing Code Analysis…</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#IDEA-Tomcat-调试-JavaScript-代码"><span class="post-toc-number">7.</span> <span class="post-toc-text">IDEA + Tomcat 调试 JavaScript 代码</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Server-returns-invalid-timezone-Go-to-‘Advanced’-tab-and-set-‘serverTimezone’-property-manually"><span class="post-toc-number">8.</span> <span class="post-toc-text">Server returns invalid timezone. Go to ‘Advanced’ tab and set ‘serverTimezone’ property manually.</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#IDEA-2017-2-中文输入法看不到输入窗口"><span class="post-toc-number">9.</span> <span class="post-toc-text">IDEA 2017.2 中文输入法看不到输入窗口</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#索引卡死的问题"><span class="post-toc-number">10.</span> <span class="post-toc-text">索引卡死的问题</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Could-not-autowire-No-beans-of-‘XXX’"><span class="post-toc-number">11.</span> <span class="post-toc-text">Could not autowire. No beans of ‘XXX’</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#使用-Spring-boot-devTools-无效解决办法"><span class="post-toc-number">12.</span> <span class="post-toc-text">使用 Spring-boot-devTools 无效解决办法</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#编译缓存"><span class="post-toc-number">13.</span> <span class="post-toc-text">编译缓存</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Cannot-load-project"><span class="post-toc-number">14.</span> <span class="post-toc-text">Cannot load project</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#spring-boot-启动项目，打-war-包"><span class="post-toc-number">15.</span> <span class="post-toc-text">spring boot 启动项目，打 war 包</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Maven-传递依赖排除、禁止传递依赖"><span class="post-toc-number">16.</span> <span class="post-toc-text">Maven 传递依赖排除、禁止传递依赖</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#如果要去掉全部的传递依赖"><span class="post-toc-number">16.1.</span> <span class="post-toc-text">如果要去掉全部的传递依赖</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#多-module-组织方式"><span class="post-toc-number">17.</span> <span class="post-toc-text">多 module 组织方式</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#ideaMoveModuleToGroup-给多个-module-分组"><span class="post-toc-number">17.1.</span> <span class="post-toc-text">ideaMoveModuleToGroup 给多个 module 分组</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#最佳实践：利用-pom-xml-的-modules-属性"><span class="post-toc-number">17.2.</span> <span class="post-toc-text">最佳实践：利用 pom.xml 的 modules 属性</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#项目-rebuild-之后，依然有旧的代码影响，直接导致项目发布后，启动失败。"><span class="post-toc-number">18.</span> <span class="post-toc-text">项目 rebuild 之后，依然有旧的代码影响，直接导致项目发布后，启动失败。</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#如果有循环依赖，则会报如下错误"><span class="post-toc-number">19.</span> <span class="post-toc-text">如果有循环依赖，则会报如下错误</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#传统-web-项目，tomcat-调试设置"><span class="post-toc-number">20.</span> <span class="post-toc-text">传统 web 项目，tomcat 调试设置</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#idea设置tomcat虚拟路径"><span class="post-toc-number">20.1.</span> <span class="post-toc-text">idea设置tomcat虚拟路径</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#IntelliJ-IDEA2017-tomcat-即改即生效-实现热部署"><span class="post-toc-number">21.</span> <span class="post-toc-text">IntelliJ IDEA2017 + tomcat 即改即生效 实现热部署</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#idea-快捷键失效的问题"><span class="post-toc-number">22.</span> <span class="post-toc-text">idea 快捷键失效的问题</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Debug-时-F8-快捷键失效"><span class="post-toc-number">22.1.</span> <span class="post-toc-text">Debug 时 F8 快捷键失效</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#在项目范围内查找快捷键失效：Ctrl-Shift-F"><span class="post-toc-number">22.2.</span> <span class="post-toc-text">在项目范围内查找快捷键失效：Ctrl+Shift+F</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Intellij-idea-错误提示信息不能复制的问题"><span class="post-toc-number">23.</span> <span class="post-toc-text">Intellij idea 错误提示信息不能复制的问题</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#解决"><span class="post-toc-number">23.1.</span> <span class="post-toc-text">解决</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#变量的中文内容是乱码，解决方案：将所有地方的编码设置为-utf-8"><span class="post-toc-number">24.</span> <span class="post-toc-text">变量的中文内容是乱码，解决方案：将所有地方的编码设置为 utf-8</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#清理旧的已经不用了的包以及编译后的class文件"><span class="post-toc-number">25.</span> <span class="post-toc-text">清理旧的已经不用了的包以及编译后的class文件</span></a></li></ol>
+        </nav>
+    </aside>
+    
+
+<article id="post-general/IDEA" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">IntelliJ IDEA，使用心得汇总</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017年08月10日 0:00" datetime="2017-08-09T16:00:00.000Z" itemprop="datePublished">2017-08-10</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/IDEA/">IDEA</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/IDEA/experience/">experience</a></li></ul></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" style="display:none">
+    阅读量：<span id="busuanzi_value_page_pv"></span>次
+</span>
+
+
+    <span>|</span>
+    <span class="post-count">字数：5.1k</span>
+    <span>|</span>
+    <span class="post-count">阅读时长：大约20分钟</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>好记性不如烂笔头，其实有好多使用心得，之前一直没有整理，导致好多都忘了，慢慢追加到这里。<br><a id="more"></a></p>
+<h1 id="idea-设置"><a href="#idea-设置" class="headerlink" title="idea 设置"></a>idea 设置</h1><h2 id="默认设置"><a href="#默认设置" class="headerlink" title="默认设置"></a>默认设置</h2><ol>
+<li>进入默认设置菜单<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/idea/ideaDefaultSettings.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure></li>
+<li>Maven 的默认设置，选中本机安装配置的 Maven 目录。如果不修改默认配置文件位置，则需要把 Maven 目录下的配置文件 copy 至下图画圈儿的位置。<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/idea/ideaDefaultSettingsMaven.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure></li>
+<li>修改配置目录为 Maven 在本机的配置目录。<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/idea/ideaDefaultSettingsMavenCustom.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+</li>
+</ol>
+<h2 id="默认项目配置"><a href="#默认项目配置" class="headerlink" title="默认项目配置"></a>默认项目配置</h2><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/idea/ideaDefaultProjectStructure.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>配置窗口，主要是配置 jdk 以及编译目标版本。<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/idea/ideaDefaultProjectStructureConfig.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure></p>
+<h2 id="默认编码设置"><a href="#默认编码设置" class="headerlink" title="默认编码设置"></a>默认编码设置</h2><p>在默认设置里改，以后新建项目时，不需要修改项目设置。<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/idea/ideaFileEncodingsDefault.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure></p>
+<h2 id="项目编码设置"><a href="#项目编码设置" class="headerlink" title="项目编码设置"></a>项目编码设置</h2><p>如果项目是在修改默认编码设置之前就添加的，则需要单独设置。<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/idea/ideaFileEncodingsProject.jpg" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure></p>
+<h2 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h2><p>用 idea 的默认设置即可。一般不要修改。</p>
+<h1 id="IDEA-本身（非编码区）字体设置"><a href="#IDEA-本身（非编码区）字体设置" class="headerlink" title="IDEA 本身（非编码区）字体设置"></a>IDEA 本身（非编码区）字体设置</h1><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/idea/ideaAppearance.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<h1 id="IDEA-编码区字体设置"><a href="#IDEA-编码区字体设置" class="headerlink" title="IDEA 编码区字体设置"></a>IDEA 编码区字体设置</h1><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/idea/ideaFont.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<h1 id="IntelliJ-IDEA，代码行宽度超出限制时设置自动换行"><a href="#IntelliJ-IDEA，代码行宽度超出限制时设置自动换行" class="headerlink" title="IntelliJ IDEA，代码行宽度超出限制时设置自动换行"></a>IntelliJ IDEA，代码行宽度超出限制时设置自动换行</h1><p>当我们使用IDE写代码时，为了保证代码的可阅读性和优雅性，通常会借助IDE的代码风格设置功能，令IDE智能完成的代码部分或者格式化输入的代码，可以按照预期的格式输出。其中有一项设置就是限制一行代码的宽度，以IDEA举例，默认限制为120。<br>那么如何在IDEA中修改这个限制数值呢？<br>在File-&gt;settings-&gt;Editor-&gt;Code Style中，修改“Right margin (columns)”的值即可改变代码行宽度的限制。</p>
+<p>如果输入的代码超出宽度界线时，如何让IDE自动将代码换行？有两种方式！第一种，在上述的“Right margin (columns)”的下方，有“Wrap when typing”选项，选中它。</p>
+<p>第一种方式是在输入代码时触发，还有第二种方式，在File-&gt;settings-&gt;Code Style-&gt;Java中，选中“Wrapping and Braces”选项卡，在“Keep when reformatting”中有一个“Ensure rigth margin is not exceeded”，选中它，是什么效果呢？从配置项的字面意思很容易理解，在格式化Java代码时，确保代码没有超过宽度界线。<br>即输入的代码超出界线后， 不要紧，按下“Ctrl+Alt+L”格式化代码。 </p>
+<p>IDE所给出的宽度界线是好的，但真正控制、优化代码宽度的格式需要我们编码时养成良好的习惯，避免单行代码过长，避免不了时自己手动找到合适的截点，进行换行处理，且更符合各自实际的编码格式需求。</p>
+<h1 id="sql-文件自动换行问题"><a href="#sql-文件自动换行问题" class="headerlink" title=".sql 文件自动换行问题"></a>.sql 文件自动换行问题</h1><p>项目中有一个 .sql 文件，里面的 update 语句比较长，总是自动换行，调整编辑区域时，会随时编辑区域的大小而自动调整每行显示的字符，相当于就是在自动换行。<br>由于 sql 语句自动换行后，可读性变差，我不希望它自动换行。<br>应用上面的参数，根本无效。只好放弃。</p>
+<p>一开始这个文件是在一个 static web 模块下，这个模块仅用来保存文档。后来在另外一个 spring boot 项目，跟 scr 在同一目录下的 doc 目录下的 .sql 文件却不会自动换行。最开始怀疑是在 static web 下导致，于是 copy 至 spring boot 项目下，依旧。</p>
+<p>最终解决办法：在 IDEA 新建一个 .sql 文件，然后把会自动换行文件里的内容原封不动的 copy 过来，在新的 .sql 文件里，就不会自动换行了。<br>应该是文件的编码导致的，会自动换行的文件，之前是用 Notepad++ 创建的。<br>提交 git，文件内容没有差异，显示的差异为：Contents have differences only in line separators<br>根据提示，差异仅仅在换行符，但是我从不会自动换行的文件里 copy 过去，依然会换行，所以，是跟文件相关的，而不是跟文件内容相关。</p>
+<h1 id="Performing-Code-Analysis…"><a href="#Performing-Code-Analysis…" class="headerlink" title="Performing Code Analysis…"></a>Performing Code Analysis…</h1><p>IDEA 或者 WebStorm 提交代码时会分析代码以及查找 todo 事项，导致提交需要较长时间。如果不需要，以下配置项取消勾选即可：<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/idea/IDEAPerformCode.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure></p>
+<h1 id="IDEA-Tomcat-调试-JavaScript-代码"><a href="#IDEA-Tomcat-调试-JavaScript-代码" class="headerlink" title="IDEA + Tomcat 调试 JavaScript 代码"></a>IDEA + Tomcat 调试 JavaScript 代码</h1><p>浏览器需要安装 JetBrains IDE Support 插件，请参考：<a href="/react/JetBrainsIDESupport.html">像用 IDEA 调试 Java 代码一样，用 WebStorm 调试 react 代码</a></p>
+<p>spring boot 项目的自动启动暂时没发现支持 IDEA 直接调试 javascript 代码，不过，可以用 Tomcat 来作为 Web 容器，这样可以直接调试 JavaScript 代码，配置如下：<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/idea/IDEADebugJavaScript.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure></p>
+<p>将 with JavaScript debugger 项勾选上，启动调试即可。<br>另外，On ‘Update’ action 一定要选 Update classes and resources，这样在修改 js 或 html 时，刷新页面即可应用最新代码，不用重启 Tomcat，否则调试起来，效率就太低了。<br>需要注意的是：当且仅当在 Deployment 配置页，选的是 XXX exploded（XXX 为项目名），即开发模式，才会出现该选项。</p>
+<p>至于 On frame deactivation，作用是：IDE失去焦点的情况下自动触发，建议设置为：Update classes and resources，这样前台页面获得更新的速度会快一些，不这可能会导致电脑资源占用过多，自己权衡。</p>
+<h1 id="Server-returns-invalid-timezone-Go-to-‘Advanced’-tab-and-set-‘serverTimezone’-property-manually"><a href="#Server-returns-invalid-timezone-Go-to-‘Advanced’-tab-and-set-‘serverTimezone’-property-manually" class="headerlink" title="Server returns invalid timezone. Go to ‘Advanced’ tab and set ‘serverTimezone’ property manually."></a>Server returns invalid timezone. Go to ‘Advanced’ tab and set ‘serverTimezone’ property manually.</h1><p>serverTimezone 设置值：Asia/Shanghai</p>
+<h1 id="IDEA-2017-2-中文输入法看不到输入窗口"><a href="#IDEA-2017-2-中文输入法看不到输入窗口" class="headerlink" title="IDEA 2017.2 中文输入法看不到输入窗口"></a>IDEA 2017.2 中文输入法看不到输入窗口</h1><p>环境：<br>IDEA：2017.2、2017.2.4<br>JDK：jdk1.8.0_141，安装的时候没有选择安装公共的 jre，jdk 目录下默认就有，无须安装。<br>OS：windows 7 64 位</p>
+<p>原因：估计是安装目录下自带的 java 运行库 jre64 存在某种 bug。<br>解决：先关掉打开的 IDEA，安全起见，先重命名安装目录下 jre64 目录为 jre64_bak，再次启动 IDEA，解决了此问题。如果一切运行正常，就可以直接删除那个目录了。<br>看样子，这个目录直接删除也是可以的，没有这个目录，IDEA 会找到系统安装的 jdk（默认包含jre）。</p>
+<p>JetBrains WebStorm 2017.2.4 x64 的解决方法也是一样的。</p>
+<h1 id="索引卡死的问题"><a href="#索引卡死的问题" class="headerlink" title="索引卡死的问题"></a>索引卡死的问题</h1><p>今天研究 spring 官方示例：<a href="https://github.com/spring-guides/tut-react-and-spring-data-rest" rel="external nofollow noopener noreferrer" target="_blank">React.js and Spring Data REST</a>，在各个项目下执行 cnpm install 之后，再用 IDEA 打开项目，就卡死了。反复试了好几次都一样。<br>正常情况下，打开普通的 react 项目，执行 cnpm install 下载依赖之前，为了避免 IDEA/WebStorm 索引 node_modules 目录下的文件导致卡死，我一般是先关掉项目，等 cnpm install 完成之后再打开，这样操作，IDEA/WebStorm 一般都会把 node_modules 自动识别为 library root，这样的话，是不会对这个目录索引的，所以，并不会卡死。从下面这个界面去看，可以确认这一点。被排除的目录，才能看到 Not Excluded 选项。<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/idea/ideaMarkDirectoryAs.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure></p>
+<p>然而，多个非根目录下的 node_modules 可能不能被自动识别为 library root，于是我研究了一下已经把 node_modules 识别为 library root 的项目根目录下的 .idea 下的文件，找到了解决方案。<br> .idea 目录下的文件 workspace.xml，在节点 project 下添加如下内容：<br> <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">component</span> <span class="attr">name</span>=<span class="string">"NodeModulesDirectoryManager"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">handled-path</span> <span class="attr">value</span>=<span class="string">"$PROJECT_DIR$/basic/node_modules"</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">handled-path</span> <span class="attr">value</span>=<span class="string">"$PROJECT_DIR$/conditional/node_modules"</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">handled-path</span> <span class="attr">value</span>=<span class="string">"$PROJECT_DIR$/events/node_modules"</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">handled-path</span> <span class="attr">value</span>=<span class="string">"$PROJECT_DIR$/hypermedia/node_modules"</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">handled-path</span> <span class="attr">value</span>=<span class="string">"$PROJECT_DIR$/security/node_modules"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">component</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>再次打开项目，不再卡了，victory!</p>
+<h1 id="Could-not-autowire-No-beans-of-‘XXX’"><a href="#Could-not-autowire-No-beans-of-‘XXX’" class="headerlink" title="Could not autowire. No beans of ‘XXX’"></a>Could not autowire. No beans of ‘XXX’</h1><p>eclipse 没有这个问题。</p>
+<ol>
+<li>原因：bean 通过 @Autowired 自动注入，而 spring 配置文件中配置的自动扫描，而 idea 在编辑情况下，找不到对应的 bean，于是有 Could not autowire. No beans of ‘XXX’ 的错误提示。实际上，可以 build 项目且能正常运行的。</li>
+<li>解决：<ul>
+<li>在 File -&gt; Settings -&gt; Editor -&gt; Inspections，使用搜索功能找到 Autowiring for Bean Class，将 Severity 的级别由之 Error 改成 Warning（或其它可以忽略的级别）。<br><img src="/img/idea/ideaInspectionsSearch.png" alt></li>
+<li>不搜索的话，完整的设置路径在：File -&gt; Settings -&gt; Editor -&gt; Inspections -&gt; Spring -&gt; Spring Core -&gt; Code -&gt; Autowiring for Bean Class。不过，通过上图也可以看出来完整路径。<br><img src="/img/idea/ideaInspections.png" alt></li>
+</ul>
+</li>
+</ol>
+<h1 id="使用-Spring-boot-devTools-无效解决办法"><a href="#使用-Spring-boot-devTools-无效解决办法" class="headerlink" title="使用 Spring-boot-devTools 无效解决办法"></a>使用 Spring-boot-devTools 无效解决办法</h1><p>添加依赖<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-devtools<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- optional=true,依赖不会传递，该项目依赖devtools；之后依赖此项目的项目如果想要使用devtools，需要重新引入 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">optional</span>&gt;</span>true<span class="tag">&lt;/<span class="name">optional</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>设置:compiler-&gt;Build project automatically，打勾<br>然后 Shift+Ctrl+Alt+/，选择Registry<br>进去之后，找到如下图所示的选项(compiler.automake.allow.when.app.running)，打勾<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/idea/ideaRegistryForAutomakeAllowWhenAppRuning.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure><br>重启一下项目，然后改一下类里面的内容，IDEA就会自动去make了。</p>
+<h1 id="编译缓存"><a href="#编译缓存" class="headerlink" title="编译缓存"></a>编译缓存</h1><p>用 IDEA 的调度功能查看页面。分页组件：JQuery.datatables</p>
+<p>一次做一个新页面，有关分页的，该页面分页组件是在项目里很多地方用的，用法也跟其它一样，但是，第一页那【1】，点击之后就是没反应，重新查询，本来应该跳到第一页的，也不管用，每次都是上一次的页数。<br>反复检查，看官方帮助，都无果，正痛苦的测试中，突然电脑死机了。<br>让我万万没想到的是，重新开机之后，竟然完全正常了。<br>没法儿解释呀！<br>只能说，下次遇到这种从代码级别看明显没有问题的情况，可以考虑用 IDEA 的 Rebuild Project 功能试试。猜想应该是缓存导致的，是浏览器还是 IDEA 的，现在还说不清楚。<br>先记录一下。</p>
+<p>其实是使用了两个 table 导致的，只不过，死机之前，我正好注释掉了一个，本来也是要看是不是两个导致，汗…</p>
+<h1 id="Cannot-load-project"><a href="#Cannot-load-project" class="headerlink" title="Cannot load project"></a>Cannot load project</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">com.intellij.ide.plugins.PluginManager$StartupAbortedException: Fatal error initializing &apos;com.intellij.xdebugger.XDebuggerManager&apos;</span><br></pre></td></tr></table></figure>
+<p>一次正调试程序的过程中，用的是 idea 启动的 web 项目，浏览器用的是 google 的 chrome 调试 js，正调试呢，死机了，屏幕黑屏，键盘类灭了，鼠标灯也灭了。<br>再次开机，打开之前的项目，得到如上提示。<br>但打开非 java 项目，则没有问题。<br>照着输入法的方案把安装目录下的 jre64 目录删除，再打开，就 OK 了。</p>
+<p>备注，新安装的 win10 pro, idea 为 2017.2.5，中文输入法没有问题。 </p>
+<p>网上的方案：<br>解决办法：<br>清空windows上c:\Users.IntelliJIdea11&lt;版本&gt;\config\plugins\这个目录，然后<br>重启即可</p>
+<h1 id="spring-boot-启动项目，打-war-包"><a href="#spring-boot-启动项目，打-war-包" class="headerlink" title="spring boot 启动项目，打 war 包"></a>spring boot 启动项目，打 war 包</h1><p>通过初始向导创建的项目，选 war 包，启动有问题，还没仔细研究。选了默认的 jar 项目，但又想打包。<br>于是，直接将 pom.xml 时的 jar 改为 war，在 项目设置里，随便添加一个 war，指向 boot 项目，然后 Build artifacts…，注意，右下角提示需要 maven 依赖，启用之，会自动添加 boot 项目的 war 及 exploded,然后将手工添加的删除即可。<br>总结，idea 强大！</p>
+<p>Project Structure -&gt; Artifacts, delete all<br>modify pom.xml jar to war, pay attention, idea right down “Maven projects need to be …”, click “Import Changes” or click “Enable Auto-Import”, that’s ok!</p>
+<h1 id="Maven-传递依赖排除、禁止传递依赖"><a href="#Maven-传递依赖排除、禁止传递依赖" class="headerlink" title="Maven 传递依赖排除、禁止传递依赖"></a>Maven 传递依赖排除、禁止传递依赖</h1><p>A 依赖 B, B 依赖 C, 那么，A 可以直接访问 C，如果不想这样，可以在依赖里排除。<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>open.isv<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>alibaba.service<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">exclusions</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">exclusion</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>open.isv<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>dal<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">exclusion</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">exclusions</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/idea/ideaMavenProjectsNeedToImportChanges.jpg" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>但是问题来了，如果项目 A 调用 B 里某个类的方法 F，这个 F 又需要调用 C 的某个类，那么上面的排除会带来运行时错误。<br>只有你能确保项目运行过程不会引用到 C 里的类，那么这种排除才是安全的。</p>
+<h2 id="如果要去掉全部的传递依赖"><a href="#如果要去掉全部的传递依赖" class="headerlink" title="如果要去掉全部的传递依赖"></a>如果要去掉全部的传递依赖</h2><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>open.isv<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>alibaba.service<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">exclusions</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">exclusion</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>*<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>*<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;/<span class="name">exclusion</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">exclusions</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h1 id="多-module-组织方式"><a href="#多-module-组织方式" class="headerlink" title="多 module 组织方式"></a>多 module 组织方式</h1><h2 id="ideaMoveModuleToGroup-给多个-module-分组"><a href="#ideaMoveModuleToGroup-给多个-module-分组" class="headerlink" title="ideaMoveModuleToGroup 给多个 module 分组"></a>ideaMoveModuleToGroup 给多个 module 分组</h2><p>告别 module 太多导致太乱影响开发效率<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/idea/ideaMoveModuleToGroup.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure><br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/idea/ideaMoveModuleToGroupResult.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure></p>
+<h2 id="最佳实践：利用-pom-xml-的-modules-属性"><a href="#最佳实践：利用-pom-xml-的-modules-属性" class="headerlink" title="最佳实践：利用 pom.xml 的 modules 属性"></a>最佳实践：利用 pom.xml 的 modules 属性</h2><p>如果是新项目，或者你可以大刀阔斧的重新整理项目结构，那么，可以把相关 module 放到一个文件夹下，然后用一个 pom.xml 文件来组织，如：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">project</span> <span class="attr">xmlns</span>=<span class="string">"http://maven.apache.org/POM/4.0.0"</span></span></span><br><span class="line"><span class="tag">         <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">         <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">modelVersion</span>&gt;</span>4.0.0<span class="tag">&lt;/<span class="name">modelVersion</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>io.github.uncleAndyChen<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>bbs-api-biz<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">packaging</span>&gt;</span>pom<span class="tag">&lt;/<span class="name">packaging</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>0.0.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">modules</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">module</span>&gt;</span>bbs-api-biz-facade<span class="tag">&lt;/<span class="name">module</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">module</span>&gt;</span>bbs-api-biz-service<span class="tag">&lt;/<span class="name">module</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">module</span>&gt;</span>bbs-api-biz-model<span class="tag">&lt;/<span class="name">module</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">module</span>&gt;</span>bbs-api-biz-dal<span class="tag">&lt;/<span class="name">module</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">module</span>&gt;</span>bbs-api-biz-enumeration<span class="tag">&lt;/<span class="name">module</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">modules</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>可以参考这个项目的多模块组织方式：<a href="https://github.com/uncleAndyChen/spring-boot-bbs-api" rel="external nofollow noopener noreferrer" target="_blank">https://github.com/uncleAndyChen/spring-boot-bbs-api</a></p>
+<p>该项目的 module 目录结构如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">├─bbs-api-biz</span><br><span class="line">│  ├─bbs-api-biz-dal</span><br><span class="line">│  ├─bbs-api-biz-enumeration</span><br><span class="line">│  ├─bbs-api-biz-facade</span><br><span class="line">│  ├─bbs-api-biz-model</span><br><span class="line">│  └─bbs-api-biz-service</span><br><span class="line">├─bbs-api-common</span><br><span class="line">│  ├─bbs-api-common-lib</span><br><span class="line">│  └─bbs-api-common-model</span><br><span class="line">└─bbs-api-spring-boot</span><br></pre></td></tr></table></figure></p>
+<p>在 IDEA 中打开，是这个样子：<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/idea/idea-modules-construct.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure></p>
+<h1 id="项目-rebuild-之后，依然有旧的代码影响，直接导致项目发布后，启动失败。"><a href="#项目-rebuild-之后，依然有旧的代码影响，直接导致项目发布后，启动失败。" class="headerlink" title="项目 rebuild 之后，依然有旧的代码影响，直接导致项目发布后，启动失败。"></a>项目 rebuild 之后，依然有旧的代码影响，直接导致项目发布后，启动失败。</h1><p>初次解决这种问题可能会非常痛苦，因为本地运行正常，检查代码也是正常的，重新上传更新，问题依旧。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">21:29:31,671 &lt;org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext&gt;  WARN [localhost-startStop-1]: Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanDefinitionStoreException: Unexpected exception parsing XML document from URL [file:/home/utomcat/webapps/apg/apg/WEB-INF/classes/mvcConfig.xml]; nested exception is org.springframework.context.annotation.ConflictingBeanDefinitionException: Annotation-specified bean name &apos;apgConfig&apos; for bean class [apg.config.ApgConfig] conflicts with existing, non-compatible bean definition of same name and class [apg.boot.config.ApgConfig]</span><br></pre></td></tr></table></figure></p>
+<p>解决：</p>
+<ol>
+<li>mvn clean</li>
+<li>或者直接到项目根目录搜索 target，然后全部删除。</li>
+<li>然后 rebuild project (IDEA)，再然后 Build Artifacts…，上传打包好的文件，重新更新到服务器。搞定。</li>
+</ol>
+<h1 id="如果有循环依赖，则会报如下错误"><a href="#如果有循环依赖，则会报如下错误" class="headerlink" title="如果有循环依赖，则会报如下错误"></a>如果有循环依赖，则会报如下错误</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Error:java: Annotation processing is not supported for module cycles. Please ensure that all modules from cycle [jos.service,boot.jos,biz.service] are excluded from annotation processing</span><br></pre></td></tr></table></figure>
+<p>查看依赖关系，IDEA 菜单：Analyze-&gt;Analyze Module Dependencies…<br>“电路板”查看：右边 Maven 菜单，Show Dependences … (Ctrl+Alt+Shift+U)</p>
+<h1 id="传统-web-项目，tomcat-调试设置"><a href="#传统-web-项目，tomcat-调试设置" class="headerlink" title="传统 web 项目，tomcat 调试设置"></a>传统 web 项目，tomcat 调试设置</h1><p>两步：<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/idea/tomcatConfig01.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure><br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/idea/tomcatConfig02.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure></p>
+<h2 id="idea设置tomcat虚拟路径"><a href="#idea设置tomcat虚拟路径" class="headerlink" title="idea设置tomcat虚拟路径"></a>idea设置tomcat虚拟路径</h2><p>上述第二步操作之后，显示如下：<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/idea/tomcatConfig03.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure></p>
+<p>红框处的虚拟目录名是根据项目的这个配置<code>&lt;artifactId&gt;permission&lt;/artifactId&gt;</code>自动生成，以<code>artifactId</code> 对应的值为前缀，在这里是 <code>permission</code>。</p>
+<p>然而，通常 web 项目的根路径是 <code>/</code>，在项目中路径跳转都以 <code>/</code> 为默认根路径，所以，使用自动生成的虚拟路径名会有冲突。<br>而解决办法也很简单，将自动生成的虚拟路径名改为 <code>/</code> 即可。</p>
+<p>特别地，如果点【Fix】之后没有下拉选项，那么需要先在 Project Structure -&gt; Artifacts 去添加，如下图：<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/idea/ideaAddGeneralTomcatDebugOption.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure></p>
+<h1 id="IntelliJ-IDEA2017-tomcat-即改即生效-实现热部署"><a href="#IntelliJ-IDEA2017-tomcat-即改即生效-实现热部署" class="headerlink" title="IntelliJ IDEA2017 + tomcat 即改即生效 实现热部署"></a>IntelliJ IDEA2017 + tomcat 即改即生效 实现热部署</h1><p>点击 idea 中 tomcat 设置</p>
+<ul>
+<li>Deployment 一项，需要选择 exploded。</li>
+<li>将 server 的项 “On Update action”、”On frame deactivation” 都选择 update classes and resources<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/idea/ideaTomcatDebugOption.jpg" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+</li>
+</ul>
+<h1 id="idea-快捷键失效的问题"><a href="#idea-快捷键失效的问题" class="headerlink" title="idea 快捷键失效的问题"></a>idea 快捷键失效的问题</h1><h2 id="Debug-时-F8-快捷键失效"><a href="#Debug-时-F8-快捷键失效" class="headerlink" title="Debug 时 F8 快捷键失效"></a>Debug 时 F8 快捷键失效</h2><p>我的是被有道词典的【取词划词】-&gt;【开关热键】给占用了，如下图，删除或者换别的快捷键即可。<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/idea/IDEAShortcutKeyF8.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure></p>
+<h2 id="在项目范围内查找快捷键失效：Ctrl-Shift-F"><a href="#在项目范围内查找快捷键失效：Ctrl-Shift-F" class="headerlink" title="在项目范围内查找快捷键失效：Ctrl+Shift+F"></a>在项目范围内查找快捷键失效：Ctrl+Shift+F</h2><p>我的是被搜狗输入法给占用了，如下图，取消勾选即可。<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/idea/IDEAShortcutKeyCtrlShiftF.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure></p>
+<h1 id="Intellij-idea-错误提示信息不能复制的问题"><a href="#Intellij-idea-错误提示信息不能复制的问题" class="headerlink" title="Intellij idea 错误提示信息不能复制的问题"></a>Intellij idea 错误提示信息不能复制的问题</h1><ul>
+<li>IDEA的错误提示问题，鼠标移动上去后会有黄色/红色框提示，鼠标一移动，提示信息就会消失。有时这个提示信息很有必要复制下来，但又不能及时复制下来。</li>
+<li>在 Ctrl+F1 或者点击 “more” 之后，选中，Ctrl+C 不好使。</li>
+</ul>
+<h2 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h2><p>在鼠标停留在有提示信息的代码处，在 idea 的状态栏，点击右键，会出现 Copy 的按键，点击则可将警告信息复制。<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/idea/uncheckedOrigin.png" alt="警告信息" title>
+                </div>
+                <div class="image-caption">警告信息</div>
+            </figure><br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/idea/unchecked.png" alt="警告的全部信息" title>
+                </div>
+                <div class="image-caption">警告的全部信息</div>
+            </figure><br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/idea/ideaCopyWarning.png" alt="复制警告信息" title>
+                </div>
+                <div class="image-caption">复制警告信息</div>
+            </figure></p>
+<h1 id="变量的中文内容是乱码，解决方案：将所有地方的编码设置为-utf-8"><a href="#变量的中文内容是乱码，解决方案：将所有地方的编码设置为-utf-8" class="headerlink" title="变量的中文内容是乱码，解决方案：将所有地方的编码设置为 utf-8"></a>变量的中文内容是乱码，解决方案：将所有地方的编码设置为 utf-8</h1><ol>
+<li>环境：IDEA 2017.2.5 + spring 4.3.2</li>
+<li>现象：restful api,变量赋值中文内容，输出的是乱码。</li>
+<li>解决过程，非常曲折，下面简单的说一下，通过这次解决这个问题的过程，得到的结论是：在解决问题的过程中，不能想当然，要抱着怀疑一切的态度去尝试。<ul>
+<li>项目是一个 restful api。在 win7 英文版 64 位下正常。后来换到 win10 英文版 64 位后就出现输出的中文是乱码了。</li>
+<li>IDEA 的配置跟在 win7 下是一样的，所有文件采用 utf-8 编码。新的 api 中文输出乱码，测试了一下之前在 win7 下正常的 api，中文输出也变成乱码了。</li>
+<li>但是，api 在调用第三方 api 获取到的中文内容却没有变成乱码，只有自己赋值的中文内容才会输出乱码，真是汗呀。</li>
+<li>这种背景下，最先能想到的，肯定就是项目配置了。几乎尝试了网上找到的所有关于中文输出乱码的解决方案，均以失败告终。</li>
+<li>同样的代码，换到最新的 spring boot 项目里，正常。</li>
+<li>同样的代码，在家里 win8.1 英文 64 位操作系统上测试，正常。</li>
+<li>有网友说，先控制台直接输出变量，看是否为乱码，我当时想都没想，就说，那肯定是正常的。我的理由：api 返回的信息中，从第三方获取到的中文，从 excel 读取到的中文均是正常的，IDEA 的文件编码也全是 utf-8，没道理刚赋值就变乱码。</li>
+<li>如果你也这么认为，恭喜你，你跟我都犯了想当然的错了。在一次调试过程中，我特意查看了一下，竟然刚赋值，变量的内容就是乱码。这就不得不怀疑文件编码了，于是专门用 notepad++ 打看，查看 encoding，确实是 utf-8 编码。</li>
+<li>这个问题，看似已经无解了。本来已经想放弃了，不过还是有一点不甘心，于是又以关键词“idea 变量中文乱码”搜索，找到设置文件编码的一篇文章，这篇文章里介绍的设置编码的方式跟我平时在设置里设置的不一样，抱着死马当活马医的心态尝试了一下，竟然好了！</li>
+<li>网上看到的方案中，项目编码设置和 IDEA 的设置都差不多。</li>
+<li>真正起作用的步骤是：在代码区域点右键，在弹出的菜单中选择 File Encode，将编码设置为 UTF-8。</li>
+</ul>
+</li>
+<li>后记：问题解决之后，想看一下到底是哪个文件的编码不对，于是在提交代码之前，从 git 上重新摘取一份儿代码，运行测试，竟然不能重现！汗！应该是 IDEA 在设置一次 File Encode 之后，全局生效了。</li>
+<li>结论：之所以新项目（spring boot）没有乱码问题，应该是所有文件都是基于 IDEA 配置来生成的，即均为 utf8 格式，而出问题的项目，是一个老项目，之前是用 eclipse 编辑的，部分文件的编码影响到了。而 win7 正常，换 win10 不正常，这个，应该是跟 windows 的默认字符集（一般为 GBK）有关。</li>
+</ol>
+<h1 id="清理旧的已经不用了的包以及编译后的class文件"><a href="#清理旧的已经不用了的包以及编译后的class文件" class="headerlink" title="清理旧的已经不用了的包以及编译后的class文件"></a>清理旧的已经不用了的包以及编译后的class文件</h1><ol>
+<li>之前有一个包，已经编译过，后来重命名包，通过IDEA再次编译，旧包还存在于target下对应的目录，但直接运行或者调试项目均无问题。<ul>
+<li>解决：mvn clean</li>
+</ul>
+</li>
+</ol>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-09-01T02:53:12.939Z" itemprop="dateUpdated">2020年9月1日 10:53</time>
+</span><br>
+
+
+        转载请注明出处：<a href="/general/IDEA.html" target="_blank" rel="external">https://www.lovesofttech.com/general/IDEA.html</a>
+    </div>
+    <footer>
+        <a href="https://www.lovesofttech.com">
+            <img src="/img/myLogo.jpg" alt="安迪陈">
+            安迪陈
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/IDEA/">IDEA</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/experience/">experience</a></li></ul>
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/general/IDEA.html&title=《IntelliJ IDEA，使用心得汇总》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/general/IDEA.html&title=《IntelliJ IDEA，使用心得汇总》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=好记性不如烂笔头，其实有好多使用心得，之前一直没有整理，导致好多都忘了，慢慢追加到这里。" data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/general/IDEA.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《IntelliJ IDEA，使用心得汇总》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/general/IDEA.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/general/IDEA.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/java/springBootConfigurationProperties.html" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">spring boot1.5以上版本@ConfigurationProperties取消location注解后的替代方案</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/frontend/nodejs.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Nodejs</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+    
+    
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="bottom">
+        <p>
+            <span>安迪陈技术日志，架构、感悟、系统分析、团队管理 &copy; 2017 - 2020</span>
+            <span>
+                Power by <a href="https://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>&nbsp;
+                Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank" rel="external nofollow noopener noreferrer">indigo</a>
+            </span>
+            <span>
+                <a href="http://www.beian.miit.gov.cn" target="_blank" rel="external nofollow noopener noreferrer">蜀ICP备17041860号</a>
+            </span>
+            
+            <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            </p><p>
+                <span>
+                    统计始于：2019-03-06
+                </span>
+                <span id="busuanzi_container_site_uv" style="display:none">
+                    访客数：<span id="busuanzi_value_site_uv"></span>
+                </span>
+                <span id="busuanzi_container_site_pv" style="display:none">
+                    访问量：<span id="busuanzi_value_site_pv"></span>
+                </span>
+            
+            
+                <span class="post-count">累计字数：309.2k</span>
+            
+                <span><a href="/general/blogLog.html"><i class="fas fa-pen-alt"></i>&nbsp;博客日志</a></span>
+            </p>
+        <p></p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light" title="回到顶部"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/general/IDEA.html&title=《IntelliJ IDEA，使用心得汇总》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/general/IDEA.html&title=《IntelliJ IDEA，使用心得汇总》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=好记性不如烂笔头，其实有好多使用心得，之前一直没有整理，导致好多都忘了，慢慢追加到这里。" data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/general/IDEA.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《IntelliJ IDEA，使用心得汇总》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/general/IDEA.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/general/IDEA.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACLklEQVR42u3aQW7DMAwF0dz/0u42QGtnPqkGEDVaBalj6WnBkqJeLzyut/H+DXkyfSf5bXHIkCFjW8b1OO6e6c/y+693n5/XJkOGjHMYdxPfPUMmfn4nQQbvkSFDhowwCJJgXds+GTJkyOAMHi7JFtRKZRkyZJzGqAXQ58l4wP1qLS5DhowNGfyw7Puf/6W/IUOGjK0YVzjSpmbtbfGqZMiQMZrBAxzHPIfpVQFXhgwZpzE6DcVOwck3ZdlFMRkyZGzO4NcpSErHwy4nIZ4MGTKGMmpFY3oVLEWS5E+GDBmnMWqBNU0NO43MD6uVIUPGaAY/UOscunUCbnDBQoYMGUMZ6QEZSdfS99SKZJThypAhY3MGP+TiiWCnxK21LmTIkHECg5eLNV7QncCtgtv/GDJkyDiSQZZSq5vTJ1FnQ4YMGUMZtYOzTgGcNgw+fCNDhozRjDi0heA04JIDOPR+GTJkDGLUisxa6EzZ8QULGTJkDGWkobOfuvGyOejBypAh4xjG4vCHw3rtxCw4dJMhQ8YgRmeQpLBW+gZFsgwZMg5gdKZJ08cFV8FIXJchQ8YIxqrA+rzEznLRBsmQIWM0Y1nMxmnc2oI5xsiQIWNbRnoQTyauXWlN00cZMmScxugEyvTqGC+bg1XJkCFDRonRSS5Jqbw4M5UhQ8YgBkn70utf6Rb88VsZMmQcwKg1A2rHZKRw5RshQ4aMExid0pGXr+S6GD/Ca/U3ZMiQsRPjB4kH2xmd5ojLAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.5.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.5.2" async></script>
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '安迪陈技术日志';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '欢迎回来';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

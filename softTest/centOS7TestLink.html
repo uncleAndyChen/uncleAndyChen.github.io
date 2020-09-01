@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<!--<script async src="//hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c"></script>-->
+<!-- 统计-->
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var host = window.location.host;
+        var hm = document.createElement("script");
+
+        if (host.indexOf('gitee.io') > 0) { // https://uncleandychen.gitee.io/
+            hm.src = "https://hm.baidu.com/hm.js?0cf4709148b070b8082191d2e456a1a3";
+        } else if (host.indexOf('lovesofttech.com') > 0) { // https://www.lovesofttech.com/
+            hm.src = "https://hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c";
+        } else {
+            hm.src = '';
+        }
+
+        if (hm.src !== '') {
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        }
+    })();
+</script>
+<!-- End Baidu Tongji -->
+
+
+
+<!-- Baidu Push -->
+<!-- 主动推送百度爬虫-->
+<script>
+    (function(){
+        if (window.location.host.indexOf('lovesofttech.com') < 0) {
+            return;
+        }
+
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+<!-- End Baidu Push -->
+
+
+    <meta charset="utf-8">
+    
+    
+    <link rel="canonical" href="https://www.lovesofttech.com/softTest/centOS7TestLink.html">
+    
+    
+    <title>testLink 1.9.17 安装配置，环境：CentOS 7.5 + PHP 7.2.7 + nginx 1.14.0 | 安迪陈技术日志，架构、感悟、系统分析、团队管理 | 自强不息，厚德载物</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="CentOS,soft test,testLink">
+    <meta name="description" content="如题">
+<meta name="keywords" content="CentOS,soft test,testLink">
+<meta property="og:type" content="article">
+<meta property="og:title" content="testLink 1.9.17 安装配置，环境：CentOS 7.5 + PHP 7.2.7 + nginx 1.14.0">
+<meta property="og:url" content="https://www.lovesofttech.com/softTest/centOS7TestLink.html">
+<meta property="og:site_name" content="安迪陈技术日志，架构、感悟、系统分析、团队管理">
+<meta property="og:description" content="如题">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:image" content="https://www.lovesofttech.com/img/testlink/testlink01.png">
+<meta property="og:image" content="https://www.lovesofttech.com/img/testlink/testlink02.png">
+<meta property="og:image" content="https://www.lovesofttech.com/img/testlink/testlink03.png">
+<meta property="og:image" content="https://www.lovesofttech.com/img/testlink/testlink05.png">
+<meta property="og:image" content="https://www.lovesofttech.com/img/testlink/testlink06.png">
+<meta property="og:image" content="https://www.lovesofttech.com/img/testlink/testlink04.png">
+<meta property="og:image" content="https://www.lovesofttech.com/img/testlink/testlink07.png">
+<meta property="og:image" content="https://www.lovesofttech.com/img/testlink/testlink08.png">
+<meta property="og:image" content="https://www.lovesofttech.com/img/testlink/testlink09.png">
+<meta property="og:image" content="https://www.lovesofttech.com/img/testlink/testlink10.png">
+<meta property="og:image" content="https://www.lovesofttech.com/img/testlink/testlink11.png">
+<meta property="og:updated_time" content="2020-09-01T02:53:13.096Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="testLink 1.9.17 安装配置，环境：CentOS 7.5 + PHP 7.2.7 + nginx 1.14.0">
+<meta name="twitter:description" content="如题">
+<meta name="twitter:image" content="https://www.lovesofttech.com/img/testlink/testlink01.png">
+    
+        <link rel="alternative" href="/atom.xml" title="安迪陈技术日志，架构、感悟、系统分析、团队管理" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=201912302211">
+    <link rel="stylesheet" href="/css/header.css?v=201912302211">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu">
+  <div class="inner flex-row-vertical">
+    <!--<i class="icon icon-lg icon-close"></i>-->
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off" title="隐藏左侧导航">﹤<i class="icon icon-lg icon-navicon"></i></a>
+    <div class="brand-wrap" style="background-image:url(/img/bannerBackgroundLeft.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/myLogo.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">安迪陈</h5>
+          <a href="mailto:andy@lovesofttech.com" title="andy@lovesofttech.com" class="mail" rel="external nofollow noopener noreferrer" target="_blank">andy@lovesofttech.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articleClassify.html">
+                <i class="icon icon-th-list"></i>
+                文章分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articles.html">
+                <i class="icon icon-th-list articles"></i>
+                文章列表
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/java.html">
+                <i class="icon icon-th-list java"></i>
+                Java
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/database.html">
+                <i class="icon icon-th-list database"></i>
+                MySQL/MyBatis
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/linux.html">
+                <i class="icon icon-th-list linux"></i>
+                CentOS/linux
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/react.html">
+                <i class="icon icon-th-list React"></i>
+                React
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/lnmp.html">
+                <i class="icon icon-th-list LNMP"></i>
+                LNMP
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/git.html">
+                <i class="icon icon-th-list git"></i>
+                git
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/windows.html">
+                <i class="icon icon-th-list windows"></i>
+                windows
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/dailyLives.html">
+                <i class="icon icon-th-list dailyLives"></i>
+                工作 &amp; 生活
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-github"></i>
+                我的 github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://gitee.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link"></i>
+                我的 gitee
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://blog.csdn.net/runAndRun" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link CSDN"></i>
+                我的 CSDN
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/aboutMe.html">
+                <i class="icon icon-address-card"></i>
+                关于我
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+
+        <div class="navbar navbar-custom navbar-fixed-top">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" style="margin-left:10px;" id="menu-toggle" title="显示左侧导航"><i class="icon icon-lg icon-navicon"></i>﹥</a>
+            <ul class="nav navbar-nav navbar-right" id="navMenuTop">
+                <li>
+                    <a href="/">主页</a>
+                </li>
+                
+                    
+                        <li>
+                            <a href="/articleClassify.html" title="本博客的文章分类列表">文章分类</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/articles.html" title="本博客的所有文章列表">文章列表</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/java.html" title="Java 开发，文章目录">Java</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/database.html" title="日常开发中有关 MySQL、MyBatis 的一些经验总结">MySQL/MyBatis</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/linux.html" title="CentOS/linux，文章目录">CentOS/linux</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/react.html" title="React 技术栈（全家桶）学习心得分享，文章目录">React</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/about.html">关于</a>
+                        </li>
+                    
+                
+            </ul>
+        </div>
+
+        <div class="flex-col header-title ellipsis">testLink 1.9.17 安装配置，环境：CentOS 7.5 + PHP 7.2.7 + nginx 1.14.0</div>
+        
+        <div class="search-wrap" id="search-wrap" style="z-index: 2;">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back" style="width:33px;">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search" style="width:33px;">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare" style="z-index: 3;margin-right: 10px; width:30px;">
+                <i class="icon icon-lg icon-share-alt"></i>
+            </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h2 class="title">testLink 1.9.17 安装配置，环境：CentOS 7.5 + PHP 7.2.7 + nginx 1.14.0</h2>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-06-22T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2018-06-23
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/CentOS/">CentOS</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/CentOS/soft-test/">soft test</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/CentOS/soft-test/testLink/">testLink</a></li></ul></li></ul></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap" id="index-container">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc" style="z-index: 3;">
+            <h4><i class="fa fa-list-alt"></i>&nbsp;&nbsp;本文目录</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#TestLink的主要功能"><span class="post-toc-number">1.</span> <span class="post-toc-text">TestLink的主要功能</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#下载"><span class="post-toc-number">2.</span> <span class="post-toc-text">下载</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#nginx-站点配置"><span class="post-toc-number">3.</span> <span class="post-toc-text">nginx 站点配置</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#安装配置"><span class="post-toc-number">4.</span> <span class="post-toc-text">安装配置</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Database-Error-Message-Invalid-argument"><span class="post-toc-number">5.</span> <span class="post-toc-text">Database Error Message: Invalid argument</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#登录出错"><span class="post-toc-number">6.</span> <span class="post-toc-text">登录出错</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#testlink-配置为中文"><span class="post-toc-number">7.</span> <span class="post-toc-text">testlink 配置为中文</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#时区显示不正确配置"><span class="post-toc-number">8.</span> <span class="post-toc-text">时区显示不正确配置</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#与-jira-集成"><span class="post-toc-number">9.</span> <span class="post-toc-text">与 jira 集成</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#testlink-和-jira-的集成，一般步骤"><span class="post-toc-number">10.</span> <span class="post-toc-text">testlink 和 jira 的集成，一般步骤</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#报错"><span class="post-toc-number">11.</span> <span class="post-toc-text">报错</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#使用指南"><span class="post-toc-number">12.</span> <span class="post-toc-text">使用指南</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#load-加载失败，尝试配置，未成功"><span class="post-toc-number">13.</span> <span class="post-toc-text">load 加载失败，尝试配置，未成功</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#尝试解决"><span class="post-toc-number">13.1.</span> <span class="post-toc-text">尝试解决</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#相关链接"><span class="post-toc-number">14.</span> <span class="post-toc-text">相关链接</span></a></li></ol>
+        </nav>
+    </aside>
+    
+
+<article id="post-softTest/centOS7TestLink" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">testLink 1.9.17 安装配置，环境：CentOS 7.5 + PHP 7.2.7 + nginx 1.14.0</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018年06月23日 0:00" datetime="2018-06-22T16:00:00.000Z" itemprop="datePublished">2018-06-23</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/CentOS/">CentOS</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/CentOS/soft-test/">soft test</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/CentOS/soft-test/testLink/">testLink</a></li></ul></li></ul></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" style="display:none">
+    阅读量：<span id="busuanzi_value_page_pv"></span>次
+</span>
+
+
+    <span>|</span>
+    <span class="post-count">字数：2.9k</span>
+    <span>|</span>
+    <span class="post-count">阅读时长：大约15分钟</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>如题<br><a id="more"></a></p>
+<h1 id="TestLink的主要功能"><a href="#TestLink的主要功能" class="headerlink" title="TestLink的主要功能"></a>TestLink的主要功能</h1><ol>
+<li>测试需求管理</li>
+<li>测试用例管理</li>
+<li>测试用例对测试需求的覆盖管理</li>
+<li>测试计划的制定</li>
+<li>测试用例的执行</li>
+<li>大量测试数据的度量和统计功能。</li>
+</ol>
+<p>但 Testlink 无缺陷管理</p>
+<h1 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h1><p><a href="https://github.com/TestLinkOpenSourceTRMS/testlink-code" rel="external nofollow noopener noreferrer" target="_blank">github home</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wget https://github.com/TestLinkOpenSourceTRMS/testlink-code/archive/1.9.17.tar.gz</span><br><span class="line">tar -xzvf 1.9.17.tar.gz</span><br></pre></td></tr></table></figure></p>
+<p>解压之后得到 testlink-code-1.9.17 将其移至 web 目录（/home/unginx/apps) 并改名为 testlink</p>
+<h1 id="nginx-站点配置"><a href="#nginx-站点配置" class="headerlink" title="nginx 站点配置"></a>nginx 站点配置</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /usr/local/nginx/vhosts/testlink.conf</span><br></pre></td></tr></table></figure>
+<p>配置文件内容如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen       80;</span><br><span class="line">    server_name  testlink.apg.com;</span><br><span class="line">    charset utf-8;</span><br><span class="line">    access_log  logs/testlink.apg.com.access.log;</span><br><span class="line">    error_log   logs/testlink.apg.com.error.log;</span><br><span class="line">    root /home/unginx/apps/testlink/;</span><br><span class="line">    index index.php;</span><br><span class="line"></span><br><span class="line">    location ~ [^/].php(/|$) &#123;</span><br><span class="line">        fastcgi_pass unix:/tmp/php-cgi.sock;</span><br><span class="line">        fastcgi_index index.php;</span><br><span class="line">        include fastcgi.conf;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>然后执行下面的命令使配置生效。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/local/nginx/sbin/nginx -s reload</span><br></pre></td></tr></table></figure></p>
+<h1 id="安装配置"><a href="#安装配置" class="headerlink" title="安装配置"></a>安装配置</h1><p>访问 testlink.apg.com<br>点击【New installation】<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/testlink/testlink01.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure></p>
+<p>检查配置，有失败项，不能继续。<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/testlink/testlink02.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure></p>
+<p>以下有关 LDAP 的配置警告，可以先不管。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Checking LDAP library	Failed! LDAP library not enabled. LDAP authentication cannot be used. (default internal authentication will works).</span><br></pre></td></tr></table></figure></p>
+<p>作如下配置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@centOS7BasicForTest apps]# mkdir -p /var/testlink/logs/</span><br><span class="line">[root@centOS7BasicForTest apps]# mkdir -p /var/testlink/upload_area/</span><br><span class="line">[root@centOS7BasicForTest apps]# chown -R unginx:gweb /var/testlink</span><br></pre></td></tr></table></figure></p>
+<p>然后刷新<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/testlink/testlink03.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure><br>可以继续了，不过还可以修改 php 配置使最前面两项达到安装要求。<br>针对检查结果提示，修改 php 配置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /usr/local/php/etc/php.ini</span><br></pre></td></tr></table></figure></p>
+<p>修改以下项<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#session.gc_maxlifetime = 1440</span><br><span class="line">session.gc_maxlifetime = 2400</span><br><span class="line">#max_execution_time = 30</span><br><span class="line">max_execution_time = 120</span><br></pre></td></tr></table></figure></p>
+<p>重启<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/etc/init.d/php-fpm restart</span><br></pre></td></tr></table></figure></p>
+<p>我们要用 mysql，所以，忽略 Postgres 和 MSSQL。<br>这样，除了 load，其它项均符合要求。<br>继续到下一步，填写数据库配置相关项，然后继续。<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/testlink/testlink05.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure><br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/testlink/testlink06.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure></p>
+<p>最后一步，出错了，大概是因为数据库访问地址没有权限访问。<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/testlink/testlink04.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure></p>
+<h1 id="Database-Error-Message-Invalid-argument"><a href="#Database-Error-Message-Invalid-argument" class="headerlink" title="Database Error Message: Invalid argument"></a>Database Error Message: Invalid argument</h1><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/testlink/testlink07.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>提示信息：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">TestLink setup will now attempt to setup the database:</span><br><span class="line"></span><br><span class="line">Creating connection to Database Server:Failed!</span><br><span class="line">Please check the database login details and try again.</span><br><span class="line">Database Error Message: Invalid argument</span><br></pre></td></tr></table></figure></p>
+<p>以上错误，在 windows 本地搭建相同的 php 版本，web 服务器用的是 apache，用 phpStorm 调试，最终发现是 ip 地址和密码在调用 preg_replace 方法时被修改了，所以会出错。<br>需要修改源代码来解决。</p>
+<blockquote>
+<p>nginx 提示的信息如下，不过，这个信息可忽略。<br>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">2018/07/12 11:24:04 [error] 7281#0: *335 FastCGI sent in stderr: &quot;PHP message: PHP Deprecated:  __autoload() is deprecated, use spl_autoload_register() instead in /home/unginx/apps/testlink/third_party/phpmailer/PHPMailerAutoload.php on line 45&quot; while reading response header from upstream, client: 192.168.1.89, server: testlink.apg.com, request: &quot;POST /install/installNewDB.php HTTP/1.1&quot;, upstream: &quot;fastcgi://unix:/tmp/php-cgi.sock:&quot;, host: &quot;testlink.apg.com&quot;, referrer: &quot;http://testlink.apg.com/install/installDbInput.php?&quot;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<p>##　解决<br>修改文件：testlink-code-1.9.17\install\installNewDB.php<br>大概从第 63 行开始，找到下面的变量，注释掉 preg_replace 所在的行。<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$db_server = trim($_SESSION[<span class="string">'databasehost'</span>]);</span><br><span class="line"><span class="comment">//$db_server = preg_replace($san,'',$db_server);</span></span><br><span class="line"></span><br><span class="line">$db_admin_pass = trim($_SESSION[<span class="string">'databaseloginpassword'</span>]);</span><br><span class="line"><span class="comment">//$db_admin_pass = preg_replace($san,'',$db_admin_pass);</span></span><br><span class="line"></span><br><span class="line">$tl_db_passwd = trim($_SESSION[<span class="string">'tl_loginpassword'</span>]);</span><br><span class="line"><span class="comment">//$tl_db_passwd = preg_replace($san,'',$tl_db_passwd);</span></span><br></pre></td></tr></table></figure></p>
+<p>不注释的话</p>
+<ol>
+<li>会将 IP 地址里的点“吃掉”，如 192.168.1.3 会变成 19216813</li>
+<li>会将密码里的特殊字符“吃掉”</li>
+</ol>
+<p>修改之后再次运行，提示如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">TestLink setup will now attempt to setup the database:</span><br><span class="line"></span><br><span class="line">Creating connection to Database Server:OK!</span><br><span class="line"></span><br><span class="line">Database testlink does not exist. </span><br><span class="line">Will attempt to create:</span><br><span class="line">Creating database `testlink`:OK!</span><br><span class="line">Creating Testlink DB user `testlinkDbUser`:OK! ( ok - new user) </span><br><span class="line">Processing:sql/mysql/testlink_create_tables.sql</span><br><span class="line">OK!</span><br><span class="line">Writing configuration file:OK!</span><br><span class="line"></span><br><span class="line">IMPORTANT NOTICE - IMPORTANT NOTICE - IMPORTANT NOTICE - IMPORTANT NOTICE</span><br><span class="line">YOU NEED TO RUN MANUALLY Following Script on your DB CLIENT Application</span><br><span class="line">C:\workspace\php\testlink-code-1.9.17\install/sql/mysql/testlink_create_udf0.sql</span><br><span class="line">THANKS A LOT </span><br><span class="line"></span><br><span class="line">YOUR ATTENTION PLEASE:</span><br><span class="line">To have a fully functional installation You need to configure mail server settings, following this steps</span><br><span class="line">copy from config.inc.php, [SMTP] Section into custom_config.inc.php.</span><br><span class="line">complete correct data regarding email addresses and mail server.</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Installation was successful!</span><br><span class="line">You can now log in to Testlink (using login name:admin / password:admin - Please Click Me!).</span><br></pre></td></tr></table></figure></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/testlink/testlink08.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<h1 id="登录出错"><a href="#登录出错" class="headerlink" title="登录出错"></a>登录出错</h1><p><a href="http://tl.dev.com/login.php" rel="external nofollow noopener noreferrer" target="_blank">http://tl.dev.com/login.php</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqli_real_connect(): (HY000/1045): Access denied for user &apos;testlinkDbUser&apos;@&apos;192.168.1.89&apos; (using password: YES) - in C:\workspace\php\testlink-code-1.9.17\third_party\adodb\drivers\adodb-mysqli.inc.php - Line 124,[source] =&gt; GUI,[timestamp] =&gt; 1531377269,[userID] =&gt; 0,[sessionID] =&gt; ,[transactionID] =&gt; ,[activityCode] =&gt; PHP,[objectID] =&gt; ,[objectType] =&gt; ,[transaction] =&gt; ,[*activateCaching] =&gt; ,[dbID] =&gt; ,[*detailLevel] =&gt; 4294967295,[*userFeedback] =&gt; ,[*serializationInterfaces] =&gt; ,[*serializationFormatDescriptors] =&gt; ,[*tables] =&gt; Array ([assignment_status] =&gt; assignment_status,[assignment_types] =&gt; assignment_types,[attachments] =&gt; attachments,[builds] =&gt; builds,[cfield_build_design_values] =&gt; cfield_build_design_values,[cfield_design_values] =&gt; cfield_design_values,[cfield_execution_values] =&gt; cfield_execution_values,[cfield_node_types] =&gt; cfield_node_types,[cfield_testplan_design_values] =&gt; cfield_testplan_design_values,[cfield_testprojects] =&gt; cfield_testprojects,[custom_fields] =&gt; custom_fields,[db_version] =&gt; db_version,[events] =&gt; events,[execution_bugs] =&gt; execution_bugs,[execution_tcsteps] =&gt; execution_tcsteps,[executions] =&gt; executions,[inventory] =&gt; inventory,[issuetrackers] =&gt; issuetrackers,[testproject_issuetracker] =&gt; testproject_issuetracker,[codetrackers] =&gt; codetrackers,[testproject_codetracker] =&gt; testproject_codetracker,[keywords] =&gt; keywords,[milestones] =&gt; milestones,[node_types] =&gt; node_types,[nodes_hierarchy] =&gt; nodes_hierarchy,[object_keywords] =&gt; object_keywords,[platforms] =&gt; platforms,[plugins] =&gt; plugins,[plugins_configuration] =&gt; plugins_configuration,[req_coverage] =&gt; req_coverage,[req_relations] =&gt; req_relations,[req_specs] =&gt; req_specs,[req_specs_revisions] =&gt; req_specs_revisions,[reqmgrsystems] =&gt; reqmgrsystems,[testproject_reqmgrsystem] =&gt; testproject_reqmgrsystem,[requirements] =&gt; requirements,[req_versions] =&gt; req_versions,[req_revisions] =&gt; req_revisions,[req_notify_assignments] =&gt; req_notify_assignments,[req_monitor] =&gt; req_monitor,[rights] =&gt; rights,[risk_assignments] =&gt; risk_assignments,[role_rights] =&gt; role_rights,[roles] =&gt; roles,[testcase_relations] =&gt; testcase_relations,[tcversions] =&gt; tcversions,[tcsteps] =&gt; tcsteps,[testcase_keywords] =&gt; testcase_keywords,[testplan_platforms] =&gt; testplan_platforms,[testcase_script_links] =&gt; testcase_script_links,[testplan_tcversions] =&gt; testplan_tcversions,[testplans] =&gt; testplans,[testprojects] =&gt; testprojects,[testsuites] =&gt; testsuites,[text_templates] =&gt; text_templates,[transactions] =&gt; transactions,[user_assignments] =&gt; user_assignments,[user_group] =&gt; user_group,[user_group_assign] =&gt; user_group_assign,[user_testplan_roles] =&gt; user_testplan_roles,[user_testproject_roles] =&gt; user_testproject_roles,[users] =&gt; users),[*views] =&gt; Array ([tcversions_last_active] =&gt;  tcversions_last_active,[last_executions] =&gt; last_executions,[last_executions_by_platforms] =&gt; last_executions_by_platforms,[latest_tcase_version_number] =&gt; latest_tcase_version_number,[latest_req_version] =&gt; latest_req_version,[latest_rspec_revision] =&gt; latest_rspec_revision),[*auditCfg] =&gt; stdClass Object ([eventSource] =&gt; GUI,[logEnabled] =&gt; 1))) called at [C:\workspace\php\testlink-code-1.9.17\lib\functions\logger.class.php:558]</span><br></pre></td></tr></table></figure></p>
+<p>授权即可<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GRANT ALL PRIVILEGES ON *.* TO &apos;testlinkDbUser&apos;@&apos;192.168.1.89&apos; IDENTIFIED BY &apos;abd123K^4@#!&apos; WITH GRANT OPTION;</span><br></pre></td></tr></table></figure></p>
+<h1 id="testlink-配置为中文"><a href="#testlink-配置为中文" class="headerlink" title="testlink 配置为中文"></a>testlink 配置为中文</h1><p>$tlCfg-&gt;default_language = ‘en_GB’替换为<br>$tlCfg-&gt;default_language = ‘zh_CN’<br>然后以管理员身份登录之后，将语言设置为中文即可，如下所示：<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/testlink/testlink09.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure><br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/testlink/testlink10.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure></p>
+<h1 id="时区显示不正确配置"><a href="#时区显示不正确配置" class="headerlink" title="时区显示不正确配置"></a>时区显示不正确配置</h1><p>解决方法是在根目录下的 config.inc.php 文件的 /*<em> [GLOBAL] </em>/ 下加入以下代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">putenv(&quot;TZ=Asia/Shanghai&quot;);</span><br><span class="line">date_default_timezone_set(&quot;PRC&quot;);</span><br></pre></td></tr></table></figure></p>
+<h1 id="与-jira-集成"><a href="#与-jira-集成" class="headerlink" title="与 jira 集成"></a>与 jira 集成</h1><p>选【jira (Interface: db)】模式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;issuetracker&gt;</span><br><span class="line">    &lt;jiraversion&gt;7.5.2&lt;/jiraversion&gt;</span><br><span class="line">    &lt;dbhost&gt;192.168.1.91:3306&lt;/dbhost&gt;</span><br><span class="line">    &lt;dbname&gt;jira&lt;/dbname&gt;</span><br><span class="line">    &lt;dbtype&gt;mysql&lt;/dbtype&gt;</span><br><span class="line">    &lt;dbuser&gt;root&lt;/dbuser&gt;</span><br><span class="line">    &lt;dbpassword&gt;123456&lt;/dbpassword&gt;</span><br><span class="line">    &lt;uriview&gt;http://jira.apg.com/browse/&lt;/uriview&gt;</span><br><span class="line">    &lt;uricreate&gt;http://jira.apg.com/secure/Dashboard.jspa&lt;/uricreate&gt;</span><br><span class="line">&lt;/issuetracker&gt;</span><br></pre></td></tr></table></figure></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/testlink/testlink11.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<h1 id="testlink-和-jira-的集成，一般步骤"><a href="#testlink-和-jira-的集成，一般步骤" class="headerlink" title="testlink 和 jira 的集成，一般步骤"></a>testlink 和 jira 的集成，一般步骤</h1><blockquote>
+<p>还有待研究，还没有找到添加 jira bug 的入口。</p>
+</blockquote>
+<ol>
+<li>System-Issue Tracker Management 添加 JIRA 的 db 模式，如上。</li>
+<li>测试项目管理，“Issue Tracker Integration” 勾选 “活动的“，并选择 ”Issue Tracker“。</li>
+<li>测试用例页面，点击新增的Bug管理图标，可进入 JIRA 系统。</li>
+<li>到JIRA系统中提交问题，复制问题编号。</li>
+<li>将问题编号与TestLink中的测试用例进行关联，关联后测试用例下方会显示相关联的Bug标题，点击标题可以直接链接到JIRA系统的此Bug页面。</li>
+</ol>
+<h1 id="报错"><a href="#报错" class="headerlink" title="报错"></a>报错</h1><p>应该是有 Bug，暂时未解决，后来又重新添加计划任务，没有再出现这个错误，应该是前一步新建测试计划，保存的时候因为输入的内容有中文或者有特殊字符导致没有保存成功，后来没有重现。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">#0  database-&gt;exec_query( /* Class:testplan - Method: get_builds_for_html_options */ SELECT id, name  FROM builds WHERE testplan_id =   AND active=1  AND is_open=1  ORDER BY name ASC, -1) called at [/home/unginx/apps/testlink/lib/functions/database.class.php:728]</span><br><span class="line">#1  database-&gt;fetchColumnsIntoMap( /* Class:testplan - Method: get_builds_for_html_options */ SELECT id, name  FROM builds WHERE testplan_id =   AND active=1  AND is_open=1  ORDER BY name ASC, id, name) called at [/home/unginx/apps/testlink/lib/functions/testplan.class.php:1978]</span><br><span class="line">#2  testplan-&gt;get_builds_for_html_options(, 1, 1) called at [/home/unginx/apps/testlink/lib/functions/tlTestCaseFilterControl.class.php:1239]</span><br><span class="line">#3  tlTestCaseFilterControl-&gt;init_setting_build() called at [/home/unginx/apps/testlink/lib/functions/tlTestCaseFilterControl.class.php:571]</span><br><span class="line">#4  tlTestCaseFilterControl-&gt;init_settings() called at [/home/unginx/apps/testlink/lib/functions/tlFilterControl.class.php:246]</span><br><span class="line">#5  tlFilterControl-&gt;__construct(database Object ([db] =&gt; ADODB_mysqli Object ([databaseType] =&gt; mysqli,[dataProvider] =&gt; mysql,[hasInsertID] =&gt; 1,[hasAffectedRows] =&gt; 1,[metaTablesSQL] =&gt; SELECT</span><br><span class="line">			TABLE_NAME,</span><br><span class="line">			CASE WHEN TABLE_TYPE = &apos;VIEW&apos; THEN &apos;V&apos; ELSE &apos;T&apos; END</span><br><span class="line">		FROM INFORMATION_SCHEMA.TABLES</span><br><span class="line">		WHERE TABLE_SCHEMA=,[metaColumnsSQL] =&gt; SHOW COLUMNS FROM `%s`,[fmtTimeStamp] =&gt; &apos;Y-m-d H:i:s&apos;,[hasLimit] =&gt; 1,[hasMoveFirst] =&gt; 1,[hasGenID] =&gt; 1,[isoDates] =&gt; 1,[sysDate] =&gt; CURDATE(),[sysTimeStamp] =&gt; NOW(),[hasTransactions] =&gt; 1,[forceNewConnect] =&gt; 1,[poorAffectedRows] =&gt; 1,[clientFlags] =&gt; 0,[substr] =&gt; substring,[port] =&gt; 3306,[socket] =&gt; ,[_bindInputArray] =&gt; ,[nameQuote] =&gt; `,[optionFlags] =&gt; Array ([0] =&gt; Array ([0] =&gt; 5,[1] =&gt; 0)),[arrayClass] =&gt; ADORecordSet_array_mysqli,[multiQuery] =&gt; ,[_genIDSQL] =&gt; update %s set id=LAST_INSERT_ID(id+1);,[_genSeqSQL] =&gt; create table if not exists %s (id int not null),[_genSeqCountSQL] =&gt; select count(*) from %s,[_genSeq2SQL] =&gt; insert into %s values (%s),[_dropSeqSQL] =&gt; drop table if exists %s,[database] =&gt; testlink,[host] =&gt; 127.0.0.1,[user] =&gt; testlinkDbUser,[password] =&gt; not stored,[debug] =&gt; ,[maxblobsize] =&gt; 262144,[concat_operator] =&gt; +,[length] =&gt; length,[random] =&gt; rand(),[upperCase] =&gt; upper,[fmtDate] =&gt; &apos;Y-m-d&apos;,[true] =&gt; 1,[false] =&gt; 0,[replaceQuote] =&gt; \&apos;,[charSet] =&gt; ,[metaDatabasesSQL] =&gt; ,[uniqueOrderBy] =&gt; ,[emptyDate] =&gt;  ,[emptyTimeStamp] =&gt;  ,[lastInsID] =&gt; ,[hasTop] =&gt; ,[readOnly] =&gt; ,[genID] =&gt; 0,[raiseErrorFn] =&gt; ,[cacheSecs] =&gt; 3600,[memCache] =&gt; ,[memCacheHost] =&gt; ,[memCachePort] =&gt; 11211,[memCacheCompress] =&gt; ,[sysUTimeStamp] =&gt; ,[noNullStrings] =&gt; ,[numCacheHits] =&gt; 0,[numCacheMisses] =&gt; 0,[pageExecuteCountRows] =&gt; 1,[uniqueSort] =&gt; ,[leftOuter] =&gt; ,[rightOuter] =&gt; ,[ansiOuter] =&gt; ,[autoRollback] =&gt; ,[fnExecute] =&gt; ,[fnCacheExecute] =&gt; ,[blobEncodeType] =&gt; ,[rsPrefix] =&gt; ADORecordSet_,[autoCommit] =&gt; 1,[transOff] =&gt; 0,[transCnt] =&gt; 0,[fetchMode] =&gt; 2,[null2null] =&gt; null,[bulkBind] =&gt; ,[_oldRaiseFn] =&gt; ,[_transOK] =&gt; ,[_connectionID] =&gt; mysqli Object ([affected_rows] =&gt; ,[client_info] =&gt; ,[client_version] =&gt; ,[connect_errno] =&gt; ,[connect_error] =&gt; ,[errno] =&gt; ,[error] =&gt; ,[error_list] =&gt; ,[field_count] =&gt; ,[host_info] =&gt; ,[info] =&gt; ,[insert_id] =&gt; ,[server_info] =&gt; ,[server_version] =&gt; ,[stat] =&gt; ,[sqlstate] =&gt; ,[protocol_version] =&gt; ,[thread_id] =&gt; ,[warning_count] =&gt; ),[_errorMsg] =&gt; You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near &apos;AND active=1  AND is_open=1  ORDER BY name ASC&apos; at line 1,[_errorCode] =&gt; ,[_queryID] =&gt; 1,[_isPersistentConnection] =&gt; ,[_evalAll] =&gt; ,[_affected] =&gt; ,[_logsql] =&gt; ,[_transmode] =&gt; ,[*connectionParameters] =&gt; Array (),[databaseName] =&gt; testlink),[queries_array] =&gt; Array (),[is_connected] =&gt; 1,[nQuery] =&gt; 0,[overallDuration] =&gt; 0,[dbType] =&gt; mysqli,[databaselogEnabled] =&gt; 0,[databaselogQueries] =&gt; 0)) called at [/home/unginx/apps/testlink/lib/functions/tlTestCaseFilterControl.class.php:340]</span><br><span class="line">#6  tlTestCaseFilterControl-&gt;__construct(database Object ([db] =&gt; ADODB_mysqli Object ([databaseType] =&gt; mysqli,[dataProvider] =&gt; mysql,[hasInsertID] =&gt; 1,[hasAffectedRows] =&gt; 1,[metaTablesSQL] =&gt; SELECT</span><br><span class="line">			TABLE_NAME,</span><br><span class="line">			CASE WHEN TABLE_TYPE = &apos;VIEW&apos; THEN &apos;V&apos; ELSE &apos;T&apos; END</span><br><span class="line">		FROM INFORMATION_SCHEMA.TABLES</span><br><span class="line">		WHERE TABLE_SCHEMA=,[metaColumnsSQL] =&gt; SHOW COLUMNS FROM `%s`,[fmtTimeStamp] =&gt; &apos;Y-m-d H:i:s&apos;,[hasLimit] =&gt; 1,[hasMoveFirst] =&gt; 1,[hasGenID] =&gt; 1,[isoDates] =&gt; 1,[sysDate] =&gt; CURDATE(),[sysTimeStamp] =&gt; NOW(),[hasTransactions] =&gt; 1,[forceNewConnect] =&gt; 1,[poorAffectedRows] =&gt; 1,[clientFlags] =&gt; 0,[substr] =&gt; substring,[port] =&gt; 3306,[socket] =&gt; ,[_bindInputArray] =&gt; ,[nameQuote] =&gt; `,[optionFlags] =&gt; Array ([0] =&gt; Array ([0] =&gt; 5,[1] =&gt; 0)),[arrayClass] =&gt; ADORecordSet_array_mysqli,[multiQuery] =&gt; ,[_genIDSQL] =&gt; update %s set id=LAST_INSERT_ID(id+1);,[_genSeqSQL] =&gt; create table if not exists %s (id int not null),[_genSeqCountSQL] =&gt; select count(*) from %s,[_genSeq2SQL] =&gt; insert into %s values (%s),[_dropSeqSQL] =&gt; drop table if exists %s,[database] =&gt; testlink,[host] =&gt; 127.0.0.1,[user] =&gt; testlinkDbUser,[password] =&gt; not stored,[debug] =&gt; ,[maxblobsize] =&gt; 262144,[concat_operator] =&gt; +,[length] =&gt; length,[random] =&gt; rand(),[upperCase] =&gt; upper,[fmtDate] =&gt; &apos;Y-m-d&apos;,[true] =&gt; 1,[false] =&gt; 0,[replaceQuote] =&gt; \&apos;,[charSet] =&gt; ,[metaDatabasesSQL] =&gt; ,[uniqueOrderBy] =&gt; ,[emptyDate] =&gt;  ,[emptyTimeStamp] =&gt;  ,[lastInsID] =&gt; ,[hasTop] =&gt; ,[readOnly] =&gt; ,[genID] =&gt; 0,[raiseErrorFn] =&gt; ,[cacheSecs] =&gt; 3600,[memCache] =&gt; ,[memCacheHost] =&gt; ,[memCachePort] =&gt; 11211,[memCacheCompress] =&gt; ,[sysUTimeStamp] =&gt; ,[noNullStrings] =&gt; ,[numCacheHits] =&gt; 0,[numCacheMisses] =&gt; 0,[pageExecuteCountRows] =&gt; 1,[uniqueSort] =&gt; ,[leftOuter] =&gt; ,[rightOuter] =&gt; ,[ansiOuter] =&gt; ,[autoRollback] =&gt; ,[fnExecute] =&gt; ,[fnCacheExecute] =&gt; ,[blobEncodeType] =&gt; ,[rsPrefix] =&gt; ADORecordSet_,[autoCommit] =&gt; 1,[transOff] =&gt; 0,[transCnt] =&gt; 0,[fetchMode] =&gt; 2,[null2null] =&gt; null,[bulkBind] =&gt; ,[_oldRaiseFn] =&gt; ,[_transOK] =&gt; ,[_connectionID] =&gt; mysqli Object ([affected_rows] =&gt; ,[client_info] =&gt; ,[client_version] =&gt; ,[connect_errno] =&gt; ,[connect_error] =&gt; ,[errno] =&gt; ,[error] =&gt; ,[error_list] =&gt; ,[field_count] =&gt; ,[host_info] =&gt; ,[info] =&gt; ,[insert_id] =&gt; ,[server_info] =&gt; ,[server_version] =&gt; ,[stat] =&gt; ,[sqlstate] =&gt; ,[protocol_version] =&gt; ,[thread_id] =&gt; ,[warning_count] =&gt; ),[_errorMsg] =&gt; You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near &apos;AND active=1  AND is_open=1  ORDER BY name ASC&apos; at line 1,[_errorCode] =&gt; ,[_queryID] =&gt; 1,[_isPersistentConnection] =&gt; ,[_evalAll] =&gt; ,[_affected] =&gt; ,[_logsql] =&gt; ,[_transmode] =&gt; ,[*connectionParameters] =&gt; Array (),[databaseName] =&gt; testlink),[queries_array] =&gt; Array (),[is_connected] =&gt; 1,[nQuery] =&gt; 0,[overallDuration] =&gt; 0,[dbType] =&gt; mysqli,[databaselogEnabled] =&gt; 0,[databaselogQueries] =&gt; 0), execution_mode) called at [/home/unginx/apps/testlink/lib/execute/execNavigator.php:29]</span><br></pre></td></tr></table></figure></p>
+<h1 id="使用指南"><a href="#使用指南" class="headerlink" title="使用指南"></a>使用指南</h1><p>中译版：<a href="https://blog.csdn.net/cjtxzg/article/details/80498226" rel="external nofollow noopener noreferrer" target="_blank">TestLink教程：一份完整指南</a><br>英文原版：<a href="https://www.guru99.com/testlink-tutorial-complete-guide.html#13" rel="external nofollow noopener noreferrer" target="_blank">TestLink Tutorial: A Complete Guide</a><br>其它学习资料：<a href="https://blog.csdn.net/shandong_chu/article/details/49923977" rel="external nofollow noopener noreferrer" target="_blank">TestLink学习四：TestLink1.9.13使用说明</a></p>
+<h1 id="load-加载失败，尝试配置，未成功"><a href="#load-加载失败，尝试配置，未成功" class="headerlink" title="load 加载失败，尝试配置，未成功"></a>load 加载失败，尝试配置，未成功</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Checking LDAP library	Failed! LDAP library not enabled. LDAP authentication cannot be used. (default internal authentication will works).</span><br></pre></td></tr></table></figure>
+<h2 id="尝试解决"><a href="#尝试解决" class="headerlink" title="尝试解决"></a>尝试解决</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y install openldap php-gd gd-devel php-ldap</span><br></pre></td></tr></table></figure>
+<p>php.ini 修改<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">extension=ldap</span><br><span class="line">``` </span><br><span class="line">重启 php，提示：Unable to load dynamic library &apos;ldap&apos;</span><br></pre></td></tr></table></figure></p>
+<p>[root@centOS7BasicForTest testlink]# /etc/init.d/php-fpm restart<br>Gracefully shutting down php-fpm . done<br>Starting php-fpm [12-Jul-2018 11:10:50] NOTICE: PHP message: PHP Warning:  PHP Startup: Unable to load dynamic library ‘ldap’ (tried: /usr/local/php/lib/php/extensions/no-debug-non-zts-20170718/ldap (/usr/local/php/lib/php/extensions/no-debug-non-zts-20170718/ldap: cannot open shared object file: No such file or directory), /usr/local/php/lib/php/extensions/no-debug-non-zts-20170718/ldap.so (/usr/local/php/lib/php/extensions/no-debug-non-zts-20170718/ldap.so: cannot open shared object file: No such file or directory)) in Unknown on line 0<br> done<br><code>`</code><br>编译参数添加 –with-ldap 后重新安装，也没管用。<br>故，先放弃。</p>
+<h1 id="相关链接"><a href="#相关链接" class="headerlink" title="相关链接"></a>相关链接</h1><p><a href="https://github.com/TestLinkOpenSourceTRMS/testlink-code" rel="external nofollow noopener noreferrer" target="_blank">https://github.com/TestLinkOpenSourceTRMS/testlink-code</a><br><a href="http://www.testlink.org/" rel="external nofollow noopener noreferrer" target="_blank">http://www.testlink.org/</a><br><a href="http://www.mantis.org.cn/" rel="external nofollow noopener noreferrer" target="_blank">http://www.mantis.org.cn/</a></p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-09-01T02:53:13.096Z" itemprop="dateUpdated">2020年9月1日 10:53</time>
+</span><br>
+
+
+        转载请注明出处：<a href="/softTest/centOS7TestLink.html" target="_blank" rel="external">https://www.lovesofttech.com/softTest/centOS7TestLink.html</a>
+    </div>
+    <footer>
+        <a href="https://www.lovesofttech.com">
+            <img src="/img/myLogo.jpg" alt="安迪陈">
+            安迪陈
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CentOS/">CentOS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/soft-test/">soft test</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/testLink/">testLink</a></li></ul>
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/softTest/centOS7TestLink.html&title=《testLink 1.9.17 安装配置，环境：CentOS 7.5 + PHP 7.2.7 + nginx 1.14.0》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/softTest/centOS7TestLink.html&title=《testLink 1.9.17 安装配置，环境：CentOS 7.5 + PHP 7.2.7 + nginx 1.14.0》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=如题" data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/softTest/centOS7TestLink.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《testLink 1.9.17 安装配置，环境：CentOS 7.5 + PHP 7.2.7 + nginx 1.14.0》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/softTest/centOS7TestLink.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/softTest/centOS7TestLink.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/job/stovePrinciple.html" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">火炉原则</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/softTest/selenium.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">selenium</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+    
+    
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="bottom">
+        <p>
+            <span>安迪陈技术日志，架构、感悟、系统分析、团队管理 &copy; 2017 - 2020</span>
+            <span>
+                Power by <a href="https://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>&nbsp;
+                Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank" rel="external nofollow noopener noreferrer">indigo</a>
+            </span>
+            <span>
+                <a href="http://www.beian.miit.gov.cn" target="_blank" rel="external nofollow noopener noreferrer">蜀ICP备17041860号</a>
+            </span>
+            
+            <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            </p><p>
+                <span>
+                    统计始于：2019-03-06
+                </span>
+                <span id="busuanzi_container_site_uv" style="display:none">
+                    访客数：<span id="busuanzi_value_site_uv"></span>
+                </span>
+                <span id="busuanzi_container_site_pv" style="display:none">
+                    访问量：<span id="busuanzi_value_site_pv"></span>
+                </span>
+            
+            
+                <span class="post-count">累计字数：309.2k</span>
+            
+                <span><a href="/general/blogLog.html"><i class="fas fa-pen-alt"></i>&nbsp;博客日志</a></span>
+            </p>
+        <p></p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light" title="回到顶部"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/softTest/centOS7TestLink.html&title=《testLink 1.9.17 安装配置，环境：CentOS 7.5 + PHP 7.2.7 + nginx 1.14.0》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/softTest/centOS7TestLink.html&title=《testLink 1.9.17 安装配置，环境：CentOS 7.5 + PHP 7.2.7 + nginx 1.14.0》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=如题" data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/softTest/centOS7TestLink.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《testLink 1.9.17 安装配置，环境：CentOS 7.5 + PHP 7.2.7 + nginx 1.14.0》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/softTest/centOS7TestLink.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/softTest/centOS7TestLink.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACFElEQVR42u3aSW7DMBAEQP//084DAjvdQymAyOLJCLSwdJhwltcrXu8P6/v1+ZN/v+V1x8LAwHgs4/115dfM3vUJU78XAwPjAEYSCpOwmHyCGe+PPWNgYGCUj86RySfAwMDAmG3r01/a0LzyOTAwME5jJEnsOi9Pkm/MxTEwMB7ImJXv/+f3Lf0NDAyMRzHe5UoK90kR7eJdYWBgbM3IA9zscJYfItuAi4GBgdGmrHeMYrSFOQwMjHMYK8fB2TjFbA8YGBjnMNa/QT7y1Qb3YmgDAwNja8ZVCeesSdmSomswMDAOYCQBt200fr8yxw/bmRgYGA9ntGWylRQ0D9z1vwEMDIxjGHccE/OQekEujoGBsTWjva0Nu+0W83bpa0WPgYHxEMbKONesWDZLhtuhDQwMjJ0YbSltFkbzZHX4ZAwMjK0ZbcCdjbrOgm97cMTAwNiVMZx4HaWaedEtf+PH/gYGBsZGjKteMBzhiktp0RsxMDCOZOSpZj5CMdtoFO4xMDAOZrRJ7MqGZk0IDAyM0xjfb06unw3CtiU5DAyMcxjvcrUFtdnERz3qioGBsTVj9ui2EJaw1xuoGBgYezNm6WsbstcDbn0bBgbGdoy2Adni83bCbLcYGBgYeUsgKbQlW6ypGBgYGMtlr5WDY1LUw8DAOIHRNgNWNpHHzGI4AwMDY2tGmzq21PXj42WNTAwMjOcxfgC+Fw3Ll1fhHAAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.5.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.5.2" async></script>
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '安迪陈技术日志';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '欢迎回来';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

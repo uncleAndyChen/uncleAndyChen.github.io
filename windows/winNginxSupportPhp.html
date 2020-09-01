@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<!--<script async src="//hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c"></script>-->
+<!-- 统计-->
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var host = window.location.host;
+        var hm = document.createElement("script");
+
+        if (host.indexOf('gitee.io') > 0) { // https://uncleandychen.gitee.io/
+            hm.src = "https://hm.baidu.com/hm.js?0cf4709148b070b8082191d2e456a1a3";
+        } else if (host.indexOf('lovesofttech.com') > 0) { // https://www.lovesofttech.com/
+            hm.src = "https://hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c";
+        } else {
+            hm.src = '';
+        }
+
+        if (hm.src !== '') {
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        }
+    })();
+</script>
+<!-- End Baidu Tongji -->
+
+
+
+<!-- Baidu Push -->
+<!-- 主动推送百度爬虫-->
+<script>
+    (function(){
+        if (window.location.host.indexOf('lovesofttech.com') < 0) {
+            return;
+        }
+
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+<!-- End Baidu Push -->
+
+
+    <meta charset="utf-8">
+    
+    
+    <link rel="canonical" href="https://www.lovesofttech.com/windows/winNginxSupportPhp.html">
+    
+    
+    <title>在 windows7 下配置 nginx 支持 php | 安迪陈技术日志，架构、感悟、系统分析、团队管理 | 自强不息，厚德载物</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="windows,nginx,php">
+    <meta name="description" content="如题">
+<meta name="keywords" content="windows,nginx,php">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在 windows7 下配置 nginx 支持 php">
+<meta property="og:url" content="https://www.lovesofttech.com/windows/winNginxSupportPhp.html">
+<meta property="og:site_name" content="安迪陈技术日志，架构、感悟、系统分析、团队管理">
+<meta property="og:description" content="如题">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2020-09-01T02:53:13.118Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="在 windows7 下配置 nginx 支持 php">
+<meta name="twitter:description" content="如题">
+    
+        <link rel="alternative" href="/atom.xml" title="安迪陈技术日志，架构、感悟、系统分析、团队管理" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=201912302211">
+    <link rel="stylesheet" href="/css/header.css?v=201912302211">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu">
+  <div class="inner flex-row-vertical">
+    <!--<i class="icon icon-lg icon-close"></i>-->
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off" title="隐藏左侧导航">﹤<i class="icon icon-lg icon-navicon"></i></a>
+    <div class="brand-wrap" style="background-image:url(/img/bannerBackgroundLeft.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/myLogo.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">安迪陈</h5>
+          <a href="mailto:andy@lovesofttech.com" title="andy@lovesofttech.com" class="mail" rel="external nofollow noopener noreferrer" target="_blank">andy@lovesofttech.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articleClassify.html">
+                <i class="icon icon-th-list"></i>
+                文章分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articles.html">
+                <i class="icon icon-th-list articles"></i>
+                文章列表
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/java.html">
+                <i class="icon icon-th-list java"></i>
+                Java
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/database.html">
+                <i class="icon icon-th-list database"></i>
+                MySQL/MyBatis
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/linux.html">
+                <i class="icon icon-th-list linux"></i>
+                CentOS/linux
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/react.html">
+                <i class="icon icon-th-list React"></i>
+                React
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/lnmp.html">
+                <i class="icon icon-th-list LNMP"></i>
+                LNMP
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/git.html">
+                <i class="icon icon-th-list git"></i>
+                git
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/windows.html">
+                <i class="icon icon-th-list windows"></i>
+                windows
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/dailyLives.html">
+                <i class="icon icon-th-list dailyLives"></i>
+                工作 &amp; 生活
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-github"></i>
+                我的 github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://gitee.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link"></i>
+                我的 gitee
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://blog.csdn.net/runAndRun" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link CSDN"></i>
+                我的 CSDN
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/aboutMe.html">
+                <i class="icon icon-address-card"></i>
+                关于我
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+
+        <div class="navbar navbar-custom navbar-fixed-top">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" style="margin-left:10px;" id="menu-toggle" title="显示左侧导航"><i class="icon icon-lg icon-navicon"></i>﹥</a>
+            <ul class="nav navbar-nav navbar-right" id="navMenuTop">
+                <li>
+                    <a href="/">主页</a>
+                </li>
+                
+                    
+                        <li>
+                            <a href="/articleClassify.html" title="本博客的文章分类列表">文章分类</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/articles.html" title="本博客的所有文章列表">文章列表</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/java.html" title="Java 开发，文章目录">Java</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/database.html" title="日常开发中有关 MySQL、MyBatis 的一些经验总结">MySQL/MyBatis</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/linux.html" title="CentOS/linux，文章目录">CentOS/linux</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/react.html" title="React 技术栈（全家桶）学习心得分享，文章目录">React</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/about.html">关于</a>
+                        </li>
+                    
+                
+            </ul>
+        </div>
+
+        <div class="flex-col header-title ellipsis">在 windows7 下配置 nginx 支持 php</div>
+        
+        <div class="search-wrap" id="search-wrap" style="z-index: 2;">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back" style="width:33px;">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search" style="width:33px;">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare" style="z-index: 3;margin-right: 10px; width:30px;">
+                <i class="icon icon-lg icon-share-alt"></i>
+            </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h2 class="title">在 windows7 下配置 nginx 支持 php</h2>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-05-08T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2017-05-09
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/windows/">windows</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/windows/nginx/">nginx</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/windows/nginx/php/">php</a></li></ul></li></ul></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap" id="index-container">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc" style="z-index: 3;">
+            <h4><i class="fa fa-list-alt"></i>&nbsp;&nbsp;本文目录</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#关于-nginx-与-Apache"><span class="post-toc-number">1.</span> <span class="post-toc-text">关于 nginx 与 Apache</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#在安装为系统服务之前，下面的命令，对于开发阶段，已经足够。"><span class="post-toc-number">2.</span> <span class="post-toc-text">在安装为系统服务之前，下面的命令，对于开发阶段，已经足够。</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#配置-nginx-支持-php"><span class="post-toc-number">3.</span> <span class="post-toc-text">配置 nginx 支持 php</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#php-版本，我们需要下载-NTS-版本。"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">php 版本，我们需要下载 NTS 版本。</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#PHP-的两种执行方式：ISAPI-和-FastCGI"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">PHP 的两种执行方式：ISAPI 和 FastCGI</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#修改-php-ini-文件"><span class="post-toc-number">3.3.</span> <span class="post-toc-text">修改 php.ini 文件</span></a></li></ol></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#配置-nginx-站点"><span class="post-toc-number">4.</span> <span class="post-toc-text">配置 nginx 站点</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#运行-php-cgi"><span class="post-toc-number">5.</span> <span class="post-toc-text">运行 php-cgi</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#RunHiddenConsole"><span class="post-toc-number">6.</span> <span class="post-toc-text">RunHiddenConsole</span></a></li></ol>
+        </nav>
+    </aside>
+    
+
+<article id="post-windows/winNginxSupportPhp" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">在 windows7 下配置 nginx 支持 php</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017年05月09日 0:00" datetime="2017-05-08T16:00:00.000Z" itemprop="datePublished">2017-05-09</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/windows/">windows</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/windows/nginx/">nginx</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/windows/nginx/php/">php</a></li></ul></li></ul></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" style="display:none">
+    阅读量：<span id="busuanzi_value_page_pv"></span>次
+</span>
+
+
+    <span>|</span>
+    <span class="post-count">字数：1.9k</span>
+    <span>|</span>
+    <span class="post-count">阅读时长：大约7分钟</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>如题<br><a id="more"></a></p>
+<p>如何在 windows 下安装和删除 nginx 服务，请看我的另外一篇文章：<a href="/windows/winInstallNginxAsService">把 nginx 安装为 Windows 的一个服务</a></p>
+<h4 id="关于-nginx-与-Apache"><a href="#关于-nginx-与-Apache" class="headerlink" title="关于 nginx 与 Apache"></a>关于 nginx 与 Apache</h4><p>笔者所在的公司，开发环境用过 Apache 来支持 php（配置很容易），而线上用的是 nginx，为了与线上环境保持一致，笔者花了些时间把开发环境改成 nginx。<br>在配置的过程中，遇到好多坑，特此记录下来，除了备忘、给新员工当教程，同时也希望能帮到需要的朋友。</p>
+<h4 id="在安装为系统服务之前，下面的命令，对于开发阶段，已经足够。"><a href="#在安装为系统服务之前，下面的命令，对于开发阶段，已经足够。" class="headerlink" title="在安装为系统服务之前，下面的命令，对于开发阶段，已经足够。"></a>在安装为系统服务之前，下面的命令，对于开发阶段，已经足够。</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">nginx -t        <span class="comment"># 检查 nginx 的配置是否有效</span></span><br><span class="line">start nginx     <span class="comment"># 启动 nginx</span></span><br><span class="line">nginx -s stop   <span class="comment"># 快速关闭Nginx，可能不保存相关信息，并迅速终止web服务。（快速退出）</span></span><br><span class="line">nginx -s reload <span class="comment"># 因改变了Nginx相关配置，需要重新加载配置而重载。（重新加载配置）</span></span><br><span class="line">nginx -s quit   <span class="comment"># 平稳关闭Nginx，保存相关信息，有安排的结束web服务。（平滑退出）</span></span><br><span class="line">nginx -s reopen <span class="comment"># 重新打开日志文件。(重新加载日志)</span></span><br></pre></td></tr></table></figure>
+<p>注意，安装成服务之后，上面的命令不起作用了，如果修改了配置想要生效，只能 net stop nginx 然后 net start nginx。<br>当然也可以 net stop nginx 之后（在 windows 服务管理窗口也可以操作），进入安装目录，重新用上面的命令。<br>另外，如果上面的命令也没能使配置生效，那么，这时一般会有多于一个 nginx 进程，全部结束掉，然后再开启 nginx 就能解决。</p>
+<h4 id="配置-nginx-支持-php"><a href="#配置-nginx-支持-php" class="headerlink" title="配置 nginx 支持 php"></a>配置 nginx 支持 php</h4><h5 id="php-版本，我们需要下载-NTS-版本。"><a href="#php-版本，我们需要下载-NTS-版本。" class="headerlink" title="php 版本，我们需要下载 NTS 版本。"></a>php 版本，我们需要下载 NTS 版本。</h5><p>nginx 下 php 是以 FastCGI 的方式运行，所以我们下载非线程安全也就是 nts 的 php 包。<br>官方提供了两种版本，即线程安全和非线程安全。</p>
+<ol>
+<li>TS：Thread Safe 线程安全， 执行时会进行线程（Thread）安全检查，以防止有新要求就启动新线程的CGI执行方式而耗尽系统资源。</li>
+<li>NTS：Non Thread Safe 非线程安全， 在执行时不进行线程（Thread）安全检查。</li>
+<li><a href="http://windows.php.net/downloads/releases/archives/" rel="external nofollow noopener noreferrer" target="_blank">php 所有版本下载地址</a>，要下载 5.4 以前的童鞋有福音了，目前官网下载只能找到 5.5 以后的。</li>
+</ol>
+<h5 id="PHP-的两种执行方式：ISAPI-和-FastCGI"><a href="#PHP-的两种执行方式：ISAPI-和-FastCGI" class="headerlink" title="PHP 的两种执行方式：ISAPI 和 FastCGI"></a>PHP 的两种执行方式：ISAPI 和 FastCGI</h5><ol>
+<li>CGI（通用网关接口/Common Gateway Interface）一般是可执行程序，例如 EXE 文件，和 WEB 服务器各自占据着不同的进程，而且一般一个 CGI 程序只能处理一个用户请求。这样，当用户请求数量非常多时，会大量占用系统的资源，如内存、CPU 时间等，造成性能低下。</li>
+<li>FastCGI 是可伸缩架构的 CGI 开放扩展，其主要行为是将 CGI 解释器进程保持在内存中并因此获得较高的性能。传统的 CGI 解释器的反复加载是 CGI 性能低下的主要原因，如果 CGI 解释器保持在内存中并接受 FastCGI 进程管理器调度，则可以提供良好的性能、伸缩性等。nginx 下 php 是以 FastCGI 的方式运行，所以我们需要下载 Non Thread Safe 版本。</li>
+<li>ISAPI（Internet Server Application Program Interface）是微软提供的一套面向 WEB 服务的 API 接口，它能实现 CGI 提供的全部功能，并在此基础上进行了扩展，如提供了过滤器应用程序接口。ISAPI 应用大多数以 DLL 动态库的形式使用，可以在被用户请求后执行，在处理完一个用户请求后不会马上消失，而是继续驻留在内存中等待处理别的用户输入。此外,ISAPI 的 DLL应用程序和 WEB 服务器处于同一个进程中，效率要显著高于 CGI。所以如果是以 ISAPI 来执行 PHP，建议选择 Thread Safe版本。</li>
+</ol>
+<h5 id="修改-php-ini-文件"><a href="#修改-php-ini-文件" class="headerlink" title="修改 php.ini 文件"></a>修改 php.ini 文件</h5><p>在 php 目录下，将 php.ini-production 改为 php.ini，按如下步骤修改。</p>
+<ol>
+<li>搜索“extension_dir”，找到： e;xtension_dir = “ext” 先去前面的分号再改为 extension_dir = “C:\dev\dev.services\php-5.4.45\ext”</li>
+<li>搜索“date.timezone”，找到：;date.timezone = 先去前面的分号再改为 date.timezone = Asia/Shanghai</li>
+<li>搜索“enable_dl”，找到：enable_dl = Off 改为 enable_dl = On</li>
+<li>搜索“cgi.force_redirect” ;cgi.force_redirect = 1 先去前面的分号再改为 cgi.force_redirect = 0</li>
+<li>搜索“fastcgi.impersonate”，找到： ;fastcgi.impersonate = 1 去掉前面的分号</li>
+<li>搜索“cgi.rfc2616_headers”，找到：;cgi.rfc2616_headers = 0 先去前面的分号再改为 cgi.rfc2616_headers = 1</li>
+<li>搜索“php_mysql”，找到：”extension=php_mysql.dll和extension=php_mysqli.dll  去掉前面的“;”（支持MYSQL数据库）</li>
+</ol>
+<h4 id="配置-nginx-站点"><a href="#配置-nginx-站点" class="headerlink" title="配置 nginx 站点"></a>配置 nginx 站点</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen       80;</span><br><span class="line">    server_name  my.site.com;</span><br><span class="line">    charset utf-8;</span><br><span class="line">    access_log  logs/my.site.com.access.log;</span><br><span class="line">    error_log   logs/my.site.com.error.log;</span><br><span class="line">    root   D:/dev.workspace/php/mysite/web/;</span><br><span class="line">    index  index.php;</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 下面的配置需要根据你用的 php 框架灵活变更</span></span><br><span class="line">    <span class="comment"># 我们的框架只有 index.php 一个 php 为后缀的文件，其它都是 html 为后缀的文件</span></span><br><span class="line">    <span class="comment"># 我们的项目采用了 mvc 框架，配置路由来访问相关页面，url 没有文件后缀。</span></span><br><span class="line">    <span class="comment"># 所以，必须这样配置，否则除了访问 index.php 之外，会报 404 错误。 </span></span><br><span class="line">    location / &#123;</span><br><span class="line">         <span class="keyword">if</span> (!-e <span class="variable">$request_filename</span>) &#123;</span><br><span class="line">             rewrite  ^(.*)$  /index.php  last;</span><br><span class="line">             <span class="built_in">break</span>;</span><br><span class="line">         &#125;</span><br><span class="line">   &#125;</span><br><span class="line">    </span><br><span class="line">    location ~ \.php$ &#123;</span><br><span class="line">        <span class="comment">#root           D:/dev.workspace/php/mysite/web/; #上面已经设置过，这里不用再设置，应该是二选一</span></span><br><span class="line">        fastcgi_pass   127.0.0.1:9000;</span><br><span class="line">        fastcgi_index  index.php;</span><br><span class="line">        fastcgi_param  SCRIPT_FILENAME  <span class="variable">$document_root</span><span class="variable">$fastcgi_script_name</span>;</span><br><span class="line">        include        fastcgi_params;</span><br><span class="line">        fastcgi_read_timeout  1d;            <span class="comment">#新增，xdebug调试时长</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>注意这里面的 $document_root 变量，它对应的内容就是 root 参数值，如果我们没有定义 root 参数，在访问 php 页面的时候，会报错：“No input file specified.”。</p>
+<p>配置完成后，需要重启 nginx<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 如果安装成 windows 服务，用下面的命令</span></span><br><span class="line">net stop nginx</span><br><span class="line">net start nginx</span><br><span class="line"><span class="comment"># 否则，进入 nginx 目录，输入：</span></span><br><span class="line">nginx -s stop</span><br><span class="line">start nginx</span><br></pre></td></tr></table></figure></p>
+<h4 id="运行-php-cgi"><a href="#运行-php-cgi" class="headerlink" title="运行 php-cgi"></a>运行 php-cgi</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 请注意需要将路径替换成你自己的。</span></span><br><span class="line"><span class="built_in">cd</span> C:\dev\dev.services\php-5.4.45-nts-Win32-VC9-x86</span><br><span class="line">php-cgi.exe -b 127.0.0.1:9000 -c C:\dev\dev.services\php-5.4.45-nts-Win32-VC9-x86\php.ini</span><br></pre></td></tr></table></figure>
+<p>如果需要停止 php-cgi 按 ctrl + c 或者关闭窗口即可。<br>注意，只有在开启 php-cgi 的情况下，nginx 才能正常解析 php 程序。<br>当然，我们通常是需要一直保持 php-cgi 运行的，甚至是开机自动运行。那么，如果用这种方式运行，dos 窗口不能关，不太方便，怎么破？我们可以借助一个小工具 RunHiddenConsole（感谢开发者），让 php-cgi 在后台运行。</p>
+<h4 id="RunHiddenConsole"><a href="#RunHiddenConsole" class="headerlink" title="RunHiddenConsole"></a>RunHiddenConsole</h4><ol>
+<li>CSDN 下载地址：<a href="http://download.csdn.net/detail/johnnycode/8045177" rel="external nofollow noopener noreferrer" target="_blank">RunHiddenConsole</a>，或自行百度，挺多的。</li>
+<li>RunHiddenConsole.exe 的作用是在执行完命令行脚本后可以自动关闭 cmd 窗口，而从脚本中开启的进程不被关闭。</li>
+<li><p>下载后解压，我电脑上的目录是： C:\dev\dev.services\RunHiddenConsole，在这个文件夹中添加一个批处理文件：startPhpCgi.bat</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off</span><br><span class="line"><span class="built_in">set</span> phpHome=C:\dev\dev.services\php-5.4.45-nts-Win32-VC9-x86</span><br><span class="line">RunHiddenConsole.exe %phpHome%\php-cgi.exe -b 127.0.0.1:9000 -c %phpHome%\php.ini</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>创建 startPhpCgi.bat 的快捷方式，将快捷方式复制到启动目录（C:\ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp），这样，电脑打开后会自动运行。</p>
+<blockquote>
+<p>启动目录，还有用户目录：C:\Users\userName\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup, 其中 userName 为用户名。</p>
+</blockquote>
+</li>
+<li><p>如果要停止 php-cgi ，以管理员身份运行如下命令</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">taskkill /F /IM php-cgi.exe &gt; nul</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>建议将 nginx 安装成 windows 服务并设置为自动启动，这样一来，开机之后就可以撸代码了，而不用担心 php-cgi 和 nginx 服务是否还没有启动。</p>
+</li>
+<li><a href="/windows/winInstallNginxAsService">把 nginx 安装为 Windows 的一个服务</a>，照此操作，nginx 服务默认就是随操作系统自启动的。</li>
+</ol>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-09-01T02:53:13.118Z" itemprop="dateUpdated">2020年9月1日 10:53</time>
+</span><br>
+
+
+        转载请注明出处：<a href="/windows/winNginxSupportPhp.html" target="_blank" rel="external">https://www.lovesofttech.com/windows/winNginxSupportPhp.html</a>
+    </div>
+    <footer>
+        <a href="https://www.lovesofttech.com">
+            <img src="/img/myLogo.jpg" alt="安迪陈">
+            安迪陈
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nginx/">nginx</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/php/">php</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/windows/">windows</a></li></ul>
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/windows/winNginxSupportPhp.html&title=《在 windows7 下配置 nginx 支持 php》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/windows/winNginxSupportPhp.html&title=《在 windows7 下配置 nginx 支持 php》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=如题" data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/windows/winNginxSupportPhp.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《在 windows7 下配置 nginx 支持 php》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/windows/winNginxSupportPhp.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/windows/winNginxSupportPhp.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/windows/winInstallNginxAsService.html" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">把 nginx 安装为 Windows 的一个服务</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/windows/winDeleteService.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">删除 Windows 服务</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+    
+    
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="bottom">
+        <p>
+            <span>安迪陈技术日志，架构、感悟、系统分析、团队管理 &copy; 2017 - 2020</span>
+            <span>
+                Power by <a href="https://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>&nbsp;
+                Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank" rel="external nofollow noopener noreferrer">indigo</a>
+            </span>
+            <span>
+                <a href="http://www.beian.miit.gov.cn" target="_blank" rel="external nofollow noopener noreferrer">蜀ICP备17041860号</a>
+            </span>
+            
+            <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            </p><p>
+                <span>
+                    统计始于：2019-03-06
+                </span>
+                <span id="busuanzi_container_site_uv" style="display:none">
+                    访客数：<span id="busuanzi_value_site_uv"></span>
+                </span>
+                <span id="busuanzi_container_site_pv" style="display:none">
+                    访问量：<span id="busuanzi_value_site_pv"></span>
+                </span>
+            
+            
+                <span class="post-count">累计字数：309.2k</span>
+            
+                <span><a href="/general/blogLog.html"><i class="fas fa-pen-alt"></i>&nbsp;博客日志</a></span>
+            </p>
+        <p></p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light" title="回到顶部"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/windows/winNginxSupportPhp.html&title=《在 windows7 下配置 nginx 支持 php》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/windows/winNginxSupportPhp.html&title=《在 windows7 下配置 nginx 支持 php》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=如题" data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/windows/winNginxSupportPhp.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《在 windows7 下配置 nginx 支持 php》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/windows/winNginxSupportPhp.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/windows/winNginxSupportPhp.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACLklEQVR42u3azY7CMAxFYd7/pTvSrEYqLefaAQ3OyQoVaPOxMPHP44HX8bvOr8mV87t/r58/efX5BUuGDBlfyzhu1/1GO9fTK1d7kyFDxj4MEmSvYPf4exh//WLPMmTIkIEDaOfYRwK9DBkyZKQBt8aoBV8ZMmTIIEksSS/T8hx/7rJcXIYMGV/I6DQG3v36Q/0NGTJk/GPGES4eLknbsnbPJ3eQIUPGaAYfnkhbBZ1QXnyKDBkyRjM6pCAghme82q5kyJAxj1ELl3zMIt0iP1wGvVYZMmSMYKSNyU4FjMOCwpwMGTI2YKQhuFOk4z9KMKwmQ4aM0YxO+OMJJ0lW06KbDBky9mGkRbE0WeXHOz5G9uRbMmTI2IBRSz7JhmrhNf4bkCFDxgaMdBQsbQ/UqMFPJkOGjNEMPmxBbkfS3bTNWUuSZciQMYnBH8OTVT6cQQIuGg6TIUPGaAYvqPGAW8OkB010NJQhQ8YgBk8149EHPDzRSaFlyJCxAyMNeatGLmokGTJk7MYg7UP++HSYLKUG51kZMmSMY5Bg129qpu1M3siUIUPGbEZaYqs1OHlRb/G/hwwZMkYwjnB1Cm2rmg1P3pUhQ8ZoRi2B5A3LTquAHzdlyJCxA2NVE5EH6/Q+6LsyZMjYgJEG2XckqK2gL0OGDBmlcYq1JbwXgViGDBky2kX82sExKMbJkCFjAwYfjEhHNGpHRn70lCFDxg6MWujspKw8lPPnypAhYyjjB6LM+ggSd/sjAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.5.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.5.2" async></script>
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '安迪陈技术日志';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '欢迎回来';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

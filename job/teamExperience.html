@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<!--<script async src="//hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c"></script>-->
+<!-- 统计-->
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var host = window.location.host;
+        var hm = document.createElement("script");
+
+        if (host.indexOf('gitee.io') > 0) { // https://uncleandychen.gitee.io/
+            hm.src = "https://hm.baidu.com/hm.js?0cf4709148b070b8082191d2e456a1a3";
+        } else if (host.indexOf('lovesofttech.com') > 0) { // https://www.lovesofttech.com/
+            hm.src = "https://hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c";
+        } else {
+            hm.src = '';
+        }
+
+        if (hm.src !== '') {
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        }
+    })();
+</script>
+<!-- End Baidu Tongji -->
+
+
+
+<!-- Baidu Push -->
+<!-- 主动推送百度爬虫-->
+<script>
+    (function(){
+        if (window.location.host.indexOf('lovesofttech.com') < 0) {
+            return;
+        }
+
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+<!-- End Baidu Push -->
+
+
+    <meta charset="utf-8">
+    
+    
+    <link rel="canonical" href="https://www.lovesofttech.com/job/teamExperience.html">
+    
+    
+    <title>团队在开发中应该遵循的一些规则，以及部分经验总结 | 安迪陈技术日志，架构、感悟、系统分析、团队管理 | 自强不息，厚德载物</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="job,经验">
+    <meta name="description" content="如题">
+<meta name="keywords" content="job,经验">
+<meta property="og:type" content="article">
+<meta property="og:title" content="团队在开发中应该遵循的一些规则，以及部分经验总结">
+<meta property="og:url" content="https://www.lovesofttech.com/job/teamExperience.html">
+<meta property="og:site_name" content="安迪陈技术日志，架构、感悟、系统分析、团队管理">
+<meta property="og:description" content="如题">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2020-09-01T02:53:13.011Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="团队在开发中应该遵循的一些规则，以及部分经验总结">
+<meta name="twitter:description" content="如题">
+    
+        <link rel="alternative" href="/atom.xml" title="安迪陈技术日志，架构、感悟、系统分析、团队管理" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=201912302211">
+    <link rel="stylesheet" href="/css/header.css?v=201912302211">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu">
+  <div class="inner flex-row-vertical">
+    <!--<i class="icon icon-lg icon-close"></i>-->
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off" title="隐藏左侧导航">﹤<i class="icon icon-lg icon-navicon"></i></a>
+    <div class="brand-wrap" style="background-image:url(/img/bannerBackgroundLeft.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/myLogo.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">安迪陈</h5>
+          <a href="mailto:andy@lovesofttech.com" title="andy@lovesofttech.com" class="mail" rel="external nofollow noopener noreferrer" target="_blank">andy@lovesofttech.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articleClassify.html">
+                <i class="icon icon-th-list"></i>
+                文章分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articles.html">
+                <i class="icon icon-th-list articles"></i>
+                文章列表
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/java.html">
+                <i class="icon icon-th-list java"></i>
+                Java
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/database.html">
+                <i class="icon icon-th-list database"></i>
+                MySQL/MyBatis
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/linux.html">
+                <i class="icon icon-th-list linux"></i>
+                CentOS/linux
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/react.html">
+                <i class="icon icon-th-list React"></i>
+                React
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/lnmp.html">
+                <i class="icon icon-th-list LNMP"></i>
+                LNMP
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/git.html">
+                <i class="icon icon-th-list git"></i>
+                git
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/windows.html">
+                <i class="icon icon-th-list windows"></i>
+                windows
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/dailyLives.html">
+                <i class="icon icon-th-list dailyLives"></i>
+                工作 &amp; 生活
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-github"></i>
+                我的 github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://gitee.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link"></i>
+                我的 gitee
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://blog.csdn.net/runAndRun" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link CSDN"></i>
+                我的 CSDN
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/aboutMe.html">
+                <i class="icon icon-address-card"></i>
+                关于我
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+
+        <div class="navbar navbar-custom navbar-fixed-top">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" style="margin-left:10px;" id="menu-toggle" title="显示左侧导航"><i class="icon icon-lg icon-navicon"></i>﹥</a>
+            <ul class="nav navbar-nav navbar-right" id="navMenuTop">
+                <li>
+                    <a href="/">主页</a>
+                </li>
+                
+                    
+                        <li>
+                            <a href="/articleClassify.html" title="本博客的文章分类列表">文章分类</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/articles.html" title="本博客的所有文章列表">文章列表</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/java.html" title="Java 开发，文章目录">Java</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/database.html" title="日常开发中有关 MySQL、MyBatis 的一些经验总结">MySQL/MyBatis</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/linux.html" title="CentOS/linux，文章目录">CentOS/linux</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/react.html" title="React 技术栈（全家桶）学习心得分享，文章目录">React</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/about.html">关于</a>
+                        </li>
+                    
+                
+            </ul>
+        </div>
+
+        <div class="flex-col header-title ellipsis">团队在开发中应该遵循的一些规则，以及部分经验总结</div>
+        
+        <div class="search-wrap" id="search-wrap" style="z-index: 2;">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back" style="width:33px;">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search" style="width:33px;">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare" style="z-index: 3;margin-right: 10px; width:30px;">
+                <i class="icon icon-lg icon-share-alt"></i>
+            </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h2 class="title">团队在开发中应该遵循的一些规则，以及部分经验总结</h2>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-04-14T00:29:16.000Z" itemprop="datePublished" class="page-time">
+  2017-04-14
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/经验/">经验</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/经验/job/">job</a></li></ul></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap" id="index-container">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc" style="z-index: 3;">
+            <h4><i class="fa fa-list-alt"></i>&nbsp;&nbsp;本文目录</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#团队是否应该使用同样的-IDE，编码效率"><span class="post-toc-number">1.</span> <span class="post-toc-text">团队是否应该使用同样的 IDE，编码效率</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#编码规范"><span class="post-toc-number">2.</span> <span class="post-toc-text">编码规范</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#数据库开发规范"><span class="post-toc-number">3.</span> <span class="post-toc-text">数据库开发规范</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#有关枚举的使用"><span class="post-toc-number">4.</span> <span class="post-toc-text">有关枚举的使用</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#查看表结构说明脚本"><span class="post-toc-number">5.</span> <span class="post-toc-text">查看表结构说明脚本</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#好记性不如烂笔头-gt-最佳实践"><span class="post-toc-number">6.</span> <span class="post-toc-text">好记性不如烂笔头-&gt;最佳实践</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#多模块，添加pom父模块。"><span class="post-toc-number">7.</span> <span class="post-toc-text">多模块，添加pom父模块。</span></a></li></ol>
+        </nav>
+    </aside>
+    
+
+<article id="post-job/teamExperience" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">团队在开发中应该遵循的一些规则，以及部分经验总结</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017年04月14日 8:29" datetime="2017-04-14T00:29:16.000Z" itemprop="datePublished">2017-04-14</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/经验/">经验</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/经验/job/">job</a></li></ul></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" style="display:none">
+    阅读量：<span id="busuanzi_value_page_pv"></span>次
+</span>
+
+
+    <span>|</span>
+    <span class="post-count">字数：1.4k</span>
+    <span>|</span>
+    <span class="post-count">阅读时长：大约5分钟</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>如题<br><a id="more"></a></p>
+<h1 id="团队是否应该使用同样的-IDE，编码效率"><a href="#团队是否应该使用同样的-IDE，编码效率" class="headerlink" title="团队是否应该使用同样的 IDE，编码效率"></a>团队是否应该使用同样的 IDE，编码效率</h1><ul>
+<li>作为一个资深的 windows 使用者和电脑重度使用者，最关键的，是每天跟代码打交道，每天需要看代码，修改代码，同时还需要聚精会神的思考，所以，我们不要让操作键盘和鼠标影响我们思考从而降低工作效率。</li>
+<li>那么，盲打肯定是必须的，不光盲打，而且还要快。正确的姿势是什么呢？双手放到键盘上，目视屏幕，很多操作都是通过键盘的快捷键完成，比如 windows 的日常操作，切换软件界面用 Alt+Tab，打开我的电脑用 win+E，创建新文件夹用 Ctrl+Shift+n 等等。</li>
+<li>coding，更是要讲究高效，麻利，那么，正确使用 IDE 的姿势，少不了快捷键的熟练使用，代码自动完成这些应该都不在话下才对。比如想要输入 【System.out.println(“ something “);】，只需要输入 sout 之后，再敲 Ctrl+空格，然后会出现选择框，默认第一项就是我们想要的，只需要再敲回车就 OK 了。IDEA 更快，输入 so 然后默认第一项就是，之后回车就 OK 了。</li>
+<li>那么，如果你跟我一样，自己最常用的是 IDEA，而团队里有成员在用 sts，时不时的有下属有问题需要你去解决，你又不能硬性的要求别人都使用 IDEA，这样因为 IDE 的不同，会非常影响交流效果，因为你去那座位上看代码，会很不习惯，往往会影响你思考甚至可能会影响到你的信心。但是如果你也用跟他同样的 IDE 的话，就好办了，你可以用你自己的电脑跟他交流，这样，打造一个你自己熟悉的跟同事一样的 IDE 环境就显得非常重要了。</li>
+<li>说得有点多哈，其实，在一个团队里，要求都用同样的 IDE 会带来很多方便和避免很多不必要的麻烦。但是这个要求，实施起来有点难度，对于使用怪了 Eclipse 的，要求用 IDEA，对他（她）来说是一件非常痛苦的事情，所以，在我的团队里，可以选自己熟悉的，不过，我会分享使用 IDEA 的心得，如果有人愿意尝试，我很乐意帮他（她）。</li>
+</ul>
+<h1 id="编码规范"><a href="#编码规范" class="headerlink" title="编码规范"></a>编码规范</h1><ol>
+<li>确保将tab换成4个空格</li>
+<li>确保将文件的编码格式全部设置成:UTF-8</li>
+<li>用eclipse，请导入群文件：eclise_code_style.xml</li>
+<li>用idea，请导入群文件：idea_settings_code_style.jar</li>
+<li>请仔细阅读群文件：我购美_Java编码规范（PHP参考）.docx</li>
+</ol>
+<h1 id="数据库开发规范"><a href="#数据库开发规范" class="headerlink" title="数据库开发规范"></a>数据库开发规范</h1><ol>
+<li>不可以在sql里用聚合函数。</li>
+<li>开发时尽量用简单sql语句查数据。对数据的处理逻辑一律放到应用端（目前是java程序）。</li>
+<li>除非不得已，不要在sql语句里进行多表关联查询。如果非要这么做，请联系项目负责人。</li>
+</ol>
+<h1 id="有关枚举的使用"><a href="#有关枚举的使用" class="headerlink" title="有关枚举的使用"></a>有关枚举的使用</h1><ol>
+<li>代码逻辑里有用到某一字段判断的，这个字段如果有多种可能的情况，典型的例子就是状态值，如果还没有枚举，需要维护一个对应的枚举。</li>
+<li><p>跟这个字段相关的代码不允许使用数字，一律要用枚举。使用方式：</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">case</span> XIA_DAN_GUAN_HUAI_DAO_FU:<span class="comment">// 下单关怀（到付）</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (logisticsDetailTraceView.action.equals(LogisticsActionEnum.SENT_CITY.name()))</span><br><span class="line"></span><br><span class="line">stepType = TradeSmsFlowStepEnum.tbPackageArriveTheBuyerCity.getCode();</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>好处1：查询代码时，ctrl+鼠标点击，能看到枚举定义的地方，同时还可以看到整个枚举定义，对于理解代码和业务逻辑有很大的帮助。</p>
+</li>
+<li>好处2：增减枚举，修改枚举对应的值时，程序的业务逻辑代码不受影响。</li>
+<li>其它有多种可能性的代码处理，也需要通过枚举来辅助。</li>
+</ol>
+<h1 id="查看表结构说明脚本"><a href="#查看表结构说明脚本" class="headerlink" title="查看表结构说明脚本"></a>查看表结构说明脚本</h1><p>推荐使用MySQLWorkbench，去oracle官方下载最新，免费、开源、强大、官方支持。<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> </span><br><span class="line">    column_name 字段名,</span><br><span class="line">    column_type 字段类型,</span><br><span class="line">    is_nullable 可否为空,</span><br><span class="line">    column_default 默认值,</span><br><span class="line">    column_comment 说明</span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">    information_schema.columns</span><br><span class="line"><span class="keyword">WHERE</span></span><br><span class="line">table_name = <span class="string">'tableName'</span></span><br><span class="line"><span class="keyword">AND</span> table_schema = <span class="string">'SchemaName'</span></span><br><span class="line"><span class="comment">-- and column_name = 'is_primary'</span></span><br><span class="line">;</span><br></pre></td></tr></table></figure></p>
+<h1 id="好记性不如烂笔头-gt-最佳实践"><a href="#好记性不如烂笔头-gt-最佳实践" class="headerlink" title="好记性不如烂笔头-&gt;最佳实践"></a>好记性不如烂笔头-&gt;最佳实践</h1><p>建议：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">有疑问的，【todo ****】</span></span><br><span class="line"><span class="comment">需要很快解决的，【todo ***】</span></span><br><span class="line"><span class="comment">不影响系统运行，不影响逻辑，优化部分，【todo **】</span></span><br><span class="line"><span class="comment">不确定是否需要优化但逻辑正确的，【todo *】</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure></p>
+<p>在上线前，全项目搜索需要很快解决的代码。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">        <span class="comment">//临时测试 测试完恢复 todo ***</span></span><br><span class="line">        List&lt;TopTmcMessageQueueView&gt; NeedSyncTradeMessageQueueViews =messageQueueViews;</span><br><span class="line"></span><br><span class="line"><span class="comment">//        List&lt;TopTmcMessageQueueView&gt; NeedSyncTradeMessageQueueViews = messageQueueViews.stream().</span></span><br><span class="line"><span class="comment">//                filter(o-&gt;CommonService.topicsNeedSyncTrade.contains(o.getTopicEnum())).collect(Collectors.toList());</span></span><br></pre></td></tr></table></figure></p>
+<p>上面的条件不再适用的时候，将todo 删除掉</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;TopTmcMessageQueueView&gt; NeedSyncTradeMessageQueueViews = messageQueueViews.stream().filter(o-&gt;CommonService.topicsNeedSyncTrade.contains(o.getTopicEnum())).collect(Collectors.toList());</span><br></pre></td></tr></table></figure>
+<h1 id="多模块，添加pom父模块。"><a href="#多模块，添加pom父模块。" class="headerlink" title="多模块，添加pom父模块。"></a>多模块，添加pom父模块。</h1><p>唯一的好处是可以统一管理依赖，其它相关项目不需要管理自己的依赖项。但是弊端也挺多的，如下：</p>
+<ol>
+<li>会导致依赖混乱，如某一个依赖项只有其中一个模块要用到，结果依赖到这个父模块的子模块全部都要依赖它，某一天，这个依赖不再需要了，又不敢随便删除依赖，因为怕别的子模块需要，人手多了，随着时间推移，众多依赖项都不知道哪些是多余的。</li>
+<li>让每个模块单独管理自己的依赖，在察觉到有多余依赖时，尽管删除，只要保证这个模块能编译通过即可。</li>
+<li>方便重用某些公共模块，别的项目只要引入这个模块即可使用，而不用管理它的依赖项。</li>
+</ol>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-09-01T02:53:13.011Z" itemprop="dateUpdated">2020年9月1日 10:53</time>
+</span><br>
+
+
+        转载请注明出处：<a href="/job/teamExperience.html" target="_blank" rel="external">https://www.lovesofttech.com/job/teamExperience.html</a>
+    </div>
+    <footer>
+        <a href="https://www.lovesofttech.com">
+            <img src="/img/myLogo.jpg" alt="安迪陈">
+            安迪陈
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/job/">job</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/经验/">经验</a></li></ul>
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/job/teamExperience.html&title=《团队在开发中应该遵循的一些规则，以及部分经验总结》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/job/teamExperience.html&title=《团队在开发中应该遵循的一些规则，以及部分经验总结》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=如题" data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/job/teamExperience.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《团队在开发中应该遵循的一些规则，以及部分经验总结》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/job/teamExperience.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/job/teamExperience.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/general/hexoBlog.html" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">Hexo + gitee 免费个人博客搭建</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/java/apiDevelopRule.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">CRM 项目，api 部分的开发规则，仅供参考</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+    
+    
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="bottom">
+        <p>
+            <span>安迪陈技术日志，架构、感悟、系统分析、团队管理 &copy; 2017 - 2020</span>
+            <span>
+                Power by <a href="https://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>&nbsp;
+                Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank" rel="external nofollow noopener noreferrer">indigo</a>
+            </span>
+            <span>
+                <a href="http://www.beian.miit.gov.cn" target="_blank" rel="external nofollow noopener noreferrer">蜀ICP备17041860号</a>
+            </span>
+            
+            <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            </p><p>
+                <span>
+                    统计始于：2019-03-06
+                </span>
+                <span id="busuanzi_container_site_uv" style="display:none">
+                    访客数：<span id="busuanzi_value_site_uv"></span>
+                </span>
+                <span id="busuanzi_container_site_pv" style="display:none">
+                    访问量：<span id="busuanzi_value_site_pv"></span>
+                </span>
+            
+            
+                <span class="post-count">累计字数：309.2k</span>
+            
+                <span><a href="/general/blogLog.html"><i class="fas fa-pen-alt"></i>&nbsp;博客日志</a></span>
+            </p>
+        <p></p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light" title="回到顶部"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/job/teamExperience.html&title=《团队在开发中应该遵循的一些规则，以及部分经验总结》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/job/teamExperience.html&title=《团队在开发中应该遵循的一些规则，以及部分经验总结》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=如题" data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/job/teamExperience.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《团队在开发中应该遵循的一些规则，以及部分经验总结》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/job/teamExperience.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/job/teamExperience.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACK0lEQVR42u3a0U7DMAwFUP7/p4fEEwjY7o0LUpOTp6nLup4+WHbst7d4PT7W9yv59d/u+Xln/tvFhYGBcVvG4+n6zph/uwb77dkwMDDOYTwPsjk1ByQ7k2fDwMDAyENqsv9F0MTAwMC4KOC2FWVb9GJgYGBMiti2yHz+6BcHawwMjK0ZbWPgPz//YX8DAwPjJoxHuZLgmyeCz9O+4qkwMDC2ZiRH9sn1SfE5aTZEt8bAwLg5Iz/8mpSvk0O6KFnEwMDYmjE6iC8L0fborQ76GBgYmzLycnQticyL1cmoBwYGxgmMPHblIbU9qhuliRgYGIcx8uGwtUP/5Igt/98v/Q0MDIxNGe2hW7unTSLbdBMDA+MERts+bKez2jDdJogYGBgnMNaO49dCZNs6re+MgYGxNSMftsjHLNbw+Z56agMDA+PmjDz5uyr45k2F/H8xMDB2ZeSNgTzgToJ4PmaBgYFxDmMyJLFW7k4GNV5kgxgYGFsz1lK6q+rmvGAelbIYGBi3ZbRty7WUbs5+EYIxMDAOYCTlYp7GtUGzDa8/fMbAwNiakY9/re1JXkGbRGJgYJzGeJSrbVsmQXMe7jEwMPZmrA1Y5AVt20gYtTAxMDC2ZuRB9rLBiLKdWbxpDAyMrRlrzcW1/XW8TxoJGBgYGOWe9og/bxhEjUwMDAyMQcBdq6eTEhoDA+MExmRgImlzzpPFYsYNAwNjO0ZbQK4lfPN2Qv7KMDAwNmK8AyPeGQZHrMRdAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.5.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.5.2" async></script>
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '安迪陈技术日志';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '欢迎回来';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

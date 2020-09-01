@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<!--<script async src="//hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c"></script>-->
+<!-- 统计-->
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var host = window.location.host;
+        var hm = document.createElement("script");
+
+        if (host.indexOf('gitee.io') > 0) { // https://uncleandychen.gitee.io/
+            hm.src = "https://hm.baidu.com/hm.js?0cf4709148b070b8082191d2e456a1a3";
+        } else if (host.indexOf('lovesofttech.com') > 0) { // https://www.lovesofttech.com/
+            hm.src = "https://hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c";
+        } else {
+            hm.src = '';
+        }
+
+        if (hm.src !== '') {
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        }
+    })();
+</script>
+<!-- End Baidu Tongji -->
+
+
+
+<!-- Baidu Push -->
+<!-- 主动推送百度爬虫-->
+<script>
+    (function(){
+        if (window.location.host.indexOf('lovesofttech.com') < 0) {
+            return;
+        }
+
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+<!-- End Baidu Push -->
+
+
+    <meta charset="utf-8">
+    
+    
+    <link rel="canonical" href="https://www.lovesofttech.com/database/centOS7InstallMySQL8.0.11.html">
+    
+    
+    <title>CentOS7 安装 MySQL-8.0.11，以及由 8.0.11 降级至 5.7.22 | 安迪陈技术日志，架构、感悟、系统分析、团队管理 | 自强不息，厚德载物</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="MySQL,CentOS">
+    <meta name="description" content="与 5.7.x 的安装类似，这里记录一些安装和配置过程中遇到的坑。">
+<meta name="keywords" content="MySQL,CentOS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CentOS7 安装 MySQL-8.0.11，以及由 8.0.11 降级至 5.7.22">
+<meta property="og:url" content="https://www.lovesofttech.com/database/centOS7InstallMySQL8.0.11.html">
+<meta property="og:site_name" content="安迪陈技术日志，架构、感悟、系统分析、团队管理">
+<meta property="og:description" content="与 5.7.x 的安装类似，这里记录一些安装和配置过程中遇到的坑。">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2020-09-01T02:53:12.915Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CentOS7 安装 MySQL-8.0.11，以及由 8.0.11 降级至 5.7.22">
+<meta name="twitter:description" content="与 5.7.x 的安装类似，这里记录一些安装和配置过程中遇到的坑。">
+    
+        <link rel="alternative" href="/atom.xml" title="安迪陈技术日志，架构、感悟、系统分析、团队管理" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=201912302211">
+    <link rel="stylesheet" href="/css/header.css?v=201912302211">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu">
+  <div class="inner flex-row-vertical">
+    <!--<i class="icon icon-lg icon-close"></i>-->
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off" title="隐藏左侧导航">﹤<i class="icon icon-lg icon-navicon"></i></a>
+    <div class="brand-wrap" style="background-image:url(/img/bannerBackgroundLeft.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/myLogo.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">安迪陈</h5>
+          <a href="mailto:andy@lovesofttech.com" title="andy@lovesofttech.com" class="mail" rel="external nofollow noopener noreferrer" target="_blank">andy@lovesofttech.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articleClassify.html">
+                <i class="icon icon-th-list"></i>
+                文章分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articles.html">
+                <i class="icon icon-th-list articles"></i>
+                文章列表
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/java.html">
+                <i class="icon icon-th-list java"></i>
+                Java
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/database.html">
+                <i class="icon icon-th-list database"></i>
+                MySQL/MyBatis
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/linux.html">
+                <i class="icon icon-th-list linux"></i>
+                CentOS/linux
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/react.html">
+                <i class="icon icon-th-list React"></i>
+                React
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/lnmp.html">
+                <i class="icon icon-th-list LNMP"></i>
+                LNMP
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/git.html">
+                <i class="icon icon-th-list git"></i>
+                git
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/windows.html">
+                <i class="icon icon-th-list windows"></i>
+                windows
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/dailyLives.html">
+                <i class="icon icon-th-list dailyLives"></i>
+                工作 &amp; 生活
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-github"></i>
+                我的 github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://gitee.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link"></i>
+                我的 gitee
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://blog.csdn.net/runAndRun" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link CSDN"></i>
+                我的 CSDN
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/aboutMe.html">
+                <i class="icon icon-address-card"></i>
+                关于我
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+
+        <div class="navbar navbar-custom navbar-fixed-top">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" style="margin-left:10px;" id="menu-toggle" title="显示左侧导航"><i class="icon icon-lg icon-navicon"></i>﹥</a>
+            <ul class="nav navbar-nav navbar-right" id="navMenuTop">
+                <li>
+                    <a href="/">主页</a>
+                </li>
+                
+                    
+                        <li>
+                            <a href="/articleClassify.html" title="本博客的文章分类列表">文章分类</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/articles.html" title="本博客的所有文章列表">文章列表</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/java.html" title="Java 开发，文章目录">Java</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/database.html" title="日常开发中有关 MySQL、MyBatis 的一些经验总结">MySQL/MyBatis</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/linux.html" title="CentOS/linux，文章目录">CentOS/linux</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/react.html" title="React 技术栈（全家桶）学习心得分享，文章目录">React</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/about.html">关于</a>
+                        </li>
+                    
+                
+            </ul>
+        </div>
+
+        <div class="flex-col header-title ellipsis">CentOS7 安装 MySQL-8.0.11，以及由 8.0.11 降级至 5.7.22</div>
+        
+        <div class="search-wrap" id="search-wrap" style="z-index: 2;">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back" style="width:33px;">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search" style="width:33px;">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare" style="z-index: 3;margin-right: 10px; width:30px;">
+                <i class="icon icon-lg icon-share-alt"></i>
+            </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h2 class="title">CentOS7 安装 MySQL-8.0.11，以及由 8.0.11 降级至 5.7.22</h2>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-05-22T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2018-05-23
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/MySQL/">MySQL</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/MySQL/CentOS/">CentOS</a></li></ul></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap" id="index-container">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc" style="z-index: 3;">
+            <h4><i class="fa fa-list-alt"></i>&nbsp;&nbsp;本文目录</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#后记"><span class="post-toc-number">1.</span> <span class="post-toc-text">后记</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#在-CentOS-7-x86-64-Minimal-1810-上安装-8-0-16-的正确顺序"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">在 CentOS-7-x86_64-Minimal-1810 上安装 8.0.16 的正确顺序</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#遇到的依赖问题"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">遇到的依赖问题</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#安装前，先卸载-mariadb"><span class="post-toc-number">2.</span> <span class="post-toc-text">安装前，先卸载 mariadb</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#安装最新版-MySQL-8-0-11"><span class="post-toc-number">3.</span> <span class="post-toc-text">安装最新版 MySQL-8.0.11</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#环境"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">环境</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#安装"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">安装</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#总结"><span class="post-toc-number">3.2.1.</span> <span class="post-toc-text">总结</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#授权问题"><span class="post-toc-number">3.3.</span> <span class="post-toc-text">授权问题</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#客户端连接问题"><span class="post-toc-number">4.</span> <span class="post-toc-text">客户端连接问题</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#由-MySQL-8-0-11-降级到-5-7-22"><span class="post-toc-number">5.</span> <span class="post-toc-text">由 MySQL 8.0.11 降级到 5.7.22</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#仅执行-rpm-e-mysql-删除-5-个组件，然后重新安装，启动失败"><span class="post-toc-number">5.1.</span> <span class="post-toc-text">仅执行 rpm -e mysql 删除 5 个组件，然后重新安装，启动失败</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#重新操作，彻底删除"><span class="post-toc-number">5.2.</span> <span class="post-toc-text">重新操作，彻底删除</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#再次安装之后，启动成功"><span class="post-toc-number">5.3.</span> <span class="post-toc-text">再次安装之后，启动成功</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#后记-1"><span class="post-toc-number">6.</span> <span class="post-toc-text">后记</span></a></li></ol>
+        </nav>
+    </aside>
+    
+
+<article id="post-database/centOS7InstallMySQL8.0.11" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">CentOS7 安装 MySQL-8.0.11，以及由 8.0.11 降级至 5.7.22</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018年05月23日 0:00" datetime="2018-05-22T16:00:00.000Z" itemprop="datePublished">2018-05-23</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/MySQL/">MySQL</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/MySQL/CentOS/">CentOS</a></li></ul></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" style="display:none">
+    阅读量：<span id="busuanzi_value_page_pv"></span>次
+</span>
+
+
+    <span>|</span>
+    <span class="post-count">字数：2.2k</span>
+    <span>|</span>
+    <span class="post-count">阅读时长：大约12分钟</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>与 5.7.x 的安装类似，这里记录一些安装和配置过程中遇到的坑。<br><a id="more"></a></p>
+<h1 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h1><ul>
+<li>更新日期：2019-07-09</li>
+</ul>
+<h2 id="在-CentOS-7-x86-64-Minimal-1810-上安装-8-0-16-的正确顺序"><a href="#在-CentOS-7-x86-64-Minimal-1810-上安装-8-0-16-的正确顺序" class="headerlink" title="在 CentOS-7-x86_64-Minimal-1810 上安装 8.0.16 的正确顺序"></a>在 CentOS-7-x86_64-Minimal-1810 上安装 8.0.16 的正确顺序</h2><p>以 root 身份操作。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">yum install -y openssl-devel net-tools perl net-tools libaio</span><br><span class="line">rpm -ivh mysql-community-common-8.0.16-2.el7.x86_64.rpm</span><br><span class="line">rpm -ivh mysql-community-libs-8.0.16-2.el7.x86_64.rpm</span><br><span class="line">rpm -ivh mysql-community-devel-8.0.16-2.el7.x86_64.rpm</span><br><span class="line">rpm -ivh mysql-community-client-8.0.16-2.el7.x86_64.rpm</span><br><span class="line">rpm -ivh mysql-community-server-8.0.16-2.el7.x86_64.rpm</span><br></pre></td></tr></table></figure></p>
+<h2 id="遇到的依赖问题"><a href="#遇到的依赖问题" class="headerlink" title="遇到的依赖问题"></a>遇到的依赖问题</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">pkgconfig(openssl) is needed by mysql-community-devel-8.0.16-2.el7.x86_64</span><br><span class="line"># 安装相关依赖：yum install -y openssl-devel</span><br><span class="line">net-tools is needed by mysql-community-server-8.0.16-2.el7.x86_64</span><br><span class="line"># 安装相关依赖：yum install -y net-tools</span><br></pre></td></tr></table></figure>
+<h1 id="安装前，先卸载-mariadb"><a href="#安装前，先卸载-mariadb" class="headerlink" title="安装前，先卸载 mariadb"></a>安装前，先卸载 mariadb</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# rpm -qa | grep mariadb</span><br><span class="line">mariadb-libs-5.5.41-2.el7_0.x86_64</span><br><span class="line">[root@localhost ~]# rpm -e mariadb-libs-5.5.41-2.el7_0.x86_64</span><br><span class="line">error: Failed dependencies:</span><br><span class="line">        libmysqlclient.so.18()(64bit) is needed by (installed) postfix-2:2.10.1-6.el7.x86_64</span><br><span class="line">        libmysqlclient.so.18(libmysqlclient_18)(64bit) is needed by (installed) postfix-2:2.10.1-6.el7.x86_64</span><br><span class="line">[root@localhost ~]# rpm -e  postfix-2:2.10.1-6.el7.x86_64 postfix-2:2.10.1-6.el7.x86_64</span><br><span class="line">[root@localhost ~]# rpm -e mariadb-libs-5.5.41-2.el7_0.x86_64</span><br></pre></td></tr></table></figure>
+<h1 id="安装最新版-MySQL-8-0-11"><a href="#安装最新版-MySQL-8-0-11" class="headerlink" title="安装最新版 MySQL-8.0.11"></a>安装最新版 MySQL-8.0.11</h1><h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><p>CentOS 1804 版本最小安装，下载的 CentOS 安装文件：CentOS-7-x86_64-Minimal-1804.iso</p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>下载：<code>wget https://dev.mysql.com/get/Downloads/MySQL-8.0/mysql-8.0.11-1.el7.x86_64.rpm-bundle.tar</code></p>
+<p>截至 2019-03-30 最新版为 8.0.15<br><code>wget https://cdn.mysql.com//Downloads/MySQL-8.0/mysql-8.0.15-1.el7.x86_64.rpm-bundle.tar</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost mysql]# rpm -qa | grep mariadb</span><br><span class="line">mariadb-libs-5.5.56-2.el7.x86_64</span><br><span class="line">[root@localhost mysql]# rpm -e mariadb-libs-5.5.56-2.el7.x86_64</span><br><span class="line">error: Failed dependencies:</span><br><span class="line">        libmysqlclient.so.18()(64bit) is needed by (installed) postfix-2:2.10.1-6.el7.x86_64</span><br><span class="line">        libmysqlclient.so.18(libmysqlclient_18)(64bit) is needed by (installed) postfix-2:2.10.1-6.el7.x86_64</span><br><span class="line">[root@localhost mysql]# rpm -e postfix-2:2.10.1-6.el7.x86_64 postfix-2:2.10.1-6.el7.x86_64</span><br><span class="line">[root@localhost mysql]# rpm -e mariadb-libs-5.5.56-2.el7.x86_64</span><br><span class="line"></span><br><span class="line">[root@localhost mysql]# rpm -ivh mysql-community-devel-8.0.11-1.el7.x86_64.rpm </span><br><span class="line">warning: mysql-community-devel-8.0.11-1.el7.x86_64.rpm: Header V3 DSA/SHA1 Signature, key ID 5072e1f5: NOKEY</span><br><span class="line">error: Failed dependencies:</span><br><span class="line">        pkgconfig(openssl) is needed by mysql-community-devel-8.0.11-1.el7.x86_64</span><br><span class="line"></span><br><span class="line"># yum install -y openssl-devel</span><br><span class="line"></span><br><span class="line">[root@localhost mysql]# rpm -ivh mysql-community-server-8.0.11-1.el7.x86_64.rpm </span><br><span class="line">warning: mysql-community-server-8.0.11-1.el7.x86_64.rpm: Header V3 DSA/SHA1 Signature, key ID 5072e1f5: NOKEY</span><br><span class="line">error: Failed dependencies:</span><br><span class="line">        /usr/bin/perl is needed by mysql-community-server-8.0.11-1.el7.x86_64</span><br><span class="line">        libaio.so.1()(64bit) is needed by mysql-community-server-8.0.11-1.el7.x86_64</span><br><span class="line">        libaio.so.1(LIBAIO_0.1)(64bit) is needed by mysql-community-server-8.0.11-1.el7.x86_64</span><br><span class="line">        libaio.so.1(LIBAIO_0.4)(64bit) is needed by mysql-community-server-8.0.11-1.el7.x86_64</span><br><span class="line">        net-tools is needed by mysql-community-server-8.0.11-1.el7.x86_64</span><br><span class="line">        perl(Getopt::Long) is needed by mysql-community-server-8.0.11-1.el7.x86_64</span><br><span class="line">        perl(strict) is needed by mysql-community-server-8.0.11-1.el7.x86_64</span><br><span class="line">        </span><br><span class="line"># yum install -y perl net-tools libaio</span><br></pre></td></tr></table></figure></p>
+<p>启动<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@centOS7BasicForTest mysql]# systemctl start mysqld</span><br><span class="line">[root@centOS7BasicForTest mysql]# grep &apos;temporary password&apos; /var/log/mysqld.log</span><br><span class="line">2018-05-23T10:36:55.296728Z 5 [Note] [MY-010454] [Server] A temporary password is generated for root@localhost: Bjs_PbXc)9R6</span><br></pre></td></tr></table></figure></p>
+<p>用临时密码登录<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -uroot -p&apos;Bjs_PbXc)9R6&apos;</span><br></pre></td></tr></table></figure></p>
+<p>然后修改初始密码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; ALTER USER &apos;root&apos;@&apos;localhost&apos; IDENTIFIED BY &apos;Akd*89@!3a2Kkd2#@&apos;;</span><br><span class="line">Query OK, 0 rows affected (0.20 sec)</span><br></pre></td></tr></table></figure></p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>在安装 MySQL 之前需要安装以下依赖<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y openssl-devel perl net-tools libaio</span><br></pre></td></tr></table></figure></p>
+<h2 id="授权问题"><a href="#授权问题" class="headerlink" title="授权问题"></a>授权问题</h2><p>之前下面的语句不会报错，但是授权没有生效，一直提示不允许连接。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ALTER USER &apos;root&apos;@&apos;localhost&apos; IDENTIFIED BY &apos;your password&apos;;</span><br><span class="line">GRANT ALL PRIVILEGES ON *.* TO &apos;admin&apos;@&apos;%&apos; IDENTIFIED BY &apos;aAdDmMiInN1!1!0)3#&apos; WITH GRANT OPTION;</span><br></pre></td></tr></table></figure></p>
+<p>重启一次之后，授权开始报错了：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; GRANT ALL PRIVILEGES ON *.* TO &apos;admin&apos;@&apos;%&apos; IDENTIFIED BY &apos;aAdDmMiInN1!1!0)3#&apos; WITH GRANT OPTION;</span><br><span class="line">ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near &apos;IDENTIFIED BY &apos;aAdDmMiInN1!1!0)3#&apos; WITH GRANT OPTION&apos; at line 1</span><br><span class="line">mysql&gt;</span><br></pre></td></tr></table></figure></p>
+<p>换成：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; CREATE USER &apos;admin&apos;@&apos;%&apos; IDENTIFIED BY &apos;aAdDmMiInN1!1!0)3#&apos;;</span><br><span class="line">Query OK, 0 rows affected (0.11 sec)</span><br><span class="line">mysql&gt; GRANT ALL PRIVILEGES ON *.* TO &apos;admin&apos;@&apos;%&apos;;</span><br><span class="line">Query OK, 0 rows affected (0.04 sec)</span><br></pre></td></tr></table></figure></p>
+<h1 id="客户端连接问题"><a href="#客户端连接问题" class="headerlink" title="客户端连接问题"></a>客户端连接问题</h1><p>用 MySQL Workbench 连接，提示如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[Window Title]</span><br><span class="line">MySQL Workbench</span><br><span class="line"></span><br><span class="line">[Main Instruction]</span><br><span class="line">Failed to Connect to MySQL at 192.168.1.91:3306 with user admin</span><br><span class="line"></span><br><span class="line">[Content]</span><br><span class="line">Authentication plugin &apos;caching_sha2_password&apos; cannot be loaded: The specified module could not be found.</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[OK]</span><br></pre></td></tr></table></figure></p>
+<p>查询加密方式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; select user, host, plugin, authentication_string from user;</span><br><span class="line">+------------------+-----------+-----------------------+------------------------------------------------------------------------+</span><br><span class="line">| user             | host      | plugin                | authentication_string                                                  |</span><br><span class="line">+------------------+-----------+-----------------------+------------------------------------------------------------------------+</span><br><span class="line">| admin            | %         | caching_sha2_password | $A$005$el:pBr6Zm]lPq+eznuC21bJF/13HhJpj3ZpNQksjeGjWllXMs/nve4gYeW4 |</span><br><span class="line">| mysql.infoschema | localhost | mysql_native_password | *THISISNOTAVALIDPASSWORDTHATCANBEUSEDHERE                              |</span><br><span class="line">| mysql.session    | localhost | mysql_native_password | *THISISNOTAVALIDPASSWORDTHATCANBEUSEDHERE                              |</span><br><span class="line">| mysql.sys        | localhost | mysql_native_password | *THISISNOTAVALIDPASSWORDTHATCANBEUSEDHERE                              |</span><br><span class="line">| root             | localhost | caching_sha2_password | $A$005$&amp;7BX~rD1]HMMtFb_&#125;r-3eq0bH7XqiKfYs3dOS4VM53ET2pMYc4QElxU5ddkSR7 |</span><br><span class="line">+------------------+-----------+-----------------------+------------------------------------------------------------------------+</span><br><span class="line">5 rows in set (0.01 sec)</span><br></pre></td></tr></table></figure></p>
+<p>在创建用户的时候，用的是：CREATE USER ‘admin‘@’%’ IDENTIFIED BY ‘aAdDmMiInN1!1!0)3#’;<br>修改成如下的加密方式授权：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; ALTER USER &apos;admin&apos;@&apos;%&apos; IDENTIFIED WITH mysql_native_password BY &apos;aAdDmMiInN1!1!0)3#&apos;;</span><br><span class="line">Query OK, 0 rows affected (0.05 sec)</span><br></pre></td></tr></table></figure></p>
+<p>再次连接，可以了！</p>
+<h1 id="由-MySQL-8-0-11-降级到-5-7-22"><a href="#由-MySQL-8-0-11-降级到-5-7-22" class="headerlink" title="由 MySQL 8.0.11 降级到 5.7.22"></a>由 MySQL 8.0.11 降级到 5.7.22</h1><p>由于有软件还不支持最新版 8.0.11，不得已，还得降级至 5.7 版本。</p>
+<h2 id="仅执行-rpm-e-mysql-删除-5-个组件，然后重新安装，启动失败"><a href="#仅执行-rpm-e-mysql-删除-5-个组件，然后重新安装，启动失败" class="headerlink" title="仅执行 rpm -e mysql 删除 5 个组件，然后重新安装，启动失败"></a>仅执行 rpm -e mysql 删除 5 个组件，然后重新安装，启动失败</h2><ul>
+<li><p>查看已安装的版本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@AndyCentOS7Basic ~]# rpm -qa | grep mysql</span><br><span class="line">mysql-community-client-8.0.11-1.el7.x86_64</span><br><span class="line">mysql-community-libs-8.0.11-1.el7.x86_64</span><br><span class="line">mysql-community-devel-8.0.11-1.el7.x86_64</span><br><span class="line">mysql-community-server-8.0.11-1.el7.x86_64</span><br><span class="line">mysql-community-common-8.0.11-1.el7.x86_64</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>然后依次执行删除</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">rpm -e mysql-community-server-8.0.11-1.el7.x86_64</span><br><span class="line">rpm -e mysql-community-client-8.0.11-1.el7.x86_64</span><br><span class="line">rpm -e mysql-community-devel-8.0.11-1.el7.x86_64</span><br><span class="line">rpm -e mysql-community-libs-8.0.11-1.el7.x86_64</span><br><span class="line">rpm -e mysql-community-common-8.0.11-1.el7.x86_64</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="重新操作，彻底删除"><a href="#重新操作，彻底删除" class="headerlink" title="重新操作，彻底删除"></a>重新操作，彻底删除</h2><p>除了删除刚安装好的 5 个组件之外，还将 mysql 的其它文件及目录一并删除<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[root@centOS7BasicForTest log]# cd /var/lib/ </span><br><span class="line">[root@centOS7BasicForTest lib]# rm -rf mysql/</span><br><span class="line">[root@centOS7BasicForTest lib]# whereis mysql</span><br><span class="line">mysql: /usr/share/mysql</span><br><span class="line">[root@centOS7BasicForTest log]# cd /usr/share/</span><br><span class="line">[root@centOS7BasicForTest share]# rm -rf myslq/ mysql-8.0/</span><br><span class="line">[root@centOS7BasicForTest bin]# find / -name mysql</span><br><span class="line">/etc/selinux/targeted/active/modules/100/mysql</span><br><span class="line">/etc/selinux/targeted/tmp/modules/100/mysql</span><br><span class="line">/usr/share/mysql</span><br><span class="line">[root@centOS7BasicForTest share]# rm -rf /usr/share/mysql /etc/selinux/targeted/active/modules/100/mysql /etc/selinux/targeted/tmp/modules/100/mysql</span><br></pre></td></tr></table></figure></p>
+<h2 id="再次安装之后，启动成功"><a href="#再次安装之后，启动成功" class="headerlink" title="再次安装之后，启动成功"></a>再次安装之后，启动成功</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">[root@centOS7BasicForTest mysql]# rpm -ivh mysql-community-common-5.7.22-1.el7.x86_64.rpm </span><br><span class="line">warning: mysql-community-common-5.7.22-1.el7.x86_64.rpm: Header V3 DSA/SHA1 Signature, key ID 5072e1f5: NOKEY</span><br><span class="line">Preparing...                          ################################# [100%]</span><br><span class="line">Updating / installing...</span><br><span class="line">   1:mysql-community-common-5.7.22-1.e################################# [100%]</span><br><span class="line">[root@centOS7BasicForTest mysql]# rpm -ivh mysql-community-libs-5.7.22-1.el7.x86_64.rpm </span><br><span class="line">warning: mysql-community-libs-5.7.22-1.el7.x86_64.rpm: Header V3 DSA/SHA1 Signature, key ID 5072e1f5: NOKEY</span><br><span class="line">Preparing...                          ################################# [100%]</span><br><span class="line">Updating / installing...</span><br><span class="line">   1:mysql-community-libs-5.7.22-1.el7################################# [100%]</span><br><span class="line">[root@centOS7BasicForTest mysql]# rpm -ivh mysql-community-devel-5.7.22-1.el7.x86_64.rpm </span><br><span class="line">warning: mysql-community-devel-5.7.22-1.el7.x86_64.rpm: Header V3 DSA/SHA1 Signature, key ID 5072e1f5: NOKEY</span><br><span class="line">Preparing...                          ################################# [100%]</span><br><span class="line">Updating / installing...</span><br><span class="line">   1:mysql-community-devel-5.7.22-1.el################################# [100%]</span><br><span class="line">[root@centOS7BasicForTest mysql]# rpm -ivh mysql-community-client-5.7.22-1.el7.x86_64.rpm </span><br><span class="line">warning: mysql-community-client-5.7.22-1.el7.x86_64.rpm: Header V3 DSA/SHA1 Signature, key ID 5072e1f5: NOKEY</span><br><span class="line">Preparing...                          ################################# [100%]</span><br><span class="line">Updating / installing...</span><br><span class="line">   1:mysql-community-client-5.7.22-1.e################################# [100%]</span><br><span class="line">[root@centOS7BasicForTest mysql]# rpm -ivh mysql-community-server-5.7.22-1.el7.x86_64.rpm </span><br><span class="line">warning: mysql-community-server-5.7.22-1.el7.x86_64.rpm: Header V3 DSA/SHA1 Signature, key ID 5072e1f5: NOKEY</span><br><span class="line">Preparing...                          ################################# [100%]</span><br><span class="line">Updating / installing...</span><br><span class="line">   1:mysql-community-server-5.7.22-1.e################################# [100%]</span><br><span class="line"></span><br><span class="line">[root@centOS7BasicForTest ~]# systemctl start mysqld</span><br><span class="line">[root@centOS7BasicForTest ~]# systemctl status mysqld.service</span><br><span class="line">● mysqld.service - MySQL Server</span><br><span class="line">   Loaded: loaded (/usr/lib/systemd/system/mysqld.service; enabled; vendor preset: disabled)</span><br><span class="line">   Active: active (running) since Thu 2018-05-24 18:38:36 HKT; 11s ago</span><br><span class="line">     Docs: man:mysqld(8)</span><br><span class="line">           http://dev.mysql.com/doc/refman/en/using-systemd.html</span><br><span class="line">  Process: 2589 ExecStart=/usr/sbin/mysqld --daemonize --pid-file=/var/run/mysqld/mysqld.pid $MYSQLD_OPTS (code=exited, status=0/SUCCESS)</span><br><span class="line">  Process: 2506 ExecStartPre=/usr/bin/mysqld_pre_systemd (code=exited, status=0/SUCCESS)</span><br><span class="line"> Main PID: 2591 (mysqld)</span><br><span class="line">   CGroup: /system.slice/mysqld.service</span><br><span class="line">           └─2591 /usr/sbin/mysqld --daemonize --pid-file=/var/run/mysqld/mysqld.pid</span><br><span class="line"></span><br><span class="line">May 24 18:38:31 centOS7BasicForTest systemd[1]: Starting MySQL Server...</span><br><span class="line">May 24 18:38:36 centOS7BasicForTest systemd[1]: Started MySQL Server.</span><br></pre></td></tr></table></figure>
+<h1 id="后记-1"><a href="#后记-1" class="headerlink" title="后记"></a>后记</h1><p>2019-04-03 安装最新版 8.0.15 报错<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">rpm -ivh mysql-community-server-8.0.15-1.el7.x86_64.rpm </span><br><span class="line">warning: mysql-community-server-8.0.15-1.el7.x86_64.rpm: Header V3 DSA/SHA1 Signature, key ID 5072e1f5: NOKEY</span><br><span class="line">error: Failed dependencies:</span><br><span class="line">        libnuma.so.1()(64bit) is needed by mysql-community-server-8.0.15-1.el7.x86_64</span><br><span class="line">        libnuma.so.1(libnuma_1.1)(64bit) is needed by mysql-community-server-8.0.15-1.el7.x86_64</span><br><span class="line">        libnuma.so.1(libnuma_1.2)(64bit) is needed by mysql-community-server-8.0.15-1.el7.x86_64</span><br></pre></td></tr></table></figure></p>
+<p>解决：<br>安装依赖 numactl<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install numactl -y</span><br></pre></td></tr></table></figure></p>
+<p>2019-12-26 安装 8.0.18 报错<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost mysql]# rpm -ivh mysql-community-libs-8.0.18-1.el8.x86_64.rpm </span><br><span class="line">warning: mysql-community-libs-8.0.18-1.el8.x86_64.rpm: Header V3 DSA/SHA1 Signature, key ID 5072e1f5: NOKEY</span><br><span class="line">error: Failed dependencies:</span><br><span class="line">        libc.so.6(GLIBC_2.28)(64bit) is needed by mysql-community-libs-8.0.18-1.el8.x86_64</span><br><span class="line">        libcrypto.so.1.1()(64bit) is needed by mysql-community-libs-8.0.18-1.el8.x86_64</span><br><span class="line">        libcrypto.so.1.1(OPENSSL_1_1_0)(64bit) is needed by mysql-community-libs-8.0.18-1.el8.x86_64</span><br><span class="line">        libssl.so.1.1()(64bit) is needed by mysql-community-libs-8.0.18-1.el8.x86_64</span><br><span class="line">        libssl.so.1.1(OPENSSL_1_1_0)(64bit) is needed by mysql-community-libs-8.0.18-1.el8.x86_64</span><br><span class="line">        libssl.so.1.1(OPENSSL_1_1_1)(64bit) is needed by mysql-community-libs-8.0.18-1.el8.x86_64</span><br><span class="line">        libstdc++.so.6(CXXABI_1.3.9)(64bit) is needed by mysql-community-libs-8.0.18-1.el8.x86_64</span><br><span class="line">        libstdc++.so.6(GLIBCXX_3.4.20)(64bit) is needed by mysql-community-libs-8.0.18-1.el8.x86_64</span><br><span class="line">        libstdc++.so.6(GLIBCXX_3.4.21)(64bit) is needed by mysql-community-libs-8.0.18-1.el8.x86_64</span><br></pre></td></tr></table></figure></p>
+<p>我在 CentOS7 上安装，下载的是 mysql-8.0.18-1.el8.x86_64.rpm-bundle.tar，这是针对 CentOS8 的版本。<br>版本不对，注定是会失败的，下载时注意要下载对应 OS 的版本。</p>
+<p>换成 mysql-8.0.18-1.el7.x86_64.rpm-bundle.tar，再按照上面的步骤安装就非常顺利。</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-09-01T02:53:12.915Z" itemprop="dateUpdated">2020年9月1日 10:53</time>
+</span><br>
+
+
+        转载请注明出处：<a href="/database/centOS7InstallMySQL8.0.11.html" target="_blank" rel="external">https://www.lovesofttech.com/database/centOS7InstallMySQL8.0.11.html</a>
+    </div>
+    <footer>
+        <a href="https://www.lovesofttech.com">
+            <img src="/img/myLogo.jpg" alt="安迪陈">
+            安迪陈
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CentOS/">CentOS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL/">MySQL</a></li></ul>
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/database/centOS7InstallMySQL8.0.11.html&title=《CentOS7 安装 MySQL-8.0.11，以及由 8.0.11 降级至 5.7.22》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/database/centOS7InstallMySQL8.0.11.html&title=《CentOS7 安装 MySQL-8.0.11，以及由 8.0.11 降级至 5.7.22》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=与 5.7.x 的安装类似，这里记录一些安装和配置过程中遇到的坑。" data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/database/centOS7InstallMySQL8.0.11.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《CentOS7 安装 MySQL-8.0.11，以及由 8.0.11 降级至 5.7.22》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/database/centOS7InstallMySQL8.0.11.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/database/centOS7InstallMySQL8.0.11.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/windows/winUDiskRestore.html" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">U盘刻录后如何恢复原来容量大小，以及 FAT32 转化为 NTFS</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/database/mySQLWorkbench.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">借助 MySQL Workbench 工具生成 MySQL 修改脚本</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+    
+    
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="bottom">
+        <p>
+            <span>安迪陈技术日志，架构、感悟、系统分析、团队管理 &copy; 2017 - 2020</span>
+            <span>
+                Power by <a href="https://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>&nbsp;
+                Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank" rel="external nofollow noopener noreferrer">indigo</a>
+            </span>
+            <span>
+                <a href="http://www.beian.miit.gov.cn" target="_blank" rel="external nofollow noopener noreferrer">蜀ICP备17041860号</a>
+            </span>
+            
+            <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            </p><p>
+                <span>
+                    统计始于：2019-03-06
+                </span>
+                <span id="busuanzi_container_site_uv" style="display:none">
+                    访客数：<span id="busuanzi_value_site_uv"></span>
+                </span>
+                <span id="busuanzi_container_site_pv" style="display:none">
+                    访问量：<span id="busuanzi_value_site_pv"></span>
+                </span>
+            
+            
+                <span class="post-count">累计字数：309.2k</span>
+            
+                <span><a href="/general/blogLog.html"><i class="fas fa-pen-alt"></i>&nbsp;博客日志</a></span>
+            </p>
+        <p></p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light" title="回到顶部"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/database/centOS7InstallMySQL8.0.11.html&title=《CentOS7 安装 MySQL-8.0.11，以及由 8.0.11 降级至 5.7.22》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/database/centOS7InstallMySQL8.0.11.html&title=《CentOS7 安装 MySQL-8.0.11，以及由 8.0.11 降级至 5.7.22》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=与 5.7.x 的安装类似，这里记录一些安装和配置过程中遇到的坑。" data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/database/centOS7InstallMySQL8.0.11.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《CentOS7 安装 MySQL-8.0.11，以及由 8.0.11 降级至 5.7.22》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/database/centOS7InstallMySQL8.0.11.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/database/centOS7InstallMySQL8.0.11.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACtUlEQVR42u3aQZLCMAwEQP7/afYBbMKMbAOHzoliIXF7qyQh6/GIr+fLdfWZ+ztcvXN159fPPE5ceHh4eMtLf33Y/eurd+6Xm2xf/v7l1uPh4eEd492H8jYZJMu6X+jV3er14OHh4f0Mry12Z6liw3bj4eHhfZU3Sw8tOCHh4eHh/QIvaUa0n8nL4vUmxYZeCx4eHl7My0+Rfuf1kfM9PDw8vOVT9fWAe58e8lbvcLV4eHh4B3growMrwwQrR2t1cwQPDw9vK69tpOZFdvLXJPS3bV88PDy8T/JWRgHaDcoHrfI7FEvEw8PDW+C1/c+22G0BybOSozI8PDy8c7zZTuTfOtGuTb6Lh4eH90neLDTv6ignhXIxZICHh4d3jDdbbtt0SErnlheV1Hh4eHhbeXngbhfaNibabSo2Gg8PD28rLylPk3dm+FkKyQtrPDw8vBO8PJTPFtfeMx/eGjZz8fDw8Dbx8lGnZBHrI1PJcVeRGPDw8PC28vKAnm/HyijAerGOh4eH90le0mzNb90G9/urbeD+MzqAh4eHt5WXHHrNFtce88+K+Kj1gIeHh3eA17Yh9pLyQatibXh4eHjHeEkCyB/fppyV8aw3W4CHh4d3gJcE7ra12gb0/FmzBjEeHh7eOV4evvNj/raFkT8xXw8eHh7eCd6shF1pQ+QleL4R9f8KDw8Pb5mXt3dnyWA4OFW2kt/0qvHw8PAO8NrwPWtA7EpFUVLBw8PD28p7ltdK+ds2bVfSEh4eHt453q4f/+3w1qyAbtl4eHh453jt6NWuJkX+maXEgIeHh3eMlxe7bfMib0/MjsSKXgseHh7el3izMJ1X9G2ierN9eHh4eD/DS5LBrqI8Z29LDHh4eHgBrw3EJwJ9noSS8h0PDw/vHK/9wb8S0JNWRV4uz7YbDw8Pb4H3B5KKMN0QG8UOAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.5.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.5.2" async></script>
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '安迪陈技术日志';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '欢迎回来';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

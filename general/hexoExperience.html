@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<!--<script async src="//hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c"></script>-->
+<!-- 统计-->
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var host = window.location.host;
+        var hm = document.createElement("script");
+
+        if (host.indexOf('gitee.io') > 0) { // https://uncleandychen.gitee.io/
+            hm.src = "https://hm.baidu.com/hm.js?0cf4709148b070b8082191d2e456a1a3";
+        } else if (host.indexOf('lovesofttech.com') > 0) { // https://www.lovesofttech.com/
+            hm.src = "https://hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c";
+        } else {
+            hm.src = '';
+        }
+
+        if (hm.src !== '') {
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        }
+    })();
+</script>
+<!-- End Baidu Tongji -->
+
+
+
+<!-- Baidu Push -->
+<!-- 主动推送百度爬虫-->
+<script>
+    (function(){
+        if (window.location.host.indexOf('lovesofttech.com') < 0) {
+            return;
+        }
+
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+<!-- End Baidu Push -->
+
+
+    <meta charset="utf-8">
+    
+    
+    <link rel="canonical" href="https://www.lovesofttech.com/general/hexoExperience.html">
+    
+    
+    <title>hexo 使用经验汇总 | 安迪陈技术日志，架构、感悟、系统分析、团队管理 | 自强不息，厚德载物</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="hexo">
+    <meta name="description" content="如题">
+<meta name="keywords" content="hexo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="hexo 使用经验汇总">
+<meta property="og:url" content="https://www.lovesofttech.com/general/hexoExperience.html">
+<meta property="og:site_name" content="安迪陈技术日志，架构、感悟、系统分析、团队管理">
+<meta property="og:description" content="如题">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2020-09-01T02:53:12.949Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="hexo 使用经验汇总">
+<meta name="twitter:description" content="如题">
+    
+        <link rel="alternative" href="/atom.xml" title="安迪陈技术日志，架构、感悟、系统分析、团队管理" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=201912302211">
+    <link rel="stylesheet" href="/css/header.css?v=201912302211">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu">
+  <div class="inner flex-row-vertical">
+    <!--<i class="icon icon-lg icon-close"></i>-->
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off" title="隐藏左侧导航">﹤<i class="icon icon-lg icon-navicon"></i></a>
+    <div class="brand-wrap" style="background-image:url(/img/bannerBackgroundLeft.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/myLogo.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">安迪陈</h5>
+          <a href="mailto:andy@lovesofttech.com" title="andy@lovesofttech.com" class="mail" rel="external nofollow noopener noreferrer" target="_blank">andy@lovesofttech.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articleClassify.html">
+                <i class="icon icon-th-list"></i>
+                文章分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articles.html">
+                <i class="icon icon-th-list articles"></i>
+                文章列表
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/java.html">
+                <i class="icon icon-th-list java"></i>
+                Java
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/database.html">
+                <i class="icon icon-th-list database"></i>
+                MySQL/MyBatis
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/linux.html">
+                <i class="icon icon-th-list linux"></i>
+                CentOS/linux
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/react.html">
+                <i class="icon icon-th-list React"></i>
+                React
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/lnmp.html">
+                <i class="icon icon-th-list LNMP"></i>
+                LNMP
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/git.html">
+                <i class="icon icon-th-list git"></i>
+                git
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/windows.html">
+                <i class="icon icon-th-list windows"></i>
+                windows
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/dailyLives.html">
+                <i class="icon icon-th-list dailyLives"></i>
+                工作 &amp; 生活
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-github"></i>
+                我的 github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://gitee.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link"></i>
+                我的 gitee
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://blog.csdn.net/runAndRun" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link CSDN"></i>
+                我的 CSDN
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/aboutMe.html">
+                <i class="icon icon-address-card"></i>
+                关于我
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+
+        <div class="navbar navbar-custom navbar-fixed-top">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" style="margin-left:10px;" id="menu-toggle" title="显示左侧导航"><i class="icon icon-lg icon-navicon"></i>﹥</a>
+            <ul class="nav navbar-nav navbar-right" id="navMenuTop">
+                <li>
+                    <a href="/">主页</a>
+                </li>
+                
+                    
+                        <li>
+                            <a href="/articleClassify.html" title="本博客的文章分类列表">文章分类</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/articles.html" title="本博客的所有文章列表">文章列表</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/java.html" title="Java 开发，文章目录">Java</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/database.html" title="日常开发中有关 MySQL、MyBatis 的一些经验总结">MySQL/MyBatis</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/linux.html" title="CentOS/linux，文章目录">CentOS/linux</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/react.html" title="React 技术栈（全家桶）学习心得分享，文章目录">React</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/about.html">关于</a>
+                        </li>
+                    
+                
+            </ul>
+        </div>
+
+        <div class="flex-col header-title ellipsis">hexo 使用经验汇总</div>
+        
+        <div class="search-wrap" id="search-wrap" style="z-index: 2;">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back" style="width:33px;">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search" style="width:33px;">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare" style="z-index: 3;margin-right: 10px; width:30px;">
+                <i class="icon icon-lg icon-share-alt"></i>
+            </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h2 class="title">hexo 使用经验汇总</h2>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-04-25T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2017-04-26
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/hexo/">hexo</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap" id="index-container">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc" style="z-index: 3;">
+            <h4><i class="fa fa-list-alt"></i>&nbsp;&nbsp;本文目录</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#把自己制作的HTML5网页传到自己的-hexo-博客上"><span class="post-toc-number">1.</span> <span class="post-toc-text">把自己制作的HTML5网页传到自己的 hexo 博客上</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#执行-hexo-g-报错"><span class="post-toc-number">2.</span> <span class="post-toc-text">执行 hexo g 报错</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#解决左侧菜单图标不显示的问题"><span class="post-toc-number">3.</span> <span class="post-toc-text">解决左侧菜单图标不显示的问题</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#现象"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">现象</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#解决"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">解决</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#引用官方最新样式"><span class="post-toc-number">4.</span> <span class="post-toc-text">引用官方最新样式</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#菜单主页链接"><span class="post-toc-number">5.</span> <span class="post-toc-text">菜单主页链接</span></a></li></ol>
+        </nav>
+    </aside>
+    
+
+<article id="post-general/hexoExperience" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">hexo 使用经验汇总</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017年04月26日 0:00" datetime="2017-04-25T16:00:00.000Z" itemprop="datePublished">2017-04-26</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/hexo/">hexo</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" style="display:none">
+    阅读量：<span id="busuanzi_value_page_pv"></span>次
+</span>
+
+
+    <span>|</span>
+    <span class="post-count">字数：1.3k</span>
+    <span>|</span>
+    <span class="post-count">阅读时长：大约6分钟</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>如题<br><a id="more"></a></p>
+<h1 id="把自己制作的HTML5网页传到自己的-hexo-博客上"><a href="#把自己制作的HTML5网页传到自己的-hexo-博客上" class="headerlink" title="把自己制作的HTML5网页传到自己的 hexo 博客上"></a>把自己制作的HTML5网页传到自己的 hexo 博客上</h1><ol>
+<li>在网上搜索了一下，有的说加 skip_render: [p/<strong>/api/*.html,p/</strong>/api/**]，将html文件加入skip_render，这样，它们就不会被hexo渲染了。</li>
+<li>上面的方法我没试，不过，还有一种更加简单粗暴的方式（亲测好使），将html文件直接放到/theme/下你的主题目录下的source文件夹中，该文件夹中的文件hexo会直接复制到public中，不做任何渲染。</li>
+</ol>
+<h1 id="执行-hexo-g-报错"><a href="#执行-hexo-g-报错" class="headerlink" title="执行 hexo g 报错"></a>执行 hexo g 报错</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">INFO  Start processing</span><br><span class="line">FATAL Something&apos;s wrong. Maybe you can find the solution here: http://hexo.io/docs/troubleshooting.html</span><br><span class="line">Template render error: (unknown path) [Line 11, Column 430]</span><br><span class="line">  tag name expected</span><br><span class="line">    at Object._prettifyError (C:\workspace\tech\node_modules\_nunjucks@3.1.3@nunjucks\src\lib.js:36:11)</span><br><span class="line">    at Template.render (C:\workspace\tech\node_modules\_nunjucks@3.1.3@nunjucks\src\environment.js:524:21)</span><br><span class="line">    at Environment.renderString (C:\workspace\tech\node_modules\_nunjucks@3.1.3@nunjucks\src\environment.js:362:17)</span><br><span class="line">    at Promise (C:\workspace\tech\node_modules\_hexo@3.7.1@hexo\lib\extend\tag.js:66:9)</span><br><span class="line">    at Promise._execute (C:\workspace\tech\node_modules\_bluebird@3.5.1@bluebird\js\release\debuggability.js:303:9)</span><br><span class="line">    at Promise._resolveFromExecutor (C:\workspace\tech\node_modules\_bluebird@3.5.1@bluebird\js\release\promise.js:483:18)</span><br><span class="line">    at new Promise (C:\workspace\tech\node_modules\_bluebird@3.5.1@bluebird\js\release\promise.js:79:10)</span><br><span class="line">    at Tag.render (C:\workspace\tech\node_modules\_hexo@3.7.1@hexo\lib\extend\tag.js:64:10)</span><br><span class="line">    at Object.tagFilter [as onRenderEnd] (C:\workspace\tech\node_modules\_hexo@3.7.1@hexo\lib\hexo\post.js:230:16)</span><br><span class="line">    at Promise.then.then.result (C:\workspace\tech\node_modules\_hexo@3.7.1@hexo\lib\hexo\render.js:65:19)</span><br><span class="line">    at tryCatcher (C:\workspace\tech\node_modules\_bluebird@3.5.1@bluebird\js\release\util.js:16:23)</span><br><span class="line">    at Promise._settlePromiseFromHandler (C:\workspace\tech\node_modules\_bluebird@3.5.1@bluebird\js\release\promise.js:512:31)</span><br><span class="line">    at Promise._settlePromise (C:\workspace\tech\node_modules\_bluebird@3.5.1@bluebird\js\release\promise.js:569:18)</span><br><span class="line">    at Promise._settlePromise0 (C:\workspace\tech\node_modules\_bluebird@3.5.1@bluebird\js\release\promise.js:614:10)</span><br><span class="line">    at Promise._settlePromises (C:\workspace\tech\node_modules\_bluebird@3.5.1@bluebird\js\release\promise.js:693:18)</span><br><span class="line">    at Async._drainQueue (C:\workspace\tech\node_modules\_bluebird@3.5.1@bluebird\js\release\async.js:133:16)</span><br><span class="line">    at Async._drainQueues (C:\workspace\tech\node_modules\_bluebird@3.5.1@bluebird\js\release\async.js:143:10)</span><br><span class="line">    at Immediate.Async.drainQueues [as _onImmediate] (C:\workspace\tech\node_modules\_bluebird@3.5.1@bluebird\js\release\async.js:17:14)</span><br><span class="line">    at runCallback (timers.js:794:20)</span><br><span class="line">    at tryOnImmediate (timers.js:752:5)</span><br><span class="line">    at processImmediate [as _immediateCallback] (timers.js:729:5)</span><br></pre></td></tr></table></figure>
+<p>因为有一个文件里写了正则表达式，所以，解析的时候会出错。<br>解决办法，就是，找到写正则表达式的地方，以源码方式引用即可。</p>
+<h1 id="解决左侧菜单图标不显示的问题"><a href="#解决左侧菜单图标不显示的问题" class="headerlink" title="解决左侧菜单图标不显示的问题"></a>解决左侧菜单图标不显示的问题</h1><h2 id="现象"><a href="#现象" class="headerlink" title="现象"></a>现象</h2><p>我用的主题是 <a href="https://github.com/yscoder/hexo-theme-indigo/" rel="external nofollow noopener noreferrer" target="_blank">indigo</a>。该主题使用的图标库是 <a href="https://fontawesome.com/icons?d=gallery" rel="external nofollow noopener noreferrer" target="_blank">fontawesome.com</a>，添加新菜单时，发现按原来的方式添加，有的图标能显示，有的则不能显示。  </p>
+<p>一开始怀疑使用了收费图标，但是在网站的左侧是可以选择“Free”来搜索的，所以，排除这个问题。</p>
+<p>F12 之后，查看该网站上图标用的 css，发现与 indigo 主题使用的不一样，所以，仔细研究了一下，原来，indigo 作者在 <code>menu.ejs</code> 文件中给菜单图标样式添加了前缀 <code>icon icon-lg icon-</code>，使用时，只要写后面不一样的部分，倒是比较方便。  </p>
+<p>但是，这样带来一个问题，就是只能使用样式以 <code>icon icon-lg icon-</code> 开头的图标</p>
+<h2 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h2><p>为了解决这个问题，需要将这个前缀去掉，修改文件： <code>themes\indigo\layout\_partial\menu.ejs</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;i class=&quot;icon icon-lg icon-&lt;%= i %&gt;&quot;&gt;&lt;/i&gt;</span><br><span class="line"># 改为</span><br><span class="line">&lt;i class=&quot;&lt;%= i %&gt;&quot;&gt;&lt;/i&gt;</span><br></pre></td></tr></table></figure></p>
+<p>然后，在原来可以正常显示的图标的菜单定义前添加前缀 <code>icon icon-lg icon-</code>，使用新图标时，参照官网的图标样式，把样式写全即可。</p>
+<p>例如，我现在需要在新菜单前添加一个 react 图标，首先，从官网查看到，react 图标样式如下：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">"fab fa-react"</span> <span class="attr">style</span>=<span class="string">"font-size: 48px;"</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>那么，新菜单名，应该使用 <code>fab fa-react</code>，不过，还要在前面添加 <code>icon</code> 才能对齐，最终，新菜单定义如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">icon fab fa-react:</span><br><span class="line">  text: react stack</span><br><span class="line">  url: /react/index</span><br></pre></td></tr></table></figure></p>
+<p>到了这一步，还没完成，还需要引用最新样式。</p>
+<h1 id="引用官方最新样式"><a href="#引用官方最新样式" class="headerlink" title="引用官方最新样式"></a>引用官方最新样式</h1><p>为了可以随意引用 <a href="https://fontawesome.com/icons" rel="external nofollow noopener noreferrer" target="_blank">fontawesome.com</a> 图标库，需要添加 fontawesome 最新的样式，建议直接使用在线的样式即可，这样也不用考虑字体的问题。  </p>
+<p>引用方式，<a href="https://fontawesome.com/start" rel="external nofollow noopener noreferrer" target="_blank">参照官网</a>，官网是这样说的：Font Awesome’s Free CDN is the quickest and easiest way to get Font Awesome on your website.</p>
+<p>那么，我们的 indigo 主题，在哪儿引用 fontawesome 最新的样式呢？</p>
+<p>修改文件 <code>themes\indigo\layout\_partial\head.ejs</code>，在倒数第二行前面，添加：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;link rel=&quot;stylesheet&quot; href=&quot;https://use.fontawesome.com/releases/v5.5.0/css/all.css&quot; integrity=&quot;sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU&quot; crossorigin=&quot;anonymous&quot;&gt;</span><br></pre></td></tr></table></figure></p>
+<p>添加之后，该行为倒数第三行。</p>
+<p>现在，你看到的左侧菜单，就是这样修改过后的最终效果。</p>
+<h1 id="菜单主页链接"><a href="#菜单主页链接" class="headerlink" title="菜单主页链接"></a>菜单主页链接</h1><p>之前是这样设置的：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">icon icon-home:</span><br><span class="line">  text: 主页</span><br><span class="line">  url: https://www.lovesofttech.com</span><br></pre></td></tr></table></figure></p>
+<p>这样，在发布之后，是没有问题的，但是在本地<code>hexo s</code>之后点击【主页】会跳转到正式域名，同样的，gitee pages，并不是正式域名，比如我的是<code>https://uncleandychen.gitee.io/</code>，在点击【主页】的时候，也是不希望跳转至正式域名的。为了达到这个目的，改为以下代码即可：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">icon icon-home:</span><br><span class="line">  text: 主页</span><br><span class="line">  url: /</span><br></pre></td></tr></table></figure></p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-09-01T02:53:12.949Z" itemprop="dateUpdated">2020年9月1日 10:53</time>
+</span><br>
+
+
+        转载请注明出处：<a href="/general/hexoExperience.html" target="_blank" rel="external">https://www.lovesofttech.com/general/hexoExperience.html</a>
+    </div>
+    <footer>
+        <a href="https://www.lovesofttech.com">
+            <img src="/img/myLogo.jpg" alt="安迪陈">
+            安迪陈
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo/">hexo</a></li></ul>
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/general/hexoExperience.html&title=《hexo 使用经验汇总》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/general/hexoExperience.html&title=《hexo 使用经验汇总》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=如题" data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/general/hexoExperience.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《hexo 使用经验汇总》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/general/hexoExperience.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/general/hexoExperience.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/mybatis/mybatisExample.html" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">MyBatis 开发中，善用通过 MBG 生成的 *Example 类</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/git/gitBasicUsage.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">git 在工作中的基本用法</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+    
+    
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="bottom">
+        <p>
+            <span>安迪陈技术日志，架构、感悟、系统分析、团队管理 &copy; 2017 - 2020</span>
+            <span>
+                Power by <a href="https://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>&nbsp;
+                Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank" rel="external nofollow noopener noreferrer">indigo</a>
+            </span>
+            <span>
+                <a href="http://www.beian.miit.gov.cn" target="_blank" rel="external nofollow noopener noreferrer">蜀ICP备17041860号</a>
+            </span>
+            
+            <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            </p><p>
+                <span>
+                    统计始于：2019-03-06
+                </span>
+                <span id="busuanzi_container_site_uv" style="display:none">
+                    访客数：<span id="busuanzi_value_site_uv"></span>
+                </span>
+                <span id="busuanzi_container_site_pv" style="display:none">
+                    访问量：<span id="busuanzi_value_site_pv"></span>
+                </span>
+            
+            
+                <span class="post-count">累计字数：309.2k</span>
+            
+                <span><a href="/general/blogLog.html"><i class="fas fa-pen-alt"></i>&nbsp;博客日志</a></span>
+            </p>
+        <p></p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light" title="回到顶部"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/general/hexoExperience.html&title=《hexo 使用经验汇总》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/general/hexoExperience.html&title=《hexo 使用经验汇总》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=如题" data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/general/hexoExperience.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《hexo 使用经验汇总》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/general/hexoExperience.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/general/hexoExperience.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACJUlEQVR42u3awY7DMAhF0f7/T2e2laq694EyUuB6Napah5MFgzGvF17X2/r85NvnfOfab+MlQ4aMxzKu4zp/5zOUWqDfdiOxyZAhYw+DPP6cgs+pmTyLvyAZMmTI4EmQhE5SNn99MmTIkMEZvGQk5SB/HTJkyNjMSI+pJHXW9r/9LC5DhowHMmrt+//5+5b7DRkyZDyKcYWLU2tJuRiVDBkyRjN4gquNVpDispZwZciQsY3B2/2dqiyt8UhDEG0hQ4aMEYy0cZ+ya1Te8pMhQ8ZsRi0sfojtF4jo6CtDhozRDHJA5eVjOnjBSeg7MmTIGM1IE1+n6ZY22uLDsAwZMsYx+oNWJLH2LwN+/EuQIUPGAkZrxCFM2aTcjF+fDBky1jNqDTVeUPLmHRoIkyFDxgJGul0txDTVojtYGTJkDGXUelbnoPmwBU/0AUaGDBmjGZ1LSgJLU3BaOMqQIWM2I015nfGv/hE3KAplyJAxmlELOijd8D58ZE2GDBkbGGkjjF9w8jSaFpRfe4cyZMhYwEgPtGnrn7+4oEiVIUPGMkbnMelRtnblGZSGMmTIeDij3/RPS0Cy+GWDDBkyNjA6W3MkLyXP4dbaeTJkyJjB6ARXa8DdMnIhQ4aMBYza8ETtErR2iEV1rgwZMmSEQxidsOIBDhkyZMjAyZEk39qx9gdShgwZCxjkEJti0uvJVjqWIUPGaEZawKXXn/0gOiMaMmTIeDjjD0pfdHLakTDzAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.5.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.5.2" async></script>
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '安迪陈技术日志';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '欢迎回来';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

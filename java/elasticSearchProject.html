@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<!--<script async src="//hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c"></script>-->
+<!-- 统计-->
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var host = window.location.host;
+        var hm = document.createElement("script");
+
+        if (host.indexOf('gitee.io') > 0) { // https://uncleandychen.gitee.io/
+            hm.src = "https://hm.baidu.com/hm.js?0cf4709148b070b8082191d2e456a1a3";
+        } else if (host.indexOf('lovesofttech.com') > 0) { // https://www.lovesofttech.com/
+            hm.src = "https://hm.baidu.com/hm.js?aa00e68c93e65cfd9c15a0fcb787287c";
+        } else {
+            hm.src = '';
+        }
+
+        if (hm.src !== '') {
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        }
+    })();
+</script>
+<!-- End Baidu Tongji -->
+
+
+
+<!-- Baidu Push -->
+<!-- 主动推送百度爬虫-->
+<script>
+    (function(){
+        if (window.location.host.indexOf('lovesofttech.com') < 0) {
+            return;
+        }
+
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+<!-- End Baidu Push -->
+
+
+    <meta charset="utf-8">
+    
+    
+    <link rel="canonical" href="https://www.lovesofttech.com/java/elasticSearchProject.html">
+    
+    
+    <title>BAT大牛亲授基于ElasticSearch的搜房网实战，项目配置记录 | 安迪陈技术日志，架构、感悟、系统分析、团队管理 | 自强不息，厚德载物</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="ElasticSearch">
+    <meta name="description" content="偏重搭建开发环境，github 上有项目源代码，用关键词xunwu很容易搜索到。ElasticSearch 版本 5.6.1。">
+<meta name="keywords" content="ElasticSearch">
+<meta property="og:type" content="article">
+<meta property="og:title" content="BAT大牛亲授基于ElasticSearch的搜房网实战，项目配置记录">
+<meta property="og:url" content="https://www.lovesofttech.com/java/elasticSearchProject.html">
+<meta property="og:site_name" content="安迪陈技术日志，架构、感悟、系统分析、团队管理">
+<meta property="og:description" content="偏重搭建开发环境，github 上有项目源代码，用关键词xunwu很容易搜索到。ElasticSearch 版本 5.6.1。">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2020-09-01T02:53:12.976Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="BAT大牛亲授基于ElasticSearch的搜房网实战，项目配置记录">
+<meta name="twitter:description" content="偏重搭建开发环境，github 上有项目源代码，用关键词xunwu很容易搜索到。ElasticSearch 版本 5.6.1。">
+    
+        <link rel="alternative" href="/atom.xml" title="安迪陈技术日志，架构、感悟、系统分析、团队管理" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=201912302211">
+    <link rel="stylesheet" href="/css/header.css?v=201912302211">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu">
+  <div class="inner flex-row-vertical">
+    <!--<i class="icon icon-lg icon-close"></i>-->
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off" title="隐藏左侧导航">﹤<i class="icon icon-lg icon-navicon"></i></a>
+    <div class="brand-wrap" style="background-image:url(/img/bannerBackgroundLeft.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/myLogo.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">安迪陈</h5>
+          <a href="mailto:andy@lovesofttech.com" title="andy@lovesofttech.com" class="mail" rel="external nofollow noopener noreferrer" target="_blank">andy@lovesofttech.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articleClassify.html">
+                <i class="icon icon-th-list"></i>
+                文章分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/articles.html">
+                <i class="icon icon-th-list articles"></i>
+                文章列表
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/java.html">
+                <i class="icon icon-th-list java"></i>
+                Java
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/database.html">
+                <i class="icon icon-th-list database"></i>
+                MySQL/MyBatis
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/linux.html">
+                <i class="icon icon-th-list linux"></i>
+                CentOS/linux
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/react.html">
+                <i class="icon icon-th-list React"></i>
+                React
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/lnmp.html">
+                <i class="icon icon-th-list LNMP"></i>
+                LNMP
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/git.html">
+                <i class="icon icon-th-list git"></i>
+                git
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/windows.html">
+                <i class="icon icon-th-list windows"></i>
+                windows
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/dailyLives.html">
+                <i class="icon icon-th-list dailyLives"></i>
+                工作 &amp; 生活
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-github"></i>
+                我的 github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://gitee.com/uncleAndyChen" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link"></i>
+                我的 gitee
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://blog.csdn.net/runAndRun" target="_blank" rel="external nofollow noopener noreferrer">
+                <i class="icon icon-link CSDN"></i>
+                我的 CSDN
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/aboutMe.html">
+                <i class="icon icon-address-card"></i>
+                关于我
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+
+        <div class="navbar navbar-custom navbar-fixed-top">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" style="margin-left:10px;" id="menu-toggle" title="显示左侧导航"><i class="icon icon-lg icon-navicon"></i>﹥</a>
+            <ul class="nav navbar-nav navbar-right" id="navMenuTop">
+                <li>
+                    <a href="/">主页</a>
+                </li>
+                
+                    
+                        <li>
+                            <a href="/articleClassify.html" title="本博客的文章分类列表">文章分类</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/articles.html" title="本博客的所有文章列表">文章列表</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/java.html" title="Java 开发，文章目录">Java</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/database.html" title="日常开发中有关 MySQL、MyBatis 的一些经验总结">MySQL/MyBatis</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/linux.html" title="CentOS/linux，文章目录">CentOS/linux</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/react.html" title="React 技术栈（全家桶）学习心得分享，文章目录">React</a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a href="/about.html">关于</a>
+                        </li>
+                    
+                
+            </ul>
+        </div>
+
+        <div class="flex-col header-title ellipsis">BAT大牛亲授基于ElasticSearch的搜房网实战，项目配置记录</div>
+        
+        <div class="search-wrap" id="search-wrap" style="z-index: 2;">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back" style="width:33px;">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search" style="width:33px;">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare" style="z-index: 3;margin-right: 10px; width:30px;">
+                <i class="icon icon-lg icon-share-alt"></i>
+            </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h2 class="title">BAT大牛亲授基于ElasticSearch的搜房网实战，项目配置记录</h2>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-09-26T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2018-09-27
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/ElasticSearch/">ElasticSearch</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap" id="index-container">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc" style="z-index: 3;">
+            <h4><i class="fa fa-list-alt"></i>&nbsp;&nbsp;本文目录</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#启动-ElasticSearch"><span class="post-toc-number">1.</span> <span class="post-toc-text">启动 ElasticSearch</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#启动-kibana"><span class="post-toc-number">2.</span> <span class="post-toc-text">启动 kibana</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#通过-kibana-向-es-发送-json-请求"><span class="post-toc-number">3.</span> <span class="post-toc-text">通过 kibana 向 es 发送 json 请求</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#以上脚本如果在-ElasticSearch-6-X-执行，会报错"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">以上脚本如果在 ElasticSearch 6.X 执行，会报错</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#原因"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">原因</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#start-server"><span class="post-toc-number">4.</span> <span class="post-toc-text">start server</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#启动-zookeeper"><span class="post-toc-number">4.1.</span> <span class="post-toc-text">启动 zookeeper</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#也可以用-kafka-自带的启动脚本启动-zookeeper-启动"><span class="post-toc-number">4.1.1.</span> <span class="post-toc-text">也可以用 kafka 自带的启动脚本启动 zookeeper 启动</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#启动-kafka"><span class="post-toc-number">4.2.</span> <span class="post-toc-text">启动 kafka</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#启动第二个-broker"><span class="post-toc-number">4.2.1.</span> <span class="post-toc-text">启动第二个 broker</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#停止"><span class="post-toc-number">4.2.2.</span> <span class="post-toc-text">停止</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#查看-kafka-的-topic"><span class="post-toc-number">4.3.</span> <span class="post-toc-text">查看 kafka 的 topic</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#创建-topic"><span class="post-toc-number">4.4.</span> <span class="post-toc-text">创建 topic</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#kafka-查看-Topic-的分区和副本情况"><span class="post-toc-number">4.5.</span> <span class="post-toc-text">kafka 查看 Topic 的分区和副本情况</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#删除-topic"><span class="post-toc-number">4.6.</span> <span class="post-toc-text">删除 topic</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#测试发消息"><span class="post-toc-number">4.7.</span> <span class="post-toc-text">测试发消息</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#测试消费消息"><span class="post-toc-number">4.8.</span> <span class="post-toc-text">测试消费消息</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#redis"><span class="post-toc-number">5.</span> <span class="post-toc-text">redis</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#下载-amp-编译安装"><span class="post-toc-number">5.1.</span> <span class="post-toc-text">下载 &amp; 编译安装</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#启动-redis"><span class="post-toc-number">5.2.</span> <span class="post-toc-text">启动 redis</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#开启远程连接"><span class="post-toc-number">5.3.</span> <span class="post-toc-text">开启远程连接</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#停止-1"><span class="post-toc-number">5.4.</span> <span class="post-toc-text">停止</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#查看进程"><span class="post-toc-number">5.5.</span> <span class="post-toc-text">查看进程</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#更新房源报错"><span class="post-toc-number">6.</span> <span class="post-toc-text">更新房源报错</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#house-build-已经被删除的情况"><span class="post-toc-number">6.1.</span> <span class="post-toc-text">house_build 已经被删除的情况</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#解决"><span class="post-toc-number">6.2.</span> <span class="post-toc-text">解决</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#modelmapper"><span class="post-toc-number">7.</span> <span class="post-toc-text">modelmapper</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#搜索实践"><span class="post-toc-number">8.</span> <span class="post-toc-text">搜索实践</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#分词"><span class="post-toc-number">9.</span> <span class="post-toc-text">分词</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#simple-分词器"><span class="post-toc-number">9.1.</span> <span class="post-toc-text">simple 分词器</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#whitespace-分词器"><span class="post-toc-number">9.2.</span> <span class="post-toc-text">whitespace 分词器</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+    
+
+<article id="post-java/elasticSearchProject" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">BAT大牛亲授基于ElasticSearch的搜房网实战，项目配置记录</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018年09月27日 0:00" datetime="2018-09-26T16:00:00.000Z" itemprop="datePublished">2018-09-27</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/ElasticSearch/">ElasticSearch</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" style="display:none">
+    阅读量：<span id="busuanzi_value_page_pv"></span>次
+</span>
+
+
+    <span>|</span>
+    <span class="post-count">字数：6.2k</span>
+    <span>|</span>
+    <span class="post-count">阅读时长：大约36分钟</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>偏重搭建开发环境，github 上有项目源代码，用关键词<code>xunwu</code>很容易搜索到。ElasticSearch 版本 5.6.1。<br><a id="more"></a></p>
+<ol>
+<li>安装 mysql 并将 xunwu.sql 数据导入</li>
+<li>安装 ElasticSearch（version=5.6.1），设置集群名称为 xunwu-es，并安装 <code>elasticsearch-analysis-ik</code> 插件，启动es（如果需要使用 head，需要在配置文件中设置跨域）</li>
+<li>安装 kafka（<a href="http://kafka.apache.org）" rel="external nofollow noopener noreferrer" target="_blank">http://kafka.apache.org）</a> 启动并创建 xunwu_topic 主题</li>
+<li>安装 zookeeper (<code>http://zookeeper.apache.org</code>) 启动</li>
+<li>向 <a href="http://localhost:9200/xunwu" rel="external nofollow noopener noreferrer" target="_blank">http://localhost:9200/xunwu</a> 发送 json 请求，请求内容为 <code>xunwu-web/src/main/resources/db/house_index_with_suggest_mapping.json</code></li>
+<li>安装 redis 并启动</li>
+</ol>
+<h1 id="启动-ElasticSearch"><a href="#启动-ElasticSearch" class="headerlink" title="启动 ElasticSearch"></a>启动 ElasticSearch</h1><p>后台启动:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/opt/elasticsearch-5.6.1/bin/elasticsearch -d</span><br></pre></td></tr></table></figure></p>
+<h1 id="启动-kibana"><a href="#启动-kibana" class="headerlink" title="启动 kibana"></a>启动 kibana</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nohup /opt/kibana-5.6.1-linux-x86_64/bin/kibana &amp;</span><br></pre></td></tr></table></figure>
+<p><a href="http://192.168.1.88:5601/" rel="external nofollow noopener noreferrer" target="_blank">访问 kibana</a></p>
+<h1 id="通过-kibana-向-es-发送-json-请求"><a href="#通过-kibana-向-es-发送-json-请求" class="headerlink" title="通过 kibana 向 es 发送 json 请求"></a>通过 kibana 向 es 发送 json 请求</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br></pre></td><td class="code"><pre><span class="line">PUT xunwu</span><br><span class="line">&#123;</span><br><span class="line">  &quot;settings&quot;: &#123;</span><br><span class="line">    &quot;number_of_replicas&quot;: 0,</span><br><span class="line">    &quot;number_of_shards&quot;: 5,</span><br><span class="line">    &quot;index.store.type&quot;: &quot;niofs&quot;,</span><br><span class="line">    &quot;index.query.default_field&quot;: &quot;title&quot;,</span><br><span class="line">    &quot;index.unassigned.node_left.delayed_timeout&quot;: &quot;5m&quot;</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;mappings&quot;: &#123;</span><br><span class="line">    &quot;house&quot;: &#123;</span><br><span class="line">      &quot;dynamic&quot;: &quot;strict&quot;,</span><br><span class="line">      &quot;_all&quot;:&#123;</span><br><span class="line">        &quot;enabled&quot;: false</span><br><span class="line">      &#125;,</span><br><span class="line">      &quot;properties&quot;: &#123;</span><br><span class="line">        &quot;houseId&quot;: &#123;</span><br><span class="line">          &quot;type&quot;: &quot;long&quot;</span><br><span class="line">        &#125;,</span><br><span class="line">        &quot;title&quot;: &#123;</span><br><span class="line">          &quot;type&quot;: &quot;text&quot;,</span><br><span class="line">          &quot;index&quot;: &quot;analyzed&quot;,</span><br><span class="line">          &quot;analyzer&quot;: &quot;ik_smart&quot;,</span><br><span class="line">          &quot;search_analyzer&quot;: &quot;ik_smart&quot;</span><br><span class="line">        &#125;,</span><br><span class="line">        &quot;price&quot;: &#123;</span><br><span class="line">          &quot;type&quot;: &quot;integer&quot;</span><br><span class="line">        &#125;,</span><br><span class="line">        &quot;area&quot;: &#123;</span><br><span class="line">          &quot;type&quot;: &quot;integer&quot;</span><br><span class="line">        &#125;,</span><br><span class="line">        &quot;createTime&quot;: &#123;</span><br><span class="line">          &quot;type&quot;: &quot;date&quot;,</span><br><span class="line">          &quot;format&quot;: &quot;strict_date_optional_time||epoch_millis&quot;</span><br><span class="line">        &#125;,</span><br><span class="line">        &quot;lastUpdateTime&quot;: &#123;</span><br><span class="line">          &quot;type&quot;: &quot;date&quot;,</span><br><span class="line">          &quot;format&quot;: &quot;strict_date_optional_time||epoch_millis&quot;</span><br><span class="line">        &#125;,</span><br><span class="line">        &quot;cityEnName&quot;: &#123;</span><br><span class="line">          &quot;type&quot;: &quot;keyword&quot;</span><br><span class="line">        &#125;,</span><br><span class="line">        &quot;regionEnName&quot;: &#123;</span><br><span class="line">          &quot;type&quot;: &quot;keyword&quot;</span><br><span class="line">        &#125;,</span><br><span class="line">        &quot;direction&quot;: &#123;</span><br><span class="line">          &quot;type&quot;: &quot;integer&quot;</span><br><span class="line">        &#125;,</span><br><span class="line">        &quot;distanceToSubway&quot;: &#123;</span><br><span class="line">          &quot;type&quot;: &quot;integer&quot;</span><br><span class="line">        &#125;,</span><br><span class="line">        &quot;subwayLineName&quot;: &#123;</span><br><span class="line">          &quot;type&quot;: &quot;keyword&quot;</span><br><span class="line">        &#125;,</span><br><span class="line">        &quot;subwayStationName&quot;: &#123;</span><br><span class="line">          &quot;type&quot;: &quot;keyword&quot;</span><br><span class="line">        &#125;,</span><br><span class="line">        &quot;tags&quot;: &#123;</span><br><span class="line">          &quot;type&quot;: &quot;text&quot;</span><br><span class="line">        &#125;,</span><br><span class="line">        &quot;street&quot;: &#123;</span><br><span class="line">          &quot;type&quot;: &quot;keyword&quot;</span><br><span class="line">        &#125;,</span><br><span class="line">        &quot;district&quot;: &#123;</span><br><span class="line">          &quot;type&quot;: &quot;keyword&quot;</span><br><span class="line">        &#125;,</span><br><span class="line">        &quot;description&quot;: &#123;</span><br><span class="line">          &quot;type&quot;: &quot;text&quot;,</span><br><span class="line">          &quot;index&quot;: &quot;analyzed&quot;,</span><br><span class="line">          &quot;analyzer&quot;: &quot;ik_smart&quot;,</span><br><span class="line">          &quot;search_analyzer&quot;: &quot;ik_smart&quot;</span><br><span class="line">        &#125;,</span><br><span class="line">        &quot;layoutDesc&quot; : &#123;</span><br><span class="line">          &quot;type&quot;: &quot;text&quot;,</span><br><span class="line">          &quot;index&quot;: &quot;analyzed&quot;,</span><br><span class="line">          &quot;analyzer&quot;: &quot;ik_smart&quot;,</span><br><span class="line">          &quot;search_analyzer&quot;: &quot;ik_smart&quot;</span><br><span class="line">        &#125;,</span><br><span class="line">        &quot;traffic&quot;: &#123;</span><br><span class="line">          &quot;type&quot;: &quot;text&quot;,</span><br><span class="line">          &quot;index&quot;: &quot;analyzed&quot;,</span><br><span class="line">          &quot;analyzer&quot;: &quot;ik_smart&quot;,</span><br><span class="line">          &quot;search_analyzer&quot;: &quot;ik_smart&quot;</span><br><span class="line">        &#125;,</span><br><span class="line">        &quot;roundService&quot;: &#123;</span><br><span class="line">          &quot;type&quot;: &quot;text&quot;,</span><br><span class="line">          &quot;index&quot;: &quot;analyzed&quot;,</span><br><span class="line">          &quot;analyzer&quot;: &quot;ik_smart&quot;,</span><br><span class="line">          &quot;search_analyzer&quot;: &quot;ik_smart&quot;</span><br><span class="line">        &#125;,</span><br><span class="line">        &quot;rentWay&quot;: &#123;</span><br><span class="line">          &quot;type&quot;: &quot;integer&quot;</span><br><span class="line">        &#125;,</span><br><span class="line">        &quot;suggest&quot;:&#123;</span><br><span class="line">          &quot;type&quot;: &quot;completion&quot;</span><br><span class="line">        &#125;,</span><br><span class="line">        &quot;location&quot;:&#123;</span><br><span class="line">          &quot;type&quot;: &quot;geo_point&quot;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="以上脚本如果在-ElasticSearch-6-X-执行，会报错"><a href="#以上脚本如果在-ElasticSearch-6-X-执行，会报错" class="headerlink" title="以上脚本如果在 ElasticSearch 6.X 执行，会报错"></a>以上脚本如果在 ElasticSearch 6.X 执行，会报错</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;error&quot;: &#123;</span><br><span class="line">    &quot;root_cause&quot;: [</span><br><span class="line">      &#123;</span><br><span class="line">        &quot;type&quot;: &quot;mapper_parsing_exception&quot;,</span><br><span class="line">        &quot;reason&quot;: &quot;Failed to parse mapping [house]: Could not convert [roundService.index] to boolean&quot;</span><br><span class="line">      &#125;</span><br><span class="line">    ],</span><br><span class="line">    &quot;type&quot;: &quot;mapper_parsing_exception&quot;,</span><br><span class="line">    &quot;reason&quot;: &quot;Failed to parse mapping [house]: Could not convert [roundService.index] to boolean&quot;,</span><br><span class="line">    &quot;caused_by&quot;: &#123;</span><br><span class="line">      &quot;type&quot;: &quot;illegal_argument_exception&quot;,</span><br><span class="line">      &quot;reason&quot;: &quot;Could not convert [roundService.index] to boolean&quot;,</span><br><span class="line">      &quot;caused_by&quot;: &#123;</span><br><span class="line">        &quot;type&quot;: &quot;illegal_argument_exception&quot;,</span><br><span class="line">        &quot;reason&quot;: &quot;Failed to parse value [analyzed] as only [true] or [false] are allowed.&quot;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;status&quot;: 400</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>把上面的请求数据中的<code>analyzed</code>改为<code>true</code>即可。</p>
+<p>提交之后，返回数据如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#! Deprecation: [_all] is deprecated in 6.0+ and will be removed in 7.0. As a replacement, you can use [copy_to] on mapping fields to create your own catch all field.</span><br><span class="line">&#123;</span><br><span class="line">  &quot;acknowledged&quot;: true,</span><br><span class="line">  &quot;shards_acknowledged&quot;: true,</span><br><span class="line">  &quot;index&quot;: &quot;xunwu&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h2><ul>
+<li>ElasticSearch 6.X 的 index 只能是 true 或 false</li>
+<li>mapping parameters 中的 index 只能接收一个 bool 值，true 或者 false</li>
+<li><p>这是 6.X 的新变化。</p>
+</li>
+<li><p>之前的版本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">index分析:</span><br><span class="line">analyzed(默认)</span><br><span class="line">not_analyzed</span><br><span class="line">no</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h1 id="start-server"><a href="#start-server" class="headerlink" title="start server"></a>start server</h1><h2 id="启动-zookeeper"><a href="#启动-zookeeper" class="headerlink" title="启动 zookeeper"></a>启动 zookeeper</h2><p><code>/home/utomcat/soft/zookeeper-3.4.12/bin/zkServer.sh start &amp;</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># cp /home/utomcat/soft/zookeeper-3.4.12/conf/zoo_sample.cfg /home/utomcat/soft/zookeeper-3.4.12/conf/zoo.cfg</span><br><span class="line"># /home/utomcat/soft/zookeeper-3.4.12/bin/zkServer.sh start</span><br><span class="line">[utomcat@AndyCentOS7Basic conf]$ /home/utomcat/soft/zookeeper-3.4.12/bin/zkServer.sh start</span><br><span class="line">ZooKeeper JMX enabled by default</span><br><span class="line">Using config: /home/utomcat/soft/zookeeper-3.4.12/bin/../conf/zoo.cfg</span><br><span class="line">Starting zookeeper ... STARTED</span><br></pre></td></tr></table></figure></p>
+<h3 id="也可以用-kafka-自带的启动脚本启动-zookeeper-启动"><a href="#也可以用-kafka-自带的启动脚本启动-zookeeper-启动" class="headerlink" title="也可以用 kafka 自带的启动脚本启动 zookeeper 启动"></a>也可以用 kafka 自带的启动脚本启动 zookeeper 启动</h3><p><code>/home/utomcat/soft/kafka_2.11-2.0.0/bin/zookeeper-server-start.sh /home/utomcat/soft/kafka_2.11-2.0.0/config/zookeeper.properties &amp;</code></p>
+<h2 id="启动-kafka"><a href="#启动-kafka" class="headerlink" title="启动 kafka"></a>启动 kafka</h2><p><code>/home/utomcat/soft/kafka_2.11-2.0.0/bin/kafka-server-start.sh /home/utomcat/soft/kafka_2.11-2.0.0/config/server.properties &amp;</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br><span class="line">319</span><br><span class="line">320</span><br><span class="line">321</span><br><span class="line">322</span><br><span class="line">323</span><br><span class="line">324</span><br><span class="line">325</span><br><span class="line">326</span><br><span class="line">327</span><br><span class="line">328</span><br><span class="line">329</span><br><span class="line">330</span><br><span class="line">331</span><br><span class="line">332</span><br><span class="line">333</span><br><span class="line">334</span><br><span class="line">335</span><br><span class="line">336</span><br><span class="line">337</span><br><span class="line">338</span><br><span class="line">339</span><br><span class="line">340</span><br><span class="line">341</span><br><span class="line">342</span><br><span class="line">343</span><br><span class="line">344</span><br><span class="line">345</span><br><span class="line">346</span><br><span class="line">347</span><br><span class="line">348</span><br><span class="line">349</span><br><span class="line">350</span><br><span class="line">351</span><br><span class="line">352</span><br><span class="line">353</span><br><span class="line">354</span><br><span class="line">355</span><br><span class="line">356</span><br><span class="line">357</span><br><span class="line">358</span><br><span class="line">359</span><br><span class="line">360</span><br><span class="line">361</span><br><span class="line">362</span><br><span class="line">363</span><br><span class="line">364</span><br><span class="line">365</span><br><span class="line">366</span><br><span class="line">367</span><br><span class="line">368</span><br><span class="line">369</span><br><span class="line">370</span><br><span class="line">371</span><br><span class="line">372</span><br><span class="line">373</span><br><span class="line">374</span><br><span class="line">375</span><br><span class="line">376</span><br><span class="line">377</span><br><span class="line">378</span><br><span class="line">379</span><br><span class="line">380</span><br><span class="line">381</span><br><span class="line">382</span><br><span class="line">383</span><br><span class="line">384</span><br><span class="line">385</span><br><span class="line">386</span><br><span class="line">387</span><br><span class="line">388</span><br><span class="line">389</span><br><span class="line">390</span><br><span class="line">391</span><br><span class="line">392</span><br><span class="line">393</span><br><span class="line">394</span><br><span class="line">395</span><br><span class="line">396</span><br><span class="line">397</span><br><span class="line">398</span><br><span class="line">399</span><br><span class="line">400</span><br><span class="line">401</span><br><span class="line">402</span><br><span class="line">403</span><br><span class="line">404</span><br><span class="line">405</span><br><span class="line">406</span><br><span class="line">407</span><br><span class="line">408</span><br><span class="line">409</span><br><span class="line">410</span><br><span class="line">411</span><br><span class="line">412</span><br><span class="line">413</span><br><span class="line">414</span><br><span class="line">415</span><br><span class="line">416</span><br><span class="line">417</span><br><span class="line">418</span><br><span class="line">419</span><br><span class="line">420</span><br><span class="line">421</span><br><span class="line">422</span><br><span class="line">423</span><br><span class="line">424</span><br><span class="line">425</span><br><span class="line">426</span><br><span class="line">427</span><br><span class="line">428</span><br><span class="line">429</span><br><span class="line">430</span><br><span class="line">431</span><br></pre></td><td class="code"><pre><span class="line"># /home/utomcat/soft/kafka_2.11-2.0.0/bin/kafka-server-start.sh /home/utomcat/soft/kafka_2.11-2.0.0/config/server.properties &amp;</span><br><span class="line">[utomcat@AndyCentOS7Basic bin]$ /home/utomcat/soft/kafka_2.11-2.0.0/bin/kafka-server-start.sh /home/utomcat/soft/kafka_2.11-2.0.0/config/server.properties &amp;</span><br><span class="line">[1] 2242</span><br><span class="line">[utomcat@AndyCentOS7Basic bin]$ [2018-09-20 15:59:26,257] INFO Registered kafka:type=kafka.Log4jController MBean (kafka.utils.Log4jControllerRegistration$)</span><br><span class="line">[2018-09-20 15:59:26,492] INFO starting (kafka.server.KafkaServer)</span><br><span class="line">[2018-09-20 15:59:26,493] INFO Connecting to zookeeper on localhost:2181 (kafka.server.KafkaServer)</span><br><span class="line">[2018-09-20 15:59:26,507] INFO [ZooKeeperClient] Initializing a new session to localhost:2181. (kafka.zookeeper.ZooKeeperClient)</span><br><span class="line">[2018-09-20 15:59:26,548] INFO Client environment:zookeeper.version=3.4.13-2d71af4dbe22557fda74f9a9b4309b15a7487f03, built on 06/29/2018 00:39 GMT (org.apache.zookeeper.ZooKeeper)</span><br><span class="line">[2018-09-20 15:59:26,548] INFO Client environment:host.name=223.87.179.191 (org.apache.zookeeper.ZooKeeper)</span><br><span class="line">[2018-09-20 15:59:26,548] INFO Client environment:java.version=1.8.0_161 (org.apache.zookeeper.ZooKeeper)</span><br><span class="line">[2018-09-20 15:59:26,548] INFO Client environment:java.vendor=Oracle Corporation (org.apache.zookeeper.ZooKeeper)</span><br><span class="line">[2018-09-20 15:59:26,548] INFO Client environment:java.home=/usr/jdk1.8.0_161/jre (org.apache.zookeeper.ZooKeeper)</span><br><span class="line">[2018-09-20 15:59:26,548] INFO Client environment:java.class.path=/home/utomcat/soft/kafka_2.11-2.0.0/bin/../libs/activation-1.1.1.jar:/home/utomcat/soft/kafka_2.11-2.0.0/bin/../libs/aopalliance-repackaged-2.5.0-b42.jar:/home/utomcat/soft/kafka_2.11-2.0.0/bin/../libs/argparse4j-0.7.0.jar:/home/utomcat/soft/kafka_2.11-2.0.0/bin/../libs/audience-annotations-0.5.0.jar:/home/utomcat/soft/kafka_2.11-2.0.0/bin/../libs/commons-lang3-3.5.jar:/home/utomcat/soft/kafka_2.11-2.0.0/bin/../libs/connect-api-2.0.0.jar:/home/utomcat/soft/kafka_2.11-2.0.0/bin/../libs/connect-basic-auth-extension-2.0.0.jar:/home/utomcat/soft/kafka_2.11-2.0.0/bin/../libs/connect-file-2.0.0.jar:/home/utomcat/soft/kafka_2.11-2.0.0/bin/../libs/connect-json-2.0.0.jar:/home/utomcat/soft/kafka_2.11-2.0.0/bin/../libs/connect-runtime-2.0.0.jar:/home/utomcat/soft/kafka_2.11-2.0.0/bin/../libs/connect-transforms-2.0.0.jar:/home/utomcat/soft/kafka_2.11-2.0.0/bin/../libs/guava-20.0.jar:/home/utomcat/soft/kafka_2.11-2.0.0/bin/../libs/hk2-api-2.5.0-b42.jar:/home/utomcat/soft/kafka_2.11-2.0.0/bin/../libs/hk2-locator-2.5.0-b42.jar:/home/utomcat/soft/kafka_2.11-2.0.0/bin/../libs/hk2-utils-2.5.0-b42.jar:/home/utomcat/soft/kafka_2.11-2.)</span><br><span class="line">[2018-09-20 15:59:26,548] INFO Client environment:java.library.path=/usr/java/packages/lib/amd64:/usr/lib64:/lib64:/lib:/usr/lib (org.apache.zookeeper.ZooKeeper)</span><br><span class="line">[2018-09-20 15:59:26,548] INFO Client environment:java.io.tmpdir=/tmp (org.apache.zookeeper.ZooKeeper)</span><br><span class="line">[2018-09-20 15:59:26,548] INFO Client environment:java.compiler=&lt;NA&gt; (org.apache.zookeeper.ZooKeeper)</span><br><span class="line">[2018-09-20 15:59:26,548] INFO Client environment:os.name=Linux (org.apache.zookeeper.ZooKeeper)</span><br><span class="line">[2018-09-20 15:59:26,548] INFO Client environment:os.arch=amd64 (org.apache.zookeeper.ZooKeeper)</span><br><span class="line">[2018-09-20 15:59:26,548] INFO Client environment:os.version=3.10.0-862.2.3.el7.x86_64 (org.apache.zookeeper.ZooKeeper)</span><br><span class="line">[2018-09-20 15:59:26,548] INFO Client environment:user.name=utomcat (org.apache.zookeeper.ZooKeeper)</span><br><span class="line">[2018-09-20 15:59:26,548] INFO Client environment:user.home=/home/utomcat (org.apache.zookeeper.ZooKeeper)</span><br><span class="line">[2018-09-20 15:59:26,549] INFO Client environment:user.dir=/home/utomcat/soft/kafka_2.11-2.0.0/bin (org.apache.zookeeper.ZooKeeper)</span><br><span class="line">[2018-09-20 15:59:26,549] INFO Initiating client connection, connectString=localhost:2181 sessionTimeout=6000 watcher=kafka.zookeeper.ZooKeeperClient$ZooKeeperClientWatcher$@3febb011 (org.apache.zookeeper.ZooKeeper)</span><br><span class="line">[2018-09-20 15:59:26,565] INFO Opening socket connection to server localhost/127.0.0.1:2181. Will not attempt to authenticate using SASL (unknown error) (org.apache.zookeeper.ClientCnxn)</span><br><span class="line">[2018-09-20 15:59:26,567] INFO [ZooKeeperClient] Waiting until connected. (kafka.zookeeper.ZooKeeperClient)</span><br><span class="line">[2018-09-20 15:59:26,568] INFO Socket connection established to localhost/127.0.0.1:2181, initiating session (org.apache.zookeeper.ClientCnxn)</span><br><span class="line">[2018-09-20 15:59:26,587] INFO Session establishment complete on server localhost/127.0.0.1:2181, sessionid = 0x10004c56b230000, negotiated timeout = 6000 (org.apache.zookeeper.ClientCnxn)</span><br><span class="line">[2018-09-20 15:59:26,589] INFO [ZooKeeperClient] Connected. (kafka.zookeeper.ZooKeeperClient)</span><br><span class="line">[2018-09-20 15:59:26,830] INFO Cluster ID = 9HOtQ4rMRmqdD5tTso0oqw (kafka.server.KafkaServer)</span><br><span class="line">[2018-09-20 15:59:26,834] WARN No meta.properties file under dir /tmp/kafka-logs/meta.properties (kafka.server.BrokerMetadataCheckpoint)</span><br><span class="line">[2018-09-20 15:59:26,879] INFO KafkaConfig values: </span><br><span class="line">        advertised.host.name = null</span><br><span class="line">        advertised.listeners = null</span><br><span class="line">        advertised.port = null</span><br><span class="line">        alter.config.policy.class.name = null</span><br><span class="line">        alter.log.dirs.replication.quota.window.num = 11</span><br><span class="line">        alter.log.dirs.replication.quota.window.size.seconds = 1</span><br><span class="line">        authorizer.class.name = </span><br><span class="line">        auto.create.topics.enable = true</span><br><span class="line">        auto.leader.rebalance.enable = true</span><br><span class="line">        background.threads = 10</span><br><span class="line">        broker.id = 0</span><br><span class="line">        broker.id.generation.enable = true</span><br><span class="line">        broker.rack = null</span><br><span class="line">        client.quota.callback.class = null</span><br><span class="line">        compression.type = producer</span><br><span class="line">        connections.max.idle.ms = 600000</span><br><span class="line">        controlled.shutdown.enable = true</span><br><span class="line">        controlled.shutdown.max.retries = 3</span><br><span class="line">        controlled.shutdown.retry.backoff.ms = 5000</span><br><span class="line">        controller.socket.timeout.ms = 30000</span><br><span class="line">        create.topic.policy.class.name = null</span><br><span class="line">        default.replication.factor = 1</span><br><span class="line">        delegation.token.expiry.check.interval.ms = 3600000</span><br><span class="line">        delegation.token.expiry.time.ms = 86400000</span><br><span class="line">        delegation.token.master.key = null</span><br><span class="line">        delegation.token.max.lifetime.ms = 604800000</span><br><span class="line">        delete.records.purgatory.purge.interval.requests = 1</span><br><span class="line">        delete.topic.enable = true</span><br><span class="line">        fetch.purgatory.purge.interval.requests = 1000</span><br><span class="line">        group.initial.rebalance.delay.ms = 0</span><br><span class="line">        group.max.session.timeout.ms = 300000</span><br><span class="line">        group.min.session.timeout.ms = 6000</span><br><span class="line">        host.name = </span><br><span class="line">        inter.broker.listener.name = null</span><br><span class="line">        inter.broker.protocol.version = 2.0-IV1</span><br><span class="line">        leader.imbalance.check.interval.seconds = 300</span><br><span class="line">        leader.imbalance.per.broker.percentage = 10</span><br><span class="line">        listener.security.protocol.map = PLAINTEXT:PLAINTEXT,SSL:SSL,SASL_PLAINTEXT:SASL_PLAINTEXT,SASL_SSL:SASL_SSL</span><br><span class="line">        listeners = null</span><br><span class="line">        log.cleaner.backoff.ms = 15000</span><br><span class="line">        log.cleaner.dedupe.buffer.size = 134217728</span><br><span class="line">        log.cleaner.delete.retention.ms = 86400000</span><br><span class="line">        log.cleaner.enable = true</span><br><span class="line">        log.cleaner.io.buffer.load.factor = 0.9</span><br><span class="line">        log.cleaner.io.buffer.size = 524288</span><br><span class="line">        log.cleaner.io.max.bytes.per.second = 1.7976931348623157E308</span><br><span class="line">        log.cleaner.min.cleanable.ratio = 0.5</span><br><span class="line">        log.cleaner.min.compaction.lag.ms = 0</span><br><span class="line">        log.cleaner.threads = 1</span><br><span class="line">        log.cleanup.policy = [delete]</span><br><span class="line">        log.dir = /tmp/kafka-logs</span><br><span class="line">        log.dirs = /tmp/kafka-logs</span><br><span class="line">        log.flush.interval.messages = 9223372036854775807</span><br><span class="line">        log.flush.interval.ms = null</span><br><span class="line">        log.flush.offset.checkpoint.interval.ms = 60000</span><br><span class="line">        log.flush.scheduler.interval.ms = 9223372036854775807</span><br><span class="line">        log.flush.start.offset.checkpoint.interval.ms = 60000</span><br><span class="line">        log.index.interval.bytes = 4096</span><br><span class="line">        log.index.size.max.bytes = 10485760</span><br><span class="line">        log.message.downconversion.enable = true</span><br><span class="line">        log.message.format.version = 2.0-IV1</span><br><span class="line">        log.message.timestamp.difference.max.ms = 9223372036854775807</span><br><span class="line">        log.message.timestamp.type = CreateTime</span><br><span class="line">        log.preallocate = false</span><br><span class="line">        log.retention.bytes = -1</span><br><span class="line">        log.retention.check.interval.ms = 300000</span><br><span class="line">        log.retention.hours = 168</span><br><span class="line">        log.retention.minutes = null</span><br><span class="line">        log.retention.ms = null</span><br><span class="line">        log.roll.hours = 168</span><br><span class="line">        log.roll.jitter.hours = 0</span><br><span class="line">        log.roll.jitter.ms = null</span><br><span class="line">        log.roll.ms = null</span><br><span class="line">        log.segment.bytes = 1073741824</span><br><span class="line">        log.segment.delete.delay.ms = 60000</span><br><span class="line">        max.connections.per.ip = 2147483647</span><br><span class="line">        max.connections.per.ip.overrides = </span><br><span class="line">        max.incremental.fetch.session.cache.slots = 1000</span><br><span class="line">        message.max.bytes = 1000012</span><br><span class="line">        metric.reporters = []</span><br><span class="line">        metrics.num.samples = 2</span><br><span class="line">        metrics.recording.level = INFO</span><br><span class="line">        metrics.sample.window.ms = 30000</span><br><span class="line">        min.insync.replicas = 1</span><br><span class="line">        num.io.threads = 8</span><br><span class="line">        num.network.threads = 3</span><br><span class="line">        num.partitions = 1</span><br><span class="line">        num.recovery.threads.per.data.dir = 1</span><br><span class="line">        num.replica.alter.log.dirs.threads = null</span><br><span class="line">        num.replica.fetchers = 1</span><br><span class="line">        offset.metadata.max.bytes = 4096</span><br><span class="line">        offsets.commit.required.acks = -1</span><br><span class="line">        offsets.commit.timeout.ms = 5000</span><br><span class="line">        offsets.load.buffer.size = 5242880</span><br><span class="line">        offsets.retention.check.interval.ms = 600000</span><br><span class="line">        offsets.retention.minutes = 10080</span><br><span class="line">        offsets.topic.compression.codec = 0</span><br><span class="line">        offsets.topic.num.partitions = 50</span><br><span class="line">        offsets.topic.replication.factor = 1</span><br><span class="line">        offsets.topic.segment.bytes = 104857600</span><br><span class="line">        password.encoder.cipher.algorithm = AES/CBC/PKCS5Padding</span><br><span class="line">        password.encoder.iterations = 4096</span><br><span class="line">        password.encoder.key.length = 128</span><br><span class="line">        password.encoder.keyfactory.algorithm = null</span><br><span class="line">        password.encoder.old.secret = null</span><br><span class="line">        password.encoder.secret = null</span><br><span class="line">        port = 9092</span><br><span class="line">        principal.builder.class = null</span><br><span class="line">        producer.purgatory.purge.interval.requests = 1000</span><br><span class="line">        queued.max.request.bytes = -1</span><br><span class="line">        queued.max.requests = 500</span><br><span class="line">        quota.consumer.default = 9223372036854775807</span><br><span class="line">        quota.producer.default = 9223372036854775807</span><br><span class="line">        quota.window.num = 11</span><br><span class="line">        quota.window.size.seconds = 1</span><br><span class="line">        replica.fetch.backoff.ms = 1000</span><br><span class="line">        replica.fetch.max.bytes = 1048576</span><br><span class="line">        replica.fetch.min.bytes = 1</span><br><span class="line">        replica.fetch.response.max.bytes = 10485760</span><br><span class="line">        replica.fetch.wait.max.ms = 500</span><br><span class="line">        replica.high.watermark.checkpoint.interval.ms = 5000</span><br><span class="line">        replica.lag.time.max.ms = 10000</span><br><span class="line">        replica.socket.receive.buffer.bytes = 65536</span><br><span class="line">        replica.socket.timeout.ms = 30000</span><br><span class="line">        replication.quota.window.num = 11</span><br><span class="line">        replication.quota.window.size.seconds = 1</span><br><span class="line">        request.timeout.ms = 30000</span><br><span class="line">        reserved.broker.max.id = 1000</span><br><span class="line">        sasl.client.callback.handler.class = null</span><br><span class="line">        sasl.enabled.mechanisms = [GSSAPI]</span><br><span class="line">        sasl.jaas.config = null</span><br><span class="line">        sasl.kerberos.kinit.cmd = /usr/bin/kinit</span><br><span class="line">        sasl.kerberos.min.time.before.relogin = 60000</span><br><span class="line">        sasl.kerberos.principal.to.local.rules = [DEFAULT]</span><br><span class="line">        sasl.kerberos.service.name = null</span><br><span class="line">        sasl.kerberos.ticket.renew.jitter = 0.05</span><br><span class="line">        sasl.kerberos.ticket.renew.window.factor = 0.8</span><br><span class="line">        sasl.login.callback.handler.class = null</span><br><span class="line">        sasl.login.class = null</span><br><span class="line">        sasl.login.refresh.buffer.seconds = 300</span><br><span class="line">        sasl.login.refresh.min.period.seconds = 60</span><br><span class="line">        sasl.login.refresh.window.factor = 0.8</span><br><span class="line">        sasl.login.refresh.window.jitter = 0.05</span><br><span class="line">        sasl.mechanism.inter.broker.protocol = GSSAPI</span><br><span class="line">        sasl.server.callback.handler.class = null</span><br><span class="line">        security.inter.broker.protocol = PLAINTEXT</span><br><span class="line">        socket.receive.buffer.bytes = 102400</span><br><span class="line">        socket.request.max.bytes = 104857600</span><br><span class="line">        socket.send.buffer.bytes = 102400</span><br><span class="line">        ssl.cipher.suites = []</span><br><span class="line">        ssl.client.auth = none</span><br><span class="line">        ssl.enabled.protocols = [TLSv1.2, TLSv1.1, TLSv1]</span><br><span class="line">        ssl.endpoint.identification.algorithm = https</span><br><span class="line">        ssl.key.password = null</span><br><span class="line">        ssl.keymanager.algorithm = SunX509</span><br><span class="line">        ssl.keystore.location = null</span><br><span class="line">        ssl.keystore.password = null</span><br><span class="line">        ssl.keystore.type = JKS</span><br><span class="line">        ssl.protocol = TLS</span><br><span class="line">        ssl.provider = null</span><br><span class="line">        ssl.secure.random.implementation = null</span><br><span class="line">        ssl.trustmanager.algorithm = PKIX</span><br><span class="line">        ssl.truststore.location = null</span><br><span class="line">        ssl.truststore.password = null</span><br><span class="line">        ssl.truststore.type = JKS</span><br><span class="line">        transaction.abort.timed.out.transaction.cleanup.interval.ms = 60000</span><br><span class="line">        transaction.max.timeout.ms = 900000</span><br><span class="line">        transaction.remove.expired.transaction.cleanup.interval.ms = 3600000</span><br><span class="line">        transaction.state.log.load.buffer.size = 5242880</span><br><span class="line">        transaction.state.log.min.isr = 1</span><br><span class="line">        transaction.state.log.num.partitions = 50</span><br><span class="line">        transaction.state.log.replication.factor = 1</span><br><span class="line">        transaction.state.log.segment.bytes = 104857600</span><br><span class="line">        transactional.id.expiration.ms = 604800000</span><br><span class="line">        unclean.leader.election.enable = false</span><br><span class="line">        zookeeper.connect = localhost:2181</span><br><span class="line">        zookeeper.connection.timeout.ms = 6000</span><br><span class="line">        zookeeper.max.in.flight.requests = 10</span><br><span class="line">        zookeeper.session.timeout.ms = 6000</span><br><span class="line">        zookeeper.set.acl = false</span><br><span class="line">        zookeeper.sync.time.ms = 2000</span><br><span class="line"> (kafka.server.KafkaConfig)</span><br><span class="line">[2018-09-20 15:59:26,886] INFO KafkaConfig values: </span><br><span class="line">        advertised.host.name = null</span><br><span class="line">        advertised.listeners = null</span><br><span class="line">        advertised.port = null</span><br><span class="line">        alter.config.policy.class.name = null</span><br><span class="line">        alter.log.dirs.replication.quota.window.num = 11</span><br><span class="line">        alter.log.dirs.replication.quota.window.size.seconds = 1</span><br><span class="line">        authorizer.class.name = </span><br><span class="line">        auto.create.topics.enable = true</span><br><span class="line">        auto.leader.rebalance.enable = true</span><br><span class="line">        background.threads = 10</span><br><span class="line">        broker.id = 0</span><br><span class="line">        broker.id.generation.enable = true</span><br><span class="line">        broker.rack = null</span><br><span class="line">        client.quota.callback.class = null</span><br><span class="line">        compression.type = producer</span><br><span class="line">        connections.max.idle.ms = 600000</span><br><span class="line">        controlled.shutdown.enable = true</span><br><span class="line">        controlled.shutdown.max.retries = 3</span><br><span class="line">        controlled.shutdown.retry.backoff.ms = 5000</span><br><span class="line">        controller.socket.timeout.ms = 30000</span><br><span class="line">        create.topic.policy.class.name = null</span><br><span class="line">        default.replication.factor = 1</span><br><span class="line">        delegation.token.expiry.check.interval.ms = 3600000</span><br><span class="line">        delegation.token.expiry.time.ms = 86400000</span><br><span class="line">        delegation.token.master.key = null</span><br><span class="line">        delegation.token.max.lifetime.ms = 604800000</span><br><span class="line">        delete.records.purgatory.purge.interval.requests = 1</span><br><span class="line">        delete.topic.enable = true</span><br><span class="line">        fetch.purgatory.purge.interval.requests = 1000</span><br><span class="line">        group.initial.rebalance.delay.ms = 0</span><br><span class="line">        group.max.session.timeout.ms = 300000</span><br><span class="line">        group.min.session.timeout.ms = 6000</span><br><span class="line">        host.name = </span><br><span class="line">        inter.broker.listener.name = null</span><br><span class="line">        inter.broker.protocol.version = 2.0-IV1</span><br><span class="line">        leader.imbalance.check.interval.seconds = 300</span><br><span class="line">        leader.imbalance.per.broker.percentage = 10</span><br><span class="line">        listener.security.protocol.map = PLAINTEXT:PLAINTEXT,SSL:SSL,SASL_PLAINTEXT:SASL_PLAINTEXT,SASL_SSL:SASL_SSL</span><br><span class="line">        listeners = null</span><br><span class="line">        log.cleaner.backoff.ms = 15000</span><br><span class="line">        log.cleaner.dedupe.buffer.size = 134217728</span><br><span class="line">        log.cleaner.delete.retention.ms = 86400000</span><br><span class="line">        log.cleaner.enable = true</span><br><span class="line">        log.cleaner.io.buffer.load.factor = 0.9</span><br><span class="line">        log.cleaner.io.buffer.size = 524288</span><br><span class="line">        log.cleaner.io.max.bytes.per.second = 1.7976931348623157E308</span><br><span class="line">        log.cleaner.min.cleanable.ratio = 0.5</span><br><span class="line">        log.cleaner.min.compaction.lag.ms = 0</span><br><span class="line">        log.cleaner.threads = 1</span><br><span class="line">        log.cleanup.policy = [delete]</span><br><span class="line">        log.dir = /tmp/kafka-logs</span><br><span class="line">        log.dirs = /tmp/kafka-logs</span><br><span class="line">        log.flush.interval.messages = 9223372036854775807</span><br><span class="line">        log.flush.interval.ms = null</span><br><span class="line">        log.flush.offset.checkpoint.interval.ms = 60000</span><br><span class="line">        log.flush.scheduler.interval.ms = 9223372036854775807</span><br><span class="line">        log.flush.start.offset.checkpoint.interval.ms = 60000</span><br><span class="line">        log.index.interval.bytes = 4096</span><br><span class="line">        log.index.size.max.bytes = 10485760</span><br><span class="line">        log.message.downconversion.enable = true</span><br><span class="line">        log.message.format.version = 2.0-IV1</span><br><span class="line">        log.message.timestamp.difference.max.ms = 9223372036854775807</span><br><span class="line">        log.message.timestamp.type = CreateTime</span><br><span class="line">        log.preallocate = false</span><br><span class="line">        log.retention.bytes = -1</span><br><span class="line">        log.retention.check.interval.ms = 300000</span><br><span class="line">        log.retention.hours = 168</span><br><span class="line">        log.retention.minutes = null</span><br><span class="line">        log.retention.ms = null</span><br><span class="line">        log.roll.hours = 168</span><br><span class="line">        log.roll.jitter.hours = 0</span><br><span class="line">        log.roll.jitter.ms = null</span><br><span class="line">        log.roll.ms = null</span><br><span class="line">        log.segment.bytes = 1073741824</span><br><span class="line">        log.segment.delete.delay.ms = 60000</span><br><span class="line">        max.connections.per.ip = 2147483647</span><br><span class="line">        max.connections.per.ip.overrides = </span><br><span class="line">        max.incremental.fetch.session.cache.slots = 1000</span><br><span class="line">        message.max.bytes = 1000012</span><br><span class="line">        metric.reporters = []</span><br><span class="line">        metrics.num.samples = 2</span><br><span class="line">        metrics.recording.level = INFO</span><br><span class="line">        metrics.sample.window.ms = 30000</span><br><span class="line">        min.insync.replicas = 1</span><br><span class="line">        num.io.threads = 8</span><br><span class="line">        num.network.threads = 3</span><br><span class="line">        num.partitions = 1</span><br><span class="line">        num.recovery.threads.per.data.dir = 1</span><br><span class="line">        num.replica.alter.log.dirs.threads = null</span><br><span class="line">        num.replica.fetchers = 1</span><br><span class="line">        offset.metadata.max.bytes = 4096</span><br><span class="line">        offsets.commit.required.acks = -1</span><br><span class="line">        offsets.commit.timeout.ms = 5000</span><br><span class="line">        offsets.load.buffer.size = 5242880</span><br><span class="line">        offsets.retention.check.interval.ms = 600000</span><br><span class="line">        offsets.retention.minutes = 10080</span><br><span class="line">        offsets.topic.compression.codec = 0</span><br><span class="line">        offsets.topic.num.partitions = 50</span><br><span class="line">        offsets.topic.replication.factor = 1</span><br><span class="line">        offsets.topic.segment.bytes = 104857600</span><br><span class="line">        password.encoder.cipher.algorithm = AES/CBC/PKCS5Padding</span><br><span class="line">        password.encoder.iterations = 4096</span><br><span class="line">        password.encoder.key.length = 128</span><br><span class="line">        password.encoder.keyfactory.algorithm = null</span><br><span class="line">        password.encoder.old.secret = null</span><br><span class="line">        password.encoder.secret = null</span><br><span class="line">        port = 9092</span><br><span class="line">        principal.builder.class = null</span><br><span class="line">        producer.purgatory.purge.interval.requests = 1000</span><br><span class="line">        queued.max.request.bytes = -1</span><br><span class="line">        queued.max.requests = 500</span><br><span class="line">        quota.consumer.default = 9223372036854775807</span><br><span class="line">        quota.producer.default = 9223372036854775807</span><br><span class="line">        quota.window.num = 11</span><br><span class="line">        quota.window.size.seconds = 1</span><br><span class="line">        replica.fetch.backoff.ms = 1000</span><br><span class="line">        replica.fetch.max.bytes = 1048576</span><br><span class="line">        replica.fetch.min.bytes = 1</span><br><span class="line">        replica.fetch.response.max.bytes = 10485760</span><br><span class="line">        replica.fetch.wait.max.ms = 500</span><br><span class="line">        replica.high.watermark.checkpoint.interval.ms = 5000</span><br><span class="line">        replica.lag.time.max.ms = 10000</span><br><span class="line">        replica.socket.receive.buffer.bytes = 65536</span><br><span class="line">        replica.socket.timeout.ms = 30000</span><br><span class="line">        replication.quota.window.num = 11</span><br><span class="line">        replication.quota.window.size.seconds = 1</span><br><span class="line">        request.timeout.ms = 30000</span><br><span class="line">        reserved.broker.max.id = 1000</span><br><span class="line">        sasl.client.callback.handler.class = null</span><br><span class="line">        sasl.enabled.mechanisms = [GSSAPI]</span><br><span class="line">        sasl.jaas.config = null</span><br><span class="line">        sasl.kerberos.kinit.cmd = /usr/bin/kinit</span><br><span class="line">        sasl.kerberos.min.time.before.relogin = 60000</span><br><span class="line">        sasl.kerberos.principal.to.local.rules = [DEFAULT]</span><br><span class="line">        sasl.kerberos.service.name = null</span><br><span class="line">        sasl.kerberos.ticket.renew.jitter = 0.05</span><br><span class="line">        sasl.kerberos.ticket.renew.window.factor = 0.8</span><br><span class="line">        sasl.login.callback.handler.class = null</span><br><span class="line">        sasl.login.class = null</span><br><span class="line">        sasl.login.refresh.buffer.seconds = 300</span><br><span class="line">        sasl.login.refresh.min.period.seconds = 60</span><br><span class="line">        sasl.login.refresh.window.factor = 0.8</span><br><span class="line">        sasl.login.refresh.window.jitter = 0.05</span><br><span class="line">        sasl.mechanism.inter.broker.protocol = GSSAPI</span><br><span class="line">        sasl.server.callback.handler.class = null</span><br><span class="line">        security.inter.broker.protocol = PLAINTEXT</span><br><span class="line">        socket.receive.buffer.bytes = 102400</span><br><span class="line">        socket.request.max.bytes = 104857600</span><br><span class="line">        socket.send.buffer.bytes = 102400</span><br><span class="line">        ssl.cipher.suites = []</span><br><span class="line">        ssl.client.auth = none</span><br><span class="line">        ssl.enabled.protocols = [TLSv1.2, TLSv1.1, TLSv1]</span><br><span class="line">        ssl.endpoint.identification.algorithm = https</span><br><span class="line">        ssl.key.password = null</span><br><span class="line">        ssl.keymanager.algorithm = SunX509</span><br><span class="line">        ssl.keystore.location = null</span><br><span class="line">        ssl.keystore.password = null</span><br><span class="line">        ssl.keystore.type = JKS</span><br><span class="line">        ssl.protocol = TLS</span><br><span class="line">        ssl.provider = null</span><br><span class="line">        ssl.secure.random.implementation = null</span><br><span class="line">        ssl.trustmanager.algorithm = PKIX</span><br><span class="line">        ssl.truststore.location = null</span><br><span class="line">        ssl.truststore.password = null</span><br><span class="line">        ssl.truststore.type = JKS</span><br><span class="line">        transaction.abort.timed.out.transaction.cleanup.interval.ms = 60000</span><br><span class="line">        transaction.max.timeout.ms = 900000</span><br><span class="line">        transaction.remove.expired.transaction.cleanup.interval.ms = 3600000</span><br><span class="line">        transaction.state.log.load.buffer.size = 5242880</span><br><span class="line">        transaction.state.log.min.isr = 1</span><br><span class="line">        transaction.state.log.num.partitions = 50</span><br><span class="line">        transaction.state.log.replication.factor = 1</span><br><span class="line">        transaction.state.log.segment.bytes = 104857600</span><br><span class="line">        transactional.id.expiration.ms = 604800000</span><br><span class="line">        unclean.leader.election.enable = false</span><br><span class="line">        zookeeper.connect = localhost:2181</span><br><span class="line">        zookeeper.connection.timeout.ms = 6000</span><br><span class="line">        zookeeper.max.in.flight.requests = 10</span><br><span class="line">        zookeeper.session.timeout.ms = 6000</span><br><span class="line">        zookeeper.set.acl = false</span><br><span class="line">        zookeeper.sync.time.ms = 2000</span><br><span class="line"> (kafka.server.KafkaConfig)</span><br><span class="line">[2018-09-20 15:59:26,914] INFO [ThrottledChannelReaper-Fetch]: Starting (kafka.server.ClientQuotaManager$ThrottledChannelReaper)</span><br><span class="line">[2018-09-20 15:59:26,915] INFO [ThrottledChannelReaper-Produce]: Starting (kafka.server.ClientQuotaManager$ThrottledChannelReaper)</span><br><span class="line">[2018-09-20 15:59:26,916] INFO [ThrottledChannelReaper-Request]: Starting (kafka.server.ClientQuotaManager$ThrottledChannelReaper)</span><br><span class="line">[2018-09-20 15:59:26,953] INFO Log directory /tmp/kafka-logs not found, creating it. (kafka.log.LogManager)</span><br><span class="line">[2018-09-20 15:59:26,965] INFO Loading logs. (kafka.log.LogManager)</span><br><span class="line">[2018-09-20 15:59:26,972] INFO Logs loading complete in 7 ms. (kafka.log.LogManager)</span><br><span class="line">[2018-09-20 15:59:26,983] INFO Starting log cleanup with a period of 300000 ms. (kafka.log.LogManager)</span><br><span class="line">[2018-09-20 15:59:26,984] INFO Starting log flusher with a default period of 9223372036854775807 ms. (kafka.log.LogManager)</span><br><span class="line">[2018-09-20 15:59:27,365] INFO Awaiting socket connections on 0.0.0.0:9092. (kafka.network.Acceptor)</span><br><span class="line">[2018-09-20 15:59:27,387] INFO [SocketServer brokerId=0] Started 1 acceptor threads (kafka.network.SocketServer)</span><br><span class="line">[2018-09-20 15:59:27,415] INFO [ExpirationReaper-0-Fetch]: Starting (kafka.server.DelayedOperationPurgatory$ExpiredOperationReaper)</span><br><span class="line">[2018-09-20 15:59:27,419] INFO [ExpirationReaper-0-Produce]: Starting (kafka.server.DelayedOperationPurgatory$ExpiredOperationReaper)</span><br><span class="line">[2018-09-20 15:59:27,423] INFO [ExpirationReaper-0-DeleteRecords]: Starting (kafka.server.DelayedOperationPurgatory$ExpiredOperationReaper)</span><br><span class="line">[2018-09-20 15:59:27,426] INFO [LogDirFailureHandler]: Starting (kafka.server.ReplicaManager$LogDirFailureHandler)</span><br><span class="line">[2018-09-20 15:59:27,455] INFO Creating /brokers/ids/0 (is it secure? false) (kafka.zk.KafkaZkClient)</span><br><span class="line">[2018-09-20 15:59:27,460] INFO Result of znode creation at /brokers/ids/0 is: OK (kafka.zk.KafkaZkClient)</span><br><span class="line">[2018-09-20 15:59:27,461] INFO Registered broker 0 at path /brokers/ids/0 with addresses: ArrayBuffer(EndPoint(223.87.179.191,9092,ListenerName(PLAINTEXT),PLAINTEXT)) (kafka.zk.KafkaZkClient)</span><br><span class="line">[2018-09-20 15:59:27,462] WARN No meta.properties file under dir /tmp/kafka-logs/meta.properties (kafka.server.BrokerMetadataCheckpoint)</span><br><span class="line">[2018-09-20 15:59:27,500] INFO Creating /controller (is it secure? false) (kafka.zk.KafkaZkClient)</span><br><span class="line">[2018-09-20 15:59:27,505] INFO Result of znode creation at /controller is: OK (kafka.zk.KafkaZkClient)</span><br><span class="line">[2018-09-20 15:59:27,512] INFO [ExpirationReaper-0-topic]: Starting (kafka.server.DelayedOperationPurgatory$ExpiredOperationReaper)</span><br><span class="line">[2018-09-20 15:59:27,513] INFO [ExpirationReaper-0-Heartbeat]: Starting (kafka.server.DelayedOperationPurgatory$ExpiredOperationReaper)</span><br><span class="line">[2018-09-20 15:59:27,533] INFO [GroupCoordinator 0]: Starting up. (kafka.coordinator.group.GroupCoordinator)</span><br><span class="line">[2018-09-20 15:59:27,543] INFO [ExpirationReaper-0-Rebalance]: Starting (kafka.server.DelayedOperationPurgatory$ExpiredOperationReaper)</span><br><span class="line">[2018-09-20 15:59:27,543] INFO [GroupCoordinator 0]: Startup complete. (kafka.coordinator.group.GroupCoordinator)</span><br><span class="line">[2018-09-20 15:59:27,545] INFO [GroupMetadataManager brokerId=0] Removed 0 expired offsets in 1 milliseconds. (kafka.coordinator.group.GroupMetadataManager)</span><br><span class="line">[2018-09-20 15:59:27,554] INFO [ProducerId Manager 0]: Acquired new producerId block (brokerId:0,blockStartProducerId:0,blockEndProducerId:999) by writing to Zk with path version 1 (kafka.coordinator.transaction.ProducerIdManager)</span><br><span class="line">[2018-09-20 15:59:27,568] INFO [TransactionCoordinator id=0] Starting up. (kafka.coordinator.transaction.TransactionCoordinator)</span><br><span class="line">[2018-09-20 15:59:27,582] INFO [TransactionCoordinator id=0] Startup complete. (kafka.coordinator.transaction.TransactionCoordinator)</span><br><span class="line">[2018-09-20 15:59:27,595] INFO [Transaction Marker Channel Manager 0]: Starting (kafka.coordinator.transaction.TransactionMarkerChannelManager)</span><br><span class="line">[2018-09-20 15:59:27,618] INFO [/config/changes-event-process-thread]: Starting (kafka.common.ZkNodeChangeNotificationListener$ChangeEventProcessThread)</span><br><span class="line">[2018-09-20 15:59:27,641] INFO [SocketServer brokerId=0] Started processors for 1 acceptors (kafka.network.SocketServer)</span><br><span class="line">[2018-09-20 15:59:27,642] INFO Kafka version : 2.0.0 (org.apache.kafka.common.utils.AppInfoParser)</span><br><span class="line">[2018-09-20 15:59:27,642] INFO Kafka commitId : 3402a8361b734732 (org.apache.kafka.common.utils.AppInfoParser)</span><br><span class="line">[2018-09-20 15:59:27,643] INFO [KafkaServer id=0] started (kafka.server.KafkaServer)</span><br></pre></td></tr></table></figure></p>
+<h3 id="启动第二个-broker"><a href="#启动第二个-broker" class="headerlink" title="启动第二个 broker"></a>启动第二个 broker</h3><p><code>/home/utomcat/soft/kafka_2.11-2.0.0/bin/kafka-server-start.sh /home/utomcat/soft/kafka_2.11-2.0.0/config/server02.properties &amp;</code></p>
+<h3 id="停止"><a href="#停止" class="headerlink" title="停止"></a>停止</h3><p><code>/home/utomcat/soft/kafka_2.11-2.0.0/bin//kafka-server-stop.sh /home/utomcat/soft/kafka_2.11-2.0.0/config/server.properties</code></p>
+<h2 id="查看-kafka-的-topic"><a href="#查看-kafka-的-topic" class="headerlink" title="查看 kafka 的 topic"></a>查看 kafka 的 topic</h2><p>列出该zookeeper中记录在案的topic列表，只有名字<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/home/utomcat/soft/kafka_2.11-2.0.0/bin/kafka-topics.sh --list --zookeeper 127.0.0.1:2181</span><br></pre></td></tr></table></figure></p>
+<h2 id="创建-topic"><a href="#创建-topic" class="headerlink" title="创建 topic"></a>创建 topic</h2><p><code>/home/utomcat/soft/kafka_2.11-2.0.0/bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic xunwu_topic</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[utomcat@AndyCentOS7Basic conf]$ /home/utomcat/soft/kafka_2.11-2.0.0/bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic xunwu_topic</span><br><span class="line">WARNING: Due to limitations in metric names, topics with a period (&apos;.&apos;) or underscore (&apos;_&apos;) could collide. To avoid issues it is best to use either, but not both.</span><br><span class="line">Created topic &quot;xunwu_topic&quot;.</span><br></pre></td></tr></table></figure></p>
+<p><code>/home/utomcat/soft/kafka_2.11-2.0.0/bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic house_build</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[utomcat@AndyCentOS7Basic ~]$ /home/utomcat/soft/kafka_2.11-2.0.0/bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic house_build</span><br><span class="line">WARNING: Due to limitations in metric names, topics with a period (&apos;.&apos;) or underscore (&apos;_&apos;) could collide. To avoid issues it is best to use either, but not both.</span><br><span class="line">Created topic &quot;house_build&quot;.</span><br></pre></td></tr></table></figure></p>
+<h2 id="kafka-查看-Topic-的分区和副本情况"><a href="#kafka-查看-Topic-的分区和副本情况" class="headerlink" title="kafka 查看 Topic 的分区和副本情况"></a>kafka 查看 Topic 的分区和副本情况</h2><p><code>/home/utomcat/soft/kafka_2.11-2.0.0/bin/kafka-topics.sh --describe --zookeeper 127.0.0.1:2181  --topic xunwu_topic</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[utomcat@AndyCentOS7Basic ~]$ /home/utomcat/soft/kafka_2.11-2.0.0/bin/kafka-topics.sh --describe --zookeeper 127.0.0.1:2181  --topic xunwu_topic</span><br><span class="line">Topic:xunwu_topic       PartitionCount:1        ReplicationFactor:1     Configs:</span><br><span class="line">        Topic: xunwu_topic      Partition: 0    Leader: 0       Replicas: 0     Isr: 0</span><br></pre></td></tr></table></figure></p>
+<h2 id="删除-topic"><a href="#删除-topic" class="headerlink" title="删除 topic"></a>删除 topic</h2><p><code>/home/utomcat/soft/kafka_2.11-2.0.0/bin/kafka-topics.sh --delete --zookeeper localhost:2181 --topic house_build</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[utomcat@AndyCentOS7Basic ~]$ /home/utomcat/soft/kafka_2.11-2.0.0/bin/kafka-topics.sh --delete --zookeeper localhost:2181 --topic house_build</span><br><span class="line">Topic house_build is marked for deletion.</span><br><span class="line">Note: This will have no impact if delete.topic.enable is not set to true.</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li><p>监听出错</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># spring boot 项目提示：</span><br><span class="line">Error while fetching metadata with correlation id 28 : &#123;xunwu_topic=LEADER_NOT_AVAILABLE&#125;</span><br><span class="line"></span><br><span class="line"># kafka 服务提示：</span><br><span class="line">[2018-09-26 08:43:37,312] ERROR [KafkaApi-0] Number of alive brokers &apos;0&apos; does not meet the required replication factor &apos;1&apos; for the offsets topic (configured via &apos;offsets.topic.replication.factor&apos;). This error can be ignored if the cluster is starting up and not all brokers are up yet. (kafka.server.KafkaApis)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>解决<br>修改配置 <code>vi config/server.properties</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">listeners=PLAINTEXT://localhost:9092</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="测试发消息"><a href="#测试发消息" class="headerlink" title="测试发消息"></a>测试发消息</h2><p><code>/home/utomcat/soft/kafka_2.11-2.0.0/bin/kafka-console-producer.sh --broker-list localhost:9092 --topic xunwu_topic</code></p>
+<ul>
+<li><p>报错如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[2018-09-27 15:26:06,053] WARN [Producer clientId=console-producer] Error while fetching metadata with correlation id 38 : &#123;xunwu_topic=LEADER_NOT_AVAILABLE&#125; (org.apache.kafka.clients.NetworkClient)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>解决<br>修改配置 <code>vi config/server.properties</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">listeners=PLAINTEXT://localhost:9092</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>重点<br>如果配置里写的是具体的 IP 地址，则要把 localhost 也换成具体的 IP 地址，否则会报同样的错误。</p>
+</li>
+</ul>
+<h2 id="测试消费消息"><a href="#测试消费消息" class="headerlink" title="测试消费消息"></a>测试消费消息</h2><p><code>/home/utomcat/soft/kafka_2.11-2.0.0/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic xunwu_topic --from-beginning --consumer.config /home/utomcat/soft/kafka_2.11-2.0.0/config/consumer.properties</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[utomcat@AndyCentOS7Basic ~]$ /home/utomcat/soft/kafka_2.11-2.0.0/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic xunwu_topic --from-beginning --consumer.config /home/utomcat/soft/kafka_2.11-2.0.0/config/consumer.properties</span><br><span class="line">[2018-09-27 16:59:28,169] WARN [Consumer clientId=consumer-1, groupId=test-consumer-group] Connection to node -1 could not be established. Broker may not be available. (org.apache.kafka.clients.NetworkClient)</span><br><span class="line">[2018-09-27 16:59:28,227] WARN [Consumer clientId=consumer-1, groupId=test-consumer-group] Connection to node -1 could not be established. Broker may not be available. (org.apache.kafka.clients.NetworkClient)</span><br></pre></td></tr></table></figure></p>
+<p><code>/home/utomcat/soft/kafka_2.11-2.0.0/bin/kafka-console-consumer.sh --bootstrap-server 192.168.1.88:9092 --topic xunwu_topic --from-beginning --consumer.config /home/utomcat/soft/kafka_2.11-2.0.0/config/consumer.properties</code></p>
+<h1 id="redis"><a href="#redis" class="headerlink" title="redis"></a>redis</h1><p><a href="http://www.cnblogs.com/hahahehexixihoho/p/9477959.html" rel="external nofollow noopener noreferrer" target="_blank">参考</a><br><a href="https://redis.io/download" rel="external nofollow noopener noreferrer" target="_blank">redis Download</a><br><a href="http://download.redis.io/releases/redis-4.0.11.tar.gz" rel="external nofollow noopener noreferrer" target="_blank">4.0.11</a></p>
+<h2 id="下载-amp-编译安装"><a href="#下载-amp-编译安装" class="headerlink" title="下载 &amp; 编译安装"></a>下载 &amp; 编译安装</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">http://download.redis.io/releases/redis-4.0.11.tar.gz</span><br><span class="line">tar -xzvf redis-4.0.11.tar.gz</span><br><span class="line">cd redis-4.0.11</span><br><span class="line">make MALLOC=libc</span><br></pre></td></tr></table></figure>
+<p><code>make MALLOC=libc</code> 命令执行完成编译后，会在src目录下生成6个可执行文件，分别是redis-server、redis-cli、redis-benchmark、redis-check-aof、redis-check-rdb、redis-sentinel</p>
+<ul>
+<li><p>以 utomcat 操作，会因为权限问题报错</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[utomcat@AndyCentOS7Basic redis-4.0.11]$ cd src &amp;&amp; make install</span><br><span class="line">    CC Makefile.dep</span><br><span class="line"></span><br><span class="line">Hint: It&apos;s a good idea to run &apos;make test&apos; ;)</span><br><span class="line"></span><br><span class="line">    INSTALL install</span><br><span class="line">install: cannot create regular file ‘/usr/local/bin/redis-server’: Permission denied</span><br><span class="line">make: *** [install] Error 1</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>以下，以 root 身份操作</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@AndyCentOS7Basic redis-4.0.11]# cd src &amp;&amp; make install</span><br><span class="line"></span><br><span class="line">Hint: It&apos;s a good idea to run &apos;make test&apos; ;)</span><br><span class="line"></span><br><span class="line">    INSTALL install</span><br><span class="line">    INSTALL install</span><br><span class="line">    INSTALL install</span><br><span class="line">    INSTALL install</span><br><span class="line">    INSTALL install</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="启动-redis"><a href="#启动-redis" class="headerlink" title="启动 redis"></a>启动 redis</h2><ul>
+<li>以 root 的身份运行<br><code>/home/utomcat/soft/redis-4.0.11/src/redis-server  /home/utomcat/soft/redis-4.0.11/redis.conf</code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@AndyCentOS7Basic src]# /home/utomcat/soft/redis-4.0.11/src/redis-server  /home/utomcat/soft/redis-4.0.11/redis.conf</span><br><span class="line">7229:C 20 Sep 18:18:54.104 # oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo</span><br><span class="line">7229:C 20 Sep 18:18:54.104 # Redis version=4.0.11, bits=64, commit=00000000, modified=0, pid=7229, just started</span><br><span class="line">7229:C 20 Sep 18:18:54.104 # Configuration loaded</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="开启远程连接"><a href="#开启远程连接" class="headerlink" title="开启远程连接"></a>开启远程连接</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># bind 127.0.0.1 改为</span><br><span class="line">bind 0.0.0.0</span><br></pre></td></tr></table></figure>
+<p>重启生效</p>
+<h2 id="停止-1"><a href="#停止-1" class="headerlink" title="停止"></a>停止</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/home/utomcat/soft/redis-4.0.11/src/redis-cli shutdown</span><br></pre></td></tr></table></figure>
+<h2 id="查看进程"><a href="#查看进程" class="headerlink" title="查看进程"></a>查看进程</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@AndyCentOS7Basic src]# ps -aux | grep redis</span><br><span class="line">root      7230  0.1  0.0 141836  2040 ?        Ssl  18:18   0:02 /home/utomcat/soft/redis-4.0.11/src/redis-server 127.0.0.1:6379</span><br><span class="line">root      8961  0.0  0.0 112704   976 pts/2    S+   18:54   0:00 grep --color=auto redis</span><br></pre></td></tr></table></figure>
+<h1 id="更新房源报错"><a href="#更新房源报错" class="headerlink" title="更新房源报错"></a>更新房源报错</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">2018-09-26 07:48:18.055 ERROR 18272 --- [io-8080-exec-10] o.s.k.support.LoggingProducerListener    : Exception thrown when sending a message with key=&apos;null&apos; and payload=&apos;&#123;&quot;houseId&quot;:21,&quot;operation&quot;:&quot;index&quot;,&quot;retry&quot;:0&#125;&apos; to topic xunwu_topic:</span><br><span class="line">org.apache.kafka.common.errors.TimeoutException: Failed to update metadata after 60000 ms.</span><br><span class="line">...</span><br><span class="line">2018-09-26 07:48:18.055 DEBUG 18272 --- [io-8080-exec-10] org.hibernate.SQL                        : update house set admin_id=?, area=?, bathroom=?, build_year=?, city_en_name=?, cover=?, create_time=?, direction=?, distance_to_subway=?, district=?, floor=?, last_update_time=?, parlour=?, price=?, region_en_name=?, room=?, status=?, street=?, title=?, total_floor=?, watch_times=? where id=?</span><br><span class="line">2018-09-26 07:49:05.722 ERROR 18272 --- [nio-8080-exec-2] o.s.k.support.LoggingProducerListener    : Exception thrown when sending a message with key=&apos;null&apos; and payload=&apos;&#123;&quot;houseId&quot;:21,&quot;operation&quot;:&quot;index&quot;,&quot;retry&quot;:0&#125;&apos; to topic xunwu_topic:</span><br></pre></td></tr></table></figure>
+<h2 id="house-build-已经被删除的情况"><a href="#house-build-已经被删除的情况" class="headerlink" title="house_build 已经被删除的情况"></a>house_build 已经被删除的情况</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">2018-09-27 16:06:13.342 ERROR 9804 --- [nio-8080-exec-3] o.s.k.support.LoggingProducerListener    : Exception thrown when sending a message with key=&apos;null&apos; and payload=&apos;&#123;&quot;houseId&quot;:20,&quot;operation&quot;:&quot;remove&quot;,&quot;retry&quot;:0&#125;&apos; to topic house_build:</span><br></pre></td></tr></table></figure>
+<p>综合以上，topic 不存在和存在都报同样的错误，可能推测，topic 存在的时候也报错，应该是访问不到 kafka 服务，当然，如果 kafka 没有启动，或者出现故障，也会导致这个错误。</p>
+<h2 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># vi server.properties</span><br><span class="line">listeners=PLAINTEXT://192.168.1.88:9092</span><br></pre></td></tr></table></figure>
+<p>这样，就可以在项目里配置成 IP 来访问 kafka 了。</p>
+<p>但是，在修改监听 IP 地址之前，该配置是注释状态的情况下，提示<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[2018-09-26 08:43:37,312] ERROR [KafkaApi-0] Number of alive brokers &apos;0&apos; does not meet the required replication factor &apos;1&apos; for the offsets topic (configured via &apos;offsets.topic.replication.factor&apos;). This error can be ignored if the cluster is starting up and not all brokers are up yet. (kafka.server.KafkaApis)</span><br></pre></td></tr></table></figure></p>
+<p>会让人误解，是可以连接 kafka 服务的。</p>
+<h1 id="modelmapper"><a href="#modelmapper" class="headerlink" title="modelmapper"></a>modelmapper</h1><p><a href="http://modelmapper.org/" rel="external nofollow noopener noreferrer" target="_blank">official website</a></p>
+<h1 id="搜索实践"><a href="#搜索实践" class="headerlink" title="搜索实践"></a>搜索实践</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">轻工作娱松轻娱松满b轻松bb足娱娱娱轻娱松乐aaa消工作娱工作娱娱轻工作松娱工作费abc</span><br><span class="line">轻工作娱松轻娱松满足娱娱娱轻娱松乐aaa消工作娱工作娱娱轻工作松娱工作费abc</span><br><span class="line"></span><br><span class="line">含【轻松】、【满足】即可查询到</span><br></pre></td></tr></table></figure>
+<p>搜索结果：houseID=21</p>
+<h1 id="分词"><a href="#分词" class="headerlink" title="分词"></a>分词</h1><h2 id="simple-分词器"><a href="#simple-分词器" class="headerlink" title="simple 分词器"></a>simple 分词器</h2><ul>
+<li><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/analysis-simple-analyzer.html" rel="external nofollow noopener noreferrer" target="_blank">https://www.elastic.co/guide/en/elasticsearch/reference/current/analysis-simple-analyzer.html</a></li>
+<li>如何使用: <a href="http://www.yiibai.com/lucene/lucene_simpleanalyzer.html" rel="external nofollow noopener noreferrer" target="_blank">http://www.yiibai.com/lucene/lucene_simpleanalyzer.html</a></li>
+<li>功能强于WhitespaceAnalyzer, 首先会通过非字母字符来分割文本信息，然后将词汇单元统一为小写形式。该分析器会去掉数字类型的字符</li>
+</ul>
+<h2 id="whitespace-分词器"><a href="#whitespace-分词器" class="headerlink" title="whitespace 分词器"></a>whitespace 分词器</h2><ul>
+<li><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/analysis-whitespace-analyzer.html" rel="external nofollow noopener noreferrer" target="_blank">https://www.elastic.co/guide/en/elasticsearch/reference/current/analysis-whitespace-analyzer.html</a></li>
+<li>如何使用：<a href="http://www.yiibai.com/lucene/lucene_whitespaceanalyzer.html" rel="external nofollow noopener noreferrer" target="_blank">http://www.yiibai.com/lucene/lucene_whitespaceanalyzer.html</a></li>
+<li>仅仅是去除空格，对字符没有lowcase化,不支持中文；</li>
+<li>并且不对生成的词汇单元进行其他的规范化处理。</li>
+</ul>
+<p>仅用空格分词，不会去掉数字。</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-09-01T02:53:12.976Z" itemprop="dateUpdated">2020年9月1日 10:53</time>
+</span><br>
+
+
+        转载请注明出处：<a href="/java/elasticSearchProject.html" target="_blank" rel="external">https://www.lovesofttech.com/java/elasticSearchProject.html</a>
+    </div>
+    <footer>
+        <a href="https://www.lovesofttech.com">
+            <img src="/img/myLogo.jpg" alt="安迪陈">
+            安迪陈
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ElasticSearch/">ElasticSearch</a></li></ul>
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/java/elasticSearchProject.html&title=《BAT大牛亲授基于ElasticSearch的搜房网实战，项目配置记录》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/java/elasticSearchProject.html&title=《BAT大牛亲授基于ElasticSearch的搜房网实战，项目配置记录》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=偏重搭建开发环境，github 上有项目源代码，用关键词xunwu很容易搜索到。ElasticSearch 版本 5.6.1。" data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/java/elasticSearchProject.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《BAT大牛亲授基于ElasticSearch的搜房网实战，项目配置记录》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/java/elasticSearchProject.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/java/elasticSearchProject.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/java/javaMailPort465.html" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">spring boot 阿里云发送邮件，使用 qq 邮箱的 SMTP 服务，端口由 25 换成 465</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/java/sprintBootWhitelabelErrorPage.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">spring boot，404，502 错误转向定制页面</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+    
+    
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="bottom">
+        <p>
+            <span>安迪陈技术日志，架构、感悟、系统分析、团队管理 &copy; 2017 - 2020</span>
+            <span>
+                Power by <a href="https://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>&nbsp;
+                Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank" rel="external nofollow noopener noreferrer">indigo</a>
+            </span>
+            <span>
+                <a href="http://www.beian.miit.gov.cn" target="_blank" rel="external nofollow noopener noreferrer">蜀ICP备17041860号</a>
+            </span>
+            
+            <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            </p><p>
+                <span>
+                    统计始于：2019-03-06
+                </span>
+                <span id="busuanzi_container_site_uv" style="display:none">
+                    访客数：<span id="busuanzi_value_site_uv"></span>
+                </span>
+                <span id="busuanzi_container_site_pv" style="display:none">
+                    访问量：<span id="busuanzi_value_site_pv"></span>
+                </span>
+            
+            
+                <span class="post-count">累计字数：309.2k</span>
+            
+                <span><a href="/general/blogLog.html"><i class="fas fa-pen-alt"></i>&nbsp;博客日志</a></span>
+            </p>
+        <p></p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light" title="回到顶部"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.lovesofttech.com/java/elasticSearchProject.html&title=《BAT大牛亲授基于ElasticSearch的搜房网实战，项目配置记录》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&pic=https://www.lovesofttech.com/img/myLogo.jpg" data-title="微博" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.lovesofttech.com/java/elasticSearchProject.html&title=《BAT大牛亲授基于ElasticSearch的搜房网实战，项目配置记录》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&source=偏重搭建开发环境，github 上有项目源代码，用关键词xunwu很容易搜索到。ElasticSearch 版本 5.6.1。" data-title=" QQ" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.lovesofttech.com/java/elasticSearchProject.html" data-title=" Facebook" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《BAT大牛亲授基于ElasticSearch的搜房网实战，项目配置记录》 — 安迪陈技术日志，架构、感悟、系统分析、团队管理&url=https://www.lovesofttech.com/java/elasticSearchProject.html&via=https://www.lovesofttech.com" data-title=" Twitter" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.lovesofttech.com/java/elasticSearchProject.html" data-title=" Google+" rel="external nofollow noopener noreferrer">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACLElEQVR42u3aS27DMAwFQN//0u62RWDnkZILWBqtisaRNVkQ4uc44nV+rN//z5+52vlzh+OJhYGB8VrGebuSI159OvKu/HkMDIx9GEkonBuIkx8iORsGBgZGQuqF7Pt9MDAwMGYF3Gp2mRwaAwMDYySJvQ+4yW69Ut3kXBwDA+OFjDxo/v/fj/Q3MDAwXsU4i6saHJNyWy9k/9kNAwNjaUYe4HojFHmCWg24GBgY+zDmDk/0dsgLc5f/wcDAWJoRfdB6TS/HzEN8eTgMAwNjIUa1KJ9cGXsXyjzcY2Bg7MBIDtdrTyY7jIxoYGBg7MN4oqz25QIXtAR658HAwFiPkY9t9YplebjsFdq+dGIxMDAWYuTjDrO6piOjGJctTAwMjEUZvSvaSGEuL8MNpa8YGBgbMEby4HzAovpkc9gCAwPj5YwkdObhOD90b4zsEoOBgbE0I7+05cNbvQGLkW9hYGCszegNe/VGJZKfo/kDYWBgLM3IX1x9str+7J1hwhYYGBgvYeRpZKFAX7wmVgN0dEHEwMBYjtF7cR5Gj4EV7YCBgbEBY2T8tNqenNtawMDAWJtxFlfz0jaQykZUDAyMpRkjhbA8EPcGVXvfxcDAWJXRG5S/f3H1EjlyAcXAwNiHUS3oV/GzWp5fUlkMDAyMIMksT3kEgTvaBwMDA6NV4k+ujNWWwCUSAwNjA0beDOgV4/LgmzceMDAw9mHkqWMeiMfLcI80NTEwMN7H+AE3AbwqRKmbQQAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.5.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.5.2" async></script>
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '安迪陈技术日志';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '欢迎回来';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>
