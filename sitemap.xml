@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://www.lovesofttech.com/database/win10MySQLConfig.html</loc>
+    
+    <lastmod>2020-09-01T09:41:06.927Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://www.lovesofttech.com/linux/centOS7Maven.html</loc>
+    
+    <lastmod>2020-09-01T08:48:25.695Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://www.lovesofttech.com/frontend/centOS7Node.html</loc>
     
     <lastmod>2020-09-01T08:09:57.164Z</lastmod>
@@ -12,13 +26,6 @@
     <loc>https://www.lovesofttech.com/frontend/nodejs.html</loc>
     
     <lastmod>2020-09-01T08:06:40.538Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://www.lovesofttech.com/linux/centOS7Maven.html</loc>
-    
-    <lastmod>2020-09-01T08:03:03.814Z</lastmod>
     
   </url>
   
@@ -1531,13 +1538,6 @@
     <loc>https://www.lovesofttech.com/frontend/RNNewsGiveUp.html</loc>
     
     <lastmod>2020-09-01T02:53:12.930Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://www.lovesofttech.com/database/win10MySQLConfig.html</loc>
-    
-    <lastmod>2020-09-01T02:53:12.929Z</lastmod>
     
   </url>
   

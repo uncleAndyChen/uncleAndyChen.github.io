@@ -79,10 +79,12 @@
 <meta property="og:site_name" content="安迪陈技术日志，架构、感悟、系统分析、团队管理">
 <meta property="og:description" content="如题">
 <meta property="og:locale" content="zh-cn">
-<meta property="og:updated_time" content="2020-09-01T08:03:03.814Z">
+<meta property="og:image" content="https://www.lovesofttech.com/img/idea/idea-maven-config.png">
+<meta property="og:updated_time" content="2020-09-01T08:48:25.695Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CentOS 7.5 安装配置 Maven">
 <meta name="twitter:description" content="如题">
+<meta name="twitter:image" content="https://www.lovesofttech.com/img/idea/idea-maven-config.png">
     
         <link rel="alternative" href="/atom.xml" title="安迪陈技术日志，架构、感悟、系统分析、团队管理" type="application/atom+xml">
     
@@ -363,9 +365,9 @@
 
 
     <span>|</span>
-    <span class="post-count">字数：324</span>
+    <span class="post-count">字数：417</span>
     <span>|</span>
-    <span class="post-count">阅读时长：大约1分钟</span>
+    <span class="post-count">阅读时长：大约2分钟</span>
 
 
         </div>
@@ -377,7 +379,20 @@
 <h1 id="使配置立即生效"><a href="#使配置立即生效" class="headerlink" title="使配置立即生效"></a>使配置立即生效</h1><p>执行下面的命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source /etc/profile</span><br></pre></td></tr></table></figure></p>
 <h1 id="查看-Maven-版本，检查是否配置成功"><a href="#查看-Maven-版本，检查是否配置成功" class="headerlink" title="查看 Maven 版本，检查是否配置成功"></a>查看 Maven 版本，检查是否配置成功</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@centOS7BasicForTest apache-maven-3.5.3]# mvn -version</span><br><span class="line">Apache Maven 3.5.3 (3383c37e1f9e9b3bc3df5050c29c8aff9f295297; 2018-02-25T03:49:05+08:00)</span><br><span class="line">Maven home: /usr/apache-maven-3.5.3</span><br><span class="line">Java version: 1.8.0_171, vendor: Oracle Corporation</span><br><span class="line">Java home: /usr/jdk1.8.0_171/jre</span><br><span class="line">Default locale: en_US, platform encoding: UTF-8</span><br><span class="line">OS name: &quot;linux&quot;, version: &quot;3.10.0-862.el7.x86_64&quot;, arch: &quot;amd64&quot;, family: &quot;unix&quot;</span><br></pre></td></tr></table></figure>
 <h1 id="配置-Maven-的镜像仓库源"><a href="#配置-Maven-的镜像仓库源" class="headerlink" title="配置 Maven 的镜像仓库源"></a>配置 Maven 的镜像仓库源</h1><p>推荐使用阿里云镜像仓库，在配置文件 /conf/settings.xml 的 <code>&lt;mirrors&gt;</code> 节点添加如下镜像源：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;mirror&gt;</span><br><span class="line">  &lt;id&gt;alimaven&lt;/id&gt;</span><br><span class="line">  &lt;name&gt;aliyun maven&lt;/name&gt;</span><br><span class="line">  &lt;url&gt;http://maven.aliyun.com/nexus/content/groups/public/&lt;/url&gt;</span><br><span class="line">  &lt;mirrorOf&gt;central&lt;/mirrorOf&gt;</span><br><span class="line">&lt;/mirror&gt;</span><br></pre></td></tr></table></figure></p>
-<h1 id="修改-Maven-依赖下载目录"><a href="#修改-Maven-依赖下载目录" class="headerlink" title="修改 Maven 依赖下载目录"></a>修改 Maven 依赖下载目录</h1><p>找到 /conf/settings.xml 配置项 localRepository，修改之。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;localRepository&gt;/usr/apache-maven-3.5.3/repo&lt;/localRepository&gt;</span><br></pre></td></tr></table></figure></p>
+<h1 id="修改-Maven-依赖下载目录"><a href="#修改-Maven-依赖下载目录" class="headerlink" title="修改 Maven 依赖下载目录"></a>修改 Maven 依赖下载目录</h1><ol>
+<li><p>找到 <code>/conf/settings.xml</code> 配置项 <code>localRepository</code>，取消该配置的注释（从注释区域复制或剪切到注释区域之外）修改之。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;localRepository&gt;/usr/apache-maven-3.5.3/repo&lt;/localRepository&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>将 <code>/conf/settings.xml</code> 文件复制到用户根目录，windows 是：<code>C:\Users\andy\.m2</code>，这样做的目的是，可以保持 idea 的默认配置。当然，这一步不是必须的，把 idea 的 maven 的配置改为自己安装的目录也是可以的。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/idea/idea-maven-config.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+</li>
+</ol>
 
         </div>
 
@@ -385,7 +400,7 @@
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2020-09-01T08:03:03.814Z" itemprop="dateUpdated">2020年9月1日 16:03</time>
+    最后更新时间：<time datetime="2020-09-01T08:48:25.695Z" itemprop="dateUpdated">2020年9月1日 16:48</time>
 </span><br>
 
 
@@ -498,7 +513,7 @@
                 Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank" rel="external nofollow noopener noreferrer">indigo</a>
             </span>
             <span>
-                <a href="http://www.beian.miit.gov.cn" target="_blank" rel="external nofollow noopener noreferrer">蜀ICP备17041860号</a>
+                <a href="https://beian.miit.gov.cn" target="_blank" rel="external nofollow noopener noreferrer">蜀ICP备17041860号</a>
             </span>
             
             <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
@@ -514,7 +529,7 @@
                 </span>
             
             
-                <span class="post-count">累计字数：309.2k</span>
+                <span class="post-count">累计字数：309.3k</span>
             
                 <span><a href="/general/blogLog.html"><i class="fas fa-pen-alt"></i>&nbsp;博客日志</a></span>
             </p>

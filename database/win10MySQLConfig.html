@@ -84,7 +84,7 @@
 <meta property="og:image" content="https://www.lovesofttech.com/img/java/javaDev09.png">
 <meta property="og:image" content="https://www.lovesofttech.com/img/java/javaDev10.png">
 <meta property="og:image" content="https://www.lovesofttech.com/img/java/javaDev08.png">
-<meta property="og:updated_time" content="2020-09-01T02:53:12.929Z">
+<meta property="og:updated_time" content="2020-09-01T09:41:06.927Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="win10 MySQL 8.x.x 绿色免安装配置">
 <meta name="twitter:description" content="介绍如何将官网下载的 MySQL zip 包配置成系统服务，以及 MySQL 的基本配置和初始化。">
@@ -369,7 +369,7 @@
 
 
     <span>|</span>
-    <span class="post-count">字数：1.3k</span>
+    <span class="post-count">字数：1.4k</span>
     <span>|</span>
     <span class="post-count">阅读时长：大约6分钟</span>
 
@@ -431,7 +431,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">C:\WINDOWS\system32&gt;mysqld --remove</span><br><span class="line">Failed to remove the service because the service is running</span><br><span class="line">Stop the service and try again</span><br><span class="line">C:\WINDOWS\system32&gt;net stop mysql</span><br><span class="line">MySQL 服务正在停止..</span><br><span class="line">MySQL 服务已成功停止。</span><br><span class="line">C:\WINDOWS\system32&gt;mysqld --remove</span><br><span class="line">Service successfully removed.</span><br></pre></td></tr></table></figure>
 <h1 id="遇到的坑"><a href="#遇到的坑" class="headerlink" title="遇到的坑"></a>遇到的坑</h1><h2 id="启动时报错"><a href="#启动时报错" class="headerlink" title="启动时报错"></a>启动时报错</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">C:\dev\mysql-8.0.11-winx64\bin&gt;net start mysql</span><br><span class="line">发生系统错误 193。</span><br><span class="line"></span><br><span class="line">*** 不是有效的 Win32 应用程序。</span><br></pre></td></tr></table></figure>
 <p>解决办法：进入 Mysql 根目录下的 bin 目录，找到 mysqld 这个大小为 0 kb 的“二逼”文件，删除，然后就可以各种开心的玩耍了。<br>并非每台电脑都如此。</p>
-<h2 id="再次-mysqld-–install-时失败"><a href="#再次-mysqld-–install-时失败" class="headerlink" title="再次 mysqld –install 时失败"></a>再次 mysqld –install 时失败</h2><p>因为执行了 mysqld –remove 之后，系统服务显示“禁用“，再次 install 及 remove 均会提示失败，重启一下就可以重新 install 了。</p>
+<h2 id="再次-mysqld-–install-时失败"><a href="#再次-mysqld-–install-时失败" class="headerlink" title="再次 mysqld –install 时失败"></a>再次 mysqld –install 时失败</h2><p>因为执行了 mysqld –remove 之后，系统服务显示“禁用“，再次 install 及 remove 均会提示失败，在重启系统之前，还有之前安装的残留，所以需要重启系统，重启之后就可以重新 install 了。</p>
 <h2 id="druid-连接报错"><a href="#druid-连接报错" class="headerlink" title="druid 连接报错"></a>druid 连接报错</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">java.sql.SQLNonTransientConnectionException: Could not create connection to database server. Attempted reconnect 3 times. Giving up.</span><br><span class="line">java.sql.SQLException: Unknown system variable &apos;query_cache_size&apos;</span><br></pre></td></tr></table></figure>
 <p>原因是数据库驱动版本和数据库版本不匹配。<br>解决：根据自己的数据库版本去<a href="https://mvnrepository.com/artifact/mysql/mysql-connector-java" rel="external nofollow noopener noreferrer" target="_blank">这个地址</a>选择合适的驱动版本<br>比如我的数据库版本是 8.0.11，那么对应的驱动为:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;mysql&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;8.0.11&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure></p>
 <h2 id="连接-MySQL-报错"><a href="#连接-MySQL-报错" class="headerlink" title="连接 MySQL 报错"></a>连接 MySQL 报错</h2><p>出现在中文操作系统 win10 上，英文操作系统 win10 正常<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">The server time zone value &apos;ÖÐ¹ú±ê×¼Ê±¼ä&apos; is unrecognized or represents more than one time zone. You must configure either the server or JDBC driver (via the serverTimezone configuration property) to use a more specifc time zone value if you want to utilize time zone support.</span><br></pre></td></tr></table></figure></p>
@@ -455,7 +455,7 @@
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2020-09-01T02:53:12.929Z" itemprop="dateUpdated">2020年9月1日 10:53</time>
+    最后更新时间：<time datetime="2020-09-01T09:41:06.927Z" itemprop="dateUpdated">2020年9月1日 17:41</time>
 </span><br>
 
 
@@ -568,7 +568,7 @@
                 Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank" rel="external nofollow noopener noreferrer">indigo</a>
             </span>
             <span>
-                <a href="http://www.beian.miit.gov.cn" target="_blank" rel="external nofollow noopener noreferrer">蜀ICP备17041860号</a>
+                <a href="https://beian.miit.gov.cn" target="_blank" rel="external nofollow noopener noreferrer">蜀ICP备17041860号</a>
             </span>
             
             <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
@@ -584,7 +584,7 @@
                 </span>
             
             
-                <span class="post-count">累计字数：309.2k</span>
+                <span class="post-count">累计字数：309.3k</span>
             
                 <span><a href="/general/blogLog.html"><i class="fas fa-pen-alt"></i>&nbsp;博客日志</a></span>
             </p>
