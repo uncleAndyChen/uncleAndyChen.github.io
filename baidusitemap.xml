@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://www.lovesofttech.com/lnmp/centOS7Nginx.html</loc>
+    <lastmod>2020-09-07</lastmod>
+  </url>
+  <url>
     <loc>https://www.lovesofttech.com/database/win10MySQLConfig.html</loc>
     <lastmod>2020-09-01</lastmod>
   </url>
@@ -49,19 +53,19 @@
     <lastmod>2020-09-01</lastmod>
   </url>
   <url>
-    <loc>https://www.lovesofttech.com/windows/winOffice2016Active.html</loc>
-    <lastmod>2020-09-01</lastmod>
-  </url>
-  <url>
     <loc>https://www.lovesofttech.com/windows/winNginxSupportPhp.html</loc>
     <lastmod>2020-09-01</lastmod>
   </url>
   <url>
-    <loc>https://www.lovesofttech.com/windows/winInstallNginxAsService.html</loc>
+    <loc>https://www.lovesofttech.com/windows/winOffice2016Active.html</loc>
     <lastmod>2020-09-01</lastmod>
   </url>
   <url>
     <loc>https://www.lovesofttech.com/windows/winInstallMemcachedAsService.html</loc>
+    <lastmod>2020-09-01</lastmod>
+  </url>
+  <url>
+    <loc>https://www.lovesofttech.com/windows/winInstallNginxAsService.html</loc>
     <lastmod>2020-09-01</lastmod>
   </url>
   <url>
@@ -73,11 +77,11 @@
     <lastmod>2020-09-01</lastmod>
   </url>
   <url>
-    <loc>https://www.lovesofttech.com/windows/winCredentials.html</loc>
+    <loc>https://www.lovesofttech.com/windows/win10Word2016.html</loc>
     <lastmod>2020-09-01</lastmod>
   </url>
   <url>
-    <loc>https://www.lovesofttech.com/windows/win10Word2016.html</loc>
+    <loc>https://www.lovesofttech.com/windows/winCredentials.html</loc>
     <lastmod>2020-09-01</lastmod>
   </url>
   <url>
@@ -173,11 +177,11 @@
     <lastmod>2020-09-01</lastmod>
   </url>
   <url>
-    <loc>https://www.lovesofttech.com/react/reactPropTypes.html</loc>
+    <loc>https://www.lovesofttech.com/react/reactExperience.html</loc>
     <lastmod>2020-09-01</lastmod>
   </url>
   <url>
-    <loc>https://www.lovesofttech.com/react/reactExperience.html</loc>
+    <loc>https://www.lovesofttech.com/react/reactPropTypes.html</loc>
     <lastmod>2020-09-01</lastmod>
   </url>
   <url>
@@ -193,11 +197,11 @@
     <lastmod>2020-09-01</lastmod>
   </url>
   <url>
-    <loc>https://www.lovesofttech.com/react/js.html</loc>
+    <loc>https://www.lovesofttech.com/react/examplesTodomvcWarningsFixed.html</loc>
     <lastmod>2020-09-01</lastmod>
   </url>
   <url>
-    <loc>https://www.lovesofttech.com/react/examplesTodomvcWarningsFixed.html</loc>
+    <loc>https://www.lovesofttech.com/react/js.html</loc>
     <lastmod>2020-09-01</lastmod>
   </url>
   <url>
@@ -317,11 +321,11 @@
     <lastmod>2020-09-01</lastmod>
   </url>
   <url>
-    <loc>https://www.lovesofttech.com/lnmp/index.html</loc>
+    <loc>https://www.lovesofttech.com/lnmp/https-www-rewrite.html</loc>
     <lastmod>2020-09-01</lastmod>
   </url>
   <url>
-    <loc>https://www.lovesofttech.com/lnmp/https-www-rewrite.html</loc>
+    <loc>https://www.lovesofttech.com/lnmp/index.html</loc>
     <lastmod>2020-09-01</lastmod>
   </url>
   <url>
@@ -342,10 +346,6 @@
   </url>
   <url>
     <loc>https://www.lovesofttech.com/lnmp/centOS7Php7.html</loc>
-    <lastmod>2020-09-01</lastmod>
-  </url>
-  <url>
-    <loc>https://www.lovesofttech.com/lnmp/centOS7Nginx.html</loc>
     <lastmod>2020-09-01</lastmod>
   </url>
   <url>
@@ -393,11 +393,11 @@
     <lastmod>2020-09-01</lastmod>
   </url>
   <url>
-    <loc>https://www.lovesofttech.com/linux/centOSVersion.html</loc>
+    <loc>https://www.lovesofttech.com/linux/centOSZip.html</loc>
     <lastmod>2020-09-01</lastmod>
   </url>
   <url>
-    <loc>https://www.lovesofttech.com/linux/centOSZip.html</loc>
+    <loc>https://www.lovesofttech.com/linux/centOSVersion.html</loc>
     <lastmod>2020-09-01</lastmod>
   </url>
   <url>
@@ -493,11 +493,11 @@
     <lastmod>2020-09-01</lastmod>
   </url>
   <url>
-    <loc>https://www.lovesofttech.com/linux/centOS7Crontab.html</loc>
+    <loc>https://www.lovesofttech.com/linux/centOS6Port.html</loc>
     <lastmod>2020-09-01</lastmod>
   </url>
   <url>
-    <loc>https://www.lovesofttech.com/linux/centOS6Port.html</loc>
+    <loc>https://www.lovesofttech.com/linux/centOS7Crontab.html</loc>
     <lastmod>2020-09-01</lastmod>
   </url>
   <url>
@@ -673,11 +673,11 @@
     <lastmod>2020-09-01</lastmod>
   </url>
   <url>
-    <loc>https://www.lovesofttech.com/java/codeSpecificationAdditional.html</loc>
+    <loc>https://www.lovesofttech.com/java/codeSpecification.html</loc>
     <lastmod>2020-09-01</lastmod>
   </url>
   <url>
-    <loc>https://www.lovesofttech.com/java/codeSpecification.html</loc>
+    <loc>https://www.lovesofttech.com/java/codeSpecificationAdditional.html</loc>
     <lastmod>2020-09-01</lastmod>
   </url>
   <url>
@@ -813,11 +813,11 @@
     <lastmod>2020-09-01</lastmod>
   </url>
   <url>
-    <loc>https://www.lovesofttech.com/general/centOSSvnProjectManage.html</loc>
+    <loc>https://www.lovesofttech.com/general/cloudProduct.html</loc>
     <lastmod>2020-09-01</lastmod>
   </url>
   <url>
-    <loc>https://www.lovesofttech.com/general/cloudProduct.html</loc>
+    <loc>https://www.lovesofttech.com/general/centOSSvnProjectManage.html</loc>
     <lastmod>2020-09-01</lastmod>
   </url>
   <url>
@@ -845,11 +845,11 @@
     <lastmod>2020-09-01</lastmod>
   </url>
   <url>
-    <loc>https://www.lovesofttech.com/frontend/jsLinks.html</loc>
+    <loc>https://www.lovesofttech.com/frontend/iteratorAndYild.html</loc>
     <lastmod>2020-09-01</lastmod>
   </url>
   <url>
-    <loc>https://www.lovesofttech.com/frontend/iteratorAndYild.html</loc>
+    <loc>https://www.lovesofttech.com/frontend/jsLinks.html</loc>
     <lastmod>2020-09-01</lastmod>
   </url>
   <url>
@@ -885,11 +885,11 @@
     <lastmod>2020-09-01</lastmod>
   </url>
   <url>
-    <loc>https://www.lovesofttech.com/database/mysqlServiceName.html</loc>
+    <loc>https://www.lovesofttech.com/database/mysqlPrcedureAnalyse.html</loc>
     <lastmod>2020-09-01</lastmod>
   </url>
   <url>
-    <loc>https://www.lovesofttech.com/database/mysqlPrcedureAnalyse.html</loc>
+    <loc>https://www.lovesofttech.com/database/mysqlServiceName.html</loc>
     <lastmod>2020-09-01</lastmod>
   </url>
   <url>
@@ -965,11 +965,11 @@
     <lastmod>2020-09-01</lastmod>
   </url>
   <url>
-    <loc>https://www.lovesofttech.com/cpp/win10OpencvAndOpencvContribMake.html</loc>
+    <loc>https://www.lovesofttech.com/cpp/index.html</loc>
     <lastmod>2020-09-01</lastmod>
   </url>
   <url>
-    <loc>https://www.lovesofttech.com/cpp/index.html</loc>
+    <loc>https://www.lovesofttech.com/cpp/win10OpencvAndOpencvContribMake.html</loc>
     <lastmod>2020-09-01</lastmod>
   </url>
   <url>
