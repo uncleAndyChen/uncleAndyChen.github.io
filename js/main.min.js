@@ -54,7 +54,7 @@
             }
         },
         toggleGotop: function (top) {
-            if (top > w.innerHeight / 2) {
+            if (top > w.innerHeight / 10) {
                 gotop.classList.add('in');
             } else {
                 gotop.classList.remove('in');
