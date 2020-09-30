@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://www.lovesofttech.com/frontend/preCommitHook.html</loc>
-    <lastmod>2020-09-29</lastmod>
+    <lastmod>2020-09-30</lastmod>
   </url>
   <url>
     <loc>https://www.lovesofttech.com/home.html</loc>
@@ -73,19 +73,19 @@
     <lastmod>2020-09-01</lastmod>
   </url>
   <url>
-    <loc>https://www.lovesofttech.com/windows/winNginxSupportPhp.html</loc>
-    <lastmod>2020-09-01</lastmod>
-  </url>
-  <url>
     <loc>https://www.lovesofttech.com/windows/winOffice2016Active.html</loc>
     <lastmod>2020-09-01</lastmod>
   </url>
   <url>
-    <loc>https://www.lovesofttech.com/windows/winInstallNginxAsService.html</loc>
+    <loc>https://www.lovesofttech.com/windows/winNginxSupportPhp.html</loc>
     <lastmod>2020-09-01</lastmod>
   </url>
   <url>
     <loc>https://www.lovesofttech.com/windows/winInstallMemcachedAsService.html</loc>
+    <lastmod>2020-09-01</lastmod>
+  </url>
+  <url>
+    <loc>https://www.lovesofttech.com/windows/winInstallNginxAsService.html</loc>
     <lastmod>2020-09-01</lastmod>
   </url>
   <url>
@@ -197,11 +197,11 @@
     <lastmod>2020-09-01</lastmod>
   </url>
   <url>
-    <loc>https://www.lovesofttech.com/react/reactPropTypes.html</loc>
+    <loc>https://www.lovesofttech.com/react/reactExperience.html</loc>
     <lastmod>2020-09-01</lastmod>
   </url>
   <url>
-    <loc>https://www.lovesofttech.com/react/reactExperience.html</loc>
+    <loc>https://www.lovesofttech.com/react/reactPropTypes.html</loc>
     <lastmod>2020-09-01</lastmod>
   </url>
   <url>
@@ -285,11 +285,11 @@
     <lastmod>2020-09-01</lastmod>
   </url>
   <url>
-    <loc>https://www.lovesofttech.com/mybatis/experience.html</loc>
+    <loc>https://www.lovesofttech.com/mybatis/MBGTableKeepOriginal.html</loc>
     <lastmod>2020-09-01</lastmod>
   </url>
   <url>
-    <loc>https://www.lovesofttech.com/mybatis/MBGTableKeepOriginal.html</loc>
+    <loc>https://www.lovesofttech.com/mybatis/experience.html</loc>
     <lastmod>2020-09-01</lastmod>
   </url>
   <url>
@@ -377,11 +377,11 @@
     <lastmod>2020-09-01</lastmod>
   </url>
   <url>
-    <loc>https://www.lovesofttech.com/linux/shell.html</loc>
+    <loc>https://www.lovesofttech.com/linux/uDiskInstallCentOS7.html</loc>
     <lastmod>2020-09-01</lastmod>
   </url>
   <url>
-    <loc>https://www.lovesofttech.com/linux/uDiskInstallCentOS7.html</loc>
+    <loc>https://www.lovesofttech.com/linux/shell.html</loc>
     <lastmod>2020-09-01</lastmod>
   </url>
   <url>
@@ -565,11 +565,11 @@
     <lastmod>2020-09-01</lastmod>
   </url>
   <url>
-    <loc>https://www.lovesofttech.com/job/cooperationWith.html</loc>
+    <loc>https://www.lovesofttech.com/job/experience.html</loc>
     <lastmod>2020-09-01</lastmod>
   </url>
   <url>
-    <loc>https://www.lovesofttech.com/job/experience.html</loc>
+    <loc>https://www.lovesofttech.com/job/cooperationWith.html</loc>
     <lastmod>2020-09-01</lastmod>
   </url>
   <url>
@@ -601,11 +601,11 @@
     <lastmod>2020-09-01</lastmod>
   </url>
   <url>
-    <loc>https://www.lovesofttech.com/java/springTaskCron.html</loc>
+    <loc>https://www.lovesofttech.com/java/sprintBootWhitelabelErrorPage.html</loc>
     <lastmod>2020-09-01</lastmod>
   </url>
   <url>
-    <loc>https://www.lovesofttech.com/java/sprintBootWhitelabelErrorPage.html</loc>
+    <loc>https://www.lovesofttech.com/java/springTaskCron.html</loc>
     <lastmod>2020-09-01</lastmod>
   </url>
   <url>
@@ -653,11 +653,11 @@
     <lastmod>2020-09-01</lastmod>
   </url>
   <url>
-    <loc>https://www.lovesofttech.com/java/javaPdfToImage.html</loc>
+    <loc>https://www.lovesofttech.com/java/javaMemory.html</loc>
     <lastmod>2020-09-01</lastmod>
   </url>
   <url>
-    <loc>https://www.lovesofttech.com/java/javaMemory.html</loc>
+    <loc>https://www.lovesofttech.com/java/javaPdfToImage.html</loc>
     <lastmod>2020-09-01</lastmod>
   </url>
   <url>
@@ -693,19 +693,19 @@
     <lastmod>2020-09-01</lastmod>
   </url>
   <url>
-    <loc>https://www.lovesofttech.com/java/codeSpecification.html</loc>
-    <lastmod>2020-09-01</lastmod>
-  </url>
-  <url>
     <loc>https://www.lovesofttech.com/java/codeSpecificationAdditional.html</loc>
     <lastmod>2020-09-01</lastmod>
   </url>
   <url>
-    <loc>https://www.lovesofttech.com/java/bigDecimal.html</loc>
+    <loc>https://www.lovesofttech.com/java/codeSpecification.html</loc>
     <lastmod>2020-09-01</lastmod>
   </url>
   <url>
     <loc>https://www.lovesofttech.com/java/apiDevelopRule.html</loc>
+    <lastmod>2020-09-01</lastmod>
+  </url>
+  <url>
+    <loc>https://www.lovesofttech.com/java/bigDecimal.html</loc>
     <lastmod>2020-09-01</lastmod>
   </url>
   <url>
@@ -893,11 +893,11 @@
     <lastmod>2020-09-01</lastmod>
   </url>
   <url>
-    <loc>https://www.lovesofttech.com/database/mysqlPrcedureAnalyse.html</loc>
+    <loc>https://www.lovesofttech.com/database/mysqlServiceName.html</loc>
     <lastmod>2020-09-01</lastmod>
   </url>
   <url>
-    <loc>https://www.lovesofttech.com/database/mysqlServiceName.html</loc>
+    <loc>https://www.lovesofttech.com/database/mysqlPrcedureAnalyse.html</loc>
     <lastmod>2020-09-01</lastmod>
   </url>
   <url>
@@ -909,11 +909,11 @@
     <lastmod>2020-09-01</lastmod>
   </url>
   <url>
-    <loc>https://www.lovesofttech.com/database/mySQLWorkbench.html</loc>
+    <loc>https://www.lovesofttech.com/database/mysql5.7ToUtf8mb4.html</loc>
     <lastmod>2020-09-01</lastmod>
   </url>
   <url>
-    <loc>https://www.lovesofttech.com/database/mysql5.7ToUtf8mb4.html</loc>
+    <loc>https://www.lovesofttech.com/database/mySQLWorkbench.html</loc>
     <lastmod>2020-09-01</lastmod>
   </url>
   <url>
@@ -973,11 +973,11 @@
     <lastmod>2020-09-01</lastmod>
   </url>
   <url>
-    <loc>https://www.lovesofttech.com/cpp/win10OpencvAndOpencvContribMake.html</loc>
+    <loc>https://www.lovesofttech.com/cpp/index.html</loc>
     <lastmod>2020-09-01</lastmod>
   </url>
   <url>
-    <loc>https://www.lovesofttech.com/cpp/index.html</loc>
+    <loc>https://www.lovesofttech.com/cpp/win10OpencvAndOpencvContribMake.html</loc>
     <lastmod>2020-09-01</lastmod>
   </url>
   <url>
@@ -985,11 +985,11 @@
     <lastmod>2020-09-01</lastmod>
   </url>
   <url>
-    <loc>https://www.lovesofttech.com/aboutMe.html</loc>
+    <loc>https://www.lovesofttech.com/articleClassify.html</loc>
     <lastmod>2020-09-01</lastmod>
   </url>
   <url>
-    <loc>https://www.lovesofttech.com/articleClassify.html</loc>
+    <loc>https://www.lovesofttech.com/aboutMe.html</loc>
     <lastmod>2020-09-01</lastmod>
   </url>
   <url>
