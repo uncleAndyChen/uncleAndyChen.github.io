@@ -2,16 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://www.lovesofttech.com/frontend/experience.html</loc>
+    <loc>https://www.lovesofttech.com/frontend/preCommitHook.html</loc>
     
-    <lastmod>2020-10-04T03:04:21.124Z</lastmod>
+    <lastmod>2020-10-09T13:45:20.981Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://www.lovesofttech.com/frontend/preCommitHook.html</loc>
+    <loc>https://www.lovesofttech.com/frontend/experience.html</loc>
     
-    <lastmod>2020-09-30T03:39:53.539Z</lastmod>
+    <lastmod>2020-10-04T03:05:22.246Z</lastmod>
     
   </url>
   
@@ -114,14 +114,14 @@
   </url>
   
   <url>
-    <loc>https://www.lovesofttech.com/windows/windows10MultipleDesktop.html</loc>
+    <loc>https://www.lovesofttech.com/windows/winUDiskRestore.html</loc>
     
     <lastmod>2020-09-01T02:53:13.122Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://www.lovesofttech.com/windows/winUDiskRestore.html</loc>
+    <loc>https://www.lovesofttech.com/windows/windows10MultipleDesktop.html</loc>
     
     <lastmod>2020-09-01T02:53:13.122Z</lastmod>
     
@@ -149,14 +149,14 @@
   </url>
   
   <url>
-    <loc>https://www.lovesofttech.com/windows/winOffice2016Active.html</loc>
+    <loc>https://www.lovesofttech.com/windows/winNginxSupportPhp.html</loc>
     
     <lastmod>2020-09-01T02:53:13.118Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://www.lovesofttech.com/windows/winNginxSupportPhp.html</loc>
+    <loc>https://www.lovesofttech.com/windows/winOffice2016Active.html</loc>
     
     <lastmod>2020-09-01T02:53:13.118Z</lastmod>
     
@@ -219,14 +219,14 @@
   </url>
   
   <url>
-    <loc>https://www.lovesofttech.com/windows/win10Php7Nginx.html</loc>
+    <loc>https://www.lovesofttech.com/windows/win10Php7HttpdPhp7.html</loc>
     
     <lastmod>2020-09-01T02:53:13.109Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://www.lovesofttech.com/windows/win10Php7HttpdPhp7.html</loc>
+    <loc>https://www.lovesofttech.com/windows/win10Php7Nginx.html</loc>
     
     <lastmod>2020-09-01T02:53:13.109Z</lastmod>
     
@@ -254,14 +254,14 @@
   </url>
   
   <url>
-    <loc>https://www.lovesofttech.com/windows/ghost.html</loc>
+    <loc>https://www.lovesofttech.com/windows/index.html</loc>
     
     <lastmod>2020-09-01T02:53:13.105Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://www.lovesofttech.com/windows/index.html</loc>
+    <loc>https://www.lovesofttech.com/windows/ghost.html</loc>
     
     <lastmod>2020-09-01T02:53:13.105Z</lastmod>
     
@@ -786,14 +786,14 @@
   </url>
   
   <url>
-    <loc>https://www.lovesofttech.com/linux/centOSJIRA.html</loc>
+    <loc>https://www.lovesofttech.com/linux/centOSJava.html</loc>
     
     <lastmod>2020-09-01T02:53:13.034Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://www.lovesofttech.com/linux/centOSJava.html</loc>
+    <loc>https://www.lovesofttech.com/linux/centOSJIRA.html</loc>
     
     <lastmod>2020-09-01T02:53:13.034Z</lastmod>
     
@@ -1234,13 +1234,6 @@
   </url>
   
   <url>
-    <loc>https://www.lovesofttech.com/java/codeSpecificationAdditional.html</loc>
-    
-    <lastmod>2020-09-01T02:53:12.974Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://www.lovesofttech.com/java/codeSpecification.html</loc>
     
     <lastmod>2020-09-01T02:53:12.974Z</lastmod>
@@ -1248,14 +1241,21 @@
   </url>
   
   <url>
-    <loc>https://www.lovesofttech.com/java/bigDecimal.html</loc>
+    <loc>https://www.lovesofttech.com/java/codeSpecificationAdditional.html</loc>
+    
+    <lastmod>2020-09-01T02:53:12.974Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://www.lovesofttech.com/java/apiDevelopRule.html</loc>
     
     <lastmod>2020-09-01T02:53:12.972Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://www.lovesofttech.com/java/apiDevelopRule.html</loc>
+    <loc>https://www.lovesofttech.com/java/bigDecimal.html</loc>
     
     <lastmod>2020-09-01T02:53:12.972Z</lastmod>
     
@@ -1402,14 +1402,14 @@
   </url>
   
   <url>
-    <loc>https://www.lovesofttech.com/general/i57200uHD620DriverOnWin7.html</loc>
+    <loc>https://www.lovesofttech.com/general/index.html</loc>
     
     <lastmod>2020-09-01T02:53:12.951Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://www.lovesofttech.com/general/index.html</loc>
+    <loc>https://www.lovesofttech.com/general/i57200uHD620DriverOnWin7.html</loc>
     
     <lastmod>2020-09-01T02:53:12.951Z</lastmod>
     
@@ -1437,14 +1437,14 @@
   </url>
   
   <url>
-    <loc>https://www.lovesofttech.com/general/githubHosts.html</loc>
+    <loc>https://www.lovesofttech.com/general/hexoBlog.html</loc>
     
     <lastmod>2020-09-01T02:53:12.947Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://www.lovesofttech.com/general/hexoBlog.html</loc>
+    <loc>https://www.lovesofttech.com/general/githubHosts.html</loc>
     
     <lastmod>2020-09-01T02:53:12.947Z</lastmod>
     
@@ -1465,14 +1465,14 @@
   </url>
   
   <url>
-    <loc>https://www.lovesofttech.com/general/centOSSvnProjectManage.html</loc>
+    <loc>https://www.lovesofttech.com/general/cloudProduct.html</loc>
     
     <lastmod>2020-09-01T02:53:12.944Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://www.lovesofttech.com/general/cloudProduct.html</loc>
+    <loc>https://www.lovesofttech.com/general/centOSSvnProjectManage.html</loc>
     
     <lastmod>2020-09-01T02:53:12.944Z</lastmod>
     
@@ -1521,14 +1521,14 @@
   </url>
   
   <url>
-    <loc>https://www.lovesofttech.com/frontend/jsLinks.html</loc>
+    <loc>https://www.lovesofttech.com/frontend/iteratorAndYild.html</loc>
     
     <lastmod>2020-09-01T02:53:12.936Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://www.lovesofttech.com/frontend/iteratorAndYild.html</loc>
+    <loc>https://www.lovesofttech.com/frontend/jsLinks.html</loc>
     
     <lastmod>2020-09-01T02:53:12.936Z</lastmod>
     

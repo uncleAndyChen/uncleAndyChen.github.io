@@ -84,7 +84,8 @@
 <meta property="og:image" content="https://www.lovesofttech.com/img/frontend/pre-commit-hook-3.png">
 <meta property="og:image" content="https://www.lovesofttech.com/img/frontend/pre-commit-hook-5.png">
 <meta property="og:image" content="https://www.lovesofttech.com/img/frontend/pre-commit-hook-4.png">
-<meta property="og:updated_time" content="2020-09-30T03:39:53.539Z">
+<meta property="og:image" content="https://www.lovesofttech.com/img/frontend/pre-commit-hook-6.png">
+<meta property="og:updated_time" content="2020-10-09T13:45:20.981Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Vscode 提交 react 代码遇到 pre-commit hook failed 的处理">
 <meta name="twitter:description" content="Vscode 足够强大，你值得拥有~~">
@@ -345,7 +346,7 @@
     <aside class="post-widget">
         <nav class="post-toc-wrap" id="post-toc" style="z-index: 3;">
             <h4><i class="fa fa-list-alt"></i>&nbsp;&nbsp;本文目录</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#开发工具以及操作"><span class="post-toc-number">1.</span> <span class="post-toc-text">开发工具以及操作</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#查看-git-日志"><span class="post-toc-number">2.</span> <span class="post-toc-text">查看 git 日志</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#提交时没通过-pre-commit-hook-检查"><span class="post-toc-number">3.</span> <span class="post-toc-text">提交时没通过 pre-commit hook 检查</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#修正后再次提交遇到的“坑”"><span class="post-toc-number">4.</span> <span class="post-toc-text">修正后再次提交遇到的“坑”</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#坑"><span class="post-toc-number">4.1.</span> <span class="post-toc-text">坑</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#解决"><span class="post-toc-number">4.2.</span> <span class="post-toc-text">解决</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#体验"><span class="post-toc-number">4.3.</span> <span class="post-toc-text">体验</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#跳过代码检查"><span class="post-toc-number">5.</span> <span class="post-toc-text">跳过代码检查</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#附：一次未通过检查的完整日志"><span class="post-toc-number">6.</span> <span class="post-toc-text">附：一次未通过检查的完整日志</span></a></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#开发工具以及操作"><span class="post-toc-number">1.</span> <span class="post-toc-text">开发工具以及操作</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#查看-git-日志"><span class="post-toc-number">2.</span> <span class="post-toc-text">查看 git 日志</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#提交时没通过-pre-commit-hook-检查"><span class="post-toc-number">3.</span> <span class="post-toc-text">提交时没通过 pre-commit hook 检查</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#修正后再次提交遇到的“坑”"><span class="post-toc-number">4.</span> <span class="post-toc-text">修正后再次提交遇到的“坑”</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#坑"><span class="post-toc-number">4.1.</span> <span class="post-toc-text">坑</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#解决"><span class="post-toc-number">4.2.</span> <span class="post-toc-text">解决</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#检查未通过的文件先不提交"><span class="post-toc-number">4.2.1.</span> <span class="post-toc-text">检查未通过的文件先不提交</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#应用最新的修改"><span class="post-toc-number">4.2.2.</span> <span class="post-toc-text">应用最新的修改</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#体验"><span class="post-toc-number">4.3.</span> <span class="post-toc-text">体验</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#跳过代码检查"><span class="post-toc-number">5.</span> <span class="post-toc-text">跳过代码检查</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#附：一次未通过检查的完整日志"><span class="post-toc-number">6.</span> <span class="post-toc-text">附：一次未通过检查的完整日志</span></a></li></ol>
         </nav>
     </aside>
     
@@ -369,9 +370,9 @@
 
 
     <span>|</span>
-    <span class="post-count">字数：1.4k</span>
+    <span class="post-count">字数：1.6k</span>
     <span>|</span>
-    <span class="post-count">阅读时长：大约6分钟</span>
+    <span class="post-count">阅读时长：大约7分钟</span>
 
 
         </div>
@@ -408,18 +409,21 @@
 <li>第二行前面的 <code>73:3</code> 提示未通过检测的代码在第 73 行，从第 3 列开始，紧接着后面的提示是检查未通过的具体原因：<code>Expected &quot;color&quot; to come before &quot;background-color&quot; in group &quot;Typography&quot;</code></li>
 </ul>
 <p>本次针对的代码是 css 样式，根据提示，很容易修正。</p>
-<h1 id="修正后再次提交遇到的“坑”"><a href="#修正后再次提交遇到的“坑”" class="headerlink" title="修正后再次提交遇到的“坑”"></a>修正后再次提交遇到的“坑”</h1><blockquote>
-<p>以下现象，不确定是否总是这样。还在探索中…</p>
-</blockquote>
-<p>操作一次提交之后，没有通过检查的文件会跟已经通过的文件一起进入【暂存的更改】列表，如果再次修改，则也会在【更改】列表出现。<br>    <img src="/img/frontend/pre-commit-hook-5.png" alt></p>
-<h2 id="坑"><a href="#坑" class="headerlink" title="坑"></a>坑</h2><p>按照日志提示修正代码之后，再次 Ctrl + Enter（最上面的输入框中，上次输入的备注还在），依然会提示跟之前一样的错误信息。</p>
-<blockquote>
-<p>也许并不算是坑，可能有更好的解决办法，只是自己还不知道而已。</p>
-</blockquote>
-<h2 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h2><ul>
-<li>将检测未通过的文件从【暂存的更改】列表中【取消暂存更改】。<br>  <img src="/img/frontend/pre-commit-hook-4.png" alt></li>
-<li>修改代码之后，再次提交，如果 pre-commit hook 通过，提交过程就算完成了。</li>
-<li>如果还是有代码未通过检查，需要重复上面的步骤，即将文件从【暂存的更改】列表中【取消暂存更改】，修正代码，提交。</li>
+<h1 id="修正后再次提交遇到的“坑”"><a href="#修正后再次提交遇到的“坑”" class="headerlink" title="修正后再次提交遇到的“坑”"></a>修正后再次提交遇到的“坑”</h1><p>在一次提交操作之后，会出现两种情况：</p>
+<ol>
+<li>正常情况下，所有修改的文件通过代码检查，顺利提交，【暂存的更改】和【更改】列表都是空的，这个时候只需要执行推送（git push）操作，便会将修改提交到 git server。</li>
+<li>如果有文件没有通过检查，没有通过检查的文件会跟已经通过的文件一起进入【暂存的更改】列表，如果再次修改，则修改的文件会同时在【更改】列表出现。<br> <img src="/img/frontend/pre-commit-hook-5.png" alt></li>
+</ol>
+<h2 id="坑"><a href="#坑" class="headerlink" title="坑"></a>坑</h2><p>按照日志提示修正代码之后，再次 Ctrl + Enter（这是执行 git commit），依然会提示跟之前一样的错误信息。</p>
+<h2 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h2><h3 id="检查未通过的文件先不提交"><a href="#检查未通过的文件先不提交" class="headerlink" title="检查未通过的文件先不提交"></a>检查未通过的文件先不提交</h3><ul>
+<li>将检测未通过的文件从【暂存的更改】列表中【取消暂存更改】，然后再提交即可。这样操作，【更改】列表中的文件不会提交。<br>  <img src="/img/frontend/pre-commit-hook-4.png" alt></li>
+</ul>
+<h3 id="应用最新的修改"><a href="#应用最新的修改" class="headerlink" title="应用最新的修改"></a>应用最新的修改</h3><ul>
+<li>修改代码之后，再次提交前，需要将本次修改的、在【更改】列表中的文件添加到【暂存的更改】列表。<ul>
+<li>操作方法：点击文件右侧的加号，作用是暂存更改，这样操作，会将本次修改与之前提交但没有通过检查的修改合并。<strong>重点：否则无论怎么修改，提交时都不会通过检查，因为这种情况下，实际检查的是【暂存的更改】列表中的文件。</strong><br><img src="/img/frontend/pre-commit-hook-6.png" alt></li>
+</ul>
+</li>
+<li>如上操作，即暂存更改之后，如果还是有代码未通过检查，需要重复上面的步骤。即修改代码，然后将文件从【更改】列表中加到【暂存的更改】列表中，最后才是提交，直到检查通过。</li>
 </ul>
 <h2 id="体验"><a href="#体验" class="headerlink" title="体验"></a>体验</h2><p>使用 Vscode 提交代码的这个过程跟使用 <a href="https://www.jetbrains.com/webstorm/" rel="external nofollow noopener noreferrer" target="_blank">WebStorm</a> 的体验不一样。使用 WebStorm 感觉更自然一些，即：提交的代码未通过检查，根据提示修正之后再提交，有问题再改，没问题就正常提交。不过，知道怎么处理就好了，探索最佳实践中…</p>
 <h1 id="跳过代码检查"><a href="#跳过代码检查" class="headerlink" title="跳过代码检查"></a>跳过代码检查</h1><p>当然，如果时间比较紧迫，没有时间一一修复代码规范问题，也可以通过以下方式暂时跳过代码检查直接提交。三选一即可。</p>
@@ -447,7 +451,7 @@
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2020-09-30T03:39:53.539Z" itemprop="dateUpdated">2020年9月30日 11:39</time>
+    最后更新时间：<time datetime="2020-10-09T13:45:20.981Z" itemprop="dateUpdated">2020年10月9日 21:45</time>
 </span><br>
 
 
@@ -569,7 +573,7 @@
                 </span>
             
             
-                <span class="post-count">累计字数：311.2k</span>
+                <span class="post-count">累计字数：311.4k</span>
             
                 <span><a href="/general/blogLog.html"><i class="fas fa-pen-alt"></i>&nbsp;博客日志</a></span>
             </p>
