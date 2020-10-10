@@ -85,7 +85,7 @@
 <meta property="og:image" content="https://www.lovesofttech.com/img/frontend/pre-commit-hook-5.png">
 <meta property="og:image" content="https://www.lovesofttech.com/img/frontend/pre-commit-hook-4.png">
 <meta property="og:image" content="https://www.lovesofttech.com/img/frontend/pre-commit-hook-6.png">
-<meta property="og:updated_time" content="2020-10-09T13:45:20.981Z">
+<meta property="og:updated_time" content="2020-10-10T00:23:23.712Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Vscode 提交 react 代码遇到 pre-commit hook failed 的处理">
 <meta name="twitter:description" content="Vscode 足够强大，你值得拥有~~">
@@ -370,7 +370,7 @@
 
 
     <span>|</span>
-    <span class="post-count">字数：1.6k</span>
+    <span class="post-count">字数：1.7k</span>
     <span>|</span>
     <span class="post-count">阅读时长：大约7分钟</span>
 
@@ -412,20 +412,22 @@
 <h1 id="修正后再次提交遇到的“坑”"><a href="#修正后再次提交遇到的“坑”" class="headerlink" title="修正后再次提交遇到的“坑”"></a>修正后再次提交遇到的“坑”</h1><p>在一次提交操作之后，会出现两种情况：</p>
 <ol>
 <li>正常情况下，所有修改的文件通过代码检查，顺利提交，【暂存的更改】和【更改】列表都是空的，这个时候只需要执行推送（git push）操作，便会将修改提交到 git server。</li>
-<li>如果有文件没有通过检查，没有通过检查的文件会跟已经通过的文件一起进入【暂存的更改】列表，如果再次修改，则修改的文件会同时在【更改】列表出现。<br> <img src="/img/frontend/pre-commit-hook-5.png" alt></li>
+<li>如果有文件没有通过检查，没有通过检查的文件会跟已经通过的文件一起进入【暂存的更改】列表，如果修改了在【暂存的更改】列表中的文件，则该文件会同时在【更改】列表出现。<br> <img src="/img/frontend/pre-commit-hook-5.png" alt></li>
 </ol>
 <h2 id="坑"><a href="#坑" class="headerlink" title="坑"></a>坑</h2><p>按照日志提示修正代码之后，再次 Ctrl + Enter（这是执行 git commit），依然会提示跟之前一样的错误信息。</p>
 <h2 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h2><h3 id="检查未通过的文件先不提交"><a href="#检查未通过的文件先不提交" class="headerlink" title="检查未通过的文件先不提交"></a>检查未通过的文件先不提交</h3><ul>
 <li>将检测未通过的文件从【暂存的更改】列表中【取消暂存更改】，然后再提交即可。这样操作，【更改】列表中的文件不会提交。<br>  <img src="/img/frontend/pre-commit-hook-4.png" alt></li>
 </ul>
+<p>该操作，只是临时性的，检查没有通过的文件始终是要提交的。下面讲如何一次性提交所有修改的文件。</p>
 <h3 id="应用最新的修改"><a href="#应用最新的修改" class="headerlink" title="应用最新的修改"></a>应用最新的修改</h3><ul>
 <li>修改代码之后，再次提交前，需要将本次修改的、在【更改】列表中的文件添加到【暂存的更改】列表。<ul>
-<li>操作方法：点击文件右侧的加号，作用是暂存更改，这样操作，会将本次修改与之前提交但没有通过检查的修改合并。<strong>重点：否则无论怎么修改，提交时都不会通过检查，因为这种情况下，实际检查的是【暂存的更改】列表中的文件。</strong><br><img src="/img/frontend/pre-commit-hook-6.png" alt></li>
+<li>操作方法：点击文件右侧的加号，作用是暂存更改，这样操作，会将本次修改与之前提交但没有通过检查的修改合并。<strong>重点：否则无论怎么修改，提交时都不会通过检查，因为同一个文件同时出现在【暂存的更改】和【更改】列表的情况下，实际检查的是【暂存的更改】列表中的文件。</strong><br><img src="/img/frontend/pre-commit-hook-6.png" alt></li>
 </ul>
 </li>
-<li>如上操作，即暂存更改之后，如果还是有代码未通过检查，需要重复上面的步骤。即修改代码，然后将文件从【更改】列表中加到【暂存的更改】列表中，最后才是提交，直到检查通过。</li>
+<li>如上操作，即【暂存更改】之后，如果还是有代码未通过检查，需要重复上面的步骤。即：修改代码 -&gt; 【暂存更改】-&gt; 提交，直到检查通过。</li>
 </ul>
-<h2 id="体验"><a href="#体验" class="headerlink" title="体验"></a>体验</h2><p>使用 Vscode 提交代码的这个过程跟使用 <a href="https://www.jetbrains.com/webstorm/" rel="external nofollow noopener noreferrer" target="_blank">WebStorm</a> 的体验不一样。使用 WebStorm 感觉更自然一些，即：提交的代码未通过检查，根据提示修正之后再提交，有问题再改，没问题就正常提交。不过，知道怎么处理就好了，探索最佳实践中…</p>
+<h2 id="体验"><a href="#体验" class="headerlink" title="体验"></a>体验</h2><p>使用 Vscode 提交代码的这个过程跟使用 <a href="https://www.jetbrains.com/webstorm/" rel="external nofollow noopener noreferrer" target="_blank">WebStorm</a> 的体验不一样。使用 WebStorm 感觉更自然一些，即：提交的代码未通过检查，根据提示修正之后再提交，有问题再改，没问题就正常提交。</p>
+<p>所以，从 WebStorm 转到 Vscode 的童鞋可能一开始很不适应这种变化。</p>
 <h1 id="跳过代码检查"><a href="#跳过代码检查" class="headerlink" title="跳过代码检查"></a>跳过代码检查</h1><p>当然，如果时间比较紧迫，没有时间一一修复代码规范问题，也可以通过以下方式暂时跳过代码检查直接提交。三选一即可。</p>
 <ol>
 <li><p>用脚本提交，commit 脚本添加：<code>--no-verify</code></p>
@@ -435,7 +437,7 @@
 </blockquote>
 </li>
 <li>关闭 <code>pre-commit hook</code><ul>
-<li>进入项目根目录，打开目录 <code>.git\hooks</code>，可以看到有很多 hook，将该目录下的 <code>pre-commit</code> 改名或者直接删除即可达到目的。</li>
+<li>进入项目根目录，打开子目录 <code>.git\hooks</code>，可以看到有很多 hook，将该目录下的 <code>pre-commit</code> 改名或者直接删除即可达到目的。</li>
 </ul>
 </li>
 <li>将不希望代码检查的文件或文件夹加到忽略列表<ul>
@@ -443,7 +445,7 @@
 </ul>
 </li>
 </ol>
-<p>俗话说，出来混迟早要还的，不按照规范写代码，会留下技术债，建议在适当的时候及时归还。</p>
+<p>俗话说，出来混迟早要还的，不按照规范写代码，留下的技术债，可能会导致非常严重的后果，很多失败的项目都是由于没有关注和正视技术债。技术债就象从银行贷款，可以不通过评估就直接贷款一样，有好处也有坏处，需要认真对待。</p>
 <h1 id="附：一次未通过检查的完整日志"><a href="#附：一次未通过检查的完整日志" class="headerlink" title="附：一次未通过检查的完整日志"></a>附：一次未通过检查的完整日志</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line">&gt; git add -A -- .</span><br><span class="line">warning: LF will be replaced by CRLF in src/components/RightContent/index.less.</span><br><span class="line">The file will have its original line endings in your working directory</span><br><span class="line">&gt; git commit --quiet --allow-empty-message --file -</span><br><span class="line">&gt; git ls-files --stage -- C:\workspace\wkb\wkb-oms-ui\src\components\RightContent\index.less</span><br><span class="line">&gt; git cat-file -s 98092c98d269faadade5c09fe6c9036e72c4d8c1</span><br><span class="line">&gt; git show --textconv :src/components/RightContent/index.less</span><br><span class="line">&gt; git ls-files --stage -- C:\workspace\wkb\wkb-oms-ui\src\components\RightContent\index.less</span><br><span class="line">&gt; git cat-file -s 98092c98d269faadade5c09fe6c9036e72c4d8c1</span><br><span class="line">&gt; git show --textconv :src/components/RightContent/index.less</span><br><span class="line"> &gt; running pre-commit hook: npm run precommit</span><br><span class="line"></span><br><span class="line">&gt; ant-design-pro@5.0.0-alpha.0 precommit C:\workspace\wkb\wkb-oms-ui</span><br><span class="line">&gt; lint-staged</span><br><span class="line"></span><br><span class="line">[STARTED] Preparing...</span><br><span class="line">[SUCCESS] Preparing...</span><br><span class="line">[STARTED] Running tasks...</span><br><span class="line">[STARTED] Running tasks for **/*.less</span><br><span class="line">[STARTED] Running tasks for **/*.&#123;js,jsx,ts,tsx&#125;</span><br><span class="line">[STARTED] Running tasks for **/*.&#123;js,jsx,tsx,ts,less,md,json&#125;</span><br><span class="line">[SKIPPED] No staged files match **/*.&#123;js,jsx,ts,tsx&#125;</span><br><span class="line">[STARTED] stylelint --syntax less</span><br><span class="line">[STARTED] prettier --write</span><br><span class="line">[SUCCESS] prettier --write</span><br><span class="line">[SUCCESS] Running tasks for **/*.&#123;js,jsx,tsx,ts,less,md,json&#125;</span><br><span class="line">[FAILED] stylelint --syntax less [FAILED]</span><br><span class="line">[FAILED] stylelint --syntax less [FAILED]</span><br><span class="line">[SUCCESS] Running tasks...</span><br><span class="line">[STARTED] Applying modifications...</span><br><span class="line">[SKIPPED] Skipped because of errors from tasks.</span><br><span class="line">[STARTED] Reverting to original state because of errors...</span><br><span class="line">[SUCCESS] Reverting to original state because of errors...</span><br><span class="line">[STARTED] Cleaning up...</span><br><span class="line">[SUCCESS] Cleaning up...</span><br><span class="line"></span><br><span class="line">× stylelint --syntax less:</span><br><span class="line"></span><br><span class="line">src/components/RightContent/index.less</span><br><span class="line"> 73:3  ×  Expected &quot;color&quot; to come before &quot;background-color&quot; in group &quot;Typography&quot;      order/properties-order</span><br><span class="line"></span><br><span class="line">npm ERR! code ELIFECYCLE</span><br><span class="line">npm ERR! errno 1</span><br><span class="line">npm ERR! ant-design-pro@5.0.0-alpha.0 precommit: `lint-staged`</span><br><span class="line">npm ERR! Exit status 1</span><br><span class="line">npm ERR! </span><br><span class="line">npm ERR! Failed at the ant-design-pro@5.0.0-alpha.0 precommit script.</span><br><span class="line">npm ERR! This is probably not a problem with npm. There is likely additional logging output above.</span><br><span class="line"></span><br><span class="line">npm ERR! A complete log of this run can be found in:</span><br><span class="line">npm ERR!     C:\Users\andy\AppData\Roaming\npm-cache\_logs\2020-09-29T13_37_15_414Z-debug.log</span><br><span class="line"></span><br><span class="line">pre-commit hook failed (add --no-verify to bypass)</span><br><span class="line">&gt; git config --get-all user.name</span><br><span class="line">&gt; git config --get-all user.email</span><br><span class="line">&gt; git ls-files --stage -- C:\workspace\wkb\wkb-oms-ui\src\components\RightContent\index.less</span><br><span class="line">&gt; git cat-file -s 98092c98d269faadade5c09fe6c9036e72c4d8c1</span><br><span class="line">&gt; git show --textconv :src/components/RightContent/index.less</span><br><span class="line">&gt; git status -z -u</span><br><span class="line">&gt; git symbolic-ref --short HEAD</span><br><span class="line">&gt; git rev-parse master</span><br><span class="line">&gt; git rev-parse --symbolic-full-name master@&#123;u&#125;</span><br><span class="line">&gt; git rev-list --left-right master...refs/remotes/origin/master</span><br><span class="line">&gt; git for-each-ref --sort -committerdate --format %(refname) %(objectname)</span><br><span class="line">&gt; git remote --verbose</span><br><span class="line">&gt; git config --get commit.template</span><br></pre></td></tr></table></figure>
         </div>
 
@@ -451,7 +453,7 @@
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2020-10-09T13:45:20.981Z" itemprop="dateUpdated">2020年10月9日 21:45</time>
+    最后更新时间：<time datetime="2020-10-10T00:23:23.712Z" itemprop="dateUpdated">2020年10月10日 8:23</time>
 </span><br>
 
 
@@ -573,7 +575,7 @@
                 </span>
             
             
-                <span class="post-count">累计字数：311.4k</span>
+                <span class="post-count">累计字数：311.5k</span>
             
                 <span><a href="/general/blogLog.html"><i class="fas fa-pen-alt"></i>&nbsp;博客日志</a></span>
             </p>
