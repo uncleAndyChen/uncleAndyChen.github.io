@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://www.lovesofttech.com/git/gitBasicUsage.html</loc>
+    
+    <lastmod>2020-11-08T02:22:22.003Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://www.lovesofttech.com/database/index.html</loc>
     
     <lastmod>2020-11-07T08:24:01.742Z</lastmod>
@@ -12,13 +19,6 @@
     <loc>https://www.lovesofttech.com/database.html</loc>
     
     <lastmod>2020-11-07T08:23:18.973Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://www.lovesofttech.com/git/gitBasicUsage.html</loc>
-    
-    <lastmod>2020-10-17T03:26:40.360Z</lastmod>
     
   </url>
   
@@ -177,14 +177,14 @@
   </url>
   
   <url>
-    <loc>https://www.lovesofttech.com/windows/winInstallMemcachedAsService.html</loc>
+    <loc>https://www.lovesofttech.com/windows/winInstallNginxAsService.html</loc>
     
     <lastmod>2020-09-01T02:53:13.116Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://www.lovesofttech.com/windows/winInstallNginxAsService.html</loc>
+    <loc>https://www.lovesofttech.com/windows/winInstallMemcachedAsService.html</loc>
     
     <lastmod>2020-09-01T02:53:13.116Z</lastmod>
     
@@ -695,14 +695,14 @@
   </url>
   
   <url>
-    <loc>https://www.lovesofttech.com/linux/shell.html</loc>
+    <loc>https://www.lovesofttech.com/linux/uDiskInstallCentOS7.html</loc>
     
     <lastmod>2020-09-01T02:53:13.048Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://www.lovesofttech.com/linux/uDiskInstallCentOS7.html</loc>
+    <loc>https://www.lovesofttech.com/linux/shell.html</loc>
     
     <lastmod>2020-09-01T02:53:13.048Z</lastmod>
     
@@ -758,14 +758,14 @@
   </url>
   
   <url>
-    <loc>https://www.lovesofttech.com/linux/centOSVersion.html</loc>
+    <loc>https://www.lovesofttech.com/linux/centOSZip.html</loc>
     
     <lastmod>2020-09-01T02:53:13.039Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://www.lovesofttech.com/linux/centOSZip.html</loc>
+    <loc>https://www.lovesofttech.com/linux/centOSVersion.html</loc>
     
     <lastmod>2020-09-01T02:53:13.039Z</lastmod>
     
@@ -800,14 +800,14 @@
   </url>
   
   <url>
-    <loc>https://www.lovesofttech.com/linux/centOSJIRA.html</loc>
+    <loc>https://www.lovesofttech.com/linux/centOSJava.html</loc>
     
     <lastmod>2020-09-01T02:53:13.034Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://www.lovesofttech.com/linux/centOSJava.html</loc>
+    <loc>https://www.lovesofttech.com/linux/centOSJIRA.html</loc>
     
     <lastmod>2020-09-01T02:53:13.034Z</lastmod>
     
@@ -842,14 +842,14 @@
   </url>
   
   <url>
-    <loc>https://www.lovesofttech.com/linux/centOS7TomcatUserConfig.html</loc>
+    <loc>https://www.lovesofttech.com/linux/centOS7TomcatMonitor.html</loc>
     
     <lastmod>2020-09-01T02:53:13.029Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://www.lovesofttech.com/linux/centOS7TomcatMonitor.html</loc>
+    <loc>https://www.lovesofttech.com/linux/centOS7TomcatUserConfig.html</loc>
     
     <lastmod>2020-09-01T02:53:13.029Z</lastmod>
     
@@ -1178,14 +1178,14 @@
   </url>
   
   <url>
-    <loc>https://www.lovesofttech.com/java/javaMemory.html</loc>
+    <loc>https://www.lovesofttech.com/java/javaPdfToImage.html</loc>
     
     <lastmod>2020-09-01T02:53:12.984Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://www.lovesofttech.com/java/javaPdfToImage.html</loc>
+    <loc>https://www.lovesofttech.com/java/javaMemory.html</loc>
     
     <lastmod>2020-09-01T02:53:12.984Z</lastmod>
     
@@ -1248,14 +1248,14 @@
   </url>
   
   <url>
-    <loc>https://www.lovesofttech.com/java/codeSpecificationAdditional.html</loc>
+    <loc>https://www.lovesofttech.com/java/codeSpecification.html</loc>
     
     <lastmod>2020-09-01T02:53:12.974Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://www.lovesofttech.com/java/codeSpecification.html</loc>
+    <loc>https://www.lovesofttech.com/java/codeSpecificationAdditional.html</loc>
     
     <lastmod>2020-09-01T02:53:12.974Z</lastmod>
     
@@ -1451,14 +1451,14 @@
   </url>
   
   <url>
-    <loc>https://www.lovesofttech.com/general/hexoBlog.html</loc>
+    <loc>https://www.lovesofttech.com/general/githubHosts.html</loc>
     
     <lastmod>2020-09-01T02:53:12.947Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://www.lovesofttech.com/general/githubHosts.html</loc>
+    <loc>https://www.lovesofttech.com/general/hexoBlog.html</loc>
     
     <lastmod>2020-09-01T02:53:12.947Z</lastmod>
     
@@ -1479,14 +1479,14 @@
   </url>
   
   <url>
-    <loc>https://www.lovesofttech.com/general/centOSSvnProjectManage.html</loc>
+    <loc>https://www.lovesofttech.com/general/cloudProduct.html</loc>
     
     <lastmod>2020-09-01T02:53:12.944Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://www.lovesofttech.com/general/cloudProduct.html</loc>
+    <loc>https://www.lovesofttech.com/general/centOSSvnProjectManage.html</loc>
     
     <lastmod>2020-09-01T02:53:12.944Z</lastmod>
     
@@ -1717,14 +1717,14 @@
   </url>
   
   <url>
-    <loc>https://www.lovesofttech.com/cpp/win10OpencvAndOpencvContribMake.html</loc>
+    <loc>https://www.lovesofttech.com/cpp/index.html</loc>
     
     <lastmod>2020-09-01T02:53:12.907Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://www.lovesofttech.com/cpp/index.html</loc>
+    <loc>https://www.lovesofttech.com/cpp/win10OpencvAndOpencvContribMake.html</loc>
     
     <lastmod>2020-09-01T02:53:12.907Z</lastmod>
     
